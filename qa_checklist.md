@@ -183,6 +183,23 @@ Do not require `db:studio` as a QA command. It opens a UI and is not an automate
 
 ---
 
+# Monorepo Foundation
+
+## App Foundation Source
+
+The initial app foundation must be built or verified against `BUILD_APP_FOUNDATION_PROMPT.md`.
+
+Agents should use that file as the source of truth for the standard monorepo foundation, including:
+
+- `apps/web`
+- `apps/api`
+- `apps/mobile` placeholder
+- shared `packages/*`
+- Railway repo-root deployment model
+- public/authenticated/hybrid project-mode branching
+
+If the repository structure differs from `BUILD_APP_FOUNDATION_PROMPT.md`, the difference must be explained in `ARCHITECTURE_DECISIONS.md` or `STATUS.md`.
+
 # Build Quality
 
 Checklist:

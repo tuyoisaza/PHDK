@@ -16,7 +16,7 @@ This ZIP contains the full PHDK standards set.
 
 ## Update applied
 
-`BOOTSTRAP_MONOREPO_PROMPT.md` has been replaced by `BUILD_APP_FOUNDATION_PROMPT.md`.
+`BUILD_APP_FOUNDATION_PROMPT.md` is the active app foundation prompt.
 
 References were updated in:
 
@@ -28,10 +28,17 @@ References were updated in:
 
 ## Verification
 
-Remaining `BOOTSTRAP_MONOREPO_PROMPT.md` references: none found
+Legacy bootstrap filename references: none found
 
 ## Recommended repo use
 
 Put these files in your reusable PHDK standards repository.
 
 The generated project-specific PHDK kit should reference this standards repo and instruct AI coders to fetch the latest versions before coding.
+
+
+## v2 Fix Applied
+
+Generated: 2026-05-07 15:21
+
+`QA_CHECKLIST.md` now explicitly references `BUILD_APP_FOUNDATION_PROMPT.md` in the monorepo foundation guidance so agents know where the standard repository structure came from.
