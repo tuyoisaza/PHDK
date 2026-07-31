@@ -29,18 +29,23 @@ apps/
   mobile/     — Expo placeholder only, do not build unless tasked
 
 packages/
-  core/       — shared types, Zod schemas, utilities
-  db/         — Drizzle schema, migrations, database client
-  auth/       — shared auth utilities and types
-  logger/     — structured logger
-  ui/         — shared UI components
+  ui/              — shared UI components and primitives
+  types/           — shared TypeScript types
+  validators/      — shared Zod schemas
+  api-client/      — typed API client used by web and mobile
+  design-tokens/   — spacing, colors, typography, radius, shadows, motion
+  observability/   — structured logger and diagnostics wrappers
+  db/              — Drizzle schema, migrations, database client
+  auth/            — shared auth utilities and types
+  config/          — shared config actually used by apps/packages
 ```
 
 ## Package Boundary Rules
 
 - `apps/*` may depend on `packages/*`
 - `packages/*` must not depend on `apps/*`
-- `packages/core` must remain app-agnostic
+- `packages/types` must remain app-agnostic
+- `packages/validators` must remain app-agnostic
 - shared logic must live in `packages/*`
 - never duplicate shared schemas or utilities across apps
 
@@ -55,7 +60,7 @@ Framework:          Next.js (App Router)
 Language:           TypeScript
 Styling:            Tailwind CSS
 Components:         shadcn/ui-compatible
-Validation:         Zod (shared from packages/core)
+Validation:         Zod (shared from packages/validators)
 i18n:               next-intl
 State:              React built-ins first, Zustand only if needed
 ```
@@ -80,7 +85,7 @@ State:              React built-ins first, Zustand only if needed
 Framework:          NestJS
 HTTP adapter:       Fastify
 Language:           TypeScript
-Validation:         Zod (shared from packages/core)
+Validation:         Zod (shared from packages/validators)
 API style:          REST
 ```
 
@@ -102,14 +107,17 @@ GraphQL is allowed only if explicitly required.
 
 ```txt
 ORM:                Drizzle
-Database:           PostgreSQL
+Database:           PostgreSQL (always)
 Migration tool:     Drizzle Kit
 ```
 
 ## Rules
 
-- PostgreSQL is the only supported database
+- PostgreSQL is the only supported database in every environment
 - Development, staging, and production all use PostgreSQL
+- SQLite is never used in any environment — local or otherwise
+- Drizzle is used as the ORM because it supports multiple database providers, keeping the door open for a future provider switch
+- Database provider switching must remain configuration-driven and must never require app-level logic changes
 - Never mutate schema without a migration
 - Never commit migrations without testing them locally first
 - Core records include:
@@ -174,7 +182,7 @@ member
 
 ---
 
-# Validation — `packages/core`
+# Validation — `packages/validators`
 
 ## Stack
 
@@ -184,7 +192,7 @@ Library:    Zod
 
 ## Rules
 
-- All Zod schemas live in `packages/core`
+- All Zod schemas live in `packages/validators`
 - Schemas are shared between `apps/web` and `apps/api`
 - Never duplicate schemas across apps
 - Validate at API boundaries, not only in UI
@@ -193,7 +201,7 @@ Library:    Zod
 
 ---
 
-# Logging — `packages/logger`
+# Logging — `packages/observability`
 
 ## Style
 
@@ -256,7 +264,7 @@ Do not install, initialize, or scaffold Sentry or OpenTelemetry until explicitly
 
 - API contracts must be typed and validated with shared Zod schemas
 - Breaking API changes require migration notes or versioning strategy
-- Shared request/response schemas should live in `packages/core`
+- Shared request/response schemas should live in `packages/validators`
 
 ---
 
@@ -400,5 +408,7 @@ Do not introduce any technology outside this stack without:
 
 PostgreSQL is the only supported database for this standard.
 
-Do not scaffold, configure, or rely on SQLite in any environment.
+SQLite is never allowed in any environment. Do not scaffold, configure, or rely on SQLite anywhere in the repository.
+
+Drizzle is the required ORM because it keeps database-provider switching possible without app-level rewrites. Even though only PostgreSQL is supported today, all database access must go through Drizzle so a future provider change stays configuration-driven.
 

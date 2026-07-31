@@ -58,11 +58,15 @@ apps/
   mobile/       — Expo placeholder only; do not build unless tasked
 
 packages/
-  core/         — shared types, schemas, utilities
-  db/           — Drizzle schema, migrations, database client
-  auth/         — shared auth utilities
-  logger/       — structured logger
-  ui/           — shared UI components
+  ui/              — shared UI components and primitives
+  types/           — shared TypeScript types
+  validators/      — shared Zod schemas
+  api-client/      — typed API client used by web and mobile
+  design-tokens/   — spacing, colors, typography, radius, shadows, motion
+  observability/   — structured logger and diagnostics wrappers
+  db/              — Drizzle schema, migrations, database client
+  auth/            — shared auth utilities and types
+  config/          — shared config actually used by apps/packages
 ```
 
 `apps/web` and `apps/api` deploy as separate Railway services.

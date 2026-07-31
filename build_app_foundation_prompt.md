@@ -189,6 +189,7 @@ packages/
   design-tokens/
   observability/
   db/
+  auth/
   config/
 .env.example
 .gitignore
@@ -208,6 +209,7 @@ README.md
 - `packages/design-tokens` — spacing, colors, typography, radius, shadows, motion
 - `packages/observability` — logger and diagnostics wrappers
 - `packages/db` — database package; implementation only when persistence is required
+- `packages/auth` — shared auth utilities and types; implementation only when login is required
 - `packages/config` — shared config actually used by apps/packages
 
 Do not create unused placeholder config files.
@@ -264,6 +266,7 @@ Required package names:
 - `packages/design-tokens` package name: `@repo/design-tokens`
 - `packages/observability` package name: `@repo/observability`
 - `packages/db` package name: `@repo/db`
+- `packages/auth` package name: `@repo/auth`
 - `packages/config` package name: `@repo/config`
 
 ---
@@ -484,7 +487,19 @@ If persistence is not required yet, keep this documentation-only or minimal.
 
 If persistence is required by the PHDK, implement according to `TECHNICAL_STACK.md` and `DEVELOPMENT_RULES.md`.
 
+PostgreSQL is the only supported database. SQLite is never used in any environment.
+
 Do not add database code just to satisfy a checklist.
+
+### `packages/auth`
+
+Build only when login = yes.
+
+Include shared auth utilities and types consumed by `apps/web` and `apps/api`.
+
+Do not create fake users, fake roles, or fake sessions.
+
+Do not build auth scaffolding when login = no.
 
 ### `packages/config`
 

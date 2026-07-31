@@ -406,13 +406,14 @@ This is mandatory because cache, session, browser, and stale build state can cre
 
 # Database
 
-- [ ] PostgreSQL works in local development.
-- [ ] PostgreSQL works in staging/production.
+- [ ] PostgreSQL is the only database used in local development.
+- [ ] PostgreSQL is the only database used in staging/production.
 - [ ] Local PostgreSQL runs through approved local setup, such as Docker Compose or Railway local connection.
 - [ ] No local-only database behavior differs from staging/production.
 - [ ] `DATABASE_URL` uses PostgreSQL format.
-- [ ] No SQLite configuration exists.
-- [ ] No SQLite dependency or local DB file is introduced.
+- [ ] No SQLite configuration exists anywhere.
+- [ ] No SQLite dependency, driver, or local DB file is introduced in any environment.
+- [ ] All database access goes through Drizzle so a future provider switch stays configuration-driven.
 - [ ] All migrations run cleanly from scratch.
 - [ ] No schema changes exist without a migration file.
 - [ ] Migration rollback notes exist for every schema change.
@@ -445,7 +446,7 @@ This is mandatory because cache, session, browser, and stale build state can cre
 # Validation
 
 - [ ] All API inputs are validated with Zod at the boundary.
-- [ ] Zod schemas live in `packages/core`.
+- [ ] Zod schemas live in `packages/validators`.
 - [ ] Schemas are shared between `apps/web` and `apps/api`.
 - [ ] No duplicate schemas exist across apps.
 - [ ] No client-supplied data is trusted without server-side validation.

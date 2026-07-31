@@ -1,44 +1,40 @@
-# PHDK Standards Complete Package v2
+# PHDK Standards Repository
 
-Generated: 2026-05-07 15:10
-
-This ZIP contains the full PHDK standards set.
+This repository contains the reusable PHDK standards set. AI coding agents fetch these files before coding so every project follows the same best practices and the same best-of-breed stack, repeatedly.
 
 ## Included files
 
-- `AGENTS.md`
-- `BUILD_APP_FOUNDATION_PROMPT.md`
-- `DESIGN_RULES.md`
-- `DEVELOPMENT_RULES.md`
-- `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`
-- `QA_CHECKLIST.md`
-- `TECHNICAL_STACK.md`
+- `AGENTS.md` — operating rules every AI agent must read before making changes
+- `DEVELOPMENT_RULES.md` — development principles, workflow, coding standards
+- `DESIGN_RULES.md` — UI, UX, design-system, and accessibility standards
+- `TECHNICAL_STACK.md` — canonical technical stack for all PHDK projects
+- `QA_CHECKLIST.md` — quality gates for task, merge, and release scopes
+- `BUILD_APP_FOUNDATION_PROMPT.md` — prompt for building the initial scalable app foundation
+- `handoff_prompt.md` — PHDK generation prompt (v1.6) used to produce project-specific kits
 
-## Update applied
+## How to use this repo
 
-`BUILD_APP_FOUNDATION_PROMPT.md` is the active app foundation prompt.
+1. Point an AI coding agent at this repository.
+2. Instruct the agent to fetch the latest versions of these files before coding:
+   - `AGENTS.md`
+   - `DEVELOPMENT_RULES.md`
+   - `DESIGN_RULES.md`
+   - `TECHNICAL_STACK.md`
+   - `QA_CHECKLIST.md`
+   - `BUILD_APP_FOUNDATION_PROMPT.md`
+3. Use `handoff_prompt.md` to generate a project-specific PHDK kit.
+4. Use `BUILD_APP_FOUNDATION_PROMPT.md` as the first build prompt after the kit is generated.
+5. Continue feature development against the project's `TASK.md` and `STATUS.md`.
 
-References were updated in:
+## Canonical decisions
 
-- `AGENTS.md`
-- `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`
-- `QA_CHECKLIST.md`
-- `TECHNICAL_STACK.md` where relevant language appeared
-- `DEVELOPMENT_RULES.md`
+- Stack: pnpm + Turborepo + TypeScript monorepo; `apps/web` (Next.js), `apps/api` (NestJS + Fastify), `apps/mobile` (Expo placeholder only)
+- Shared packages: `ui`, `types`, `validators`, `api-client`, `design-tokens`, `observability`, `db`, `auth`, `config`
+- Database: PostgreSQL only — SQLite is never used in any environment. Drizzle is the required ORM because it keeps a future provider switch configuration-driven.
+- Auth: WorkOS or Clerk with Google SSO; server-side RBAC (`super_admin`, `admin`, `team_leader`, `member`)
+- Deployment: Railway, two services (`@repo/web`, `@repo/api`), repository-root based, triggered by GitHub push to `main`
 
-## Verification
+## Versioning
 
-Legacy bootstrap filename references: none found
-
-## Recommended repo use
-
-Put these files in your reusable PHDK standards repository.
-
-The generated project-specific PHDK kit should reference this standards repo and instruct AI coders to fetch the latest versions before coding.
-
-
-## v2 Fix Applied
-
-Generated: 2026-05-07 15:21
-
-`QA_CHECKLIST.md` now explicitly references `BUILD_APP_FOUNDATION_PROMPT.md` in the monorepo foundation guidance so agents know where the standard repository structure came from.
+- The handoff prompt is maintained as `handoff_prompt.md` (currently v1.6).
+- Standards files evolve independently; README is updated when the set changes.

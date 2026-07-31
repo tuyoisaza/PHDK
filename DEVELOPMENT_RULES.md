@@ -93,6 +93,7 @@ packages/
   design-tokens/   — shared design tokens
   observability/   — logging and diagnostics wrappers
   db/              — Drizzle schema, migrations, database client when needed
+  auth/            — shared auth utilities and types
   config/          — shared config actually used by apps/packages
 ```
 
@@ -164,11 +165,13 @@ Tabs are acceptable only when the parent route is accessible and the tab content
 
 ORM: Drizzle.
 
-Preferred local development: PostgreSQL-compatible local database.
+PostgreSQL is the only supported database in every environment — development, staging, and production.
 
-SQLite may be used only if schema compatibility is confirmed.
+SQLite is never allowed in any environment. Do not scaffold, configure, or rely on it.
 
-Switching database provider must be configuration-driven.
+Drizzle is required because it supports multiple database providers, so a future provider switch stays configuration-driven.
+
+Switching database provider must be configuration-driven and must never require app-level logic changes.
 
 Never manually mutate production schema without a migration.
 
