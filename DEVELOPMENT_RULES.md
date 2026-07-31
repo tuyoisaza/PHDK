@@ -25,13 +25,13 @@ Do not optimize for performance at the cost of correctness or security.
 
 ## Branching Rules
 
-Branch naming:
+Branch naming (each branch embeds the current base version):
 
 ```txt
-feature/<feature-name>
-fix/<issue-name>
-chore/<task-name>
-checkpoint/<date>
+feature/<version>/<feature-name>
+fix/<version>/<issue-name>
+chore/<version>/<task-name>
+checkpoint/<version>-YYYY-MM-DD
 ```
 
 Rules:
@@ -40,8 +40,9 @@ Rules:
 - Every feature starts in a feature branch
 - Every agent and subagent works on its own branch
 - Merge only after validation passes
-- Every major update creates a checkpoint branch named `checkpoint/YYYY-MM-DD` as a recoverable backup
+- Every major update creates a checkpoint branch named `checkpoint/<version>-YYYY-MM-DD` as a recoverable backup
 - Version increments on merge to `main`, not on every feature branch commit
+- Branch names always embed the base version from `main` at the time the branch is created
 - Deployment is triggered by GitHub push to `main` — never from local CLI
 
 ---
