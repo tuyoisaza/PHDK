@@ -391,6 +391,26 @@ Version must be visible in:
 
 - Version increments on merge to `main`
 - Version does not increment on every feature-branch commit
+- Commit messages always start with the current version
+- Optional: an auto-bump pre-commit hook can map version to git 1:1. See `VERSIONING.md`. Recommendation, not a rule.
+
+---
+
+# DevSecOps
+
+Security tooling and practices for CI/CD, secrets, supply chain, runtime, and monitoring live in `DEVSECOPS.md`.
+
+Baseline requirements:
+
+- Never commit or log secrets
+- Dependency audit, SAST, and secret scanning on pull requests and before release
+- Branch protection on `main` with required reviews and status checks
+- HTTPS-only production with security headers
+- Rate limiting on sensitive endpoints
+- Security event auditing
+- Rollback path for every release
+
+See `DEVSECOPS.md` for the full baseline.
 
 ---
 

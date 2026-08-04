@@ -75,6 +75,8 @@ Before writing or changing code, read these files:
 - `DEVELOPMENT_RULES.md`
 - `DESIGN_RULES.md`
 - `TECHNICAL_STACK.md`
+- `DEVSECOPS.md`
+- `VERSIONING.md`
 - `QA_CHECKLIST.md`
 - `BUILD_APP_FOUNDATION_PROMPT.md`
 

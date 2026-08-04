@@ -121,6 +121,8 @@ Required standards files the AI coder must fetch before doing anything:
 - `DEVELOPMENT_RULES.md` — Git, branching, commits, versioning
 - `DESIGN_RULES.md` — Responsive, accessible, theming, performance
 - `TECHNICAL_STACK.md` — Full stack, monorepo, deployment
+- `DEVSECOPS.md` — DevSecOps best practices
+- `VERSIONING.md` — Versioning models and optional auto-bump hook
 - `QA_CHECKLIST.md` — Quality and testing standards
 - `BUILD_APP_FOUNDATION_PROMPT.md` — Initial scalable app foundation prompt
 
@@ -614,6 +616,8 @@ Required standards:
 - DEVELOPMENT_RULES.md
 - DESIGN_RULES.md
 - TECHNICAL_STACK.md
+- DEVSECOPS.md
+- VERSIONING.md
 - QA_CHECKLIST.md
 - BUILD_APP_FOUNDATION_PROMPT.md
 
@@ -714,6 +718,8 @@ https://github.com/tuyoisaza/PHDK
 - DEVELOPMENT_RULES.md
 - DESIGN_RULES.md
 - TECHNICAL_STACK.md
+- DEVSECOPS.md
+- VERSIONING.md
 - QA_CHECKLIST.md
 - BUILD_APP_FOUNDATION_PROMPT.md
 

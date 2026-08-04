@@ -59,11 +59,12 @@ v0.4.14 chore(i18n): add language translations
 
 Rules:
 
-- Include the current version in every commit message
+- Include the current version in every commit message — the version comes first, always
 - Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
 - Scope to the feature or area changed
 - Keep messages short and specific
 - Do not create noisy version bumps for every minor feature branch commit
+- Optional: an auto-bump pre-commit hook plus a prepare-commit-msg hook can prefix the version automatically. See `VERSIONING.md`. It is a recommendation, not a rule.
 
 ---
 
@@ -303,6 +304,26 @@ Never allowed:
 - Random numbers
 - Demo analytics
 - Placeholder totals without clear disclosure
+
+---
+
+## DevSecOps Rules
+
+Security is a continuous practice, not a release phase.
+
+- Never commit or log secrets, tokens, passwords, cookies, or authorization headers
+- Keep the dependency lockfile committed and use `pnpm install --frozen-lockfile` in CI
+- Run dependency audit, SAST, and secret scanning on pull requests and before release
+- Protect `main` with branch protection: required pull request, required reviews, and required status checks
+- Never deploy from a local CLI
+- Serve production over HTTPS with recommended security headers
+- Rate limit sensitive endpoints
+- Audit security events: auth failures, role changes, permission changes, debug toggles, destructive actions
+- Rotate secrets on schedule and on exposure
+- Track vulnerabilities to a documented SLA
+- Have a rollback path for every release
+
+See `DEVSECOPS.md` for the full DevSecOps baseline and recommended tooling.
 
 ---
 

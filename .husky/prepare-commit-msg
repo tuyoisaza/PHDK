@@ -1,0 +1,1 @@
+node scripts/prepend-version.mjs "$1" "$2"

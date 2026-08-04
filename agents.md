@@ -8,6 +8,15 @@ Every agent must read this file before making changes. The goal is simple: every
 
 ---
 
+# Recommendations vs Enforced Rules
+
+This repository is a best-practice kit, not a compliance system. Two kinds of guidance live here:
+
+- **Enforced rules** — the core rules in `AGENTS.md`, `DEVELOPMENT_RULES.md`, `DESIGN_RULES.md`, and `TECHNICAL_STACK.md`: security, correctness, server-side RBAC, no fake data, i18n, structured logs, file limits, and git discipline. These apply to every task unless `TASK.md` explicitly overrides them.
+- **Recommendations** — scripts, hooks, and optional tooling such as `VERSIONING.md` and the DevSecOps tooling in `DEVSECOPS.md`. These are guidelines an agent may adopt when they fit the project. If a script does not fit the project's stack or structure, skip or adapt it. Never force recommended tooling into a project it does not belong in.
+
+---
+
 # Required Reading Order
 
 Before starting any task, read:
@@ -16,8 +25,10 @@ Before starting any task, read:
 2. `DEVELOPMENT_RULES.md`
 3. `DESIGN_RULES.md`
 4. `TECHNICAL_STACK.md`
-5. `TASK.md`
-6. `STATUS.md`
+5. `DEVSECOPS.md`
+6. `VERSIONING.md`
+7. `TASK.md`
+8. `STATUS.md`
 
 Work only within the scope defined in `TASK.md`.
 
@@ -195,6 +206,8 @@ v0.4.12 (a1b2c3d · 2026-03-23 18:22 UTC)
 ```
 
 Version increments on merge to `main`, not on every feature branch commit.
+
+Optional: an auto version-bump pre-commit hook may be adopted for 1:1 version-to-git mapping. See `VERSIONING.md`. It is a recommendation, not a rule.
 
 ---
 

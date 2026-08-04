@@ -596,6 +596,27 @@ If browser/device checks are not possible, document why.
 
 ---
 
+# DevSecOps
+
+Baseline from `DEVSECOPS.md`:
+
+- [ ] No secrets are committed or exposed in CI logs.
+- [ ] Lockfile is committed and `pnpm install --frozen-lockfile` is used in CI.
+- [ ] Dependency audit runs and has no unmitigated critical findings.
+- [ ] SAST and secret scanning run on pull requests and `main`.
+- [ ] `main` has branch protection and required status checks.
+- [ ] No local CLI deployment exists.
+- [ ] Authorization is enforced server-side on every protected route and endpoint.
+- [ ] Inputs are validated with Zod at the API boundary.
+- [ ] Sensitive endpoints are rate limited.
+- [ ] Production is HTTPS-only with recommended security headers.
+- [ ] Security events are logged and auditable.
+- [ ] A rollback path exists for every release.
+- [ ] Secrets are rotated on schedule and on exposure.
+- [ ] Documented security findings have owners and expiry.
+
+---
+
 # Dependency and Supply Chain QA
 
 - [ ] No dependency added without task justification.
