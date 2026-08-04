@@ -165,14 +165,19 @@ The copy-debug-report action must copy sanitized diagnostics including:
 - locale and timezone
 - browser info and viewport
 - user ID and role if authenticated
+- auth state if applicable
 - feature flags
 - debug mode state
+- API base URL hostname only
 - DB provider
 - recent frontend logs
+- recent client errors
+- recent API errors with correlation IDs
+- correlation ID
 - safe backend diagnostics if available
-- errors and correlation ID
 
 Never copy unrestricted raw server logs.
+Never include full URLs containing tokens or private query parameters.
 
 Always redact:
 
@@ -182,6 +187,11 @@ Always redact:
 - API keys
 - authorization headers
 - secrets
+- private user data
+- payment data
+- sensitive environment variables
+- full connection strings
+- raw server logs
 
 ---
 

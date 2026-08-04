@@ -16,8 +16,8 @@ Every agent must treat this file as the source of truth for technology choices. 
 Package manager:    pnpm
 Build system:       Turborepo
 Language:           TypeScript (strict mode)
-Node minimum:       20.x
-Node preferred:     22.x
+Node minimum:       22.x
+Node preferred:     24.x
 ```
 
 ## Structure
@@ -362,6 +362,32 @@ Every app must include:
   }
 }
 ```
+
+---
+
+# Testing
+
+## Stack
+
+```txt
+Unit/integration:   Vitest
+Component:          Vitest + React Testing Library
+API tests:          Vitest + Supertest against the NestJS + Fastify app
+E2E:                Playwright
+Coverage:           Vitest built-in coverage
+```
+
+## Rules
+
+- Every app and package must expose a working `test` script
+- Unit tests live next to the code they cover where practical
+- Every protected endpoint must have an integration test that proves server-side authorization
+- API integration tests run against the real NestJS + Fastify app through Supertest
+- E2E tests use Playwright and must never depend on live third-party services
+- Tests must never call real payment, auth, or email providers — use mocks
+- Test databases use PostgreSQL, never SQLite
+- Test fixtures must be clearly marked as test data and never reach production
+- CI must run unit, integration, lint, and typecheck gates
 
 ---
 

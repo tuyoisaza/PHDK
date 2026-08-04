@@ -4,6 +4,7 @@ This repository contains the reusable PHDK standards set. AI coding agents fetch
 
 ## Included files
 
+- `ONBOARDING_AI_DEVELOPER.md` — read this first: how AI IDE coders receive the PHDK knowledge
 - `AGENTS.md` — operating rules every AI agent must read before making changes
 - `DEVELOPMENT_RULES.md` — development principles, workflow, coding standards
 - `DESIGN_RULES.md` — UI, UX, design-system, and accessibility standards
@@ -13,13 +14,16 @@ This repository contains the reusable PHDK standards set. AI coding agents fetch
 - `QA_CHECKLIST.md` — quality gates for task, merge, and release scopes
 - `BUILD_APP_FOUNDATION_PROMPT.md` — prompt for building the initial scalable app foundation
 - `handoff_prompt.md` — PHDK generation prompt (v1.6) used to produce project-specific kits
+- `VERSION` — current version of this standards repository
+- `CHANGELOG.md` — history of standards changes
 - `scripts/` — optional helper scripts: version bump, version metadata generation, commit message prefixing
 - `.husky/` — optional git hook templates wired to the scripts above
 
 ## How to use this repo
 
 1. Point an AI coding agent at this repository.
-2. Instruct the agent to fetch the latest versions of these files before coding:
+2. Instruct the agent to read `ONBOARDING_AI_DEVELOPER.md` first.
+3. Then fetch the latest versions of these files before coding:
    - `AGENTS.md`
    - `DEVELOPMENT_RULES.md`
    - `DESIGN_RULES.md`
@@ -28,9 +32,9 @@ This repository contains the reusable PHDK standards set. AI coding agents fetch
    - `VERSIONING.md`
    - `QA_CHECKLIST.md`
    - `BUILD_APP_FOUNDATION_PROMPT.md`
-3. Use `handoff_prompt.md` to generate a project-specific PHDK kit.
-4. Use `BUILD_APP_FOUNDATION_PROMPT.md` as the first build prompt after the kit is generated.
-5. Continue feature development against the project's `TASK.md` and `STATUS.md`.
+4. Use `handoff_prompt.md` to generate a project-specific PHDK kit.
+5. Use `BUILD_APP_FOUNDATION_PROMPT.md` as the first build prompt after the kit is generated.
+6. Continue feature development against the project's `TASK.md` and `STATUS.md`.
 
 ## Enforced rules vs recommendations
 
@@ -50,5 +54,6 @@ This kit draws a clear line:
 
 ## Versioning
 
+- This standards repository is versioned via `VERSION` (currently `v2.4.0`) and `CHANGELOG.md`.
 - The handoff prompt is maintained as `handoff_prompt.md` (currently v1.6).
-- Standards files evolve independently; README is updated when the set changes.
+- Standards files evolve independently; README and CHANGELOG are updated when the set changes.

@@ -511,7 +511,35 @@ Do not create unused placeholder configs.
 
 ---
 
-## Step 9 — Debug Foundation
+## Step 9 — Testing Foundation
+
+Set up project-wide test tooling as part of the foundation.
+
+### Stack
+
+- Vitest for unit and integration tests
+- React Testing Library for component tests where used
+- Supertest for API endpoint tests against `apps/api`
+- Playwright for end-to-end tests
+
+### Requirements
+
+- root `pnpm test` runs the full suite through Turborepo
+- each app and shared package exposes its own `test` script
+- `apps/api` includes at least one Supertest integration test that hits `GET /health`
+- every protected endpoint in scope gets an integration test proving server-side authorization
+- unit tests are placed next to the code they cover where practical
+- test configuration does not require a running production-like stack
+- no test hits a real payment, auth, or email provider — use mocks
+- test databases use PostgreSQL, never SQLite
+- test data is explicitly marked as test data and never reaches production
+
+Do not fake passing tests.
+Do not write tests that only assert trivia.
+
+---
+
+## Step 10 — Debug Foundation
 
 Debug mode is a developer-support capability, not an end-user feature.
 
@@ -539,26 +567,23 @@ If debug diagnostics are implemented, the report must include this sanitized pay
 ```txt
 project name
 environment
-version
-git SHA
+version and git SHA
 build timestamp
 client timestamp
 current route
 locale and timezone
 browser info and viewport
-screen size and viewport size
-user ID if authenticated
-user role if authenticated
+user ID and role if authenticated
 auth state if applicable
 feature flags
 debug mode state
 API base URL hostname only
-DB provider if available
+DB provider
 recent frontend logs
-safe backend diagnostics if available
 recent client errors
 recent API errors with correlation IDs
 correlation ID
+safe backend diagnostics if available
 ```
 
 Always redact:
@@ -583,7 +608,7 @@ Never include request or response bodies unless explicitly sanitized.
 
 ---
 
-## Step 10 — Environment Setup
+## Step 11 — Environment Setup
 
 Create `.env.example` at repository root.
 
@@ -650,7 +675,7 @@ dist
 
 ---
 
-## Step 11 — i18n Readiness
+## Step 12 — i18n Readiness
 
 Do not hardcode user-facing text in a way that makes future translation difficult.
 
@@ -668,7 +693,7 @@ If i18n is not required yet:
 
 ---
 
-## Step 12 — Data Honesty Rules
+## Step 13 — Data Honesty Rules
 
 Production must never show fake data as real.
 
@@ -693,7 +718,7 @@ Never allowed:
 
 ---
 
-## Step 13 — Documentation Output
+## Step 14 — Documentation Output
 
 Update or create project README documentation explaining:
 
@@ -730,14 +755,17 @@ Do not require GitHub Actions for Railway deployment.
 
 ---
 
-## Step 14 — Quality Gates
+## Step 15 — Quality Gates
 
 Before declaring foundation complete, check:
 
 - `pnpm install` runs cleanly from repository root
 - `pnpm typecheck` passes or failures are reported honestly
 - `pnpm lint` passes or failures are reported honestly
+- `pnpm test` passes or failures are reported honestly
 - `pnpm build` passes or failures are reported honestly
+- `apps/api` health endpoint has a Supertest integration test
+- at least one E2E test exists where login/dashboard flows are in scope
 - `pnpm dev` runs web and API together through Turborepo
 - API binds to `0.0.0.0`
 - API uses `process.env.PORT`, defaulting to `4000` locally
