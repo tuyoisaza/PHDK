@@ -75,8 +75,6 @@ Before writing or changing code, read these files:
 - `DEVELOPMENT_RULES.md`
 - `DESIGN_RULES.md`
 - `TECHNICAL_STACK.md`
-- `DEVSECOPS.md`
-- `VERSIONING.md`
 - `QA_CHECKLIST.md`
 - `BUILD_APP_FOUNDATION_PROMPT.md`
 
@@ -160,7 +158,7 @@ Use the PHDK standard stack:
 - Drizzle/PostgreSQL-ready when persistence is needed
 - Redis-ready when jobs/cache are needed
 - Stripe-ready only when payments are needed
-- WorkOS or Clerk-ready only when login is needed
+- Custom Google OAuth 2.0-ready when login is needed
 - OpenTelemetry-ready and Sentry-ready, but not implemented until the relevant task
 - Railway deployment from GitHub push to `main`
 - Two Railway services:
@@ -191,7 +189,6 @@ packages/
   design-tokens/
   observability/
   db/
-  auth/
   config/
 .env.example
 .gitignore
@@ -211,7 +208,6 @@ README.md
 - `packages/design-tokens` — spacing, colors, typography, radius, shadows, motion
 - `packages/observability` — logger and diagnostics wrappers
 - `packages/db` — database package; implementation only when persistence is required
-- `packages/auth` — shared auth utilities and types; implementation only when login is required
 - `packages/config` — shared config actually used by apps/packages
 
 Do not create unused placeholder config files.
@@ -268,7 +264,6 @@ Required package names:
 - `packages/design-tokens` package name: `@repo/design-tokens`
 - `packages/observability` package name: `@repo/observability`
 - `packages/db` package name: `@repo/db`
-- `packages/auth` package name: `@repo/auth`
 - `packages/config` package name: `@repo/config`
 
 ---
@@ -489,19 +484,7 @@ If persistence is not required yet, keep this documentation-only or minimal.
 
 If persistence is required by the PHDK, implement according to `TECHNICAL_STACK.md` and `DEVELOPMENT_RULES.md`.
 
-PostgreSQL is the only supported database. SQLite is never used in any environment.
-
 Do not add database code just to satisfy a checklist.
-
-### `packages/auth`
-
-Build only when login = yes.
-
-Include shared auth utilities and types consumed by `apps/web` and `apps/api`.
-
-Do not create fake users, fake roles, or fake sessions.
-
-Do not build auth scaffolding when login = no.
 
 ### `packages/config`
 
@@ -511,35 +494,7 @@ Do not create unused placeholder configs.
 
 ---
 
-## Step 9 — Testing Foundation
-
-Set up project-wide test tooling as part of the foundation.
-
-### Stack
-
-- Vitest for unit and integration tests
-- React Testing Library for component tests where used
-- Supertest for API endpoint tests against `apps/api`
-- Playwright for end-to-end tests
-
-### Requirements
-
-- root `pnpm test` runs the full suite through Turborepo
-- each app and shared package exposes its own `test` script
-- `apps/api` includes at least one Supertest integration test that hits `GET /health`
-- every protected endpoint in scope gets an integration test proving server-side authorization
-- unit tests are placed next to the code they cover where practical
-- test configuration does not require a running production-like stack
-- no test hits a real payment, auth, or email provider — use mocks
-- test databases use PostgreSQL, never SQLite
-- test data is explicitly marked as test data and never reaches production
-
-Do not fake passing tests.
-Do not write tests that only assert trivia.
-
----
-
-## Step 10 — Debug Foundation
+## Step 9 — Debug Foundation
 
 Debug mode is a developer-support capability, not an end-user feature.
 
@@ -567,23 +522,26 @@ If debug diagnostics are implemented, the report must include this sanitized pay
 ```txt
 project name
 environment
-version and git SHA
+version
+git SHA
 build timestamp
 client timestamp
 current route
 locale and timezone
 browser info and viewport
-user ID and role if authenticated
+screen size and viewport size
+user ID if authenticated
+user role if authenticated
 auth state if applicable
 feature flags
 debug mode state
 API base URL hostname only
-DB provider
+DB provider if available
 recent frontend logs
+safe backend diagnostics if available
 recent client errors
 recent API errors with correlation IDs
 correlation ID
-safe backend diagnostics if available
 ```
 
 Always redact:
@@ -608,7 +566,7 @@ Never include request or response bodies unless explicitly sanitized.
 
 ---
 
-## Step 11 — Environment Setup
+## Step 10 — Environment Setup
 
 Create `.env.example` at repository root.
 
@@ -644,10 +602,12 @@ DATABASE_URL=""
 # Future cache / jobs
 REDIS_URL=""
 
-# Future auth
-AUTH_PROVIDER=""
-WORKOS_API_KEY=""
-CLERK_SECRET_KEY=""
+# Future auth — Google OAuth 2.0
+GOOGLE_OAUTH_CLIENT_ID=""
+GOOGLE_OAUTH_CLIENT_SECRET=""
+GOOGLE_OAUTH_REDIRECT_URI=""
+GOOGLE_OAUTH_ALLOWED_DOMAIN=""
+AUTH_SESSION_SECRET=""
 
 # Future payments
 STRIPE_SECRET_KEY=""
@@ -675,7 +635,7 @@ dist
 
 ---
 
-## Step 12 — i18n Readiness
+## Step 11 — i18n Readiness
 
 Do not hardcode user-facing text in a way that makes future translation difficult.
 
@@ -693,7 +653,7 @@ If i18n is not required yet:
 
 ---
 
-## Step 13 — Data Honesty Rules
+## Step 12 — Data Honesty Rules
 
 Production must never show fake data as real.
 
@@ -718,7 +678,7 @@ Never allowed:
 
 ---
 
-## Step 14 — Documentation Output
+## Step 13 — Documentation Output
 
 Update or create project README documentation explaining:
 
@@ -755,17 +715,14 @@ Do not require GitHub Actions for Railway deployment.
 
 ---
 
-## Step 15 — Quality Gates
+## Step 14 — Quality Gates
 
 Before declaring foundation complete, check:
 
 - `pnpm install` runs cleanly from repository root
 - `pnpm typecheck` passes or failures are reported honestly
 - `pnpm lint` passes or failures are reported honestly
-- `pnpm test` passes or failures are reported honestly
 - `pnpm build` passes or failures are reported honestly
-- `apps/api` health endpoint has a Supertest integration test
-- at least one E2E test exists where login/dashboard flows are in scope
 - `pnpm dev` runs web and API together through Turborepo
 - API binds to `0.0.0.0`
 - API uses `process.env.PORT`, defaulting to `4000` locally

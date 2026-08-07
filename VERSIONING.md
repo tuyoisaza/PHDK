@@ -2,15 +2,47 @@
 
 ## Purpose
 
-This file documents how versioning works in projects built on this standard, including the optional auto version-bump hook.
+This file defines how PHDK projects track versions, commits, branches, changelogs, visible build metadata, and release progress.
 
-Like all tooling in this repo, the scripts here are **recommendations**. Adopt them when they fit the project. Skip or adapt them when they do not — the core versioning rules below still apply.
+Its goal is to make AI development traceable across sessions and recoverable at any point.
 
 ---
 
-# Version Format
+## Status
 
-Required format, visible in the login page, app shell, and admin panel:
+This file is enforced for working slices, commits, releases, and deployed builds.
+
+Read this file when:
+
+- starting a working slice
+- finishing a working slice
+- committing changes
+- bumping app version
+- preparing a release
+- updating `STATUS.md`
+- updating `CHANGELOG.md`
+- showing version information in the UI
+- reporting deployed build information
+
+---
+
+## Version Source of Truth
+
+Every project maintains a visible version in these locations:
+
+- `package.json` at the workspace root
+- `CHANGELOG.md`
+- `STATUS.md`
+- App shell UI
+- Login page if login exists
+- Admin or system page if admin exists
+- Debug diagnostics report
+- `/health` endpoint response
+- Protected `/health/deep` endpoint if available
+
+---
+
+## Version Format
 
 ```txt
 vMAJOR.MINOR.PATCH (shortSHA · UTC build timestamp)
@@ -22,97 +54,179 @@ Example:
 v0.4.12 (a1b2c3d · 2026-03-23 18:22 UTC)
 ```
 
----
+### Version bump guidance
 
-# Versioning Models
-
-## Model 1 — Merge-based (default)
-
-- Version increments on merge to `main`, not on every feature branch commit.
-- Noisy per-commit bumps are avoided.
-- The version at any point in `main` history maps to a release.
-
-## Model 2 — Auto-bump on every commit (optional)
-
-- A pre-commit hook increments the patch version on every commit.
-- Version history maps 1:1 to git history with zero manual effort.
-- Bump major/minor manually via `npm version major|minor`; the hook only patches patch.
-
-Choose one model per project and document it in `STATUS.md` or `ARCHITECTURE_DECISIONS.md`. Do not mix them silently.
+- **patch** — fixes, small internal changes, copy updates, dependency patches
+- **minor** — new working slice, new user-visible feature, new route
+- **major** — breaking changes, architecture changes, data model changes, auth model changes
 
 ---
 
-# Files
-
-Optional tooling, generic and copyable into any project that uses a root `package.json`:
+## Branch Naming
 
 ```txt
-scripts/bump-version.mjs         — pre-commit hook logic: patch+1, write back, git add, print
-scripts/prepend-version.mjs      — prepare-commit-msg hook logic: prefix the commit message with the version
-scripts/generate-version.mjs     — build-time metadata: writes { version, gitSha, buildTime }
-.husky/pre-commit                — one line: node scripts/bump-version.mjs
-.husky/prepare-commit-msg        — one line: node scripts/prepend-version.mjs "$1" "$2"
+feature/<feature-name>
+fix/<issue-name>
+chore/<task-name>
+checkpoint/YYYY-MM-DD
+phdk/vX.Y.Z/short-slice-name
+```
+
+Examples:
+
+```txt
+feature/google-oauth-login
+fix/auth-callback-failure
+checkpoint/2026-03-23
+phdk/v0.3.0/login-google-oauth
+```
+
+Rules:
+
+- Never commit directly to `main`
+- Every working slice starts on its own branch
+- Checkpoint branches are created before major updates as recoverable backups
+- Merge only after verification passes and approval is given
+
+---
+
+## Commit Message Format
+
+```txt
+feat(slice): add Google OAuth login
+fix(auth): handle OAuth callback failure
+docs(phdk): update status after dashboard slice
+chore(version): bump to v0.3.0
+refactor(api): extract auth service
+test(auth): add OAuth callback tests
+```
+
+Rules:
+
+- Include the current version in commit messages for release commits
+- Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
+- Scope to the feature or area changed
+- Keep messages short and specific
+- Do not create noisy version bumps for every minor feature branch commit
+
+---
+
+## Working Slice Version Rule
+
+Each completed and approved working slice results in:
+
+- Verified user-visible outcome
+- Updated `STATUS.md`
+- Updated `CHANGELOG.md` when user-facing behavior changed
+- Version bump when appropriate
+- Commit with descriptive message
+- Push to feature branch
+- Merge to `main` only after explicit approval
+
+---
+
+## Changelog Format
+
+```md
+## vX.Y.Z — YYYY-MM-DD
+
+### Added
+-
+
+### Changed
+-
+
+### Fixed
+-
+
+### Verification
+-
+
+### Known Issues
+-
 ```
 
 ---
 
-# Wiring Notes
+## Slice Release Report Format
 
-## One-time setup
+At the end of every working slice, report exactly:
 
-```bash
-pnpm add -D husky
-pnpm exec husky init
+```txt
+Slice: [slice name]
+Version: [vX.Y.Z]
+Branch: [branch name]
+Commit: [short SHA or pending]
+Verification: [pass/fail/partial]
+Health: [/health result]
+Deep health: [result or not applicable]
+Debug diagnostics: [safe/not tested/not applicable]
+Known issues: [list or none]
+Next suggested slice: [proposal]
 ```
 
-Add the `prepare` script to the root `package.json` so hooks are regenerated on fresh clones:
+---
+
+## Version Metadata in the App
+
+The app must expose version metadata in these locations:
+
+### UI locations
+
+- App shell — version badge near logo
+- Login page — version number in footer or corner
+- Admin panel — version with full metadata
+
+### API locations
 
 ```json
+GET /health
 {
-  "scripts": {
-    "prepare": "husky || exit 0"
-  }
+  "status": "ok",
+  "service": "api",
+  "version": "v0.4.12",
+  "environment": "production"
 }
 ```
 
-Copy the scripts and hook files, then commit them.
-
-## Commit message version
-
-`scripts/prepend-version.mjs` ensures every commit message starts with the current version. It reads `package.json` with `new URL("../package.json", import.meta.url)`, which is cwd-independent and works from any directory.
-
-## Build-time metadata
-
-Wire `scripts/generate-version.mjs` into the `dev` and `prebuild` scripts:
-
 ```json
+GET /health/deep (protected)
 {
-  "scripts": {
-    "dev": "node scripts/generate-version.mjs && <dev command>",
-    "prebuild": "node scripts/generate-version.mjs"
-  }
+  "status": "ok",
+  "version": "v0.4.12",
+  "gitSha": "a1b2c3d",
+  "buildTime": "2026-03-23T18:22:00Z",
+  "environment": "production",
+  "database": "connected",
+  "migrations": "current",
+  "uptime": 3600
 }
 ```
 
-It writes `{ version, gitSha, buildTime }` to `src/version-generated.json` (dev) and `dist/version.json` (prod).
+---
+
+## Stop-and-Ask Conditions
+
+Stop before:
+
+- Force-pushing to any branch
+- Deleting branches that have not been merged
+- Rewriting git history
+- Tagging a release without approval
+- Pushing directly to `main` without approval
+- Bumping a major version without approval
+- Changing the release or versioning strategy
 
 ---
 
-# Gotchas
+## Verification
 
-- The bump runs in `pre-commit`, before the commit is created, so the updated `package.json` lands in the same commit. That is the whole trick.
-- `bump-version.mjs` only patches the patch segment. Bump major/minor manually via `npm version`.
-- `generate-version.mjs` wraps `git rev-parse` in `try/catch` and returns `"unknown"` when there is no HEAD yet (fresh scaffold).
-- `git commit --amend` re-runs `pre-commit` and bumps patch again. Accept this or use `--no-verify` when you do not want the version counted.
-- The scripts assume a root `package.json`. In a monorepo, keep the scripts at the repository root and read the root `package.json`.
-- The prepare-commit-msg hook skips merge and squash messages so auto-merged history does not get garbled prefixes.
+Versioning work is complete when:
 
----
-
-# Manual Fallback
-
-Without the hooks, developers write the version manually at the start of every commit message:
-
-```txt
-v0.4.12 feat(admin): add debug report panel
-```
+- [ ] Version is visible in app shell, login page, and admin panel
+- [ ] `/health` returns correct version
+- [ ] `CHANGELOG.md` is updated for user-facing changes
+- [ ] `STATUS.md` reflects current state
+- [ ] Commit message follows the format
+- [ ] Branch name follows the format
+- [ ] No direct commits to `main` without approval

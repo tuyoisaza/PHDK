@@ -8,161 +8,156 @@ Every agent must treat this file as the source of truth for technology choices. 
 
 ---
 
-# Monorepo
-
-## Core Stack
+## Monorepo
 
 ```txt
 Package manager:    pnpm
 Build system:       Turborepo
 Language:           TypeScript (strict mode)
-Node minimum:       22.x
-Node preferred:     24.x
+Node minimum:       20.x
 ```
 
-## Structure
+Structure:
 
 ```txt
 apps/
-  web/        — Next.js frontend
-  api/        — NestJS + Fastify backend
-  mobile/     — Expo placeholder only, do not build unless tasked
-
+  web/              — Next.js frontend
+  api/              — NestJS + Fastify backend
+  mobile/           — Expo placeholder only, do not build unless tasked
 packages/
-  ui/              — shared UI components and primitives
-  types/           — shared TypeScript types
-  validators/      — shared Zod schemas
-  api-client/      — typed API client used by web and mobile
-  design-tokens/   — spacing, colors, typography, radius, shadows, motion
-  observability/   — structured logger and diagnostics wrappers
-  db/              — Drizzle schema, migrations, database client
-  auth/            — shared auth utilities and types
-  config/          — shared config actually used by apps/packages
+  ui/               — shared UI components
+  types/            — shared TypeScript types
+  validators/       — shared Zod schemas
+  api-client/       — typed API client
+  design-tokens/    — spacing, colors, typography, radius, shadows, motion
+  observability/    — logger and diagnostics wrappers
+  db/               — Drizzle schema, migrations, database client
+  config/           — shared config
 ```
-
-## Package Boundary Rules
-
-- `apps/*` may depend on `packages/*`
-- `packages/*` must not depend on `apps/*`
-- `packages/types` must remain app-agnostic
-- `packages/validators` must remain app-agnostic
-- shared logic must live in `packages/*`
-- never duplicate shared schemas or utilities across apps
 
 ---
 
-# Frontend — `apps/web`
-
-## Stack
+## Frontend — apps/web
 
 ```txt
 Framework:          Next.js (App Router)
-Language:           TypeScript
+Language:           TypeScript strict
 Styling:            Tailwind CSS
 Components:         shadcn/ui-compatible
 Validation:         Zod (shared from packages/validators)
 i18n:               next-intl
-State:              React built-ins first, Zustand only if needed
+State:              React built-ins first, Zustand if needed
 ```
 
-## Rules
+Rules:
 
 - Use App Router, not Pages Router
-- Server Components by default
-- Client Components only when needed
+- Server components by default, client components only when needed
 - No business logic inside page components
 - No hardcoded user-facing strings
-- All strings go through `next-intl`
-- Images must use Next.js `Image` where applicable
+- Images use Next.js Image component
 
 ---
 
-# Backend — `apps/api`
-
-## Stack
+## Backend — apps/api
 
 ```txt
 Framework:          NestJS
 HTTP adapter:       Fastify
-Language:           TypeScript
+Language:           TypeScript strict
 Validation:         Zod (shared from packages/validators)
-API style:          REST
+API style:          REST (GraphQL only if explicitly required)
 ```
 
-GraphQL is allowed only if explicitly required.
-
-## Rules
+Rules:
 
 - Validate all inputs at the API boundary using Zod
 - Enforce authorization server-side on every protected endpoint
 - Never trust client-supplied data without validation
 - Use structured logging on every important action
 - Never expose raw error internals to clients
+- Bind to `0.0.0.0` and read `process.env.PORT`
 
 ---
 
-# Database — `packages/db`
-
-## Stack
+## Database — packages/db
 
 ```txt
 ORM:                Drizzle
-Database:           PostgreSQL (always)
+Database:           PostgreSQL — all environments
 Migration tool:     Drizzle Kit
 ```
 
-## Rules
+PostgreSQL is the only supported database for this standard. Do not scaffold, configure, or rely on SQLite in any environment — local development connects to a real PostgreSQL instance (e.g. Docker Compose or a Railway local connection).
 
-- PostgreSQL is the only supported database in every environment
-- Development, staging, and production all use PostgreSQL
-- SQLite is never used in any environment — local or otherwise
-- Drizzle is used as the ORM because it supports multiple database providers, keeping the door open for a future provider switch
-- Database provider switching must remain configuration-driven and must never require app-level logic changes
+Configuration is environment-driven:
+
+```env
+DATABASE_PROVIDER="postgresql"
+DATABASE_URL="..."
+```
+
+Rules:
+
 - Never mutate schema without a migration
-- Never commit migrations without testing them locally first
-- Core records include:
-  - `id`
-  - `created_at`
-  - `updated_at`
-  - `created_by`
-  - `updated_by`
-- Important records should include soft delete:
-  - `deleted_at`
-
-## Migration Rules
-
-- Every schema change requires a migration
-- Every migration requires rollback notes
-- Destructive schema changes require explicit approval
-- Migrations must be tested locally before merge
+- Never commit migrations without testing locally first
+- Core records include: `id`, `created_at`, `updated_at`, `created_by`, `updated_by`
+- Important records include soft delete: `deleted_at`
+- Drizzle and PostgreSQL are ready but not implemented unless the project phase requires them
 
 ---
 
-# Authentication and Authorization
+## Authentication — Custom Google OAuth 2.0
 
-## Provider
+Default authentication method: custom Google OAuth 2.0.
 
-Allowed providers:
+PHDK does not use paid authentication vendors by default.
 
-- WorkOS
-- Clerk
-- Auth.js only if explicitly approved
+When login is required, implement Google OAuth 2.0 directly using credentials created in Google Cloud Console.
 
-## Provider Selection Rule
-
-Each project must choose exactly one primary auth provider before implementation starts.
-
-Do not scaffold multiple auth providers unless the task explicitly requires migration or comparison support.
-
-## Auth Requirements
+Do not scaffold WorkOS, Clerk, Supabase Auth, Firebase Auth, Auth.js, or any other managed auth provider unless the project explicitly overrides this standard in `ARCHITECTURE_DECISIONS.md`.
 
 ```txt
-SSO:                Google login required
-Sessions:           database-backed where applicable
-Authorization:      server-side RBAC
+Provider:           Custom Google OAuth 2.0
+Sessions:           database-backed
+Authorization:      server-side RBAC when roles exist
 ```
 
-## Required Roles
+### Google OAuth credential setup
+
+Before implementing login, create credentials manually:
+
+1. Go to `https://console.cloud.google.com/`
+2. Create or select the Google Cloud project for this app
+3. Go to `Google Auth Platform` → `Branding`
+4. Configure consent screen: app name, support email, authorized domains, developer contact email
+5. Go to `Google Auth Platform` → `Clients`
+6. Create a new client — Application type: Web application
+7. Add Authorized JavaScript origins:
+   - Local: `http://localhost:3000`
+   - Production: `https://[production-domain]`
+8. Add Authorized redirect URIs:
+   - Local: `http://localhost:4000/auth/google/callback`
+   - Production: `https://[api-production-domain]/auth/google/callback`
+9. Save and copy credentials to environment variables
+10. Never commit OAuth credentials
+11. Add all required variables to Railway for the API service
+
+### Required env vars for auth
+
+```env
+GOOGLE_OAUTH_CLIENT_ID=""
+GOOGLE_OAUTH_CLIENT_SECRET=""
+GOOGLE_OAUTH_REDIRECT_URI="http://localhost:4000/auth/google/callback"
+GOOGLE_OAUTH_ALLOWED_DOMAIN=""
+AUTH_SESSION_SECRET=""
+```
+
+---
+
+## Authorization
+
+Required role model when RBAC is needed:
 
 ```txt
 super_admin
@@ -171,181 +166,138 @@ team_leader
 member
 ```
 
-## Rules
+Rules:
 
-- Authentication is handled by the selected provider
-- Google SSO must be supported from day one
-- Authorization must be enforced server-side on every protected route and endpoint
+- Authorization enforced server-side on every protected route and endpoint
 - Hiding UI is not authorization
-- Role escalation must be blocked at the server layer
-- Shared auth utilities live in `packages/auth`
+- Role escalation blocked at server layer
 
 ---
 
-# Validation — `packages/validators`
-
-## Stack
+## Validation — packages/validators
 
 ```txt
 Library:    Zod
 ```
 
-## Rules
+Rules:
 
 - All Zod schemas live in `packages/validators`
-- Schemas are shared between `apps/web` and `apps/api`
-- Never duplicate schemas across apps
-- Validate at API boundaries, not only in UI
+- Shared between `apps/web` and `apps/api` — never duplicate schemas
+- Validate at API boundary, not only in UI
 - Use Zod for environment variable validation
-- Applications must fail fast on startup when required environment variables are missing or invalid
 
 ---
 
-# Logging — `packages/observability`
-
-## Style
+## Observability — packages/observability
 
 ```txt
-structured JSON logs
+Style:              structured JSON logs
+Error tracking:     Sentry-ready — not implemented until relevant phase
+Tracing:            OpenTelemetry-ready — not implemented until relevant phase
 ```
 
-## Required Fields
+Rules:
 
-Every important log entry must include where applicable:
-
-```txt
-event
-timestamp
-environment
-version
-correlation_id
-user_id
-user_role
-route
-result
-```
-
-## Never Log
-
-- passwords
-- tokens
-- cookies
-- API keys
-- authorization headers
-- sensitive PII unless explicitly approved and redacted
-
----
-
-# Observability
-
-## Status
-
-```txt
-Error tracking:     Sentry-ready
-Tracing:            OpenTelemetry-ready
-Health checks:      /health endpoint required on apps/api
-```
-
-## Meaning of “Ready”
-
-“Ready” means the architecture and environment variable slots are reserved.
-
-Do not install, initialize, or scaffold Sentry or OpenTelemetry until explicitly tasked.
-
-## Rules
-
-- Every API service must expose `/health`
+- Sentry and OpenTelemetry are ready in configuration but not scaffolded until explicitly tasked
+- Every API service exposes a `/health` endpoint
 - Correlation IDs must flow through every request
-- Version-aware and environment-aware logs are required
+- Read `DEBUG_DIAGNOSTICS_STANDARD.md` for copy diagnostics spec
 
 ---
 
-# API Contracts
-
-- API contracts must be typed and validated with shared Zod schemas
-- Breaking API changes require migration notes or versioning strategy
-- Shared request/response schemas should live in `packages/validators`
-
----
-
-# Payments
-
-## Status
+## Payments
 
 ```txt
-Provider:   Stripe-ready
+Provider:   Stripe-ready — not implemented until required
 ```
 
-Stripe must not be scaffolded unless the project explicitly requires payments.
+Stripe is not scaffolded unless the project explicitly requires payments.
 
 ---
 
-# Deployment
-
-## Platform
+## Deployment
 
 ```txt
 Platform:           Railway
-Trigger:            Hosting provider detects GitHub push to main
+Trigger:            GitHub push to main
 Services:           two Railway services
   @repo/web         — apps/web
   @repo/api         — apps/api
-Root directory:     repository root by default
+Root directory:     repository root for both services
 ```
 
-## Rules
+Rules:
 
 - Never deploy from local CLI
-- Default Railway root is repository root for both services
-- Only change Railway root if deployment architecture is explicitly changed and documented
-- Environment variables are set in Railway dashboard, never committed to the repository
+- Both Railway services use the repository root
+- Never set Railway root to `apps/web` or `apps/api`
+- Environment variables are set in Railway dashboard, never committed
 - `apps/mobile` is never deployed unless explicitly tasked
+
+Railway commands:
+
+```bash
+# API service
+pnpm --filter @repo/api build
+pnpm --filter @repo/api start
+
+# Web service
+pnpm --filter @repo/web build
+pnpm --filter @repo/web start
+```
 
 ---
 
-# Environment Variables
+## Environment Variables
 
-## Required `.env.example`
+Required `.env.example`:
 
 ```env
 # App
 APP_NAME=""
-APP_ENV=""
-APP_VERSION=""
+APP_ENV="development"
+APP_VERSION="0.0.1"
 APP_GIT_SHA=""
 APP_BUILD_TIME=""
 
+# Web
+NEXT_PUBLIC_API_URL="http://localhost:4000"
+
+# API
+PORT="4000"
+NODE_ENV="development"
+
 # Database
+DATABASE_PROVIDER="postgresql"
 DATABASE_URL="postgresql://..."
 
-# Auth — WorkOS
-WORKOS_API_KEY=""
-WORKOS_CLIENT_ID=""
+# Auth — Google OAuth 2.0
+GOOGLE_OAUTH_CLIENT_ID=""
+GOOGLE_OAUTH_CLIENT_SECRET=""
+GOOGLE_OAUTH_REDIRECT_URI="http://localhost:4000/auth/google/callback"
+GOOGLE_OAUTH_ALLOWED_DOMAIN=""
+AUTH_SESSION_SECRET=""
 
-# Auth — Clerk alternative
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=""
-CLERK_SECRET_KEY=""
+# Debug
+DEBUG_MODE="false"
 
-# Auth shared
-AUTH_SECRET=""
-AUTH_REDIRECT_URI=""
-
-# Observability
+# Observability (future)
 SENTRY_DSN=""
 OTEL_EXPORTER_OTLP_ENDPOINT=""
-```
 
-## Optional — Only If Payments Are In Scope
-
-```env
+# Payments (future)
 STRIPE_SECRET_KEY=""
 STRIPE_WEBHOOK_SECRET=""
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=""
+
+# Cache/Jobs (future)
+REDIS_URL=""
 ```
 
 ---
 
-# Package Scripts
+## Package Scripts
 
 Every app must include:
 
@@ -365,96 +317,24 @@ Every app must include:
 
 ---
 
-# Testing
+## Versioning
 
-## Stack
-
-```txt
-Unit/integration:   Vitest
-Component:          Vitest + React Testing Library
-API tests:          Vitest + Supertest against the NestJS + Fastify app
-E2E:                Playwright
-Coverage:           Vitest built-in coverage
-```
-
-## Rules
-
-- Every app and package must expose a working `test` script
-- Unit tests live next to the code they cover where practical
-- Every protected endpoint must have an integration test that proves server-side authorization
-- API integration tests run against the real NestJS + Fastify app through Supertest
-- E2E tests use Playwright and must never depend on live third-party services
-- Tests must never call real payment, auth, or email providers — use mocks
-- Test databases use PostgreSQL, never SQLite
-- Test fixtures must be clearly marked as test data and never reach production
-- CI must run unit, integration, lint, and typecheck gates
-
----
-
-# Versioning
-
-## Required Format
+Required format:
 
 ```txt
 vMAJOR.MINOR.PATCH (shortSHA · UTC build timestamp)
 ```
 
-Example:
+Version must be visible in login page, app shell, and admin panel.
 
-```txt
-v0.4.12 (a1b2c3d · 2026-03-23 18:22 UTC)
-```
-
-## Required Visibility
-
-Version must be visible in:
-
-- login page
-- app shell
-- admin panel
-
-## Rules
-
-- Version increments on merge to `main`
-- Version does not increment on every feature-branch commit
-- Commit messages always start with the current version
-- Optional: an auto-bump pre-commit hook can map version to git 1:1. See `VERSIONING.md`. Recommendation, not a rule.
+Read `VERSIONING.md` for the full versioning standard.
 
 ---
 
-# DevSecOps
-
-Security tooling and practices for CI/CD, secrets, supply chain, runtime, and monitoring live in `DEVSECOPS.md`.
-
-Baseline requirements:
-
-- Never commit or log secrets
-- Dependency audit, SAST, and secret scanning on pull requests and before release
-- Branch protection on `main` with required reviews and status checks
-- HTTPS-only production with security headers
-- Rate limiting on sensitive endpoints
-- Security event auditing
-- Rollback path for every release
-
-See `DEVSECOPS.md` for the full baseline.
-
----
-
-# Technology Introduction Rules
+## Technology Introduction Rules
 
 Do not introduce any technology outside this stack without:
 
-- explicit approval from the project owner
-- a corresponding `ARCHITECTURE_DECISIONS.md` entry
-- a clear reason why the standard stack cannot solve the problem
-
----
-
-# Final Rule
-
-PostgreSQL is the only supported database for this standard.
-
-SQLite is never allowed in any environment. Do not scaffold, configure, or rely on SQLite anywhere in the repository.
-
-Drizzle is the required ORM because it keeps database-provider switching possible without app-level rewrites. Even though only PostgreSQL is supported today, all database access must go through Drizzle so a future provider change stays configuration-driven.
-
+1. Explicit approval from the project owner
+2. A corresponding `ARCHITECTURE_DECISIONS.md` entry
+3. A clear reason why the standard stack cannot solve the problem

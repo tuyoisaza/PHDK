@@ -183,23 +183,6 @@ Do not require `db:studio` as a QA command. It opens a UI and is not an automate
 
 ---
 
-# Monorepo Foundation
-
-## App Foundation Source
-
-The initial app foundation must be built or verified against `BUILD_APP_FOUNDATION_PROMPT.md`.
-
-Agents should use that file as the source of truth for the standard monorepo foundation, including:
-
-- `apps/web`
-- `apps/api`
-- `apps/mobile` placeholder
-- shared `packages/*`
-- Railway repo-root deployment model
-- public/authenticated/hybrid project-mode branching
-
-If the repository structure differs from `BUILD_APP_FOUNDATION_PROMPT.md`, the difference must be explained in `ARCHITECTURE_DECISIONS.md` or `STATUS.md`.
-
 # Build Quality
 
 Checklist:
@@ -268,7 +251,7 @@ Checklist:
 - [ ] **Logout:** logout works and clears session.
 - [ ] **Session expiry:** session expiry is configured.
 - [ ] **Protected routes:** unauthenticated users cannot access protected routes.
-- [ ] **Approved provider:** auth provider is the project-approved provider: WorkOS, Clerk, or explicitly approved alternative.
+- [ ] **Approved provider:** auth provider is custom Google OAuth 2.0, or an explicitly approved alternative in `ARCHITECTURE_DECISIONS.md`.
 - [ ] **Single provider:** exactly one primary auth provider is scaffolded unless migration/comparison is explicitly in scope.
 - [ ] **Redirect URI:** auth redirect URI is correctly configured.
 - [ ] **Invalid auth state:** invalid auth state is handled without blank screen.
@@ -406,14 +389,13 @@ This is mandatory because cache, session, browser, and stale build state can cre
 
 # Database
 
-- [ ] PostgreSQL is the only database used in local development.
-- [ ] PostgreSQL is the only database used in staging/production.
+- [ ] PostgreSQL works in local development.
+- [ ] PostgreSQL works in staging/production.
 - [ ] Local PostgreSQL runs through approved local setup, such as Docker Compose or Railway local connection.
 - [ ] No local-only database behavior differs from staging/production.
 - [ ] `DATABASE_URL` uses PostgreSQL format.
-- [ ] No SQLite configuration exists anywhere.
-- [ ] No SQLite dependency, driver, or local DB file is introduced in any environment.
-- [ ] All database access goes through Drizzle so a future provider switch stays configuration-driven.
+- [ ] No SQLite configuration exists.
+- [ ] No SQLite dependency or local DB file is introduced.
 - [ ] All migrations run cleanly from scratch.
 - [ ] No schema changes exist without a migration file.
 - [ ] Migration rollback notes exist for every schema change.
@@ -446,7 +428,7 @@ This is mandatory because cache, session, browser, and stale build state can cre
 # Validation
 
 - [ ] All API inputs are validated with Zod at the boundary.
-- [ ] Zod schemas live in `packages/validators`.
+- [ ] Zod schemas live in `packages/core`.
 - [ ] Schemas are shared between `apps/web` and `apps/api`.
 - [ ] No duplicate schemas exist across apps.
 - [ ] No client-supplied data is trusted without server-side validation.
@@ -596,27 +578,6 @@ If browser/device checks are not possible, document why.
 
 ---
 
-# DevSecOps
-
-Baseline from `DEVSECOPS.md`:
-
-- [ ] No secrets are committed or exposed in CI logs.
-- [ ] Lockfile is committed and `pnpm install --frozen-lockfile` is used in CI.
-- [ ] Dependency audit runs and has no unmitigated critical findings.
-- [ ] SAST and secret scanning run on pull requests and `main`.
-- [ ] `main` has branch protection and required status checks.
-- [ ] No local CLI deployment exists.
-- [ ] Authorization is enforced server-side on every protected route and endpoint.
-- [ ] Inputs are validated with Zod at the API boundary.
-- [ ] Sensitive endpoints are rate limited.
-- [ ] Production is HTTPS-only with recommended security headers.
-- [ ] Security events are logged and auditable.
-- [ ] A rollback path exists for every release.
-- [ ] Secrets are rotated on schedule and on exposure.
-- [ ] Documented security findings have owners and expiry.
-
----
-
 # Dependency and Supply Chain QA
 
 - [ ] No dependency added without task justification.
@@ -692,3 +653,97 @@ A task cannot be marked complete if any blocker remains unresolved.
 A release cannot proceed if any blocker or major issue remains unresolved without explicit written approval in `STATUS.md`.
 
 The final response must clearly state what passed, what failed, what was not
+---
+
+## Google OAuth 2.0 QA
+
+- [ ] Google OAuth credentials are documented in `.env.example`
+- [ ] README explains how to create OAuth credentials in Google Cloud Console
+- [ ] Login route redirects to Google OAuth
+- [ ] Callback route handles success correctly
+- [ ] Callback route handles failure with safe diagnostics
+- [ ] Redirect URI exactly matches the URI configured in Google Cloud Console
+- [ ] OAuth state parameter is validated
+- [ ] User record is created or updated after successful login
+- [ ] Session is created securely after callback
+- [ ] Session cookie uses HttpOnly, Secure, SameSite settings
+- [ ] Logout clears the session completely
+- [ ] Current-user endpoint returns safe user data only
+- [ ] Protected routes reject unauthenticated users with 401 or 403
+- [ ] Failed login creates structured logs with redaction
+- [ ] Failed login appears in debug diagnostics safely
+- [ ] OAuth credentials are not committed to the repository
+- [ ] WorkOS, Clerk, Supabase Auth, Firebase Auth, and Auth.js are not installed unless explicitly approved in `ARCHITECTURE_DECISIONS.md`
+
+---
+
+## Working Slice QA
+
+- [ ] User-visible outcome is clearly defined before work starts
+- [ ] Scope is confirmed before coding begins
+- [ ] Slice produces something a human can see, use, or test
+- [ ] Verification evidence is produced — not just claimed
+- [ ] Feedback is collected before moving to the next slice
+- [ ] `STATUS.md` is updated after the slice
+- [ ] Next slice is proposed with a user-visible outcome
+
+---
+
+## Verification Loop QA
+
+- [ ] `pnpm install` runs cleanly
+- [ ] `pnpm typecheck` passes or failures are honestly reported
+- [ ] `pnpm lint` passes or failures are honestly reported
+- [ ] `pnpm build` passes or failures are honestly reported
+- [ ] `GET /health` returns correct response
+- [ ] `GET /health/deep` returns correct response or is noted as not yet implemented
+- [ ] Browser verification is confirmed or honestly noted as not tested
+- [ ] Changed files list is complete
+- [ ] Known failures are honestly reported — none hidden
+
+---
+
+## Debug Diagnostics QA
+
+- [ ] Version badge is visible in app shell
+- [ ] Version badge is visible on login page
+- [ ] Version badge is visible in admin panel
+- [ ] Copy diagnostics button is present
+- [ ] Clear cache button is present
+- [ ] Copy diagnostics report copies to clipboard
+- [ ] Report includes all required fields per `DEBUG_DIAGNOSTICS_STANDARD.md`
+- [ ] Report redacts all sensitive values
+- [ ] No tokens, cookies, secrets, or passwords appear in the report
+- [ ] Auth diagnostics section captures required fields when login exists
+- [ ] Clear cache triggers logout, cache clear, and page reload
+- [ ] Debug floating panel appears when debug mode is active
+- [ ] Debug floating panel does not appear in production by default
+- [ ] Debug controls do not appear in customer-facing experience
+
+---
+
+## Deep Health QA
+
+- [ ] `GET /health` is public and returns correct minimal response
+- [ ] `GET /health/deep` is protected and requires authentication
+- [ ] Deep health checks database connection
+- [ ] Deep health checks migration status
+- [ ] Deep health checks auth status when login exists
+- [ ] Deep health checks required environment variables
+- [ ] Deep health returns version, git SHA, build timestamp, and environment
+- [ ] Deep health never exposes secrets, tokens, connection strings, or raw logs
+- [ ] Deep health response format matches the standard in `VERIFICATION_LOOP.md`
+
+---
+
+## AI Developer Operating Model QA
+
+- [ ] AI developer read all required files before starting the task
+- [ ] Working slice had a clearly defined user-visible outcome
+- [ ] AI developer worked autonomously inside the approved scope
+- [ ] AI developer stopped and asked at security or scope boundaries
+- [ ] Verification evidence was produced and shown
+- [ ] `STATUS.md` was updated after the slice
+- [ ] No secrets were committed
+- [ ] No fake data was presented as real
+- [ ] Final report followed the format in `AI_DEVELOPER_OPERATING_MODEL.md`

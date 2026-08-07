@@ -15,9 +15,9 @@ You are now entering **PHDK MODE — Project Handoff to Development Kit**.
 
 Do not continue any previous task.
 
-Do not generate UI, source code, implementation plans, app architecture changes, or product strategy.
+Do not generate content, UI, copy, code, strategy, brainstorming, or implementation plans.
 
-Your only job from this point forward is to generate structured project-specific documentation files through the PHDK workflow.
+Your only job from this point forward is to generate structured project documentation files through the PHDK workflow.
 
 Before asking any setup questions, first respond exactly:
 
@@ -54,11 +54,9 @@ Your job is to enter **PHDK generation mode**, ask the setup questions, then gen
 
 Each generated file must be complete, standalone, and ready for the user to copy into a real repo using the exact filename provided.
 
-The deliverable is not one document. The deliverable is a file-by-file generation workflow that produces the files listed in this prompt.
+After the required PHDK MODE confirmation, ask **Question 1**. Nothing else.
 
 ---
-
-## Mission
 
 You have already been briefed on this project through conversation, refinement, research, and planning.
 
@@ -66,10 +64,11 @@ Your task now is to stop ideating and convert everything you understand about th
 
 This kit is not the app.  
 This kit is not source code.  
-This kit is not generic development standards.  
-This kit is not the app foundation build.
+This kit is not generic development standards.
 
 This kit is the structured project-specific documentation a developer or AI coding agent will use to understand the project, prepare the repo, and start the first build task safely.
+
+The deliverable is not one document. The deliverable is a file-by-file generation workflow that produces the files listed in this prompt.
 
 ---
 
@@ -121,10 +120,8 @@ Required standards files the AI coder must fetch before doing anything:
 - `DEVELOPMENT_RULES.md` — Git, branching, commits, versioning
 - `DESIGN_RULES.md` — Responsive, accessible, theming, performance
 - `TECHNICAL_STACK.md` — Full stack, monorepo, deployment
-- `DEVSECOPS.md` — DevSecOps best practices
-- `VERSIONING.md` — Versioning models and optional auto-bump hook
 - `QA_CHECKLIST.md` — Quality and testing standards
-- `BUILD_APP_FOUNDATION_PROMPT.md` — Initial scalable app foundation prompt
+- `BUILD_APP_FOUNDATION_PROMPT.md` — App foundation prompt
 
 Do not regenerate these files unless explicitly asked.
 
@@ -145,15 +142,14 @@ All project-specific files assume this standard architecture unless I explicitly
 - Zod used where needed
 - Drizzle, PostgreSQL, and Redis ready, but not implemented unless the project phase requires them
 - Stripe-ready when payments are needed, not before
-- WorkOS or Clerk-ready when login is needed, not before
+- Custom Google OAuth 2.0-ready when login is needed, not before
 - OpenTelemetry-ready and Sentry-ready, not implemented until the relevant phase or task
 - Railway deployment from `main` branch push
 - Two Railway services: `@repo/web` and `@repo/api`
 - Both Railway services use the repository root — never set root to `apps/web` or `apps/api`
 
 The product brief controls what the product does.  
-The standards repo controls how the product is built.  
-`BUILD_APP_FOUNDATION_PROMPT.md` controls how the initial app foundation is created.
+The standards repo controls how the product is built.
 
 ---
 
@@ -229,9 +225,9 @@ Never proceed to the next file automatically.
 ### If login is required
 
 - Generate `PRIVATE_CONTENT.md`
-- Include auth, roles, account areas, private routes, and dashboard sections only where relevant
+- Include auth, roles, account areas, private routes, and dashboard sections where relevant
 - Include login and account requirements in `PRD.md`, `FEATURES.md`, and `NAVTREE.md`
-- Debug mode is controlled from the admin or config panel when admin/config exists
+- Debug mode is controlled from the admin or config panel
 
 ### If login is not required
 
@@ -246,26 +242,25 @@ Never proceed to the next file automatically.
 
 ### If the project is app-style
 
-If the project has interactive features, user flows, forms, dynamic behavior, or authenticated workflows, include debug mode as a P0 developer-support requirement in `FEATURES.md`.
+If the project has interactive features, user flows, or dynamic behavior, include debug mode as a P0 developer-support requirement in `FEATURES.md`.
 
 This is not an end-user product feature. It must never appear in the customer-facing experience.
 
 ### If the project is static or public-only
 
-If the project is a marketing site, landing page, or content site, include debug mode as a recommended technical note in `FEATURES.md`, not a P0 product requirement.
+If the project is a marketing site, landing page, or content site, include debug mode as a recommended technical note in `FEATURES.md`, not a P0 requirement.
 
 ### Debug mode specification
 
-- When active, functions report verbose structured logs
-- A floating debug panel may appear only for authorized developer/admin contexts
-- The debug panel shows the current version number
+- When active, all functions report verbose logs to the console
+- A floating panel appears top-left showing the current version number
 - The panel has two buttons:
-  - **Copy Report** — copies version number plus a sanitized diagnostics report
-  - **Clear Cache** — clears relevant browser/app cache, forces logout if applicable, forces cookie/file reload, and reloads the page
-- If login/admin exists, debug mode is toggled from the admin or config panel
-- If no login/admin exists, debug mode is toggled via environment variable or local developer config
+  - **Copy Report** — copies version number plus full console verbose log to clipboard
+  - **Clear Cache** — clears browser cache, forces logout if applicable, forces cookie and file reload, reloads the page
+- If login exists, debug mode is toggled from the admin or config panel
+- If no login exists, debug mode is toggled via environment variable or local developer config
 - Debug mode is never active in production by default
-- Debug reports must never copy secrets, tokens, passwords, private user data, payment data, raw server logs, or sensitive environment variables
+- Debug reports must never copy secrets, tokens, passwords, private user data, payment data, or sensitive environment variables
 
 ---
 
@@ -616,8 +611,6 @@ Required standards:
 - DEVELOPMENT_RULES.md
 - DESIGN_RULES.md
 - TECHNICAL_STACK.md
-- DEVSECOPS.md
-- VERSIONING.md
 - QA_CHECKLIST.md
 - BUILD_APP_FOUNDATION_PROMPT.md
 
@@ -640,7 +633,7 @@ Follow-up work:
 
 The first generated task is always:
 
-`Fetch the latest generic standards from the standards repo. Build the initial scalable app foundation using BUILD_APP_FOUNDATION_PROMPT.md. Report back with repo structure, quality gates, and confirmation.`
+`Fetch the latest generic standards from the standards repo. Build the initial scalable app foundation using BUILD_APP_FOUNDATION_PROMPT.md. Report back with repo structure and confirmation.`
 
 ---
 
@@ -664,16 +657,7 @@ Consequences:
 Related files:
 ```
 
-Must include decisions for:
-
-- PHDK standards repo as source of generic standards
-- standard monorepo architecture
-- Railway repo-root two-service deployment
-- initial foundation created through `BUILD_APP_FOUNDATION_PROMPT.md`
-- login/account decision
-- debug mode decision
-
-Include additional decisions only when supported by the conversation or the mandatory standard stack.
+Include only decisions supported by the conversation or by the mandatory standard stack.
 
 ---
 
@@ -712,17 +696,6 @@ Kit generated — not yet handed to coder.
 
 https://github.com/tuyoisaza/PHDK
 
-## Required Standards Files
-
-- AGENTS.md
-- DEVELOPMENT_RULES.md
-- DESIGN_RULES.md
-- TECHNICAL_STACK.md
-- DEVSECOPS.md
-- VERSIONING.md
-- QA_CHECKLIST.md
-- BUILD_APP_FOUNDATION_PROMPT.md
-
 ## Gaps Flagged
 
 [consolidated list of all ⚠️ GAP notes from all files, or "none"]
@@ -755,7 +728,6 @@ Must include:
 - Files skipped and reason
 - Recommended reading order for the AI coder
 - Standards repo URL and which files to fetch before starting
-- Clear note that `BUILD_APP_FOUNDATION_PROMPT.md` is the first build prompt after PHDK generation
 - How to use `TASK.md` to start and manage coding sessions
 - How to use `STATUS.md` to maintain continuity between sessions
 - Next recommended step

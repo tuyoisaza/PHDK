@@ -8,27 +8,22 @@ Every agent must read this file before making changes. The goal is simple: every
 
 ---
 
-# Recommendations vs Enforced Rules
+## Required Reading Order
 
-This repository is a best-practice kit, not a compliance system. Two kinds of guidance live here:
+Before starting any task, read the full onboarding stack in this order:
 
-- **Enforced rules** — the core rules in `AGENTS.md`, `DEVELOPMENT_RULES.md`, `DESIGN_RULES.md`, and `TECHNICAL_STACK.md`: security, correctness, server-side RBAC, no fake data, i18n, structured logs, file limits, and git discipline. These apply to every task unless `TASK.md` explicitly overrides them.
-- **Recommendations** — scripts, hooks, and optional tooling such as `VERSIONING.md` and the DevSecOps tooling in `DEVSECOPS.md`. These are guidelines an agent may adopt when they fit the project. If a script does not fit the project's stack or structure, skip or adapt it. Never force recommended tooling into a project it does not belong in.
-
----
-
-# Required Reading Order
-
-Before starting any task, read:
-
-1. `AGENTS.md`
-2. `DEVELOPMENT_RULES.md`
-3. `DESIGN_RULES.md`
-4. `TECHNICAL_STACK.md`
-5. `DEVSECOPS.md`
-6. `VERSIONING.md`
-7. `TASK.md`
-8. `STATUS.md`
+1. `ONBOARDING_AI_DEVELOPER.md`
+2. `AI_DEVELOPER_OPERATING_MODEL.md`
+3. `AGENTS.md` — this file
+4. `DEVELOPMENT_RULES.md`
+5. `DESIGN_RULES.md`
+6. `TECHNICAL_STACK.md`
+7. `DEVSECOPS.md`
+8. `VERSIONING.md`
+9. `VERIFICATION_LOOP.md`
+10. `DEBUG_DIAGNOSTICS_STANDARD.md`
+11. `TASK.md`
+12. `STATUS.md`
 
 Work only within the scope defined in `TASK.md`.
 
@@ -36,96 +31,135 @@ Do not touch out-of-scope files unless the task explicitly requires it.
 
 ---
 
-# Core Agent Rules
+## AI Developer Operating Model
 
-- Work in feature branches.
-- Never commit directly to `main`.
-- Do not deploy from local CLI.
-- Deployment must be triggered by the hosting provider detecting a GitHub push to `main`.
-- Do not create mock dashboards, fake KPIs, random metrics, or demo data in production code.
-- Every user-facing feature must have a real route.
-- Every feature must enforce RBAC server-side.
-- Every user-facing string must use the i18n system.
-- Every important action must be logged with structured logs.
-- Debug-aware functions must become more verbose when debug mode is active.
-- No file may exceed 600 lines.
-- Prefer files under 300 lines.
-- Business logic must not live inside page components.
-- Version must be visible in app shell, login page, and admin panel.
-- Version must include a copy-debug-report action.
-- Do not implement infrastructure marked as “ready” unless the current task explicitly requires it.
-- Do not upgrade dependencies unless the task explicitly asks for it.
-- Do not change database schema without a migration and rollback note.
-- Do not perform destructive actions unless explicitly requested in `TASK.md`.
+Agents must work in small, user-visible, verified working slices.
+
+Autonomous mode is enabled by default inside the current approved slice.
+
+Agents must show verification evidence after each slice.
+
+Agents must update `STATUS.md` after meaningful progress.
+
+Agents must not continue silently after failed verification.
+
+Agents must stop and ask before destructive data actions, auth-provider changes, payment behavior changes, tenant-model changes, deployment-architecture changes, or scope expansion.
+
+Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the full operating doctrine.
 
 ---
 
-# Monorepo Structure
+## Core Agent Rules
+
+- Work in feature branches. Never commit directly to `main`.
+- Never deploy from local CLI. Deployment is triggered by GitHub push to `main`.
+- Do not create mock dashboards, fake KPIs, random metrics, or demo data in production code.
+- Every user-facing feature must have a real route.
+- Every feature must enforce RBAC server-side when roles exist.
+- Every user-facing string must use the i18n system.
+- Every important action must be logged with structured logs.
+- Debug-aware functions must become more verbose when debug mode is active.
+- No file may exceed 600 lines. Prefer files under 300 lines.
+- Business logic must not live inside page components.
+- Version must be visible in app shell, login page, and admin panel.
+- Version must include a copy diagnostics button and clear cache button.
+- Do not implement infrastructure marked as ready unless the current task explicitly requires it.
+- Do not upgrade dependencies unless the task explicitly asks for it.
+- Do not change database schema without a migration.
+- Do not perform destructive actions unless explicitly approved in `TASK.md`.
+
+---
+
+## Public-Only Project Rule
+
+Public-only websites are not app-style authenticated products unless the PHDK explicitly defines login, private workflows, dashboards, or dynamic user-specific behavior.
+
+If the project is a public marketing site, landing page, or content site:
+
+- Do not add login
+- Do not add dashboards
+- Do not add user accounts or CRUD
+- Do not add admin panels
+- Do not add role management
+- Do not add session management
+- Keep the product focused on public content and public workflows
+
+---
+
+## Monorepo Structure
 
 ```txt
 apps/
   web/          — Next.js frontend
   api/          — NestJS + Fastify backend
-  mobile/       — Expo placeholder only; do not build unless tasked
-
+  mobile/       — Expo placeholder only, do not build unless tasked
 packages/
-  ui/              — shared UI components and primitives
-  types/           — shared TypeScript types
-  validators/      — shared Zod schemas
-  api-client/      — typed API client used by web and mobile
-  design-tokens/   — spacing, colors, typography, radius, shadows, motion
-  observability/   — structured logger and diagnostics wrappers
-  db/              — Drizzle schema, migrations, database client
-  auth/            — shared auth utilities and types
-  config/          — shared config actually used by apps/packages
+  ui/           — shared UI components
+  types/        — shared TypeScript types
+  validators/   — shared Zod schemas
+  api-client/   — typed API client
+  design-tokens/ — spacing, colors, typography, radius, shadows, motion
+  observability/ — logger and diagnostics wrappers
+  db/           — Drizzle schema, migrations, database client
+  config/       — shared config
 ```
 
-`apps/web` and `apps/api` deploy as separate Railway services.
+Both `apps/web` and `apps/api` deploy as separate Railway services using the repository root.
 
-Railway service root should remain the repository root.
-
-Each Railway service must use build/start commands that target the correct app.
-
-Do not set Railway root directory to `apps/web` or `apps/api` unless the project explicitly changes deployment architecture.
+Never set Railway root directory to `apps/web` or `apps/api`.
 
 ---
 
-# Required Product Baseline
+## Authentication Standard
+
+Default authentication: custom Google OAuth 2.0.
+
+Do not use WorkOS, Clerk, Supabase Auth, Firebase Auth, Auth.js, or any managed auth provider unless the project explicitly overrides this in `ARCHITECTURE_DECISIONS.md`.
+
+When login is required:
+- Implement Google OAuth 2.0 directly
+- Use database-backed sessions
+- Enforce RBAC server-side
+
+Read `DEVSECOPS.md` for the full auth implementation requirements.
+
+---
+
+## Required Product Baseline
 
 Every app-style product must include:
 
-- project name and logo in top-left UI shell
-- visible app version in shell, login page, and admin panel
-- Google login through the selected auth provider
-- RBAC with server-side enforcement
-- admin section
-- debug mode with copy-debug-report action
-- structured logging
-- audit trail for sensitive actions
+- Project name and logo in top-left UI shell
+- Visible app version in shell, login page, and admin panel
+- Version badge with copy diagnostics button and clear cache button
+- Google OAuth 2.0 login when login is required
+- RBAC with server-side enforcement when roles are required
+- Admin section when explicitly required by PHDK
+- Debug mode with copy diagnostics capability
+- Structured logging
+- Audit trail for sensitive actions
 - i18n support for configured project languages
 
-Accepted auth providers must be defined in `TECHNICAL_STACK.md`.
+---
+
+## Required Roles
+
+Minimum role set when RBAC is required:
+
+```txt
+super_admin
+admin
+team_leader
+member
+```
+
+Authorization must be enforced server-side. Hiding UI elements is not security.
 
 ---
 
-# Required Roles
+## Required Routes
 
-Minimum role set:
-
-- `super_admin`
-- `admin`
-- `team_leader`
-- `member`
-
-Authorization must be enforced server-side.
-
-Hiding UI elements is not security.
-
----
-
-# Required Routes
-
-Minimum routes for app-style projects:
+Minimum routes for app-style projects with login:
 
 ```txt
 /login
@@ -144,64 +178,26 @@ Avoid hash-fragment navigation for primary features.
 
 ---
 
-# Debug Mode Requirements
+## Debug Mode Requirements
 
-Debug mode must support:
+Debug mode is a developer-support capability, not an end-user feature.
 
-- persistent debug state
-- activation scoped to global, tenant, user, or session where applicable
-- structured verbose logs when active
-- audit trail when debug mode is enabled or disabled
-- auto-expiry where possible
+When debug mode is active:
+- Functions emit verbose structured logs
+- Floating panel appears top-left with version number
+- Copy diagnostics button copies sanitized diagnostics report
+- Clear cache button clears cache, forces logout, reloads page
 
-The copy-debug-report action must copy sanitized diagnostics including:
-
-- project name
-- environment
-- version and git SHA
-- build timestamp
-- client timestamp
-- current route
-- locale and timezone
-- browser info and viewport
-- user ID and role if authenticated
-- auth state if applicable
-- feature flags
-- debug mode state
-- API base URL hostname only
-- DB provider
-- recent frontend logs
-- recent client errors
-- recent API errors with correlation IDs
-- correlation ID
-- safe backend diagnostics if available
-
-Never copy unrestricted raw server logs.
-Never include full URLs containing tokens or private query parameters.
-
-Always redact:
-
-- passwords
-- tokens
-- cookies
-- API keys
-- authorization headers
-- secrets
-- private user data
-- payment data
-- sensitive environment variables
-- full connection strings
-- raw server logs
+Read `DEBUG_DIAGNOSTICS_STANDARD.md` for the full specification.
 
 ---
 
-# Version Requirements
+## Version Requirements
 
 Version must be displayed in:
-
-- login page
-- main app shell
-- admin panel
+- Login page
+- Main app shell
+- Admin panel
 
 Required format:
 
@@ -209,19 +205,11 @@ Required format:
 vMAJOR.MINOR.PATCH (shortSHA · UTC build timestamp)
 ```
 
-Example:
-
-```txt
-v0.4.12 (a1b2c3d · 2026-03-23 18:22 UTC)
-```
-
-Version increments on merge to `main`, not on every feature branch commit.
-
-Optional: an auto version-bump pre-commit hook may be adopted for 1:1 version-to-git mapping. See `VERSIONING.md`. It is a recommendation, not a rule.
+Version increments on merge to `main`. Read `VERSIONING.md` for the full standard.
 
 ---
 
-# Code Organization Rules
+## Code Organization Rules
 
 Feature structure:
 
@@ -233,99 +221,39 @@ src/features/<feature-name>/
   schemas/
   permissions/
   logs/
-  tests/
   types.ts
 ```
 
-Each feature owns:
-
-- route
-- UI
-- service layer
-- repository/data access layer
-- schemas
-- permissions
-- logs
-- tests where appropriate
+Each feature owns its route, UI, service layer, repository, schemas, permissions, logs, and tests.
 
 ---
 
-# TASK.md Requirements
-
-`TASK.md` must define:
-
-- current objective
-- allowed files/folders
-- forbidden files/folders
-- acceptance criteria
-- expected final report format
-
-Agents must not exceed this scope.
-
----
-
-# STATUS.md Requirements
-
-`STATUS.md` must track:
-
-- current branch
-- current version
-- completed work
-- pending work
-- known blockers
-- files changed
-- validation performed
-
-Agents must update `STATUS.md` when the task requires persistent status tracking.
-
----
-
-# Agent Completion Checklist
+## Agent Completion Checklist
 
 Before marking any task complete, verify:
 
+- [ ] Working slice user-visible outcome is confirmed
+- [ ] Verification evidence produced — commands, health check, browser
 - [ ] Route exists
-- [ ] Permissions are enforced server-side
+- [ ] Permissions enforced server-side
 - [ ] i18n strings exist for configured languages
 - [ ] Loading state exists
 - [ ] Empty state exists
 - [ ] Error state exists
 - [ ] Structured logs exist
-- [ ] Debug mode behavior was considered
-- [ ] No fake data is presented as real
+- [ ] Debug mode behavior considered
+- [ ] No fake data presented as real
 - [ ] No file exceeds 600 lines
-- [ ] Build, typecheck, and lint pass or failures are documented
-- [ ] Database migrations exist if schema changed
-- [ ] Rollback note exists if schema changed
-- [ ] `TASK.md` expected final report is written
+- [ ] Build, typecheck, and lint pass
+- [ ] `STATUS.md` updated
+- [ ] `TASK.md` expected final report written
+- [ ] Next slice proposed
 
 ---
 
-# Final Report Format
+## Things Agents Must Never Do
 
-Every agent final report must include:
-
-```txt
-Summary:
-- ...
-
-Files changed:
-- ...
-
-Validation:
-- ...
-
-Known issues:
-- ...
-
-Next recommended step:
-- ...
-```
-
----
-
-# Things Agents Must Never Do
-
+- Claim a task is complete without verification evidence
 - Present fake data as real production data
 - Create files over 600 lines
 - Put business logic inside page components
@@ -333,9 +261,9 @@ Next recommended step:
 - Commit directly to `main`
 - Deploy from local CLI
 - Expose secrets in logs or debug reports
-- Implement infrastructure marked as “ready” unless explicitly tasked
+- Install WorkOS, Clerk, or managed auth vendors without explicit approval
+- Implement infrastructure marked as ready unless explicitly tasked
 - Change database schema without migrations
 - Touch files outside the scope defined in `TASK.md`
-- Upgrade dependencies without explicit task scope
-- Perform destructive actions without explicit task scope
-
+- Continue silently after failed verification
+- Perform destructive actions without explicit approval

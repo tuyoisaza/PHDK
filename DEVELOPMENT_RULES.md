@@ -25,13 +25,14 @@ Do not optimize for performance at the cost of correctness or security.
 
 ## Branching Rules
 
-Branch naming (each branch embeds the current base version):
+Branch naming:
 
 ```txt
-feature/<version>/<feature-name>
-fix/<version>/<issue-name>
-chore/<version>/<task-name>
-checkpoint/<version>-YYYY-MM-DD
+feature/<feature-name>
+fix/<issue-name>
+chore/<task-name>
+checkpoint/YYYY-MM-DD
+phdk/vX.Y.Z/short-slice-name
 ```
 
 Rules:
@@ -39,10 +40,9 @@ Rules:
 - Never commit directly to `main`
 - Every feature starts in a feature branch
 - Every agent and subagent works on its own branch
-- Merge only after validation passes
-- Every major update creates a checkpoint branch named `checkpoint/<version>-YYYY-MM-DD` as a recoverable backup
+- Merge only after verification passes and approval is given
+- Every major update creates a checkpoint branch named `checkpoint/YYYY-MM-DD` as a recoverable backup
 - Version increments on merge to `main`, not on every feature branch commit
-- Branch names always embed the base version from `main` at the time the branch is created
 - Deployment is triggered by GitHub push to `main` — never from local CLI
 
 ---
@@ -52,19 +52,35 @@ Rules:
 Commit message format:
 
 ```txt
-v0.4.12 feat(admin): add debug report panel
-v0.4.13 fix(auth): enforce role check on admin users route
-v0.4.14 chore(i18n): add language translations
+feat(auth): add Google OAuth login
+fix(api): handle OAuth callback failure
+chore(version): bump to v0.3.0
+refactor(auth): extract session service
+test(auth): add OAuth callback tests
+docs(phdk): update status after login slice
 ```
 
 Rules:
 
-- Include the current version in every commit message — the version comes first, always
 - Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
 - Scope to the feature or area changed
 - Keep messages short and specific
+- Include version in release commits
 - Do not create noisy version bumps for every minor feature branch commit
-- Optional: an auto-bump pre-commit hook plus a prepare-commit-msg hook can prefix the version automatically. See `VERSIONING.md`. It is a recommendation, not a rule.
+
+---
+
+## Working Slice Rule
+
+Use `BUILD_APP_FOUNDATION_PROMPT.md` for the initial scalable app foundation.
+
+After the foundation, work in small user-visible verified slices.
+
+Read `AGILE_SLICE_WORKFLOW.md` for the full slice lifecycle.
+
+A working slice is not complete until verification evidence exists.
+
+Read `VERIFICATION_LOOP.md` for what counts as proof.
 
 ---
 
@@ -84,19 +100,18 @@ Structure:
 
 ```txt
 apps/
-  web/             — Next.js frontend
-  api/             — NestJS + Fastify backend
-  mobile/          — Expo placeholder only
+  web/              — Next.js frontend
+  api/              — NestJS + Fastify backend
+  mobile/           — Expo placeholder only
 packages/
-  ui/              — shared UI components
-  types/           — shared TypeScript types
-  validators/      — shared Zod schemas
-  api-client/      — typed API client
-  design-tokens/   — shared design tokens
-  observability/   — logging and diagnostics wrappers
-  db/              — Drizzle schema, migrations, database client when needed
-  auth/            — shared auth utilities and types
-  config/          — shared config actually used by apps/packages
+  ui/               — shared UI components
+  types/            — shared TypeScript types
+  validators/       — shared Zod schemas
+  api-client/       — typed API client
+  design-tokens/    — design tokens
+  observability/    — logger and diagnostics
+  db/               — Drizzle schema and client
+  config/           — shared config
 ```
 
 Rules:
@@ -104,16 +119,16 @@ Rules:
 - Use pnpm workspaces
 - Use Turborepo for build orchestration
 - Both `apps/web` and `apps/api` deploy as separate Railway services
-- Both services use the repository root — never set Railway root to `apps/web` or `apps/api`
-- `apps/mobile` is a placeholder only — do not build unless explicitly tasked
+- Both services use the repository root
+- Never set Railway root to `apps/web` or `apps/api`
+- `apps/mobile` is a placeholder only
 - Shared code lives in `packages/*` — never duplicate across apps
-- Use `BUILD_APP_FOUNDATION_PROMPT.md` for the initial scalable app foundation
 
 ---
 
 ## Feature Structure Rules
 
-Every substantial feature should be organized as:
+Every feature must be organized as:
 
 ```txt
 src/features/<feature-name>/
@@ -126,14 +141,14 @@ src/features/<feature-name>/
   types.ts
 ```
 
-A feature is not complete unless relevant required parts are included:
+A feature is not complete unless it includes:
 
 - Route
 - UI with all states
-- Server-side permissions when protected
-- Validation with Zod where input exists
-- i18n keys if i18n is enabled
-- Structured logging for important actions
+- Server-side permissions
+- Validation with Zod
+- i18n keys for configured languages
+- Structured logging
 - Empty, loading, error, and success states
 
 ---
@@ -147,7 +162,6 @@ Good:
 ```txt
 /admin/users
 /admin/roles
-/admin/debug
 /settings/profile
 /reports/sales
 ```
@@ -159,25 +173,24 @@ Avoid:
 /admin?tab=roles
 ```
 
-Tabs are acceptable only when the parent route is accessible and the tab content is secondary.
+---
+
+## Authentication Rules
+
+Default auth: custom Google OAuth 2.0.
+
+Do not use WorkOS, Clerk, Supabase Auth, Firebase Auth, Auth.js, or any managed auth provider unless explicitly approved in `ARCHITECTURE_DECISIONS.md`.
+
+Read `DEVSECOPS.md` for the full auth implementation requirements.
 
 ---
 
 ## Database Rules
 
-ORM: Drizzle.
-
-PostgreSQL is the only supported database in every environment — development, staging, and production.
-
-SQLite is never allowed in any environment. Do not scaffold, configure, or rely on it.
-
-Drizzle is required because it supports multiple database providers, so a future provider switch stays configuration-driven.
-
-Switching database provider must be configuration-driven and must never require app-level logic changes.
-
-Never manually mutate production schema without a migration.
-
-Never commit migration files without testing them locally first.
+- ORM: Drizzle — required because it keeps a future provider switch configuration-driven
+- PostgreSQL only — all environments, including local development, connect to a real PostgreSQL instance
+- Do not scaffold, configure, or rely on SQLite in any environment
+- Never manually mutate production schema without a migration
 
 Core record fields where appropriate:
 
@@ -192,24 +205,12 @@ deleted_at     — for soft delete on important records
 
 ---
 
-## Authentication and Authorization Rules
-
-- Authentication: WorkOS or Clerk when login is required
-- Google SSO should be supported when login is required
-- Sessions must be secure, provider-compatible, and validated server-side
-- Database-backed sessions are required only when the chosen auth provider or product requirements require them
-- Authorization must be enforced server-side on every protected route and API endpoint
-- Hiding UI elements is not authorization
-- Role escalation must be blocked at the server layer
-
----
-
 ## Validation Rules
 
-- Use Zod for input validation
+- Use Zod for all input validation
 - Validate at the API boundary, not only in the UI
 - Never trust client-supplied data without server-side validation
-- Share Zod schemas between `apps/web` and `apps/api` via `packages/validators`
+- Share Zod schemas via `packages/validators`
 
 ---
 
@@ -231,16 +232,9 @@ route or operation
 result
 ```
 
-Never log:
+Never log passwords, tokens, cookies, API keys, authorization headers, or sensitive PII.
 
-```txt
-passwords
-tokens
-cookies
-API keys
-authorization headers
-sensitive PII unless explicitly approved and redacted
-```
+Read `DEBUG_DIAGNOSTICS_STANDARD.md` for copy diagnostics requirements.
 
 ---
 
@@ -253,36 +247,16 @@ Errors must include:
 - Technical message where safe to expose
 - Correlation ID
 - Severity level
-- Remediation hint where useful
-
----
-
-## Debug Rules
-
-When debug mode is active:
-
-- Functions emit more verbose structured logs
-- Diagnostic payloads include more context
-- Sensitive values are still redacted
-- Debug mode activation is always audited when auth/admin exists
-- Debug mode never activates in production by default
 
 ---
 
 ## i18n Rules
 
-If i18n is enabled for the project:
-
-- No hardcoded user-facing strings are allowed
+- No hardcoded user-facing strings anywhere in the codebase
 - All strings use the i18n system
 - Supported languages are defined per project in the PHDK kit
 - Fallback order: user locale → app default → English
 - Use locale-aware formatting for dates, numbers, currency, and pluralization
-- Design must accommodate longer translated strings without breaking layout
-
-If i18n is not enabled yet:
-
-- User-facing strings must be centralized and easy to extract later
 
 ---
 
@@ -294,53 +268,35 @@ Allowed states:
 
 - Empty state
 - Setup required state
-- Missing integration state
 - Loading state
 - Error state
+- Success state with real data
 
 Never allowed:
 
 - Fake KPIs
 - Random numbers
-- Demo analytics
+- Demo analytics presented as real
 - Placeholder totals without clear disclosure
-
----
-
-## DevSecOps Rules
-
-Security is a continuous practice, not a release phase.
-
-- Never commit or log secrets, tokens, passwords, cookies, or authorization headers
-- Keep the dependency lockfile committed and use `pnpm install --frozen-lockfile` in CI
-- Run dependency audit, SAST, and secret scanning on pull requests and before release
-- Protect `main` with branch protection: required pull request, required reviews, and required status checks
-- Never deploy from a local CLI
-- Serve production over HTTPS with recommended security headers
-- Rate limit sensitive endpoints
-- Audit security events: auth failures, role changes, permission changes, debug toggles, destructive actions
-- Rotate secrets on schedule and on exposure
-- Track vulnerabilities to a documented SLA
-- Have a rollback path for every release
-
-See `DEVSECOPS.md` for the full DevSecOps baseline and recommended tooling.
 
 ---
 
 ## Definition of Done
 
-A task is done only when:
+A working slice is done only when:
 
-- It works with real data or honest empty states
-- Route exists when the task requires one
-- Permissions are enforced server-side when protected
-- i18n keys are present if i18n is enabled
-- Logs are structured for important actions
-- Debug behavior is considered
-- Accessibility basics are covered
-- Zod validation exists at API boundary where inputs exist
-- All states are handled: loading, empty, error, success
-- No file exceeds 600 lines
-- Build, typecheck, and lint pass, or failures are reported honestly
-- Tests are added where useful
-- `TASK.md` expected final report is completed
+- [ ] User-visible outcome confirmed in browser or test runner
+- [ ] Verification evidence produced
+- [ ] Route exists
+- [ ] Permissions enforced server-side
+- [ ] i18n keys present for all configured languages
+- [ ] Logs are structured
+- [ ] Debug behavior considered
+- [ ] Accessibility basics covered
+- [ ] Zod validation exists at API boundary
+- [ ] All states handled: loading, empty, error, success
+- [ ] No file exceeds 600 lines
+- [ ] Build, typecheck, and lint pass
+- [ ] `STATUS.md` updated
+- [ ] `TASK.md` expected final report completed
+- [ ] Next slice proposed

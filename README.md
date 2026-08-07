@@ -1,59 +1,133 @@
 # PHDK Standards Repository
 
-This repository contains the reusable PHDK standards set. AI coding agents fetch these files before coding so every project follows the same best practices and the same best-of-breed stack, repeatedly.
+**Version: v2.5.1**
 
-## Included files
+This repository contains the reusable PHDK standards for AI-assisted software development.
 
-- `ONBOARDING_AI_DEVELOPER.md` — read this first: how AI IDE coders receive the PHDK knowledge
-- `AGENTS.md` — operating rules every AI agent must read before making changes
-- `DEVELOPMENT_RULES.md` — development principles, workflow, coding standards
-- `DESIGN_RULES.md` — UI, UX, design-system, and accessibility standards
-- `TECHNICAL_STACK.md` — canonical technical stack for all PHDK projects
-- `DEVSECOPS.md` — DevSecOps best practices: secrets, supply chain, CI/CD, runtime security
-- `VERSIONING.md` — versioning models, including the optional auto-bump pre-commit hook
-- `QA_CHECKLIST.md` — quality gates for task, merge, and release scopes
-- `BUILD_APP_FOUNDATION_PROMPT.md` — prompt for building the initial scalable app foundation
-- `handoff_prompt.md` — PHDK generation prompt (v1.6) used to produce project-specific kits
-- `VERSION` — current version of this standards repository
-- `CHANGELOG.md` — history of standards changes
-- `scripts/` — optional helper scripts: version bump, version metadata generation, commit message prefixing
-- `.husky/` — optional git hook templates wired to the scripts above
+---
 
-## How to use this repo
+## What PHDK Is
 
-1. Point an AI coding agent at this repository.
-2. Instruct the agent to read `ONBOARDING_AI_DEVELOPER.md` first.
-3. Then fetch the latest versions of these files before coding:
-   - `AGENTS.md`
-   - `DEVELOPMENT_RULES.md`
-   - `DESIGN_RULES.md`
-   - `TECHNICAL_STACK.md`
-   - `DEVSECOPS.md`
-   - `VERSIONING.md`
-   - `QA_CHECKLIST.md`
-   - `BUILD_APP_FOUNDATION_PROMPT.md`
-4. Use `handoff_prompt.md` to generate a project-specific PHDK kit.
-5. Use `BUILD_APP_FOUNDATION_PROMPT.md` as the first build prompt after the kit is generated.
-6. Continue feature development against the project's `TASK.md` and `STATUS.md`.
+PHDK (Project Handoff to Development Kit) is a disciplined operating model for AI-assisted software development.
 
-## Enforced rules vs recommendations
+It is not a rigid religion of tools. It is a framework that teaches AI developers how to think, work in slices, verify their work, preserve context, and produce useful software.
 
-This kit draws a clear line:
+**The ethos of PHDK:** disciplined, honest, human-centered AI development.
 
-- **Enforced rules** — security, correctness, server-side RBAC, no fake data, i18n, structured logs, file limits, git discipline. These apply to every task unless `TASK.md` overrides them.
-- **Recommendations** — the scripts, hooks, and optional tooling. Adopt them when they fit the project; skip or adapt them when they do not. Never force a script into a project it does not belong in.
+**The telos of PHDK:** useful working software that serves real people, preserves context, moves safely, verifies itself, and improves through feedback.
 
-## Canonical decisions
+---
 
-- Stack: pnpm + Turborepo + TypeScript monorepo; `apps/web` (Next.js), `apps/api` (NestJS + Fastify), `apps/mobile` (Expo placeholder only)
-- Shared packages: `ui`, `types`, `validators`, `api-client`, `design-tokens`, `observability`, `db`, `auth`, `config`
-- Database: PostgreSQL only — SQLite is never used in any environment. Drizzle is the required ORM because it keeps a future provider switch configuration-driven.
-- Auth: WorkOS or Clerk with Google SSO; server-side RBAC (`super_admin`, `admin`, `team_leader`, `member`)
-- Deployment: Railway, two services (`@repo/web`, `@repo/api`), repository-root based, triggered by GitHub push to `main`
-- Security: DevSecOps baseline in `DEVSECOPS.md` — secrets never committed, dependency audit + SAST + secret scanning on PRs, branch protection, HTTPS-only, rate limiting, security event audit, rollback path
+## How to Use This Repo
 
-## Versioning
+### For a new project
 
-- This standards repository is versioned via `VERSION` (currently `v2.4.0`) and `CHANGELOG.md`.
-- The handoff prompt is maintained as `handoff_prompt.md` (currently v1.6).
-- Standards files evolve independently; README and CHANGELOG are updated when the set changes.
+1. Generate a project-specific PHDK kit using `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`
+2. The generated kit references this standards repo
+3. Give your AI coder the kit and tell it to fetch the latest standards from this repo before starting
+
+### For a new AI coder session
+
+Tell the AI coder:
+
+```txt
+Read the PHDK standards from https://github.com/tuyoisaza/PHDK in this order:
+1. ONBOARDING_AI_DEVELOPER.md
+2. AI_DEVELOPER_OPERATING_MODEL.md
+3. AGENTS.md
+4. DEVELOPMENT_RULES.md
+5. DESIGN_RULES.md
+6. TECHNICAL_STACK.md
+7. DEVSECOPS.md
+8. VERSIONING.md
+9. VERIFICATION_LOOP.md
+10. DEBUG_DIAGNOSTICS_STANDARD.md
+Then read TASK.md and STATUS.md from the project repo.
+```
+
+---
+
+## Included Files
+
+### Onboarding and Operating Model
+
+| File | Purpose |
+|------|---------|
+| `ONBOARDING_AI_DEVELOPER.md` | Required reading order and session start procedure |
+| `AI_DEVELOPER_OPERATING_MODEL.md` | Core doctrine: ethos, slices, autonomy, verification, feedback loop |
+| `SPEC_INTERVIEW_PROMPT.md` | Optional pre-brief interview tool for new projects |
+
+### Development Standards
+
+| File | Purpose |
+|------|---------|
+| `AGENTS.md` | Agent rules, completion checklist, things never to do |
+| `DEVELOPMENT_RULES.md` | Branching, commits, file rules, feature structure |
+| `DESIGN_RULES.md` | UI, UX, accessibility, theming, responsive rules |
+| `TECHNICAL_STACK.md` | Canonical stack, auth standard, deployment |
+| `DEVSECOPS.md` | Security, auth, secrets, logging, dependency safety |
+| `VERSIONING.md` | Version format, branches, commits, changelog, release |
+
+### Workflow Standards
+
+| File | Purpose |
+|------|---------|
+| `AGILE_SLICE_WORKFLOW.md` | Working slice model, lifecycle, sizing, backlog |
+| `VERIFICATION_LOOP.md` | What counts as proof, health checks, deep health |
+| `DEBUG_DIAGNOSTICS_STANDARD.md` | Copy diagnostics spec, debug mode, auth diagnostics |
+| `QA_CHECKLIST.md` | Quality gates for every merge and release |
+
+### Bootstrap
+
+| File | Purpose |
+|------|---------|
+| `BUILD_APP_FOUNDATION_PROMPT.md` | Prompt to build the initial app foundation |
+| `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` | Prompt to generate a project-specific PHDK kit |
+
+### Project Continuity
+
+| File | Purpose |
+|------|---------|
+| `CHANGELOG.md` | Standards version history |
+
+---
+
+## Canonical Decisions
+
+These decisions are set at the standards level and apply to all PHDK projects by default:
+
+| Decision | Standard |
+|----------|---------|
+| Auth | Custom Google OAuth 2.0 — no paid auth vendor by default |
+| ORM | Drizzle with PostgreSQL only — no SQLite in any environment |
+| Monorepo | pnpm + Turborepo |
+| Frontend | Next.js App Router |
+| Backend | NestJS + Fastify |
+| Deployment | Railway — two services, repo root |
+| Working model | Small user-visible verified slices |
+| Verification | Evidence required before every slice is marked complete |
+
+Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
+
+---
+
+## v2.5.0 Direction
+
+This version adds the AI Developer Operating Model.
+
+The model teaches AI coders to:
+
+- interview for human context before generating specs
+- work autonomously inside approved slices
+- avoid waterfall implementation patterns
+- verify through evidence, not claims
+- use health and deep-health checks as verification tools
+- produce useful debug diagnostics that reduce back-and-forth
+- preserve continuity through `TASK.md` and `STATUS.md`
+- use custom Google OAuth 2.0 instead of paid auth vendors
+
+---
+
+## Changelog
+
+See `CHANGELOG.md` for the full version history.
