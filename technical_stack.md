@@ -216,6 +216,39 @@ Stripe is not scaffolded unless the project explicitly requires payments.
 
 ---
 
+## AI / LLM Integration — packages/ai
+
+Any feature that calls an LLM (chat, generation, extraction, classification, agents, etc.) must be built provider-agnostic and admin-manageable. Do not hardcode a provider, a model, or a prompt string directly in application code.
+
+```txt
+Provider:  configuration-driven — Anthropic, OpenAI, Google, or other, selected via env var
+Model:     configuration-driven — selected via env var, never hardcoded
+```
+
+```env
+AI_PROVIDER="anthropic"          — anthropic | openai | google | other
+AI_MODEL="claude-sonnet-5"
+AI_API_KEY=""
+```
+
+### Required for every LLM-powered feature
+
+- **Provider is configurable** — switching provider is a config change, not a code change
+- **Model is configurable** — switching model is a config change, not a code change
+- **Prompt is admin-manageable** — an authorized admin can view and edit the prompt template from an AI management section in the admin panel, without a code deploy
+- **Expected output is defined and admin-manageable** — the expected output shape/schema is visible and editable by an authorized admin alongside the prompt
+- **Guardrails against prompt injection** — user-supplied content is never concatenated directly into the system prompt; user input is isolated/delimited, and the system prompt cannot be overridden by user input
+- **Output validation** — LLM output is validated against the expected schema (e.g. with Zod) before it is used or displayed; invalid output is rejected, not trusted
+- **Prompt/config changes are audited** — every edit to a prompt template or output schema logs actor, timestamp, and diff
+- **Pricing is visible** — the AI management section includes a "refresh model pricing" action that fetches current per-model pricing and shows cost per model currently in use
+- Cost and loop safeguards from `DEVSECOPS.md` Cost and Consumption Safety apply to every LLM call
+
+See `AGENTS.md` Required Routes (`/admin/ai`) and `QA_CHECKLIST.md` AI / LLM Configuration QA.
+
+AI/LLM integration is not scaffolded unless the project explicitly requires it.
+
+---
+
 ## Deployment
 
 ```txt

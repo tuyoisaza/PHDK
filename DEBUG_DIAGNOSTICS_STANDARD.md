@@ -107,6 +107,7 @@ recent failed API requests — endpoint and status only
 safe backend diagnostics if available
 recent API errors with correlation IDs
 current correlation ID
+recent metered API call counts and failures, if the feature touches a metered API
 ```
 
 ### What must always be redacted
@@ -200,6 +201,26 @@ This information allows the AI developer to diagnose auth failures from a diagno
 
 ---
 
+## Metered API / Cost Diagnostics Requirements
+
+When a feature calls a metered or paid external API (AI/image/video generation, LLM calls, SMS, email sending, etc.), diagnostics must safely capture:
+
+```txt
+Metered API name/provider
+Call count in current session or last N minutes
+Failure count and last failure reason
+Retry count on the most recent call
+Usage cap configured — yes/no
+Kill switch state — enabled/disabled
+Correlation ID
+```
+
+Never include request or response payloads from the metered API, and never include API keys or provider account identifiers.
+
+This lets the AI developer catch a runaway loop against a metered API from the diagnostics report before it becomes an expensive incident — see `DEVSECOPS.md` Cost and Consumption Safety.
+
+---
+
 ## Implementation Notes
 
 ### Frontend
@@ -245,6 +266,8 @@ Before marking debug diagnostics complete, verify:
 - [ ] No tokens, cookies, secrets, or passwords appear in the report
 - [ ] Auth diagnostics section captures required fields when login exists
 - [ ] Auth diagnostics section redacts sensitive values
+- [ ] Metered API diagnostics section captures required fields when the feature touches a metered API
+- [ ] Metered API diagnostics section redacts payloads, keys, and account identifiers
 - [ ] Clear cache triggers logout, cache clear, and page reload
 - [ ] Debug floating panel appears when debug mode is active
 - [ ] Debug floating panel does not appear in production by default

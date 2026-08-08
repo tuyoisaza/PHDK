@@ -6,6 +6,67 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.7.1 — 2026-08-08
+
+### Theme: AGENTS.md as Cross-Tool Router
+
+`AGENTS.md` is now an open, Linux Foundation-governed specification read natively by 30+ AI coding tools (Claude Code, Cursor, Windsurf, GitHub Copilot, Codex, Gemini CLI, Aider, Devin, Amazon Q). This release restructures PHDK's own `AGENTS.md` to match how the spec is meant to be used: a short entry point that routes agents to the rest of the standards, not a second copy of them.
+
+### Changed
+
+- `AGENTS.md` — trimmed from ~290 to ~180 lines. Sections that fully duplicated content already specified in `TECHNICAL_STACK.md` (Monorepo Structure, AI/LLM Feature Requirements), `DEVSECOPS.md` (Authentication Standard), `VERSIONING.md` (Version Requirements), and `DEVELOPMENT_RULES.md` (Code Organization Rules) were replaced with one-line pointers to the authoritative file. Required Reading Order, Core Agent Rules, Public-Only Project Rule, Required Product Baseline/Roles/Routes, Agent Completion Checklist, and Things Agents Must Never Do stay inline since they are not duplicated elsewhere.
+
+### Notes
+
+Duplicated content across files was also the root cause of several of the v2.5.0 consistency bugs fixed in v2.5.1 (a rule stated in one file and contradicted in another because both carried their own copy). Routing instead of duplicating removes that failure mode going forward.
+
+This does not change any project-facing tool or file distribution mechanism (vendoring standards into generated project repos, optional SKILL.md packaging) — that remains open for a future release.
+
+---
+
+## v2.7.0 — 2026-08-08
+
+### Theme: AI/LLM Admin Manageability and Guardrails
+
+Adds a mandatory standard for any feature that calls an LLM: the prompt, expected output, provider, model, and live per-model pricing must be admin-manageable from `/admin/ai`, and every integration must guard against prompt injection and validate output before use.
+
+### Added
+
+- `TECHNICAL_STACK.md` — new "AI / LLM Integration — packages/ai" section: config-driven provider/model, admin-manageable prompt and output schema, injection guardrails, output validation, audit logging, and a "refresh model pricing" admin action
+- `AGENTS.md` — new "AI/LLM Feature Requirements" section and `/admin/ai` conditional route
+- `DEVSECOPS.md` — new "LLM Integration Safety" section: guardrails, output validation, audit logging, pricing visibility, and rules against unbounded pricing-refresh calls; added to Applies To, Core Rules, Stop-and-Ask Conditions, and Verification
+- `QA_CHECKLIST.md` — new "AI / LLM Configuration QA" section
+
+### Canonical Decisions
+
+- Every LLM-powered feature requires: config-driven provider/model selection, an admin-manageable prompt and output schema, prompt-injection guardrails, output validation, audit logging on config changes, and a live per-model pricing lookup in the admin panel
+
+---
+
+## v2.6.0 — 2026-08-08
+
+### Theme: Cost and Consumption Safety
+
+Adds a mandatory safeguard standard for any integration billed by usage (AI/image/video generation, LLM calls, SMS, email sending, and other metered APIs), so a runaway loop or retry storm cannot burn unbounded money before anyone notices.
+
+### Added
+
+- `DEVSECOPS.md` — new "Cost and Consumption Safety" section: required hard usage caps, request timeouts, max retry/loop limits, idempotency guards, kill switches, per-user quotas, spend logging and alerting; added to Applies To, Core Rules, Stop-and-Ask Conditions, and Verification
+- `DEBUG_DIAGNOSTICS_STANDARD.md` — new "Metered API / Cost Diagnostics Requirements" section and QA items, so a runaway metered call is visible in the diagnostics report
+
+### Changed
+
+- `AGENTS.md` — added metered/paid API rule to "Things Agents Must Never Do"
+- `AI_DEVELOPER_OPERATING_MODEL.md` — added metered/paid API rule to Stop-and-Ask Conditions
+- `QA_CHECKLIST.md` — added "Cost and Consumption Safety" QA section
+- `README.md` — added Cost safety canonical decision
+
+### Canonical Decisions
+
+- Every metered/paid external API requires a hard usage cap, timeout, retry limit, and kill switch before it ships — no exceptions, no "add it later"
+
+---
+
 ## v2.5.1 — 2026-08-07
 
 ### Theme: Post-Update Consistency Review

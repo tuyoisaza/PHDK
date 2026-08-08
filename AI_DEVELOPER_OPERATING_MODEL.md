@@ -154,6 +154,7 @@ Stop immediately and ask before:
 - Payment behavior changes
 - Deployment architecture changes
 - Adding new external services
+- Enabling a metered/paid external API (AI generation, LLM calls, SMS, email, etc.) before it has a usage cap, timeout, retry limit, and kill switch — see `DEVSECOPS.md` Cost and Consumption Safety
 - Adding high-risk dependencies
 - Weakening validation, logging, or security checks
 - Force-pushing to any branch

@@ -578,6 +578,39 @@ If browser/device checks are not possible, document why.
 
 ---
 
+# Cost and Consumption Safety
+
+- [ ] Every metered/paid external API call (AI/image/video generation, LLM calls, SMS, email sending, third-party enrichment, etc.) has a hard usage cap enforced in code.
+- [ ] Every metered API call has a request timeout.
+- [ ] Every metered API call has a max retry limit with backoff — no indefinite retries.
+- [ ] Any loop, queue, poller, or background job that can call a metered API repeatedly has an explicit max-iterations or max-cost bound.
+- [ ] Expensive operations have idempotency keys or dedup checks so the same input cannot double-trigger cost.
+- [ ] A kill switch (env var or feature flag) exists that disables each metered integration without a deploy.
+- [ ] Per-user or per-session quota exists where the metered call is user-triggered.
+- [ ] Metered calls are logged with operation, cost/units consumed, actor, and correlation ID.
+- [ ] Current usage/spend is observable in logs, a dashboard, or `/health/deep`.
+- [ ] No metered integration relies solely on the provider's own rate limit as its cost safety net.
+
+---
+
+# AI / LLM Configuration QA
+
+- [ ] `/admin/ai` exists and is protected when the project uses any LLM-powered feature.
+- [ ] Prompt template is visible and editable by an authorized admin without a code deploy.
+- [ ] Expected output schema/format is visible and editable by an authorized admin.
+- [ ] AI provider (Anthropic, OpenAI, Google, etc.) is set via configuration, not hardcoded.
+- [ ] AI model is set via configuration, not hardcoded.
+- [ ] "Refresh model pricing" action exists and shows current cost per model in use.
+- [ ] Pricing refresh is admin-triggered or interval-scheduled, not called on every request.
+- [ ] User-supplied content is isolated from the system prompt — no direct concatenation.
+- [ ] LLM output is validated against the expected schema before use or display.
+- [ ] Invalid or malformed LLM output is rejected, not silently trusted.
+- [ ] Prompt, output schema, provider, and model changes are audit-logged with actor, timestamp, and diff.
+- [ ] AI provider API key is never exposed client-side.
+- [ ] Cost and Consumption Safety checks above apply to every LLM call in this feature.
+
+---
+
 # Dependency and Supply Chain QA
 
 - [ ] No dependency added without task justification.

@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This file defines the operating rules for AI agents, developers, and automation tools working on this repository.
+This file is the entry point and router for AI agents, developers, and automation tools working on this repository. It carries only the rules that apply to every task and a map of where the full standards live — it is not the full standards set.
 
-Every agent must read this file before making changes. The goal is simple: every agent understands the product architecture, coding standards, release process, debug expectations, and quality rules before touching a file.
+Every agent must read this file first, then follow the reading order below before making changes.
 
 ---
 
@@ -15,37 +15,25 @@ Before starting any task, read the full onboarding stack in this order:
 1. `ONBOARDING_AI_DEVELOPER.md`
 2. `AI_DEVELOPER_OPERATING_MODEL.md`
 3. `AGENTS.md` — this file
-4. `DEVELOPMENT_RULES.md`
-5. `DESIGN_RULES.md`
-6. `TECHNICAL_STACK.md`
-7. `DEVSECOPS.md`
-8. `VERSIONING.md`
-9. `VERIFICATION_LOOP.md`
-10. `DEBUG_DIAGNOSTICS_STANDARD.md`
+4. `DEVELOPMENT_RULES.md` — branching, commits, feature structure, monorepo rules
+5. `DESIGN_RULES.md` — UI, UX, accessibility, theming
+6. `TECHNICAL_STACK.md` — stack, monorepo layout, auth, database, AI/LLM integration
+7. `DEVSECOPS.md` — security, auth, secrets, cost safety, LLM guardrails
+8. `VERSIONING.md` — version, branch, commit, changelog, release format
+9. `VERIFICATION_LOOP.md` — what counts as proof, health checks
+10. `DEBUG_DIAGNOSTICS_STANDARD.md` — debug mode, diagnostics report spec
 11. `TASK.md`
 12. `STATUS.md`
 
-Work only within the scope defined in `TASK.md`.
-
-Do not touch out-of-scope files unless the task explicitly requires it.
+Work only within the scope defined in `TASK.md`. Do not touch out-of-scope files unless the task explicitly requires it.
 
 ---
 
 ## AI Developer Operating Model
 
-Agents must work in small, user-visible, verified working slices.
+Agents must work in small, user-visible, verified working slices. Autonomous mode is enabled by default inside the current approved slice. Agents must show verification evidence after each slice, update `STATUS.md` after meaningful progress, and never continue silently after failed verification.
 
-Autonomous mode is enabled by default inside the current approved slice.
-
-Agents must show verification evidence after each slice.
-
-Agents must update `STATUS.md` after meaningful progress.
-
-Agents must not continue silently after failed verification.
-
-Agents must stop and ask before destructive data actions, auth-provider changes, payment behavior changes, tenant-model changes, deployment-architecture changes, or scope expansion.
-
-Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the full operating doctrine.
+Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the full operating doctrine, including the complete Stop-and-Ask list.
 
 ---
 
@@ -58,11 +46,8 @@ Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the ful
 - Every feature must enforce RBAC server-side when roles exist.
 - Every user-facing string must use the i18n system.
 - Every important action must be logged with structured logs.
-- Debug-aware functions must become more verbose when debug mode is active.
 - No file may exceed 600 lines. Prefer files under 300 lines.
 - Business logic must not live inside page components.
-- Version must be visible in app shell, login page, and admin panel.
-- Version must include a copy diagnostics button and clear cache button.
 - Do not implement infrastructure marked as ready unless the current task explicitly requires it.
 - Do not upgrade dependencies unless the task explicitly asks for it.
 - Do not change database schema without a migration.
@@ -74,54 +59,23 @@ Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the ful
 
 Public-only websites are not app-style authenticated products unless the PHDK explicitly defines login, private workflows, dashboards, or dynamic user-specific behavior.
 
-If the project is a public marketing site, landing page, or content site:
-
-- Do not add login
-- Do not add dashboards
-- Do not add user accounts or CRUD
-- Do not add admin panels
-- Do not add role management
-- Do not add session management
-- Keep the product focused on public content and public workflows
+If the project is a public marketing site, landing page, or content site: do not add login, dashboards, user accounts, admin panels, role management, or session management. Keep the product focused on public content and public workflows.
 
 ---
 
 ## Monorepo Structure
 
-```txt
-apps/
-  web/          — Next.js frontend
-  api/          — NestJS + Fastify backend
-  mobile/       — Expo placeholder only, do not build unless tasked
-packages/
-  ui/           — shared UI components
-  types/        — shared TypeScript types
-  validators/   — shared Zod schemas
-  api-client/   — typed API client
-  design-tokens/ — spacing, colors, typography, radius, shadows, motion
-  observability/ — logger and diagnostics wrappers
-  db/           — Drizzle schema, migrations, database client
-  config/       — shared config
-```
+Standard layout: `apps/web` (Next.js), `apps/api` (NestJS + Fastify), `apps/mobile` (Expo placeholder only), `packages/*` (shared code). Both `apps/web` and `apps/api` deploy as separate Railway services using the repository root — never set Railway root to `apps/web` or `apps/api`.
 
-Both `apps/web` and `apps/api` deploy as separate Railway services using the repository root.
-
-Never set Railway root directory to `apps/web` or `apps/api`.
+Full layout and package list: `TECHNICAL_STACK.md` Monorepo.
 
 ---
 
 ## Authentication Standard
 
-Default authentication: custom Google OAuth 2.0.
+Default authentication: custom Google OAuth 2.0. No managed auth vendor (WorkOS, Clerk, Supabase Auth, Firebase Auth, Auth.js) unless explicitly overridden in `ARCHITECTURE_DECISIONS.md`.
 
-Do not use WorkOS, Clerk, Supabase Auth, Firebase Auth, Auth.js, or any managed auth provider unless the project explicitly overrides this in `ARCHITECTURE_DECISIONS.md`.
-
-When login is required:
-- Implement Google OAuth 2.0 directly
-- Use database-backed sessions
-- Enforce RBAC server-side
-
-Read `DEVSECOPS.md` for the full auth implementation requirements.
+Full implementation requirements: `DEVSECOPS.md` Authentication Standard.
 
 ---
 
@@ -130,28 +84,20 @@ Read `DEVSECOPS.md` for the full auth implementation requirements.
 Every app-style product must include:
 
 - Project name and logo in top-left UI shell
-- Visible app version in shell, login page, and admin panel
-- Version badge with copy diagnostics button and clear cache button
+- Visible app version in shell, login page, and admin panel, with copy diagnostics button and clear cache button
 - Google OAuth 2.0 login when login is required
 - RBAC with server-side enforcement when roles are required
 - Admin section when explicitly required by PHDK
+- AI management section in the admin panel when the project uses any LLM-powered feature
 - Debug mode with copy diagnostics capability
-- Structured logging
-- Audit trail for sensitive actions
+- Structured logging and an audit trail for sensitive actions
 - i18n support for configured project languages
 
 ---
 
 ## Required Roles
 
-Minimum role set when RBAC is required:
-
-```txt
-super_admin
-admin
-team_leader
-member
-```
+Minimum role set when RBAC is required: `super_admin`, `admin`, `team_leader`, `member`.
 
 Authorization must be enforced server-side. Hiding UI elements is not security.
 
@@ -170,61 +116,32 @@ Minimum routes for app-style projects with login:
 /admin/debug
 /admin/system
 /admin/audit
+/admin/ai         — when the project uses any LLM-powered feature
 ```
 
-Every additional feature must have its own route.
-
-Avoid hash-fragment navigation for primary features.
+Every additional feature must have its own route. Avoid hash-fragment navigation for primary features.
 
 ---
 
 ## Debug Mode Requirements
 
-Debug mode is a developer-support capability, not an end-user feature.
-
-When debug mode is active:
-- Functions emit verbose structured logs
-- Floating panel appears top-left with version number
-- Copy diagnostics button copies sanitized diagnostics report
-- Clear cache button clears cache, forces logout, reloads page
-
-Read `DEBUG_DIAGNOSTICS_STANDARD.md` for the full specification.
+Debug mode is a developer-support capability, not an end-user feature. Full specification, including the copy diagnostics report and auth/metered-API diagnostics fields: `DEBUG_DIAGNOSTICS_STANDARD.md`.
 
 ---
 
-## Version Requirements
+## AI/LLM Feature Requirements
 
-Version must be displayed in:
-- Login page
-- Main app shell
-- Admin panel
+Any feature that calls an LLM requires an AI management section at `/admin/ai` (admin-editable prompt and output schema, configurable provider/model, model pricing lookup) plus provider-agnostic config, prompt-injection guardrails, and output validation in code.
 
-Required format:
-
-```txt
-vMAJOR.MINOR.PATCH (shortSHA · UTC build timestamp)
-```
-
-Version increments on merge to `main`. Read `VERSIONING.md` for the full standard.
+Full specification: `TECHNICAL_STACK.md` AI / LLM Integration and `DEVSECOPS.md` LLM Integration Safety.
 
 ---
 
-## Code Organization Rules
+## Version and Code Organization
 
-Feature structure:
+Version is displayed in the app shell, login page, and admin panel, in `vMAJOR.MINOR.PATCH (shortSHA · UTC build timestamp)` format. Full standard: `VERSIONING.md`.
 
-```txt
-src/features/<feature-name>/
-  components/
-  services/
-  repositories/
-  schemas/
-  permissions/
-  logs/
-  types.ts
-```
-
-Each feature owns its route, UI, service layer, repository, schemas, permissions, logs, and tests.
+Every feature is organized under `src/features/<feature-name>/` with its own components, services, repositories, schemas, permissions, logs, and types. Full rules: `DEVELOPMENT_RULES.md` Feature Structure Rules.
 
 ---
 
@@ -234,20 +151,14 @@ Before marking any task complete, verify:
 
 - [ ] Working slice user-visible outcome is confirmed
 - [ ] Verification evidence produced — commands, health check, browser
-- [ ] Route exists
-- [ ] Permissions enforced server-side
+- [ ] Route exists and permissions are enforced server-side
 - [ ] i18n strings exist for configured languages
-- [ ] Loading state exists
-- [ ] Empty state exists
-- [ ] Error state exists
+- [ ] Loading, empty, and error states exist
 - [ ] Structured logs exist
-- [ ] Debug mode behavior considered
 - [ ] No fake data presented as real
 - [ ] No file exceeds 600 lines
 - [ ] Build, typecheck, and lint pass
-- [ ] `STATUS.md` updated
-- [ ] `TASK.md` expected final report written
-- [ ] Next slice proposed
+- [ ] `STATUS.md` updated, `TASK.md` final report written, next slice proposed
 
 ---
 
@@ -262,6 +173,7 @@ Before marking any task complete, verify:
 - Deploy from local CLI
 - Expose secrets in logs or debug reports
 - Install WorkOS, Clerk, or managed auth vendors without explicit approval
+- Call a metered or paid external API (image generation, LLM calls, SMS, email sending, etc.) without a hard usage cap, timeout, and loop/retry limit — see `DEVSECOPS.md` Cost and Consumption Safety
 - Implement infrastructure marked as ready unless explicitly tasked
 - Change database schema without migrations
 - Touch files outside the scope defined in `TASK.md`

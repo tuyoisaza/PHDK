@@ -31,6 +31,8 @@ Read this file before touching any of the following:
 - API routes
 - logs or diagnostics
 - external services or integrations
+- metered or paid external APIs (billing/consumption-based: AI generation, LLM calls, SMS, email sending, etc.)
+- LLM prompts, AI-powered features, and AI provider/model configuration
 - dependencies
 - deployment configuration
 - CI/CD
@@ -52,6 +54,11 @@ These rules are non-negotiable. They apply to every task, every session, every a
 - Never expose private user data in diagnostics or debug reports
 - Never add a dependency without a clear reason
 - Never add external services without an architecture decision entry
+- Never call a metered or paid external API without a hard usage cap, request timeout, and loop/retry limit
+- Never ship a metered or paid integration without a kill switch that disables it immediately
+- Never concatenate user-supplied content directly into an LLM system prompt without isolation/delimiting
+- Never trust raw LLM output — validate it against the expected schema before use
+- Never hardcode an LLM provider, model, or prompt string in application code
 - Never perform destructive data actions unless explicitly approved in the current task
 - Always validate inputs at every API boundary using Zod
 - Always enforce authorization server-side on every protected route and endpoint
@@ -225,6 +232,61 @@ Do not add dependencies speculatively or to satisfy a checklist item.
 
 ---
 
+## Cost and Consumption Safety
+
+Any integration billed by usage — AI/image/video generation, LLM API calls, SMS, email sending, third-party enrichment APIs, or any other metered service — must never be able to spend money without a bound. An unbounded loop or retry storm against a metered API is a production incident, not a bug.
+
+### Required before a metered integration ships
+
+- A hard usage cap (request count, token count, or spend ceiling) enforced in code, not just documented
+- A request timeout on every call to the metered API
+- A max retry limit with backoff — never retry indefinitely
+- Loop protection: any code path that can call the metered API repeatedly (queues, polling, background jobs, agent loops) must have an explicit max-iterations or max-cost bound
+- Idempotency keys or dedup checks on expensive operations that could otherwise be triggered twice for the same input
+- A kill switch (env var or feature flag) that disables the integration immediately without a deploy
+- Per-user or per-session quota where the trigger is user-initiated, to stop one user or one runaway session from exhausting the budget
+- Structured logging of every metered call: operation, cost/units consumed, actor, correlation ID
+
+### Required for visibility
+
+- Current usage/spend against the metered API is observable — in logs at minimum, in a dashboard or `/health/deep` field where feasible
+- An alert or threshold check exists for unusual spend velocity, not just a monthly total
+- The debug diagnostics report includes recent metered-call counts and failures when the feature touches a metered API — see `DEBUG_DIAGNOSTICS_STANDARD.md`
+
+### Never
+
+- Never call a metered API inside a loop without an explicit iteration cap
+- Never retry a failed metered call indefinitely
+- Never let a background job or queue consumer re-process the same expensive operation without an idempotency guard
+- Never scaffold a metered integration "to see if it works" without the cap and kill switch already in place
+- Never treat a provider's own rate limit as the only safety net — provider limits protect the provider, not the project's budget
+
+---
+
+## LLM Integration Safety
+
+Any feature that calls an LLM must be admin-manageable and provider-agnostic. See `TECHNICAL_STACK.md` AI / LLM Integration and `AGENTS.md` AI/LLM Feature Requirements for the full product spec. This section covers the security and cost-visibility requirements.
+
+### Required
+
+- Provider (Anthropic, OpenAI, Google, or other) and model are set via configuration, never hardcoded
+- The prompt template and expected output schema are editable by an authorized admin from `/admin/ai`, without a code deploy
+- User-supplied content is isolated/delimited from the system prompt — never concatenated in directly — to prevent prompt injection
+- LLM output is validated against the expected schema before it is used or displayed
+- Every prompt/output-schema/provider/model change is audit-logged with actor, timestamp, and diff
+- The AI admin section includes a "refresh model pricing" action that fetches current per-model pricing (from the provider's published pricing or a maintained internal pricing table) and displays cost per model currently in use
+- Cost and loop safeguards from Cost and Consumption Safety above apply to every LLM call
+
+### Never
+
+- Never let user input override or escape the system prompt
+- Never trust LLM output as safe to render, execute, or store without validation
+- Never hardcode a provider, model, or prompt string in application code
+- Never expose the AI provider API key client-side
+- Never let the pricing-refresh action call the provider on an unbounded schedule — it is admin-triggered or scheduled with a sane interval, not called on every request
+
+---
+
 ## Stop-and-Ask Conditions
 
 Stop immediately and ask before performing any of the following:
@@ -236,6 +298,9 @@ Stop immediately and ask before performing any of the following:
 - Payment behavior changes
 - Deployment architecture changes
 - Adding new external services
+- Adding or enabling a metered/paid external API integration before its usage cap and kill switch are in place
+- Adding an LLM-powered feature before its admin-manageable prompt/output section, provider/model config, and injection guardrails are in place
+- Changing the default AI provider or model
 - Adding high-risk or large dependencies
 - Weakening validation, logging, or security checks
 - Force-pushing to any branch
@@ -255,6 +320,8 @@ Security-sensitive work is not complete until all of the following are true:
 - [ ] Logs are structured and redact sensitive values
 - [ ] Debug diagnostics are safe and redact sensitive values
 - [ ] No secrets are committed to the repository
+- [ ] Any metered/paid external API touched by this work has a usage cap, timeout, retry limit, and kill switch
+- [ ] Any LLM feature touched by this work has admin-manageable prompt/output, configurable provider/model, injection guardrails, and output validation
 - [ ] `.env.example` is up to date
 - [ ] `ARCHITECTURE_DECISIONS.md` updated for any security-relevant decisions
 - [ ] `STATUS.md` updated with current state
