@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.9.2**
+**Version: v2.9.3**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -93,7 +93,33 @@ git clone https://github.com/tuyoisaza/PHDK.git .windsurf/skills/phdk
 git clone https://github.com/tuyoisaza/PHDK.git .github/skills/phdk
 ```
 
-`.agents/skills/phdk/` is recognized by several tools at once, so it's a reasonable single choice if your team uses more than one. For a personal install available across all your projects instead of one repo, use the user-level equivalent path instead (e.g. `~/.claude/skills/phdk`, `~/.codex/skills/phdk`).
+**OpenCode**
+
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .opencode/skills/phdk
+```
+
+**Pi**
+
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .pi/skills/phdk
+```
+
+**Antigravity**
+
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .agents/skills/phdk
+```
+
+`.agents/skills/phdk/` is recognized by several tools at once — Codex CLI and Antigravity read it directly, and OpenCode falls back to it too — so it's a reasonable single choice if your team uses more than one of those. For a personal install available across all your projects instead of one repo, use the user-level equivalent path instead (e.g. `~/.claude/skills/phdk`, `~/.codex/skills/phdk`, `~/.pi/agent/skills/phdk`).
+
+**Trigger it** — most tools discover and auto-load the skill once it's in place. If yours doesn't, or you want to be explicit, paste this after the clone finishes:
+
+```txt
+Use the phdk skill in this repo (.claude/skills/phdk or wherever you cloned it — see its SKILL.md). If this is a new project, run the PHDK bootstrap: interview for context if needed, generate the project handoff kit, then vendor the standards into this project. If this is an existing PHDK project, read the standards per AGENTS.md and continue from there.
+```
+
+Pi users can also invoke it directly with `/skill:phdk`.
 
 **What happens once it's installed:**
 

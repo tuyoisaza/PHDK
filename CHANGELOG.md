@@ -6,6 +6,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.9.3 — 2026-08-09
+
+### Added
+
+- `README.md` — install commands for three more Skill-aware tools: OpenCode (`.opencode/skills/phdk`), Pi (`.pi/skills/phdk`), and Antigravity (`.agents/skills/phdk`, shared with Codex CLI) — verified against each tool's actual skill-discovery paths before publishing
+- `README.md` — a "Trigger it" copy-paste prompt to paste after cloning, for tools that don't auto-discover the skill or when the user wants to invoke it explicitly; notes Pi's `/skill:phdk` explicit-invocation syntax
+
+### Changed
+
+- `ONBOARDING_AI_DEVELOPER.md` — Skill-aware tool list updated to include OpenCode, Pi, and Antigravity
+
+---
+
 ## v2.9.2 — 2026-08-09
 
 ### Changed
