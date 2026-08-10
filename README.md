@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.9.0**
+**Version: v2.9.1**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -15,6 +15,18 @@ It is not a rigid religion of tools. It is a framework that teaches AI developer
 **The ethos of PHDK:** disciplined, honest, human-centered AI development.
 
 **The telos of PHDK:** useful working software that serves real people, preserves context, moves safely, verifies itself, and improves through feedback.
+
+---
+
+## Quick Start — Install as an Agent Skill
+
+The fastest way to use PHDK: clone this repo directly into your tool's skill directory, so the whole repo becomes the `phdk` skill with `SKILL.md` at its root.
+
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .claude/skills/phdk
+```
+
+That's it — once installed, the skill triggers automatically: it runs the project bootstrap when starting something new, or routes straight into the standards when working on an existing PHDK project. See [Install as an Agent Skill](#install-as-an-agent-skill) below for every supported tool's directory, or [How to Use This Repo](#how-to-use-this-repo) for the non-Skill paths (works in any tool, no install required).
 
 ---
 
@@ -45,13 +57,32 @@ Read the PHDK standards from https://github.com/tuyoisaza/PHDK in this order:
 Then read TASK.md and STATUS.md from the project repo.
 ```
 
-### As an Agent Skill
+### Install as an Agent Skill
 
-This repo is also packaged as an Agent Skill (`SKILL.md` at the repo root) — the open, portable standard for on-demand agent capabilities, supported by Claude Code, Cursor, Codex CLI, Windsurf, and VS Code. This is additive, not a replacement for the two paths above.
+This repo is packaged as an Agent Skill (`SKILL.md` at the repo root) — the open, portable standard for on-demand agent capabilities. This is additive: it does not replace the two paths above, it lets Skill-aware tools trigger the same workflow automatically instead of a copy-pasted prompt.
 
-To install: copy or clone this repo into the tool's skills directory (for Claude Code, `.claude/skills/phdk/`). Once installed, the skill triggers automatically when starting a new PHDK project or working on one that already follows PHDK, and it handles vendoring the standards into the project repo so later sessions — in any tool, Skill-aware or not — can read them locally.
+**Install** — clone this repo directly into the skill directory for your tool. The whole repo becomes the `phdk` skill folder, with `SKILL.md` at its root — that layout is required, so clone straight into the target folder, don't nest it deeper:
 
-Not published to a public skill registry (skills.sh) — PHDK is a private/team standards repo, install manually.
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .claude/skills/phdk
+```
+
+| Tool | Project-level skill directory |
+|------|-------------------------------|
+| Claude Code | `.claude/skills/phdk/` |
+| Cursor | `.cursor/skills/phdk/` |
+| Codex CLI | `.agents/skills/phdk/` |
+| Windsurf | `.windsurf/skills/phdk/` |
+| VS Code (GitHub Copilot) | `.github/skills/phdk/` |
+
+`.agents/skills/phdk/` is recognized by several tools at once, so it's a reasonable single choice if your team uses more than one. For a personal install available across all your projects instead of one repo, clone into the user-level equivalent (e.g. `~/.claude/skills/phdk/`, `~/.codex/skills/phdk/`).
+
+**What happens once it's installed:**
+
+- Starting a new project → the skill runs `SPEC_INTERVIEW_PROMPT.md` (if the human hasn't been briefed yet) and `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, then vendors the standards into a `phdk-standards/` folder inside the new project — so any tool, Skill-aware or not, can read them locally afterward
+- Working on a project that already has `TASK.md`/`STATUS.md` → the skill routes straight to `ONBOARDING_AI_DEVELOPER.md`'s required reading order
+
+Not published to a public skill registry (skills.sh) — PHDK is a private/team standards repo, install manually as above.
 
 ---
 

@@ -6,6 +6,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.9.1 — 2026-08-09
+
+### Changed
+
+- `README.md` — turned the GitHub front page into a proper landing page for the Agent Skill install path: a "Quick Start" block right under the intro with a one-line clone command, and an expanded "Install as an Agent Skill" section with a verified per-tool skill-directory table (Claude Code, Cursor, Codex CLI, Windsurf, VS Code/Copilot) plus the cross-tool `.agents/skills/` option and the user-level global install path.
+
+---
+
 ## v2.9.0 — 2026-08-09
 
 ### Theme: Agent Skill Packaging
