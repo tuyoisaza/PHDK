@@ -194,6 +194,29 @@ Answer options:
 
 ### Question 3
 
+What is the backup policy for this project's application data (the database)? This is separate from code backup — GitHub is always the code backup and is not being asked about here.
+
+If you have no preference, here is a simple recommended default — pick one:
+
+```txt
+Option A — Weekly email export:
+Every Monday, export a full SQL dump of the database and email it to the
+developer's configured address.
+
+Option B — Weekly git backup branch:
+Every Monday, export a full SQL dump and commit it to a dated backup
+branch (e.g. backup/2026-08-10) in the same private repository.
+```
+
+Answer options:
+
+- Option A
+- Option B
+- a different policy you describe
+- `none` — explicitly no backup policy for now (will be flagged as a gap)
+
+### Question 4
+
 What brand and content direction should the kit use?
 
 Include any of these if known:
@@ -206,13 +229,13 @@ Include any of these if known:
 
 Answer what you know, or say `skip`.
 
-### Question 4
+### Question 5
 
 Is there anything you want to correct, add, or clarify about the project before I generate the kit?
 
 Answer with the correction, addition, or clarification. Or say `go`.
 
-After Question 4, `go` means begin generating only `PROJECT_BRIEF.md`.
+After Question 5, `go` means begin generating only `PROJECT_BRIEF.md`.
 
 After each generated file, the user must say `next` before you generate the next file.
 
@@ -261,6 +284,29 @@ If the project is a marketing site, landing page, or content site, include debug
 - If no login exists, debug mode is toggled via environment variable or local developer config
 - Debug mode is never active in production by default
 - Debug reports must never copy secrets, tokens, passwords, private user data, payment data, or sensitive environment variables
+
+---
+
+## Backup Policy Rule
+
+This is about backing up the application's live data (the database), not the code. Code is always backed up by pushing to GitHub — that is not optional and is not part of this decision.
+
+### If the answer to Question 3 was Option A, Option B, or a described policy
+
+- Record the chosen policy as a decision in `ARCHITECTURE_DECISIONS.md`, using the standard decision format
+- Include a P1 requirement in `FEATURES.md` to implement the scheduled backup job matching the chosen policy
+- If the database will hold PII or other sensitive data and Option A (email) was chosen, add a requirement that the exported dump is encrypted or password-protected before it is emailed
+- If Option B (git backup branch) was chosen, add a requirement that backup branches are pushed only to the private project repository, never to a public one, and old backup branches are pruned per a stated retention window
+
+### If the answer to Question 3 was `none`
+
+- Record it as an explicit decision in `ARCHITECTURE_DECISIONS.md` with Status: Accepted and Reason: "no backup policy at this stage — MVP/pre-data-risk"
+- Add `⚠️ GAP: No data backup policy configured. Revisit before the project holds real user data.` to `STATUS.md`
+
+### Always
+
+- Never assume a backup policy. If Question 3 was answered ambiguously, ask one follow-up before generating `ARCHITECTURE_DECISIONS.md`
+- Never scaffold backup automation before the database itself is implemented — this is a decision recorded for later implementation, not code generated now, unless the project phase already requires a working database
 
 ---
 
@@ -460,9 +506,9 @@ Use a clear tree format.
 
 Defines content visible before login, or the full site if no login.
 
-Use brand personality from Question 3 to shape all content direction.
+Use brand personality from Question 4 to shape all content direction.
 
-If Question 3 was skipped, include:
+If Question 4 was skipped, include:
 
 `⚠️ GAP: Brand personality not defined — content direction is generic.`
 
@@ -641,7 +687,7 @@ The first generated task is always:
 
 Records key decisions future AI agents must not undo.
 
-Always include the debug mode decision as the first entry.
+Always include the debug mode decision and the data backup policy decision (from Question 3) as the first entries.
 
 Use this format for each decision:
 

@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.7.1**
+**Version: v2.8.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -108,6 +108,7 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Verification | Evidence required before every slice is marked complete |
 | Cost safety | Every metered/paid external API requires a hard usage cap, timeout, retry limit, and kill switch before it ships |
 | AI/LLM | Provider and model are config-driven; admin-manageable prompt, output schema, and live pricing; guardrails against prompt injection |
+| Data backup | Every project must have an explicit database backup policy, asked during kit generation, recorded in `ARCHITECTURE_DECISIONS.md` — code backup is always GitHub, separately |
 
 Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
 

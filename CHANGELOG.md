@@ -6,6 +6,33 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.8.0 — 2026-08-08
+
+### Theme: Data Backup Policy
+
+Adds a mandatory standard: every project must have an explicit backup policy for its live application data (the database), decided during kit generation and recorded as an architecture decision. This is separate from code backup — GitHub is always the code backup and was never in question.
+
+### Added
+
+- `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` — new Question 3 (renumbering brand → Question 4, corrections → Question 5) that always asks for the database backup policy and offers two simple recommended defaults: a weekly Monday full SQL export emailed to the developer, or a weekly SQL dump committed to a dated git backup branch in the private repo. New "Backup Policy Rule" branching section records the answer in `ARCHITECTURE_DECISIONS.md`, including the case where the developer explicitly says no policy yet.
+- `TECHNICAL_STACK.md` — new "Data Backup Policy" subsection under Database: the two recommended defaults, retention, and restore-verification requirements
+- `DEVSECOPS.md` — new "Data Backup and Recovery Safety" section: encryption/password-protection for emailed dumps containing sensitive data, private-repo-only rule and retention for git backup branches, and "never assume a policy exists" rule; added to Applies To, Stop-and-Ask Conditions, and Verification
+- `QA_CHECKLIST.md` — new backup checks under Database: policy recorded, job runs and is monitored, sensitive dumps protected, backup branches private-only, restore tested at least once
+
+### Canonical Decisions
+
+- Every project has an explicit, recorded data backup policy for its database before it is considered production-ready — "no policy" must be an explicit dated decision, never a default by omission
+
+---
+
+## v2.7.2 — 2026-08-08
+
+### Fixed
+
+- `DEBUG_DIAGNOSTICS_STANDARD.md` and `QA_CHECKLIST.md` — the standard listed the copy diagnostics and clear cache buttons but never specified their placement. Both now explicitly require the clear cache button to sit immediately next to the copy diagnostics button, everywhere the pair is specified (Required UI Controls, Debug Mode Behavior, version badge component, QA checks).
+
+---
+
 ## v2.7.1 — 2026-08-08
 
 ### Theme: AGENTS.md as Cross-Tool Router

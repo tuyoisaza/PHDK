@@ -25,6 +25,8 @@ Copy diagnostics button — clipboard icon
 Clear cache button — trash icon
 ```
 
+The clear cache button must sit immediately next to the copy diagnostics button, not elsewhere in the shell — they are a single control pair so a developer can copy the report and reset state in one place, one after the other.
+
 These controls must be visible in:
 
 - App shell when debug mode is active
@@ -47,8 +49,7 @@ These controls must never appear in the customer-facing experience unless the us
 - All functions report verbose structured logs to the console
 - A floating panel appears in the top-left corner
 - The panel shows the current version number
-- The panel shows the copy diagnostics button
-- The panel shows the clear cache button
+- The panel shows the copy diagnostics button with the clear cache button immediately next to it
 - Auth failures emit structured logs with safe redaction
 - API failures include correlation IDs
 - Frontend captures recent console, error, and network history
@@ -244,8 +245,7 @@ The version badge must:
 
 - Display in app shell, login page, and admin panel
 - Show format: `vX.Y.Z (shortSHA · UTC timestamp)`
-- Include copy diagnostics button with clipboard icon
-- Include clear cache button with trash icon
+- Include copy diagnostics button with clipboard icon, and the clear cache button with trash icon immediately next to it — always paired, never separated elsewhere in the UI
 - Be positioned consistently — top area of the shell or admin panel
 - Never obstruct primary UI
 
@@ -259,7 +259,7 @@ Before marking debug diagnostics complete, verify:
 - [ ] Version badge is visible on login page
 - [ ] Version badge is visible in admin panel
 - [ ] Copy diagnostics button is present
-- [ ] Clear cache button is present
+- [ ] Clear cache button is present immediately next to the copy diagnostics button
 - [ ] Copy diagnostics report copies to clipboard
 - [ ] Report includes all required fields
 - [ ] Report redacts all sensitive values

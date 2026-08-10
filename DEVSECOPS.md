@@ -33,6 +33,7 @@ Read this file before touching any of the following:
 - external services or integrations
 - metered or paid external APIs (billing/consumption-based: AI generation, LLM calls, SMS, email sending, etc.)
 - LLM prompts, AI-powered features, and AI provider/model configuration
+- database backups and restore procedures
 - dependencies
 - deployment configuration
 - CI/CD
@@ -232,6 +233,38 @@ Do not add dependencies speculatively or to satisfy a checklist item.
 
 ---
 
+## Data Backup and Recovery Safety
+
+This covers backing up the live application database. Code backup is GitHub, always, and is out of scope here — see `TECHNICAL_STACK.md` Data Backup Policy for the product-level standard and the two recommended default policies (weekly email export, weekly git backup branch).
+
+### Required
+
+- Every project has an explicit, documented backup policy for its database — recorded in `ARCHITECTURE_DECISIONS.md`. "No policy" is only acceptable as an explicit, dated decision, not a default by omission
+- Backup job failures are logged and surfaced — a silent failed backup is the same as no backup
+- Minimum retention of the last 4 weekly backups unless the developer specifies otherwise
+- A restore from a real backup has been tested at least once — an unverified backup is not a backup
+
+### If the SQL export is delivered by email
+
+- The dump is encrypted or password-protected before it is emailed if the database holds PII, credentials, payment data, or other sensitive data
+- The destination address is the developer's configured address, never a shared or public distribution list
+- The email itself is treated like any other channel that can leak sensitive data — see Logging and Diagnostics Safety above
+
+### If the SQL export is committed to a git backup branch
+
+- Backup branches are pushed only to the same private repository — never to a public repository or a different, less-controlled repo
+- The dump is never committed to `main` or any feature branch — only to dedicated, dated backup branches
+- Old backup branches are pruned per the project's stated retention window
+- If the database holds sensitive data, treat the backup branch with the same access controls as production secrets — a public flip of the repository would leak every historical dump
+
+### Never
+
+- Never assume a backup policy exists — verify it is recorded in `ARCHITECTURE_DECISIONS.md` before treating a database feature as production-ready
+- Never email or commit an unencrypted dump of a database containing PII, credentials, or payment data
+- Never let a backup job run unmonitored — failures must be visible, not silent
+
+---
+
 ## Cost and Consumption Safety
 
 Any integration billed by usage — AI/image/video generation, LLM API calls, SMS, email sending, third-party enrichment APIs, or any other metered service — must never be able to spend money without a bound. An unbounded loop or retry storm against a metered API is a production incident, not a bug.
@@ -292,6 +325,7 @@ Any feature that calls an LLM must be admin-manageable and provider-agnostic. Se
 Stop immediately and ask before performing any of the following:
 
 - Destructive database operations: drops, truncations, irreversible migrations
+- Changing or disabling the project's configured backup policy
 - Authentication provider changes
 - Tenant model changes
 - Permission model changes
@@ -322,6 +356,7 @@ Security-sensitive work is not complete until all of the following are true:
 - [ ] No secrets are committed to the repository
 - [ ] Any metered/paid external API touched by this work has a usage cap, timeout, retry limit, and kill switch
 - [ ] Any LLM feature touched by this work has admin-manageable prompt/output, configurable provider/model, injection guardrails, and output validation
+- [ ] Any database work has a recorded backup policy in `ARCHITECTURE_DECISIONS.md`, or an explicit "no policy yet" decision
 - [ ] `.env.example` is up to date
 - [ ] `ARCHITECTURE_DECISIONS.md` updated for any security-relevant decisions
 - [ ] `STATUS.md` updated with current state

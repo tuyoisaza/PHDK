@@ -105,6 +105,39 @@ Rules:
 - Important records include soft delete: `deleted_at`
 - Drizzle and PostgreSQL are ready but not implemented unless the project phase requires them
 
+### Data Backup Policy
+
+This is about backing up the live application data (the database), not the code. Code backup is always GitHub — that is separate and non-negotiable. This section is only about the database.
+
+Every project must have an explicit data backup policy. Do not assume one and do not skip asking — it is set during PHDK generation (`PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` Question 3) and recorded as a decision in `ARCHITECTURE_DECISIONS.md`.
+
+Recommended default when the developer has no preference — pick one:
+
+```txt
+Option A — Weekly email export
+Every Monday, a scheduled job exports a full SQL dump of the database
+and emails it to the developer's configured address. If the database
+holds PII or other sensitive data, the dump is encrypted or
+password-protected before it is emailed.
+
+Option B — Weekly git backup branch
+Every Monday, a scheduled job exports a full SQL dump and commits it
+to a dated backup branch (e.g. backup/2026-08-10) in the same private
+repository. Backup branches are never pushed to a public repository.
+Old backup branches are pruned per a stated retention window.
+```
+
+Both are intentionally minimal. A production system with meaningful data should graduate to managed provider backups (e.g. Railway/PostgreSQL automated backups, point-in-time recovery) as soon as that is available — but nothing here is scaffolded until the database itself exists and the project phase requires it.
+
+Required regardless of which option is chosen:
+
+- Backup job failures are logged and surfaced, never silent
+- Minimum retention: last 4 weekly backups, unless the developer specifies otherwise
+- The chosen policy is documented in `ARCHITECTURE_DECISIONS.md`
+- A restore has been tested at least once before the policy is considered verified — see `QA_CHECKLIST.md` Database
+
+See `DEVSECOPS.md` Data Backup and Recovery Safety for the security requirements around backup exports.
+
 ---
 
 ## Authentication — Custom Google OAuth 2.0

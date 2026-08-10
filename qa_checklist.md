@@ -408,6 +408,12 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] Database indexes exist for common query paths where needed.
 - [ ] Foreign key and uniqueness constraints exist where needed.
 - [ ] Seed data, if present, is dev-only and never presented as production data.
+- [ ] A data backup policy is recorded in `ARCHITECTURE_DECISIONS.md` (or an explicit "no policy yet" decision).
+- [ ] The backup job (weekly email export, weekly git backup branch, or the chosen alternative) runs and produces a usable SQL dump.
+- [ ] Backup job failures are logged and surfaced, not silent.
+- [ ] If backups are emailed, sensitive dumps are encrypted or password-protected before sending.
+- [ ] If backups are committed to git, they land only on dated backup branches in the private repo, never on `main` or a public repo.
+- [ ] A restore from an actual backup has been tested at least once.
 
 ---
 
@@ -742,7 +748,7 @@ The final response must clearly state what passed, what failed, what was not
 - [ ] Version badge is visible on login page
 - [ ] Version badge is visible in admin panel
 - [ ] Copy diagnostics button is present
-- [ ] Clear cache button is present
+- [ ] Clear cache button is present immediately next to the copy diagnostics button
 - [ ] Copy diagnostics report copies to clipboard
 - [ ] Report includes all required fields per `DEBUG_DIAGNOSTICS_STANDARD.md`
 - [ ] Report redacts all sensitive values
