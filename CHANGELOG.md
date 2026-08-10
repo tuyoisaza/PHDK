@@ -6,6 +6,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.9.2 — 2026-08-09
+
+### Changed
+
+- `README.md` — replaced the per-tool directory table with a standalone, one-line copy-paste `git clone` command for each tool (Claude Code, Cursor, Codex CLI, Windsurf, VS Code/Copilot), so each install command has its own GitHub copy button instead of requiring manual path substitution.
+
+---
+
 ## v2.9.1 — 2026-08-09
 
 ### Changed

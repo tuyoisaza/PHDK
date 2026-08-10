@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.9.1**
+**Version: v2.9.2**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -61,21 +61,39 @@ Then read TASK.md and STATUS.md from the project repo.
 
 This repo is packaged as an Agent Skill (`SKILL.md` at the repo root) — the open, portable standard for on-demand agent capabilities. This is additive: it does not replace the two paths above, it lets Skill-aware tools trigger the same workflow automatically instead of a copy-pasted prompt.
 
-**Install** — clone this repo directly into the skill directory for your tool. The whole repo becomes the `phdk` skill folder, with `SKILL.md` at its root — that layout is required, so clone straight into the target folder, don't nest it deeper:
+**Install** — clone this repo directly into the skill directory for your tool. The whole repo becomes the `phdk` skill folder, with `SKILL.md` at its root — that layout is required, so clone straight into the target folder, don't nest it deeper. Run the one command for your tool, from the root of the project repo you want the skill installed in:
+
+**Claude Code**
 
 ```bash
 git clone https://github.com/tuyoisaza/PHDK.git .claude/skills/phdk
 ```
 
-| Tool | Project-level skill directory |
-|------|-------------------------------|
-| Claude Code | `.claude/skills/phdk/` |
-| Cursor | `.cursor/skills/phdk/` |
-| Codex CLI | `.agents/skills/phdk/` |
-| Windsurf | `.windsurf/skills/phdk/` |
-| VS Code (GitHub Copilot) | `.github/skills/phdk/` |
+**Cursor**
 
-`.agents/skills/phdk/` is recognized by several tools at once, so it's a reasonable single choice if your team uses more than one. For a personal install available across all your projects instead of one repo, clone into the user-level equivalent (e.g. `~/.claude/skills/phdk/`, `~/.codex/skills/phdk/`).
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .cursor/skills/phdk
+```
+
+**Codex CLI**
+
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .agents/skills/phdk
+```
+
+**Windsurf**
+
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .windsurf/skills/phdk
+```
+
+**VS Code (GitHub Copilot)**
+
+```bash
+git clone https://github.com/tuyoisaza/PHDK.git .github/skills/phdk
+```
+
+`.agents/skills/phdk/` is recognized by several tools at once, so it's a reasonable single choice if your team uses more than one. For a personal install available across all your projects instead of one repo, use the user-level equivalent path instead (e.g. `~/.claude/skills/phdk`, `~/.codex/skills/phdk`).
 
 **What happens once it's installed:**
 
