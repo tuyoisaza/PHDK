@@ -6,6 +6,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.9.0 — 2026-08-09
+
+### Theme: Agent Skill Packaging
+
+Packages PHDK as an Agent Skill — the open, portable standard for on-demand agent capabilities (Claude Code, Cursor, Codex CLI, Windsurf, VS Code) — as an additional, additive distribution path alongside the existing `AGENTS.md` router and copy-paste prompt paths.
+
+### Added
+
+- `SKILL.md` — new repo-root skill entry point. A thin router (same philosophy as the `AGENTS.md` rebuild in v2.7.1): branches on whether the target repo has `TASK.md`/`STATUS.md` yet. New projects run `SPEC_INTERVIEW_PROMPT.md` (if needed) then `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, then vendor the standards files into a `phdk-standards/` folder in the new project repo. Ongoing projects follow `ONBOARDING_AI_DEVELOPER.md`'s required reading order. No standard is restated inline.
+
+### Changed
+
+- `README.md` — new "As an Agent Skill" subsection under How to Use This Repo, plus `SKILL.md` added to the Included Files table
+- `ONBOARDING_AI_DEVELOPER.md` — note that `SKILL.md` is an alternate entry point in Skill-aware tools
+
+### Notes
+
+Not published to a public skill registry (skills.sh) — PHDK is a private/team standards repo, install manually by copying this repo into the tool's skills directory. This also resolves the "not every IDE can read our GitHub repo" gap raised earlier: the skill's own bootstrap action vendors the standards into the new project, so any tool can read them locally afterward regardless of Skill or GitHub-fetch support.
+
+---
+
 ## v2.8.0 — 2026-08-08
 
 ### Theme: Data Backup Policy

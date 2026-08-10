@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.8.0**
+**Version: v2.9.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -45,6 +45,14 @@ Read the PHDK standards from https://github.com/tuyoisaza/PHDK in this order:
 Then read TASK.md and STATUS.md from the project repo.
 ```
 
+### As an Agent Skill
+
+This repo is also packaged as an Agent Skill (`SKILL.md` at the repo root) — the open, portable standard for on-demand agent capabilities, supported by Claude Code, Cursor, Codex CLI, Windsurf, and VS Code. This is additive, not a replacement for the two paths above.
+
+To install: copy or clone this repo into the tool's skills directory (for Claude Code, `.claude/skills/phdk/`). Once installed, the skill triggers automatically when starting a new PHDK project or working on one that already follows PHDK, and it handles vendoring the standards into the project repo so later sessions — in any tool, Skill-aware or not — can read them locally.
+
+Not published to a public skill registry (skills.sh) — PHDK is a private/team standards repo, install manually.
+
 ---
 
 ## Included Files
@@ -56,6 +64,7 @@ Then read TASK.md and STATUS.md from the project repo.
 | `ONBOARDING_AI_DEVELOPER.md` | Required reading order and session start procedure |
 | `AI_DEVELOPER_OPERATING_MODEL.md` | Core doctrine: ethos, slices, autonomy, verification, feedback loop |
 | `SPEC_INTERVIEW_PROMPT.md` | Optional pre-brief interview tool for new projects |
+| `SKILL.md` | Agent Skill packaging — routes to bootstrap or ongoing-project workflow |
 
 ### Development Standards
 

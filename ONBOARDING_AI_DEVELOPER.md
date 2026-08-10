@@ -142,6 +142,8 @@ Use this file when planning the scope of the current task or proposing the next 
 
 ## How to Start a Session
 
+In a tool that supports Agent Skills (Claude Code, Cursor, Codex CLI, Windsurf, VS Code), `SKILL.md` is an alternate entry point — it triggers automatically and routes to the same reading order and workflow below. In any other tool, follow the steps here directly.
+
 1. Read required files in order
 2. Read `TASK.md` for current session scope
 3. Read `STATUS.md` for current project state and open gaps
