@@ -673,6 +673,7 @@ If browser/device checks are not possible, document why.
 - [ ] `.env.example` updated if env vars changed.
 - [ ] README or setup docs updated if developer workflow changed.
 - [ ] Known gaps are documented, not hidden.
+- [ ] If `phdk-standards/` is vendored, `phdk-standards/VERSION` matches the PHDK standards repo's current version, or the gap is flagged in `STATUS.md`.
 
 ---
 

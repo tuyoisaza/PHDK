@@ -6,6 +6,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.11.3 — 2026-08-09
+
+### Added
+
+- `SKILL.md` — new "Updating Vendored Standards" workflow: for a project that already has a vendored `phdk-standards/` folder, compares `phdk-standards/VERSION` against this skill's own (kept current by Step 0), tells the developer what's changing, and only overwrites `phdk-standards/` after explicit confirmation — never silently, never on its own initiative mid-task. Notes the update in the project's `STATUS.md` and goes through the project's normal branch/commit rules like any other change.
+- `QA_CHECKLIST.md` — Documentation QA now checks that a vendored `phdk-standards/VERSION` matches the current PHDK standards version, or that the gap is flagged.
+
+### Fixed
+
+- `SKILL.md` — `VERSION` was missing from the vendored file list added in v2.9.0, which meant a bootstrapped project had no way to know which PHDK standards version it was carrying. Added, and it's what makes the update check above possible.
+
+### Changed
+
+- `SKILL.md` frontmatter `description` — now also triggers on "update/sync/upgrade the project's vendored PHDK standards"
+- `README.md` — "What happens once it's installed" now documents the update-vendored-standards case
+
+---
+
 ## v2.11.2 — 2026-08-09
 
 ### Changed

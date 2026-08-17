@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.11.2**
+**Version: v2.11.3**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -141,6 +141,7 @@ This single prompt covers first install and every later update — paste it agai
 
 - Starting a new project → the skill runs `SPEC_INTERVIEW_PROMPT.md` (if the human hasn't been briefed yet) and `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, then vendors the standards into a `phdk-standards/` folder inside the new project — so any tool, Skill-aware or not, can read them locally afterward
 - Working on a project that already has `TASK.md`/`STATUS.md` → the skill routes straight to `ONBOARDING_AI_DEVELOPER.md`'s required reading order
+- Asked to update/sync a project's vendored standards → the skill compares `phdk-standards/VERSION` against its own, tells you what's changing, and only overwrites `phdk-standards/` after you confirm
 
 Not published to a public skill registry (skills.sh) — PHDK is a private/team standards repo, install manually as above.
 
