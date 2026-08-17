@@ -158,7 +158,7 @@ Stop immediately and ask before:
 - Adding high-risk dependencies
 - Weakening validation, logging, or security checks
 - Force-pushing to any branch
-- Pushing directly to `main` without approval
+- Pushing directly to `main` without approval (Finetuning Mode, explicitly activated for the current conversation per `DEVELOPMENT_RULES.md`, is the one standing exception)
 - Expanding scope beyond the current slice
 
 Ask one question at a time. Wait for the answer. Do not assume approval.

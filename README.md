@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.9.3**
+**Version: v2.11.1**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -113,13 +113,23 @@ git clone https://github.com/tuyoisaza/PHDK.git .agents/skills/phdk
 
 `.agents/skills/phdk/` is recognized by several tools at once — Codex CLI and Antigravity read it directly, and OpenCode falls back to it too — so it's a reasonable single choice if your team uses more than one of those. For a personal install available across all your projects instead of one repo, use the user-level equivalent path instead (e.g. `~/.claude/skills/phdk`, `~/.codex/skills/phdk`, `~/.pi/agent/skills/phdk`).
 
-**Trigger it** — most tools discover and auto-load the skill once it's in place. If yours doesn't, or you want to be explicit, paste this after the clone finishes:
+**Trigger it** — most tools discover and auto-load the skill once it's in place. If yours doesn't, or you want one prompt that installs it too, paste this into any AI coding tool:
 
 ```txt
-Use the phdk skill in this repo (.claude/skills/phdk or wherever you cloned it — see its SKILL.md). If this is a new project, run the PHDK bootstrap: interview for context if needed, generate the project handoff kit, then vendor the standards into this project. If this is an existing PHDK project, read the standards per AGENTS.md and continue from there.
+Install and use the PHDK skill (https://github.com/tuyoisaza/PHDK) in this
+project. If it is not already installed, clone it into this tool's skill
+directory using the matching command from the PHDK README's "Install as an
+Agent Skill" section — there is one ready-to-run install command per tool
+(Claude Code, Cursor, Codex CLI, Windsurf, VS Code, OpenCode, Pi,
+Antigravity), pick the one that matches you. Then read its SKILL.md.
+
+If this is a new project, run the PHDK bootstrap: interview for context if
+needed, generate the project handoff kit, then vendor the standards into
+this project. If this is an existing PHDK project, read the standards per
+AGENTS.md and continue from there.
 ```
 
-Pi users can also invoke it directly with `/skill:phdk`.
+This single prompt works even if you skip the manual `git clone` step above — the AI installs the skill itself using the command that matches whatever tool it's running in. Pi users can also invoke an already-installed skill directly with `/skill:phdk`.
 
 **What happens once it's installed:**
 
@@ -193,6 +203,8 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Cost safety | Every metered/paid external API requires a hard usage cap, timeout, retry limit, and kill switch before it ships |
 | AI/LLM | Provider and model are config-driven; admin-manageable prompt, output schema, and live pricing; guardrails against prompt injection |
 | Data backup | Every project must have an explicit database backup policy, asked during kit generation, recorded in `ARCHITECTURE_DECISIONS.md` — code backup is always GitHub, separately |
+| Finetuning Mode | Direct push to `main` stays forbidden by default; the one exception is Finetuning Mode, activated verbally per-conversation, only pre-production — see `DEVELOPMENT_RULES.md` |
+| Prompt injection | Direct AND indirect prompt injection guardrails are both required for any LLM feature — externally-sourced content is data, never instructions; credentials scoped per resource; confirmation gate on destructive actions — see `DEVSECOPS.md` LLM Integration Safety |
 
 Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
 

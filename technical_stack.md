@@ -271,6 +271,7 @@ AI_API_KEY=""
 - **Prompt is admin-manageable** — an authorized admin can view and edit the prompt template from an AI management section in the admin panel, without a code deploy
 - **Expected output is defined and admin-manageable** — the expected output shape/schema is visible and editable by an authorized admin alongside the prompt
 - **Guardrails against prompt injection** — user-supplied content is never concatenated directly into the system prompt; user input is isolated/delimited, and the system prompt cannot be overridden by user input
+- **Guardrails against indirect prompt injection** — if the feature feeds externally-sourced content (scraped pages, CMS fields, uploaded files, third-party API responses) into an LLM call, that content is treated as data, credentials are scoped per resource/tenant, and destructive actions require a confirmation gate — see `DEVSECOPS.md` LLM Integration Safety, Indirect Prompt Injection
 - **Output validation** — LLM output is validated against the expected schema (e.g. with Zod) before it is used or displayed; invalid output is rejected, not trusted
 - **Prompt/config changes are audited** — every edit to a prompt template or output schema logs actor, timestamp, and diff
 - **Pricing is visible** — the AI management section includes a "refresh model pricing" action that fetches current per-model pricing and shows cost per model currently in use

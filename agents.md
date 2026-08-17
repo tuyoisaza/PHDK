@@ -39,7 +39,7 @@ Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the ful
 
 ## Core Agent Rules
 
-- Work in feature branches. Never commit directly to `main`.
+- Work in feature branches. Never commit directly to `main` — unless Finetuning Mode is explicitly active for this conversation, see `DEVELOPMENT_RULES.md` Finetuning Mode.
 - Never deploy from local CLI. Deployment is triggered by GitHub push to `main`.
 - Do not create mock dashboards, fake KPIs, random metrics, or demo data in production code.
 - Every user-facing feature must have a real route.
@@ -169,7 +169,7 @@ Before marking any task complete, verify:
 - Create files over 600 lines
 - Put business logic inside page components
 - Hardcode user-facing strings
-- Commit directly to `main`
+- Commit directly to `main` (unless Finetuning Mode is explicitly active — see `DEVELOPMENT_RULES.md` Finetuning Mode)
 - Deploy from local CLI
 - Expose secrets in logs or debug reports
 - Install WorkOS, Clerk, or managed auth vendors without explicit approval

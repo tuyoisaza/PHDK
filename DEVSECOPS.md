@@ -33,6 +33,7 @@ Read this file before touching any of the following:
 - external services or integrations
 - metered or paid external APIs (billing/consumption-based: AI generation, LLM calls, SMS, email sending, etc.)
 - LLM prompts, AI-powered features, and AI provider/model configuration
+- any feature that feeds externally-sourced content (scraped pages, CMS fields, uploaded files, third-party API responses) into an LLM call — indirect prompt injection surface
 - database backups and restore procedures
 - dependencies
 - deployment configuration
@@ -58,8 +59,10 @@ These rules are non-negotiable. They apply to every task, every session, every a
 - Never call a metered or paid external API without a hard usage cap, request timeout, and loop/retry limit
 - Never ship a metered or paid integration without a kill switch that disables it immediately
 - Never concatenate user-supplied content directly into an LLM system prompt without isolation/delimiting
+- Never let content fetched from an external or attacker-reachable source (scraped pages, CMS fields, uploaded files, third-party API responses) trigger a tool call or side-effecting action directly — see LLM Integration Safety, Indirect Prompt Injection
 - Never trust raw LLM output — validate it against the expected schema before use
 - Never hardcode an LLM provider, model, or prompt string in application code
+- Never build SQL queries or shell commands by concatenating unsanitized input — use parameterized queries and never pass unsanitized input to a shell
 - Never perform destructive data actions unless explicitly approved in the current task
 - Always validate inputs at every API boundary using Zod
 - Always enforce authorization server-side on every protected route and endpoint
@@ -318,6 +321,27 @@ Any feature that calls an LLM must be admin-manageable and provider-agnostic. Se
 - Never expose the AI provider API key client-side
 - Never let the pricing-refresh action call the provider on an unbounded schedule — it is admin-triggered or scheduled with a sane interval, not called on every request
 
+### Indirect Prompt Injection
+
+This is a distinct threat category from the direct-injection guardrails above, and distinct from classical injection (SQL injection, command injection) — treat all three as required, not interchangeable.
+
+**Direct prompt injection** is an attacker typing malicious instructions into a chat or form the LLM reads directly — covered above (isolate/delimit user input from the system prompt).
+
+**Indirect prompt injection** is different and often more dangerous: the payload arrives hidden inside data the system fetches and feeds to the LLM later — a scraped web page, a CMS field (e.g. a WordPress post's `post_content`), an uploaded file, a third-party API response, a webhook payload — and the model itself, not a deterministic parser, decides to interpret that text as an instruction instead of as data. OWASP tracks this in its own list (OWASP Top 10 for LLM Applications, LLM01: Prompt Injection — indirect subtype) rather than folding it into classical Injection (the OWASP Top 10 web A03 category) alongside SQL/command injection: the attack surface, root cause, and mitigations are structurally different — classical injection exploits a deterministic parser (the SQL engine, the shell), indirect prompt injection exploits the model's own judgment. MITRE ATLAS classifies it under AML.T0051 (LLM Prompt Injection).
+
+It gets materially worse when combined with **Excessive Agency** (OWASP LLM08) — an integration with more permission or autonomy than the specific task needs, e.g. one API key or token valid across every connected site/tenant instead of scoped per resource, with no confirmation gate before a destructive action. The classic security framing for this combination is a **confused deputy**: the application has legitimate elevated privilege, and the attacker's hidden instruction tricks it into misusing that privilege on the attacker's behalf.
+
+Required wherever a feature feeds externally-sourced content into an LLM call:
+
+- Treat that content as data, never as instructions, no matter how it's phrased — it never gets to alter the system prompt, override guardrails, or trigger a tool call/action on its own
+- Only an authenticated user's own explicit request, or explicit application logic, may trigger an action — never text parsed out of fetched external content
+- Scope credentials and API tokens per resource/per tenant wherever the integration touches more than one external target — never one shared key with broad cross-site or cross-tenant access
+- Require a confirmation/approval gate before any destructive or side-effecting action (write, delete, publish, send, purchase, etc.) that a model call driven by external content could trigger
+- Structurally delimit externally-sourced content passed into a prompt (clearly labeled data blocks) so the model has a signal distinguishing it from instructions
+- Log every case where externally-sourced content is passed into an LLM call, and flag it if the model's output contains action-like directives the authenticated user never asked for
+
+This is in addition to, not instead of, classical injection protection — see Core Rules above and `QA_CHECKLIST.md` Security.
+
 ---
 
 ## Stop-and-Ask Conditions
@@ -334,11 +358,12 @@ Stop immediately and ask before performing any of the following:
 - Adding new external services
 - Adding or enabling a metered/paid external API integration before its usage cap and kill switch are in place
 - Adding an LLM-powered feature before its admin-manageable prompt/output section, provider/model config, and injection guardrails are in place
+- Adding a feature that feeds externally-sourced or attacker-reachable content into an LLM call before indirect-injection guardrails and least-privilege credential scoping are in place
 - Changing the default AI provider or model
 - Adding high-risk or large dependencies
 - Weakening validation, logging, or security checks
 - Force-pushing to any branch
-- Pushing directly to `main` without approval
+- Pushing directly to `main` without approval (Finetuning Mode, explicitly activated for the current conversation per `DEVELOPMENT_RULES.md`, is the one standing exception — everything else still requires asking)
 - Deleting branches that have not been merged
 
 Do not proceed with these actions based on assumptions. Wait for explicit approval.
@@ -356,6 +381,7 @@ Security-sensitive work is not complete until all of the following are true:
 - [ ] No secrets are committed to the repository
 - [ ] Any metered/paid external API touched by this work has a usage cap, timeout, retry limit, and kill switch
 - [ ] Any LLM feature touched by this work has admin-manageable prompt/output, configurable provider/model, injection guardrails, and output validation
+- [ ] Any LLM feature that consumes externally-sourced content has indirect-injection guardrails: content treated as data, action-triggering scoped to authenticated user requests, per-resource credential scoping, and a confirmation gate before destructive actions
 - [ ] Any database work has a recorded backup policy in `ARCHITECTURE_DECISIONS.md`, or an explicit "no policy yet" decision
 - [ ] `.env.example` is up to date
 - [ ] `ARCHITECTURE_DECISIONS.md` updated for any security-relevant decisions

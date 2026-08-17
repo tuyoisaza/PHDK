@@ -45,6 +45,38 @@ Rules:
 - Version increments on merge to `main`, not on every feature branch commit
 - Deployment is triggered by GitHub push to `main` — never from local CLI
 
+See Finetuning Mode below for the one narrow, explicit exception to "never commit directly to `main`."
+
+---
+
+## Finetuning Mode
+
+Finetuning Mode is a narrow, explicit exception to "never commit directly to `main`" above — nothing else changes. It exists for the short window after core development is functionally complete but before the project is in production: rapid, verified, low-ceremony iteration without a branch and review per tweak.
+
+### When it applies
+
+- The project is not yet in production — no real users, no live production traffic. If the project already has a live production deployment serving real users, refuse to activate Finetuning Mode and recommend a sandbox/staging environment instead; production changes always go through the normal branch-plus-review flow, no exceptions.
+- Core development is functionally complete. This is for polish, fixes, and small adjustments requested one at a time — not for building new features from scratch.
+
+### How it is activated
+
+- Verbal only, in the current conversation. The developer says something like "activate finetuning mode," or clearly equivalent intent.
+- Never assume it is active. It does not persist in `TASK.md`, `STATUS.md`, or any other file, and it is not carried over between sessions or conversations.
+- If a new conversation starts and the developer wants it again, they say so again.
+- Confirm activation explicitly back to the developer, and if there is any doubt about whether the project might already be in production, ask before proceeding.
+
+### What changes while it is active
+
+- Every other rule in this file and in `AGENTS.md`, `DEVSECOPS.md`, `DESIGN_RULES.md`, `TECHNICAL_STACK.md`, and `QA_CHECKLIST.md` still applies in full. Finetuning Mode relaxes exactly one thing: the branch-per-change and merge-approval requirement.
+- For each requested change: make the change, run the relevant tests and checks, and only if they pass, commit and push directly to `main`.
+- If tests or checks fail, do not commit or push. Report the failure and fix it, or ask, before touching `main`.
+- Still bump version and update `CHANGELOG.md`/`STATUS.md` per `VERSIONING.md` on each push, same as any other merge to `main`.
+- Still stop and ask on every condition listed in `DEVSECOPS.md` Stop-and-Ask Conditions and `AI_DEVELOPER_OPERATING_MODEL.md` Stop-and-Ask Conditions — Finetuning Mode does not waive those.
+
+### Ending it
+
+Finetuning Mode ends when the developer says so, or implicitly when the conversation ends. Do not carry it into a new conversation or infer it from `STATUS.md` history.
+
 ---
 
 ## Commit Rules

@@ -83,7 +83,7 @@ phdk/v0.3.0/login-google-oauth
 
 Rules:
 
-- Never commit directly to `main`
+- Never commit directly to `main` (unless Finetuning Mode is explicitly active — see `DEVELOPMENT_RULES.md` Finetuning Mode)
 - Every working slice starts on its own branch
 - Checkpoint branches are created before major updates as recoverable backups
 - Merge only after verification passes and approval is given
@@ -213,7 +213,7 @@ Stop before:
 - Deleting branches that have not been merged
 - Rewriting git history
 - Tagging a release without approval
-- Pushing directly to `main` without approval
+- Pushing directly to `main` without approval (Finetuning Mode, explicitly activated for the current conversation per `DEVELOPMENT_RULES.md`, is the one standing exception)
 - Bumping a major version without approval
 - Changing the release or versioning strategy
 

@@ -573,7 +573,8 @@ If browser/device checks are not possible, document why.
 - [ ] Debug report redacts all sensitive values.
 - [ ] CSRF protection reviewed.
 - [ ] XSS protection reviewed.
-- [ ] SQL injection risk reviewed.
+- [ ] SQL injection risk reviewed — parameterized queries used, no raw string concatenation into SQL.
+- [ ] Command injection risk reviewed — no unsanitized input passed to a shell.
 - [ ] SSRF reviewed where applicable.
 - [ ] File upload rules exist if uploads are used.
 - [ ] API rate limiting considered.
@@ -614,6 +615,11 @@ If browser/device checks are not possible, document why.
 - [ ] Prompt, output schema, provider, and model changes are audit-logged with actor, timestamp, and diff.
 - [ ] AI provider API key is never exposed client-side.
 - [ ] Cost and Consumption Safety checks above apply to every LLM call in this feature.
+- [ ] If the feature feeds externally-sourced content (scraped pages, CMS fields, uploaded files, third-party API responses) into an LLM call, that content is structurally delimited and never treated as instructions.
+- [ ] Action-triggering (write, delete, publish, send, purchase, etc.) driven by a model call is scoped to the authenticated user's own request, never to text parsed out of externally-sourced content.
+- [ ] Credentials/API tokens used by the feature are scoped per resource/tenant, not one shared key with broad cross-site or cross-tenant access.
+- [ ] A confirmation/approval gate exists before any destructive or side-effecting action that a model call driven by external content could trigger.
+- [ ] Cases where externally-sourced content is passed into an LLM call are logged, and flagged if the output contains action-like directives the user never requested.
 
 ---
 

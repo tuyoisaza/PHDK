@@ -6,6 +6,57 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.11.1 — 2026-08-09
+
+### Changed
+
+- `README.md` — the "Trigger it" copy-paste prompt now also tells the AI to install the skill itself, if it isn't already, using whichever per-tool command from "Install as an Agent Skill" matches the tool it's running in. One prompt now covers both the manual-clone-then-trigger flow and the fully self-installing flow, instead of assuming the `git clone` step already happened.
+
+---
+
+## v2.11.0 — 2026-08-09
+
+### Theme: Indirect Prompt Injection
+
+Adds Indirect Prompt Injection as its own named threat category for any LLM-powered feature — distinct from the direct-injection guardrails already in place (v2.7.0) and distinct from classical injection (SQL/command injection). Also closes a gap: command injection was never explicitly named alongside SQL injection in the Security QA checklist.
+
+### Added
+
+- `DEVSECOPS.md` — new "Indirect Prompt Injection" subsection under LLM Integration Safety: defines the category (payload hidden in externally-fetched content — scraped pages, CMS fields like a WordPress `post_content`, uploaded files, third-party API responses — that the model, not a deterministic parser, may interpret as instructions instead of data), maps it to OWASP Top 10 for LLM Applications (LLM01 indirect subtype, LLM08 Excessive Agency) and MITRE ATLAS (AML.T0051), and requires: external content always treated as data, action-triggering scoped to the authenticated user's own request, per-resource/per-tenant credential scoping (no single broadly-scoped key across sites/tenants — the "confused deputy" failure mode), a confirmation gate before destructive actions, structural delimiting of external content in prompts, and logging/flagging of unrequested action-like model output. Added to Applies To, Core Rules, Stop-and-Ask Conditions, and Verification.
+- `QA_CHECKLIST.md` — "Command injection risk reviewed" added to Security (classical injection was missing this alongside SQL injection); five new indirect-injection checks added to AI / LLM Configuration QA
+
+### Changed
+
+- `TECHNICAL_STACK.md` — AI / LLM Integration section cross-references the new indirect-injection guardrails
+- `README.md` — new Prompt injection canonical decision row
+
+### Canonical Decisions
+
+- Any LLM feature requires both direct and indirect prompt injection guardrails — not interchangeable, both required, alongside (not instead of) classical SQL/command injection protection
+
+---
+
+## v2.10.0 — 2026-08-09
+
+### Theme: Finetuning Mode
+
+Adds one narrow, explicit exception to "never commit directly to `main`": a pre-production, verbally-activated iteration mode for the window after core development is functionally complete but before the project has real users.
+
+### Added
+
+- `DEVELOPMENT_RULES.md` — new "Finetuning Mode" section: applies only pre-production (refuses to activate if the project already has live production traffic — recommend a sandbox instead), activated verbally per-conversation only (never persisted in `TASK.md`/`STATUS.md`, never assumed, never carried into a new conversation), and while active relaxes exactly one thing — for each requested change, make it, run tests, and only on a pass commit and push directly to `main`. Every other standard (DevSecOps, cost safety, backup policy, stop-and-ask conditions, versioning) still applies in full.
+
+### Changed
+
+- `AGENTS.md`, `DEVSECOPS.md`, `AI_DEVELOPER_OPERATING_MODEL.md`, `VERSIONING.md` — every existing "never commit/push directly to `main`" rule and stop-and-ask condition now cross-references Finetuning Mode as the one standing, explicitly-scoped exception
+- `README.md` — new Finetuning Mode canonical decision row
+
+### Canonical Decisions
+
+- Direct push to `main` stays forbidden by default. Finetuning Mode is the only exception, and it is scoped tightly: pre-production only, activated verbally for the current conversation only, and every other safety rule still applies
+
+---
+
 ## v2.9.3 — 2026-08-09
 
 ### Added
