@@ -6,6 +6,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.11.5 — 2026-08-09
+
+### Fixed
+
+- `README.md` — Quick Start showed only the Claude Code `git clone` command, making PHDK look Claude-Code-only at the top of the page even though 7 other tools are supported. Replaced it with the same tool-agnostic self-installing prompt already used in "Trigger it" — the AI picks the right per-tool command itself, so Quick Start no longer favors or excludes any tool. The later "Trigger it" section now points back to Quick Start instead of duplicating the same prompt block twice on one page.
+
+---
+
 ## v2.11.4 — 2026-08-09
 
 ### Fixed
