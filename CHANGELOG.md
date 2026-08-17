@@ -6,6 +6,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.11.2 — 2026-08-09
+
+### Changed
+
+- `SKILL.md` — new "Step 0 — Keep this skill current": before doing anything else, `git pull` inside the skill's own directory so the standards are always current, reading `VERSION` to confirm. If the pull fails due to local modifications, stop and ask rather than force or discard.
+- `README.md` — the "Trigger it" prompt now doubles as the update command: paste it again anytime and it installs fresh if missing, or pulls latest if already installed, before using the skill.
+
+---
+
 ## v2.11.1 — 2026-08-09
 
 ### Changed

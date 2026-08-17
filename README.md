@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.11.1**
+**Version: v2.11.2**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -113,15 +113,21 @@ git clone https://github.com/tuyoisaza/PHDK.git .agents/skills/phdk
 
 `.agents/skills/phdk/` is recognized by several tools at once — Codex CLI and Antigravity read it directly, and OpenCode falls back to it too — so it's a reasonable single choice if your team uses more than one of those. For a personal install available across all your projects instead of one repo, use the user-level equivalent path instead (e.g. `~/.claude/skills/phdk`, `~/.codex/skills/phdk`, `~/.pi/agent/skills/phdk`).
 
-**Trigger it** — most tools discover and auto-load the skill once it's in place. If yours doesn't, or you want one prompt that installs it too, paste this into any AI coding tool:
+**Trigger it** — most tools discover and auto-load the skill once it's in place. It also doubles as the update command: the same prompt installs it fresh, or pulls the latest standards if it's already there. Paste this into any AI coding tool:
 
 ```txt
-Install and use the PHDK skill (https://github.com/tuyoisaza/PHDK) in this
-project. If it is not already installed, clone it into this tool's skill
-directory using the matching command from the PHDK README's "Install as an
-Agent Skill" section — there is one ready-to-run install command per tool
-(Claude Code, Cursor, Codex CLI, Windsurf, VS Code, OpenCode, Pi,
-Antigravity), pick the one that matches you. Then read its SKILL.md.
+Install, update, and use the PHDK skill (https://github.com/tuyoisaza/PHDK)
+in this project.
+
+- Not installed yet? Clone it into this tool's skill directory using the
+  matching command from the PHDK README's "Install as an Agent Skill"
+  section — one ready-to-run command per tool (Claude Code, Cursor, Codex
+  CLI, Windsurf, VS Code, OpenCode, Pi, Antigravity).
+- Already installed? Update it first: run `git pull` inside its skill
+  directory (e.g. .claude/skills/phdk) so every standards file is current
+  before you use it. If the pull fails because of local changes there,
+  tell me instead of forcing it.
+- Either way, read its SKILL.md once it's current.
 
 If this is a new project, run the PHDK bootstrap: interview for context if
 needed, generate the project handoff kit, then vendor the standards into
@@ -129,7 +135,7 @@ this project. If this is an existing PHDK project, read the standards per
 AGENTS.md and continue from there.
 ```
 
-This single prompt works even if you skip the manual `git clone` step above — the AI installs the skill itself using the command that matches whatever tool it's running in. Pi users can also invoke an already-installed skill directly with `/skill:phdk`.
+This single prompt covers first install and every later update — paste it again anytime to pull the latest PHDK standards. Pi users can also invoke an already-installed skill directly with `/skill:phdk`.
 
 **What happens once it's installed:**
 

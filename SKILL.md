@@ -7,6 +7,12 @@ description: Use when starting a new project that should follow PHDK standards, 
 
 This skill packages the PHDK (Project Handoff to Development Kit) standards and workflow. It does not restate any standard — it routes to the file that already defines it. Read `README.md` in this repo for the full picture; this file only decides which existing PHDK workflow applies right now.
 
+## Step 0 — Keep this skill current
+
+This skill's own directory is a git clone of the PHDK standards repo. Before doing anything else, update it: run `git pull` inside this skill's directory (the folder this `SKILL.md` lives in). Then read `VERSION` to confirm what version you're on.
+
+If the pull fails because of local modifications in this directory, stop and tell the developer instead of forcing it or discarding changes — this directory should only ever contain PHDK's own files, so unexpected local changes are worth a question, not a silent overwrite.
+
 ## Step 1 — Determine project state
 
 Check the current project repo for `TASK.md` and `STATUS.md`.
