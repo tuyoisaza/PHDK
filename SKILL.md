@@ -26,6 +26,7 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
 2. Run `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` to generate the kit (`PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `NAVTREE.md`, `PUBLIC_CONTENT.md`, `PRIVATE_CONTENT.md` if login, `TASK.md`, `ARCHITECTURE_DECISIONS.md`, `STATUS.md`, `README.md`), following that file's own generation workflow and question flow exactly — including the backup policy question.
 3. **Vendor the standards into the project repo.** Copy this skill's own standards files into a `phdk-standards/` folder inside the target project repo:
    - `VERSION`
+   - `ONBOARDING_AI_DEVELOPER.md`
    - `AGENTS.md`
    - `DEVELOPMENT_RULES.md`
    - `DESIGN_RULES.md`
@@ -36,9 +37,11 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
    - `DEBUG_DIAGNOSTICS_STANDARD.md`
    - `AI_DEVELOPER_OPERATING_MODEL.md`
    - `AGILE_SLICE_WORKFLOW.md`
+   - `QA_CHECKLIST.md`
 
-   This makes the project self-contained: any tool working on it afterward — Skill-aware or not, with or without access to this repo — can read the standards locally instead of depending on a live fetch. `VERSION` is what makes the update check below possible — without it, nobody can tell what's vendored.
+   This is the full set referenced from `AGENTS.md`'s own required reading order plus the QA gate it points to — anything less would leave a dangling reference once the project is on its own. This makes the project self-contained: any tool working on it afterward — Skill-aware or not, with or without access to this repo — can read the standards locally instead of depending on a live fetch. `VERSION` is what makes the update check below possible — without it, nobody can tell what's vendored.
 4. Point the generated `TASK.md` and any onboarding note at `phdk-standards/AGENTS.md` as the required entry point, per `ONBOARDING_AI_DEVELOPER.md`'s reading order.
+5. Tell the developer the kit is generated and vendored, and offer to run `BUILD_APP_FOUNDATION_PROMPT.md` next as the first build step. Wait for confirmation before running it — it scaffolds the actual codebase, that's a bigger action than generating docs.
 
 ## Ongoing Project
 

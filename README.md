@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.11.3**
+**Version: v2.11.4**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -37,6 +37,8 @@ That's it — once installed, the skill triggers automatically: it runs the proj
 1. Generate a project-specific PHDK kit using `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`
 2. The generated kit references this standards repo
 3. Give your AI coder the kit and tell it to fetch the latest standards from this repo before starting
+4. Use `BUILD_APP_FOUNDATION_PROMPT.md` as the first build prompt once the kit is generated — it scaffolds the actual codebase
+5. Continue feature development against the project's `TASK.md` and `STATUS.md`
 
 ### For a new AI coder session
 

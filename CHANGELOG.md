@@ -6,6 +6,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.11.4 — 2026-08-09
+
+### Fixed
+
+Pre-publish audit found two real gaps in the vendoring/bootstrap flow added in v2.9.0–v2.11.3:
+
+- `SKILL.md` — `ONBOARDING_AI_DEVELOPER.md` and `QA_CHECKLIST.md` were missing from the vendored file list, even though both are referenced from files that *are* vendored (`ONBOARDING_AI_DEVELOPER.md` is item 1 of `AGENTS.md`'s own required reading order; `QA_CHECKLIST.md` is the QA gate pointed to from `DEVSECOPS.md`, `TECHNICAL_STACK.md`, and `DEVELOPMENT_RULES.md`). A bootstrapped project had dangling references to files it didn't actually have. Both added to the vendored set.
+- `SKILL.md` New Project flow and `README.md` "For a new project" — neither ever ran or mentioned `BUILD_APP_FOUNDATION_PROMPT.md`, the standard's own "first build prompt after the kit is generated." The kit was generated and vendored, but the actual foundation build step was silently skipped. Both now include it as an explicit next step (offered, with confirmation before running, since it scaffolds real code).
+
+---
+
 ## v2.11.3 — 2026-08-09
 
 ### Added
