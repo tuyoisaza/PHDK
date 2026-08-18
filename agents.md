@@ -40,7 +40,7 @@ Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the ful
 ## Core Agent Rules
 
 - Work in feature branches. Never commit directly to `main` — unless Finetuning Mode is explicitly active for this conversation, see `DEVELOPMENT_RULES.md` Finetuning Mode.
-- Never deploy from local CLI. Deployment is triggered by GitHub push to `main`.
+- Never deploy from local CLI — no `railway up`, no dragging a local build/tarball into Railway. Deployment is triggered by GitHub push to `main`, connected once per `TECHNICAL_STACK.md` First-time Railway Setup.
 - Do not create mock dashboards, fake KPIs, random metrics, or demo data in production code.
 - Every user-facing feature must have a real route.
 - Every feature must enforce RBAC server-side when roles exist.
@@ -170,7 +170,7 @@ Before marking any task complete, verify:
 - Put business logic inside page components
 - Hardcode user-facing strings
 - Commit directly to `main` (unless Finetuning Mode is explicitly active — see `DEVELOPMENT_RULES.md` Finetuning Mode)
-- Deploy from local CLI
+- Deploy from local CLI — including `railway up` or uploading a local build/tarball to Railway
 - Expose secrets in logs or debug reports
 - Install WorkOS, Clerk, or managed auth vendors without explicit approval
 - Call a metered or paid external API (image generation, LLM calls, SMS, email sending, etc.) without a hard usage cap, timeout, and loop/retry limit — see `DEVSECOPS.md` Cost and Consumption Safety

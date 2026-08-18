@@ -227,8 +227,8 @@ Do not add dependencies speculatively or to satisfy a checklist item.
 
 ## Deployment Safety Rules
 
-- Never deploy from local CLI
-- Deployment is always triggered by GitHub push to `main`
+- Never deploy from local CLI — no `railway up`, no uploading a local build/tarball to Railway
+- Deployment is always triggered by GitHub push to `main`, connected once per `TECHNICAL_STACK.md` First-time Railway Setup
 - Both Railway services use the repository root
 - Never set Railway root directory to `apps/web` or `apps/api`
 - Environment variables are never committed to the repository

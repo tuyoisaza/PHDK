@@ -347,6 +347,21 @@ pnpm --filter @repo/web build
 pnpm --filter @repo/web start
 ```
 
+### First-time Railway setup
+
+This is the only supported path to a running deployment. There is no other way to get a first deploy live.
+
+1. Commit the project through the normal branch and commit rules in `DEVELOPMENT_RULES.md`, with the version bumped per `VERSIONING.md`.
+2. Push to GitHub. `main` must be current before connecting anything to Railway.
+3. In the Railway dashboard, create a new project and choose "Deploy from GitHub repo." Authorize Railway's GitHub App if this is the first time, and select this repository. Do not use `railway up`, the Railway CLI's deploy command, or drag-and-drop a local build/tarball — none of those create the GitHub-connected pipeline this standard requires, and both silently violate "never deploy from local CLI."
+4. Inside that Railway project, create two services from the same connected repo — `@repo/api` and `@repo/web`. Both services point at the same repo.
+5. For each service, set Root Directory to the repository root (`/`) — never `apps/web` or `apps/api`. Set Build Command and Start Command to the matching pair from Railway commands above (e.g. `pnpm --filter @repo/api build` / `pnpm --filter @repo/api start` for the API service).
+6. Set environment variables for each service in the Railway dashboard, from `.env.example` — never commit real values.
+7. Railway auto-deploys once the GitHub connection and both services are configured — no manual "deploy" action is needed beyond this setup. Every push to `main` after this point triggers a new deploy on its own.
+8. Verify the deploy actually worked: hit the API service's public `/health` endpoint and confirm the response matches `VERIFICATION_LOOP.md` Health Check Standard, then confirm the web service can reach the API through its public URL (`NEXT_PUBLIC_API_URL` pointed at the deployed API, not `localhost`).
+
+After this one-time setup, deployment is fully push-triggered — there is nothing left to do in the Railway dashboard for a normal release.
+
 ---
 
 ## Environment Variables

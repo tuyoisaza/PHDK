@@ -671,7 +671,8 @@ If browser/device checks are not possible, document why.
 - [ ] `apps/api` builds independently.
 - [ ] Railway uses repository root by default.
 - [ ] Any change to Railway root directory is explicitly documented and approved.
-- [ ] No local CLI deployment was used.
+- [ ] No local CLI deployment was used — no `railway up`, no local build/tarball upload; the deploy path is GitHub push to `main` only.
+- [ ] If this is the first deploy, it followed `TECHNICAL_STACK.md` First-time Railway Setup (GitHub-connected, not CLI-connected), and the `/health` endpoint was verified after.
 - [ ] `.env.example` is up to date.
 - [ ] No real secrets exist in `.env.example`.
 - [ ] `.env` files are in `.gitignore`.

@@ -6,6 +6,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.13.0 — 2026-08-09
+
+### Theme: Railway Deployment Setup
+
+A real incident surfaced the gap this closes: PHDK stated the deployment *rules* everywhere (never deploy from local CLI, GitHub push triggers deploy, two Railway services at repo root) but never the *procedure* for connecting Railway to GitHub the first time. Without it, an agent asked to deploy improvised — and uploaded a local build as a tarball to Railway, which is exactly what "never deploy from local CLI" was meant to prevent. The rule existed; the path to follow instead didn't.
+
+### Added
+
+- `TECHNICAL_STACK.md` — new "First-time Railway Setup" procedure under Deployment, numbered end-to-end: commit with the version bumped per `VERSIONING.md`, push to GitHub, create the Railway project via "Deploy from GitHub repo" (explicitly not `railway up` or a tarball upload), create the two services against the same repo, set root directory/build/start commands per service, set env vars in the Railway dashboard, then verify the live deploy against `VERIFICATION_LOOP.md` Health Check Standard. After this one-time setup, every push to `main` deploys on its own.
+
+### Changed
+
+- `AGENTS.md`, `DEVSECOPS.md`, `DEVELOPMENT_RULES.md`, `QA_CHECKLIST.md` — every existing "never deploy from local CLI" rule and checklist item now names the actual trap (`railway up`, local build/tarball upload) instead of staying generic, and points to the new setup procedure as what to do instead.
+
+### Canonical Decisions
+
+- The only supported path to a live deployment is: commit (versioned) → push to GitHub → Railway's GitHub-connected pipeline. There is no CLI-based or manual-upload alternative, ever.
+
+---
+
 ## v2.12.0 — 2026-08-09
 
 ### Theme: LSP / Code Intelligence Setup

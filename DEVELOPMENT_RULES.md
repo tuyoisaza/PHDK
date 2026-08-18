@@ -43,7 +43,7 @@ Rules:
 - Merge only after verification passes and approval is given
 - Every major update creates a checkpoint branch named `checkpoint/YYYY-MM-DD` as a recoverable backup
 - Version increments on merge to `main`, not on every feature branch commit
-- Deployment is triggered by GitHub push to `main` — never from local CLI
+- Deployment is triggered by GitHub push to `main` — never from local CLI (no `railway up`, no uploading a local build/tarball); see `TECHNICAL_STACK.md` First-time Railway Setup for how the connection is made once
 
 See Finetuning Mode below for the one narrow, explicit exception to "never commit directly to `main`."
 
