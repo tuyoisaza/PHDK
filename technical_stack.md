@@ -37,6 +37,39 @@ packages/
 
 ---
 
+## LSP / Code Intelligence Setup
+
+PHDK's stack is fixed — TypeScript strict mode, pnpm workspaces, Turborepo — so language detection is not a per-project decision. The canonical language server is `typescript-language-server` (wrapping `tsserver`), the ecosystem-standard choice, driven by a root `tsconfig.json` with project references across `apps/*` and `packages/*`.
+
+### Required setup
+
+- `typescript-language-server` (or the current tool's built-in TS support, e.g. VS Code/Cursor's bundled TS server) is installed and configured — as a dev tool, not a runtime dependency
+- Root `tsconfig.json` uses project references or path mapping that covers every `apps/*` and `packages/*` workspace, so cross-package go-to-definition and find-references work, not just within a single package
+- The server resolves Drizzle-generated types from `packages/db` — if it can't, hover and go-to-definition on database queries silently degrade to `any`
+- The server resolves Next.js's generated types (`next-env.d.ts`) and NestJS's decorator metadata (`experimentalDecorators`, `emitDecoratorMetadata` in `tsconfig.json`)
+- Reuse the existing `tsconfig.json`/`tsconfig.base.json` — never create a second, conflicting TypeScript config to make a tool happy
+
+### Required verification
+
+Before treating LSP setup as done, confirm on at least one real symbol in the project (not a synthetic test file):
+
+- Diagnostics/errors surface correctly
+- Go to definition works, including across package boundaries (e.g. from `apps/api` into `packages/db`)
+- Find references works
+- Symbol rename works
+- Hover/type information works
+- Workspace symbol search works
+
+### The non-obvious part
+
+A working editor LSP does not mean the AI coding agent has the same capability. Confirm explicitly whether the current AI tool has direct LSP access (a dedicated tool/MCP integration) or only text/grep-based search standing in for it — these are not equivalent. Grep-based "find references" misses re-exports, path aliases, and dynamic access that a real LSP catches, and "no other usages found" claims built on it are weaker than they sound. Report which one is actually available — see `VERIFICATION_LOOP.md` Honest Reporting Rule.
+
+### When to run this
+
+Set up and fully verify once, during the app foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Quality Gates). After that, a session only needs a quick smoke-check — confirm diagnostics and go-to-definition still work on a real symbol — not the full verification loop every time. Re-run full verification if `tsconfig.json` changes, a new workspace package is added, or the AI tool itself changes.
+
+---
+
 ## Frontend — apps/web
 
 ```txt

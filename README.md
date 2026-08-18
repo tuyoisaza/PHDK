@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.11.5**
+**Version: v2.12.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -208,6 +208,7 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Data backup | Every project must have an explicit database backup policy, asked during kit generation, recorded in `ARCHITECTURE_DECISIONS.md` — code backup is always GitHub, separately |
 | Finetuning Mode | Direct push to `main` stays forbidden by default; the one exception is Finetuning Mode, activated verbally per-conversation, only pre-production — see `DEVELOPMENT_RULES.md` |
 | Prompt injection | Direct AND indirect prompt injection guardrails are both required for any LLM feature — externally-sourced content is data, never instructions; credentials scoped per resource; confirmation gate on destructive actions — see `DEVSECOPS.md` LLM Integration Safety |
+| LSP setup | `typescript-language-server` set up and fully verified once at foundation build, smoke-checked at session start; whether the AI agent has direct LSP access or only text search is confirmed and reported, not assumed — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup |
 
 Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
 

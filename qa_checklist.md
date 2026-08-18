@@ -204,6 +204,22 @@ Checklist:
 
 ---
 
+# LSP / Code Intelligence QA
+
+Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Quality Gates), smoke-checked at session start after that — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup.
+
+- [ ] Diagnostics/errors surface correctly on a real project symbol.
+- [ ] Go to definition works, including across `apps/*`/`packages/*` boundaries.
+- [ ] Find references works.
+- [ ] Symbol rename works.
+- [ ] Hover/type information works.
+- [ ] Workspace symbol search works.
+- [ ] Drizzle-generated types (from `packages/db`) resolve correctly, not as `any`.
+- [ ] No second, conflicting `tsconfig.json` was created to make a tool work.
+- [ ] Whether the AI coding agent has direct LSP access or only text/grep-based search is confirmed and reported, not assumed.
+
+---
+
 # Product Baseline
 
 Checklist:

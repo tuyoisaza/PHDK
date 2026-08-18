@@ -740,6 +740,7 @@ Before declaring foundation complete, check:
 - no file exceeds the line limit defined in `DEVELOPMENT_RULES.md`
 - no secrets are committed
 - README documents Railway repo-root deployment
+- LSP/code intelligence set up and verified once per `TECHNICAL_STACK.md` LSP / Code Intelligence Setup — including whether the AI agent itself has direct LSP access or only text-search access, reported honestly
 
 If a quality gate cannot be run, explain why.
 

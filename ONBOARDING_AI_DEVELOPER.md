@@ -147,13 +147,14 @@ In a tool that supports Agent Skills (Claude Code, Cursor, Codex CLI, Windsurf, 
 1. Read required files in order
 2. Read `TASK.md` for current session scope
 3. Read `STATUS.md` for current project state and open gaps
-4. Confirm you understand the current working slice and its user-visible outcome
-5. If anything is unclear, ask one question before coding
-6. Work autonomously inside the approved scope
-7. Verify before reporting completion
-8. Update `STATUS.md`
-9. Report using the slice release report format from `VERSIONING.md`
-10. Propose the next slice
+4. Quick LSP smoke-check: confirm diagnostics and go-to-definition still work on a real symbol. Full setup and verification per `TECHNICAL_STACK.md` LSP / Code Intelligence Setup only happens once, at foundation build — this is just confirming it's still alive
+5. Confirm you understand the current working slice and its user-visible outcome
+6. If anything is unclear, ask one question before coding
+7. Work autonomously inside the approved scope
+8. Verify before reporting completion
+9. Update `STATUS.md`
+10. Report using the slice release report format from `VERSIONING.md`
+11. Propose the next slice
 
 ---
 

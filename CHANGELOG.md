@@ -6,6 +6,30 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.12.0 — 2026-08-09
+
+### Theme: LSP / Code Intelligence Setup
+
+Adds a standard for setting up and verifying real code-intelligence (Language Server Protocol) support, adapted from a general-purpose proposal down to PHDK's fixed stack — TypeScript strict mode, pnpm workspaces, Turborepo — so the language/server choice isn't a per-project decision, it's already `typescript-language-server`.
+
+### Added
+
+- `TECHNICAL_STACK.md` — new "LSP / Code Intelligence Setup" section: required setup (project references across `apps/*`/`packages/*`, Drizzle-generated types resolved, Next.js/NestJS type support, no duplicate `tsconfig.json`), required verification on a real symbol (diagnostics, go-to-definition across package boundaries, find-references, rename, hover, workspace symbols), and the sharpest part of the source proposal carried through as-is: a working editor LSP does not mean the AI agent has the same capability — confirm and report which one is actually available, since grep-based search misses what a real LSP catches.
+- `BUILD_APP_FOUNDATION_PROMPT.md` — new Quality Gates item: full LSP setup and verification happens once, at foundation build.
+- `ONBOARDING_AI_DEVELOPER.md` — new session-start step: a quick LSP smoke-check (diagnostics + go-to-definition on a real symbol), not the full verification loop every session.
+- `QA_CHECKLIST.md` — new "LSP / Code Intelligence QA" section, nine checks.
+
+### Changed
+
+- `AGENTS.md` — `TECHNICAL_STACK.md` router description updated to mention LSP/code intelligence setup
+- `README.md` — new LSP setup canonical decision row
+
+### Canonical Decisions
+
+- `typescript-language-server` is the canonical LSP for all PHDK projects. Full setup and verification happens once at foundation build, not every session. Whether the AI agent itself has direct LSP access or only text-search access must be confirmed and reported, never assumed.
+
+---
+
 ## v2.11.5 — 2026-08-09
 
 ### Fixed

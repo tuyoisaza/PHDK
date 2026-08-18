@@ -17,7 +17,7 @@ Before starting any task, read the full onboarding stack in this order:
 3. `AGENTS.md` — this file
 4. `DEVELOPMENT_RULES.md` — branching, commits, feature structure, monorepo rules
 5. `DESIGN_RULES.md` — UI, UX, accessibility, theming
-6. `TECHNICAL_STACK.md` — stack, monorepo layout, auth, database, AI/LLM integration
+6. `TECHNICAL_STACK.md` — stack, monorepo layout, auth, database, AI/LLM integration, LSP/code intelligence setup
 7. `DEVSECOPS.md` — security, auth, secrets, cost safety, LLM guardrails
 8. `VERSIONING.md` — version, branch, commit, changelog, release format
 9. `VERIFICATION_LOOP.md` — what counts as proof, health checks
