@@ -93,21 +93,27 @@ Rules:
 ## Commit Message Format
 
 ```txt
-feat(slice): add Google OAuth login
-fix(auth): handle OAuth callback failure
-docs(phdk): update status after dashboard slice
-chore(version): bump to v0.3.0
-refactor(api): extract auth service
-test(auth): add OAuth callback tests
+v0.3.0 feat(slice): add Google OAuth login
+v0.3.1 fix(auth): handle OAuth callback failure
+v0.3.1 docs(phdk): update status after dashboard slice
+v0.3.0 chore(version): bump to v0.3.0
+v0.3.2 refactor(api): extract auth service
+v0.3.2 test(auth): add OAuth callback tests
+```
+
+For projects with multiple independently versioned components (e.g. a `server` and a `plugin` in the same repo), list each affected component's version, comma-separated, before the conventional-commit message:
+
+```txt
+server v0.2.16, plugin v0.4.11 - feat(prompt): show installed plugin version
 ```
 
 Rules:
 
-- Include the current version in commit messages for release commits
+- For release commits, the commit message must begin with the current version (`vX.Y.Z`), or with each affected component's version for multi-component projects — the conventional-commit type/scope/summary follows it
 - Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
 - Scope to the feature or area changed
 - Keep messages short and specific
-- Do not create noisy version bumps for every minor feature branch commit
+- Do not create noisy version bumps for every minor feature branch commit — the version prefix applies to release commits, not every intermediate commit on a feature branch
 
 ---
 

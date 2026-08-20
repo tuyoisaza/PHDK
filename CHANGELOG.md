@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.13.1 — 2026-08-20
+
+### Theme: Commit Message Format Gap
+
+`VERSIONING.md` said to "include the current version in commit messages for release commits" but never said the version had to lead the message, and its own examples didn't show it — even though every commit in this repo's history already follows the version-first convention (`vX.Y.Z type(scope): summary`). The doc didn't describe its own practice, and had no guidance for repos with multiple independently versioned components (e.g. a `server` and a `plugin` in the same repo).
+
+### Changed
+
+- `VERSIONING.md` — "Commit Message Format" rule now states explicitly that release commits must begin with `vX.Y.Z`, with examples updated to match; added a multi-component format (`server vX.Y.Z, plugin vX.Y.Z - type(scope): summary`) for repos with more than one independently versioned part.
+
+---
+
 ## v2.13.0 — 2026-08-09
 
 ### Theme: Railway Deployment Setup
