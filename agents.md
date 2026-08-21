@@ -131,7 +131,7 @@ Debug mode is a developer-support capability, not an end-user feature. Full spec
 
 ## AI/LLM Feature Requirements
 
-Any feature that calls an LLM requires an AI management section at `/admin/ai` (admin-editable prompt and output schema, configurable provider/model, model pricing lookup) plus provider-agnostic config, prompt-injection guardrails, and output validation in code.
+Any feature that calls an LLM requires an AI management section at `/admin/ai` (admin-editable prompt and output schema, configurable provider/model, model pricing lookup, token/cost usage view) plus provider-agnostic config, prompt-injection guardrails, and output validation in code. Every LLM call is made through `packages/ai`, never a provider SDK called directly from feature code, so token/cost tracking is automatic — see `TECHNICAL_STACK.md` AI Token & Cost Observability.
 
 Full specification: `TECHNICAL_STACK.md` AI / LLM Integration and `DEVSECOPS.md` LLM Integration Safety.
 

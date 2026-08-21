@@ -6,6 +6,29 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.14.0 — 2026-08-20
+
+### Theme: AI Token & Cost Observability
+
+PHDK already required LLM calls to be admin-manageable and cost-visible ("refresh model pricing"), but never specified what a single call should record, where that recording has to happen, or that raw token estimation is a fallback rather than the default. This closes that gap: `packages/ai` is now explicitly the only path to a model provider, every call through it is tracked with a defined field set (tokens, cost, latency, model, feature), and the source of truth is the provider's own reported usage, not a local estimate.
+
+### Added
+
+- `TECHNICAL_STACK.md` — new "AI Token & Cost Observability" subsection under AI/LLM Integration: required per-call fields (aligned to OpenTelemetry GenAI `gen_ai.*` naming where practical), provider-`usage`-is-source-of-truth rule, cost formula with versioned pricing table for audit, minimum queries the data must support, and a privacy default of metrics-only (no full prompt/response storage).
+- `QA_CHECKLIST.md` — new AI/LLM Configuration QA checks: no direct provider-SDK imports outside `packages/ai`, per-call token/cost recording, provider-usage-not-estimate, pricing-table versioning, and the no-content-by-default privacy check.
+
+### Changed
+
+- `TECHNICAL_STACK.md` — AI/LLM Integration now states explicitly that `packages/ai` is the only path to a model provider; no feature or route may call a provider SDK directly.
+- `DEVSECOPS.md` — LLM Integration Safety now requires the `packages/ai`-only call path and provider-usage-as-source-of-truth, and adds a "never store full prompt/response content by default" rule.
+- `AGENTS.md` — AI/LLM Feature Requirements now mentions the token/cost usage view at `/admin/ai` and the `packages/ai`-only call path.
+
+### Canonical Decisions
+
+- Token/cost tracking is infrastructure inside `packages/ai`, not a per-feature responsibility — a feature is not done if its LLM calls don't appear in it.
+
+---
+
 ## v2.13.1 — 2026-08-20
 
 ### Theme: Commit Message Format Gap

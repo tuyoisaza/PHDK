@@ -297,6 +297,8 @@ AI_MODEL="claude-sonnet-5"
 AI_API_KEY=""
 ```
 
+`packages/ai` is the only path to a model provider. No app code, feature, or route calls a provider SDK (`openai`, `@anthropic-ai/sdk`, `@google/generative-ai`, etc.) directly — every call goes `feature → packages/ai → provider`. This is what makes provider-swapping a config change instead of a code change, and what makes token/cost tracking below automatic instead of something each developer has to remember to add.
+
 ### Required for every LLM-powered feature
 
 - **Provider is configurable** — switching provider is a config change, not a code change
@@ -308,11 +310,39 @@ AI_API_KEY=""
 - **Output validation** — LLM output is validated against the expected schema (e.g. with Zod) before it is used or displayed; invalid output is rejected, not trusted
 - **Prompt/config changes are audited** — every edit to a prompt template or output schema logs actor, timestamp, and diff
 - **Pricing is visible** — the AI management section includes a "refresh model pricing" action that fetches current per-model pricing and shows cost per model currently in use
+- **Every call is tracked** — see AI Token & Cost Observability below; this is built into `packages/ai` itself, not something each feature implements separately
 - Cost and loop safeguards from `DEVSECOPS.md` Cost and Consumption Safety apply to every LLM call
 
 See `AGENTS.md` Required Routes (`/admin/ai`) and `QA_CHECKLIST.md` AI / LLM Configuration QA.
 
 AI/LLM integration is not scaffolded unless the project explicitly requires it.
+
+### AI Token & Cost Observability
+
+`packages/ai` wraps every provider call and automatically records its usage. A feature is not done if its LLM calls don't show up in this tracking — see `QA_CHECKLIST.md` AI / LLM Configuration QA.
+
+**Source of truth** — use the `usage` object returned by the provider on every response. Never estimate token counts locally (e.g. with a tokenizer library) when the provider reports actual consumption; local estimation is a fallback only for a provider that genuinely omits usage data.
+
+**Field naming** — align with [OpenTelemetry GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) (`gen_ai.*`) where practical, so field names carry over cleanly if real OTel export is scaffolded later per `DEVSECOPS.md` Observability. This is a naming convention, not a requirement to stand up an OTel collector now — structured JSON logs are sufficient until tracing is explicitly tasked.
+
+Record per call:
+
+```txt
+timestamp, environment, service/app, feature or workflow name
+provider, requested_model, response_model
+input_tokens, output_tokens, cached_input_tokens
+cache_write_tokens, reasoning_tokens        — when the provider reports them
+total_tokens, estimated_cost_usd, latency_ms
+correlation/request ID, conversation ID     — when applicable
+customer/account/project ID                 — when the project attributes cost per tenant
+status, error_type                          — on failure
+```
+
+**Cost calculation** — `estimated_cost_usd = (input_tokens × input rate) + (output_tokens × output rate) + applicable cache/reasoning rates`. Store which version/date of the pricing table was used for each calculation so historical costs stay auditable after prices change — this is the same pricing table the "refresh model pricing" action above keeps current.
+
+**Minimum queries the data must support** — tokens and cost by day/month, by model, by feature, by customer/account where attribution applies, by conversation/request; input/output ratio; cache savings; latency by model; error rate by model. Structured logs plus a query/aggregation path (SQL view, log query, or a simple report endpoint) satisfy this for most projects — a dedicated dashboard is only required if the project already has one for other metrics.
+
+**Privacy default** — do not store full prompts or responses as part of this tracking. It records metrics and operational metadata only. Capturing actual prompt/response content is opt-in, explicit, and separate from token/cost tracking, and must follow the project's data retention and privacy handling.
 
 ---
 

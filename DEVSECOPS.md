@@ -311,6 +311,8 @@ Any feature that calls an LLM must be admin-manageable and provider-agnostic. Se
 - LLM output is validated against the expected schema before it is used or displayed
 - Every prompt/output-schema/provider/model change is audit-logged with actor, timestamp, and diff
 - The AI admin section includes a "refresh model pricing" action that fetches current per-model pricing (from the provider's published pricing or a maintained internal pricing table) and displays cost per model currently in use
+- Every LLM call goes through `packages/ai`, never a provider SDK called directly from feature code, and is recorded with the full per-call token/cost schema — see `TECHNICAL_STACK.md` AI Token & Cost Observability
+- Token counts come from the provider's reported `usage`, never a local estimate, when the provider reports it
 - Cost and loop safeguards from Cost and Consumption Safety above apply to every LLM call
 
 ### Never
@@ -320,6 +322,7 @@ Any feature that calls an LLM must be admin-manageable and provider-agnostic. Se
 - Never hardcode a provider, model, or prompt string in application code
 - Never expose the AI provider API key client-side
 - Never let the pricing-refresh action call the provider on an unbounded schedule — it is admin-triggered or scheduled with a sane interval, not called on every request
+- Never store full prompt or response content as part of token/cost tracking by default — that tracking is metrics and metadata only; capturing content is a separate, explicit opt-in that follows the project's data retention policy
 
 ### Indirect Prompt Injection
 

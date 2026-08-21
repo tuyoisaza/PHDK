@@ -630,6 +630,11 @@ If browser/device checks are not possible, document why.
 - [ ] Invalid or malformed LLM output is rejected, not silently trusted.
 - [ ] Prompt, output schema, provider, and model changes are audit-logged with actor, timestamp, and diff.
 - [ ] AI provider API key is never exposed client-side.
+- [ ] No feature or route imports a provider SDK directly — every LLM call goes through `packages/ai`.
+- [ ] Every LLM call is recorded with the provider-reported token usage (input/output/cached/reasoning as applicable), computed cost, model, feature, and latency — see `TECHNICAL_STACK.md` AI Token & Cost Observability.
+- [ ] Token counts come from the provider's `usage` response, not a local estimate, when the provider reports it.
+- [ ] Cost calculation records which pricing table version/date was used.
+- [ ] Full prompt/response content is not stored as part of token/cost tracking by default.
 - [ ] Cost and Consumption Safety checks above apply to every LLM call in this feature.
 - [ ] If the feature feeds externally-sourced content (scraped pages, CMS fields, uploaded files, third-party API responses) into an LLM call, that content is structurally delimited and never treated as instructions.
 - [ ] Action-triggering (write, delete, publish, send, purchase, etc.) driven by a model call is scoped to the authenticated user's own request, never to text parsed out of externally-sourced content.
