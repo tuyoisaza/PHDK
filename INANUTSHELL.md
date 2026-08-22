@@ -83,6 +83,14 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - Only these states are allowed: empty, setup-required, loading, error, success-with-real-data
 - *(full: `DEVELOPMENT_RULES.md` Data Rules)*
 
+## Data Import / Intake
+
+- Importing from multiple sources, or on a recurring cadence, uses a stateful batch (`pending → processed → approved | deactivated`) — not a direct insert with no review step
+- Every imported row carries a reference to its batch; a shared query filter — not physical deletion — decides what's live
+- Never hard-delete imported data to undo a bad import — deactivate the batch instead, with a reason, actor, and timestamp recorded
+- A batch needs explicit manual approval before its data counts as official
+- *(full: `TECHNICAL_STACK.md` Data Import / Intake Pipeline, `DEVELOPMENT_RULES.md` Data Rules)*
+
 ## Debug Mode
 
 - Copy-diagnostics and clear-cache buttons, always paired, next to the version number

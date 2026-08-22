@@ -646,6 +646,23 @@ If browser/device checks are not possible, document why.
 
 ---
 
+# Data Import / Intake QA
+
+- [ ] Applies only when the feature imports data from multiple source types, or on a recurring cadence — a one-off seed script or single admin-only CSV import is exempt.
+- [ ] Every import is a batch with an explicit lifecycle state (`pending`/`processed`/`approved`/`deactivated`), not a bare insert.
+- [ ] Every business row created by an import carries a reference to the batch that created it.
+- [ ] A batch requires explicit manual approval before its data is treated as official — approval never moves or copies rows.
+- [ ] "Delete this import" in the UI or API is wired to deactivate, never to a physical row `DELETE`.
+- [ ] Deactivating a batch records who, when, and why — and leaves rows and files in place.
+- [ ] Business queries (dashboards, reports, forecasts) reading import-populated tables apply the shared active-batch filter, not a one-off `WHERE` clause per query.
+- [ ] The active-batch filter excludes only `deactivated` batches — rows with no batch reference (legacy data) are always live.
+- [ ] Exact-duplicate detection (content hash) runs before insert and skips files already imported in a non-deactivated batch.
+- [ ] Semantic-duplicate detection (content fingerprint independent of file bytes) runs before insert for re-exported files with the same underlying data.
+- [ ] Every file in a batch gets a recorded outcome (parsed/errored/duplicate) with counts and a warnings/errors payload — parsing never fails silently.
+- [ ] Cutoff/period date is derived from file content, not requested from the user.
+
+---
+
 # Dependency and Supply Chain QA
 
 - [ ] No dependency added without task justification.

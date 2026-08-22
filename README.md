@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.16.0**
+**Version: v2.17.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -211,6 +211,7 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Prompt injection | Direct AND indirect prompt injection guardrails are both required for any LLM feature — externally-sourced content is data, never instructions; credentials scoped per resource; confirmation gate on destructive actions — see `DEVSECOPS.md` LLM Integration Safety |
 | LSP setup | `typescript-language-server` set up and fully verified once at foundation build, smoke-checked at session start; whether the AI agent has direct LSP access or only text search is confirmed and reported, not assumed — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup |
 | Deployment | The only supported path to a live deploy is commit (versioned) → push to GitHub → Railway's GitHub-connected pipeline — never `railway up` or a local build/tarball upload — see `TECHNICAL_STACK.md` First-time Railway Setup |
+| Data import | Importing data from multiple sources or on a recurring cadence uses a stateful intake pipeline (`pending → processed → approved \| deactivated`) with a batch reference on every imported row and soft-delete-by-batch-state — never a direct insert with no review step, and never a hard delete to undo a bad import — see `TECHNICAL_STACK.md` Data Import / Intake Pipeline |
 
 Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
 

@@ -312,6 +312,15 @@ Never allowed:
 - Demo analytics presented as real
 - Placeholder totals without clear disclosure
 
+### Recurring or multi-source data imports
+
+If a feature imports data from multiple source types, or on a recurring cadence, it uses the stateful intake pipeline in `TECHNICAL_STACK.md` Data Import / Intake Pipeline — not a direct insert with no batch identity or review step.
+
+- Never hard-delete imported data to undo a bad import — deactivate the owning batch and let the shared query filter exclude it; rows and files stay in place, deactivation is audited
+- Every row a batch import creates carries a reference to that batch
+- A batch requires explicit manual approval before its data is treated as official
+- A one-off seed script or single admin-only CSV import with no repeat cadence is exempt — direct insert is fine there
+
 ---
 
 ## Definition of Done

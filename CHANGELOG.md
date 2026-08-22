@@ -6,6 +6,30 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.17.0 — 2026-08-22
+
+### Theme: Data Import / Intake Pipeline Standard
+
+Projects that ingest data from multiple sources, or on a recurring cadence (monthly closes, nightly syncs, repeated manual uploads), had no PHDK guidance beyond generic Data Rules — nothing said how imports should be structured so a bad import can be undone without deleting data, or how approved-vs-not should be tracked. This adds a standard pattern: import batches carry an explicit lifecycle state, every imported row references its batch, and a shared query filter — not physical deletion — decides what counts as live. Deactivating a bad batch is then a status flip with a full audit trail, never a destructive operation.
+
+### Added
+
+- `TECHNICAL_STACK.md` — new "Data Import / Intake Pipeline" section: two-control-table pattern (`import_batches`, `import_file_checks`), lifecycle (`pending → processed → approved | deactivated`), the shared `activeSource` query predicate that makes deactivation non-destructive, two-level deduplication (exact hash + semantic fingerprint), and required behavior (no silent parse failures, content-derived cutoff date, explicit manual approval, `DELETE` routed to deactivate).
+- `QA_CHECKLIST.md` — new "Data Import / Intake QA" section covering batch lifecycle, batch references on imported rows, manual approval, deactivate-not-delete, the shared active-batch filter, both dedup levels, and per-file parse outcomes.
+- `README.md` — new Canonical Decisions row: multi-source or recurring data imports use the stateful intake pipeline by default.
+- `INANUTSHELL.md` — new "Data Import / Intake" group summarizing the pattern in four lines.
+
+### Changed
+
+- `DEVELOPMENT_RULES.md` — Data Rules gained a "Recurring or multi-source data imports" subsection: never hard-delete imported data, every batch-created row references its batch, manual approval required before data is official, one-off seed scripts/single CSV imports are exempt.
+
+### Canonical Decisions
+
+- Importing data from multiple sources, or on a recurring cadence, requires the stateful intake pipeline (batch lifecycle + row-level batch reference + shared active-batch query filter) — a one-off seed script or single admin-only CSV import is exempt.
+- Undoing a bad import is always deactivation (status change, audited), never a physical row or file delete.
+
+---
+
 ## v2.16.0 — 2026-08-22
 
 ### Theme: Condensed Rules Cheat Sheet

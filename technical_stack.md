@@ -182,6 +182,98 @@ See `DEVSECOPS.md` Data Backup and Recovery Safety for the security requirements
 
 ---
 
+## Data Import / Intake Pipeline
+
+Any feature that ingests data from files, spreadsheets, or exports — from multiple source types, or on a recurring cadence (monthly closes, nightly syncs, repeated manual uploads) — uses a stateful intake pipeline, not a direct insert-and-forget import. Do not wire an upload straight into business tables with no batch identity, no review step, and no way to undo a bad import short of a manual `DELETE`.
+
+This does not apply to a one-off seed script or a single admin-only CSV import with no repeat cadence — those can insert directly. The pipeline is for imports that recur or come from more than one source.
+
+### The core principle
+
+Never trust an uploaded file directly into production tables as final, and never hard-delete imported data to "undo" a bad import. Instead:
+
+- Every import batch has an explicit lifecycle state.
+- Every business-data row carries a reference to the batch that created it.
+- Whether a row "counts" in business queries depends on its batch's current state — not on whether the row physically exists.
+
+Approving or deactivating a batch never moves or deletes a single row. It flips one status field, and a shared query filter does the rest. This means undoing an approval, or reactivating a deactivated batch, is trivial and fully auditable — nothing was destroyed.
+
+### Two control tables
+
+Separate from the business tables the import populates:
+
+```txt
+import_batches        one row per uploaded package (e.g. "June 2026 close")
+  - status:             pending | processed | approved | deactivated
+  - cutoff_date:         derived from file content, never asked of the user
+  - deactivated_at, deactivated_by, deactivation_reason
+  - superseded_by_batch_id
+
+import_file_checks    one row per file within a batch — the checklist
+  - status:             pending | parsed | errored | duplicate | approved
+  - source_type:         which requirement this file satisfies
+  - records_imported, warnings (json), errors (json), meta (json)
+```
+
+Every business table populated by an import (invoices, orders, inventory snapshots, forecast rows, etc.) carries a nullable `batch_id` referencing `import_batches`. `NULL` means the row predates the pipeline (legacy data) and is always live.
+
+### Lifecycle
+
+```txt
+upload → pending → [parse each file, insert rows tagged with batch_id] → processed
+                                                                              │
+                                                              manual review ─┤
+                                                                              ▼
+                                                         approved  |  deactivated
+```
+
+- Rows are inserted as soon as a file parses successfully — while the batch is still `pending`/`processed`. There is no separate staging table to promote from; the state filter (below) is what makes a batch's data count or not.
+- `processed` means every file in the batch parsed; it is not yet official. A human approves it explicitly.
+- `approved` is a status flip only — no data moves.
+- `deactivated` is the undo path. It is not a delete: rows stay in place, the file stays in storage, and the deactivation is audited (`deactivated_at`, `deactivated_by`, `deactivation_reason`, optionally `superseded_by_batch_id`). Route any "delete this import" UI action to deactivate, never to a physical `DELETE`.
+- Reactivating a batch is just clearing its `deactivated` status — the history stays intact either way.
+
+### The shared filter — this is what makes deactivation work
+
+Every business query filters through one reusable predicate, not a hand-rolled `WHERE` per query:
+
+```ts
+// packages/db (or equivalent shared query layer)
+function activeSource(table) {
+  return or(
+    isNull(table.batchId),                 // legacy rows with no batch are always live
+    notExists(
+      db.select().from(importBatches)
+        .where(and(
+          eq(importBatches.id, table.batchId),
+          eq(importBatches.status, "deactivated"),
+        ))
+    ),
+  )
+}
+```
+
+Apply it in every dashboard, report, forecast, or business query that reads from an import-populated table. Do not filter by `status = 'approved'` only — `pending`/`processed` rows should generally still be visible as "not yet final" rather than invisible, unless the project's business rules say otherwise; the one status that must always be excluded is `deactivated`.
+
+### Deduplication — two levels, before insert
+
+- **Exact duplicate**: hash the raw file content (e.g. SHA-256). If that hash already exists on a non-deactivated batch, mark the file `duplicate` in `import_file_checks` and skip the insert.
+- **Semantic duplicate**: each parser derives a content fingerprint (e.g. same source type + same detected period + same key dimension) independent of file bytes. Catches "same data, re-exported, different file." Skip the insert and mark `duplicate` if a matching fingerprint already exists on a non-deactivated batch.
+
+Both checks run before rows are inserted, not after.
+
+### Required behavior for every intake feature
+
+- Parsing never fails silently — every file gets a recorded outcome (`parsed`, `errored`, `duplicate`) with counts and a `warnings`/`errors` payload, even on partial success.
+- Cutoff/period date is derived from file content (e.g. latest date found across the batch), never a field the user has to fill in.
+- Manual approval is a distinct, explicit action — a batch does not become official just because it finished parsing.
+- Deactivation always asks for a reason and records who/when.
+- `DELETE` on an import batch (API or UI) is wired to deactivate, never to a physical row delete.
+
+Data Import / Intake Pipeline is not scaffolded unless the project explicitly imports data from multiple sources or on a recurring cadence — see `QA_CHECKLIST.md` Data Import / Intake QA.
+
+---
+
 ## Authentication — Custom Google OAuth 2.0
 
 Default authentication method: custom Google OAuth 2.0.
