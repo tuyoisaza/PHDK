@@ -6,6 +6,31 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.15.0 — 2026-08-21
+
+### Theme: Cloud-Only Database, No Local PostgreSQL
+
+The standard said PostgreSQL was required "in all environments" but its own examples (`e.g. Docker Compose or a Railway local connection`) allowed a database server to run on the developer's machine. That reopened the exact failure mode the standard exists to prevent: local behavior silently diverging from staging/production because a machine-local Postgres container isn't the same instance, isn't configured the same way, and isn't guaranteed to be running the same version. This closes that gap: PostgreSQL now only ever runs in the cloud — local development connects over the network to a dedicated Railway-hosted dev/staging database, never a database process on the developer's own machine, and never the production database.
+
+### Added
+
+- `TECHNICAL_STACK.md` — new "Local development connects to a cloud database, never a local one" subsection under Database, stating there is no local database in this standard and requiring `DATABASE_URL` to point at a cloud-hosted instance.
+- `TECHNICAL_STACK.md` — new "First-time Railway database setup" procedure: provision a dedicated dev/staging PostgreSQL service in Railway once per project, distinct from the production database, and point every developer's local `.env` at it.
+- `QA_CHECKLIST.md` — new Database checks: local development connects to the Railway dev database (no local Postgres server of any kind), local development never points at production, and the app fails loudly (`503` or refuse to start) rather than falling back to SQLite when `DATABASE_URL` is unset or unreachable.
+
+### Changed
+
+- `TECHNICAL_STACK.md` — Database section no longer lists Docker Compose or a "Railway local connection" as valid local setups; migrations must be tested against the Railway dev database, not "locally" in the abstract.
+- `DEVELOPMENT_RULES.md` — Database Rules now state PostgreSQL only runs in the cloud, and explicitly forbid running PostgreSQL on a developer's machine (Docker container or local install).
+- `QA_CHECKLIST.md` — "Local PostgreSQL setup instructions exist" replaced with "Local setup instructions point `DATABASE_URL` at the Railway dev database — no local PostgreSQL installation or Docker steps exist"; migration testing check now names the Railway dev database explicitly.
+
+### Canonical Decisions
+
+- PostgreSQL is cloud-only, with no exception for local development — a developer's machine is always a client of a real Railway-hosted database, never a host for one.
+- Local development and production use separate Railway-hosted database instances; a developer's `.env` must never point `DATABASE_URL` at production.
+
+---
+
 ## v2.14.0 — 2026-08-20
 
 ### Theme: AI Token & Cost Observability

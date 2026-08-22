@@ -405,13 +405,15 @@ This is mandatory because cache, session, browser, and stale build state can cre
 
 # Database
 
-- [ ] PostgreSQL works in local development.
+- [ ] PostgreSQL works in local development (against the cloud dev database, not a local one).
 - [ ] PostgreSQL works in staging/production.
-- [ ] Local PostgreSQL runs through approved local setup, such as Docker Compose or Railway local connection.
+- [ ] Local development connects to a dedicated Railway-hosted dev/staging PostgreSQL instance via `DATABASE_URL` — no PostgreSQL server (Docker container, local install, or otherwise) runs on the developer's machine.
+- [ ] Local development never points `DATABASE_URL` at the production database.
 - [ ] No local-only database behavior differs from staging/production.
 - [ ] `DATABASE_URL` uses PostgreSQL format.
 - [ ] No SQLite configuration exists.
 - [ ] No SQLite dependency or local DB file is introduced.
+- [ ] The app fails loudly (refuses to start, or `/health` returns `503`) when `DATABASE_URL` is unset or unreachable, rather than falling back to SQLite or an in-memory store.
 - [ ] All migrations run cleanly from scratch.
 - [ ] No schema changes exist without a migration file.
 - [ ] Migration rollback notes exist for every schema change.
@@ -420,7 +422,7 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] Audit fields are present where required: `created_at`, `updated_at`, `created_by`, `updated_by`.
 - [ ] No raw SQL exists without justification.
 - [ ] No production schema was mutated manually.
-- [ ] Local PostgreSQL setup instructions exist.
+- [ ] Local setup instructions point `DATABASE_URL` at the Railway dev database — no local PostgreSQL installation or Docker steps exist.
 - [ ] Database indexes exist for common query paths where needed.
 - [ ] Foreign key and uniqueness constraints exist where needed.
 - [ ] Seed data, if present, is dev-only and never presented as production data.
@@ -437,7 +439,7 @@ This is mandatory because cache, session, browser, and stale build state can cre
 
 - [ ] Migration was generated through Drizzle workflow.
 - [ ] Migration was reviewed before commit.
-- [ ] Migration was tested locally against PostgreSQL.
+- [ ] Migration was tested against the Railway dev database before commit.
 - [ ] Migration can run from a clean database.
 - [ ] Migration can run against existing development data where applicable.
 - [ ] Rollback notes exist.

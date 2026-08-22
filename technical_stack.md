@@ -121,7 +121,7 @@ Database:           PostgreSQL — all environments
 Migration tool:     Drizzle Kit
 ```
 
-PostgreSQL is the only supported database for this standard. Do not scaffold, configure, or rely on SQLite in any environment — local development connects to a real PostgreSQL instance (e.g. Docker Compose or a Railway local connection).
+PostgreSQL is the only supported database for this standard, and it only ever runs in the cloud. Do not scaffold, configure, or rely on SQLite in any environment. Do not run PostgreSQL on a developer's machine in any form — no Docker container, no local install, no `localhost` database of any kind. Local development points `DATABASE_URL` at a real, cloud-hosted PostgreSQL instance; the developer's machine is only ever a client.
 
 Configuration is environment-driven:
 
@@ -130,10 +130,19 @@ DATABASE_PROVIDER="postgresql"
 DATABASE_URL="..."
 ```
 
+### Local development connects to a cloud database, never a local one
+
+There is no "local database" in this standard — only one kind of PostgreSQL, running in the cloud, that every environment (including a developer's own machine) connects to over the network.
+
+- Local development uses a dedicated Railway-hosted PostgreSQL instance, separate from the production database — provisioned once per project as part of `First-time Railway setup` below, not per developer machine
+- A developer's `.env` sets `DATABASE_URL` to that dev instance's Railway connection string; nothing runs locally to serve it
+- Never point local development at the production database
+- If `DATABASE_URL` is unset or unreachable, the app must fail loudly (e.g. refuse to start, or return `503` from `/health`) rather than falling back to SQLite or an in-memory store — see `QA_CHECKLIST.md` Database
+
 Rules:
 
 - Never mutate schema without a migration
-- Never commit migrations without testing locally first
+- Never commit migrations without testing against the Railway dev database first
 - Core records include: `id`, `created_at`, `updated_at`, `created_by`, `updated_by`
 - Important records include soft delete: `deleted_at`
 - Drizzle and PostgreSQL are ready but not implemented unless the project phase requires them
@@ -391,6 +400,16 @@ This is the only supported path to a running deployment. There is no other way t
 8. Verify the deploy actually worked: hit the API service's public `/health` endpoint and confirm the response matches `VERIFICATION_LOOP.md` Health Check Standard, then confirm the web service can reach the API through its public URL (`NEXT_PUBLIC_API_URL` pointed at the deployed API, not `localhost`).
 
 After this one-time setup, deployment is fully push-triggered — there is nothing left to do in the Railway dashboard for a normal release.
+
+### First-time Railway database setup
+
+This provisions the cloud PostgreSQL instance that local development connects to — see `Database` above. Do this once per project, not once per developer.
+
+1. In the same Railway project, add a PostgreSQL database service (`+ New` → `Database` → `PostgreSQL`). This is the **dev/staging database** — it is separate from whatever PostgreSQL instance backs the production deploy, and it is the only database any developer's machine is ever allowed to connect to.
+2. Copy its connection string from the Railway dashboard (`Postgres` service → `Connect` → `Connection URL`).
+3. Set `DATABASE_URL` to that connection string in each developer's local `.env` — never commit it. No local PostgreSQL server, Docker container, or SQLite fallback is scaffolded; the local `.env` is the only local artifact involved.
+4. Run migrations against it (`Drizzle Kit`) before any schema change is committed — this is the "test locally" step required elsewhere in this standard, and it means testing against this cloud instance, not a machine-local one.
+5. Production gets its own separate PostgreSQL service (or an external managed provider) with its own `DATABASE_URL`, set only in the production service's Railway environment variables — never shared with the dev database and never present in a developer's `.env`.
 
 ---
 

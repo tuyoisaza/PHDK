@@ -220,7 +220,8 @@ Read `DEVSECOPS.md` for the full auth implementation requirements.
 ## Database Rules
 
 - ORM: Drizzle — required because it keeps a future provider switch configuration-driven
-- PostgreSQL only — all environments, including local development, connect to a real PostgreSQL instance
+- PostgreSQL only, and only in the cloud — all environments, including local development, connect over the network to a real, cloud-hosted PostgreSQL instance on Railway (a dedicated dev/staging instance for local work, never production)
+- Never run PostgreSQL on a developer's machine — no Docker container, no local install; `DATABASE_URL` in `.env` is the only local artifact
 - Do not scaffold, configure, or rely on SQLite in any environment
 - Never manually mutate production schema without a migration
 
