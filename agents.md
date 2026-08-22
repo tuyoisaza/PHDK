@@ -6,6 +6,8 @@ This file is the entry point and router for AI agents, developers, and automatio
 
 Every agent must read this file first, then follow the reading order below before making changes.
 
+If a session runs long and rules start slipping, re-read `INANUTSHELL.md` — it is the one-line-per-rule condensed version of everything below. It is a memory aid, not a replacement for the full files.
+
 ---
 
 ## Required Reading Order

@@ -26,6 +26,7 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
 2. Run `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` to generate the kit (`PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `NAVTREE.md`, `PUBLIC_CONTENT.md`, `PRIVATE_CONTENT.md` if login, `TASK.md`, `ARCHITECTURE_DECISIONS.md`, `STATUS.md`, `README.md`), following that file's own generation workflow and question flow exactly — including the backup policy question.
 3. **Vendor the standards into the project repo.** Copy this skill's own standards files into a `phdk-standards/` folder inside the target project repo:
    - `VERSION`
+   - `INANUTSHELL.md`
    - `ONBOARDING_AI_DEVELOPER.md`
    - `AGENTS.md`
    - `DEVELOPMENT_RULES.md`

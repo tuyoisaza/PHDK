@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.15.0**
+**Version: v2.16.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -149,6 +149,7 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 
 | File | Purpose |
 |------|---------|
+| `INANUTSHELL.md` | One-line-per-rule cheat sheet of every hard rule in PHDK — re-read when a session gets long |
 | `ONBOARDING_AI_DEVELOPER.md` | Required reading order and session start procedure |
 | `AI_DEVELOPER_OPERATING_MODEL.md` | Core doctrine: ethos, slices, autonomy, verification, feedback loop |
 | `SPEC_INTERVIEW_PROMPT.md` | Optional pre-brief interview tool for new projects |

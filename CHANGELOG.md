@@ -6,6 +6,28 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.16.0 — 2026-08-22
+
+### Theme: Condensed Rules Cheat Sheet
+
+PHDK has grown to 17 standards files. That's thorough, but it also means an AI coding agent working a long session — or one that only skimmed `AGENTS.md` once at the start — starts dropping rules simply because there's too much to hold in context at once, not because the rule changed. There was no single place to re-ground on "what are the hard rules" without re-reading the full stack.
+
+### Added
+
+- `INANUTSHELL.md` — new file: every hard rule in PHDK condensed to one line each, grouped by topic (Database, Auth, Security, Cost, AI/LLM, Versioning, Slices/Verification, Code/File rules, Data Honesty, Debug Mode, Design, Stop-and-Ask), each group pointing back to its full source file. Explicitly a memory aid, not a new source of truth — the full file wins on any conflict.
+
+### Changed
+
+- `AGENTS.md` — now tells agents to re-read `INANUTSHELL.md` if a session runs long and rules start slipping.
+- `README.md` — `INANUTSHELL.md` added to Included Files, listed first under Onboarding and Operating Model.
+- `SKILL.md` — `INANUTSHELL.md` added to the vendored file list, so every new project gets the cheat sheet locally.
+
+### Canonical Decisions
+
+- A condensed cheat sheet is a memory aid, not a substitute for the full standards files — it exists to catch context-length drift, not to replace `Required Reading Order`.
+
+---
+
 ## v2.15.0 — 2026-08-21
 
 ### Theme: Cloud-Only Database, No Local PostgreSQL
