@@ -46,7 +46,7 @@ These controls must never appear in the customer-facing experience unless the us
 
 ### When debug mode is on
 
-- All functions report verbose structured logs to the console
+- Every function reports its status through the shared debug-log helper, not whichever ad hoc `console.log` calls a developer happened to leave in — see `Function-Level Status Logging` below for the required pattern
 - A floating panel appears in the top-left corner
 - The panel shows the current version number
 - The panel shows the copy diagnostics button with the clear cache button immediately next to it
@@ -58,7 +58,9 @@ These controls must never appear in the customer-facing experience unless the us
 
 - App-style projects with login: debug mode is toggled from the admin or config panel
 - App-style projects without login: debug mode is toggled via environment variable or local developer config
+- **In every non-production environment (local, dev, preview, staging) debug mode defaults to ON.** It is not an opt-in the developer has to remember to flip — a fresh clone or a fresh deploy to a non-production environment must show the debug panel and populate the console without any manual setup step.
 - Debug mode is never active in production by default
+- Before a production release or promotion, debug mode's forced-on default must be explicitly confirmed switched off for the production environment — this is a release gate, not a preference. See `Debug Diagnostics QA` and the `Release / Deploy QA` section of `QA_CHECKLIST.md`.
 - Debug mode activation must be audited when login and admin exist
 
 ---
@@ -232,6 +234,20 @@ This lets the AI developer catch a runaway loop against a metered API from the d
 - Do not capture request or response bodies
 - Clear the buffer on clear cache
 
+### Function-Level Status Logging
+
+"All functions report verbose structured logs" is a requirement to implement, not an aspiration — the copy diagnostics report is only as useful as the buffer behind it, and an empty or sparse buffer is the most common reason a diagnostics report fails to help.
+
+- Every project must expose one shared debug-log helper (e.g. `debugLog(scope, status, detail)`) that writes into the circular buffer described above. Ad hoc `console.log` calls scattered through the codebase do not satisfy this requirement — they are inconsistent, get deleted during cleanup, and are not guaranteed to be captured by the buffer.
+- When debug mode is active, every one of the following must call the shared helper on entry, on success, and on failure, with a status field (`start` / `success` / `error`):
+  - every API route handler and every client-side API call
+  - every form submit handler
+  - every auth flow step (see `Auth Diagnostics Requirements`)
+  - every background job, scheduled task, or queue consumer
+  - every call to a metered or paid external API (see `Metered API / Cost Diagnostics Requirements`)
+- When debug mode is off, the helper is a no-op — it must never run in production by default and must never add meaningful overhead when disabled.
+- A working slice is not complete if its new functions were not wired into the shared debug-log helper. Verify this the same way any other requirement in this file is verified — see `Debug Diagnostics QA`.
+
 ### Backend
 
 - Include correlation ID in every API response header
@@ -272,3 +288,7 @@ Before marking debug diagnostics complete, verify:
 - [ ] Debug floating panel appears when debug mode is active
 - [ ] Debug floating panel does not appear in production by default
 - [ ] Debug controls do not appear in customer-facing experience
+- [ ] Debug mode is ON by default in local/dev/preview/staging with no manual setup step required
+- [ ] Debug mode's forced-on default is explicitly confirmed switched off before production release — recorded in the slice release report
+- [ ] New or changed functions call the shared debug-log helper on entry, success, and failure — not ad hoc `console.log`
+- [ ] Copy diagnostics report, taken from a live session with debug mode on, shows real entries in "Recent frontend logs" (not empty or near-empty)

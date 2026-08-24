@@ -15,7 +15,7 @@ Every product UI must show:
 - project name
 - logo or icon
 - version number
-- copy-debug-report button next to the version
+- copy-debug-report button and clear-cache button, paired, next to the version
 
 ## Required Locations
 
@@ -35,7 +35,7 @@ Required app shell structure:
 
 ```txt
 Top-left:     logo + project name
-Near logo:    version number + copy-debug-report button
+Near logo:    version number, then copy-debug-report button + clear-cache button (paired, side by side)
 Main nav:     route-based feature navigation
 Main area:    page content
 Footer:       optional, project-specific
@@ -450,7 +450,7 @@ The interface must always communicate which state it is in.
 Before marking UI work complete, verify:
 
 - [ ] Project name/logo placement is respected.
-- [ ] Version and copy-debug-report button are present where required.
+- [ ] Version, copy-debug-report button, and clear-cache button are present where required.
 - [ ] Route-based navigation is used for primary features.
 - [ ] Mobile layout works at 320px and up.
 - [ ] Tablet layout works at 768px and up.

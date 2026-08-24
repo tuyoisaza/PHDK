@@ -319,8 +319,11 @@ Checklist:
 
 - [ ] **Activation:** debug mode activates correctly.
 - [ ] **Deactivation:** debug mode deactivates correctly.
+- [ ] **Dev default:** debug mode is ON by default in local/dev/preview/staging, with no manual setup step.
 - [ ] **Verbosity:** debug mode increases log verbosity.
 - [ ] **Production default:** debug mode never activates in production by default.
+- [ ] **Pre-release gate:** debug mode's forced-on default is explicitly confirmed switched off before this environment is promoted to production.
+- [ ] **Function coverage:** new or changed functions call the shared debug-log helper on entry, success, and failure, not ad hoc `console.log`.
 - [ ] **Activation audit:** debug mode activation is audited.
 - [ ] **Deactivation audit:** debug mode deactivation is audited.
 - [ ] **Authorized visibility:** debug indicator or panel appears only for authorized admin/developer roles when active.
@@ -806,6 +809,9 @@ The final response must clearly state what passed, what failed, what was not
 - [ ] Debug floating panel appears when debug mode is active
 - [ ] Debug floating panel does not appear in production by default
 - [ ] Debug controls do not appear in customer-facing experience
+- [ ] Debug mode is ON by default in local/dev/preview/staging with no manual setup step required
+- [ ] Debug mode's forced-on default is explicitly confirmed switched off before production release — recorded in the slice release report
+- [ ] Copy diagnostics report, taken from a live session with debug mode on, shows real entries in "Recent frontend logs" (not empty or near-empty)
 
 ---
 
