@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.19.0**
+**Version: v2.20.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -189,6 +189,12 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 | File | Purpose |
 |------|---------|
 | `CHANGELOG.md` | Standards version history |
+
+### Optional External Tooling
+
+| File | Purpose |
+|------|---------|
+| `SKILLS_REGISTRY.md` | Curated menu of external Agent Skills, plugins, MCP servers, and reference material — not required reading, consult only when a task genuinely needs one |
 
 ---
 

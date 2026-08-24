@@ -6,6 +6,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.20.0 — 2026-08-24
+
+### Theme: SKILLS_REGISTRY.md — Curated External Skills, Tool-Agnostic
+
+PHDK's own reading order and standards are self-contained by design, but developers repeatedly asked what else to install alongside it — Superpowers, Anthropic's own frontend-design/webapp-testing skills, MCP servers for live docs, and similar. Without a vetted list, the alternative is an AI developer guessing at URLs or trusting an unverified "awesome list" wholesale. This adds a new optional (not required-reading) file cataloging external skills, plugins, and MCP servers that pair with PHDK, verified against the GitHub API before being listed — including catching three incorrect URLs and one materially different install mechanism (several of the listed repos are Claude Code plugin marketplaces, not single-skill repos, so a plain `git clone` into a skill folder would not have worked for them).
+
+### Added
+
+- `SKILLS_REGISTRY.md` — new optional file: 13 vetted external skills/sources (Front-end Design, Webapp Testing, Security Guidance, Skill Creator, Superpowers, Context7, Addy Osmani Agent Skills, Code Review Skill, MCP Servers, TypeScript MCP SDK, Claude Code Best Practice, VoltAgent Awesome Agent Skills, Andrej Karpathy-style CLAUDE.md), each identified by install type (portable Agent Skill, Claude Code plugin marketplace, Claude Code hooks/commands plugin with no portable equivalent, MCP server, or reference-only) so a developer on any of PHDK's 8 supported tools — not just Claude Code — knows whether a given entry is actually installable in their tool. A "Front-end Design — compare before choosing" section researches and compares 5 design-skill candidates (Anthropic, Vercel Labs, AccessLint, Bencium, NextLevelBuilder) with maintainer/trust signals, rather than defaulting to the first result — including flagging a star count on one candidate that looks disproportionate to the repo's visibility.
+- `README.md` — new "Optional External Tooling" file table entry.
+- `SKILL.md` — Ongoing Project workflow gains a step pointing to `SKILLS_REGISTRY.md` as an optional, situational consult — never installed without asking first.
+
+### Canonical Decisions
+
+- None — this is a curated menu, not a standard. Nothing in `SKILLS_REGISTRY.md` overrides a PHDK standard; PHDK wins on any conflict, same precedence `INANUTSHELL.md` already has.
+
+---
+
 ## v2.19.0 — 2026-08-24
 
 ### Theme: Task Tracking Standard — Local-Only, No GitHub Dependency

@@ -52,6 +52,7 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
 3. Work per `AI_DEVELOPER_OPERATING_MODEL.md`: small verified working slices, evidence before marking anything complete, stop-and-ask on the conditions listed in `DEVSECOPS.md` and `AI_DEVELOPER_OPERATING_MODEL.md`.
 4. Read `TASK.md` and `STATUS.md` in the project repo for current scope and state.
 5. If the developer asks to update, sync, or upgrade the project's PHDK standards, go to "Updating Vendored Standards" below. Otherwise, don't check on your own initiative — this is an explicit action, not something to do silently mid-task.
+6. If the current task would genuinely benefit from an external skill (heavy UI work, browser-testing evidence, a second security or code-review pass), consult this skill's own `SKILLS_REGISTRY.md` — optional, situational, never installed without asking first.
 
 ## Updating Vendored Standards
 
