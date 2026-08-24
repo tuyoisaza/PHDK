@@ -69,6 +69,13 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - Update `STATUS.md` and `TASK.md` every session — that's the only memory between sessions, don't trust what "feels" familiar
 - *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`)*
 
+## Task Tracking
+
+- `TASK.md`/`STATUS.md` are 100% local, plain-text markdown — never GitHub Issues, GitHub Projects, or GitHub Actions as the source of truth for tracking
+- One `TASK.md` per active slice; when it closes, archive it to `docs/completed-slices/` and start fresh
+- A GitHub Actions workflow may exist for CI only if explicitly approved, and never as the thing that tracks or gates slice completion
+- *(full: `TASK_TRACKING_STANDARD.md`)*
+
 ## Code & File Rules
 
 - Hard max 600 lines per file; prefer under 300
@@ -94,7 +101,8 @@ If this file and a full standards file ever disagree, the full file wins — thi
 ## Debug Mode
 
 - Copy-diagnostics and clear-cache buttons, always paired, next to the version number
-- Debug mode is never on in production by default
+- Debug mode is ON by default in local/dev/preview/staging — not opt-in — and must be confirmed OFF before production
+- Every function calls the shared debug-log helper on entry/success/failure — not ad hoc `console.log` — so the copy-diagnostics report actually has content
 - Clear cache = clear browser cache + service worker + force logout + reload
 - *(full: `DEBUG_DIAGNOSTICS_STANDARD.md`)*
 

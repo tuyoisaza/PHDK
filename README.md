@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.17.0**
+**Version: v2.19.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -72,6 +72,7 @@ Read the PHDK standards from https://github.com/tuyoisaza/PHDK in this order:
 8. VERSIONING.md
 9. VERIFICATION_LOOP.md
 10. DEBUG_DIAGNOSTICS_STANDARD.md
+11. TASK_TRACKING_STANDARD.md
 Then read TASK.md and STATUS.md from the project repo.
 ```
 
@@ -171,6 +172,7 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 | File | Purpose |
 |------|---------|
 | `AGILE_SLICE_WORKFLOW.md` | Working slice model, lifecycle, sizing, backlog |
+| `TASK_TRACKING_STANDARD.md` | `TASK.md`/`STATUS.md` format, completed-slice archiving, local-only rule (no GitHub Issues/Projects/Actions) |
 | `VERIFICATION_LOOP.md` | What counts as proof, health checks, deep health |
 | `DEBUG_DIAGNOSTICS_STANDARD.md` | Copy diagnostics spec, debug mode, auth diagnostics |
 | `QA_CHECKLIST.md` | Quality gates for every merge and release |
@@ -212,6 +214,8 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | LSP setup | `typescript-language-server` set up and fully verified once at foundation build, smoke-checked at session start; whether the AI agent has direct LSP access or only text search is confirmed and reported, not assumed — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup |
 | Deployment | The only supported path to a live deploy is commit (versioned) → push to GitHub → Railway's GitHub-connected pipeline — never `railway up` or a local build/tarball upload — see `TECHNICAL_STACK.md` First-time Railway Setup |
 | Data import | Importing data from multiple sources or on a recurring cadence uses a stateful intake pipeline (`pending → processed → approved \| deactivated`) with a batch reference on every imported row and soft-delete-by-batch-state — never a direct insert with no review step, and never a hard delete to undo a bad import — see `TECHNICAL_STACK.md` Data Import / Intake Pipeline |
+| Debug mode default | Debug mode defaults to ON in every non-production environment (no manual setup step) and must be explicitly confirmed OFF before production release; every function reports status through one shared debug-log helper, never ad hoc `console.log` — see `DEBUG_DIAGNOSTICS_STANDARD.md` |
+| Task tracking | `TASK.md`/`STATUS.md` are 100% local, plain-text markdown, archived to `docs/completed-slices/` on slice close — never GitHub Issues, GitHub Projects, or GitHub Actions as the system of record; any Actions workflow present must be CI-only, explicitly approved, and never gate slice completion — see `TASK_TRACKING_STANDARD.md` |
 
 Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
 

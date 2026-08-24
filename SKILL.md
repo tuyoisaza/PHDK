@@ -38,6 +38,7 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
    - `DEBUG_DIAGNOSTICS_STANDARD.md`
    - `AI_DEVELOPER_OPERATING_MODEL.md`
    - `AGILE_SLICE_WORKFLOW.md`
+   - `TASK_TRACKING_STANDARD.md`
    - `QA_CHECKLIST.md`
 
    This is the full set referenced from `AGENTS.md`'s own required reading order plus the QA gate it points to — anything less would leave a dangling reference once the project is on its own. This makes the project self-contained: any tool working on it afterward — Skill-aware or not, with or without access to this repo — can read the standards locally instead of depending on a live fetch. `VERSION` is what makes the update check below possible — without it, nobody can tell what's vendored.

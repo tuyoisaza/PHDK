@@ -6,6 +6,57 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.19.0 — 2026-08-24
+
+### Theme: Task Tracking Standard — Local-Only, No GitHub Dependency
+
+Task and plan tracking (`TASK.md`/`STATUS.md`) was already required by `AI_DEVELOPER_OPERATING_MODEL.md`, but its file format, archiving behavior, and — critically — its relationship to GitHub were never made explicit. Without that, a project could drift into using GitHub Issues, GitHub Projects, or a status-reporting GitHub Actions workflow as the real tracking system, none of which PHDK ever intended, and Actions minutes/some Projects usage are billable on private repos. This adds a standalone standard that formalizes the existing `TASK.md`/`STATUS.md` convention, defines a `docs/completed-slices/` archive step so closed-slice history stays browsable without git log archaeology, and states the rule outright: task tracking is 100% local, plain-text markdown, and never depends on GitHub Issues, GitHub Projects, or GitHub Actions.
+
+### Added
+
+- `TASK_TRACKING_STANDARD.md` — new standard: `TASK.md`/`STATUS.md` file structure and format, the closed-slice archive step (`docs/completed-slices/`), a plain-text claim-marker convention for multiple agents sharing one `TASK.md`, and an explicit Local-Only Rule prohibiting GitHub Issues/Projects/Actions as the system of record for tracking.
+- `README.md` — new Canonical Decision row for task tracking, `TASK_TRACKING_STANDARD.md` added to the Workflow Standards table and both reading-order lists.
+- `INANUTSHELL.md` — new "Task Tracking" condensed section.
+
+### Changed
+
+- `ONBOARDING_AI_DEVELOPER.md` — `TASK_TRACKING_STANDARD.md` inserted into the Required Reading Order (before `TASK.md`/`STATUS.md`) and added to Standards File Definitions.
+- `AI_DEVELOPER_OPERATING_MODEL.md` — Level 2 Operating Rules and Repo Memory and Continuity now point to `TASK_TRACKING_STANDARD.md` for format and the local-only rule.
+- `AGILE_SLICE_WORKFLOW.md` — Step 9 renamed to "Archive TASK.md and update STATUS.md" with the archive step spelled out; Backlog Management section links to the new standard.
+- `SKILL.md` — `TASK_TRACKING_STANDARD.md` added to the vendored file list for new projects.
+
+### Canonical Decisions
+
+- Task and plan tracking is 100% local, plain-text markdown inside the project repo — never GitHub Issues, GitHub Projects, or GitHub Actions as the source of truth.
+- A GitHub Actions workflow may exist for CI only when explicitly approved, and must never be the mechanism that tracks or gates slice completion.
+- A closed slice's `TASK.md` is archived to `docs/completed-slices/` before the next slice's `TASK.md` starts.
+
+---
+
+## v2.18.0 — 2026-08-24
+
+### Theme: Debug Mode Enforcement — Forced-On Default and Function-Level Logging
+
+The version badge, copy-diagnostics button, and clear-cache button were already required, but projects kept shipping without them, or shipping with a debug mode that existed in code but was never actually populated with useful console output — because logging was left to whichever ad hoc `console.log` calls a developer happened to leave in, and debug mode itself was opt-in rather than on by default in non-production environments. This closes both gaps: debug mode now defaults to ON in every non-production environment with no manual setup step, must be explicitly confirmed OFF before a production release, and every function must report its status through one shared debug-log helper so the copy-diagnostics report has real content instead of an empty buffer. The App Shell Layout diagram in `DESIGN_RULES.md` also under-specified the clear-cache button; it now shows the paired copy-diagnostics + clear-cache buttons explicitly, matching the pairing rule already required by `DEBUG_DIAGNOSTICS_STANDARD.md`.
+
+### Added
+
+- `DEBUG_DIAGNOSTICS_STANDARD.md` — new "Function-Level Status Logging" subsection: one shared `debugLog(scope, status, detail)` helper is required, ad hoc `console.log` does not satisfy the requirement, and every API handler, form submit handler, auth flow step, background job, and metered-API call must report entry/success/failure through it when debug mode is active.
+- `DEBUG_DIAGNOSTICS_STANDARD.md` / `QA_CHECKLIST.md` — new QA gates: debug mode is ON by default in local/dev/preview/staging with no manual setup step, its forced-on default is explicitly confirmed switched off before production release, new/changed functions use the shared debug-log helper, and a live copy-diagnostics report shows real log entries rather than an empty buffer.
+
+### Changed
+
+- `DEBUG_DIAGNOSTICS_STANDARD.md` — Activation section now states debug mode defaults to ON in non-production environments (previously only specified that it must default to OFF in production, leaving the non-production default unstated).
+- `DESIGN_RULES.md` — App Shell Layout diagram and Brand Requirements list now show the clear-cache button paired with the copy-debug-report button, matching the existing pairing rule.
+- `INANUTSHELL.md` — Debug Mode section updated with the forced-on/confirmed-off gate and the shared debug-log helper requirement.
+
+### Canonical Decisions
+
+- Debug mode defaults to ON in every non-production environment and must be explicitly confirmed OFF before production release — this is a release gate, not a developer preference.
+- Function-level debug logging goes through one shared helper, never ad hoc `console.log` — a working slice with new functions is not complete until they are wired into it.
+
+---
+
 ## v2.17.0 — 2026-08-22
 
 ### Theme: Data Import / Intake Pipeline Standard

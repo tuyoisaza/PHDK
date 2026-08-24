@@ -38,7 +38,7 @@ Strict and non-negotiable. These never bend.
 
 The default way of working on every task and every session.
 
-- Use `TASK.md` and `STATUS.md` every session
+- Use `TASK.md` and `STATUS.md` every session, structured per `TASK_TRACKING_STANDARD.md`
 - Work in small user-visible verified slices
 - Show evidence after every slice
 - Follow the feedback loop
@@ -218,7 +218,7 @@ Do not skip ahead to the next slice because the current one seems done. Get conf
 
 The AI developer has no memory between sessions by default.
 
-`TASK.md` and `STATUS.md` are the memory system.
+`TASK.md` and `STATUS.md` are the memory system. Their format, and the rule that this system stays 100% local markdown — never GitHub Issues, Projects, or Actions — is defined in `TASK_TRACKING_STANDARD.md`.
 
 Before ending any session:
 

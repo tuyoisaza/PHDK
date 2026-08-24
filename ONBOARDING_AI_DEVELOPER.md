@@ -57,20 +57,21 @@ Before starting any task, read these files in this order:
 8.  VERSIONING.md                    — version, branch, commit, changelog
 9.  VERIFICATION_LOOP.md             — what counts as proof
 10. DEBUG_DIAGNOSTICS_STANDARD.md    — diagnostics and copy report spec
-11. TASK.md                          — current session task and scope
-12. STATUS.md                        — current project state and gaps
+11. TASK_TRACKING_STANDARD.md        — how TASK.md/STATUS.md are structured and archived
+12. TASK.md                          — current session task and scope
+13. STATUS.md                        — current project state and gaps
 ```
 
 Then read the project-specific PHDK files:
 
 ```txt
-13. PROJECT_BRIEF.md
-14. PRD.md
-15. FEATURES.md
-16. NAVTREE.md
-17. PUBLIC_CONTENT.md
-18. PRIVATE_CONTENT.md if it exists
-19. ARCHITECTURE_DECISIONS.md
+14. PROJECT_BRIEF.md
+15. PRD.md
+16. FEATURES.md
+17. NAVTREE.md
+18. PUBLIC_CONTENT.md
+19. PRIVATE_CONTENT.md if it exists
+20. ARCHITECTURE_DECISIONS.md
 ```
 
 Do not start coding until you have read all files relevant to your current task.
@@ -125,6 +126,12 @@ Use this file after every slice before reporting completion.
 Defines the copy diagnostics report spec, debug mode behavior, and auth diagnostics requirements.
 
 Use this file when implementing or touching the version badge, copy report button, clear cache button, or any debug mode behavior.
+
+### `TASK_TRACKING_STANDARD.md`
+
+Defines the format of `TASK.md` and `STATUS.md`, how a closed slice's tasks get archived to `docs/completed-slices/`, and the rule that task tracking is always local markdown — never GitHub Issues, GitHub Projects, or GitHub Actions.
+
+Use this file before creating or updating `TASK.md`, and when closing out a completed slice.
 
 ### `AI_DEVELOPER_OPERATING_MODEL.md`
 

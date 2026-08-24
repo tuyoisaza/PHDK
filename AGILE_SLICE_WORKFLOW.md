@@ -137,11 +137,13 @@ Push to the feature branch.
 
 Do not merge to `main` without explicit approval.
 
-### Step 9 — Update STATUS.md
+### Step 9 — Archive TASK.md and update STATUS.md
 
-Record:
+Archive the closed slice's `TASK.md` to `docs/completed-slices/<vX.Y.Z>-<slice-name>.md`, per `TASK_TRACKING_STANDARD.md`.
 
-- What was completed
+Record in `STATUS.md`:
+
+- What was completed, with a pointer to the archived `TASK.md`
 - Current version
 - Gaps flagged
 - Open questions
@@ -232,6 +234,8 @@ After each slice, update the backlog in `STATUS.md`:
 ```
 
 Keep the backlog honest. Do not add slices that are not confirmed by the PHDK files.
+
+The format of `TASK.md`, `STATUS.md`, and the completed-slice archive is defined in `TASK_TRACKING_STANDARD.md` — including the rule that none of this ever depends on GitHub Issues, GitHub Projects, or GitHub Actions.
 
 ---
 
