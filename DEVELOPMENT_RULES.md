@@ -37,7 +37,7 @@ phdk/vX.Y.Z/short-slice-name
 
 Rules:
 
-- Never commit directly to `main`
+- Never commit directly to `main` — enforced by GitHub branch protection, not only by this rule being followed; see `ENFORCEMENT.md`
 - Every feature starts in a feature branch
 - Every agent and subagent works on its own branch
 - Merge only after verification passes and approval is given

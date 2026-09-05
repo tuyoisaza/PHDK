@@ -6,7 +6,7 @@ This file is the entry point and router for AI agents, developers, and automatio
 
 Every agent must read this file first, then follow the reading order below before making changes.
 
-If a session runs long and rules start slipping, re-read `INANUTSHELL.md` — it is the one-line-per-rule condensed version of everything below. It is a memory aid, not a replacement for the full files.
+If a session runs long and rules start slipping, re-read `INANUTSHELL.md` — it is the one-line-per-rule condensed version of everything below. It is a memory aid, not a replacement for the full files. `ENFORCEMENT.md` is the deeper fix: rules with a mechanical check (git hooks, CI, branch protection) do not depend on this memory aid working.
 
 ---
 
@@ -18,14 +18,16 @@ Before starting any task, read the full onboarding stack in this order:
 2. `AI_DEVELOPER_OPERATING_MODEL.md`
 3. `AGENTS.md` — this file
 4. `DEVELOPMENT_RULES.md` — branching, commits, feature structure, monorepo rules
-5. `DESIGN_RULES.md` — UI, UX, accessibility, theming
-6. `TECHNICAL_STACK.md` — stack, monorepo layout, auth, database, AI/LLM integration, LSP/code intelligence setup
-7. `DEVSECOPS.md` — security, auth, secrets, cost safety, LLM guardrails
-8. `VERSIONING.md` — version, branch, commit, changelog, release format
-9. `VERIFICATION_LOOP.md` — what counts as proof, health checks
-10. `DEBUG_DIAGNOSTICS_STANDARD.md` — debug mode, diagnostics report spec
-11. `TASK.md`
-12. `STATUS.md`
+5. `ENFORCEMENT.md` — how these rules are mechanically enforced, not just documented
+6. `DESIGN_RULES.md` — UI, UX, accessibility, theming
+7. `TECHNICAL_STACK.md` — stack, monorepo layout, auth, database, AI/LLM integration, LSP/code intelligence setup
+8. `DEVSECOPS.md` — security, auth, secrets, cost safety, LLM guardrails
+9. `VERSIONING.md` — version, branch, commit, changelog, release format
+10. `VERIFICATION_LOOP.md` — what counts as proof, health checks
+11. `TESTING_STANDARD.md` — test framework, required coverage, test types
+12. `DEBUG_DIAGNOSTICS_STANDARD.md` — debug mode, diagnostics report spec
+13. `TASK.md`
+14. `STATUS.md`
 
 Work only within the scope defined in `TASK.md`. Do not touch out-of-scope files unless the task explicitly requires it.
 

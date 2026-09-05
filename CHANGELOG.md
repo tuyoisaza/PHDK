@@ -6,6 +6,42 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.22.0 — 2026-09-05
+
+### Theme: Vibe-Coding Gap Closure + Mechanical Enforcement
+
+A review of the full standards set against real-world "vibe coding" failure modes surfaced ten gaps — a defined testing strategy, a human diff-review gate distinct from AI self-verification, HTTP security headers, mandatory rate limiting, secrets rotation, automated dependency patching, an app-level deploy rollback runbook, PR preview environments, a privacy/legal baseline, and multi-agent conflict handling. All ten are closed in this release.
+
+Separately, and more structurally: PHDK's biggest practical risk was never having too few rules — it was an AI developer following them faithfully in slice 1 and quietly drifting by slice 12, because every rule so far depended on the AI remembering to read and re-read documentation. New `ENFORCEMENT.md` reframes this: any rule expressible as a check (a regex, a lint rule, a repository setting, a CI status) is converted into something git, CI, or GitHub itself enforces — so compliance stops depending on memory at all. What's left over — genuine judgment calls with no possible lint rule — gets a tool-native always-loaded rule file (`CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, or project-root `AGENTS.md`) generated at foundation build, so the highest-severity rules stay physically present in context regardless of session length or which of PHDK's 8 supported tools is in use.
+
+### Added
+
+- `TESTING_STANDARD.md` — new standard: Vitest for unit/integration/component tests, Playwright for e2e, required test file locations, and what must have a test (every RBAC check, every API-boundary Zod schema, every service-layer business-logic method, every LLM output-validation path, the Google OAuth flow end-to-end). Closes the gap where `pnpm test` had no defined content and "no tests exist yet" was a permanently valid honest answer.
+- `ENFORCEMENT.md` — new standard: the two-tier enforcement model. Tier 1 (machine-enforced, doesn't depend on the AI at all) — GitHub branch protection on `main` (PR + one approval + passing status checks + no force-push), `commit-msg`/`pre-commit`/`pre-push` git hooks, a pre-commit secrets scan, a CI workflow, Dependabot/Renovate. Tier 2 (context-persistence for judgment calls) — a generated tool-native always-loaded rule file per project, kept in sync with `INANUTSHELL.md` through the existing `SKILL.md` update flow, plus a commit-time reminder that re-surfaces the highest-severity rules at the single most frequent touchpoint in the workflow. Includes an explicit "What This Does Not Solve" section rather than overclaiming.
+- `QA_CHECKLIST.md` — new "Human Diff Review" section: the AI's own verification evidence proves the code runs, not that a human reviewed what it does — these are declared non-substitutable gates, with "a human opened the actual diff" as its own checklist item distinct from build/lint/health checks. New "Enforcement QA" section verifying the Tier 1/Tier 2 artifacts actually exist and were tested, not just scaffolded.
+- `DEVSECOPS.md` — new sections: HTTP Security Headers (CORS allowlist, default-deny CSP, HSTS, the standard header set, via `@fastify/helmet`), Rate Limiting (mandatory, not "considered" — global default plus a stricter limit on auth endpoints), Secrets Rotation and Compromise Response (what happens after a secret leaks, not just prevention), Keeping Existing Dependencies Patched (Dependabot/Renovate), Privacy and Legal Baseline (Privacy Policy/ToS/cookie consent/data-deletion process when personal data is collected — a documentation baseline, explicitly not a GDPR/CCPA compliance guarantee).
+- `TECHNICAL_STACK.md` — new sections: Deploy Rollback Runbook (Railway dashboard redeploy-last-good-build in parallel with `git revert`, plus a migration-compatibility check before rolling back — distinct from the existing migration-only rollback notes) and Preview Environments (why there's no PR-preview-deploy by default, and how to add one if a project wants it).
+- `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` — new Question 5 (personal-data/privacy baseline), renumbering the former Question 5 (final corrections) to Question 6.
+
+### Changed
+
+- `TASK_TRACKING_STANDARD.md` — "Multiple Agents Sharing One Queue" expanded from a one-line claim-marker convention into actual conflict handling: checking claimed tasks for file/feature overlap before starting, who merges first, and what to do when a conflict is discovered mid-task.
+- `AGILE_SLICE_WORKFLOW.md`, `AI_DEVELOPER_OPERATING_MODEL.md` — cross-reference the new Human Diff Review gate at the merge/completion points that previously implied AI verification alone was sufficient for approval.
+- `BUILD_APP_FOUNDATION_PROMPT.md` — new Step 14 "Enforcement & Testing Scaffolding" (git hooks, secrets scan, CI workflow, Dependabot/Renovate, the tool-native rule file, Vitest/Playwright config), all created before the renumbered Step 15 Quality Gates so the gates can actually check them. Quality Gates gained checks for hooks being tested (not assumed), branch protection being confirmed by the developer, and the security-header/rate-limit requirements.
+- `qa_checklist.md` Security section — CORS/CSP/headers/rate-limiting/secrets-rotation lines upgraded from advisory ("considered", "reviewed") to concrete, mandatory checks matching the new `DEVSECOPS.md` sections.
+- `INANUTSHELL.md` — new condensed sections for Testing and Mechanical Enforcement, and new lines under Security, Versioning & Git, and Working Slices & Verification for the headers/rate-limiting/secrets-rotation/privacy, rollback, and human-diff-review additions.
+- `SKILL.md` — vendoring list includes `ENFORCEMENT.md` and `TESTING_STANDARD.md`; bootstrap now generates the Tier 2 tool-native rule file and flags Tier 1 branch-protection setup as a required manual step; the update flow now checks whether a project's inlined rule-file block has gone stale against a changed `INANUTSHELL.md`.
+- `agents.md`, `README.md`, `ONBOARDING_AI_DEVELOPER.md` — required reading order, file tables, and Canonical Decisions updated for both new files.
+- `VERSIONING.md`, `DEVELOPMENT_RULES.md` — cross-reference the `commit-msg` hook and GitHub branch protection respectively as the mechanical backstop for the commit-format and never-commit-to-`main` rules already documented there.
+
+### Canonical Decisions
+
+- Any PHDK rule expressible as a mechanical check must have one (a git hook, a CI status, a repository setting) — a rule with an available Tier 1 equivalent that is documented as prose only is a gap in `ENFORCEMENT.md`, not just a documentation task.
+- Merging to `main` requires a human to have read the actual diff, enforced by GitHub's required-approval setting — the AI's own verification evidence is required but never a substitute for this.
+- See the new rows in `README.md` Canonical Decisions for Testing, Human diff review, Mechanical enforcement, HTTP security headers & rate limiting, Secrets rotation, Deploy rollback, and Privacy and legal baseline.
+
+---
+
 ## v2.21.0 — 2026-09-04
 
 ### Theme: Version Prefix on Every Commit, Not Just Releases

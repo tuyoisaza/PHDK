@@ -96,6 +96,20 @@ This gives a durable, browsable history of what was actually done per slice with
 
 If more than one AI agent or developer draws from the same `TASK.md` concurrently, append a claim marker next to the task being worked (`(@agent-id)`) instead of introducing a locking service. This stays a plain-text convention — no new infrastructure, no account.
 
+### Branch and file ownership
+
+`AGENTS.md` already requires every agent and subagent to work on its own branch. That rule is what actually prevents most multi-agent conflicts — the claim marker above is for visibility into `TASK.md`, not for safety; branch isolation is what provides the safety.
+
+- Before claiming a task, an agent checks whether any *other currently claimed* task in `TASK.md` touches the same files or the same `src/features/<feature-name>/` slice — if so, treat it as a soft conflict and either sequence the work (wait) or explicitly split the files between the two tasks before starting, rather than both agents editing the same feature folder in parallel branches
+- Two agents producing overlapping changes on separate branches is a merge conflict, not a data-loss risk — git surfaces it at merge time. The claim marker exists so agents notice the overlap *before* investing work in it, not to prevent git from doing its job
+- The agent that reaches Step 8 (`AGILE_SLICE_WORKFLOW.md` Commit and push) first merges first. The second agent rebases onto the updated `main`/target branch and resolves conflicts before its own merge — never force-push over the first agent's already-merged work
+
+### If a conflict is discovered mid-task
+
+- Stop and note it in `TASK.md` next to both claimed tasks — do not silently resolve someone else's in-progress work
+- If the conflicting task belongs to another live agent session, this is a Stop-and-Ask condition (scope expansion boundary, `AI_DEVELOPER_OPERATING_MODEL.md`) — ask the human how to sequence the two, don't decide unilaterally which agent yields
+- If the conflicting task's claim marker is stale (the claiming agent's session ended without releasing it), the human confirms it is safe to reclaim before a new agent picks it up — a stale marker is not, by itself, permission to proceed
+
 ---
 
 ## Anti-Patterns
@@ -116,3 +130,5 @@ If more than one AI agent or developer draws from the same `TASK.md` concurrentl
 - [ ] The closed slice's `TASK.md` was archived to `docs/completed-slices/`
 - [ ] No GitHub Issues, Projects, or Actions are the source of truth for tracking
 - [ ] Any GitHub Actions workflow present in the repo is CI only, was explicitly approved, and does not gate slice completion
+- [ ] If multiple agents are active, each claimed task in `TASK.md` was checked against other claimed tasks for file/feature overlap before starting
+- [ ] No agent force-pushed over another agent's already-merged work to resolve a conflict

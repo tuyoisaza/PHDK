@@ -30,11 +30,13 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
    - `ONBOARDING_AI_DEVELOPER.md`
    - `AGENTS.md`
    - `DEVELOPMENT_RULES.md`
+   - `ENFORCEMENT.md`
    - `DESIGN_RULES.md`
    - `TECHNICAL_STACK.md`
    - `DEVSECOPS.md`
    - `VERSIONING.md`
    - `VERIFICATION_LOOP.md`
+   - `TESTING_STANDARD.md`
    - `DEBUG_DIAGNOSTICS_STANDARD.md`
    - `AI_DEVELOPER_OPERATING_MODEL.md`
    - `AGILE_SLICE_WORKFLOW.md`
@@ -43,7 +45,8 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
 
    This is the full set referenced from `AGENTS.md`'s own required reading order plus the QA gate it points to — anything less would leave a dangling reference once the project is on its own. This makes the project self-contained: any tool working on it afterward — Skill-aware or not, with or without access to this repo — can read the standards locally instead of depending on a live fetch. `VERSION` is what makes the update check below possible — without it, nobody can tell what's vendored.
 4. Point the generated `TASK.md` and any onboarding note at `phdk-standards/AGENTS.md` as the required entry point, per `ONBOARDING_AI_DEVELOPER.md`'s reading order.
-5. Tell the developer the kit is generated and vendored, and offer to run `BUILD_APP_FOUNDATION_PROMPT.md` next as the first build step. Wait for confirmation before running it — it scaffolds the actual codebase, that's a bigger action than generating docs.
+5. Generate the current tool's native always-loaded rule file per `ENFORCEMENT.md` Tier 2 (`CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, or project-root `AGENTS.md`, whichever matches the tool actually being used) — this is what keeps the highest-severity rules in context even in a long session or a tool that never triggered this reading order at all.
+6. Tell the developer the kit is generated and vendored, and offer to run `BUILD_APP_FOUNDATION_PROMPT.md` next as the first build step — this is also where `ENFORCEMENT.md` Tier 1 (git hooks, CI, branch protection) gets scaffolded. Wait for confirmation before running it — it scaffolds the actual codebase, that's a bigger action than generating docs.
 
 ## Ongoing Project
 
@@ -64,6 +67,7 @@ For a project that already has a vendored `phdk-standards/` folder, this refresh
 4. On confirmation, overwrite every file in `phdk-standards/` with this skill's current copy (the same file list as the New Project vendoring step above), so `phdk-standards/VERSION` ends up matching this skill's own.
 5. Note the update in the project's `STATUS.md` (old version → new version), same as any other state change. Commit it through the project's normal branch and commit rules — this is not exempt from `DEVELOPMENT_RULES.md`, and it is not on its own grounds for Finetuning Mode.
 6. If the developer had modified any file inside `phdk-standards/` directly, flag that before overwriting — those are meant to be a clean mirror of this repo, so local edits there are themselves worth a question.
+7. If `INANUTSHELL.md` changed in this update, diff it against the inlined hard-rules block in the project's tool-native rule file (`ENFORCEMENT.md` Tier 2) and tell the developer whether that file needs updating too — a stale inlined block is worse than none, per `ENFORCEMENT.md` Never.
 
 ## Never
 

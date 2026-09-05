@@ -715,7 +715,31 @@ Do not require GitHub Actions for Railway deployment.
 
 ---
 
-## Step 14 — Quality Gates
+## Step 14 — Enforcement & Testing Scaffolding
+
+This is where `ENFORCEMENT.md` and `TESTING_STANDARD.md` stop being documents someone might read and become artifacts already in the repo. Do this before Quality Gates below, so the gates can actually check them.
+
+### Tier 1 — mechanical enforcement (`ENFORCEMENT.md`)
+
+- Configure Husky (or the project's chosen git-hooks tool) with `commit-msg`, `pre-commit`, and `pre-push` hooks per `ENFORCEMENT.md` Git Hooks
+- Add a pre-commit secrets scan per `ENFORCEMENT.md` Secrets Scanning
+- Add one GitHub Actions workflow (CI only, per `TASK_TRACKING_STANDARD.md` Local-Only Rule) running install/lint/typecheck/build/test on pull requests, per `ENFORCEMENT.md` CI
+- Configure Dependabot or Renovate per `DEVSECOPS.md` Keeping Existing Dependencies Patched
+- Tell the developer, explicitly, that GitHub branch protection on `main` (require PR, require one approval, require the CI status check, disallow force-push) is a one-time manual step in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step. Do not report this step as done until the developer confirms they configured it.
+
+### Tier 2 — context-persistence (`ENFORCEMENT.md`)
+
+- Generate the current tool's native always-loaded rule file (`CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, or project-root `AGENTS.md`) per `ENFORCEMENT.md` Tool-native always-loaded rule files — only for the tool actually in use, not all four speculatively
+
+### Testing (`TESTING_STANDARD.md`)
+
+- Configure Vitest for `apps/web` and `apps/api`
+- Configure Playwright at `apps/web/e2e` if the project has login (the Google OAuth E2E test is required per `TESTING_STANDARD.md`)
+- Wire `test` in root and per-app `package.json` scripts to actually run these, not a placeholder that exits 0
+
+---
+
+## Step 15 — Quality Gates
 
 Before declaring foundation complete, check:
 
@@ -741,6 +765,13 @@ Before declaring foundation complete, check:
 - no secrets are committed
 - README documents Railway repo-root deployment
 - LSP/code intelligence set up and verified once per `TECHNICAL_STACK.md` LSP / Code Intelligence Setup — including whether the AI agent itself has direct LSP access or only text-search access, reported honestly
+- git hooks (`commit-msg`, `pre-commit`, `pre-push`) are installed and a test commit with a malformed message was actually rejected, not assumed to work
+- CI workflow exists and runs on a test PR
+- GitHub branch protection on `main` was confirmed configured by the developer, not just requested
+- the current tool's native always-loaded rule file exists per `ENFORCEMENT.md` Tier 2
+- Vitest is configured and `pnpm test` actually runs something, not a no-op placeholder
+- CORS allowlist, CSP, and standard security headers are configured on `apps/api` per `DEVSECOPS.md` HTTP Security Headers
+- rate limiting is active globally and specifically on auth endpoints per `DEVSECOPS.md` Rate Limiting
 
 If a quality gate cannot be run, explain why.
 

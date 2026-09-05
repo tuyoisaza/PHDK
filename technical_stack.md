@@ -505,6 +505,39 @@ This provisions the cloud PostgreSQL instance that local development connects to
 
 ---
 
+## Deploy Rollback Runbook
+
+Migration rollback notes (`QA_CHECKLIST.md` Migrations and Rollback) cover schema changes. This covers the app deploy itself: what to do when the code just shipped by a push to `main` is bad in production.
+
+Because deployment is fully automatic on every push to `main` (`First-time Railway Setup` above), a bad deploy needs an equally fast, equally well-known way back — not something invented under pressure the first time it happens.
+
+### If a deploy is bad
+
+1. In the Railway dashboard, open the affected service's Deployments tab and redeploy the last known-good deployment — Railway keeps prior build artifacts, so this does not require a new git push or a new build.
+2. In parallel, revert the bad commit on `main` (`git revert`, not `git reset` — see `VERSIONING.md` Stop-and-Ask Conditions on rewriting history) so the next automatic deploy from a future push doesn't reintroduce the same bug. The dashboard rollback in step 1 buys time; the revert is what actually fixes `main`.
+3. If the bad deploy included a migration that already ran against the production database, the code rollback alone is not sufficient — check whether the migration is backward-compatible with the previous code version before rolling back. A migration that dropped a column the previous code still reads from is not safely reversible by redeploying old code alone; see `QA_CHECKLIST.md` Migrations and Rollback.
+4. Confirm recovery against `/health` and `/health/deep` per `VERIFICATION_LOOP.md` before considering the incident resolved.
+5. Record what happened in `STATUS.md` — what broke, how it was caught, and what the fix or process gap was, so the next session (or the next AI developer) has the context.
+
+### Never
+
+- Never treat "push a fix forward" as the only option when a dashboard rollback to the last-good build is faster and safer for a production-impacting bug
+- Never roll back the app deploy without checking migration compatibility first — a code-only rollback against an incompatible schema state can be worse than the original bug
+
+---
+
+## Preview Environments
+
+Only two Railway environments exist by the standard defaults: the dev/staging database from `First-time Railway database setup` above (used by every developer's local machine and by CI) and production. There is no PR-level preview deploy by default — a human reviewing a slice before merge (`QA_CHECKLIST.md` Human Diff Review) verifies against localhost, per `VERIFICATION_LOOP.md` Browser verification, not against a deployed preview.
+
+This is a deliberate default, not an oversight: a Railway PR-environment service per open branch has a real, ongoing cost, and most PHDK projects do not need it. If a project wants one:
+
+- Enable Railway's PR environments (or an equivalent Railway service configured to deploy feature branches) as an explicit, approved addition — this is an "adding new external services"-adjacent decision per `AI_DEVELOPER_OPERATING_MODEL.md` Stop-and-Ask Conditions, and belongs in `ARCHITECTURE_DECISIONS.md` once approved
+- A PR preview environment still points at the same shared dev/staging database from `First-time Railway database setup`, unless the project explicitly provisions a separate ephemeral database per preview — decide and record which, since concurrent previews sharing one dev database can collide on schema/migration state
+- A preview environment is never a substitute for the Human Diff Review gate — it makes that review easier (a real deployed URL instead of localhost), it does not replace someone reading the diff
+
+---
+
 ## Environment Variables
 
 Required `.env.example`:

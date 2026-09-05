@@ -135,7 +135,7 @@ Follow the commit format from `VERSIONING.md`.
 
 Push to the feature branch.
 
-Do not merge to `main` without explicit approval.
+Do not merge to `main` without explicit approval, and do not treat the AI's own verification evidence as that approval — a human reading the actual diff is a separate, required gate. See `QA_CHECKLIST.md` Human Diff Review.
 
 ### Step 9 — Archive TASK.md and update STATUS.md
 

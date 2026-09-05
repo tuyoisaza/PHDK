@@ -231,11 +231,37 @@ Answer what you know, or say `skip`.
 
 ### Question 5
 
+Does this project collect any personal data from real users (accounts, emails, form submissions, analytics, anything tied to an identifiable person)?
+
+This matters because Google OAuth login is the PHDK default whenever login exists, and login always means collecting at least a name and email.
+
+- `no` — public content only, nothing collected. Skip privacy policy / ToS / cookie consent.
+- `yes` — collects personal data. Answer, or say `default` for PHDK's recommended baseline:
+
+```txt
+Default baseline when personal data is collected:
+- A Privacy Policy page (/privacy) describing what is collected, why, and
+  how a user can request deletion.
+- A Terms of Service page (/terms) if the product involves accounts,
+  paid features, or user-generated content.
+- A cookie consent banner only if non-essential cookies (analytics,
+  marketing) are used — session cookies required for login do not need
+  consent under most frameworks, but this is not legal advice and the
+  developer should confirm for their jurisdiction and user base.
+- A documented process for a user to request their data be deleted,
+  even if manual (e.g. an admin action) rather than self-service at
+  first.
+```
+
+This is a documentation and process baseline, not a legal compliance guarantee for GDPR, CCPA, or any specific jurisdiction — PHDK does not provide legal advice. A project with EU users, healthcare data, or payment data needs an actual legal review beyond this baseline; flag that explicitly rather than treating this checklist as sufficient.
+
+### Question 6
+
 Is there anything you want to correct, add, or clarify about the project before I generate the kit?
 
 Answer with the correction, addition, or clarification. Or say `go`.
 
-After Question 5, `go` means begin generating only `PROJECT_BRIEF.md`.
+After Question 6, `go` means begin generating only `PROJECT_BRIEF.md`.
 
 After each generated file, the user must say `next` before you generate the next file.
 
@@ -687,7 +713,7 @@ The first generated task is always:
 
 Records key decisions future AI agents must not undo.
 
-Always include the debug mode decision and the data backup policy decision (from Question 3) as the first entries.
+Always include the debug mode decision, the data backup policy decision (from Question 3), and the personal-data/privacy-baseline decision (from Question 5) as the first entries.
 
 Use this format for each decision:
 

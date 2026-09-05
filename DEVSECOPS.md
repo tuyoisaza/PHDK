@@ -68,6 +68,9 @@ These rules are non-negotiable. They apply to every task, every session, every a
 - Always enforce authorization server-side on every protected route and endpoint
 - Always redact sensitive data in all debug reports and copy diagnostics
 - Always document security-relevant decisions in `ARCHITECTURE_DECISIONS.md`
+- Always configure CORS as an explicit origin allowlist, CSP as default-deny, and the standard security header set — see HTTP Security Headers below
+- Always enable request rate limiting on every API service, with a stricter limit on auth endpoints — see Rate Limiting below
+- Always rotate a secret immediately if it is committed, logged, or otherwise exposed — see Secrets Rotation and Compromise Response below
 
 ---
 
@@ -211,6 +214,75 @@ Major new dependencies require an entry in `ARCHITECTURE_DECISIONS.md`.
 
 Do not add dependencies speculatively or to satisfy a checklist item.
 
+### Keeping Existing Dependencies Patched
+
+The rules above govern adding a new dependency. This governs the dependencies already in the project — manual-only maintenance reliably rots within weeks on a project with no dedicated ops time, and a stack this precisely pinned deserves the same discipline for staying current as it does for what gets added.
+
+- Every project foundation configures Dependabot (GitHub-native, no extra account) or Renovate for automated dependency update PRs — this is a foundation-slice default (`BUILD_APP_FOUNDATION_PROMPT.md`), not something added later when a CVE is found
+- Security-patch updates (a dependency's own patch release fixing a known CVE) may be merged directly once CI passes — they still go through the normal branch/commit/`QA_CHECKLIST.md` Build Quality gate, but do not require the same scrutiny as a new dependency
+- Minor and major version bumps from the automated tool go through the full `Dependency Safety` review above before merge — an automated PR does not bypass "why is this needed" for anything beyond a security patch
+- This is CI/automation only, not a task-tracking system — it must never become the system of record for what work is planned, per `TASK_TRACKING_STANDARD.md` Local-Only Rule; a dependency-update PR is still just a PR, reviewed like any other
+
+---
+
+## HTTP Security Headers
+
+Every `apps/api` service sets these regardless of whether the project has "gotten to security yet" — they are foundation-slice defaults, not a later hardening pass.
+
+Required:
+
+- **CORS**: an explicit allowlist of origins (the deployed `apps/web` origin, plus `http://localhost:3000` in development) — never a wildcard `*` origin on any route that accepts credentials/cookies
+- **CSP** (`Content-Security-Policy`): default-deny (`default-src 'self'`), with explicit allowances only for what the project actually serves (fonts, images, the API origin for `connect-src`) — never `unsafe-inline`/`unsafe-eval` without a documented reason in `ARCHITECTURE_DECISIONS.md`
+- **HSTS** (`Strict-Transport-Security`): enabled in production with a sane max-age; not required in local development
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY` (or the CSP `frame-ancestors` equivalent) — unless the project explicitly needs to be framed, which is itself a Stop-and-Ask condition
+- `Referrer-Policy: strict-origin-when-cross-origin` or stricter
+
+Implementation: Fastify's `@fastify/helmet` (NestJS's Fastify adapter) sets sane defaults for the header set above — configure it at foundation build, not left to be added "when it matters." Next.js sets its own headers via `next.config.js` `headers()` for `apps/web`.
+
+### Never
+
+- Never set CORS to allow all origins (`*`) on any endpoint that reads or sets cookies
+- Never ship a CSP that is effectively disabled (`default-src *` or missing entirely) because it was easier to get the app working
+- Never disable these headers to "fix" a CORS or CSP error during development — fix the allowlist instead
+
+---
+
+## Rate Limiting
+
+Rate limiting is required, not optional or merely "considered" — this section is the concrete requirement `QA_CHECKLIST.md` Security checks against.
+
+Required:
+
+- Every `apps/api` service has request rate limiting configured globally (e.g. `@nestjs/throttler` on the Fastify adapter) with a sane default (e.g. 100 requests/minute per IP) — foundation-slice default, not deferred
+- Authentication endpoints (`/auth/google`, `/auth/google/callback`, any login/password-adjacent route) have a stricter, dedicated limit than the global default — this is brute-force protection, not general traffic shaping
+- Rate-limit rejections return `429` with a structured log entry (see Logging and Diagnostics Safety), never a silent drop
+- Rate limits are configurable per environment — a tight production limit should not make local development or CI unusable
+
+### Never
+
+- Never rely on a provider's own rate limit (Railway, Cloudflare, the LLM provider) as the only protection for the app's own endpoints — see Cost and Consumption Safety above for the equivalent rule on metered APIs
+- Never exempt the login/auth endpoints from rate limiting because "it's just for testing"
+
+---
+
+## Secrets Rotation and Compromise Response
+
+Environment Variable Rules above cover prevention (secrets never committed, never logged). This covers what happens after a secret is suspected or confirmed leaked — a gap that is otherwise undefined until the day it matters.
+
+Required:
+
+- Every credential (`AUTH_SESSION_SECRET`, OAuth client secret, `DATABASE_URL`, AI provider API key, any third-party API key) is rotatable without a code change — set only via environment variable, per Environment Variable Rules, so rotation is a Railway dashboard edit plus redeploy, not a release
+- If a secret is committed to git history, even briefly and even if later removed in a subsequent commit: treat it as compromised immediately. Rotate it at the provider before doing anything else — removing it from a future commit does not remove it from history, and git history must never be force-rewritten to "fix" this without the Stop-and-Ask process in `VERSIONING.md`
+- If a secret is suspected exposed (logged, appeared in a diagnostics report, appeared in an error message, appeared in a screenshot shared outside the team): rotate it and treat the exposure as a Stop-and-Ask condition, not something to quietly fix and move on from
+- After rotating `AUTH_SESSION_SECRET` specifically, all existing sessions are invalidated — this is expected and correct, not a bug to route around
+
+### Never
+
+- Never leave a secret in place "because rotating it is disruptive" once it is known or suspected exposed
+- Never rewrite git history to remove a leaked secret as the primary response — rotation at the provider is the fix; history rewriting is a separate, Stop-and-Ask decision with its own risks
+- Never rotate a secret without confirming every environment (dev, production) that used the old value has been updated to the new one — a rotation that breaks one environment silently is worse than the exposure it was responding to
+
 ---
 
 ## Environment Variable Rules
@@ -233,6 +305,26 @@ Do not add dependencies speculatively or to satisfy a checklist item.
 - Never set Railway root directory to `apps/web` or `apps/api`
 - Environment variables are never committed to the repository
 - Production deployments must pass all quality gates before merging to `main`
+
+---
+
+## Privacy and Legal Baseline
+
+This is a documentation and process baseline, not a legal compliance guarantee — PHDK does not provide legal advice, and this section does not substitute for actual legal review on a project handling EU/CCPA-covered users, healthcare data, or payment data.
+
+Whether a project collects personal data is decided during kit generation (`PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` Question 5) and recorded in `ARCHITECTURE_DECISIONS.md`. Google OAuth login, the PHDK default whenever login exists, always means collecting at least a name and email — a project with login cannot answer "no personal data" honestly.
+
+### Required when personal data is collected
+
+- A Privacy Policy page (`/privacy`) describing what is collected, why, and how a user requests deletion
+- A Terms of Service page (`/terms`) when the product involves accounts, paid features, or user-generated content
+- A documented process for a user to request their data be deleted — a manual admin action is an acceptable starting point, self-service is not required from slice one
+- A cookie consent mechanism if non-essential cookies (analytics, marketing) are used — a required session cookie for login is not the trigger for this by itself
+
+### Never
+
+- Never treat "no privacy policy yet" as a silent default the way an undocumented backup policy is disallowed in Data Backup and Recovery Safety below — the same "explicit decision, not a gap by omission" rule applies
+- Never assume this baseline satisfies GDPR, CCPA, HIPAA, or PCI obligations — flag explicitly when a project's data (EU users, health data, payment data) needs real legal review beyond what this file covers
 
 ---
 
@@ -368,6 +460,8 @@ Stop immediately and ask before performing any of the following:
 - Force-pushing to any branch
 - Pushing directly to `main` without approval (Finetuning Mode, explicitly activated for the current conversation per `DEVELOPMENT_RULES.md`, is the one standing exception — everything else still requires asking)
 - Deleting branches that have not been merged
+- Disabling or weakening CORS, CSP, or rate limiting on any endpoint
+- Leaving a known or suspected exposed secret in place instead of rotating it
 
 Do not proceed with these actions based on assumptions. Wait for explicit approval.
 
@@ -386,6 +480,9 @@ Security-sensitive work is not complete until all of the following are true:
 - [ ] Any LLM feature touched by this work has admin-manageable prompt/output, configurable provider/model, injection guardrails, and output validation
 - [ ] Any LLM feature that consumes externally-sourced content has indirect-injection guardrails: content treated as data, action-triggering scoped to authenticated user requests, per-resource credential scoping, and a confirmation gate before destructive actions
 - [ ] Any database work has a recorded backup policy in `ARCHITECTURE_DECISIONS.md`, or an explicit "no policy yet" decision
+- [ ] CORS allowlist, CSP, and standard security headers are configured on `apps/api`
+- [ ] Rate limiting is active globally and specifically on auth endpoints
+- [ ] Any secret known or suspected exposed this session has been rotated, not just removed from future commits
 - [ ] `.env.example` is up to date
 - [ ] `ARCHITECTURE_DECISIONS.md` updated for any security-relevant decisions
 - [ ] `STATUS.md` updated with current state

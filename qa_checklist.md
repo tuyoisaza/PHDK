@@ -38,6 +38,21 @@ Required before merging to `main`:
 - admin checks if admin changed
 - auth/RBAC checks if permissions changed
 - migration checks if database changed
+- **a human has read the actual diff — see Human Diff Review below. AI-produced verification evidence (build/lint/health/browser) is required but is not a substitute for this.**
+
+## Human Diff Review
+
+The AI developer's own verification evidence (`VERIFICATION_LOOP.md`) proves the code runs. It does not prove a human looked at what the code actually does. These are two separate, non-substitutable gates — passing one never waives the other.
+
+Before any merge to `main`:
+
+- [ ] A human has opened the actual diff (`git diff`, the PR view, or equivalent) — not just read the AI's summary of it
+- [ ] The human confirms the diff matches what was asked for in `TASK.md` — no unrequested scope, no unrelated files
+- [ ] Any file the AI flagged as a judgment call, workaround, or "reasonable assumption" was specifically checked, not skimmed past
+- [ ] Security-sensitive diffs (auth, RBAC, sessions, secrets handling, SQL, LLM prompt construction) were read line by line, not skimmed
+- [ ] The human's approval is a distinct, recorded action ("approved", a merge click, a review comment) — conversational acknowledgment of the AI's report ("looks good", "ok") in a chat that never opened the diff does not satisfy this
+
+This applies regardless of how confident or lengthy the AI's verification report is. A comprehensive `SLICE COMPLETE` report with every checkbox green is evidence the AI followed its own process — it is not evidence a human reviewed the result. Do not let report completeness substitute for someone actually reading the code.
 
 ## Release QA
 
@@ -45,8 +60,8 @@ Required before production release:
 
 - full checklist
 - smoke test plan
-- rollback plan
-- migration rollback notes if schema changed
+- rollback plan — the Railway dashboard redeploy-last-good-build step from `TECHNICAL_STACK.md` Deploy Rollback Runbook, not a plan invented at incident time
+- migration rollback notes if schema changed, including migration/code compatibility check per `TECHNICAL_STACK.md` Deploy Rollback Runbook
 - deployment validation
 - cache/debug validation where relevant
 - final release QA report
@@ -598,11 +613,15 @@ If browser/device checks are not possible, document why.
 - [ ] Command injection risk reviewed — no unsanitized input passed to a shell.
 - [ ] SSRF reviewed where applicable.
 - [ ] File upload rules exist if uploads are used.
-- [ ] API rate limiting considered.
+- [ ] CORS is an explicit origin allowlist — never a wildcard on a credentialed route (`DEVSECOPS.md` HTTP Security Headers).
+- [ ] CSP, HSTS (production), and the standard security header set are configured on `apps/api`.
+- [ ] Rate limiting is active globally and enforced more strictly on auth endpoints (`DEVSECOPS.md` Rate Limiting) — not merely "considered."
+- [ ] Any secret exposed this session (committed, logged, screenshotted) has been rotated at the provider.
 - [ ] Sessions and cookies use secure settings where applicable.
 - [ ] Admin actions are protected server-side.
 - [ ] Sensitive API endpoints reject unauthorized access.
 - [ ] Environment variables are not printed to client logs.
+- [ ] If the project collects personal data, `/privacy` (and `/terms` if applicable) exist and a data-deletion request process is documented (`DEVSECOPS.md` Privacy and Legal Baseline).
 
 ---
 
@@ -674,6 +693,8 @@ If browser/device checks are not possible, document why.
 - [ ] No package with known unacceptable license added.
 - [ ] No abandoned/high-risk package added without approval.
 - [ ] Dependency upgrade, if any, is documented.
+- [ ] Dependabot or Renovate is configured on the project (`DEVSECOPS.md` Keeping Existing Dependencies Patched).
+- [ ] Any automated dependency-update PR beyond a security patch went through the same Dependency Safety review as a manually added dependency.
 
 ---
 
@@ -842,3 +863,17 @@ The final response must clearly state what passed, what failed, what was not
 - [ ] No secrets were committed
 - [ ] No fake data was presented as real
 - [ ] Final report followed the format in `AI_DEVELOPER_OPERATING_MODEL.md`
+
+---
+
+## Enforcement QA
+
+Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Step 14), spot-checked whenever a rule seems to have been bypassed. See `ENFORCEMENT.md` for the full standard.
+
+- [ ] `commit-msg`, `pre-commit`, and `pre-push` git hooks are installed and were actually tested (a malformed commit message was rejected, not assumed to be rejected)
+- [ ] A pre-commit secrets scan is configured and runs on staged diffs
+- [ ] CI workflow runs install/lint/typecheck/build/test on pull requests and is wired as a required status check
+- [ ] GitHub branch protection on `main` was confirmed by the developer as actually configured (PR required, one approval required, status checks required, force-push disallowed) — not just requested during foundation build
+- [ ] Dependabot or Renovate is configured
+- [ ] The current tool's native always-loaded rule file exists and its inlined hard-rules block matches the current `INANUTSHELL.md`, not a stale version
+- [ ] No hook was bypassed (`--no-verify` or equivalent) without it being flagged as a Stop-and-Ask condition per `VERSIONING.md`

@@ -35,7 +35,11 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - Never build SQL or shell commands by string concatenation — parameterized queries only
 - Never trust raw LLM output — validate against schema before use
 - Never let externally-sourced content (scraped pages, uploads, webhooks) trigger an action from an LLM call — treat it as data, never as instructions
-- *(full: `DEVSECOPS.md` Core Rules, Indirect Prompt Injection)*
+- Every API service sets an explicit CORS allowlist, default-deny CSP, and standard security headers from foundation build — never a wildcard origin on a credentialed route
+- Rate limiting is required, not optional — global default plus a stricter limit on auth endpoints
+- A secret that's committed, logged, or exposed gets rotated at the provider immediately — rewriting git history is never the primary response
+- If the project collects personal data (any login counts), it needs a `/privacy` page and a documented deletion process — this is an explicit decision recorded in `ARCHITECTURE_DECISIONS.md`, never a silent gap
+- *(full: `DEVSECOPS.md` Core Rules, HTTP Security Headers, Rate Limiting, Secrets Rotation and Compromise Response, Privacy and Legal Baseline, Indirect Prompt Injection)*
 
 ## Cost & Metered APIs
 
@@ -60,7 +64,8 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - Every commit bumps the version by at least a patch, `package.json` updated in the same commit
 - Never deploy from local CLI — no `railway up`, no dragging a build/tarball; deploy is GitHub push to `main` only
 - Never set Railway root to `apps/web` or `apps/api` — both services use the repository root
-- *(full: `VERSIONING.md`, `DEVELOPMENT_RULES.md` Branching Rules, Finetuning Mode)*
+- A bad deploy: redeploy the last known-good build in Railway's dashboard AND `git revert` on `main` in parallel — never "push a fix forward" alone, and always check migration compatibility first
+- *(full: `VERSIONING.md`, `DEVELOPMENT_RULES.md` Branching Rules, Finetuning Mode, `TECHNICAL_STACK.md` Deploy Rollback Runbook)*
 
 ## Working Slices & Verification
 
@@ -68,7 +73,23 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - No completion claim without evidence — command output, `/health` result, browser check
 - "It should work" or "lint passed" alone is not evidence
 - Update `STATUS.md` and `TASK.md` every session — that's the only memory between sessions, don't trust what "feels" familiar
-- *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`)*
+- A human reading the actual diff is a separate, required gate from the AI's own verification evidence — a green report is never a substitute for someone looking at the code
+- *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`, `QA_CHECKLIST.md` Human Diff Review)*
+
+## Testing
+
+- Vitest for unit/integration/component tests, Playwright for e2e — no other runner without an `ARCHITECTURE_DECISIONS.md` override
+- Every RBAC check, every API-boundary Zod schema, every service-layer business-logic method, and every LLM output-validation path needs a test — not just a passing `pnpm test` on unrelated coverage
+- Never mock the database in an integration test — use the real Railway dev instance
+- *(full: `TESTING_STANDARD.md`)*
+
+## Mechanical Enforcement
+
+- If a rule can be a check (regex, lint, repo setting, CI status), it is one — compliance should not depend on the AI remembering
+- GitHub branch protection on `main`: PR required, one approval required, status checks required, no force-push — this is what actually makes "never commit to `main`" and "human reviews the diff" true, not just requested
+- Git hooks (`commit-msg`, `pre-commit`, `pre-push`) catch a missing version prefix, an oversized file, a secret in the diff, or a push to `main` with no Finetuning Mode flag — before they land, not after
+- Bypassing a hook (`--no-verify`) is the same class of action as force-pushing — treat it as a Stop-and-Ask, not a shortcut
+- *(full: `ENFORCEMENT.md`)*
 
 ## Task Tracking
 

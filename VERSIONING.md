@@ -113,6 +113,7 @@ Rules:
 - Every commit message must begin with the version that commit produces (`vX.Y.Z`), or with each affected component's version for multi-component projects — the conventional-commit type/scope/summary follows it
 - This applies to every commit on every branch — feature branches, fixes, chores, and docs included. There is no such thing as an unversioned commit
 - Every commit bumps the version by at least a patch — see Version Bump on Every Commit below
+- This rule is mechanically enforced by a `commit-msg` git hook, not left to be remembered — see `ENFORCEMENT.md` Git Hooks
 - Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
 - Scope to the feature or area changed
 - Keep messages short and specific

@@ -169,6 +169,8 @@ Ask one question at a time. Wait for the answer. Do not assume approval.
 
 A working slice is not complete until there is evidence.
 
+Evidence proves the code runs; it does not prove a human reviewed what the code does. Merge to `main` requires both — see `QA_CHECKLIST.md` Human Diff Review. Do not treat a thorough verification report as a substitute for someone actually reading the diff.
+
 Evidence means:
 
 - Command output that shows it worked

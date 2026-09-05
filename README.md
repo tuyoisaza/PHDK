@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.20.0**
+**Version: v2.22.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -66,13 +66,15 @@ Read the PHDK standards from https://github.com/tuyoisaza/PHDK in this order:
 2. AI_DEVELOPER_OPERATING_MODEL.md
 3. AGENTS.md
 4. DEVELOPMENT_RULES.md
-5. DESIGN_RULES.md
-6. TECHNICAL_STACK.md
-7. DEVSECOPS.md
-8. VERSIONING.md
-9. VERIFICATION_LOOP.md
-10. DEBUG_DIAGNOSTICS_STANDARD.md
-11. TASK_TRACKING_STANDARD.md
+5. ENFORCEMENT.md
+6. DESIGN_RULES.md
+7. TECHNICAL_STACK.md
+8. DEVSECOPS.md
+9. VERSIONING.md
+10. VERIFICATION_LOOP.md
+11. TESTING_STANDARD.md
+12. DEBUG_DIAGNOSTICS_STANDARD.md
+13. TASK_TRACKING_STANDARD.md
 Then read TASK.md and STATUS.md from the project repo.
 ```
 
@@ -162,9 +164,10 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 |------|---------|
 | `AGENTS.md` | Agent rules, completion checklist, things never to do |
 | `DEVELOPMENT_RULES.md` | Branching, commits, file rules, feature structure |
+| `ENFORCEMENT.md` | Git hooks, CI, branch protection, and tool-native rule files that mechanically enforce PHDK rules instead of relying on the AI remembering them |
 | `DESIGN_RULES.md` | UI, UX, accessibility, theming, responsive rules |
 | `TECHNICAL_STACK.md` | Canonical stack, auth standard, deployment |
-| `DEVSECOPS.md` | Security, auth, secrets, logging, dependency safety |
+| `DEVSECOPS.md` | Security, auth, secrets, HTTP security headers, rate limiting, secrets rotation, privacy baseline, logging, dependency safety |
 | `VERSIONING.md` | Version format, branches, commits, changelog, release |
 
 ### Workflow Standards
@@ -174,8 +177,9 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 | `AGILE_SLICE_WORKFLOW.md` | Working slice model, lifecycle, sizing, backlog |
 | `TASK_TRACKING_STANDARD.md` | `TASK.md`/`STATUS.md` format, completed-slice archiving, local-only rule (no GitHub Issues/Projects/Actions) |
 | `VERIFICATION_LOOP.md` | What counts as proof, health checks, deep health |
+| `TESTING_STANDARD.md` | Test framework, test types, what must be tested |
 | `DEBUG_DIAGNOSTICS_STANDARD.md` | Copy diagnostics spec, debug mode, auth diagnostics |
-| `QA_CHECKLIST.md` | Quality gates for every merge and release |
+| `QA_CHECKLIST.md` | Quality gates for every merge and release, including Human Diff Review |
 
 ### Bootstrap
 
@@ -222,6 +226,13 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Data import | Importing data from multiple sources or on a recurring cadence uses a stateful intake pipeline (`pending → processed → approved \| deactivated`) with a batch reference on every imported row and soft-delete-by-batch-state — never a direct insert with no review step, and never a hard delete to undo a bad import — see `TECHNICAL_STACK.md` Data Import / Intake Pipeline |
 | Debug mode default | Debug mode defaults to ON in every non-production environment (no manual setup step) and must be explicitly confirmed OFF before production release; every function reports status through one shared debug-log helper, never ad hoc `console.log` — see `DEBUG_DIAGNOSTICS_STANDARD.md` |
 | Task tracking | `TASK.md`/`STATUS.md` are 100% local, plain-text markdown, archived to `docs/completed-slices/` on slice close — never GitHub Issues, GitHub Projects, or GitHub Actions as the system of record; any Actions workflow present must be CI-only, explicitly approved, and never gate slice completion — see `TASK_TRACKING_STANDARD.md` |
+| Testing | Vitest for unit/integration/component tests, Playwright for e2e; RBAC checks, API boundary Zod schemas, service-layer business logic, and LLM output validation require tests, not just a passing `pnpm test` on unrelated coverage — see `TESTING_STANDARD.md` |
+| Human diff review | Merging to `main` requires a human to have read the actual diff — AI-produced verification evidence is required but never a substitute for this; enforced by GitHub branch protection requiring an approval, not left to a chat "looks good" — see `QA_CHECKLIST.md` Human Diff Review and `ENFORCEMENT.md` |
+| Mechanical enforcement | Every PHDK rule expressible as a check (commit format, file size, no direct push to `main`, secrets in a diff, dependencies staying patched) is enforced by a git hook, CI, or a GitHub repository setting — not left to the AI remembering the rule. Judgment-only rules get a tool-native always-loaded rule file instead — see `ENFORCEMENT.md` |
+| HTTP security headers & rate limiting | Every API service sets an explicit CORS allowlist, a default-deny CSP, and the standard security header set from foundation build, and runs global rate limiting with a stricter limit on auth endpoints — not deferred to a later hardening pass — see `DEVSECOPS.md` HTTP Security Headers and Rate Limiting |
+| Secrets rotation | A secret that is committed, logged, or otherwise exposed is rotated immediately at the provider — history is never rewritten as the primary response — see `DEVSECOPS.md` Secrets Rotation and Compromise Response |
+| Deploy rollback | A bad production deploy is rolled back via Railway's dashboard redeploy of the last known-good build, in parallel with a `git revert` on `main` — never "push a fix forward" as the only option, and never a rollback without first checking migration/code compatibility — see `TECHNICAL_STACK.md` Deploy Rollback Runbook |
+| Privacy and legal baseline | Whether a project collects personal data is an explicit decision at kit generation, recorded in `ARCHITECTURE_DECISIONS.md`; when it does, a Privacy Policy, a data-deletion process, and (if applicable) Terms of Service and cookie consent are required — a documentation baseline, not a substitute for real legal review — see `DEVSECOPS.md` Privacy and Legal Baseline |
 
 Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
 

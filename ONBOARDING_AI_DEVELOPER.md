@@ -51,15 +51,17 @@ Before starting any task, read these files in this order:
 2.  AI_DEVELOPER_OPERATING_MODEL.md  — how to think and work
 3.  AGENTS.md                        — agent rules and completion checklist
 4.  DEVELOPMENT_RULES.md             — branching, commits, file rules
-5.  DESIGN_RULES.md                  — UI, UX, accessibility, theming
-6.  TECHNICAL_STACK.md               — canonical stack and architecture
-7.  DEVSECOPS.md                     — security and operational safety
-8.  VERSIONING.md                    — version, branch, commit, changelog
-9.  VERIFICATION_LOOP.md             — what counts as proof
-10. DEBUG_DIAGNOSTICS_STANDARD.md    — diagnostics and copy report spec
-11. TASK_TRACKING_STANDARD.md        — how TASK.md/STATUS.md are structured and archived
-12. TASK.md                          — current session task and scope
-13. STATUS.md                        — current project state and gaps
+5.  ENFORCEMENT.md                   — how these rules are mechanically enforced
+6.  DESIGN_RULES.md                  — UI, UX, accessibility, theming
+7.  TECHNICAL_STACK.md               — canonical stack and architecture
+8.  DEVSECOPS.md                     — security and operational safety
+9.  VERSIONING.md                    — version, branch, commit, changelog
+10. VERIFICATION_LOOP.md             — what counts as proof
+11. TESTING_STANDARD.md              — test framework, required coverage
+12. DEBUG_DIAGNOSTICS_STANDARD.md    — diagnostics and copy report spec
+13. TASK_TRACKING_STANDARD.md        — how TASK.md/STATUS.md are structured and archived
+14. TASK.md                          — current session task and scope
+15. STATUS.md                        — current project state and gaps
 ```
 
 Then read the project-specific PHDK files:
