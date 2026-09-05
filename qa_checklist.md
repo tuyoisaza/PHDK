@@ -724,7 +724,9 @@ If browser/device checks are not possible, document why.
 # Release
 
 - [ ] Version updated if the merge changes deployable behavior.
-- [ ] Release-impacting commit or merge includes version context where appropriate.
+- [ ] Every commit message begins with the version it produces (`vX.Y.Z`).
+- [ ] Every commit bumped the version by at least a patch, with `package.json` updated in the same commit.
+- [ ] The version returned by `/health` on the deployed site maps to exactly one commit.
 - [ ] Checkpoint branch created if this is a major update.
 - [ ] `STATUS.md` updated with current state.
 - [ ] `TASK.md` updated for next session if work continues.

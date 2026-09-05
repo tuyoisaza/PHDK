@@ -56,7 +56,8 @@ If this file and a full standards file ever disagree, the full file wins — thi
 
 - Never commit directly to `main` — the only exception is Finetuning Mode, explicitly activated in-conversation
 - Branch names: `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`
-- Release commit messages start with `vX.Y.Z`, then conventional-commit type/scope/summary
+- Every commit message starts with `vX.Y.Z`, then conventional-commit type/scope/summary — every commit, every branch, no exceptions
+- Every commit bumps the version by at least a patch, `package.json` updated in the same commit
 - Never deploy from local CLI — no `railway up`, no dragging a build/tarball; deploy is GitHub push to `main` only
 - Never set Railway root to `apps/web` or `apps/api` — both services use the repository root
 - *(full: `VERSIONING.md`, `DEVELOPMENT_RULES.md` Branching Rules, Finetuning Mode)*

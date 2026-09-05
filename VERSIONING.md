@@ -92,13 +92,14 @@ Rules:
 
 ## Commit Message Format
 
+Every commit begins with the version that commit produces — not only release commits, and not only commits that land on `main`.
+
 ```txt
 v0.3.0 feat(slice): add Google OAuth login
 v0.3.1 fix(auth): handle OAuth callback failure
-v0.3.1 docs(phdk): update status after dashboard slice
-v0.3.0 chore(version): bump to v0.3.0
-v0.3.2 refactor(api): extract auth service
-v0.3.2 test(auth): add OAuth callback tests
+v0.3.2 docs(phdk): update status after dashboard slice
+v0.3.3 refactor(api): extract auth service
+v0.3.4 test(auth): add OAuth callback tests
 ```
 
 For projects with multiple independently versioned components (e.g. a `server` and a `plugin` in the same repo), list each affected component's version, comma-separated, before the conventional-commit message:
@@ -109,11 +110,33 @@ server v0.2.16, plugin v0.4.11 - feat(prompt): show installed plugin version
 
 Rules:
 
-- For release commits, the commit message must begin with the current version (`vX.Y.Z`), or with each affected component's version for multi-component projects — the conventional-commit type/scope/summary follows it
+- Every commit message must begin with the version that commit produces (`vX.Y.Z`), or with each affected component's version for multi-component projects — the conventional-commit type/scope/summary follows it
+- This applies to every commit on every branch — feature branches, fixes, chores, and docs included. There is no such thing as an unversioned commit
+- Every commit bumps the version by at least a patch — see Version Bump on Every Commit below
 - Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
 - Scope to the feature or area changed
 - Keep messages short and specific
-- Do not create noisy version bumps for every minor feature branch commit — the version prefix applies to release commits, not every intermediate commit on a feature branch
+
+---
+
+## Version Bump on Every Commit
+
+Every commit increments the version by at least a patch. No two commits share a version number.
+
+For each commit:
+
+1. Choose the increment using Version bump guidance above — patch is the floor, minor or major when the change warrants it.
+2. Update the version in `package.json` at the workspace root as part of that same commit, never as a separate follow-up.
+3. Write the commit message with the resulting version as its prefix.
+
+Why this is absolute:
+
+- Deployment is a GitHub push to `main` (see `DEVSECOPS.md` Deployment Safety Rules). Because every commit carries a distinct version, the version reported by `/health` and shown in the UI always identifies exactly one commit. A deployed version that maps to more than one commit means this rule was broken.
+- A fix that ships without a bump is indistinguishable from the build before it. If you cannot tell from the running site whether a fix is live, the fix is not verifiable.
+
+Version numbers consumed on a feature branch that never merges are spent. Gaps in the sequence are expected and correct — never reuse, renumber, or backfill a version to close a gap.
+
+`CHANGELOG.md` is not written once per commit. It is written per user-facing change, under the version that shipped it (see Changelog Format).
 
 ---
 
@@ -124,7 +147,7 @@ Each completed and approved working slice results in:
 - Verified user-visible outcome
 - Updated `STATUS.md`
 - Updated `CHANGELOG.md` when user-facing behavior changed
-- Version bump when appropriate
+- Version bumped on every commit in the slice, per Version Bump on Every Commit
 - Commit with descriptive message
 - Push to feature branch
 - Merge to `main` only after explicit approval
@@ -233,6 +256,8 @@ Versioning work is complete when:
 - [ ] `/health` returns correct version
 - [ ] `CHANGELOG.md` is updated for user-facing changes
 - [ ] `STATUS.md` reflects current state
+- [ ] Every commit message begins with the version it produces
+- [ ] Every commit bumped the version by at least a patch, with `package.json` updated in the same commit
 - [ ] Commit message follows the format
 - [ ] Branch name follows the format
 - [ ] No direct commits to `main` without approval

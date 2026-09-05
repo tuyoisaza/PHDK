@@ -42,7 +42,7 @@ Rules:
 - Every agent and subagent works on its own branch
 - Merge only after verification passes and approval is given
 - Every major update creates a checkpoint branch named `checkpoint/YYYY-MM-DD` as a recoverable backup
-- Version increments on merge to `main`, not on every feature branch commit
+- Version increments on every commit, on every branch — see `VERSIONING.md` Version Bump on Every Commit
 - Deployment is triggered by GitHub push to `main` — never from local CLI (no `railway up`, no uploading a local build/tarball); see `TECHNICAL_STACK.md` First-time Railway Setup for how the connection is made once
 
 See Finetuning Mode below for the one narrow, explicit exception to "never commit directly to `main`."
@@ -81,24 +81,23 @@ Finetuning Mode ends when the developer says so, or implicitly when the conversa
 
 ## Commit Rules
 
-Commit message format:
+Every commit message begins with the version that commit produces. `VERSIONING.md` Commit Message Format is the authoritative definition; this is the short form.
 
 ```txt
-feat(auth): add Google OAuth login
-fix(api): handle OAuth callback failure
-chore(version): bump to v0.3.0
-refactor(auth): extract session service
-test(auth): add OAuth callback tests
-docs(phdk): update status after login slice
+v0.3.0 feat(auth): add Google OAuth login
+v0.3.1 fix(api): handle OAuth callback failure
+v0.3.2 refactor(auth): extract session service
+v0.3.3 test(auth): add OAuth callback tests
+v0.3.4 docs(phdk): update status after login slice
 ```
 
 Rules:
 
+- Every commit message must begin with `vX.Y.Z` — every commit, on every branch, not only releases or merges to `main`
+- Every commit bumps the version by at least a patch, with `package.json` updated in the same commit
 - Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
 - Scope to the feature or area changed
 - Keep messages short and specific
-- Include version in release commits
-- Do not create noisy version bumps for every minor feature branch commit
 
 ---
 

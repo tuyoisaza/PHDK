@@ -6,6 +6,34 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.21.0 — 2026-09-04
+
+### Theme: Version Prefix on Every Commit, Not Just Releases
+
+v2.20.0 tightened the commit format to require a leading `vX.Y.Z`, but scoped it to *release* commits and explicitly told developers not to bump on ordinary feature-branch commits. In practice that produced the two failures this release fixes: fixes were committed and pushed with no version bump at all, so the commit message carried no evidence of what shipped; and because deployment is a GitHub push to `main`, the version reported by the running site no longer identified a single commit — leaving no way to tell from `/health` whether a given fix was actually live. `DEVELOPMENT_RULES.md` also still carried the pre-v2.20.0 examples with no version prefix at all, so the doc most likely to be read first contradicted the authoritative one.
+
+The rule is now unconditional: every commit, on every branch, begins with the version it produces, and every commit bumps the version by at least a patch.
+
+### Changed
+
+- `VERSIONING.md` — "Commit Message Format" now requires the version prefix on **every** commit on every branch, not only release commits. Removed the "do not create noisy version bumps for every minor feature branch commit" rule, which directly contradicted this. Examples renumbered so no two share a version. "Working Slice Version Rule" changed from "version bump when appropriate" to a bump on every commit, and the Verification checklist gained two explicit boxes.
+- `DEVELOPMENT_RULES.md` — "Commit Rules" examples now carry version prefixes (they previously showed none, still matching the pre-v2.20.0 convention), and the section defers to `VERSIONING.md` as authoritative. Branching rule changed from "version increments on merge to `main`, not on every feature branch commit" to increments on every commit.
+- `INANUTSHELL.md` — "Release commit messages start with `vX.Y.Z`" broadened to every commit, plus the bump requirement.
+- `QA_CHECKLIST.md` — replaced the vague "includes version context where appropriate" release check with three concrete boxes, including that the deployed `/health` version maps to exactly one commit.
+- `SKILLS_REGISTRY.md` — added Oh My OpenCode Slim as PHDK's recommendation for projects whose AI coding tool is OpenCode, introducing a sixth install type ("OpenCode plugin") since it installs through its own `npx`/`bunx` installer and has no portable-skill equivalent. Includes the note that multi-agent delegation does not relax branch, commit, version, or verification rules for any agent in the chain.
+
+### Added
+
+- `VERSIONING.md` — new "Version Bump on Every Commit" section: the three-step per-commit procedure (choose increment, update root `package.json` in the same commit, prefix the message), the reasoning tied to push-to-`main` deployment, an explicit statement that gaps in the version sequence from unmerged branches are expected and must never be backfilled or reused, and a note that `CHANGELOG.md` stays per user-facing change rather than per commit.
+
+### Canonical Decisions
+
+- Every commit bumps the version by at least a patch and begins with that version. There is no such thing as an unversioned commit, on any branch.
+- Version numbers spent on branches that never merge are gone. Gaps in the sequence are correct; never renumber or backfill to close one.
+- When the AI coding tool is OpenCode, PHDK recommends Oh My OpenCode Slim on top of it. This is a recommendation about the tool, never a relaxation of any PHDK standard.
+
+---
+
 ## v2.20.0 — 2026-08-24
 
 ### Theme: SKILLS_REGISTRY.md — Curated External Skills, Tool-Agnostic

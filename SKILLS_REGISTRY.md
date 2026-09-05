@@ -22,12 +22,13 @@ Consult this file when:
 - a diff needs a second review pass before merge/release, alongside `QA_CHECKLIST.md`
 - connecting an external tool or repo via MCP
 - improving this project's own `CLAUDE.md`/`AGENTS.md` agent-instruction file
+- the AI coding tool in use is OpenCode — see the OpenCode row below, the one recommendation PHDK makes about the tool itself
 
 ---
 
 ## How installation differs by type
 
-Five different mechanisms show up in this table. Check which one applies — a plain `git clone` only works for one of them.
+Six different mechanisms show up in this table. Check which one applies — a plain `git clone` only works for one of them.
 
 - **Portable Agent Skill** (a folder with its own `SKILL.md`, no plugin manifest) — works in **any** Agent-Skill-aware tool. Clone the source repo once, then copy just that skill's self-contained subfolder into the current tool's skill directory — same layout PHDK uses for itself (`.claude/skills/<name>`, `.cursor/skills/<name>`, `.windsurf/skills/<name>`, `.opencode/skills/<name>`, `.agents/skills/<name>` for Codex CLI/Antigravity, etc.):
   ```bash
@@ -37,6 +38,7 @@ Five different mechanisms show up in this table. Check which one applies — a p
 - **Claude Code Plugin Marketplace** (repo has `.claude-plugin/marketplace.json`) — the convenience path (`/plugin marketplace add <owner/repo>` then `/plugin install <skill-name>@<marketplace-name>`) is **Claude Code only**. In any other tool, most of these marketplaces still contain plain `SKILL.md` folders underneath (check for a `skills/` directory) — use the Portable Agent Skill method above on that subfolder instead.
 - **Claude Code plugin (hooks/commands, no SKILL.md)** — some plugins ship as hooks or slash commands instead of a skill. These have **no portable equivalent** for other tools; treat them as Claude-Code-only and read their README for what they actually do, so the same behavior can be approximated manually elsewhere if needed.
 - **MCP server** — not a skill. Connect it as a tool server through the current tool's own MCP config (Claude Code, Cursor, Windsurf, and others all support MCP) — commands and config drift, verify against the server's current README before running one.
+- **OpenCode plugin** — an OpenCode-native plugin installed through its own installer, not a `SKILL.md` folder. **OpenCode only** — there is no portable equivalent, and none of the copy-a-skill-folder methods above apply. Install per the plugin's own README.
 - **Reference-only** — nothing to install. Read it, borrow the pattern, or use it as a discovery index. Never treat it as an authority equal to a PHDK standard or to a vetted skill in this table.
 
 ---
@@ -53,6 +55,7 @@ Five different mechanisms show up in this table. Check which one applies — a p
 | Context7 | https://github.com/upstash/context7 | MCP server | Fetch current docs for frameworks/libraries/APIs instead of relying on training-data knowledge, which goes stale. Works from any MCP-capable tool. Connect per the repo's own README — its exact command has changed before, verify current syntax. |
 | Addy Osmani Agent Skills | https://github.com/addyosmani/agent-skills | Claude Code Plugin Marketplace (many portable skills inside `skills/`) | Code review, quality review, production-engineering patterns. Claude Code: `/plugin marketplace add addyosmani/agent-skills`. Any other tool: copy the specific skill folder from `skills/` (23 available — see repo). |
 | Code Review Skill | https://github.com/addyosmani/agent-skills/blob/main/skills/code-review-and-quality/SKILL.md | Portable Agent Skill (part of the entry above) | Review a diff before merge/release — a second pass alongside `QA_CHECKLIST.md` |
+| Oh My OpenCode Slim | https://github.com/alvinunreal/oh-my-opencode-slim | OpenCode plugin (OpenCode only) | **When the tool in use is OpenCode, PHDK recommends running this on top of it.** A slimmed, token-efficient multi-agent suite (Orchestrator, Explorer, Oracle, Council, Librarian, Designer, Fixer) that gives OpenCode the delegated-subagent workflow PHDK's slice model assumes. MIT, ~8.6k★. Install: `npx oh-my-opencode-slim@latest install` (or `bunx`). On OpenCode v2, pin an exact version rather than `@latest` — the plugin is moving fast. Not applicable to any other tool. |
 | MCP Servers | https://github.com/modelcontextprotocol/servers | Reference / MCP catalog | Index of official MCP servers — GitHub, filesystem, and other tool connectors. Browse it and add only the specific server the task needs, per that server's own instructions. |
 | TypeScript MCP SDK | https://github.com/modelcontextprotocol/typescript-sdk | Reference (SDK, not a skill) | Only relevant when actually building or integrating a custom TypeScript MCP server/client — install per the SDK's own docs. |
 | Claude Code Best Practice | https://github.com/shanraisshan/claude-code-best-practice | Reference-only | Ideas for `CLAUDE.md`/agent-instruction management. Compare against PHDK's own `AGENTS.md`/`INANUTSHELL.md` before adopting anything — read only, nothing to install. |
@@ -79,8 +82,9 @@ Five different mechanisms show up in this table. Check which one applies — a p
 
 ## Rules
 
+- The OpenCode recommendation is about the *tool*, not the project: it changes how the AI developer is run, never what PHDK requires. `AGILE_SLICE_WORKFLOW.md`, `VERSIONING.md`, and `DEVSECOPS.md` apply identically with or without it — an orchestrator delegating to subagents does not relax branch, commit, version, or verification rules for any agent in the chain.
 - None of these override a PHDK standard. If a skill's guidance conflicts with `DEVELOPMENT_RULES.md`, `DEVSECOPS.md`, or any other PHDK file, PHDK wins — same precedence rule as `INANUTSHELL.md` has against the full standards.
 - Installing something from this table is a judgment call for the current task, not a default step in bootstrap. Ask before installing.
-- Before recommending a skill, identify which of the five install types above it is, and whether it's portable to the current tool or Claude-Code-only. Don't hand a developer on Cursor or Windsurf a `/plugin marketplace add` command that only works in Claude Code.
+- Before recommending a skill, identify which of the six install types above it is, and whether it's portable to the current tool or Claude-Code-only. Don't hand a developer on Cursor or Windsurf a `/plugin marketplace add` command that only works in Claude Code.
 - Before adding a new row to this table: verify the URL actually resolves, and treat an unusually high star count relative to a repo's visibility as a reason for closer scrutiny, not automatic trust.
 - A discovery index (VoltAgent, or anything similarly generic) is never cited as an authority on its own — only entries actually vetted and listed by name above are "PHDK-recommended."
