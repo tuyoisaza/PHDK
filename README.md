@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.22.0**
+**Version: v2.23.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 

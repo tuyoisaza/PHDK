@@ -47,6 +47,7 @@ Configure once, on `main`, in the repository's GitHub settings:
 - Require at least one approving review before merge — this is what makes `QA_CHECKLIST.md` Human Diff Review a hard gate instead of a checklist item that can be skipped under time pressure. GitHub will not merge without a recorded approval; a chat message saying "looks good" does not count and cannot substitute.
 - Require status checks to pass before merge — wire in the CI workflow below (lint, typecheck, build, test) as required checks, so a slice cannot merge on the AI's self-reported "tests pass" alone if the actual CI run disagrees.
 - Do not allow force-pushes to `main`. Do not allow branch deletion of `main`.
+- Disable "Squash and merge" as an allowed merge method (repository Settings → General → Pull Requests). Squashing discards the individual commits that the `commit-msg` hook already validated and replaces them with one new commit built from the PR title or an edited message that was never checked by anything. Allow only "Merge commit" or "Rebase and merge" — both land the already-validated commits on `main` with their original messages intact.
 - Finetuning Mode (`DEVELOPMENT_RULES.md`) is the one standing exception to "never push directly to `main`" — implement it as a scoped bypass (e.g. a repo admin temporarily disabling the direct-push restriction, or an allowlisted bypass actor) that is itself visible in the repository's settings audit log, not as something branch protection has no record of.
 
 ### Git hooks (Husky, scaffolded in `package.json` — root-level, applies regardless of which AI tool is driving `git`)
@@ -69,6 +70,15 @@ Hooks run on the `git` command itself. They fire the same way whether a human ty
 - Wired into GitHub branch protection above as a required status check.
 - This workflow does exactly one job: prove the code is in the state the AI claims. It never tracks tasks, reports status to a dashboard, or gates anything beyond "does the code build and pass its tests" — see `TASK_TRACKING_STANDARD.md` for why task tracking itself must never live here.
 
+### Commit-message CI check — why the local hook alone is not enough
+
+The `commit-msg` hook only fires on a `git commit` run on someone's own machine. A PR merged through GitHub's UI or API is created server-side and never touches that machine's hooks — so the hook can be bypassed, or simply never installed (a fresh clone before `pnpm install` has run its postinstall step, an external contributor's machine, a bot). Relying on the local hook alone means the actual commits landing on `main` have no guaranteed check at all.
+
+- A second workflow (or a job in the same CI workflow above) runs on every PR and validates that **every commit in the PR's range** — not just the latest one, not just the PR title — matches `VERSIONING.md` Commit Message Format. A single non-compliant commit anywhere in the branch fails this check.
+- This is wired into GitHub branch protection as a required status check, same as the build/lint/test check above — a PR cannot merge while it fails, regardless of what any contributor's local hook did or didn't catch.
+- This is why "Squash and merge" is disabled above: with "Merge commit" or "Rebase and merge," the commits this check already validated are exactly what lands on `main`. Squashing would let a validated set of commits collapse into one new, unvalidated one at the moment of merge.
+- Dependabot and Renovate PRs go through this same check like any other PR — the human approving the merge (Human Diff Review, required by branch protection) sets the correct `vX.Y.Z`-prefixed commit message before merging; there is no bot exception to the versioning rule.
+
 ### Dependency automation
 
 - Dependabot or Renovate, per `DEVSECOPS.md` Keeping Existing Dependencies Patched — already a Tier 1 mechanism by nature (it opens PRs on a schedule; it does not require anyone to remember to check for updates).
@@ -79,7 +89,7 @@ This section does not repeat rules defined elsewhere — it is the index of whic
 
 | Rule | Documented in | Mechanically enforced by |
 |---|---|---|
-| Commit message begins with `vX.Y.Z` | `VERSIONING.md` | `commit-msg` hook |
+| Commit message begins with `vX.Y.Z` | `VERSIONING.md` | `commit-msg` hook (local) + commit-range CI check (server-side, catches what a bypassed or missing local hook doesn't) |
 | No file exceeds 600 lines | `DEVELOPMENT_RULES.md` | `pre-commit` hook |
 | Never commit directly to `main` | `DEVELOPMENT_RULES.md` | GitHub branch protection |
 | Human reviews the diff before merge | `QA_CHECKLIST.md` Human Diff Review | GitHub required PR approval |
@@ -152,6 +162,8 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 - [ ] `pre-commit` hook rejects a staged file over 600 lines and runs a secrets scan
 - [ ] `pre-push` hook blocks a push to `main` unless `PHDK_FINETUNING_MODE=1` is set locally
 - [ ] CI workflow runs install/lint/typecheck/build/test on every PR and is a required status check
+- [ ] A separate CI check validates every commit in a PR's range against the version-format regex and is a required status check — tested by opening a PR with one intentionally malformed commit and confirming the check fails
+- [ ] "Squash and merge" is disabled in the repository's merge-method settings; only "Merge commit" or "Rebase and merge" are enabled
 - [ ] Dependabot or Renovate is configured
 - [ ] The current tool's native always-loaded rule file exists at the correct path for that tool and is not a stale copy of an old `INANUTSHELL.md`
 - [ ] A test commit with an intentionally malformed message was actually rejected by the hook, not just assumed to work

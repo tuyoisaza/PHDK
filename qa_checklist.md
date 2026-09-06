@@ -873,6 +873,8 @@ Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Step 14), sp
 - [ ] `commit-msg`, `pre-commit`, and `pre-push` git hooks are installed and were actually tested (a malformed commit message was rejected, not assumed to be rejected)
 - [ ] A pre-commit secrets scan is configured and runs on staged diffs
 - [ ] CI workflow runs install/lint/typecheck/build/test on pull requests and is wired as a required status check
+- [ ] A separate required CI check validates every commit in a PR's range against the version-format regex — not just the local hook, which a PR merged through GitHub never touches
+- [ ] "Squash and merge" is disabled in the repository's merge-method settings
 - [ ] GitHub branch protection on `main` was confirmed by the developer as actually configured (PR required, one approval required, status checks required, force-push disallowed) — not just requested during foundation build
 - [ ] Dependabot or Renovate is configured
 - [ ] The current tool's native always-loaded rule file exists and its inlined hard-rules block matches the current `INANUTSHELL.md`, not a stale version

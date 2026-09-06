@@ -6,6 +6,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.23.0 — 2026-09-06
+
+### Theme: Close the Merge-Time Gap in Commit Versioning Enforcement
+
+`ENFORCEMENT.md` (v2.22.0) added a local `commit-msg` hook to enforce the `vX.Y.Z` commit-message prefix. That hook only fires on `git commit` on the machine that runs it — and the standard workflow lands work on `main` through a GitHub PR merge, which is created server-side and never touches a local hook. In practice, the actual commit that lands on `main` had no mechanical check at all: a bypassed hook, a fresh clone before `pnpm install` wired it up, or an external contributor's machine would all slip through silently. Squash-merging made it worse — it discards the individually hook-validated commits and replaces them with one new commit built from the PR title, which was never checked by anything.
+
+### Changed
+
+- `ENFORCEMENT.md` — GitHub branch protection now also disables "Squash and merge," allowing only "Merge commit" or "Rebase and merge," so the commits a check has actually validated are what lands on `main` instead of being discarded at merge time. New "Commit-message CI check" subsection: a required CI check validates every commit in a PR's range against the version-format regex, server-side, closing the gap a bypassed or missing local hook leaves open — including for Dependabot/Renovate PRs, which get no exception from the versioning rule. Tier 1 table, Verification checklist, and Step 14 of `BUILD_APP_FOUNDATION_PROMPT.md` updated to scaffold and verify this alongside the existing build/lint/test CI check.
+- `VERSIONING.md`, `qa_checklist.md`, `INANUTSHELL.md` — cross-reference the commit-range CI check and the merge-method restriction as the closure for the enforcement gap the local hook alone left open.
+
+---
+
 ## v2.22.0 — 2026-09-05
 
 ### Theme: Vibe-Coding Gap Closure + Mechanical Enforcement

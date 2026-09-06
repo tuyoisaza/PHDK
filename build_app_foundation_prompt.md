@@ -724,8 +724,11 @@ This is where `ENFORCEMENT.md` and `TESTING_STANDARD.md` stop being documents so
 - Configure Husky (or the project's chosen git-hooks tool) with `commit-msg`, `pre-commit`, and `pre-push` hooks per `ENFORCEMENT.md` Git Hooks
 - Add a pre-commit secrets scan per `ENFORCEMENT.md` Secrets Scanning
 - Add one GitHub Actions workflow (CI only, per `TASK_TRACKING_STANDARD.md` Local-Only Rule) running install/lint/typecheck/build/test on pull requests, per `ENFORCEMENT.md` CI
+- Add a second required CI check that validates every commit in a PR's range against the version-format regex, per `ENFORCEMENT.md` Commit-message CI check — this is what catches a bypassed or never-installed local `commit-msg` hook
 - Configure Dependabot or Renovate per `DEVSECOPS.md` Keeping Existing Dependencies Patched
-- Tell the developer, explicitly, that GitHub branch protection on `main` (require PR, require one approval, require the CI status check, disallow force-push) is a one-time manual step in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step. Do not report this step as done until the developer confirms they configured it.
+- Tell the developer, explicitly, that these are one-time manual steps in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step — and do not report this step as done until the developer confirms all of it is configured:
+  - branch protection on `main`: require PR, require one approval, require both CI status checks, disallow force-push
+  - merge methods: disable "Squash and merge", allow only "Merge commit" or "Rebase and merge" — per `ENFORCEMENT.md` GitHub branch protection
 
 ### Tier 2 — context-persistence (`ENFORCEMENT.md`)
 
