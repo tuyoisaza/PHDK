@@ -86,7 +86,8 @@ If this file and a full standards file ever disagree, the full file wins — thi
 ## Mechanical Enforcement
 
 - If a rule can be a check (regex, lint, repo setting, CI status), it is one — compliance should not depend on the AI remembering
-- GitHub branch protection on `main`: PR required, one approval required, status checks required, no force-push — this is what actually makes "never commit to `main`" and "human reviews the diff" true, not just requested
+- GitHub branch protection on `main`: PR required, status checks required, no force-push, "Squash and merge" disabled — this is what actually makes "never commit to `main`" true, not just requested
+- Human diff review before merge is a `QA_CHECKLIST.md` gate the merging human owns, not a GitHub required-approval setting — PHDK does not require a second account for a solo repo (a team project can opt in via `ARCHITECTURE_DECISIONS.md`)
 - Git hooks (`commit-msg`, `pre-commit`, `pre-push`) catch a missing version prefix, an oversized file, a secret in the diff, or a push to `main` with no Finetuning Mode flag — before they land, not after
 - A local hook never sees a PR merged through GitHub's UI — a separate required CI check validates every commit in the PR's range, and "Squash and merge" is disabled so the already-validated commits are what actually lands on `main`
 - Bypassing a hook (`--no-verify`) is the same class of action as force-pushing — treat it as a Stop-and-Ask, not a shortcut

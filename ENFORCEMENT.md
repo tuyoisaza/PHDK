@@ -44,11 +44,12 @@ This is the single most reliable mechanism in this file because it is enforced b
 Configure once, on `main`, in the repository's GitHub settings:
 
 - Require a pull request before merging — direct pushes to `main` are rejected by GitHub, not by an agent's discipline. This is what actually makes `DEVELOPMENT_RULES.md`'s "never commit directly to `main`" true by construction instead of by request.
-- Require at least one approving review before merge — this is what makes `QA_CHECKLIST.md` Human Diff Review a hard gate instead of a checklist item that can be skipped under time pressure. GitHub will not merge without a recorded approval; a chat message saying "looks good" does not count and cannot substitute.
 - Require status checks to pass before merge — wire in the CI workflow below (lint, typecheck, build, test) as required checks, so a slice cannot merge on the AI's self-reported "tests pass" alone if the actual CI run disagrees.
 - Do not allow force-pushes to `main`. Do not allow branch deletion of `main`.
 - Disable "Squash and merge" as an allowed merge method (repository Settings → General → Pull Requests). Squashing discards the individual commits that the `commit-msg` hook already validated and replaces them with one new commit built from the PR title or an edited message that was never checked by anything. Allow only "Merge commit" or "Rebase and merge" — both land the already-validated commits on `main` with their original messages intact.
 - Finetuning Mode (`DEVELOPMENT_RULES.md`) is the one standing exception to "never push directly to `main`" — implement it as a scoped bypass (e.g. a repo admin temporarily disabling the direct-push restriction, or an allowlisted bypass actor) that is itself visible in the repository's settings audit log, not as something branch protection has no record of.
+
+PHDK does **not** require GitHub's "require an approving review before merge" setting. GitHub blocks self-approval, so on a single-maintainer repo that setting cannot be satisfied without a second account — a cost PHDK does not impose by default. `QA_CHECKLIST.md` Human Diff Review still applies to every merge: a human must open the actual diff before merging, and their approval must be a distinct recorded action (a review, a merge click), not a chat "looks good". That gate is owned by the person merging the PR, not enforced by branch protection. A project with two or more maintainers that wants the mechanical backstop can turn required approval on — record it in `ARCHITECTURE_DECISIONS.md`.
 
 ### Git hooks (Husky, scaffolded in `package.json` — root-level, applies regardless of which AI tool is driving `git`)
 
@@ -77,7 +78,7 @@ The `commit-msg` hook only fires on a `git commit` run on someone's own machine.
 - A second workflow (or a job in the same CI workflow above) runs on every PR and validates that **every commit in the PR's range** — not just the latest one, not just the PR title — matches `VERSIONING.md` Commit Message Format. A single non-compliant commit anywhere in the branch fails this check.
 - This is wired into GitHub branch protection as a required status check, same as the build/lint/test check above — a PR cannot merge while it fails, regardless of what any contributor's local hook did or didn't catch.
 - This is why "Squash and merge" is disabled above: with "Merge commit" or "Rebase and merge," the commits this check already validated are exactly what lands on `main`. Squashing would let a validated set of commits collapse into one new, unvalidated one at the moment of merge.
-- Dependabot and Renovate PRs go through this same check like any other PR — the human approving the merge (Human Diff Review, required by branch protection) sets the correct `vX.Y.Z`-prefixed commit message before merging; there is no bot exception to the versioning rule.
+- Dependabot and Renovate PRs go through this same check like any other PR — the human merging it (Human Diff Review, `QA_CHECKLIST.md`) sets the correct `vX.Y.Z`-prefixed commit message before merging; there is no bot exception to the versioning rule.
 
 ### Dependency automation
 
@@ -92,7 +93,6 @@ This section does not repeat rules defined elsewhere — it is the index of whic
 | Commit message begins with `vX.Y.Z` | `VERSIONING.md` | `commit-msg` hook (local) + commit-range CI check (server-side, catches what a bypassed or missing local hook doesn't) |
 | No file exceeds 600 lines | `DEVELOPMENT_RULES.md` | `pre-commit` hook |
 | Never commit directly to `main` | `DEVELOPMENT_RULES.md` | GitHub branch protection |
-| Human reviews the diff before merge | `QA_CHECKLIST.md` Human Diff Review | GitHub required PR approval |
 | Build/lint/typecheck/test must actually pass | `VERIFICATION_LOOP.md` | CI required status check |
 | Never commit secrets | `DEVSECOPS.md` | `pre-commit` secrets scan |
 | Dependencies stay patched | `DEVSECOPS.md` | Dependabot/Renovate |
@@ -142,6 +142,7 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 
 - Tier 1 only works for what can be expressed as a check. "Understand the human's actual goal before writing code" has no lint rule. Tier 2 narrows how often this kind of rule gets forgotten; it does not guarantee it never is.
 - A local git hook can be bypassed, or is simply absent if a developer's machine never ran the setup step. GitHub branch protection is the real backstop for anything security-critical for exactly this reason — never rely on a local hook alone for something that must never happen.
+- Human Diff Review (`QA_CHECKLIST.md`) is deliberately not mechanically enforced. It stays a checklist gate the merging human owns, because the only GitHub mechanism for it — required approval — cannot be met on a single-maintainer repo without a second account. A team project that wants the backstop opts in via `ARCHITECTURE_DECISIONS.md`.
 - None of this replaces a human actually reading `STATUS.md` and the diff periodically. Tooling raises the floor; it does not remove the need for the feedback loop in `AI_DEVELOPER_OPERATING_MODEL.md`.
 
 ---
@@ -157,7 +158,7 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 
 ## Verification
 
-- [ ] GitHub branch protection on `main` requires a PR, at least one approval, and passing status checks, and disallows force-push
+- [ ] GitHub branch protection on `main` requires a PR and passing status checks, and disallows force-push (an approving review is not required — see GitHub branch protection above)
 - [ ] `commit-msg` hook rejects a commit with no `vX.Y.Z` prefix
 - [ ] `pre-commit` hook rejects a staged file over 600 lines and runs a secrets scan
 - [ ] `pre-push` hook blocks a push to `main` unless `PHDK_FINETUNING_MODE=1` is set locally

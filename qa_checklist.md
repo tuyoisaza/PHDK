@@ -875,7 +875,7 @@ Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Step 14), sp
 - [ ] CI workflow runs install/lint/typecheck/build/test on pull requests and is wired as a required status check
 - [ ] A separate required CI check validates every commit in a PR's range against the version-format regex — not just the local hook, which a PR merged through GitHub never touches
 - [ ] "Squash and merge" is disabled in the repository's merge-method settings
-- [ ] GitHub branch protection on `main` was confirmed by the developer as actually configured (PR required, one approval required, status checks required, force-push disallowed) — not just requested during foundation build
+- [ ] GitHub branch protection on `main` was confirmed by the developer as actually configured (PR required, status checks required, force-push disallowed) — not just requested during foundation build. An approving review is not required by default; if this project opted into it, there is an `ARCHITECTURE_DECISIONS.md` entry
 - [ ] Dependabot or Renovate is configured
 - [ ] The current tool's native always-loaded rule file exists and its inlined hard-rules block matches the current `INANUTSHELL.md`, not a stale version
 - [ ] No hook was bypassed (`--no-verify` or equivalent) without it being flagged as a Stop-and-Ask condition per `VERSIONING.md`

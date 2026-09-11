@@ -6,6 +6,28 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.24.0 — 2026-09-08
+
+### Theme: Human Diff Review Is a Checklist Gate, Not a Required GitHub Approval
+
+`ENFORCEMENT.md` (v2.22.0) wired `QA_CHECKLIST.md` Human Diff Review to GitHub's "require an approving review before merge" branch-protection setting. GitHub blocks self-approval, so on a single-maintainer repo — the common case for a PHDK project — that setting cannot be satisfied without opening a second GitHub account and approving your own PRs from it. That was never a stated PHDK rule; it was an unintended consequence of picking required-approval as the enforcement mechanism. This release removes the required-approval requirement. Human Diff Review stays a mandatory gate on every merge to `main` — a human must open the actual diff, and their approval must be a distinct recorded action (a review, a merge click), not a chat "looks good" — but it is now owned by the person merging the PR rather than enforced by branch protection. A team project that wants the mechanical backstop can still turn required approval on and record it in `ARCHITECTURE_DECISIONS.md`.
+
+Branch protection on `main` is otherwise unchanged: PR required, CI status checks required, no force-push, "Squash and merge" disabled.
+
+### Changed
+
+- `ENFORCEMENT.md` — dropped "Require at least one approving review before merge" from the GitHub branch protection config. New paragraph explaining why PHDK does not require it (self-approval is blocked; a solo repo would need a second account) and that Human Diff Review remains a `QA_CHECKLIST.md` gate the merging human owns. Removed the "Human reviews the diff before merge" row from the Tier 1 machine-enforced table. New "What This Does Not Solve" bullet stating the omission is deliberate. Verification checklist updated.
+- `README.md` — Canonical Decisions "Human diff review" row reworded: a checklist gate the merging human owns, not a GitHub required-approval setting; team projects can opt in via `ARCHITECTURE_DECISIONS.md`.
+- `INANUTSHELL.md` — Mechanical Enforcement section no longer claims branch protection makes "human reviews the diff" true; separate line clarifies human diff review is a `QA_CHECKLIST.md` gate, not a required-approval setting, and PHDK does not require a second account for a solo repo.
+- `BUILD_APP_FOUNDATION_PROMPT.md` — Step 14 branch-protection setup no longer tells the developer to require an approval; notes it as an opt-in for team projects recorded in `ARCHITECTURE_DECISIONS.md`.
+- `qa_checklist.md` — Enforcement QA branch-protection check no longer lists "one approval required"; notes required approval as an opt-in with an `ARCHITECTURE_DECISIONS.md` entry.
+
+### Canonical Decisions
+
+- Merging to `main` requires a human to have read the actual diff — this is a `QA_CHECKLIST.md` Human Diff Review gate owned by the person merging the PR, **not** enforced by GitHub's required-approval setting. The AI's own verification evidence is required but never a substitute for it. A project with two or more maintainers may opt into GitHub required approval as a mechanical backstop, recorded in `ARCHITECTURE_DECISIONS.md`. This supersedes the v2.22.0 Canonical Decision that tied Human Diff Review to GitHub's required-approval setting.
+
+---
+
 ## v2.23.0 — 2026-09-06
 
 ### Theme: Close the Merge-Time Gap in Commit Versioning Enforcement

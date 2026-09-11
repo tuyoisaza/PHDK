@@ -727,7 +727,7 @@ This is where `ENFORCEMENT.md` and `TESTING_STANDARD.md` stop being documents so
 - Add a second required CI check that validates every commit in a PR's range against the version-format regex, per `ENFORCEMENT.md` Commit-message CI check — this is what catches a bypassed or never-installed local `commit-msg` hook
 - Configure Dependabot or Renovate per `DEVSECOPS.md` Keeping Existing Dependencies Patched
 - Tell the developer, explicitly, that these are one-time manual steps in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step — and do not report this step as done until the developer confirms all of it is configured:
-  - branch protection on `main`: require PR, require one approval, require both CI status checks, disallow force-push
+  - branch protection on `main`: require PR, require both CI status checks, disallow force-push — an approving review is **not** required (GitHub blocks self-approval, so a solo repo cannot satisfy it without a second account; a team project can opt in and record it in `ARCHITECTURE_DECISIONS.md`), per `ENFORCEMENT.md` GitHub branch protection
   - merge methods: disable "Squash and merge", allow only "Merge commit" or "Rebase and merge" — per `ENFORCEMENT.md` GitHub branch protection
 
 ### Tier 2 — context-persistence (`ENFORCEMENT.md`)
