@@ -15,6 +15,7 @@ Package manager:    pnpm
 Build system:       Turborepo
 Language:           TypeScript (strict mode)
 Node minimum:       20.x
+Formatter:          Prettier
 ```
 
 Structure:
@@ -599,10 +600,13 @@ Every app must include:
     "lint": "...",
     "typecheck": "...",
     "test": "...",
-    "format": "..."
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   }
 }
 ```
+
+Root-level Prettier config (`.prettierrc`, `.prettierignore`) lives at the repository root, not duplicated per app. Wire it into the `pre-commit` hook via `lint-staged` per `ENFORCEMENT.md` Git Hooks — formatting is fixed automatically on staged files, not just checked.
 
 ---
 

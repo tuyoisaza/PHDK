@@ -44,7 +44,7 @@ This is the single most reliable mechanism in this file because it is enforced b
 Configure once, on `main`, in the repository's GitHub settings:
 
 - Require a pull request before merging — direct pushes to `main` are rejected by GitHub, not by an agent's discipline. This is what actually makes `DEVELOPMENT_RULES.md`'s "never commit directly to `main`" true by construction instead of by request.
-- Require status checks to pass before merge — wire in the CI workflow below (lint, typecheck, build, test) as required checks, so a slice cannot merge on the AI's self-reported "tests pass" alone if the actual CI run disagrees.
+- Require status checks to pass before merge — wire in the CI workflow below (lint, typecheck, build, format:check, test) as required checks, so a slice cannot merge on the AI's self-reported "tests pass" alone if the actual CI run disagrees.
 - Do not allow force-pushes to `main`. Do not allow branch deletion of `main`.
 - Disable "Squash and merge" as an allowed merge method (repository Settings → General → Pull Requests). Squashing discards the individual commits that the `commit-msg` hook already validated and replaces them with one new commit built from the PR title or an edited message that was never checked by anything. Allow only "Merge commit" or "Rebase and merge" — both land the already-validated commits on `main` with their original messages intact.
 - Finetuning Mode (`DEVELOPMENT_RULES.md`) is the one standing exception to "never push directly to `main`" — implement it as a scoped bypass (e.g. a repo admin temporarily disabling the direct-push restriction, or an allowlisted bypass actor) that is itself visible in the repository's settings audit log, not as something branch protection has no record of.
@@ -56,7 +56,7 @@ PHDK does **not** require GitHub's "require an approving review before merge" se
 Hooks run on the `git` command itself. They fire the same way whether a human typed the command or an AI agent did, and regardless of which of the 8 supported tools is running the agent.
 
 - **`commit-msg`** — regex-validates the commit message against `VERSIONING.md` Commit Message Format (a leading `vMAJOR.MINOR.PATCH` followed by a conventional-commit type/scope/summary). A commit with no version prefix is rejected before it is created, not caught later in review. This is the direct mechanical fix for "commits shipped without a version bump."
-- **`pre-commit`** — runs the fast subset of `QA_CHECKLIST.md` Build Quality: lint, typecheck, and a file-size check that rejects any staged file over the 600-line limit in `DEVELOPMENT_RULES.md`. Also runs a secrets scan (see below) on the staged diff.
+- **`pre-commit`** — runs the fast subset of `QA_CHECKLIST.md` Build Quality: lint, typecheck, `lint-staged` running Prettier against staged files (auto-fixes formatting rather than just flagging it, per `TECHNICAL_STACK.md`), and a file-size check that rejects any staged file over the 600-line limit in `DEVELOPMENT_RULES.md`. Also runs a secrets scan (see below) on the staged diff.
 - **`pre-push`** — blocks a push targeting `main` unless a local `PHDK_FINETUNING_MODE=1` environment variable is set. This is the mechanical form of Finetuning Mode's exception: the human sets the variable to activate it, rather than the AI needing to remember it is active. Branch protection above is the real backstop (a local hook can be bypassed on a local machine); this hook exists so the block happens before a push attempt even reaches GitHub.
 
 ### Secrets scanning (mechanical enforcement of "never commit secrets")
@@ -67,7 +67,7 @@ Hooks run on the `git` command itself. They fire the same way whether a human ty
 
 ### CI (GitHub Actions, CI-only per `TASK_TRACKING_STANDARD.md` Local-Only Rule)
 
-- One workflow, triggered on pull request, running `QA_CHECKLIST.md` Required Validation Commands: install, lint, typecheck, build, test.
+- One workflow, triggered on pull request, running `QA_CHECKLIST.md` Required Validation Commands: install, lint, typecheck, build, format:check, test.
 - Wired into GitHub branch protection above as a required status check.
 - This workflow does exactly one job: prove the code is in the state the AI claims. It never tracks tasks, reports status to a dashboard, or gates anything beyond "does the code build and pass its tests" — see `TASK_TRACKING_STANDARD.md` for why task tracking itself must never live here.
 
@@ -160,9 +160,9 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 
 - [ ] GitHub branch protection on `main` requires a PR and passing status checks, and disallows force-push (an approving review is not required — see GitHub branch protection above)
 - [ ] `commit-msg` hook rejects a commit with no `vX.Y.Z` prefix
-- [ ] `pre-commit` hook rejects a staged file over 600 lines and runs a secrets scan
+- [ ] `pre-commit` hook rejects a staged file over 600 lines, runs `lint-staged`/Prettier against staged files, and runs a secrets scan
 - [ ] `pre-push` hook blocks a push to `main` unless `PHDK_FINETUNING_MODE=1` is set locally
-- [ ] CI workflow runs install/lint/typecheck/build/test on every PR and is a required status check
+- [ ] CI workflow runs install/lint/typecheck/build/format:check/test on every PR and is a required status check
 - [ ] A separate CI check validates every commit in a PR's range against the version-format regex and is a required status check — tested by opening a PR with one intentionally malformed commit and confirming the check fails
 - [ ] "Squash and merge" is disabled in the repository's merge-method settings; only "Merge commit" or "Rebase and merge" are enabled
 - [ ] Dependabot or Renovate is configured

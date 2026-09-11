@@ -6,6 +6,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.25.0 — 2026-09-11
+
+### Theme: Prettier as the Canonical Formatter — Closing the `format`/`format:check` Gap
+
+`BUILD_APP_FOUNDATION_PROMPT.md` and `QA_CHECKLIST.md` already required a `format` script and a `pnpm format:check` validation command, but `TECHNICAL_STACK.md` left the actual tool as an unresolved `"format": "..."` placeholder. That is exactly the kind of gap `ENFORCEMENT.md` exists to close: a rule that reads as mechanical but silently depended on whoever built a given project's foundation guessing the same tool every time. This release names Prettier as the canonical formatter, wires it into the existing `pre-commit` hook via `lint-staged` (auto-fixing staged files, not just flagging them), and adds `format:check` everywhere the other required checks (`lint`, `typecheck`, `build`, `test`) already appear — CI, branch protection's required status checks, and foundation-build Quality Gates.
+
+### Changed
+
+- `TECHNICAL_STACK.md` — added `Formatter: Prettier` to the canonical Monorepo stack block; filled in the previously-unresolved `format`/`format:check` package-script placeholders with concrete Prettier commands; new note on root-level `.prettierrc`/`.prettierignore` and `lint-staged` wiring.
+- `BUILD_APP_FOUNDATION_PROMPT.md` — root `package.json` now scaffolds `format:check` alongside the existing `format` script; Step 14 scaffolds Prettier + `lint-staged` on `pre-commit` and adds `format:check` to the CI workflow; Step 15 Quality Gates now checks `pnpm format:check`.
+- `ENFORCEMENT.md` — `pre-commit` hook and CI sections now include Prettier/`lint-staged` and `format:check` alongside the existing lint/typecheck/build/test checks; branch protection's required-status-checks list and the Verification checklist updated to match.
+- `qa_checklist.md` — Enforcement QA checklist now verifies `lint-staged`/Prettier on `pre-commit` and `format:check` in CI.
+- `README.md` — new "Formatting" row in Canonical Decisions naming Prettier as the standard formatter.
+- `INANUTSHELL.md` — Mechanical Enforcement bullet on git hooks now mentions unformatted staged files being auto-fixed by `lint-staged`/Prettier.
+
+### Canonical Decisions
+
+- Prettier is the canonical formatter for every PHDK project. Every project scaffolds a `format`/`format:check` script pair, `pre-commit` auto-fixes staged files via `lint-staged`, and `format:check` is a required CI status check alongside lint/typecheck/build/test — so an unformatted PR cannot merge on the strength of self-reported "looks fine."
+
+---
+
 ## v2.24.0 — 2026-09-08
 
 ### Theme: Human Diff Review Is a Checklist Gate, Not a Required GitHub Approval

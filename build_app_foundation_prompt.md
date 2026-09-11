@@ -236,7 +236,8 @@ Root scripts must include:
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "test": "turbo test",
-    "format": "turbo format"
+    "format": "turbo format",
+    "format:check": "turbo format:check"
   }
 }
 ```
@@ -722,8 +723,9 @@ This is where `ENFORCEMENT.md` and `TESTING_STANDARD.md` stop being documents so
 ### Tier 1 — mechanical enforcement (`ENFORCEMENT.md`)
 
 - Configure Husky (or the project's chosen git-hooks tool) with `commit-msg`, `pre-commit`, and `pre-push` hooks per `ENFORCEMENT.md` Git Hooks
+- Configure Prettier (`.prettierrc`, `.prettierignore`) as the canonical formatter per `TECHNICAL_STACK.md`, wired into `pre-commit` via `lint-staged` so staged files are auto-formatted, not just checked
 - Add a pre-commit secrets scan per `ENFORCEMENT.md` Secrets Scanning
-- Add one GitHub Actions workflow (CI only, per `TASK_TRACKING_STANDARD.md` Local-Only Rule) running install/lint/typecheck/build/test on pull requests, per `ENFORCEMENT.md` CI
+- Add one GitHub Actions workflow (CI only, per `TASK_TRACKING_STANDARD.md` Local-Only Rule) running install/lint/typecheck/build/format:check/test on pull requests, per `ENFORCEMENT.md` CI
 - Add a second required CI check that validates every commit in a PR's range against the version-format regex, per `ENFORCEMENT.md` Commit-message CI check — this is what catches a bypassed or never-installed local `commit-msg` hook
 - Configure Dependabot or Renovate per `DEVSECOPS.md` Keeping Existing Dependencies Patched
 - Tell the developer, explicitly, that these are one-time manual steps in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step — and do not report this step as done until the developer confirms all of it is configured:
@@ -749,6 +751,7 @@ Before declaring foundation complete, check:
 - `pnpm install` runs cleanly from repository root
 - `pnpm typecheck` passes or failures are reported honestly
 - `pnpm lint` passes or failures are reported honestly
+- `pnpm format:check` passes or failures are reported honestly
 - `pnpm build` passes or failures are reported honestly
 - `pnpm dev` runs web and API together through Turborepo
 - API binds to `0.0.0.0`
