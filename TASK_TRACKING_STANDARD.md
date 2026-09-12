@@ -48,6 +48,7 @@ Left undefined, "how do we track tasks" tends to drift toward whatever the codin
 - **`TASK.md`** — the live file for the current working slice only. Replaced when the slice closes, per the archive step below.
 - **`STATUS.md`** — persistent, cross-slice memory: Completed Slices, Current Slice, Next Slices, Blocked Slices, current version, gaps, and open questions. Format is defined in `AGILE_SLICE_WORKFLOW.md` Backlog Management.
 - **`docs/completed-slices/`** — permanent archive folder in the project repo. One file per closed slice.
+- **`docs/intents/`** — permanent archive folder for intent files. One file per feature/bug intent, created once and never overwritten — see `INTENT_CAPTURE_STANDARD.md`. Not every slice has one; see that file for when it applies.
 
 ---
 
@@ -61,6 +62,7 @@ User-visible outcome: ...
 In scope: ...
 Out of scope: ...
 Depends on: ...
+Intent: <path to docs/intents/... file, or "none — internal/already covered by PRD.md">
 
 ## Tasks
 - [ ] <task description>

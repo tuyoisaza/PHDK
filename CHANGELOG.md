@@ -6,6 +6,32 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v2.26.0 — 2026-09-12
+
+### Theme: Name PHDK an AI-Native SDLC Playbook, Add Intent Capture
+
+PHDK has always been the same shape as an AI-native software development lifecycle: every stage produces a version-controlled artifact and the next stage reads it. This release names that explicitly and closes the one real gap in the chain. PHDK already captured project-level intent once, at inception (`SPEC_INTERVIEW_PROMPT.md` → `PROJECT_BRIEF.md`/`PRD.md`/`FEATURES.md`), and captured per-slice scope live in conversation (`AGILE_SLICE_WORKFLOW.md` Steps 1–2) — but never wrote a durable, git-committed, human-reviewable record of *why* a specific feature or bug exists, separate from the plan in `TASK.md`. `INTENT_CAPTURE_STANDARD.md` adds that missing middle layer, conditionally: for asks that arrive after project inception and aren't already covered by the existing brief/PRD, or that originate from someone other than the implementer. It deliberately does not add a separate `spec.md` artifact — `PROJECT_BRIEF.md`/`PRD.md`/`FEATURES.md` plus `TASK.md`'s `Slice` header already cover that, and a third layer would be exactly the ceremony `AGILE_SLICE_WORKFLOW.md` warns against for small slices.
+
+### Added
+
+- `INTENT_CAPTURE_STANDARD.md` — when and how to capture the why behind a feature/bug as a durable `docs/intents/<name>-intent.md` file, its format, review step, lifecycle, and relationship to `PROJECT_BRIEF.md`/`PRD.md`/`FEATURES.md` and `TASK.md`.
+
+### Changed
+
+- `README.md` — opening line names PHDK as an opinionated AI-native SDLC playbook; new "PHDK as an AI-Native SDLC Playbook" section maps the artifact chain and notes convergence with Anthropic's own Aug 2026 publication of the same pattern; new `INTENT_CAPTURE_STANDARD.md` row in Included Files and Canonical Decisions; required reading order updated; stale version badge corrected from v2.23.0 to current.
+- `ONBOARDING_AI_DEVELOPER.md` — "What PHDK Is" names PHDK as an AI-native SDLC playbook; required reading order and Standards File Definitions add `INTENT_CAPTURE_STANDARD.md`; fixed a pre-existing numbering restart in the project-specific files list.
+- `agents.md` — added a pointer to `INTENT_CAPTURE_STANDARD.md` alongside the existing `AGILE_SLICE_WORKFLOW.md` reference.
+- `AGILE_SLICE_WORKFLOW.md` — Step 1 now conditionally directs to intent capture first when a slice originates from an ask not already covered by the project's brief/PRD/features docs.
+- `TASK_TRACKING_STANDARD.md` — added `docs/intents/` to File Structure; added an optional `Intent:` field to the `TASK.md` format.
+- `SKILL.md` — added `INTENT_CAPTURE_STANDARD.md` to the vendoring file list.
+- `INANUTSHELL.md` — new one-line rule under Working Slices & Verification pointing to intent capture.
+
+### Canonical Decisions
+
+- Non-trivial or externally-originated feature/bug work gets a durable `docs/intents/` file capturing the why, reviewed by its originator, before a `TASK.md` starts — never required for internally-obvious or trivial slices.
+
+---
+
 ## v2.25.0 — 2026-09-11
 
 ### Theme: Prettier as the Canonical Formatter — Closing the `format`/`format:check` Gap

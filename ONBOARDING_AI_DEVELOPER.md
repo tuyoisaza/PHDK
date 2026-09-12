@@ -10,7 +10,7 @@ Read this file first. Then follow the reading order below before touching any co
 
 ## What PHDK Is
 
-PHDK is a disciplined operating model for AI-assisted software development.
+PHDK is an opinionated AI-native SDLC (Software Development Life Cycle) playbook — a disciplined operating model for AI-assisted software development.
 
 It is not a rigid religion of tools.
 
@@ -60,20 +60,21 @@ Before starting any task, read these files in this order:
 11. TESTING_STANDARD.md              — test framework, required coverage
 12. DEBUG_DIAGNOSTICS_STANDARD.md    — diagnostics and copy report spec
 13. TASK_TRACKING_STANDARD.md        — how TASK.md/STATUS.md are structured and archived
-14. TASK.md                          — current session task and scope
-15. STATUS.md                        — current project state and gaps
+14. INTENT_CAPTURE_STANDARD.md       — when and how to capture the why behind a feature/bug
+15. TASK.md                          — current session task and scope
+16. STATUS.md                        — current project state and gaps
 ```
 
 Then read the project-specific PHDK files:
 
 ```txt
-14. PROJECT_BRIEF.md
-15. PRD.md
-16. FEATURES.md
-17. NAVTREE.md
-18. PUBLIC_CONTENT.md
-19. PRIVATE_CONTENT.md if it exists
-20. ARCHITECTURE_DECISIONS.md
+17. PROJECT_BRIEF.md
+18. PRD.md
+19. FEATURES.md
+20. NAVTREE.md
+21. PUBLIC_CONTENT.md
+22. PRIVATE_CONTENT.md if it exists
+23. ARCHITECTURE_DECISIONS.md
 ```
 
 Do not start coding until you have read all files relevant to your current task.
@@ -134,6 +135,12 @@ Use this file when implementing or touching the version badge, copy report butto
 Defines the format of `TASK.md` and `STATUS.md`, how a closed slice's tasks get archived to `docs/completed-slices/`, and the rule that task tracking is always local markdown — never GitHub Issues, GitHub Projects, or GitHub Actions.
 
 Use this file before creating or updating `TASK.md`, and when closing out a completed slice.
+
+### `INTENT_CAPTURE_STANDARD.md`
+
+Defines when and how to capture the *why* behind a feature or bug as a durable, reviewable `docs/intents/` file, before scoping begins in `TASK.md`.
+
+Use this file when a new feature or bug ask arrives that is not already covered by `PROJECT_BRIEF.md`/`PRD.md`/`FEATURES.md`, or that originates from someone other than the person implementing it.
 
 ### `AI_DEVELOPER_OPERATING_MODEL.md`
 
