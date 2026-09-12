@@ -74,7 +74,8 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - "It should work" or "lint passed" alone is not evidence
 - Update `STATUS.md` and `TASK.md` every session — that's the only memory between sessions, don't trust what "feels" familiar
 - A human reading the actual diff is a separate, required gate from the AI's own verification evidence — a green report is never a substitute for someone looking at the code
-- *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`, `QA_CHECKLIST.md` Human Diff Review)*
+- A feature/bug ask not already covered by the project's brief/PRD/features docs gets a durable `docs/intents/<name>-intent.md`, reviewed by its originator, before `TASK.md` scoping starts — skip for trivial or internally-obvious slices
+- *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`, `QA_CHECKLIST.md` Human Diff Review, `INTENT_CAPTURE_STANDARD.md`)*
 
 ## Testing
 

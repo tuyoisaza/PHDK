@@ -60,6 +60,8 @@ Every working slice follows this lifecycle in order. Do not skip steps.
 
 ### Step 1 — Define the user-visible outcome
 
+If this slice originates from a new feature or bug ask that is not already covered by `PROJECT_BRIEF.md`, `FEATURES.md`, or `PRD.md`, capture it first as `docs/intents/<name>-intent.md` per `INTENT_CAPTURE_STANDARD.md`, and have its originator review it before continuing. Reference it in `TASK.md`'s `Intent:` field. This is conditional, not a new mandatory step for every slice — see `INTENT_CAPTURE_STANDARD.md` for when it applies.
+
 Before writing code, state clearly:
 
 ```txt

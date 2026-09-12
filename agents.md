@@ -37,7 +37,7 @@ Work only within the scope defined in `TASK.md`. Do not touch out-of-scope files
 
 Agents must work in small, user-visible, verified working slices. Autonomous mode is enabled by default inside the current approved slice. Agents must show verification evidence after each slice, update `STATUS.md` after meaningful progress, and never continue silently after failed verification.
 
-Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the full operating doctrine, including the complete Stop-and-Ask list.
+Read `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md` for the full operating doctrine, including the complete Stop-and-Ask list. When a slice originates from a new feature/bug ask not already covered by the project's brief/PRD/features docs, read `INTENT_CAPTURE_STANDARD.md` first — it defines when to capture the why in a durable `docs/intents/` file before scoping in `TASK.md`.
 
 ---
 

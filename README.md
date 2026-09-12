@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.23.0**
+**Version: v2.26.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -8,13 +8,34 @@ This repository contains the reusable PHDK standards for AI-assisted software de
 
 ## What PHDK Is
 
-PHDK (Project Handoff to Development Kit) is a disciplined operating model for AI-assisted software development.
+PHDK (Project Handoff to Development Kit) is an opinionated AI-native SDLC (Software Development Life Cycle) playbook — a disciplined operating model for AI-assisted software development.
 
 It is not a rigid religion of tools. It is a framework that teaches AI developers how to think, work in slices, verify their work, preserve context, and produce useful software.
 
 **The ethos of PHDK:** disciplined, honest, human-centered AI development.
 
 **The telos of PHDK:** useful working software that serves real people, preserves context, moves safely, verifies itself, and improves through feedback.
+
+---
+
+## PHDK as an AI-Native SDLC Playbook
+
+PHDK is structured the same way any AI-native SDLC is: every stage produces a version-controlled artifact, and the next stage reads it. The chain reads:
+
+```txt
+intent  →  project brief / PRD / features  →  task / plan  →  diff  →  changelog / incident
+```
+
+| Stage | PHDK artifact | Standard |
+|---|---|---|
+| Intent | `docs/intents/<name>-intent.md` (when applicable) | `INTENT_CAPTURE_STANDARD.md` |
+| Spec / requirements | `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md` | `SPEC_INTERVIEW_PROMPT.md`, `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` |
+| Plan | `TASK.md` | `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
+| Build / verify | diff + verification evidence | `AI_DEVELOPER_OPERATING_MODEL.md`, `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
+| Deploy | PR + human diff review + version bump | `QA_CHECKLIST.md`, `VERSIONING.md`, `ENFORCEMENT.md` |
+| Maintain | `STATUS.md`, `CHANGELOG.md`, archived slices | `TASK_TRACKING_STANDARD.md`, `DEBUG_DIAGNOSTICS_STANDARD.md` |
+
+This converges with Anthropic's own "AI-Native SDLC Playbook" (published August 2026) — the same six-stage, artifact-chain-as-audit-trail pattern, arrived at independently. PHDK predates that publication and keeps its own specifics: a fixed canonical stack, 100%-local task tracking (never GitHub Issues/Projects/Actions as the source of truth), hard file-size limits, and Human Diff Review as a named checklist gate the merging human owns rather than a GitHub required-approval setting. Where the two converge, treat it as independent validation of the same underlying pattern — not PHDK being derived from it.
 
 ---
 
@@ -75,6 +96,7 @@ Read the PHDK standards from https://github.com/tuyoisaza/PHDK in this order:
 11. TESTING_STANDARD.md
 12. DEBUG_DIAGNOSTICS_STANDARD.md
 13. TASK_TRACKING_STANDARD.md
+14. INTENT_CAPTURE_STANDARD.md
 Then read TASK.md and STATUS.md from the project repo.
 ```
 
@@ -176,6 +198,7 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 |------|---------|
 | `AGILE_SLICE_WORKFLOW.md` | Working slice model, lifecycle, sizing, backlog |
 | `TASK_TRACKING_STANDARD.md` | `TASK.md`/`STATUS.md` format, completed-slice archiving, local-only rule (no GitHub Issues/Projects/Actions) |
+| `INTENT_CAPTURE_STANDARD.md` | When and how to capture the why behind a feature/bug as a durable `docs/intents/` file, before scoping in `TASK.md` |
 | `VERIFICATION_LOOP.md` | What counts as proof, health checks, deep health |
 | `TESTING_STANDARD.md` | Test framework, test types, what must be tested |
 | `DEBUG_DIAGNOSTICS_STANDARD.md` | Copy diagnostics spec, debug mode, auth diagnostics |
@@ -226,6 +249,7 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Data import | Importing data from multiple sources or on a recurring cadence uses a stateful intake pipeline (`pending → processed → approved \| deactivated`) with a batch reference on every imported row and soft-delete-by-batch-state — never a direct insert with no review step, and never a hard delete to undo a bad import — see `TECHNICAL_STACK.md` Data Import / Intake Pipeline |
 | Debug mode default | Debug mode defaults to ON in every non-production environment (no manual setup step) and must be explicitly confirmed OFF before production release; every function reports status through one shared debug-log helper, never ad hoc `console.log` — see `DEBUG_DIAGNOSTICS_STANDARD.md` |
 | Task tracking | `TASK.md`/`STATUS.md` are 100% local, plain-text markdown, archived to `docs/completed-slices/` on slice close — never GitHub Issues, GitHub Projects, or GitHub Actions as the system of record; any Actions workflow present must be CI-only, explicitly approved, and never gate slice completion — see `TASK_TRACKING_STANDARD.md` |
+| Intent capture | Non-trivial or externally-originated feature/bug work gets a durable `docs/intents/` file capturing the why, reviewed by its originator, before a `TASK.md` starts — never required for internally-obvious or trivial slices — see `INTENT_CAPTURE_STANDARD.md` |
 | Testing | Vitest for unit/integration/component tests, Playwright for e2e; RBAC checks, API boundary Zod schemas, service-layer business logic, and LLM output validation require tests, not just a passing `pnpm test` on unrelated coverage — see `TESTING_STANDARD.md` |
 | Formatting | Prettier is the canonical formatter for every project — a required `format`/`format:check` script pair, auto-fixed on staged files via `lint-staged` on `pre-commit`, and enforced as a required CI status check so an unformatted PR cannot merge — see `TECHNICAL_STACK.md` and `ENFORCEMENT.md` |
 | Human diff review | Merging to `main` requires a human to have read the actual diff — AI-produced verification evidence is required but never a substitute for this, and a chat "looks good" that never opened the diff does not count. It is a checklist gate the merging human owns, not a GitHub required-approval setting (which a single-maintainer repo cannot satisfy without a second account); a team project can opt into required approval via `ARCHITECTURE_DECISIONS.md` — see `QA_CHECKLIST.md` Human Diff Review and `ENFORCEMENT.md` |
