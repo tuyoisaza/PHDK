@@ -1,5 +1,17 @@
 # CHANGELOG.md
 
+## v2.29.0 — 2026-09-20
+
+### Universal `PHDK upgrade` command
+
+- Added `PHDK_UPGRADE.md`, the IDE-agnostic executable specification for the exact command `PHDK upgrade`.
+- The exact command is now explicit approval to fetch the canonical upstream and synchronize PHDK-managed files without a redundant confirmation prompt.
+- Added `PHDK_MANIFEST.txt` so bootstrap and upgrades share one authoritative vendored-file list, including source-to-destination casing mappings.
+- Added `PHDK_NATIVE_RULES.md`, a marked persistent-context block containing the upgrade command and core hard rules.
+- Tool-native rule files now preserve `PHDK-MANAGED` markers so upgrades replace only the PHDK-owned block and never overwrite unrelated IDE/project instructions.
+- Upgrade workflow verifies byte-for-byte manifest sync, preserves unrelated working-tree changes, refuses to overwrite dirty `phdk-standards/`, records the version transition, and follows normal project branch/commit rules.
+- `SKILL.md` now re-reads itself after updating and routes all upgrade behavior to the single portable implementation instead of duplicating the algorithm.
+
 ## v2.28.0 — 2026-09-20
 
 ### Diagnostics-first verification and risk-based automated testing

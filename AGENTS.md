@@ -10,6 +10,18 @@ If a session runs long and rules start slipping, re-read `INANUTSHELL.md` — it
 
 ---
 
+## Universal PHDK Command
+
+When the developer says exactly:
+
+```txt
+PHDK upgrade
+```
+
+read `PHDK_UPGRADE.md` and execute it immediately. This exact command is explicit approval to fetch the canonical upstream and synchronize PHDK-managed files. Do not ask for a second confirmation. Do not continue into feature work afterward unless separately requested.
+
+---
+
 ## Minimum Session Context
 
 For every task, load only this minimum set first:

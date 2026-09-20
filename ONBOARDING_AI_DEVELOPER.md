@@ -137,11 +137,17 @@ Defines the working slice lifecycle in detail.
 
 Use this file when planning the scope of the current task or proposing the next slice.
 
+### `PHDK_UPGRADE.md`
+
+Defines the portable `PHDK upgrade` command. The exact command is explicit approval to fetch and synchronize PHDK-managed standards without a second confirmation. It never regenerates project-specific kit files.
+
+Use this file only when upgrading PHDK; it is not part of normal session context.
+
 ---
 
 ## How to Start a Session
 
-In a tool that supports Agent Skills (Claude Code, Cursor, Codex CLI, Windsurf, VS Code, OpenCode, Pi, Antigravity), `SKILL.md` is an alternate entry point — it triggers automatically and routes to the same reading order and workflow below. In any other tool, follow the steps here directly.
+In a tool that supports Agent Skills (Claude Code, Cursor, Codex CLI, Windsurf, VS Code, OpenCode, Pi, Antigravity), `SKILL.md` is an alternate entry point and routes to the same progressive context workflow below. In any other tool, follow the steps here directly. The command `PHDK upgrade` is portable across both cases.
 
 1. Read `AGENTS.md`
 2. Read `TASK.md` for current session scope

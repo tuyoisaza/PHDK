@@ -1,15 +1,26 @@
 ---
 name: phdk
-description: Use when starting a new project that should follow PHDK standards, generating a PHDK project handoff kit, working on an existing project whose AGENTS.md says it follows PHDK, or when the developer asks to update/sync/upgrade a project's vendored PHDK standards. Covers project bootstrap (interview, generate handoff kit, vendor standards into the project), ongoing development (read standards in the required order, work in verified slices, follow DevSecOps/cost/backup rules), and updating an already-vendored phdk-standards/ folder to the latest version.
+description: Use when starting a new project that should follow PHDK standards, generating a PHDK project handoff kit, working on an existing project whose AGENTS.md says it follows PHDK, or when the developer says `PHDK upgrade` or otherwise asks to update/sync PHDK. Covers project bootstrap, progressive context loading, verified slices, DevSecOps/cost/backup rules, and synchronizing an already-vendored phdk-standards/ folder to the latest canonical version.
 ---
 
 # PHDK
 
 This skill packages the PHDK (Project Handoff to Development Kit) standards and workflow. It does not restate any standard — it routes to the file that already defines it. Read `README.md` in this repo for the full picture; this file only decides which existing PHDK workflow applies right now.
 
+## Universal Command — `PHDK upgrade`
+
+If the developer says exactly `PHDK upgrade` (case-insensitive after trimming whitespace), this command takes priority over normal project routing for that turn.
+
+1. Refresh the PHDK source first.
+2. Re-read this `SKILL.md` after the refresh because the upgrade workflow itself may have changed.
+3. Execute the latest `PHDK_UPGRADE.md`.
+4. Do not ask for a second confirmation: the exact command itself is approval to synchronize PHDK-managed files.
+5. Stop after the upgrade report; do not continue into feature work unless separately asked.
+
+
 ## Step 0 — Keep this skill current
 
-This skill's own directory is a git clone of the PHDK standards repo. Before doing anything else, update it: run `git pull` inside this skill's directory (the folder this `SKILL.md` lives in). Then read `VERSION` to confirm what version you're on.
+This skill's own directory is a git clone of the PHDK standards repo. Before normal PHDK work, update it with `git pull --ff-only` inside the folder this `SKILL.md` lives in. Then **re-read `SKILL.md` from disk** and read `VERSION`; an upstream update may have changed the workflow you are about to follow.
 
 If the pull fails because of local modifications in this directory, stop and tell the developer instead of forcing it or discarding changes — this directory should only ever contain PHDK's own files, so unexpected local changes are worth a question, not a silent overwrite.
 
@@ -24,29 +35,11 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
 
 1. If the human has not been briefed on the project yet (no clear product brief in the conversation), run `SPEC_INTERVIEW_PROMPT.md` first.
 2. Run `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` to generate the kit (`PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `NAVTREE.md`, `PUBLIC_CONTENT.md`, `PRIVATE_CONTENT.md` if login, `TASK.md`, `ARCHITECTURE_DECISIONS.md`, `STATUS.md`, `README.md`), following that file's own generation workflow and question flow exactly — including the backup policy question.
-3. **Vendor the standards into the project repo.** Copy this skill's own standards files into a `phdk-standards/` folder inside the target project repo:
-   - `VERSION`
-   - `INANUTSHELL.md`
-   - `ONBOARDING_AI_DEVELOPER.md`
-   - `AGENTS.md`
-   - `DEVELOPMENT_RULES.md`
-   - `ENFORCEMENT.md`
-   - `DESIGN_RULES.md`
-   - `TECHNICAL_STACK.md`
-   - `DEVSECOPS.md`
-   - `VERSIONING.md`
-   - `VERIFICATION_LOOP.md`
-   - `TESTING_STANDARD.md`
-   - `DEBUG_DIAGNOSTICS_STANDARD.md`
-   - `AI_DEVELOPER_OPERATING_MODEL.md`
-   - `AGILE_SLICE_WORKFLOW.md`
-   - `TASK_TRACKING_STANDARD.md`
-   - `INTENT_CAPTURE_STANDARD.md`
-   - `QA_CHECKLIST.md`
+3. **Vendor the standards into the project repo.** Read the current `PHDK_MANIFEST.txt` and copy each mapped upstream source into its destination under `phdk-standards/`. Do not maintain a second handwritten file list here — the manifest is the source of truth.
 
-   This is the full local standards library referenced by `AGENTS.md`'s progressive router plus the QA gate it points to. Vendoring the full library keeps the project self-contained; it does **not** mean every file is loaded into context every session. `VERSION` makes the update check below possible.
+   Vendoring keeps the project self-contained without loading every standard into context. It also installs `PHDK_UPGRADE.md`, `PHDK_MANIFEST.txt`, and `PHDK_NATIVE_RULES.md`, so future upgrades are tool-agnostic.
 4. Point the generated `TASK.md` and any onboarding note at `phdk-standards/AGENTS.md` as the required entry point, per `ONBOARDING_AI_DEVELOPER.md`'s reading order.
-5. Generate the current tool's native always-loaded rule file per `ENFORCEMENT.md` Tier 2 (`CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, or project-root `AGENTS.md`, whichever matches the tool actually being used) — this is what keeps the highest-severity rules in context even in a long session or a tool that never triggered this reading order at all.
+5. Generate the current tool's native always-loaded rule file per `ENFORCEMENT.md` Tier 2 and include the exact managed block from `phdk-standards/PHDK_NATIVE_RULES.md`. Preserve its `PHDK-MANAGED` markers so `PHDK upgrade` can refresh only that block later without overwriting project-specific instructions.
 6. Tell the developer the kit is generated and vendored, and offer to run `BUILD_APP_FOUNDATION_PROMPT.md` next as the first build step — this is also where `ENFORCEMENT.md` Tier 1 (git hooks, local verification gates, branch protection) gets scaffolded. GitHub Actions are not created by default. Wait for confirmation before running it — it scaffolds the actual codebase, that's a bigger action than generating docs.
 
 ## Ongoing Project
@@ -55,24 +48,20 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
 2. Read `TASK.md` and `STATUS.md` in the project repo for current scope and state.
 3. Follow `AGENTS.md`'s progressive standards router and load only what the current task needs. Use `ONBOARDING_AI_DEVELOPER.md` for orientation, not as a mandatory full-stack preload.
 4. Work per the task-relevant PHDK standards: small verified working slices, evidence before marking anything complete, and stop-and-ask at the documented boundaries.
-5. If the developer asks to update, sync, or upgrade the project's PHDK standards, go to "Updating Vendored Standards" below. Otherwise, don't check on your own initiative — this is an explicit action, not something to do silently mid-task.
+5. If the developer says `PHDK upgrade`, execute `PHDK_UPGRADE.md` immediately. For any other explicit request to update/sync/upgrade PHDK, route to the same file; only the exact canonical command waives the extra confirmation step.
 6. If the current task would genuinely benefit from an external skill (heavy UI work, browser-testing evidence, a second security or code-review pass), consult this skill's own `SKILLS_REGISTRY.md` — optional, situational, never installed without asking first.
 
 ## Updating Vendored Standards
 
-For a project that already has a vendored `phdk-standards/` folder, this refreshes it from this skill's own (Step-0-updated) copy.
+`PHDK_UPGRADE.md` is the single source of truth for upgrade behavior.
 
-1. Compare `phdk-standards/VERSION` in the project against this skill's own `VERSION`. If the project has no `phdk-standards/VERSION` file, treat it as older than everything and say so.
-2. If they match, tell the developer the vendored standards are already current and stop — there is nothing to do.
-3. If they differ, tell the developer the vendored copy's version, the current version, and ask before proceeding — this changes files the project has committed, it is not silent maintenance.
-4. On confirmation, overwrite every file in `phdk-standards/` with this skill's current copy (the same file list as the New Project vendoring step above), so `phdk-standards/VERSION` ends up matching this skill's own.
-5. Note the update in the project's `STATUS.md` (old version → new version), same as any other state change. Commit it through the project's normal branch and commit rules — this is not exempt from `DEVELOPMENT_RULES.md`, and it is not on its own grounds for Finetuning Mode.
-6. If the developer had modified any file inside `phdk-standards/` directly, flag that before overwriting — those are meant to be a clean mirror of this repo, so local edits there are themselves worth a question.
-7. If `INANUTSHELL.md` changed in this update, diff it against the inlined hard-rules block in the project's tool-native rule file (`ENFORCEMENT.md` Tier 2) and tell the developer whether that file needs updating too — a stale inlined block is worse than none, per `ENFORCEMENT.md` Never.
+- Exact command `PHDK upgrade` → execute it immediately; no second confirmation.
+- Other wording such as "update PHDK" or "sync the standards" → show the detected current/latest versions and confirm before overwriting, then execute the same workflow.
+- Never duplicate the upgrade algorithm in this skill; keeping one implementation is what makes the command portable across tools.
 
 ## Never
 
 - Never regenerate an existing project's kit files through the "New Project" path — that path is for bootstrap only.
 - Never skip vendoring when bootstrapping a new project, even if the current tool can read this repo directly — the next tool or session might not be able to.
-- Never update `phdk-standards/` in an existing project without telling the developer what version it's moving from and to, and getting confirmation first.
+- Never update `phdk-standards/` silently. The exact `PHDK upgrade` command is itself explicit approval and does not require a second confirmation; other ambiguous update requests still do.
 - Never restate a standard inline instead of pointing to its file — this skill stays a router, same as `AGENTS.md`.
