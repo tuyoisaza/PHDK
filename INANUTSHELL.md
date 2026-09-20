@@ -77,12 +77,15 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - A feature/bug ask not already covered by the project's brief/PRD/features docs gets a durable `docs/intents/<name>-intent.md`, reviewed by its originator, before `TASK.md` scoping starts — skip for trivial or internally-obvious slices
 - *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`, `QA_CHECKLIST.md` Human Diff Review, `INTENT_CAPTURE_STANDARD.md`)*
 
-## Testing
+## Diagnostics-First Verification & Testing
 
-- Vitest for unit/integration/component tests, Playwright for e2e — no other runner without an `ARCHITECTURE_DECISIONS.md` override
-- Every RBAC check, every API-boundary Zod schema, every service-layer business-logic method, and every LLM output-validation path needs a test — not just a passing `pnpm test` on unrelated coverage
-- Never mock the database in an integration test — use the real Railway dev instance
-- *(full: `TESTING_STANDARD.md`)*
+- Verify the real system first: `/health`, protected `/health/deep`, affected endpoint probes, browser confirmation, and Copy Diagnostics
+- Every important API endpoint has diagnostic metadata: auth/role, probe mode, expected statuses, and sanitized request/success/error examples
+- Safe endpoints can be tested from admin; destructive, private, or metered operations are never auto-executed just to make health green
+- Automated tests are risk-triggered, not universal — require them for security boundaries, money, destructive transitions, complex deterministic rules, and cheap regression coverage
+- Do not test every service method, every Zod schema, every component, or every slice by default
+- Do not build speculative Python/Node/browser harnesses when the live diagnostics path can answer the question directly
+- *(full: `VERIFICATION_LOOP.md`, `DEBUG_DIAGNOSTICS_STANDARD.md`, `TESTING_STANDARD.md`)*
 
 ## Mechanical Enforcement
 
@@ -90,7 +93,7 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - GitHub branch protection on `main`: PR required, no force-push, "Squash and merge" disabled; PHDK does not require Actions status checks
 - Human diff review before merge is a `QA_CHECKLIST.md` gate the merging human owns, not a GitHub required-approval setting — PHDK does not require a second account for a solo repo (a team project can opt in via `ARCHITECTURE_DECISIONS.md`)
 - Git hooks (`commit-msg`, `pre-commit`, `pre-push`) catch a missing version prefix, an oversized file, unformatted staged files (auto-fixed by `lint-staged`/Prettier), a secret in the diff, or a push to `main` with no Finetuning Mode flag — before they land, not after
-- `pre-push` validates every outgoing commit message and runs lint/typecheck/build/format:check/test before the branch is pushed; verification evidence is recorded for Human Diff Review
+- `pre-push` validates every outgoing commit message and runs lint/typecheck/build/format:check before push; risk-triggered tests are separate task evidence, while runtime proof comes from diagnostics/probes
 - Bypassing a hook (`--no-verify`) is the same class of action as force-pushing — treat it as a Stop-and-Ask, not a shortcut
 - *(full: `ENFORCEMENT.md`)*
 

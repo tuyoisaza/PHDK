@@ -4,132 +4,96 @@
 
 This file defines what counts as proof that a working slice is complete.
 
-Verification is not optional. A slice is not done until evidence exists.
+PHDK is **diagnostics-first**: verify the real running path as directly as possible, then add automated tests only when the risk profile justifies them.
+
+Verification is not optional. Expensive ceremony is.
 
 ---
 
 ## Core Rule
 
-Saying "it should work" is not evidence.
+"It should work" is not evidence.
 
-Saying "lint passed" alone is not evidence.
+A giant test suite is also not proof that the live system is healthy.
 
-Evidence is the actual output of running commands, checking the browser, and confirming the user-visible outcome exists.
+Prefer the shortest path to trustworthy evidence:
+
+```txt
+targeted static checks
+→ live health
+→ affected endpoint probe
+→ browser/user-visible confirmation when applicable
+→ copy diagnostics
+→ risk-triggered automated test only when justified
+```
+
+Do not create a separate synthetic harness when the real application can answer the question safely.
 
 ---
 
-## Required Verification Loop
+## Clinical Verification Loop
 
-Every working slice must pass through this loop before being reported complete:
+For every working slice:
 
-```txt
-Build
-→ Verify
-→ Show Evidence
-→ Collect Feedback
-→ Revise if needed
-→ Update STATUS.md
-→ Next Slice
-```
+1. **Check the changed surface** — typecheck/lint the affected code; do not repeatedly run the whole world while iterating.
+2. **Run the app or target service** and confirm `GET /health`.
+3. **Run protected deep health** and the probes relevant to the changed path.
+4. **Confirm the user-visible outcome** in the browser when the slice has UI.
+5. **Copy the diagnostics report** for failures or meaningful verification.
+6. **Run risk-triggered automated tests** only if `TESTING_STANDARD.md` says the slice needs them.
+7. **Before push/release**, run the full required static/build gate once.
+8. Record failures honestly and update `STATUS.md`.
 
-Do not skip any step.
-
-Do not report completion before showing evidence.
+The goal is high-signal evidence with the least duplicated work.
 
 ---
 
-## Required Evidence Types
+## Command Strategy
 
-For every working slice, provide:
+### During iteration
 
-### 1. Command results
-
-Show the actual output of:
+Run only the narrow checks needed to answer the current question. Examples:
 
 ```txt
-pnpm install — no errors
-pnpm typecheck — pass or honest failure report
-pnpm lint — pass or honest failure report
-pnpm build — pass or honest failure report
-pnpm test — pass, partial, or honest failure report
-```
-
-### 2. Health check result
-
-Show the actual response from:
-
-```txt
+pnpm typecheck
+pnpm lint
+targeted package build when the change affects bundling
 GET /health
+GET /health/deep
+one affected endpoint probe
 ```
 
-Expected:
+Do not repeatedly run install + full build + full test suites after every small edit.
 
-```json
-{
-  "status": "ok",
-  "service": "api",
-  "version": "vX.Y.Z",
-  "environment": "development"
-}
-```
+### Before push/release
 
-### 3. Deep health result
-
-Show the actual response from the protected deep health endpoint when available:
+Run once:
 
 ```txt
-GET /health/deep
+pnpm install --frozen-lockfile   — when dependencies/lockfile need verification
+pnpm typecheck
+pnpm lint
+pnpm format:check
+pnpm build
 ```
 
-### 4. Browser verification
-
-Confirm one of:
-
-- The user-visible outcome is visible in the browser
-- A screenshot or visual note describes what is shown
-- A Playwright or test runner result confirms the outcome
-
-### 5. Debug diagnostics result
-
-When debug mode is implemented, confirm:
-
-- Copy diagnostics button is present
-- Diagnostics report copies safely with redaction
-- No secrets or tokens appear in the report
-
-### 6. Changed files list
-
-List every file that was created or modified during the slice.
-
-### 7. Known failures or gaps
-
-Honestly report:
-
-- Any verification step that failed
-- Any step that could not be run and why
-- Any gap that was discovered during the slice
-
-Do not hide failures. A honest failure report is more useful than a false success claim.
+If the current slice triggered mandatory automated tests, also run the smallest relevant test command and report it separately.
 
 ---
 
 ## Health Check Standard
 
-### Simple health check
+### Public health
 
-Every API service must expose a public health endpoint:
+Every API service exposes:
 
 ```txt
 GET /health
 ```
 
-This endpoint:
+It is public and minimal.
 
-- Is always public, no authentication required
-- Returns HTTP 200 when the service is running
-- Returns the minimum required metadata
-
-Minimum response:
+Example:
 
 ```json
 {
@@ -140,179 +104,237 @@ Minimum response:
 }
 ```
 
-### Deep health check
+It must never expose secrets, configuration values, private data, or verbose internals.
 
-Every app-style project should expose a protected deep health endpoint:
+### Protected deep health
+
+Every app-style project exposes an admin-protected endpoint:
 
 ```txt
 GET /health/deep
 ```
 
-This endpoint:
+It returns safe operational state and the **endpoint diagnostic registry**.
 
-- Requires authentication or is restricted to admin role
-- Returns detailed system verification
-- Is never public
+Deep health checks, when applicable:
 
-Deep health must check:
+- API/runtime status
+- database connectivity
+- migration state
+- auth/session configuration
+- required environment-variable presence — names/status only, never values
+- version, git SHA, build timestamp, environment, uptime
+- metered-provider configuration/circuit-breaker state without secrets
+- endpoint registry and latest safe probe results
+- current correlation ID / diagnostic run ID
+
+---
+
+## Endpoint Diagnostic Registry
+
+Every API route that matters to product behavior registers diagnostic metadata once, close to the route/schema definition. The admin diagnostics UI and `/health/deep` consume that same metadata; do not maintain a second handwritten endpoint inventory.
+
+Minimum fields:
 
 ```txt
-API status
-Database connection
-Database migrations current or behind
-Auth status when login exists
-Session system operational
-Required environment variables present
-Current version and git SHA
-Deployment environment
-Build timestamp
-Uptime
-Current working slice status if tracked
-Endpoint checks relevant to completed slices
+id
+method
+path
+purpose
+authRequired
+requiredRoles
+probeMode
+expectedStatuses
+sanitizedRequestExample
+sanitizedSuccessExample
+sanitizedErrorExamples
 ```
 
-Deep health response format:
+### Probe modes
+
+Each endpoint is explicitly classified:
+
+- **safe_read** — can be called directly; no mutation or external cost.
+- **validation_only** — verifies routing/auth/validation without performing the side effect.
+- **dry_run** — executes only with a true rollback/sandbox/dry-run guarantee.
+- **manual_only** — destructive, financially consequential, privacy-sensitive, or otherwise unsafe to trigger automatically.
+
+Never automatically execute `manual_only` probes.
+
+Never call a metered API merely to make health green.
+
+---
+
+## Protected Probe Endpoint
+
+Admin tooling may execute a named diagnostic probe through:
+
+```txt
+POST /health/deep/probes/:id
+```
+
+This endpoint:
+
+- requires admin/developer authorization
+- runs only the registered probe mode
+- refuses unsafe automatic execution
+- returns sanitized evidence, not unrestricted payloads
+- attaches a correlation ID
+- records latency and outcome
+- never returns secrets, tokens, cookies, raw stack traces, or private response bodies
+
+Example result:
 
 ```json
 {
-  "status": "ok",
-  "version": "vX.Y.Z",
-  "gitSha": "a1b2c3d",
-  "buildTime": "2026-03-23T18:22:00Z",
-  "environment": "production",
-  "uptime": 3600,
-  "database": {
-    "status": "connected",
-    "provider": "postgresql",
-    "migrations": "current"
-  },
-  "auth": {
-    "status": "configured",
-    "provider": "google-oauth-2.0",
-    "sessionSystem": "operational"
-  },
-  "checks": [
-    { "name": "database", "status": "pass" },
-    { "name": "migrations", "status": "pass" },
-    { "name": "auth", "status": "pass" }
-  ]
+  "id": "reports.list",
+  "status": "pass",
+  "method": "GET",
+  "path": "/api/reports",
+  "httpStatus": 200,
+  "latencyMs": 87,
+  "correlationId": "req_82fd91"
 }
 ```
 
-### Deep health security rules
+---
 
-Deep health must never expose:
+## Admin Diagnostics Verification
 
-```txt
-Raw database URLs or connection strings
-Secrets or tokens
-Cookies or session values
-Private user data or emails
-Raw stack traces
-Full server logs
-Sensitive environment variable values
-Payment credentials
-```
+For app-style projects, `/admin/system` or `/admin/debug` exposes a Diagnostics section with:
+
+- **Run safe probes** button
+- one row/card per registered endpoint
+- method + path + purpose
+- auth/role requirement
+- probe mode
+- **Test** button when the probe is safe to execute
+- expected statuses
+- sanitized request example
+- sanitized success/error examples
+- last actual status and latency
+- correlation ID
+- related safe log summary
+- **Copy diagnostics** action
+
+A failing endpoint should produce enough sanitized information that the report can be pasted directly into the IDE/AI coding session without the human re-explaining the failure.
+
+---
+
+## Browser Verification
+
+When the slice changes UI, confirm the actual user-visible outcome in a browser.
+
+A screenshot or concise visual note is enough unless the risk profile requires automated E2E coverage.
+
+Do not create Playwright automation simply because a page exists.
+
+---
+
+## Debug Diagnostics Evidence
+
+When debug diagnostics are implemented, verify:
+
+- diagnostics UI is accessible only to authorized roles
+- safe probes execute correctly
+- failure evidence includes a correlation ID
+- Copy Diagnostics produces a useful redacted report
+- no secrets or unrestricted raw logs appear
 
 ---
 
 ## Verification by Slice Type
 
-### Foundation slice
+### Foundation
 
-- [ ] `pnpm install` runs cleanly
-- [ ] `pnpm typecheck` passes
-- [ ] `pnpm lint` passes
-- [ ] `pnpm build` passes for web and API
-- [ ] `GET /health` returns correct response
-- [ ] Web app renders without errors
-- [ ] README documents how to run locally
-- [ ] `.env.example` is complete
+- [ ] install succeeds when dependencies changed
+- [ ] typecheck/lint/format/build pass before push
+- [ ] `GET /health` returns the minimal response
+- [ ] protected `GET /health/deep` works for app-style projects
+- [ ] admin diagnostics console can display the endpoint registry
+- [ ] Copy Diagnostics works with redaction
+- [ ] web app renders without runtime errors
 
-### Auth slice
+### Auth / authorization
 
-- [ ] Login page renders
-- [ ] Google OAuth redirect works
-- [ ] Callback handles success
-- [ ] Callback handles failure with useful diagnostics
-- [ ] Session is created after successful login
-- [ ] Protected routes redirect unauthenticated users
-- [ ] Logout clears session
-- [ ] Current-user endpoint returns safe data
-- [ ] Auth failures appear in debug diagnostics with redaction
+- [ ] auth configuration is visible in protected diagnostics without secrets
+- [ ] unauthorized request is denied
+- [ ] wrong-role request is denied
+- [ ] successful authorized path works
+- [ ] auth failures have correlation IDs and safe logs
+- [ ] mandatory automated authorization test exists when the boundary changed
 
-### Feature slice
+### Feature
 
-- [ ] User-visible outcome is confirmed in browser
-- [ ] Route exists and renders
-- [ ] Loading, empty, and error states exist
-- [ ] Server-side authorization enforced
-- [ ] i18n strings present for configured languages
-- [ ] Structured logs exist for important actions
-- [ ] No fake data presented as real
+- [ ] user-visible outcome works
+- [ ] affected endpoint is represented in the diagnostic registry
+- [ ] relevant safe probe passes, or failure is captured
+- [ ] loading/empty/error states are honest
+- [ ] structured logs exist at important execution boundaries
+- [ ] no fake production data is presented as real
 
-### Data slice
+### Data / destructive changes
 
-- [ ] Migration runs cleanly from scratch
-- [ ] Data is read and written correctly
-- [ ] Empty state is honest
-- [ ] Error state is clear
-- [ ] No raw SQL without justification
-- [ ] Soft delete implemented where required
-- [ ] Audit fields present where required
+- [ ] migration/state transition was verified against the correct non-production target
+- [ ] deep health reports migration state
+- [ ] destructive behavior is never triggered by an automatic health probe
+- [ ] rollback/recovery path is known
+- [ ] risk-triggered automated test exists when required by `TESTING_STANDARD.md`
 
 ---
 
 ## Honest Reporting Rule
 
-If a verification step fails or cannot be run, report it honestly:
+If something fails or cannot be verified, say so. Do not loop indefinitely trying alternate synthetic scripts to make the report green.
+
+Example:
 
 ```txt
-typecheck: FAILED
-  — 3 type errors in src/features/auth/service.ts
-  — not blocking merge but logged as known issue
+Endpoint probe: FAIL
+  id: reports.list
+  GET /api/reports → 500
+  correlation_id: req_82fd91
+  database: pass
+  auth: pass
+  copy diagnostics: attached
 
-/health/deep: NOT TESTED
-  — deep health not yet implemented
-  — planned for next slice
+Automated tests: not required for this slice
 ```
 
-Do not omit failures from the report.
-
-Do not claim a gate passed if it was not run.
+A high-quality failure report is valid evidence. It tells the next iteration exactly where to work.
 
 ---
 
 ## Verification Report Format
 
-At the end of every slice, include this verification block in the final report:
-
 ```txt
 Verification:
 
-Commands:
-  pnpm install:    pass / fail
-  pnpm typecheck:  pass / fail / not run
-  pnpm lint:       pass / fail / not run
-  pnpm build:      pass / fail / not run
-  pnpm test:       pass / fail / not run / partial
+Static/build gate:
+  typecheck:     pass / fail / not run
+  lint:          pass / fail / not run
+  format:check:  pass / fail / not run
+  build:         pass / fail / not run
 
 Health:
-  GET /health:       [response or not applicable]
-  GET /health/deep:  [response or not applicable]
+  GET /health:       [result]
+  GET /health/deep:  [result / not applicable]
+
+Affected probes:
+  [endpoint id → pass/fail, status, latency, correlation ID]
 
 Browser:
-  [confirmed / note / not tested]
+  [confirmed / note / not applicable]
 
-Debug diagnostics:
-  [safe / not tested / not applicable]
+Diagnostics:
+  [copied / safe / failure report reference]
+
+Automated tests:
+  [not required + reason] OR [required trigger + command/result]
 
 Changed files:
   [list]
 
-Known failures:
-  [list or none]
-
-Gaps flagged:
+Known failures / gaps:
   [list or none]
 ```
