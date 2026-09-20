@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.28.0**
+**Version: v2.29.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -64,6 +64,20 @@ AGENTS.md and continue from there.
 ```
 
 Prefer to run the install command yourself instead of asking the AI to? See [Install as an Agent Skill](#install-as-an-agent-skill) below for every supported tool's exact command, or [How to Use This Repo](#how-to-use-this-repo) for the non-Skill paths (works in any tool, no install required).
+
+## Universal Upgrade Command
+
+Once a project uses PHDK, the cross-tool command is simply:
+
+```txt
+PHDK upgrade
+```
+
+Give that exact instruction to the coding agent in the repo. It fetches the latest `main` from the canonical PHDK repository, compares versions, synchronizes the manifest-controlled `phdk-standards/` mirror, refreshes the PHDK-managed block in the IDE's persistent rule file, verifies the copy, and records the upgrade.
+
+The exact command is the approval — the agent must not ask "are you sure?" again unless it finds local edits inside `phdk-standards/` that would be overwritten.
+
+The portable implementation lives in `PHDK_UPGRADE.md`; the vendored file means this works even when the current IDE has no PHDK-specific slash command.
 
 ---
 
@@ -144,13 +158,13 @@ git clone https://github.com/tuyoisaza/PHDK.git .agents/skills/phdk
 
 `.agents/skills/phdk/` is recognized by several tools at once — Codex CLI and Antigravity read it directly, and OpenCode falls back to it too — so it's a reasonable single choice if your team uses more than one of those. For a personal install available across all your projects instead of one repo, use the user-level equivalent path instead (e.g. `~/.claude/skills/phdk`, `~/.codex/skills/phdk`, `~/.pi/agent/skills/phdk`).
 
-**Trigger it** — most tools discover and auto-load the skill once it's in place. If yours doesn't, or you skipped the manual clone above, use the same self-installing prompt from [Quick Start](#quick-start--install-as-an-agent-skill) at the top of this page — it doubles as the update command too, paste it again anytime to pull the latest PHDK standards. Pi users can also invoke an already-installed skill directly with `/skill:phdk`.
+**Trigger it** — most tools discover and auto-load the skill once it's in place. For an existing PHDK project, the canonical cross-tool update command is simply `PHDK upgrade`; no IDE-specific slash command is required. If the skill is not installed yet, use the self-installing prompt from [Quick Start](#quick-start--install-as-an-agent-skill). Pi users can also invoke an already-installed skill directly with `/skill:phdk`.
 
 **What happens once it's installed:**
 
 - Starting a new project → the skill runs `SPEC_INTERVIEW_PROMPT.md` (if the human hasn't been briefed yet) and `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, then vendors the standards into a `phdk-standards/` folder inside the new project — so any tool, Skill-aware or not, can read them locally afterward
-- Working on a project that already has `TASK.md`/`STATUS.md` → the skill routes straight to `ONBOARDING_AI_DEVELOPER.md`'s required reading order
-- Asked to update/sync a project's vendored standards → the skill compares `phdk-standards/VERSION` against its own, tells you what's changing, and only overwrites `phdk-standards/` after you confirm
+- Working on a project that already has `TASK.md`/`STATUS.md` → the skill routes through `AGENTS.md`'s progressive context loader
+- `PHDK upgrade` → the skill executes `PHDK_UPGRADE.md`; the exact command is the confirmation, so a clean standards mirror upgrades without another prompt
 
 Not published to a public skill registry (skills.sh) — PHDK is a private/team standards repo, install manually as above.
 
@@ -191,6 +205,9 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 | `TESTING_STANDARD.md` | Test framework, test types, what must be tested |
 | `DEBUG_DIAGNOSTICS_STANDARD.md` | Copy diagnostics spec, debug mode, auth diagnostics |
 | `QA_CHECKLIST.md` | Quality gates for every merge and release, including Human Diff Review |
+| `PHDK_UPGRADE.md` | Cross-tool implementation of the canonical `PHDK upgrade` command |
+| `PHDK_MANIFEST.txt` | Single source of truth for which PHDK files are vendored and their destination names |
+| `PHDK_NATIVE_RULES.md` | Marked PHDK-managed context block embedded in the current IDE's always-loaded rule file |
 
 ### Bootstrap
 

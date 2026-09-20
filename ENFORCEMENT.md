@@ -114,12 +114,17 @@ The project-root `AGENTS.md` above is the *project's own* file, distinct from PH
 
 Only generate the file for whichever tool the project is actually using — this is not "generate all four speculatively," it is the same one-per-project pattern as the Skill install in `README.md`.
 
-Content stays short — this is injected into every session or every turn depending on the tool, so length defeats the purpose:
+Content stays short — this is injected into every session or every turn depending on the tool, so length defeats the purpose.
 
-- A pointer: read `phdk-standards/AGENTS.md` first, then `phdk-standards/INANUTSHELL.md` if the session has been running a while.
-- The smallest set of rules severe enough to inline verbatim so they survive even if the pointer above is never followed: never commit directly to `main`, never force-push, never weaken auth/RBAC/validation to make something work; every commit message starts with `vX.Y.Z`; a working slice needs verification evidence, not "should work"; stop and ask before destructive DB operations, auth/payment/tenant changes, new external services, or a metered API with no cost cap; read `TASK.md` and `STATUS.md` before doing anything else this session.
+The canonical block is `PHDK_NATIVE_RULES.md`. At foundation build:
 
-This file is generated once, then kept in sync by the same update flow `SKILL.md` already uses for `phdk-standards/` — when `phdk-standards/INANUTSHELL.md` changes upstream, the inlined block above is diffed against it and the developer is told to confirm the update, same as any other vendored-standards change.
+1. copy that block verbatim into the tool-native file
+2. preserve the `<!-- PHDK-MANAGED:START -->` / `<!-- PHDK-MANAGED:END -->` markers
+3. put any project/tool-specific instructions outside those markers
+
+The managed block includes the `PHDK upgrade` command and the smallest high-severity rules that must survive context drift.
+
+On `PHDK upgrade`, replace only the marked block with the latest vendored `PHDK_NATIVE_RULES.md`. If an older project has no markers, append the managed block once without deleting existing content. From that point forward the PHDK portion is mechanically refreshable without overwriting user-authored rules.
 
 ### Session-start ritual, made mechanical where the tool allows it
 
@@ -147,7 +152,7 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 
 - Never write a new PHDK rule that has an obvious Tier 1 equivalent (a regex, git hook, local validation command, or repo setting) as prose only, without also adding the mechanical version here
 - Never treat a bypassed local hook as routine — it is the same class of action as force-pushing or pushing directly to `main`, and belongs in `VERSIONING.md` Stop-and-Ask Conditions
-- Never let the tool-native rule file (Tier 2) drift out of sync with `INANUTSHELL.md` — a stale inlined rule block is worse than none, because it creates false confidence that the AI is current
+- Never let the marked PHDK-managed block in the tool-native rule file drift from `PHDK_NATIVE_RULES.md`; `PHDK upgrade` refreshes that block automatically
 - Never generate rule files for tools the project isn't using "just in case" — this bloats the repo with dead configuration nobody maintains
 
 ---
@@ -162,5 +167,5 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 - [ ] A failing local validation command blocks `pre-push`
 - [ ] "Squash and merge" is disabled in the repository's merge-method settings; only "Merge commit" or "Rebase and merge" are enabled
 - [ ] Dependabot or Renovate is configured
-- [ ] The current tool's native always-loaded rule file exists at the correct path for that tool and is not a stale copy of an old `INANUTSHELL.md`
+- [ ] The current tool's native always-loaded rule file contains the marked block from `PHDK_NATIVE_RULES.md`, including the `PHDK upgrade` command, and the managed block matches the vendored copy
 - [ ] A test commit with an intentionally malformed message was actually rejected by the hook, not just assumed to work
