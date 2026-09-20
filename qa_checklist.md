@@ -873,10 +873,11 @@ Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Step 14), sp
 - [ ] `commit-msg`, `pre-commit`, and `pre-push` git hooks are installed and were actually tested (a malformed commit message was rejected, not assumed to be rejected)
 - [ ] A pre-commit secrets scan is configured and runs on staged diffs
 - [ ] `lint-staged` runs Prettier against staged files on `pre-commit`, per `TECHNICAL_STACK.md`
-- [ ] CI workflow runs install/lint/typecheck/build/format:check/test on pull requests and is wired as a required status check
-- [ ] A separate required CI check validates every commit in a PR's range against the version-format regex — not just the local hook, which a PR merged through GitHub never touches
+- [ ] `pre-push` runs lint/typecheck/build/format:check/test and was tested with an intentional failure
+- [ ] `pre-push` validates every outgoing commit in the branch range against the version-format regex
+- [ ] No GitHub Actions workflow is required or scaffolded by PHDK; any CI present is an explicit project-specific opt-in
 - [ ] "Squash and merge" is disabled in the repository's merge-method settings
-- [ ] GitHub branch protection on `main` was confirmed by the developer as actually configured (PR required, status checks required, force-push disallowed) — not just requested during foundation build. An approving review is not required by default; if this project opted into it, there is an `ARCHITECTURE_DECISIONS.md` entry
+- [ ] GitHub branch protection on `main` was confirmed by the developer as actually configured (PR required, force-push disallowed; Actions/status checks are not required by PHDK). An approving review is not required by default; if this project opted into it, there is an `ARCHITECTURE_DECISIONS.md` entry
 - [ ] Dependabot or Renovate is configured
 - [ ] The current tool's native always-loaded rule file exists and its inlined hard-rules block matches the current `INANUTSHELL.md`, not a stale version
 - [ ] No hook was bypassed (`--no-verify` or equivalent) without it being flagged as a Stop-and-Ask condition per `VERSIONING.md`

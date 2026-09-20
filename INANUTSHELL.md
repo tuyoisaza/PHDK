@@ -86,11 +86,11 @@ If this file and a full standards file ever disagree, the full file wins — thi
 
 ## Mechanical Enforcement
 
-- If a rule can be a check (regex, lint, repo setting, CI status), it is one — compliance should not depend on the AI remembering
-- GitHub branch protection on `main`: PR required, status checks required, no force-push, "Squash and merge" disabled — this is what actually makes "never commit to `main`" true, not just requested
+- If a rule can be a check (regex, lint, git hook, local validation command, repo setting), it is one — compliance should not depend on the AI remembering
+- GitHub branch protection on `main`: PR required, no force-push, "Squash and merge" disabled; PHDK does not require Actions status checks
 - Human diff review before merge is a `QA_CHECKLIST.md` gate the merging human owns, not a GitHub required-approval setting — PHDK does not require a second account for a solo repo (a team project can opt in via `ARCHITECTURE_DECISIONS.md`)
 - Git hooks (`commit-msg`, `pre-commit`, `pre-push`) catch a missing version prefix, an oversized file, unformatted staged files (auto-fixed by `lint-staged`/Prettier), a secret in the diff, or a push to `main` with no Finetuning Mode flag — before they land, not after
-- A local hook never sees a PR merged through GitHub's UI — a separate required CI check validates every commit in the PR's range, and "Squash and merge" is disabled so the already-validated commits are what actually lands on `main`
+- `pre-push` validates every outgoing commit message and runs lint/typecheck/build/format:check/test before the branch is pushed; verification evidence is recorded for Human Diff Review
 - Bypassing a hook (`--no-verify`) is the same class of action as force-pushing — treat it as a Stop-and-Ask, not a shortcut
 - *(full: `ENFORCEMENT.md`)*
 
@@ -98,7 +98,7 @@ If this file and a full standards file ever disagree, the full file wins — thi
 
 - `TASK.md`/`STATUS.md` are 100% local, plain-text markdown — never GitHub Issues, GitHub Projects, or GitHub Actions as the source of truth for tracking
 - One `TASK.md` per active slice; when it closes, archive it to `docs/completed-slices/` and start fresh
-- A GitHub Actions workflow may exist for CI only if explicitly approved, and never as the thing that tracks or gates slice completion
+- PHDK does not scaffold or require GitHub Actions. Optional CI is project-specific, additive, and never the task system or sole completion gate
 - *(full: `TASK_TRACKING_STANDARD.md`)*
 
 ## Code & File Rules

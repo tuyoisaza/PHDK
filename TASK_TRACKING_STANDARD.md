@@ -38,7 +38,7 @@ Left undefined, "how do we track tasks" tends to drift toward whatever the codin
 ## Local-Only Rule
 
 - No PHDK project may use GitHub Issues, GitHub Projects (boards), or GitHub Actions as the source of truth for what work is planned, in progress, or done.
-- GitHub Actions may exist in a project only for CI (build/lint/test on push) when explicitly approved — adding it is covered by the "Adding new external services" Stop-and-Ask condition in `AI_DEVELOPER_OPERATING_MODEL.md`. Even when approved, it must never be the mechanism that tracks or gates slice completion. Slice completion is proven by `VERIFICATION_LOOP.md` evidence, not by a workflow run.
+- PHDK does not scaffold, require, or depend on GitHub Actions. The baseline verification path is local and works with Actions disabled. If a project independently opts into GitHub Actions or another CI provider, record that decision in `ARCHITECTURE_DECISIONS.md`; it is additive only and must never become the task system or the sole proof of slice completion.
 - If an AI developer notices a project has drifted toward GitHub Issues, Projects, or Actions for tracking, flag it in `STATUS.md` as a gap and propose migrating the tracked work back into `TASK.md`/`STATUS.md`.
 
 ---
@@ -118,6 +118,7 @@ If more than one AI agent or developer draws from the same `TASK.md` concurrentl
 
 - Creating a GitHub Issue per task or per slice instead of a checkbox in `TASK.md`
 - Using a GitHub Projects board as the plan
+- Adding a GitHub Actions workflow because PHDK supposedly requires CI — it does not
 - A GitHub Actions workflow whose job is to report status, sync tasks, or gate "done"
 - Leaving completed tasks in `TASK.md` indefinitely instead of archiving and starting fresh
 - Multiple slices' tasks piling up in one `TASK.md`
@@ -131,6 +132,6 @@ If more than one AI agent or developer draws from the same `TASK.md` concurrentl
 - [ ] `STATUS.md`'s Completed / Current / Next / Blocked lists are current
 - [ ] The closed slice's `TASK.md` was archived to `docs/completed-slices/`
 - [ ] No GitHub Issues, Projects, or Actions are the source of truth for tracking
-- [ ] Any GitHub Actions workflow present in the repo is CI only, was explicitly approved, and does not gate slice completion
+- [ ] PHDK itself requires no GitHub Actions workflow; any workflow present is a project-specific opt-in and does not replace local verification or gate slice completion
 - [ ] If multiple agents are active, each claimed task in `TASK.md` was checked against other claimed tasks for file/feature overlap before starting
 - [ ] No agent force-pushed over another agent's already-merged work to resolve a conflict
