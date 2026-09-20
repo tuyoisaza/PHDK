@@ -56,7 +56,7 @@ Bad slices produce nothing visible or verifiable. They feel productive but deliv
 
 ## Slice Lifecycle
 
-Every working slice follows this lifecycle in order. Do not skip steps.
+Every working slice follows this lifecycle inside the active mission. Slices are execution checkpoints, not approval gates.
 
 ### Step 1 — Define the user-visible outcome
 
@@ -69,25 +69,32 @@ User-visible outcome: [what the user can do or see when this slice is complete]
 Why it matters: [how it moves the product forward]
 ```
 
-### Step 2 — Confirm scope
+### Step 2 — Confirm mission boundary
 
-State what is in scope and what is not:
+Before coding, the mission must have enough information to act:
 
 ```txt
-In scope: [files, features, areas the AI developer may touch]
-Out of scope: [what must not be touched]
-Stop-and-ask conditions: [what will trigger a pause]
+Mission goal: [what must be true when all work is done]
+Done when: [objective completion criteria]
+In scope: [features/areas the AI developer may touch]
+Out of scope: [what must not be added]
+Stop-and-ask conditions: [true human-decision boundaries]
+Plan: [ordered working slices]
 ```
 
-Wait for confirmation before coding.
+If the user already supplied a brief, accepted plan, or `TASK.md` containing these facts, **do not ask for confirmation again**. Their request is the approval to execute that mission.
+
+Ask only when a missing decision materially prevents safe implementation.
 
 ### Step 3 — Work autonomously inside scope
 
-Move fast inside the confirmed scope.
+Move fast inside the approved mission.
 
-Make reasonable decisions without asking for permission on every detail.
+Make reasonable implementation decisions without asking for permission on routine details.
 
-Stop at boundaries. Ask one question. Wait for the answer.
+When verification fails, diagnose, revise, and rerun the affected checks autonomously.
+
+Stop only at a documented mission boundary or genuine blocker. Ask one precise question there and wait.
 
 ### Step 4 — Verify
 
@@ -115,29 +122,33 @@ Changed files list
 Known failures or gaps
 ```
 
-### Step 6 — Collect feedback
+### Step 6 — Progress checkpoint, not approval gate
 
-Present the evidence to the user.
+Record the evidence and update continuity files.
 
-Wait for confirmation, correction, or approval.
+If useful, send a concise progress update such as:
 
-Do not move to the next slice without feedback.
+```txt
+Slice complete: <outcome>
+Verification: <key evidence>
+Continuing: <next planned slice>
+```
 
-### Step 7 — Revise if needed
+Do not ask the user to say "continue." If the human sends feedback, incorporate it into the remaining mission plan.
 
-If the user requests changes, revise only what is needed.
+### Step 7 — Self-revise when needed
 
-Show the updated result.
+If verification or diagnostics find a defect, fix it and re-verify without handing the work back to the user.
 
-Wait for approval again.
+If a revision remains inside mission scope, no new approval is required.
 
-### Step 8 — Commit and push if approved
+### Step 8 — Commit and push the verified slice
 
 Follow the commit format from `VERSIONING.md`.
 
-Push to the feature branch.
+Commit and push to the **mission feature branch** once the slice is verified. This does not require a separate approval.
 
-Do not merge to `main` without explicit approval, and do not treat the AI's own verification evidence as that approval — a human reading the actual diff is a separate, required gate. See `QA_CHECKLIST.md` Human Diff Review.
+Do not merge to `main` without explicit Human Diff Review approval, and do not treat the AI's own verification evidence as that approval. The merge gate applies once at mission completion, not between slices. See `QA_CHECKLIST.md` Human Diff Review.
 
 ### Step 9 — Archive TASK.md and update STATUS.md
 
@@ -151,11 +162,13 @@ Record in `STATUS.md`:
 - Open questions
 - Next step
 
-### Step 10 — Propose next slice
+### Step 10 — Continue or finish the mission
 
-Propose the next user-visible outcome.
+If mission completion criteria are not yet satisfied, create the next `TASK.md` slice from the existing mission plan and continue immediately.
 
-Keep proposals small and concrete.
+If they are satisfied, produce the Mission Complete report and present the branch/diff for Human Diff Review before merge.
+
+Recommendations outside the mission become follow-up proposals; do not silently expand scope to implement them.
 
 ---
 
@@ -203,7 +216,7 @@ Fetch the latest standards from the standards repo.
 Read AI_DEVELOPER_OPERATING_MODEL.md, TASK.md, and STATUS.md.
 Build the initial scalable app foundation using BUILD_APP_FOUNDATION_PROMPT.md.
 Verify /health responds correctly.
-Report back with repo structure, verification evidence, and next slice proposal.
+Record repo structure and verification evidence, then continue to the next planned foundation slice automatically unless the foundation mission is complete or blocked.
 ```
 
 The foundation slice is complete only when:
@@ -246,6 +259,7 @@ The format of `TASK.md`, `STATUS.md`, and the completed-slice archive is defined
 - Building everything before showing anything
 - Claiming a slice is complete without browser or health verification
 - Skipping `STATUS.md` updates between sessions
-- Expanding scope mid-slice without approval
+- Expanding the approved mission goal or out-of-scope boundary without approval
 - Proposing slices that are not grounded in the PHDK product files
-- Moving to the next slice without collecting feedback on the current one
+- Stopping after every slice to ask the human to say "continue"
+- Treating a planned next slice inside the approved mission as scope expansion

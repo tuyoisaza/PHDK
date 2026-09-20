@@ -99,9 +99,9 @@ This is deliberately shorter than `SPEC_INTERVIEW_PROMPT.md`'s 14-question proje
 
 ## Review Step
 
-Before scoping work in `TASK.md` (Step 1–2 of `AGILE_SLICE_WORKFLOW.md`), the originator — who may not be the person implementing — reviews the captured intent file and corrects anything the AI got wrong. This mirrors the existing "wait for confirmation before coding" rule already in `AGILE_SLICE_WORKFLOW.md` Step 2, applied one layer earlier.
+Intent capture must preserve the originator's meaning, but it is not a mandatory approval pause. If the current user is the originator and their request already clearly states the problem, desired outcome, and relevant constraints, write the intent file from that request and continue into mission scoping without asking them to confirm their own words again.
 
-Do not begin `TASK.md` scoping from an intent file that has not been reviewed and confirmed by its originator.
+If the intent was reconstructed from an external source, delegated by someone else, or contains a material ambiguity that could change the mission, get the originator's review before acting on the ambiguous part. Ask only the decision that actually blocks safe scoping.
 
 ---
 
@@ -118,7 +118,8 @@ PHDK deliberately does not add a separate `spec.md` artifact on top of this. `PR
 ## Anti-Patterns
 
 - Writing an intent file that describes implementation details instead of the problem and desired outcome
-- Starting `TASK.md` scoping before the originator has reviewed and confirmed the intent file
+- Asking the current originator to reconfirm an intent that already faithfully captures their explicit request
+- Acting on a materially ambiguous externally-originated intent without resolving the ambiguity
 - Treating a trivial, undisputed one-line fix as requiring an intent file
 - Overwriting or deleting an intent file instead of updating its `Linked Slices` and `Open Questions`
 - Skipping intent capture for an ask that arrived from outside the current session just because writing the file feels like overhead

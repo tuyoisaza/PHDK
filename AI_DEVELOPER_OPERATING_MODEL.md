@@ -76,24 +76,43 @@ The human goal shapes the technical work. The technical work serves the human go
 
 ---
 
-## Autonomous Work Rule
+## Mission Autopilot — Default Execution Mode
 
-The AI developer works autonomously inside the approved scope of the current task.
+The approved **mission** is the unit of autonomy.
 
-Autonomy is enabled by default inside the current working slice.
+A mission is the user's current goal plus its explicit scope, constraints, and completion criteria in `TASK.md`. Once that mission is clear enough to execute, the AI developer owns the path to completion.
 
-Autonomy stops at:
+Default behavior:
 
-- Security boundaries
-- Data destruction boundaries
-- Architecture change boundaries
-- Scope expansion boundaries
-- Payment behavior boundaries
-- Auth provider change boundaries
+- Plan the smallest useful sequence of working slices needed to finish the mission.
+- Start immediately; do not ask "should I continue?", "shall I proceed?", or "ready for the next slice?" between planned steps.
+- Complete a slice, verify it, fix failures, commit and push to the mission feature branch, update continuity files, then continue to the next planned slice.
+- Use intermediate reports as **progress updates**, not approval gates.
+- Re-plan freely inside the approved mission when evidence shows a better implementation path.
+- Keep going until the mission completion criteria are satisfied, a real Stop-and-Ask boundary is reached, or an external blocker makes safe progress impossible.
+- If verification fails, diagnose and repair autonomously. A failed check is work to do, not a reason to hand the task back to the human.
+- Do not expand the user's product goal merely because more improvements are possible. Finish the approved mission first.
 
-Inside the slice: move fast, work independently, make reasonable decisions.
+This is PHDK's portable equivalent of "deep work", "keep going", or autonomous agent loops in individual IDEs. Tool-specific names do not matter; the behavior is the standard.
 
-At a boundary: stop, describe what you found, ask one question, wait for approval.
+### What does not require approval
+
+Inside the approved mission, do not pause for:
+
+- moving from one planned slice to the next
+- routine implementation choices consistent with existing architecture and PHDK defaults
+- creating/editing files already covered by mission scope
+- fixing verification failures caused by the current work
+- targeted refactors necessary to complete the approved outcome
+- commits and pushes to the mission's feature branch
+- updating `TASK.md`, `STATUS.md`, changelog/version metadata, diagnostics, and documentation required by the mission
+- choosing among equivalent libraries already approved by the project's architecture, when no new external service or meaningful risk is introduced
+
+### Mission boundaries
+
+Autonomy stops only at the Stop-and-Ask conditions below, a direct conflict with the approved mission, missing access/credentials that the agent cannot obtain, or a genuine blocker after reasonable self-recovery attempts.
+
+Routine implementation detail is not a scope boundary. A planned next slice that remains inside the same mission is not scope expansion.
 
 ---
 
@@ -123,24 +142,24 @@ Bad slices produce nothing visible or verifiable. Good slices produce something 
 
 ---
 
-## Working Slice Lifecycle
+## Working Slice Lifecycle Inside a Mission
 
-Every working slice follows this lifecycle:
+Working slices are internal execution checkpoints, not human approval checkpoints.
 
 ```txt
-1. Define the user-visible outcome
-2. Confirm scope with the user
-3. Work autonomously inside scope
-4. Verify — run commands, check browser, check health endpoint
-5. Show proof — evidence of verification
-6. Collect feedback
-7. Revise if needed
-8. Commit and push if approved
-9. Update STATUS.md
-10. Propose next slice
+1. Read mission goal, scope, plan, and done criteria
+2. Select the next incomplete slice
+3. Implement autonomously
+4. Verify the affected real system
+5. Diagnose and revise until the slice is sound or genuinely blocked
+6. Commit and push the verified slice to the mission feature branch
+7. Archive/update TASK.md and STATUS.md
+8. Emit a concise progress update if useful
+9. Select the next slice and continue automatically
+10. When Mission Done criteria are satisfied, produce the final mission report and request Human Diff Review for merge
 ```
 
-Never skip steps 4 and 5. Verification and evidence are not optional.
+Never skip verification. Never turn a routine slice boundary into a permission request.
 
 ---
 
@@ -159,9 +178,9 @@ Stop immediately and ask before:
 - Weakening validation, logging, or security checks
 - Force-pushing to any branch
 - Pushing directly to `main` without approval (Finetuning Mode, explicitly activated for the current conversation per `DEVELOPMENT_RULES.md`, is the one standing exception)
-- Expanding scope beyond the current slice
+- Expanding the approved mission goal or materially changing its out-of-scope boundaries
 
-Ask one question at a time. Wait for the answer. Do not assume approval.
+At a true boundary, ask one precise question and wait. Everywhere else, make a reasonable implementation decision, record meaningful assumptions, and continue.
 
 ---
 
@@ -202,17 +221,19 @@ Debug mode is not a nice-to-have. It is a core operating tool that enables auton
 
 ---
 
-## Feedback Loop
+## Continuous Feedback Loop
 
-After every working slice:
+Feedback remains valuable, but it is non-blocking during an active mission unless the human interrupts or a Stop-and-Ask boundary is reached.
+
+After each slice:
 
 ```txt
-Build → Verify → Show Evidence → Collect Feedback → Revise → Update STATUS.md → Next Slice
+Build → Verify → Repair if needed → Commit/Push → Update continuity → Continue
 ```
 
-The feedback loop must complete before moving to the next slice.
+If the interface supports progress messages, report what changed and what is next, then keep working. Do not end the task merely to wait for "continue."
 
-Do not skip ahead to the next slice because the current one seems done. Get confirmation.
+Human feedback can arrive at any point and overrides the remaining plan. Human Diff Review remains mandatory before merging the completed mission to `main`; it is not required between slices.
 
 ---
 
@@ -238,16 +259,17 @@ Before starting any session:
 
 ## Final Report Format
 
-At the end of every working slice, report exactly:
+At the end of the **mission**, report exactly:
 
 ```txt
-SLICE COMPLETE
+MISSION COMPLETE
 
-Slice: [slice name]
-User-visible outcome: [what the user can now do or see]
+Mission: [mission name]
+Goal: [approved goal]
+Outcome: [what is now complete]
 Version: [vX.Y.Z]
 Branch: [branch name]
-Commit: [short SHA or pending approval]
+Commit: [short SHA or not committed due blocker]
 
 Verification:
 - Commands run: [list]
@@ -268,8 +290,11 @@ Open questions:
 STATUS.md updated: yes / no
 CHANGELOG.md updated: yes / no / not applicable
 
-Next suggested slice:
-[proposal with user-visible outcome]
+Merge readiness:
+[ready for Human Diff Review / blocked + reason]
+
+Follow-up recommendations:
+[optional items outside the completed mission; do not implement unless separately scoped]
 ```
 
 ---

@@ -1,5 +1,24 @@
 # CHANGELOG.md
 
+## v2.30.0 — 2026-09-20
+
+### Mission Autopilot — continuous autonomous execution by default
+
+- Added **Mission Autopilot** as PHDK's default execution mode: once the mission goal, scope, constraints, and Done When criteria are clear, the AI agent owns execution through completion.
+- Removed slice-level permission gates. Agents must not ask "continue?", "shall I proceed?", or wait for approval between planned slices inside the same mission.
+- Working slices remain small verification/continuity checkpoints, but the agent verifies, self-corrects, commits/pushes, updates continuity, and automatically starts the next planned slice.
+- Changed scope boundaries from "current slice" to the approved **mission**. Moving to the next planned slice is no longer treated as scope expansion.
+- Verification failure now triggers autonomous diagnosis and repair rather than returning control to the human.
+- Added a mission-level final report; progress updates are explicitly non-blocking.
+- Changed branching from one branch per slice to **one feature branch per mission**, with multiple verified slice commits on that branch.
+- Human Diff Review remains mandatory before the completed mission is merged to `main`; it is a single merge gate, not a gate between slices.
+- Updated `TASK.md` format to carry a persistent Mission header (Goal, Done When, scope, execution mode, mission branch) across rotating slice files.
+- Bootstrap now proceeds directly from generated kit into foundation implementation when the developer's original request included building the product, instead of asking for redundant confirmation.
+- Updated the PHDK-managed IDE rules so all supported tools inherit the same keep-going-until-done behavior.
+- Removed bootstrap `next`/per-file approval pauses for IDE environments: after the interview, the full project kit is generated/written continuously, and build missions proceed directly into implementation.
+- `TASK.md` is maintained by the AI developer as continuity state rather than requiring the human to rewrite it between sessions.
+- Intent capture no longer asks the current originator to reconfirm a clear request; review is reserved for materially ambiguous or externally-originated intent.
+
 ## v2.29.0 — 2026-09-20
 
 ### Universal `PHDK upgrade` command

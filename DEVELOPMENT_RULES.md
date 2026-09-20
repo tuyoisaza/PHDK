@@ -38,9 +38,10 @@ phdk/vX.Y.Z/short-slice-name
 Rules:
 
 - Never commit directly to `main` — enforced by GitHub branch protection, not only by this rule being followed; see `ENFORCEMENT.md`
-- Every feature starts in a feature branch
-- Every agent and subagent works on its own branch
-- Merge only after verification passes and approval is given
+- Every mission starts in a feature branch; planned slices for that mission stay on the same branch
+- Every concurrent agent/subagent works on its own branch unless explicitly coordinating through the same mission queue
+- Verified slice commits may be pushed to the mission branch autonomously
+- Merge to `main` only after mission verification and Human Diff Review approval
 - Every major update creates a checkpoint branch named `checkpoint/YYYY-MM-DD` as a recoverable backup
 - Version increments on every commit, on every branch — see `VERSIONING.md` Version Bump on Every Commit
 - Deployment is triggered by GitHub push to `main` — never from local CLI (no `railway up`, no uploading a local build/tarball); see `TECHNICAL_STACK.md` First-time Railway Setup for how the connection is made once
@@ -340,4 +341,4 @@ A working slice is done only when:
 - [ ] Build, typecheck, and lint pass
 - [ ] `STATUS.md` updated
 - [ ] `TASK.md` expected final report completed
-- [ ] Next slice proposed
+- [ ] Mission Done criteria satisfied, or next planned slice activated automatically
