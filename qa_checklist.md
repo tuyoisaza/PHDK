@@ -163,8 +163,8 @@ pnpm install --frozen-lockfile
 pnpm lint
 pnpm typecheck
 pnpm build
-pnpm test
 pnpm format:check
+# run the smallest relevant test command only when TESTING_STANDARD.md risk triggers apply
 ```
 
 ## App-Level Commands
@@ -173,12 +173,12 @@ pnpm format:check
 pnpm --filter @repo/web lint
 pnpm --filter @repo/web typecheck
 pnpm --filter @repo/web build
-pnpm --filter @repo/web test
 
 pnpm --filter @repo/api lint
 pnpm --filter @repo/api typecheck
 pnpm --filter @repo/api build
-pnpm --filter @repo/api test
+
+# package-level tests are conditional, not baseline gates
 ```
 
 ## Database Commands
@@ -207,7 +207,7 @@ Checklist:
 - [ ] **Typecheck:** TypeScript typecheck passes with no errors.
 - [ ] **Web build:** build passes for `apps/web`.
 - [ ] **API build:** build passes for `apps/api`.
-- [ ] **Tests:** tests pass for affected packages/apps.
+- [ ] **Risk-based tests:** if `TESTING_STANDARD.md` identifies a mandatory test trigger, the smallest relevant tests pass; otherwise direct diagnostics evidence is sufficient.
 - [ ] **Format:** format check passes.
 - [ ] **Imports:** no unused imports introduced.
 - [ ] **Dead code:** no dead code introduced.
@@ -338,7 +338,7 @@ Checklist:
 - [ ] **Verbosity:** debug mode increases log verbosity.
 - [ ] **Production default:** debug mode never activates in production by default.
 - [ ] **Pre-release gate:** debug mode's forced-on default is explicitly confirmed switched off before this environment is promoted to production.
-- [ ] **Function coverage:** new or changed functions call the shared debug-log helper on entry, success, and failure, not ad hoc `console.log`.
+- [ ] **Diagnostic coverage:** important new or changed execution boundaries emit high-signal structured diagnostics; trivial helpers are not blanket-instrumented.
 - [ ] **Activation audit:** debug mode activation is audited.
 - [ ] **Deactivation audit:** debug mode deactivation is audited.
 - [ ] **Authorized visibility:** debug indicator or panel appears only for authorized admin/developer roles when active.
@@ -493,13 +493,17 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] Pagination, sorting, and filtering are implemented where list endpoints require them.
 - [ ] Rate limiting is considered for sensitive endpoints.
 
-## API Smoke Checks Where Applicable
+## API Diagnostic Checks Where Applicable
 
 - [ ] `GET /health` returns `200`.
-- [ ] Protected endpoint rejects unauthenticated request.
-- [ ] Protected endpoint rejects unauthorized role.
-- [ ] Valid request returns expected shape.
-- [ ] Invalid request returns validation error.
+- [ ] `GET /health/deep` is protected.
+- [ ] Affected endpoints exist in the endpoint diagnostic registry.
+- [ ] Protected endpoint metadata states required auth/role.
+- [ ] Safe probe returns expected status/shape.
+- [ ] Invalid/validation probe returns the expected stable error shape.
+- [ ] Unsafe, destructive, private, or metered endpoints are not auto-executed.
+- [ ] Endpoint diagnostics provide sanitized request/success/error examples.
+- [ ] Failures include correlation ID and safe log context.
 
 ---
 
@@ -809,8 +813,9 @@ The final response must clearly state what passed, what failed, what was not
 - [ ] `pnpm lint` passes or failures are honestly reported
 - [ ] `pnpm build` passes or failures are honestly reported
 - [ ] `GET /health` returns correct response
-- [ ] `GET /health/deep` returns correct response or is noted as not yet implemented
-- [ ] Browser verification is confirmed or honestly noted as not tested
+- [ ] `GET /health/deep` returns correct protected diagnostic response for app-style projects
+- [ ] Affected endpoint probes were run when safe, with status/latency/correlation ID recorded
+- [ ] Browser verification is confirmed or honestly noted as not applicable
 - [ ] Changed files list is complete
 - [ ] Known failures are honestly reported — none hidden
 
@@ -834,7 +839,9 @@ The final response must clearly state what passed, what failed, what was not
 - [ ] Debug controls do not appear in customer-facing experience
 - [ ] Debug mode is ON by default in local/dev/preview/staging with no manual setup step required
 - [ ] Debug mode's forced-on default is explicitly confirmed switched off before production release — recorded in the slice release report
-- [ ] Copy diagnostics report, taken from a live session with debug mode on, shows real entries in "Recent frontend logs" (not empty or near-empty)
+- [ ] Endpoint diagnostics console shows the registry, probe modes, sanitized examples, last status/latency, and correlation ID
+- [ ] Safe endpoints expose Test actions and Run safe probes; unsafe/metered/destructive endpoints refuse automatic execution
+- [ ] Copy diagnostics report from a failed probe is immediately useful for IDE/AI debugging and remains redacted
 
 ---
 
@@ -845,9 +852,11 @@ The final response must clearly state what passed, what failed, what was not
 - [ ] Deep health checks database connection
 - [ ] Deep health checks migration status
 - [ ] Deep health checks auth status when login exists
-- [ ] Deep health checks required environment variables
+- [ ] Deep health checks required environment-variable presence without values
 - [ ] Deep health returns version, git SHA, build timestamp, and environment
-- [ ] Deep health never exposes secrets, tokens, connection strings, or raw logs
+- [ ] Deep health exposes the endpoint diagnostic registry and latest safe probe results
+- [ ] Every registered endpoint has an explicit probe mode
+- [ ] Deep health never exposes secrets, tokens, connection strings, raw logs, or private response bodies
 - [ ] Deep health response format matches the standard in `VERIFICATION_LOOP.md`
 
 ---
@@ -873,7 +882,7 @@ Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Step 14), sp
 - [ ] `commit-msg`, `pre-commit`, and `pre-push` git hooks are installed and were actually tested (a malformed commit message was rejected, not assumed to be rejected)
 - [ ] A pre-commit secrets scan is configured and runs on staged diffs
 - [ ] `lint-staged` runs Prettier against staged files on `pre-commit`, per `TECHNICAL_STACK.md`
-- [ ] `pre-push` runs lint/typecheck/build/format:check/test and was tested with an intentional failure
+- [ ] `pre-push` runs lint/typecheck/build/format:check and was tested with an intentional failure; automated tests remain risk-triggered task evidence, not a universal hook
 - [ ] `pre-push` validates every outgoing commit in the branch range against the version-format regex
 - [ ] No GitHub Actions workflow is required or scaffolded by PHDK; any CI present is an explicit project-specific opt-in
 - [ ] "Squash and merge" is disabled in the repository's merge-method settings

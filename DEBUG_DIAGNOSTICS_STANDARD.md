@@ -46,7 +46,7 @@ These controls must never appear in the customer-facing experience unless the us
 
 ### When debug mode is on
 
-- Every function reports its status through the shared debug-log helper, not whichever ad hoc `console.log` calls a developer happened to leave in — see `Function-Level Status Logging` below for the required pattern
+- Important execution boundaries report high-signal status through the shared debug-log helper; trivial helpers are not blanket-instrumented — see `High-Signal Status Logging` below
 - A floating panel appears in the top-left corner
 - The panel shows the current version number
 - The panel shows the copy diagnostics button with the clear cache button immediately next to it
@@ -109,6 +109,8 @@ recent frontend runtime errors
 recent failed API requests — endpoint and status only
 safe backend diagnostics if available
 recent API errors with correlation IDs
+last endpoint probe — id, method, path, expected status, actual status, latency, correlation ID
+sanitized request/response examples for the affected registered endpoint
 current correlation ID
 recent metered API call counts and failures, if the feature touches a metered API
 ```
@@ -173,6 +175,12 @@ Recent errors:
 Recent failed API requests:
 [endpoint and status code only, or none]
 
+Endpoint probe:
+[id / method / path / probe mode / expected / actual / latency / correlation ID, or none]
+
+Expected example:
+[sanitized example or unavailable]
+
 Correlation ID: [ID]
 
 === End of Report ===
@@ -234,19 +242,51 @@ This lets the AI developer catch a runaway loop against a metered API from the d
 - Do not capture request or response bodies
 - Clear the buffer on clear cache
 
-### Function-Level Status Logging
+### High-Signal Status Logging
 
-"All functions report verbose structured logs" is a requirement to implement, not an aspiration — the copy diagnostics report is only as useful as the buffer behind it, and an empty or sparse buffer is the most common reason a diagnostics report fails to help.
+The goal is diagnostic signal, not log volume.
 
-- Every project must expose one shared debug-log helper (e.g. `debugLog(scope, status, detail)`) that writes into the circular buffer described above. Ad hoc `console.log` calls scattered through the codebase do not satisfy this requirement — they are inconsistent, get deleted during cleanup, and are not guaranteed to be captured by the buffer.
-- When debug mode is active, every one of the following must call the shared helper on entry, on success, and on failure, with a status field (`start` / `success` / `error`):
-  - every API route handler and every client-side API call
-  - every form submit handler
-  - every auth flow step (see `Auth Diagnostics Requirements`)
-  - every background job, scheduled task, or queue consumer
-  - every call to a metered or paid external API (see `Metered API / Cost Diagnostics Requirements`)
-- When debug mode is off, the helper is a no-op — it must never run in production by default and must never add meaningful overhead when disabled.
-- A working slice is not complete if its new functions were not wired into the shared debug-log helper. Verify this the same way any other requirement in this file is verified — see `Debug Diagnostics QA`.
+Every project exposes one shared debug-log helper (for example `debugLog(scope, status, detail)`) that writes structured entries into the diagnostic buffer. Ad hoc `console.log` calls do not satisfy this requirement.
+
+When debug mode is active, instrument **important execution boundaries**, not every helper function:
+
+- API route entry/result and client API calls
+- auth and authorization decisions
+- form submissions and meaningful mutations
+- service operations containing business rules
+- database/migration/import state transitions
+- background jobs and queue consumers
+- metered or paid external API calls
+- caught errors that affect user-visible behavior
+
+Do not add entry/success/failure logging to pure helpers, trivial getters, rendering-only functions, or other low-signal code merely to satisfy a rule.
+
+When debug mode is off, debug-only logging is a no-op or minimal-overhead path.
+
+A working slice is not complete if an important new execution boundary cannot be correlated from request/probe to its relevant safe logs.
+
+### Endpoint Diagnostics Console
+
+App-style projects expose an authorized Diagnostics section in `/admin/system` or `/admin/debug`.
+
+It consumes the endpoint diagnostic registry defined in `VERIFICATION_LOOP.md` and shows:
+
+- endpoint id, method, path, and purpose
+- auth and role requirements
+- probe mode
+- sanitized request example
+- sanitized success and common-error examples
+- expected status codes
+- last actual status and latency
+- correlation ID
+- safe related log summary
+- a **Test** button only when the registered probe mode permits safe execution
+- **Run safe probes** for all automatically safe checks
+- **Copy diagnostics** for the current result
+
+The endpoint registry is the source of truth. Do not maintain a second manually duplicated list in the UI.
+
+Unsafe, destructive, private, or metered operations must be `manual_only`, `validation_only`, or true `dry_run`; diagnostics must never create real side effects just to prove health.
 
 ### Backend
 
@@ -290,5 +330,9 @@ Before marking debug diagnostics complete, verify:
 - [ ] Debug controls do not appear in customer-facing experience
 - [ ] Debug mode is ON by default in local/dev/preview/staging with no manual setup step required
 - [ ] Debug mode's forced-on default is explicitly confirmed switched off before production release — recorded in the slice release report
-- [ ] New or changed functions call the shared debug-log helper on entry, success, and failure — not ad hoc `console.log`
-- [ ] Copy diagnostics report, taken from a live session with debug mode on, shows real entries in "Recent frontend logs" (not empty or near-empty)
+- [ ] Important new or changed execution boundaries emit high-signal structured diagnostics — not blanket logging on every helper function
+- [ ] Endpoint diagnostic registry is visible to authorized admin/developer roles
+- [ ] Safe endpoints have working Test actions; unsafe/metered/destructive endpoints refuse automatic execution
+- [ ] Request and response examples are sanitized and useful
+- [ ] A failed probe includes expected vs actual status, latency, correlation ID, and related safe log context
+- [ ] Copy diagnostics report, taken from a live session with debug mode on, shows real high-signal entries rather than empty or noisy logs

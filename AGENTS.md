@@ -32,8 +32,8 @@ Read `ONBOARDING_AI_DEVELOPER.md` when joining a PHDK project for the first time
 | stack, architecture, database, deployment, AI/LLM integration, LSP | `TECHNICAL_STACK.md` |
 | auth, secrets, security, privacy, metered APIs | `DEVSECOPS.md` |
 | versions, commits, changelog, release/merge behavior | `VERSIONING.md` |
-| verification or tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
-| debug mode or diagnostics | `DEBUG_DIAGNOSTICS_STANDARD.md` |
+| verification, health, probes, or tests | `VERIFICATION_LOOP.md`, `DEBUG_DIAGNOSTICS_STANDARD.md`, `TESTING_STANDARD.md` |
+| debug mode or diagnostics UI | `DEBUG_DIAGNOSTICS_STANDARD.md` |
 | foundation scaffolding, hooks, repository protection, rule enforcement | `ENFORCEMENT.md` |
 
 A task may require more than one row. Load only the rows that apply.
@@ -103,7 +103,8 @@ Every app-style product must include:
 - Admin section when explicitly required by PHDK
 - AI management section in the admin panel when the project uses any LLM-powered feature
 - Debug mode with copy diagnostics capability
-- Structured logging and an audit trail for sensitive actions
+- Protected `/health/deep` plus endpoint diagnostic registry and authorized safe-probe controls for app-style products
+- Structured high-signal logging at important execution boundaries and an audit trail for sensitive actions
 - i18n support for configured project languages
 
 ---
@@ -163,7 +164,7 @@ Every feature is organized under `src/features/<feature-name>/` with its own com
 Before marking any task complete, verify:
 
 - [ ] Working slice user-visible outcome is confirmed
-- [ ] Verification evidence produced — commands, health check, browser
+- [ ] Verification evidence produced — static/build gate, health/deep health, affected safe probes, browser when applicable, and risk-triggered tests only when required
 - [ ] Route exists and permissions are enforced server-side
 - [ ] i18n strings exist for configured languages
 - [ ] Loading, empty, and error states exist
@@ -191,4 +192,5 @@ Before marking any task complete, verify:
 - Change database schema without migrations
 - Touch files outside the scope defined in `TASK.md`
 - Continue silently after failed verification
+- Create speculative Python/Node/browser test harnesses before using existing health/probe diagnostics, unless the diagnostics cannot isolate the problem
 - Perform destructive actions without explicit approval

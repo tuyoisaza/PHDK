@@ -57,7 +57,7 @@ Hooks run on the `git` command itself. They fire the same way whether a human ty
 
 - **`commit-msg`** — regex-validates the commit message against `VERSIONING.md` Commit Message Format (a leading `vMAJOR.MINOR.PATCH` followed by a conventional-commit type/scope/summary). A commit with no version prefix is rejected before it is created, not caught later in review. This is the direct mechanical fix for "commits shipped without a version bump."
 - **`pre-commit`** — runs the fast subset of `QA_CHECKLIST.md` Build Quality: lint, typecheck, `lint-staged` running Prettier against staged files (auto-fixes formatting rather than just flagging it, per `TECHNICAL_STACK.md`), and a file-size check that rejects any staged file over the 600-line limit in `DEVELOPMENT_RULES.md`. Also runs a secrets scan (see below) on the staged diff.
-- **`pre-push`** — blocks a push targeting `main` unless a local `PHDK_FINETUNING_MODE=1` environment variable is set; validates every outgoing commit message against `VERSIONING.md`; and runs the required local validation gate (`lint`, `typecheck`, `format:check`, `test`, `build`) before the branch is pushed. GitHub branch protection remains the backstop against direct pushes to `main`; the local hook is the baseline enforcement for validation because PHDK does not require server-side CI.
+- **`pre-push`** — blocks a push targeting `main` unless a local `PHDK_FINETUNING_MODE=1` environment variable is set; validates every outgoing commit message against `VERSIONING.md`; and runs the required local static/build gate (`lint`, `typecheck`, `format:check`, `build`) before the branch is pushed. Automated tests are not a universal hook: they are run only when the current slice triggers `TESTING_STANDARD.md`. GitHub branch protection remains the backstop against direct pushes to `main`.
 
 ### Secrets scanning (mechanical enforcement of "never commit secrets")
 
@@ -69,7 +69,7 @@ Hooks run on the `git` command itself. They fire the same way whether a human ty
 
 PHDK's baseline requires zero GitHub Actions. A project must remain fully operable when GitHub Actions is disabled, unavailable, or intentionally unused.
 
-Before a branch is pushed for review, the `pre-push` hook runs the same commands required by `QA_CHECKLIST.md`: lint, typecheck, build, format:check, and test. The agent records the command results as verification evidence in the slice report. A failed command blocks the push until fixed or explicitly reported and handled under the normal Stop-and-Ask rules.
+Before a branch is pushed for review, the `pre-push` hook runs the baseline static/build commands required by `QA_CHECKLIST.md`: lint, typecheck, build, and format:check. The agent records results as verification evidence. Risk-triggered automated tests are run separately at the narrowest useful scope; diagnostics and endpoint probes are the default runtime verification.
 
 The same `pre-push` hook validates **every outgoing commit** in the branch range against `VERSIONING.md` Commit Message Format.
 
@@ -88,7 +88,8 @@ This section does not repeat rules defined elsewhere — it is the index of whic
 | Commit message begins with `vX.Y.Z` | `VERSIONING.md` | `commit-msg` hook + outgoing-commit range validation in `pre-push` |
 | No file exceeds 600 lines | `DEVELOPMENT_RULES.md` | `pre-commit` hook |
 | Never commit directly to `main` | `DEVELOPMENT_RULES.md` | GitHub branch protection |
-| Build/lint/typecheck/format:check/test must actually pass | `VERIFICATION_LOOP.md` | required local `pre-push` validation gate + recorded evidence |
+| Build/lint/typecheck/format:check must actually pass before push | `VERIFICATION_LOOP.md` | required local `pre-push` static/build gate + recorded evidence |
+| Risk-triggered behavior must have automated coverage when required | `TESTING_STANDARD.md` | task-level targeted test evidence, not a universal hook |
 | Never commit secrets | `DEVSECOPS.md` | `pre-commit` secrets scan |
 | Dependencies stay patched | `DEVSECOPS.md` | Dependabot/Renovate |
 
@@ -156,7 +157,7 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 - [ ] GitHub branch protection on `main` requires a PR and disallows force-push; PHDK does not require status checks or GitHub Actions
 - [ ] `commit-msg` hook rejects a commit with no `vX.Y.Z` prefix
 - [ ] `pre-commit` hook rejects a staged file over 600 lines, runs `lint-staged`/Prettier against staged files, and runs a secrets scan
-- [ ] `pre-push` hook blocks a push to `main` unless `PHDK_FINETUNING_MODE=1` is set locally, validates every outgoing commit message, and runs lint/typecheck/build/format:check/test
+- [ ] `pre-push` hook blocks a push to `main` unless `PHDK_FINETUNING_MODE=1` is set locally, validates every outgoing commit message, and runs lint/typecheck/build/format:check
 - [ ] A test branch with an intentionally malformed outgoing commit is rejected by `pre-push`
 - [ ] A failing local validation command blocks `pre-push`
 - [ ] "Squash and merge" is disabled in the repository's merge-method settings; only "Merge commit" or "Rebase and merge" are enabled

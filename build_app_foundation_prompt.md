@@ -235,12 +235,13 @@ Root scripts must include:
     "start": "turbo start",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "test": "turbo test",
     "format": "turbo format",
     "format:check": "turbo format:check"
   }
 }
 ```
+
+Do not add a root `test` script or install test runners until a risk-triggered automated test is actually required by `TESTING_STANDARD.md`. When that happens, add the smallest needed tooling and script.
 
 Use workspace protocol imports for internal packages where appropriate:
 
@@ -511,8 +512,10 @@ If the project is a public marketing site, landing page, or simple content site,
 
 - debug mode is off by default in production
 - debug mode can be enabled only through safe developer/admin control
-- functions emit more verbose structured logs when active
+- important execution boundaries emit high-signal structured logs when active; do not blanket-log every helper function
 - diagnostic payloads include useful context
+- protected deep health exposes the endpoint diagnostic registry
+- authorized admin diagnostics can run safe endpoint probes and show sanitized request/response examples
 - diagnostic payloads redact sensitive values
 - activation is auditable when login/admin exists
 
@@ -542,6 +545,8 @@ recent frontend logs
 safe backend diagnostics if available
 recent client errors
 recent API errors with correlation IDs
+last endpoint probe with expected/actual status and latency
+sanitized expected request/response example for the affected endpoint
 correlation ID
 ```
 
@@ -716,16 +721,16 @@ Do not require GitHub Actions for Railway deployment.
 
 ---
 
-## Step 14 — Enforcement & Testing Scaffolding
+## Step 14 — Enforcement & Diagnostics Scaffolding
 
-This is where `ENFORCEMENT.md` and `TESTING_STANDARD.md` stop being documents someone might read and become artifacts already in the repo. Do this before Quality Gates below, so the gates can actually check them.
+This is where `ENFORCEMENT.md`, `VERIFICATION_LOOP.md`, and `DEBUG_DIAGNOSTICS_STANDARD.md` become working project infrastructure. Do this before Quality Gates below.
 
 ### Tier 1 — mechanical enforcement (`ENFORCEMENT.md`)
 
 - Configure Husky (or the project's chosen git-hooks tool) with `commit-msg`, `pre-commit`, and `pre-push` hooks per `ENFORCEMENT.md` Git Hooks
 - Configure Prettier (`.prettierrc`, `.prettierignore`) as the canonical formatter per `TECHNICAL_STACK.md`, wired into `pre-commit` via `lint-staged` so staged files are auto-formatted, not just checked
 - Add a pre-commit secrets scan per `ENFORCEMENT.md` Secrets Scanning
-- Configure `pre-push` to validate every outgoing commit message and run the required local verification gate: lint, typecheck, build, format:check, and test, per `ENFORCEMENT.md`
+- Configure `pre-push` to validate every outgoing commit message and run the required local static/build gate: lint, typecheck, build, and format:check, per `ENFORCEMENT.md`. Automated tests are task-level and risk-triggered, not a universal hook requirement
 - Do **not** scaffold GitHub Actions. PHDK must work with Actions disabled. Any CI provider is a project-specific opt-in recorded in `ARCHITECTURE_DECISIONS.md`, never a baseline dependency
 - Configure Dependabot or Renovate per `DEVSECOPS.md` Keeping Existing Dependencies Patched
 - Tell the developer, explicitly, that these are one-time manual steps in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step — and do not report this step as done until the developer confirms all of it is configured:
@@ -736,11 +741,14 @@ This is where `ENFORCEMENT.md` and `TESTING_STANDARD.md` stop being documents so
 
 - Generate the current tool's native always-loaded rule file (`CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, or project-root `AGENTS.md`) per `ENFORCEMENT.md` Tool-native always-loaded rule files — only for the tool actually in use, not all four speculatively
 
-### Testing (`TESTING_STANDARD.md`)
+### Diagnostics-first verification
 
-- Configure Vitest for `apps/web` and `apps/api`
-- Configure Playwright at `apps/web/e2e` if the project has login (the Google OAuth E2E test is required per `TESTING_STANDARD.md`)
-- Wire `test` in root and per-app `package.json` scripts to actually run these, not a placeholder that exits 0
+- Implement protected `GET /health/deep` for app-style projects
+- Implement the endpoint diagnostic registry defined in `VERIFICATION_LOOP.md`
+- Implement authorized `POST /health/deep/probes/:id` execution for safe/validation/dry-run probes
+- Add the Diagnostics section to `/admin/system` or `/admin/debug` with Run safe probes, per-endpoint Test, examples, status/latency/correlation ID, and Copy diagnostics
+- Do **not** scaffold Vitest, Playwright, Testing Library, or synthetic test harnesses by default
+- Add automated test tooling only when `TESTING_STANDARD.md` identifies a concrete risk trigger
 
 ---
 
@@ -775,7 +783,9 @@ Before declaring foundation complete, check:
 - `pre-push` local verification gate was tested on a branch push and blocks a deliberate validation failure
 - GitHub branch protection on `main` was confirmed configured by the developer (PR required, force-push disallowed; no Actions status checks required by PHDK)
 - the current tool's native always-loaded rule file exists per `ENFORCEMENT.md` Tier 2
-- Vitest is configured and `pnpm test` actually runs something, not a no-op placeholder
+- `GET /health/deep` and the endpoint diagnostic registry work for app-style projects
+- admin diagnostics can run at least one safe probe and copy a sanitized diagnostic result
+- no test runner was scaffolded without a concrete risk trigger
 - CORS allowlist, CSP, and standard security headers are configured on `apps/api` per `DEVSECOPS.md` HTTP Security Headers
 - rate limiting is active globally and specifically on auth endpoints per `DEVSECOPS.md` Rate Limiting
 

@@ -1,5 +1,18 @@
 # CHANGELOG.md
 
+## v2.28.0 — 2026-09-20
+
+### Diagnostics-first verification and risk-based automated testing
+
+- Made live-system diagnostics the default verification path: `/health`, protected `/health/deep`, affected endpoint probes, browser confirmation, and Copy Diagnostics.
+- Added an endpoint diagnostic registry with auth/role metadata, explicit probe modes (`safe_read`, `validation_only`, `dry_run`, `manual_only`), expected statuses, and sanitized request/success/error examples.
+- Added authorized admin diagnostics controls: Run safe probes, per-endpoint Test actions, status/latency/correlation IDs, related safe logs, and copyable failure reports suitable for IDE/AI debugging.
+- Replaced blanket function-level debug logging with high-signal instrumentation at important execution boundaries.
+- Removed universal Vitest/Playwright scaffolding and the requirement to test every service method, Zod schema, and user-visible slice.
+- Automated tests are now mandatory only for risk triggers: security/authorization boundaries, money, destructive state transitions, complex deterministic rules, security-sensitive validation, and cheap regression coverage for observed bugs.
+- Removed `pnpm test` from the baseline pre-push gate. Static/build verification remains local; risk-triggered tests are task-level evidence.
+- Added a rule against speculative Python/Node/browser test harnesses when existing live diagnostics can answer the question directly.
+
 ## v2.27.0 — 2026-09-19
 
 ### Local-first enforcement and progressive context loading
