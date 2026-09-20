@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.29.0**
+**Version: v2.30.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -242,7 +242,7 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Frontend | Next.js App Router |
 | Backend | NestJS + Fastify |
 | Deployment | Railway — two services, repo root |
-| Working model | Small user-visible verified slices |
+| Working model | **Mission Autopilot** — approved mission executes continuously through small verified slices; no "continue?" approval gate between slices |
 | Verification | Evidence required before every slice is marked complete |
 | Cost safety | Every metered/paid external API requires a hard usage cap, timeout, retry limit, and kill switch before it ships |
 | AI/LLM | Provider and model are config-driven; admin-manageable prompt, output schema, and live pricing; guardrails against prompt injection |
@@ -257,7 +257,7 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Intent capture | Non-trivial or externally-originated feature/bug work gets a durable `docs/intents/` file capturing the why, reviewed by its originator, before a `TASK.md` starts — never required for internally-obvious or trivial slices — see `INTENT_CAPTURE_STANDARD.md` |
 | Verification & testing | Diagnostics-first: live `/health`, protected `/health/deep`, endpoint probes, browser confirmation, and Copy Diagnostics are the normal proof. Automated tests are risk-triggered for security, money, destructive changes, complex deterministic rules, and regressions — never required for every service/slice — see `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` |
 | Formatting | Prettier is the canonical formatter for every project — a required `format`/`format:check` script pair, auto-fixed on staged files via `lint-staged` on `pre-commit`, with `format:check` included in the required local pre-push verification gate — see `TECHNICAL_STACK.md` and `ENFORCEMENT.md` |
-| Human diff review | Merging to `main` requires a human to have read the actual diff — AI-produced verification evidence is required but never a substitute for this, and a chat "looks good" that never opened the diff does not count. It is a checklist gate the merging human owns, not a GitHub required-approval setting (which a single-maintainer repo cannot satisfy without a second account); a team project can opt into required approval via `ARCHITECTURE_DECISIONS.md` — see `QA_CHECKLIST.md` Human Diff Review and `ENFORCEMENT.md` |
+| Human diff review | Mission slices may commit/push autonomously to the mission feature branch; merging the completed mission to `main` still requires a human to read the actual diff. The merge gate applies once at mission completion, not between slices — see `QA_CHECKLIST.md` and `AI_DEVELOPER_OPERATING_MODEL.md` |
 | Mechanical enforcement | Commit format, file size, secrets, branch safety, and the static/build gate are enforced locally or by repository settings. Automated tests remain risk-triggered task evidence rather than a universal hook. GitHub Actions are not part of the baseline — see `ENFORCEMENT.md` |
 | HTTP security headers & rate limiting | Every API service sets an explicit CORS allowlist, a default-deny CSP, and the standard security header set from foundation build, and runs global rate limiting with a stricter limit on auth endpoints — not deferred to a later hardening pass — see `DEVSECOPS.md` HTTP Security Headers and Rate Limiting |
 | Secrets rotation | A secret that is committed, logged, or otherwise exposed is rotated immediately at the provider — history is never rewritten as the primary response — see `DEVSECOPS.md` Secrets Rotation and Compromise Response |

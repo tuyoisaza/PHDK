@@ -56,7 +56,7 @@ Work only within the scope defined in `TASK.md`. Do not touch out-of-scope files
 
 ## AI Developer Operating Model
 
-Agents must work in small, user-visible, verified working slices. Autonomous mode is enabled by default inside the current approved slice. Agents must show verification evidence after each slice, update `STATUS.md` after meaningful progress, and never continue silently after failed verification.
+Agents run in **Mission Autopilot by default**. Once the mission goal/scope is clear, plan the required working slices and execute them continuously until the mission is complete or a true Stop-and-Ask boundary/blocker is reached. Slice boundaries are checkpoints, not approval gates. Verify, self-correct, commit/push to the mission feature branch, update continuity, and keep going.
 
 When planning or scoping a slice, load `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md`. When a slice originates from a new feature/bug ask not already covered by the project's brief/PRD/features docs, also load `INTENT_CAPTURE_STANDARD.md` first — it defines when to capture the why in a durable `docs/intents/` file before scoping in `TASK.md`.
 
@@ -184,7 +184,8 @@ Before marking any task complete, verify:
 - [ ] No fake data presented as real
 - [ ] No file exceeds 600 lines
 - [ ] Build, typecheck, and lint pass
-- [ ] `STATUS.md` updated, `TASK.md` final report written, next slice proposed
+- [ ] `STATUS.md` updated and `TASK.md` reflects mission completion or the next active slice
+- [ ] No unnecessary approval pause occurred between planned slices
 
 ---
 
@@ -203,6 +204,7 @@ Before marking any task complete, verify:
 - Implement infrastructure marked as ready unless explicitly tasked
 - Change database schema without migrations
 - Touch files outside the scope defined in `TASK.md`
-- Continue silently after failed verification
+- Hand a verification failure back to the human before attempting safe diagnosis and repair
+- Ask "continue?", "proceed?", or equivalent between planned slices inside the approved mission
 - Create speculative Python/Node/browser test harnesses before using existing health/probe diagnostics, unless the diagnostics cannot isolate the problem
 - Perform destructive actions without explicit approval

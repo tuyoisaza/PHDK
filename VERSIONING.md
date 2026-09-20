@@ -84,9 +84,10 @@ phdk/v0.3.0/login-google-oauth
 Rules:
 
 - Never commit directly to `main` (unless Finetuning Mode is explicitly active — see `DEVELOPMENT_RULES.md` Finetuning Mode)
-- Every working slice starts on its own branch
+- Every **mission** starts on its own feature branch; planned slices inside that mission stay on the same branch
 - Checkpoint branches are created before major updates as recoverable backups
-- Merge only after verification passes and approval is given
+- Verified slices may commit and push to the mission branch autonomously
+- Merge the completed mission to `main` only after verification and Human Diff Review approval
 
 ---
 
@@ -143,15 +144,16 @@ Version numbers consumed on a feature branch that never merges are spent. Gaps i
 
 ## Working Slice Version Rule
 
-Each completed and approved working slice results in:
+Each completed working slice inside an approved mission results in:
 
 - Verified user-visible outcome
 - Updated `STATUS.md`
 - Updated `CHANGELOG.md` when user-facing behavior changed
 - Version bumped on every commit in the slice, per Version Bump on Every Commit
 - Commit with descriptive message
-- Push to feature branch
-- Merge to `main` only after explicit approval
+- Push to the mission feature branch without requiring a separate slice-level approval
+- Continue to the next planned slice until the mission is done
+- Merge the completed mission to `main` only after explicit Human Diff Review approval
 
 ---
 
@@ -186,7 +188,8 @@ At the end of every working slice, report exactly:
 Slice: [slice name]
 Version: [vX.Y.Z]
 Branch: [branch name]
-Commit: [short SHA or pending]
+Commit: [short SHA]
+Mission branch: [branch]
 Verification: [pass/fail/partial]
 Health: [/health result]
 Deep health: [result or not applicable]

@@ -338,50 +338,34 @@ This is about backing up the application's live data (the database), not the cod
 
 ## Generation Workflow
 
-Generate one file at a time.
+Generate the complete kit in one uninterrupted pass after the interview is complete.
 
-Treat each filename as a separate output artifact.
+Treat each filename as a separate file/artifact, but do not turn file boundaries into approval gates.
 
-If the environment supports canvas or document artifacts, create a new separate canvas/document for each generated file. Do not stack multiple generated files inside one canvas/document.
+If running inside an IDE/coding agent with filesystem access, write every generated file directly into the project repo at its correct path and continue through the full list automatically.
 
-If the environment does not support canvas or document artifacts, output the file content directly in the chat as a standalone markdown block.
+If the environment supports separate document artifacts but not a writable repo, create a separate artifact for each file and continue generating the remaining files without waiting for `next`.
 
-Do not generate multiple files in one response.
+If the environment is chat-only, keep files clearly separated and self-contained; batch them only as the interface safely allows.
 
 Do not wrap all files into one master document.
 
 Do not create a file named `PHDK.md`, `HANDOFF.md`, or similar unless explicitly requested.
 
-Each response after setup must contain exactly one generated file.
-
-Each generated file must be clean, self-contained, and copyable without requiring the user to manually split it from other files.
-
 For each file:
 
-1. If canvas/document artifacts are available, create a new separate canvas/document named exactly after the file, for example `PROJECT_BRIEF.md`.
-2. If generating in chat, show the filename as the first line using an H1 heading, for example `# PROJECT_BRIEF.md`.
-3. Generate the complete markdown content for that file only.
-4. Do not include content for any other file.
-5. Stop.
-6. Show progress:
+1. Generate/write the complete content at the correct filename.
+2. Keep the file self-contained and do not merge unrelated file contents.
+3. Update generation progress internally.
+4. Continue immediately to the next required file.
 
-```txt
-✅ Generated:
-- [list of completed files]
+In an IDE, do not ask the human to save files manually and do not stop for `next` between files.
 
-⏳ Pending:
-- [list of remaining files]
-```
-
-7. Say exactly:
-
-`Save this file, then say next when you're ready to continue.`
+At useful checkpoints, a progress update may list completed/pending files, but it is informational and does not pause execution.
 
 ### Correction loop
 
-If I request edits to the current file, revise only that file, show the updated version, and wait for `next`.
-
-Do not advance until I say `next`.
+If the human interrupts with a correction while the kit is being generated, apply the correction to the affected file(s), update any downstream files that depend on it, and continue the remaining generation automatically unless the correction creates a true ambiguity that requires a decision.
 
 ### Skip rule
 
@@ -627,7 +611,7 @@ Living file.
 
 PHDK generates it once with the first task.
 
-The user rewrites it before every subsequent coding session.
+The AI developer maintains and rotates it as the mission advances. The human may override the mission or plan at any time; routine continuity updates are not manual user work.
 
 Must include two permanent sections.
 
@@ -636,9 +620,9 @@ Must include two permanent sections.
 ```md
 ## How to Use This File
 
-This file defines the current AI-coder session task.
-Update this file before each new coding session.
-Do not treat old tasks as active unless listed under Current Task.
+This file defines the current PHDK mission and active working slice.
+The AI developer executes in Mission Autopilot by default: continue through planned slices until the mission's Done When criteria are satisfied or a true Stop-and-Ask boundary is reached.
+Carry the Mission section forward when rotating slices. Do not treat archived slice tasks as active.
 ```
 
 ### Section 2 — Current Task
@@ -652,43 +636,56 @@ Do not treat old tasks as active unless listed under Current Task.
 
 [Where the project stands right now]
 
-## Goal
+## Mission
 
-[What this session must accomplish]
+Goal:
+[What must be accomplished end-to-end]
+
+Done When:
+- [pass/fail mission completion criterion]
+- [pass/fail mission completion criterion]
+
+Execution Mode:
+Mission Autopilot — continue without asking for "continue" between planned slices.
+
+Mission Branch:
+[feature/<mission-name>]
 
 ## Scope
 
-[What the AI coder may touch]
+[What the AI coder may touch across the mission]
 
 ## Out of Scope
 
-[What the AI coder must not touch]
+[What the AI coder must not add/change]
+
+## Plan
+
+1. [working slice]
+2. [working slice]
+3. [working slice]
+
+The plan may be adjusted autonomously when implementation evidence requires it, as long as the mission goal and boundaries do not change.
+
+## Current Slice
+
+User-visible outcome:
+[what this slice produces]
 
 ## Required Reading
 
 1. TASK.md
 2. STATUS.md
-3. PROJECT_BRIEF.md
-4. PRD.md
-5. FEATURES.md
-6. Standards repo files
+3. phdk-standards/AGENTS.md
+4. Only task-relevant standards routed by AGENTS.md
 
 ## Standards Repo
 
 https://github.com/tuyoisaza/PHDK
 
-Required standards:
-
-- AGENTS.md
-- DEVELOPMENT_RULES.md
-- DESIGN_RULES.md
-- TECHNICAL_STACK.md
-- QA_CHECKLIST.md
-- BUILD_APP_FOUNDATION_PROMPT.md
-
 ## Acceptance Criteria
 
-[Pass/fail checklist]
+[Pass/fail checklist for the current slice]
 
 ## Validation Commands
 
@@ -705,7 +702,7 @@ Follow-up work:
 
 The first generated task is always:
 
-`Fetch the latest generic standards from the standards repo. Build the initial scalable app foundation using BUILD_APP_FOUNDATION_PROMPT.md. Report back with repo structure and confirmation.`
+`Fetch/sync the latest PHDK standards, build the initial scalable app foundation using BUILD_APP_FOUNDATION_PROMPT.md, and continue autonomously through the planned foundation slices until the mission's Done When criteria are satisfied or a true Stop-and-Ask boundary is reached. Report when the mission is complete or genuinely blocked.`
 
 ---
 
@@ -825,9 +822,5 @@ Must include:
 
 ## Final Offer
 
-After `README.md` is approved, say:
-
-`🎉 PHDK complete. [N] files generated. All gaps and open questions are consolidated in STATUS.md. Would you like instructions to package everything into a ZIP file?`
-
-If the environment supports file generation, offer to create the ZIP directly. Otherwise, provide packaging instructions.
+After the full kit is generated, verify that all required files exist and that `STATUS.md` consolidates gaps/open questions. Report completion once. If the original mission includes building the product, continue directly into the foundation/build workflow under Mission Autopilot; do not stop to offer packaging. In a chat-only documentation request, a ZIP/artifact may be offered as an optional convenience.
 

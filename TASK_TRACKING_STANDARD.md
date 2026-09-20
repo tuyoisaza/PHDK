@@ -45,7 +45,7 @@ Left undefined, "how do we track tasks" tends to drift toward whatever the codin
 
 ## File Structure
 
-- **`TASK.md`** — the live file for the current working slice only. Replaced when the slice closes, per the archive step below.
+- **`TASK.md`** — the live file for the current working slice **plus the mission header**. Replaced when the slice closes; the mission header is carried forward unchanged until the mission is complete.
 - **`STATUS.md`** — persistent, cross-slice memory: Completed Slices, Current Slice, Next Slices, Blocked Slices, current version, gaps, and open questions. Format is defined in `AGILE_SLICE_WORKFLOW.md` Backlog Management.
 - **`docs/completed-slices/`** — permanent archive folder in the project repo. One file per closed slice.
 - **`docs/intents/`** — permanent archive folder for intent files. One file per feature/bug intent, created once and never overwritten — see `INTENT_CAPTURE_STANDARD.md`. Not every slice has one; see that file for when it applies.
@@ -54,13 +54,21 @@ Left undefined, "how do we track tasks" tends to drift toward whatever the codin
 
 ## TASK.md Format
 
-```md
+ ```md
 # TASK — <slice name>
+
+## Mission
+Goal: ...
+Done when:
+- [ ] <mission completion criterion>
+- [ ] <mission completion criterion>
+In scope: ...
+Out of scope: ...
+Execution mode: Mission Autopilot
+Branch: <mission feature branch>
 
 ## Slice
 User-visible outcome: ...
-In scope: ...
-Out of scope: ...
 Depends on: ...
 Intent: <path to docs/intents/... file, or "none — internal/already covered by PRD.md">
 
@@ -70,13 +78,12 @@ Intent: <path to docs/intents/... file, or "none — internal/already covered by
   - Files: <files touched>
   - Acceptance: <how this is verified>
   - Blocked by: <task id, or none>
-- [ ] <task description>
-  - ID: <short-id>
 ```
 
 Rules:
 
-- One `TASK.md` per active slice. Do not accumulate multiple slices' tasks in one file — future slices belong in `STATUS.md`'s Next Slices list, not in `TASK.md`.
+- One `TASK.md` per active slice. Do not accumulate multiple slices' implementation checkboxes in one file. The mission header persists across slices, while the remaining plan lives in `STATUS.md`'s Next Slices list.
+- `Execution mode: Mission Autopilot` is the default. The agent continues through planned slices without asking for approval at each transition.
 - The checkbox is the unit of tracking. When a task grows more sub-tasks mid-slice, add them as nested checkboxes under it — do not spin up a second tracking file.
 - `Files` and `Acceptance` are optional but strongly recommended. They are what let the next session, or a different AI tool, resume without re-deriving scope.
 
@@ -84,11 +91,12 @@ Rules:
 
 ## Closing a Slice — Archive Step
 
-When a slice is approved and committed (Step 8 of `AGILE_SLICE_WORKFLOW.md`), before starting the next slice's `TASK.md`:
+When a slice is verified, committed, and pushed to the mission branch (Step 8 of `AGILE_SLICE_WORKFLOW.md`), before starting the next slice's `TASK.md`:
 
 1. Copy the completed `TASK.md` to `docs/completed-slices/<vX.Y.Z>-<slice-name>.md`.
 2. Add one line to `STATUS.md`'s Completed Slices list pointing at the archived file.
-3. Start a fresh `TASK.md` for the next slice.
+3. If the mission is not complete, start a fresh `TASK.md` for the next planned slice, carrying forward the same Mission section, and continue automatically.
+4. If the mission is complete, leave no synthetic "next slice" just to keep working; produce the mission report and request Human Diff Review for merge.
 
 This gives a durable, browsable history of what was actually done per slice without relying on git log archaeology or an external issue tracker, and matches the Working Slice Version Rule in `VERSIONING.md`.
 
@@ -121,7 +129,8 @@ If more than one AI agent or developer draws from the same `TASK.md` concurrentl
 - Adding a GitHub Actions workflow because PHDK supposedly requires CI — it does not
 - A GitHub Actions workflow whose job is to report status, sync tasks, or gate "done"
 - Leaving completed tasks in `TASK.md` indefinitely instead of archiving and starting fresh
-- Multiple slices' tasks piling up in one `TASK.md`
+- Multiple slices' implementation tasks piling up in one `TASK.md`
+- Treating each slice archive as a reason to stop and wait for human permission
 - Skipping the `docs/completed-slices/` archive step and relying on memory of what was done
 
 ---

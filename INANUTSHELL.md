@@ -69,10 +69,12 @@ If this file and a full standards file ever disagree, the full file wins — thi
 
 ## Working Slices & Verification
 
-- Work in small, user-visible, verified slices — "build the database layer" is not a slice, "user can create one record and see it" is
+- **Mission Autopilot is default:** once goal/scope are clear, keep executing planned slices until mission complete, genuinely blocked, or a true Stop-and-Ask boundary is reached
+- Work in small, user-visible, verified slices — slices are internal checkpoints, not approval gates
 - No completion claim without evidence — command output, `/health` result, browser check
 - "It should work" or "lint passed" alone is not evidence
-- Update `STATUS.md` and `TASK.md` every session — that's the only memory between sessions, don't trust what "feels" familiar
+- Never ask the human to say "continue" between planned slices; verify, self-correct, commit/push the mission branch, update continuity, and proceed
+- Update `STATUS.md` and `TASK.md` as durable mission memory — don't trust what "feels" familiar
 - A human reading the actual diff is a separate, required gate from the AI's own verification evidence — a green report is never a substitute for someone looking at the code
 - A feature/bug ask not already covered by the project's brief/PRD/features docs gets a durable `docs/intents/<name>-intent.md`, reviewed by its originator, before `TASK.md` scoping starts — skip for trivial or internally-obvious slices
 - *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`, `QA_CHECKLIST.md` Human Diff Review, `INTENT_CAPTURE_STANDARD.md`)*
@@ -149,4 +151,5 @@ If this file and a full standards file ever disagree, the full file wins — thi
 - Deployment architecture changes
 - New external services, or a metered/paid API before its cap and kill switch exist
 - Force-push, deleting an unmerged branch, or pushing to `main` without approval
+- Expanding the approved mission goal/out-of-scope boundary; moving to the next planned slice inside the mission does **not** count as expansion
 - *(full: `DEVSECOPS.md` Stop-and-Ask Conditions, `AI_DEVELOPER_OPERATING_MODEL.md` Stop-and-Ask Conditions)*

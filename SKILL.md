@@ -40,14 +40,14 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
    Vendoring keeps the project self-contained without loading every standard into context. It also installs `PHDK_UPGRADE.md`, `PHDK_MANIFEST.txt`, and `PHDK_NATIVE_RULES.md`, so future upgrades are tool-agnostic.
 4. Point the generated `TASK.md` and any onboarding note at `phdk-standards/AGENTS.md` as the required entry point, per `ONBOARDING_AI_DEVELOPER.md`'s reading order.
 5. Generate the current tool's native always-loaded rule file per `ENFORCEMENT.md` Tier 2 and include the exact managed block from `phdk-standards/PHDK_NATIVE_RULES.md`. Preserve its `PHDK-MANAGED` markers so `PHDK upgrade` can refresh only that block later without overwriting project-specific instructions.
-6. Tell the developer the kit is generated and vendored, and offer to run `BUILD_APP_FOUNDATION_PROMPT.md` next as the first build step — this is also where `ENFORCEMENT.md` Tier 1 (git hooks, local verification gates, branch protection) gets scaffolded. GitHub Actions are not created by default. Wait for confirmation before running it — it scaffolds the actual codebase, that's a bigger action than generating docs.
+6. If the developer's original request includes building the product, continue directly into `BUILD_APP_FOUNDATION_PROMPT.md` and Mission Autopilot; do not ask for a redundant confirmation after generating the kit. If the developer asked only for documentation/spec generation, stop after the kit. Foundation build also scaffolds `ENFORCEMENT.md` Tier 1; GitHub Actions are not created by default.
 
 ## Ongoing Project
 
 1. Read `phdk-standards/AGENTS.md` if vendored (or this skill's own `AGENTS.md` if not) — it is the router into the rest of the standards.
 2. Read `TASK.md` and `STATUS.md` in the project repo for current scope and state.
 3. Follow `AGENTS.md`'s progressive standards router and load only what the current task needs. Use `ONBOARDING_AI_DEVELOPER.md` for orientation, not as a mandatory full-stack preload.
-4. Work per the task-relevant PHDK standards: small verified working slices, evidence before marking anything complete, and stop-and-ask at the documented boundaries.
+4. Run Mission Autopilot: execute the approved mission continuously across verified slices, self-correct failures, commit/push to the mission feature branch, and stop only at documented boundaries, genuine blockers, or mission completion. Do not wait for "continue" between slices.
 5. If the developer says `PHDK upgrade`, execute `PHDK_UPGRADE.md` immediately. For any other explicit request to update/sync/upgrade PHDK, route to the same file; only the exact canonical command waives the extra confirmation step.
 6. If the current task would genuinely benefit from an external skill (heavy UI work, browser-testing evidence, a second security or code-review pass), consult this skill's own `SKILLS_REGISTRY.md` — optional, situational, never installed without asking first.
 
