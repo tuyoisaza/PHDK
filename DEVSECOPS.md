@@ -219,9 +219,9 @@ Do not add dependencies speculatively or to satisfy a checklist item.
 The rules above govern adding a new dependency. This governs the dependencies already in the project — manual-only maintenance reliably rots within weeks on a project with no dedicated ops time, and a stack this precisely pinned deserves the same discipline for staying current as it does for what gets added.
 
 - Every project foundation configures Dependabot (GitHub-native, no extra account) or Renovate for automated dependency update PRs — this is a foundation-slice default (`BUILD_APP_FOUNDATION_PROMPT.md`), not something added later when a CVE is found
-- Security-patch updates (a dependency's own patch release fixing a known CVE) may be merged directly once CI passes — they still go through the normal branch/commit/`QA_CHECKLIST.md` Build Quality gate, but do not require the same scrutiny as a new dependency
+- Security-patch updates (a dependency's own patch release fixing a known CVE) may be merged directly once the required local verification gate passes — they still go through the normal branch/commit/`QA_CHECKLIST.md` Build Quality gate, but do not require the same scrutiny as a new dependency
 - Minor and major version bumps from the automated tool go through the full `Dependency Safety` review above before merge — an automated PR does not bypass "why is this needed" for anything beyond a security patch
-- This is CI/automation only, not a task-tracking system — it must never become the system of record for what work is planned, per `TASK_TRACKING_STANDARD.md` Local-Only Rule; a dependency-update PR is still just a PR, reviewed like any other
+- This is dependency automation only, not a task-tracking system — it must never become the system of record for what work is planned, per `TASK_TRACKING_STANDARD.md` Local-Only Rule; a dependency-update PR is still just a PR, reviewed like any other
 
 ---
 

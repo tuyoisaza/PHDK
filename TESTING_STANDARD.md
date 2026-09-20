@@ -72,11 +72,11 @@ Not required, by default:
 
 ---
 
-## CI Enforcement
+## Local Verification Enforcement
 
 `pnpm test` in `VERIFICATION_LOOP.md` and `QA_CHECKLIST.md` Required Validation Commands means Vitest for `apps/web` and `apps/api`, plus Playwright for the flows above when they exist. A slice that adds a new RBAC check, Zod schema, service method, or LLM-output path without a corresponding test is not complete — flag it as a gap in `STATUS.md` rather than reporting `pnpm test: pass` on unrelated tests only.
 
-See `ENFORCEMENT.md` for how this is checked mechanically rather than left to self-report.
+See `ENFORCEMENT.md` for the required local `pre-push` verification gate. GitHub Actions are not required for test enforcement.
 
 ---
 

@@ -1,5 +1,15 @@
 # CHANGELOG.md
 
+## v2.27.0 — 2026-09-19
+
+### Local-first enforcement and progressive context loading
+
+- Renamed the live agent entry point from `agents.md` to canonical `AGENTS.md` so Codex and other tools that discover that filename can load it reliably.
+- Replaced the mandatory full-standards preload with progressive context loading: every session starts from `AGENTS.md`, `TASK.md`, and `STATUS.md`, then loads only the task-relevant standards.
+- Removed GitHub Actions from the PHDK baseline. PHDK no longer scaffolds Actions workflows or requires status checks to merge.
+- Moved build/test/format enforcement to the local `pre-push` gate, which also validates every outgoing commit message before push.
+- Kept GitHub branch protection for PR/no-force-push safety and Human Diff Review as the merge gate. Optional CI remains a project-specific opt-in recorded in `ARCHITECTURE_DECISIONS.md`.
+
 All notable changes to the PHDK standards are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).

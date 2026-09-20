@@ -44,17 +44,17 @@ Check the current project repo for `TASK.md` and `STATUS.md`.
    - `INTENT_CAPTURE_STANDARD.md`
    - `QA_CHECKLIST.md`
 
-   This is the full set referenced from `AGENTS.md`'s own required reading order plus the QA gate it points to — anything less would leave a dangling reference once the project is on its own. This makes the project self-contained: any tool working on it afterward — Skill-aware or not, with or without access to this repo — can read the standards locally instead of depending on a live fetch. `VERSION` is what makes the update check below possible — without it, nobody can tell what's vendored.
+   This is the full local standards library referenced by `AGENTS.md`'s progressive router plus the QA gate it points to. Vendoring the full library keeps the project self-contained; it does **not** mean every file is loaded into context every session. `VERSION` makes the update check below possible.
 4. Point the generated `TASK.md` and any onboarding note at `phdk-standards/AGENTS.md` as the required entry point, per `ONBOARDING_AI_DEVELOPER.md`'s reading order.
 5. Generate the current tool's native always-loaded rule file per `ENFORCEMENT.md` Tier 2 (`CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, or project-root `AGENTS.md`, whichever matches the tool actually being used) — this is what keeps the highest-severity rules in context even in a long session or a tool that never triggered this reading order at all.
-6. Tell the developer the kit is generated and vendored, and offer to run `BUILD_APP_FOUNDATION_PROMPT.md` next as the first build step — this is also where `ENFORCEMENT.md` Tier 1 (git hooks, CI, branch protection) gets scaffolded. Wait for confirmation before running it — it scaffolds the actual codebase, that's a bigger action than generating docs.
+6. Tell the developer the kit is generated and vendored, and offer to run `BUILD_APP_FOUNDATION_PROMPT.md` next as the first build step — this is also where `ENFORCEMENT.md` Tier 1 (git hooks, local verification gates, branch protection) gets scaffolded. GitHub Actions are not created by default. Wait for confirmation before running it — it scaffolds the actual codebase, that's a bigger action than generating docs.
 
 ## Ongoing Project
 
 1. Read `phdk-standards/AGENTS.md` if vendored (or this skill's own `AGENTS.md` if not) — it is the router into the rest of the standards.
-2. Follow `ONBOARDING_AI_DEVELOPER.md`'s required reading order before touching code.
-3. Work per `AI_DEVELOPER_OPERATING_MODEL.md`: small verified working slices, evidence before marking anything complete, stop-and-ask on the conditions listed in `DEVSECOPS.md` and `AI_DEVELOPER_OPERATING_MODEL.md`.
-4. Read `TASK.md` and `STATUS.md` in the project repo for current scope and state.
+2. Read `TASK.md` and `STATUS.md` in the project repo for current scope and state.
+3. Follow `AGENTS.md`'s progressive standards router and load only what the current task needs. Use `ONBOARDING_AI_DEVELOPER.md` for orientation, not as a mandatory full-stack preload.
+4. Work per the task-relevant PHDK standards: small verified working slices, evidence before marking anything complete, and stop-and-ask at the documented boundaries.
 5. If the developer asks to update, sync, or upgrade the project's PHDK standards, go to "Updating Vendored Standards" below. Otherwise, don't check on your own initiative — this is an explicit action, not something to do silently mid-task.
 6. If the current task would genuinely benefit from an external skill (heavy UI work, browser-testing evidence, a second security or code-review pass), consult this skill's own `SKILLS_REGISTRY.md` — optional, situational, never installed without asking first.
 

@@ -4,7 +4,7 @@
 
 This file orients any AI developer joining a PHDK project for the first time or starting a new session.
 
-Read this file first. Then follow the reading order below before touching any code.
+Read this file when joining a PHDK project or when a session needs orientation. For normal sessions, `AGENTS.md` is the entry point and routes the smallest relevant context set.
 
 ---
 
@@ -42,42 +42,25 @@ You never claim success without verification.
 
 ---
 
-## Required Reading Order
+## Context Loading Strategy
 
-Before starting any task, read these files in this order:
+PHDK uses progressive context loading. Do not read every standard before every task.
 
-```txt
-1.  ONBOARDING_AI_DEVELOPER.md       — this file
-2.  AI_DEVELOPER_OPERATING_MODEL.md  — how to think and work
-3.  AGENTS.md                        — agent rules and completion checklist
-4.  DEVELOPMENT_RULES.md             — branching, commits, file rules
-5.  ENFORCEMENT.md                   — how these rules are mechanically enforced
-6.  DESIGN_RULES.md                  — UI, UX, accessibility, theming
-7.  TECHNICAL_STACK.md               — canonical stack and architecture
-8.  DEVSECOPS.md                     — security and operational safety
-9.  VERSIONING.md                    — version, branch, commit, changelog
-10. VERIFICATION_LOOP.md             — what counts as proof
-11. TESTING_STANDARD.md              — test framework, required coverage
-12. DEBUG_DIAGNOSTICS_STANDARD.md    — diagnostics and copy report spec
-13. TASK_TRACKING_STANDARD.md        — how TASK.md/STATUS.md are structured and archived
-14. INTENT_CAPTURE_STANDARD.md       — when and how to capture the why behind a feature/bug
-15. TASK.md                          — current session task and scope
-16. STATUS.md                        — current project state and gaps
-```
+### Always load for a working session
 
-Then read the project-specific PHDK files:
+1. `AGENTS.md`
+2. `TASK.md`
+3. `STATUS.md`
 
-```txt
-17. PROJECT_BRIEF.md
-18. PRD.md
-19. FEATURES.md
-20. NAVTREE.md
-21. PUBLIC_CONTENT.md
-22. PRIVATE_CONTENT.md if it exists
-23. ARCHITECTURE_DECISIONS.md
-```
+Then follow the router in `AGENTS.md` and load only the standards relevant to the current task.
 
-Do not start coding until you have read all files relevant to your current task.
+### Load project product context only when needed
+
+Read `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `NAVTREE.md`, `PUBLIC_CONTENT.md`, `PRIVATE_CONTENT.md`, and `ARCHITECTURE_DECISIONS.md` when the current slice needs that product or architectural context. Do not preload them for a mechanical or narrowly scoped change whose `TASK.md` already contains enough context.
+
+### Why
+
+The repository is the durable memory. A chat/session should contain only the working set needed for the current slice. This keeps context smaller, reduces repeated token spend, and makes conflicting or stale instructions less likely.
 
 ---
 
@@ -160,17 +143,18 @@ Use this file when planning the scope of the current task or proposing the next 
 
 In a tool that supports Agent Skills (Claude Code, Cursor, Codex CLI, Windsurf, VS Code, OpenCode, Pi, Antigravity), `SKILL.md` is an alternate entry point — it triggers automatically and routes to the same reading order and workflow below. In any other tool, follow the steps here directly.
 
-1. Read required files in order
+1. Read `AGENTS.md`
 2. Read `TASK.md` for current session scope
 3. Read `STATUS.md` for current project state and open gaps
-4. Quick LSP smoke-check: confirm diagnostics and go-to-definition still work on a real symbol. Full setup and verification per `TECHNICAL_STACK.md` LSP / Code Intelligence Setup only happens once, at foundation build — this is just confirming it's still alive
-5. Confirm you understand the current working slice and its user-visible outcome
-6. If anything is unclear, ask one question before coding
-7. Work autonomously inside the approved scope
-8. Verify before reporting completion
-9. Update `STATUS.md`
-10. Report using the slice release report format from `VERSIONING.md`
-11. Propose the next slice
+4. Load only the task-relevant standards routed by `AGENTS.md`
+5. Quick LSP smoke-check: confirm diagnostics and go-to-definition still work on a real symbol. Full setup and verification per `TECHNICAL_STACK.md` LSP / Code Intelligence Setup only happens once, at foundation build — this is just confirming it's still alive
+6. Confirm you understand the current working slice and its user-visible outcome
+7. If anything is unclear, ask one question before coding
+8. Work autonomously inside the approved scope
+9. Verify before reporting completion
+10. Update `STATUS.md`
+11. Report using the slice release report format from `VERSIONING.md`
+12. Propose the next slice
 
 ---
 

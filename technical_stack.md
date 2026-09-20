@@ -529,7 +529,7 @@ Because deployment is fully automatic on every push to `main` (`First-time Railw
 
 ## Preview Environments
 
-Only two Railway environments exist by the standard defaults: the dev/staging database from `First-time Railway database setup` above (used by every developer's local machine and by CI) and production. There is no PR-level preview deploy by default — a human reviewing a slice before merge (`QA_CHECKLIST.md` Human Diff Review) verifies against localhost, per `VERIFICATION_LOOP.md` Browser verification, not against a deployed preview.
+Only two Railway environments exist by the standard defaults: the dev/staging database from `First-time Railway database setup` above (used by every developer's local machine and by any optional project-specific CI) and production. There is no PR-level preview deploy by default — a human reviewing a slice before merge (`QA_CHECKLIST.md` Human Diff Review) verifies against localhost, per `VERIFICATION_LOOP.md` Browser verification, not against a deployed preview.
 
 This is a deliberate default, not an oversight: a Railway PR-environment service per open branch has a real, ongoing cost, and most PHDK projects do not need it. If a project wants one:
 

@@ -725,11 +725,11 @@ This is where `ENFORCEMENT.md` and `TESTING_STANDARD.md` stop being documents so
 - Configure Husky (or the project's chosen git-hooks tool) with `commit-msg`, `pre-commit`, and `pre-push` hooks per `ENFORCEMENT.md` Git Hooks
 - Configure Prettier (`.prettierrc`, `.prettierignore`) as the canonical formatter per `TECHNICAL_STACK.md`, wired into `pre-commit` via `lint-staged` so staged files are auto-formatted, not just checked
 - Add a pre-commit secrets scan per `ENFORCEMENT.md` Secrets Scanning
-- Add one GitHub Actions workflow (CI only, per `TASK_TRACKING_STANDARD.md` Local-Only Rule) running install/lint/typecheck/build/format:check/test on pull requests, per `ENFORCEMENT.md` CI
-- Add a second required CI check that validates every commit in a PR's range against the version-format regex, per `ENFORCEMENT.md` Commit-message CI check — this is what catches a bypassed or never-installed local `commit-msg` hook
+- Configure `pre-push` to validate every outgoing commit message and run the required local verification gate: lint, typecheck, build, format:check, and test, per `ENFORCEMENT.md`
+- Do **not** scaffold GitHub Actions. PHDK must work with Actions disabled. Any CI provider is a project-specific opt-in recorded in `ARCHITECTURE_DECISIONS.md`, never a baseline dependency
 - Configure Dependabot or Renovate per `DEVSECOPS.md` Keeping Existing Dependencies Patched
 - Tell the developer, explicitly, that these are one-time manual steps in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step — and do not report this step as done until the developer confirms all of it is configured:
-  - branch protection on `main`: require PR, require both CI status checks, disallow force-push — an approving review is **not** required (GitHub blocks self-approval, so a solo repo cannot satisfy it without a second account; a team project can opt in and record it in `ARCHITECTURE_DECISIONS.md`), per `ENFORCEMENT.md` GitHub branch protection
+  - branch protection on `main`: require PR and disallow force-push; do **not** require GitHub Actions status checks as part of the PHDK baseline — an approving review is **not** required (GitHub blocks self-approval, so a solo repo cannot satisfy it without a second account; a team project can opt in and record it in `ARCHITECTURE_DECISIONS.md`), per `ENFORCEMENT.md` GitHub branch protection
   - merge methods: disable "Squash and merge", allow only "Merge commit" or "Rebase and merge" — per `ENFORCEMENT.md` GitHub branch protection
 
 ### Tier 2 — context-persistence (`ENFORCEMENT.md`)
@@ -772,8 +772,8 @@ Before declaring foundation complete, check:
 - README documents Railway repo-root deployment
 - LSP/code intelligence set up and verified once per `TECHNICAL_STACK.md` LSP / Code Intelligence Setup — including whether the AI agent itself has direct LSP access or only text-search access, reported honestly
 - git hooks (`commit-msg`, `pre-commit`, `pre-push`) are installed and a test commit with a malformed message was actually rejected, not assumed to work
-- CI workflow exists and runs on a test PR
-- GitHub branch protection on `main` was confirmed configured by the developer, not just requested
+- `pre-push` local verification gate was tested on a branch push and blocks a deliberate validation failure
+- GitHub branch protection on `main` was confirmed configured by the developer (PR required, force-push disallowed; no Actions status checks required by PHDK)
 - the current tool's native always-loaded rule file exists per `ENFORCEMENT.md` Tier 2
 - Vitest is configured and `pnpm test` actually runs something, not a no-op placeholder
 - CORS allowlist, CSP, and standard security headers are configured on `apps/api` per `DEVSECOPS.md` HTTP Security Headers

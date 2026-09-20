@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.26.0**
+**Version: v2.27.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -82,22 +82,10 @@ Prefer to run the install command yourself instead of asking the AI to? See [Ins
 Tell the AI coder:
 
 ```txt
-Read the PHDK standards from https://github.com/tuyoisaza/PHDK in this order:
-1. ONBOARDING_AI_DEVELOPER.md
-2. AI_DEVELOPER_OPERATING_MODEL.md
-3. AGENTS.md
-4. DEVELOPMENT_RULES.md
-5. ENFORCEMENT.md
-6. DESIGN_RULES.md
-7. TECHNICAL_STACK.md
-8. DEVSECOPS.md
-9. VERSIONING.md
-10. VERIFICATION_LOOP.md
-11. TESTING_STANDARD.md
-12. DEBUG_DIAGNOSTICS_STANDARD.md
-13. TASK_TRACKING_STANDARD.md
-14. INTENT_CAPTURE_STANDARD.md
+Read AGENTS.md first.
 Then read TASK.md and STATUS.md from the project repo.
+Follow AGENTS.md's progressive router and load only the standards needed for the current task.
+Do not preload the full PHDK standards stack unless the task genuinely spans it.
 ```
 
 ### Install as an Agent Skill
@@ -186,7 +174,7 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 |------|---------|
 | `AGENTS.md` | Agent rules, completion checklist, things never to do |
 | `DEVELOPMENT_RULES.md` | Branching, commits, file rules, feature structure |
-| `ENFORCEMENT.md` | Git hooks, CI, branch protection, and tool-native rule files that mechanically enforce PHDK rules instead of relying on the AI remembering them |
+| `ENFORCEMENT.md` | Git hooks, local verification gates, branch protection, and tool-native rule files that mechanically enforce PHDK rules without requiring GitHub Actions |
 | `DESIGN_RULES.md` | UI, UX, accessibility, theming, responsive rules |
 | `TECHNICAL_STACK.md` | Canonical stack, auth standard, deployment |
 | `DEVSECOPS.md` | Security, auth, secrets, HTTP security headers, rate limiting, secrets rotation, privacy baseline, logging, dependency safety |
@@ -248,12 +236,12 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Deployment | The only supported path to a live deploy is commit (versioned) → push to GitHub → Railway's GitHub-connected pipeline — never `railway up` or a local build/tarball upload — see `TECHNICAL_STACK.md` First-time Railway Setup |
 | Data import | Importing data from multiple sources or on a recurring cadence uses a stateful intake pipeline (`pending → processed → approved \| deactivated`) with a batch reference on every imported row and soft-delete-by-batch-state — never a direct insert with no review step, and never a hard delete to undo a bad import — see `TECHNICAL_STACK.md` Data Import / Intake Pipeline |
 | Debug mode default | Debug mode defaults to ON in every non-production environment (no manual setup step) and must be explicitly confirmed OFF before production release; every function reports status through one shared debug-log helper, never ad hoc `console.log` — see `DEBUG_DIAGNOSTICS_STANDARD.md` |
-| Task tracking | `TASK.md`/`STATUS.md` are 100% local, plain-text markdown, archived to `docs/completed-slices/` on slice close — never GitHub Issues, GitHub Projects, or GitHub Actions as the system of record; any Actions workflow present must be CI-only, explicitly approved, and never gate slice completion — see `TASK_TRACKING_STANDARD.md` |
+| Task tracking | `TASK.md`/`STATUS.md` are 100% local, plain-text markdown, archived to `docs/completed-slices/` on slice close — never GitHub Issues, GitHub Projects, or GitHub Actions as the system of record. PHDK does not scaffold or require GitHub Actions; optional CI is project-specific and never required for PHDK to function — see `TASK_TRACKING_STANDARD.md` |
 | Intent capture | Non-trivial or externally-originated feature/bug work gets a durable `docs/intents/` file capturing the why, reviewed by its originator, before a `TASK.md` starts — never required for internally-obvious or trivial slices — see `INTENT_CAPTURE_STANDARD.md` |
 | Testing | Vitest for unit/integration/component tests, Playwright for e2e; RBAC checks, API boundary Zod schemas, service-layer business logic, and LLM output validation require tests, not just a passing `pnpm test` on unrelated coverage — see `TESTING_STANDARD.md` |
-| Formatting | Prettier is the canonical formatter for every project — a required `format`/`format:check` script pair, auto-fixed on staged files via `lint-staged` on `pre-commit`, and enforced as a required CI status check so an unformatted PR cannot merge — see `TECHNICAL_STACK.md` and `ENFORCEMENT.md` |
+| Formatting | Prettier is the canonical formatter for every project — a required `format`/`format:check` script pair, auto-fixed on staged files via `lint-staged` on `pre-commit`, with `format:check` included in the required local pre-push verification gate — see `TECHNICAL_STACK.md` and `ENFORCEMENT.md` |
 | Human diff review | Merging to `main` requires a human to have read the actual diff — AI-produced verification evidence is required but never a substitute for this, and a chat "looks good" that never opened the diff does not count. It is a checklist gate the merging human owns, not a GitHub required-approval setting (which a single-maintainer repo cannot satisfy without a second account); a team project can opt into required approval via `ARCHITECTURE_DECISIONS.md` — see `QA_CHECKLIST.md` Human Diff Review and `ENFORCEMENT.md` |
-| Mechanical enforcement | Every PHDK rule expressible as a check (commit format, file size, no direct push to `main`, secrets in a diff, dependencies staying patched) is enforced by a git hook, CI, or a GitHub repository setting — not left to the AI remembering the rule. Judgment-only rules get a tool-native always-loaded rule file instead — see `ENFORCEMENT.md` |
+| Mechanical enforcement | Every PHDK rule expressible as a check (commit format, file size, no direct push to `main`, secrets in a diff, local build/test verification) is enforced by a git hook, local verification gate, or GitHub repository setting — not left to the AI remembering the rule. GitHub Actions are not part of the baseline. Judgment-only rules get a tool-native always-loaded rule file instead — see `ENFORCEMENT.md` |
 | HTTP security headers & rate limiting | Every API service sets an explicit CORS allowlist, a default-deny CSP, and the standard security header set from foundation build, and runs global rate limiting with a stricter limit on auth endpoints — not deferred to a later hardening pass — see `DEVSECOPS.md` HTTP Security Headers and Rate Limiting |
 | Secrets rotation | A secret that is committed, logged, or otherwise exposed is rotated immediately at the provider — history is never rewritten as the primary response — see `DEVSECOPS.md` Secrets Rotation and Compromise Response |
 | Deploy rollback | A bad production deploy is rolled back via Railway's dashboard redeploy of the last known-good build, in parallel with a `git revert` on `main` — never "push a fix forward" as the only option, and never a rollback without first checking migration/code compatibility — see `TECHNICAL_STACK.md` Deploy Rollback Runbook |
