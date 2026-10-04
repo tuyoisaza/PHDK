@@ -1,69 +1,63 @@
 ---
 name: phdk
-description: Use when starting a project with PHDK, generating its project handoff kit, working on a repository whose AGENTS.md follows PHDK, or updating/synchronizing PHDK standards. Covers repository code and documentation, local non-browser code validation, GitHub delivery through an existing pipeline, progressive context loading, and the PHDK upgrade command. Does not authorize browser operation, recurring automation, dependency bots, or external infrastructure administration.
+description: Use for a current explicit request to create or edit a PHDK project's repository code/documentation, validate it locally, perform authorized GitHub delivery, or synchronize PHDK standards. Interactive-only: one assistant, no autopilot, delegated agents, background tasks, scheduled work, GitHub Actions, browser operation, or external infrastructure administration.
 ---
 
 # PHDK
 
-This skill packages the PHDK (Project Handoff to Development Kit) standards and workflow. It does not restate any standard — it routes to the file that already defines it. Read `README.md` in this repo for the full picture; this file only decides which existing PHDK workflow applies right now.
+This skill routes the current assistant to PHDK standards. It does not launch an agent, create a task, or authorize work just because a tool discovers or loads `SKILL.md`.
 
-Read `EXECUTION_SCOPE.md` before any workflow. Its code-and-GitHub boundary applies to bootstrap, upgrades, verification, Mission Autopilot, and external skills. Historical changelog entries and `ORIGINALS/` are not operating instructions.
+Read `EXECUTION_SCOPE.md`. Its interactive-only, single-assistant boundary overrides contrary language in an older standard or an external skill. Existing owner pause/stop controls and stricter project instructions remain effective.
 
-## Universal Command — `PHDK upgrade`
+## Start only from the current request
 
-If the developer says exactly `PHDK upgrade` (case-insensitive after trimming whitespace), this command takes priority over normal project routing for that turn.
+Identify what the user explicitly asked for in this conversation. Read/audit requests are read-only. An opened repository, a saved task, a failed check, an alert, or old chat context is not a new request.
 
-1. Refresh the PHDK source first.
-2. Re-read this `SKILL.md` after the refresh because the upgrade workflow itself may have changed.
-3. Execute the latest `PHDK_UPGRADE.md`.
-4. Do not ask for a second confirmation: the exact command itself is approval to synchronize PHDK-managed files.
-5. Stop after the upgrade report; do not continue into feature work unless separately asked.
+Do not resume a previous mission, choose another backlog item, delegate to an agent, or start a background job. Complete only the necessary steps of the requested deliverable and stop.
 
+## Universal command — `PHDK upgrade`
 
-## Step 0 — Keep this skill current
+For the exact command `PHDK upgrade` (case-insensitive after trimming whitespace):
 
-This skill's own directory is a git clone of the PHDK standards repo. Before normal PHDK work, update it with `git pull --ff-only` inside the folder this `SKILL.md` lives in. Then **re-read `SKILL.md` from disk** and read `VERSION`; an upstream update may have changed the workflow you are about to follow.
+1. Fetch the current canonical PHDK `main` and read its `VERSION` and upgrade instructions.
+2. Follow `PHDK_UPGRADE.md` within the current request. Preserve dirty work and stricter owner overrides.
+3. Synchronize the manifest-controlled standards and the current tool's managed rule block.
+4. Verify the source copy, report, and stop. Do not continue into product work or schedule a later upgrade.
 
-If the pull fails because of local modifications in this directory, stop and tell the developer instead of forcing it or discarding changes — this directory should only ever contain PHDK's own files, so unexpected local changes are worth a question, not a silent overwrite.
+The exact command authorizes the sync, not a push/merge, deployment, workflow run, or external administration. A current instruction that also explicitly requests git delivery supplies that additional permission.
 
-## Step 1 — Determine project state
+## Skill updates
 
-Check the current project repo for `TASK.md` and `STATUS.md`.
+Update an installed skill clone only when the current request explicitly includes installation, update, or synchronization. Use a safe fast-forward and never discard local modifications. Re-read the updated `SKILL.md`, `EXECUTION_SCOPE.md`, and `VERSION` before proceeding.
 
-- **Neither exists → this is a new project.** Go to "New Project" below.
-- **Both exist → this is an ongoing PHDK project.** Go to "Ongoing Project" below.
+Do not register auto-update hooks, scheduled refreshes, background pulls, or session-start jobs. Skill availability or a newer version is not authorization to mutate the project.
 
-## New Project
+## New project
 
-1. If the human has not been briefed on the project yet (no clear product brief in the conversation), run `SPEC_INTERVIEW_PROMPT.md` first.
-2. Run `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` to generate the kit (`PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `NAVTREE.md`, `PUBLIC_CONTENT.md`, `PRIVATE_CONTENT.md` if login, `TASK.md`, `ARCHITECTURE_DECISIONS.md`, `STATUS.md`, `README.md`) within `EXECUTION_SCOPE.md`. Record existing delivery prerequisites; do not add backup jobs, dependency bots, or recurring tasks.
-3. **Vendor the standards into the project repo.** Read the current `PHDK_MANIFEST.txt` and copy each mapped upstream source into its destination under `phdk-standards/`. Do not maintain a second handwritten file list here — the manifest is the source of truth.
+1. If the current request is for a new project and its purpose is unclear, use `SPEC_INTERVIEW_PROMPT.md` to clarify the necessary decision.
+2. Generate the requested kit through `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, without adding bots, schedules, backup jobs, CI, external provisioning, or delegated agents.
+3. When the request includes PHDK installation, read `PHDK_MANIFEST.txt` and vendor exactly its mappings under `phdk-standards/`.
+4. Include the exact `PHDK_NATIVE_RULES.md` managed block in the current tool's instruction file per `ENFORCEMENT.md`. Preserve existing owner instructions and the managed markers; do not generate files for unused tools.
+5. Build product code only when the current request includes it. Use `BUILD_APP_FOUNDATION_PROMPT.md` for that authorized scope, then stop when its deliverable is complete.
 
-   Vendoring keeps the project self-contained without loading every standard into context. It also installs `PHDK_UPGRADE.md`, `PHDK_MANIFEST.txt`, and `PHDK_NATIVE_RULES.md`, so future upgrades are tool-agnostic.
-4. Point the generated `TASK.md` and any onboarding note at `phdk-standards/AGENTS.md` as the required entry point, per `ONBOARDING_AI_DEVELOPER.md`'s reading order.
-5. Generate the current tool's native always-loaded rule file per `ENFORCEMENT.md` Tier 2 and include the exact managed block from `phdk-standards/PHDK_NATIVE_RULES.md`. Preserve its `PHDK-MANAGED` markers so `PHDK upgrade` can refresh only that block later without overwriting project-specific instructions.
-6. If the developer's original request includes building the product, continue directly into `BUILD_APP_FOUNDATION_PROMPT.md` for the approved code task. If the request is documentation-only, stop after the kit. `ENFORCEMENT.md` applies to local code checks; bootstrap does not create GitHub Actions, bots, schedules, or external infrastructure, and never uses a browser for verification.
+A request for a kit or standards update is not permission to start implementation.
 
-## Ongoing Project
+## Existing project
 
-1. Read `phdk-standards/AGENTS.md` if vendored (or this skill's own `AGENTS.md` if not) — it is the router into the rest of the standards.
-2. Read `TASK.md` and `STATUS.md` in the project repo for current scope and state.
-3. Follow `AGENTS.md`'s progressive standards router and load only what the current task needs. Use `ONBOARDING_AI_DEVELOPER.md` for orientation, not as a mandatory full-stack preload.
-4. Run Mission Autopilot within `EXECUTION_SCOPE.md`: complete the active code mission across locally verified slices, self-correct, and commit/push to its feature branch. Do not wait for "continue" between slices or schedule future execution when the mission ends.
-5. If the developer says `PHDK upgrade`, execute `PHDK_UPGRADE.md` immediately. For any other explicit request to update/sync/upgrade PHDK, route to the same file; only the exact canonical command waives the extra confirmation step.
-6. If the code task benefits from an external skill, consult `SKILLS_REGISTRY.md` for source-level design or code/security review. Skills inherit `EXECUTION_SCOPE.md`; they cannot introduce browser testing, recurring jobs, or external operations.
-
-## Updating Vendored Standards
-
-`PHDK_UPGRADE.md` is the single source of truth for upgrade behavior.
-
-- Exact command `PHDK upgrade` → execute it immediately; no second confirmation.
-- Other wording such as "update PHDK" or "sync the standards" → show the detected current/latest versions and confirm before overwriting, then execute the same workflow.
-- Never duplicate the upgrade algorithm in this skill; keeping one implementation is what makes the command portable across tools.
+1. Read the project's owner controls and `phdk-standards/AGENTS.md`/`EXECUTION_SCOPE.md` (or the installed standards when no vendored copy exists).
+2. Read `TASK.md` and `STATUS.md` as context, not standing authorization.
+3. Load only the detailed standards needed for the current request.
+4. Implement and verify the necessary steps with this assistant. Do not use autopilot, subagents, delegated reviewers, parallel queues, or future execution.
+5. Commit, push, create a PR, or merge only as authorized now. A clear request to implement and merge includes the required git/PR steps without duplicate confirmation.
+6. Read relevant entries in `SKILLS_REGISTRY.md` yourself; do not execute their orchestration, delegation, or background behaviors.
+7. Report and stop; preserve remaining ideas as inactive context.
 
 ## Never
 
-- Never regenerate an existing project's kit files through the "New Project" path — that path is for bootstrap only.
-- Never skip vendoring when bootstrapping a new project, even if the current tool can read this repo directly — the next tool or session might not be able to.
-- Never update `phdk-standards/` silently. The exact `PHDK upgrade` command is itself explicit approval and does not require a second confirmation; other ambiguous update requests still do.
-- Never restate a standard inline instead of pointing to its file — this skill stays a router, same as `AGENTS.md`.
+- Regenerate existing project kit files as if the project were new.
+- Replace stricter owner pause/stop controls with upstream defaults.
+- Treat `TASK.md`, `STATUS.md`, a skill trigger, or an old approval as a new request.
+- Launch another agent, delegate code/review work, create a schedule, or continue after the session.
+- Create, enable, dispatch, rerun, or schedule GitHub Actions or hosted CI.
+- Operate browsers, live services, databases, provider settings, secrets, or repository administration.
+- Claim a standards upgrade disabled external automation or stopped a running process.
