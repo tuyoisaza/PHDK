@@ -36,6 +36,8 @@ You are now in **BUILD APP FOUNDATION MODE**.
 
 Your only job is to build the initial scalable app foundation for this project using the PHDK files and standards.
 
+The execution boundary is code and repository documentation, git/GitHub, and requested deployment through an existing GitHub-connected pipeline. Read `EXECUTION_SCOPE.md` before planning. This prompt does not authorize browser use, infrastructure operations, or recurring automation.
+
 Do not continue any previous task.
 Do not build project-specific product features unless explicitly required by `TASK.md`.
 Do not create fake dashboards, fake data, fake analytics, fake users, fake payments, fake integrations, or fake business logic.
@@ -49,6 +51,21 @@ Understood. I am now in BUILD APP FOUNDATION MODE.
 Previous tasks are paused.
 I will read the PHDK files and standards before making changes.
 ```
+
+---
+
+## Execution Boundary
+
+- Work on code and documentation inside the project repository. Use git/GitHub for branches, commits, pull requests, and the approved release flow.
+- Deployment may use only a pipeline already connected to GitHub and the deployment branch recorded in `TASK.md`. Do not create a deployment pipeline, change its triggers, or configure provider dashboards, secrets, environments, databases, or repository settings.
+- Do not create or enable Dependabot, Renovate, scheduled GitHub Actions, cron jobs, recurring agents, backup jobs, periodic probes, or preview environments.
+- Do not open, control, or test a browser, including headless browsers, screenshots, UI flows, or browser testing through a skill, plugin, MCP server, or subagent.
+- Validate with code/diff review, lint, typecheck, formatting, build, and risk-triggered local non-browser tests. Tests must remain isolated from running applications and real external services; use in-process execution with test doubles where needed. Inspect scripts before running them so indirect browser or infrastructure actions cannot bypass this boundary.
+- Health endpoints, diagnostics panels, auth flows, and integration adapters are product code. Implementing them does not authorize operating the app, invoking live probes, configuring credentials, or connecting external services.
+- Put this boundary and the existing deployment target, if any, in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. Replace obsolete handoff instructions that require browser checks, external administration, or recurring automation; do not carry them into the foundation plan.
+- Missing infrastructure is outside PHDK's execution scope. Continue independent code work and report the precise dependency without making external setup a foundation completion gate. Do not claim runtime or deployment verification that was not performed.
+
+`EXECUTION_SCOPE.md` is the canonical rule when another prompt or external skill suggests broader action.
 
 ---
 
@@ -72,6 +89,7 @@ Before writing or changing code, read these files:
 ### Standards files
 
 - `AGENTS.md`
+- `EXECUTION_SCOPE.md`
 - `DEVELOPMENT_RULES.md`
 - `DESIGN_RULES.md`
 - `TECHNICAL_STACK.md`
@@ -156,19 +174,16 @@ Use the PHDK standard stack:
 - shadcn/ui-compatible structure
 - Zod validation
 - Drizzle/PostgreSQL-ready when persistence is needed
-- Redis-ready when jobs/cache are needed
+- Redis-ready when cache is needed
 - Stripe-ready only when payments are needed
 - Custom Google OAuth 2.0-ready when login is needed
 - OpenTelemetry-ready and Sentry-ready, but not implemented until the relevant task
-- Railway deployment from GitHub push to `main`
-- Two Railway services:
-  - `@repo/web`
-  - `@repo/api`
+- Deployment through an existing GitHub-connected pipeline, when one is already available and deployment is part of the task
 
-Railway rule:
+If that existing deployment uses Railway:
 
-- both Railway services use the repository root
-- never set Railway root directory to `apps/web` or `apps/api`
+- document the build/start commands for `@repo/web` and `@repo/api` using the repository root
+- do not create services or change their root directories, environment variables, or provider settings
 
 ---
 
@@ -241,7 +256,7 @@ Root scripts must include:
 }
 ```
 
-Do not add a root `test` script or install test runners until a risk-triggered automated test is actually required by `TESTING_STANDARD.md`. When that happens, add the smallest needed tooling and script.
+Do not add a root `test` script or install test runners until a risk-triggered local non-browser test is actually required by `TESTING_STANDARD.md`. When that happens, add the smallest needed tooling and script. Never install or run browser test tooling for foundation verification.
 
 Use workspace protocol imports for internal packages where appropriate:
 
@@ -280,11 +295,7 @@ Required behavior:
 - read `process.env.PORT`
 - default to `4000` locally
 - expose public `GET /health`
-- return exactly:
-
-```json
-{ "status": "ok", "service": "api" }
-```
+- implement the public health response contract in `VERIFICATION_LOOP.md` Product Health Check Standard, including the version metadata required by `VERSIONING.md`; verify the handler in source or permitted in-process tests
 
 Required API structure:
 
@@ -310,7 +321,7 @@ Rules:
 - return structured errors with stable error codes
 - log important actions through `@repo/observability`
 - do not expose raw error internals to clients
-- do not add database/auth/payment/job integrations unless required by the project mode and PHDK task
+- do not add database/auth/payment integrations unless their code is required by the project mode and PHDK task; do not provision or call the real services
 
 ### If login = yes
 
@@ -486,6 +497,8 @@ If persistence is not required yet, keep this documentation-only or minimal.
 
 If persistence is required by the PHDK, implement according to `TECHNICAL_STACK.md` and `DEVELOPMENT_RULES.md`.
 
+Keep schema, migrations, and adapters in the repository. Do not provision databases, apply migrations to real databases, or configure backups.
+
 Do not add database code just to satisfy a checklist.
 
 ### `packages/config`
@@ -509,6 +522,8 @@ If the project has interactive features, user flows, login, dashboards, forms, w
 If the project is a public marketing site, landing page, or simple content site, include debug mode as a recommended technical note or environment-gated developer utility, not as visible product UI.
 
 ### Required behavior when implemented
+
+These are requirements for the generated product code. Validate their implementation statically or with isolated non-browser tests; do not open the diagnostics UI, start application services for verification, or invoke live endpoints/probes.
 
 - debug mode is off by default in production
 - debug mode can be enabled only through safe developer/admin control
@@ -572,9 +587,11 @@ Never include request or response bodies unless explicitly sanitized.
 
 ---
 
-## Step 10 — Environment Setup
+## Step 10 — Environment Variable Documentation
 
 Create `.env.example` at repository root.
+
+Use placeholders only. Do not create or rotate credentials, change provider/GitHub secrets, or connect infrastructure.
 
 Minimum:
 
@@ -605,7 +622,7 @@ Examples:
 # Future database
 DATABASE_URL=""
 
-# Future cache / jobs
+# Future cache
 REDIS_URL=""
 
 # Future auth — Google OAuth 2.0
@@ -691,15 +708,15 @@ Update or create project README documentation explaining:
 - how to install
 - how to run locally
 - how to run web and API together
-- how to run typecheck, lint, build, and tests
+- how to run typecheck, lint, format checks, build, and any required isolated non-browser tests
 - app mode: public/authenticated/hybrid
-- Railway two-service deployment model
-- Railway build/start commands
+- the existing GitHub deployment branch/pipeline, or `not connected` if none is known
+- build/start commands for the configured target
 - required environment variables
 - how to use the PHDK files
 - how to continue with `TASK.md`
 
-Railway commands must be documented as:
+For an existing Railway deployment, document these commands:
 
 API service:
 
@@ -715,57 +732,55 @@ pnpm --filter @repo/web build
 pnpm --filter @repo/web start
 ```
 
-Both services must use the repository root.
+The commands assume the repository root. They are documentation for the existing target, not instructions for the agent to create or reconfigure services.
 
-Do not require GitHub Actions for Railway deployment.
+Do not create GitHub Actions or require external setup to complete the code foundation. Document runtime behavior as unverified where it cannot be established with allowed checks.
 
 ---
 
 ## Step 14 — Enforcement & Diagnostics Scaffolding
 
-This is where `ENFORCEMENT.md`, `VERIFICATION_LOOP.md`, and `DEBUG_DIAGNOSTICS_STANDARD.md` become working project infrastructure. Do this before Quality Gates below.
+Implement repository code and configuration from `ENFORCEMENT.md`, `VERIFICATION_LOOP.md`, and `DEBUG_DIAGNOSTICS_STANDARD.md` within `EXECUTION_SCOPE.md`. Do this before Quality Gates below.
 
 ### Tier 1 — mechanical enforcement (`ENFORCEMENT.md`)
 
 - Configure Husky (or the project's chosen git-hooks tool) with `commit-msg`, `pre-commit`, and `pre-push` hooks per `ENFORCEMENT.md` Git Hooks
 - Configure Prettier (`.prettierrc`, `.prettierignore`) as the canonical formatter per `TECHNICAL_STACK.md`, wired into `pre-commit` via `lint-staged` so staged files are auto-formatted, not just checked
 - Add a pre-commit secrets scan per `ENFORCEMENT.md` Secrets Scanning
-- Configure `pre-push` to validate every outgoing commit message and run the required local static/build gate: lint, typecheck, build, and format:check, per `ENFORCEMENT.md`. Automated tests are task-level and risk-triggered, not a universal hook requirement
-- Do **not** scaffold GitHub Actions. PHDK must work with Actions disabled. Any CI provider is a project-specific opt-in recorded in `ARCHITECTURE_DECISIONS.md`, never a baseline dependency
-- Configure Dependabot or Renovate per `DEVSECOPS.md` Keeping Existing Dependencies Patched
-- Tell the developer, explicitly, that these are one-time manual steps in the GitHub repository settings that cannot be scaffolded by a commit — the same way `TECHNICAL_STACK.md` First-time Railway Setup is a manual dashboard step — and do not report this step as done until the developer confirms all of it is configured:
-  - branch protection on `main`: require PR and disallow force-push; do **not** require GitHub Actions status checks as part of the PHDK baseline — an approving review is **not** required (GitHub blocks self-approval, so a solo repo cannot satisfy it without a second account; a team project can opt in and record it in `ARCHITECTURE_DECISIONS.md`), per `ENFORCEMENT.md` GitHub branch protection
-  - merge methods: disable "Squash and merge", allow only "Merge commit" or "Rebase and merge" — per `ENFORCEMENT.md` GitHub branch protection
+- Configure `pre-push` to validate every outgoing commit message and run the required local static/build gate: lint, typecheck, build, and format:check, per `ENFORCEMENT.md`. Isolated non-browser tests are task-level and risk-triggered, not a universal hook requirement
+- Do **not** scaffold GitHub Actions, new CI/deployment workflows, Dependabot, Renovate, schedules, or automatic dependency updates. Use the existing GitHub deployment pipeline only when release is in scope
+- Do not change GitHub branch protection, merge methods, secrets, or repository/provider settings. Existing settings remain constraints on the release; configuring them is not a bootstrap task or completion gate
 
 ### Tier 2 — context-persistence (`ENFORCEMENT.md`)
 
 - Generate the current tool's native always-loaded rule file (`CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, or project-root `AGENTS.md`) per `ENFORCEMENT.md` Tool-native always-loaded rule files — only for the tool actually in use, not all four speculatively
 
-### Diagnostics-first verification
+### Diagnostics product code
 
 - Implement protected `GET /health/deep` for app-style projects
 - Implement the endpoint diagnostic registry defined in `VERIFICATION_LOOP.md`
 - Implement authorized `POST /health/deep/probes/:id` execution for safe/validation/dry-run probes
 - Add the Diagnostics section to `/admin/system` or `/admin/debug` with Run safe probes, per-endpoint Test, examples, status/latency/correlation ID, and Copy diagnostics
-- Do **not** scaffold Vitest, Playwright, Testing Library, or synthetic test harnesses by default
-- Add automated test tooling only when `TESTING_STANDARD.md` identifies a concrete risk trigger
+- Implement these capabilities as code for authorized product users; do not invoke them as agent verification or schedule their execution
+- Do **not** scaffold a test harness by default; browser testing tools are prohibited
+- Add only isolated non-browser test tooling when `TESTING_STANDARD.md` identifies a concrete risk trigger
 
 ---
 
 ## Step 15 — Quality Gates
 
-Before declaring foundation complete, check:
+Before declaring foundation complete, inspect the scripts for allowed behavior and check the following using repository inspection, local static/build commands, or isolated non-browser tests. Do not start the app, access live endpoints, open browsers, or change external settings to satisfy a gate:
 
 - `pnpm install` runs cleanly from repository root
 - `pnpm typecheck` passes or failures are reported honestly
 - `pnpm lint` passes or failures are reported honestly
 - `pnpm format:check` passes or failures are reported honestly
 - `pnpm build` passes or failures are reported honestly
-- `pnpm dev` runs web and API together through Turborepo
-- API binds to `0.0.0.0`
-- API uses `process.env.PORT`, defaulting to `4000` locally
-- `GET /health` returns exactly `{ "status": "ok", "service": "api" }`
-- web can call health endpoint through `@repo/api-client`
+- `pnpm dev` is wired to web and API through Turborepo in repository scripts; runtime startup is outside agent verification
+- API startup code binds to `0.0.0.0`
+- API startup code uses `process.env.PORT`, defaulting to `4000` locally
+- the `GET /health` handler implements the canonical response and version metadata from `VERIFICATION_LOOP.md` and `VERSIONING.md`
+- web health-call code uses `@repo/api-client`
 - web build does not require the API to be running
 - shared types and validators are actually imported and used
 - package names use the `@repo/*` names
@@ -777,19 +792,19 @@ Before declaring foundation complete, check:
 - no fake data is presented as real
 - no file exceeds the line limit defined in `DEVELOPMENT_RULES.md`
 - no secrets are committed
-- README documents Railway repo-root deployment
-- LSP/code intelligence set up and verified once per `TECHNICAL_STACK.md` LSP / Code Intelligence Setup — including whether the AI agent itself has direct LSP access or only text-search access, reported honestly
-- git hooks (`commit-msg`, `pre-commit`, `pre-push`) are installed and a test commit with a malformed message was actually rejected, not assumed to work
-- `pre-push` local verification gate was tested on a branch push and blocks a deliberate validation failure
-- GitHub branch protection on `main` was confirmed configured by the developer (PR required, force-push disallowed; no Actions status checks required by PHDK)
+- README documents the existing GitHub deployment target or records that none is connected; no new deployment setup was performed
+- available LSP/code intelligence or text-search access is reported honestly; installing external tool integrations is not a foundation gate
+- repository git-hook definitions (`commit-msg`, `pre-commit`, `pre-push`) enforce the allowed local commands; do not create deliberate bad commits or remote pushes to prove them
+- no external administration or confirmation of repository/provider settings was made a foundation gate
 - the current tool's native always-loaded rule file exists per `ENFORCEMENT.md` Tier 2
-- `GET /health/deep` and the endpoint diagnostic registry work for app-style projects
-- admin diagnostics can run at least one safe probe and copy a sanitized diagnostic result
+- protected `GET /health/deep` and endpoint registry code exist for app-style projects and have been reviewed or tested in-process
+- admin diagnostics code enforces safe-probe permissions and sanitized outputs; browser/runtime behavior is not claimed verified
 - no test runner was scaffolded without a concrete risk trigger
+- no browser checks, live-service probes, recurring jobs/bots/agents, or new CI/deployment workflows were added or executed
 - CORS allowlist, CSP, and standard security headers are configured on `apps/api` per `DEVSECOPS.md` HTTP Security Headers
-- rate limiting is active globally and specifically on auth endpoints per `DEVSECOPS.md` Rate Limiting
+- rate-limiting code is configured globally and specifically on auth endpoints per `DEVSECOPS.md` Rate Limiting
 
-If a quality gate cannot be run, explain why.
+If an allowed quality gate cannot be run, explain why. Report browser/runtime verification as outside scope; it is not a pending gate for the agent.
 
 Do not claim success if validation failed or was not run.
 
@@ -823,6 +838,12 @@ Debug foundation:
 Quality gates:
 [pass/fail/not run for each item]
 
+Deployment:
+[existing GitHub pipeline result / not requested / not connected]
+
+Verification limits:
+[what code checks establish; browser and live-runtime behavior not verified]
+
 Warnings or gaps:
 [list or "none"]
 
@@ -844,7 +865,6 @@ Continue feature development using TASK.md from the PHDK kit.
 - Do not build mobile app features now.
 - Keep `apps/mobile` as a future placeholder only.
 - Use pnpm only.
-- Use Railway repo-root deployment model.
-- Do not set Railway root to `apps/web` or `apps/api`.
+- Follow `EXECUTION_SCOPE.md`: repository code and git/GitHub work, with deployment only through an existing connected pipeline.
+- Do not operate browsers, configure infrastructure/settings, or create recurring automation.
 - Do not claim success without validation.
-

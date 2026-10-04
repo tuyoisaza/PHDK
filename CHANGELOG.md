@@ -1,5 +1,27 @@
 # CHANGELOG.md
 
+## v2.31.0 — 2026-10-03
+
+### Restrict PHDK to repository code and GitHub delivery
+
+- Added `EXECUTION_SCOPE.md` as the shared boundary for bootstrap, active missions, upgrades, verification, Finetuning Mode, and delegated tools/agents.
+- Limited PHDK execution to repository code/documentation, local code validation, git/GitHub, and approved delivery through an existing GitHub-connected pipeline.
+- Removed dependency-bot requirements, weekly backup proposals and jobs, scheduled/recurring maintenance, external provisioning, provider-dashboard operations, and preview-environment setup from active standards and prompts.
+- Prohibited all agent browser operation and verification, including headless runners, screenshots, browser MCP/devtools, and browser work delegated through another skill or agent.
+- Replaced live health/probe/browser completion gates with source/diff review, appropriate local static/build checks, and risk-triggered non-browser unit/in-process tests using external-service doubles.
+- Preserved application health, diagnostics, security, and UI requirements as code contracts; visual and live-runtime outcomes must be reported as unverified when evidence is absent.
+- Kept Mission Autopilot within the active code task; it does not schedule future agents or maintenance. Existing GitHub review and release boundaries remain in force.
+- Updated the skill router, managed IDE rule block, bootstrap prompts, verification standards, and vendoring manifest so the scope travels with every PHDK install/upgrade.
+- Marked `ORIGINALS/` and earlier changelog entries as historical material, not executable instructions.
+
+### Migration note
+
+Updating PHDK changes its instructions. It does not uninstall, disable, or execute automation already present in projects that adopted older releases. Removing that project's repository configuration requires a separate explicit code task; external administration remains outside PHDK.
+
+---
+
+> Historical entries below describe previous releases. Their former browser, CI, backup, infrastructure, and automation requirements are superseded by `EXECUTION_SCOPE.md` and the current standards.
+
 ## v2.30.0 — 2026-09-20
 
 ### Mission Autopilot — continuous autonomous execution by default
@@ -751,3 +773,4 @@ This version upgrades PHDK from a standards repo for AI coding to an AI develope
 - `BOOTSTRAP_MONOREPO_PROMPT.md`
 - `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`
 - `README.md`
+

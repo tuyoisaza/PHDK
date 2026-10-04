@@ -2,123 +2,96 @@
 
 ## Purpose
 
-This file defines the quality gates every agent and developer must pass before marking any task complete, merging to `main`, or releasing to production.
+This file defines code quality gates for task completion, merging, and GitHub delivery. `EXECUTION_SCOPE.md` is authoritative: PHDK agents work on repository code and existing GitHub delivery only.
 
-Run the appropriate QA scope before completion. Do not skip sections because they seem irrelevant. Mark items as `N/A` only when they genuinely do not apply and include a reason.
+Choose the smallest relevant QA scope. Review applicable requirements in the changed area, record source references and actual command results, and mark unrelated items `N/A` with a reason. Documentation-only work requires source/diff consistency and applicable formatting checks, not application builds or test scaffolding.
 
-A task is not complete until the final QA report is written.
+## Evidence Boundary
 
----
+The product requirements below are checked through source/diff review, static checks, local builds, and risk-triggered local unit/in-process integration tests with deterministic doubles. A checked UI, auth, database, or diagnostics item confirms its implementation evidence only; it does not claim the real user flow or deployed system was exercised.
+
+Do not launch a browser, preview server, or service; collect screenshots; use headed/headless E2E, Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, or a browser-mode runner; call application HTTP endpoints, including localhost; connect to databases; use customer accounts; or call OAuth/metered providers. Tools, plugins, and delegated agents must follow the same boundary.
+
+Record `visual/runtime unverified` for UI appearance and deployed behavior. A human may independently inspect the product; that inspection is not a PHDK gate and must not be assigned to the user merely to close a checklist. An existing GitHub pipeline status is delivery evidence only.
 
 # QA Scope Levels
 
-Use the smallest valid QA scope.
-
 ## Task QA
 
-Required for every task:
-
-- affected build/lint/typecheck
-- affected tests
-- scope-specific manual checks
-- security/RBAC checks if touched
-- i18n checks if UI touched
-- database/migration checks if schema or queries changed
-- final QA report
+- Source/diff review against the approved slice and acceptance criteria.
+- Affected static/build checks where applicable.
+- Small local tests only when `TESTING_STANDARD.md` identifies a risk trigger.
+- Source review of security/RBAC, i18n, routes, and migration files when touched.
+- `STATUS.md` update and a final report of code evidence, failures, and limits.
 
 ## Merge QA
 
-Required before merging to `main`:
-
-- full checklist sections relevant to changed areas
-- full build
-- full typecheck
-- affected tests
-- route checks if routes changed
-- admin checks if admin changed
-- auth/RBAC checks if permissions changed
-- migration checks if database changed
-- **a human has read the actual diff — see Human Diff Review below. AI-produced verification evidence (build/lint/health/browser) is required but is not a substitute for this.**
+- Applicable checklist sections and repository static/build gate.
+- Risk-triggered local tests, with no browser or external runtime access.
+- Actual diff review under the project's existing merge policy.
+- Unresolved code blockers are reported; excluded runtime checks are not invented as merge prerequisites.
 
 ## Human Diff Review
 
-The AI developer's own verification evidence (`VERIFICATION_LOOP.md`) proves the code runs. It does not prove a human looked at what the code actually does. These are two separate, non-substitutable gates — passing one never waives the other.
+Code verification and human review of the actual diff are distinct. PHDK requires human diff review before merging to `main`, even when GitHub does not enforce approvals. Existing repository rules may add restrictions; the explicitly activated Finetuning exception for direct pushes is defined in `DEVELOPMENT_RULES.md`. Browser or live-service use is not part of diff review.
 
-Before any merge to `main`:
+Before merging a completed mission to `main`:
 
-- [ ] A human has opened the actual diff (`git diff`, the PR view, or equivalent) — not just read the AI's summary of it
-- [ ] The human confirms the diff matches what was asked for in `TASK.md` — no unrequested scope, no unrelated files
-- [ ] Any file the AI flagged as a judgment call, workaround, or "reasonable assumption" was specifically checked, not skimmed past
-- [ ] Security-sensitive diffs (auth, RBAC, sessions, secrets handling, SQL, LLM prompt construction) were read line by line, not skimmed
-- [ ] The human's approval is a distinct, recorded action ("approved", a merge click, a review comment) — conversational acknowledgment of the AI's report ("looks good", "ok") in a chat that never opened the diff does not satisfy this
+- [ ] A human opened the actual diff (`git diff`, the GitHub PR diff, or equivalent), not only the AI summary.
+- [ ] The human confirmed it matches the approved task and contains no unrelated scope.
+- [ ] Judgment calls, workarounds, and security-sensitive changes were specifically reviewed.
+- [ ] Approval is a recorded action under the project's merge policy.
 
-This applies regardless of how confident or lengthy the AI's verification report is. A comprehensive `SLICE COMPLETE` report with every checkbox green is evidence the AI followed its own process — it is not evidence a human reviewed the result. Do not let report completeness substitute for someone actually reading the code.
+Do not infer human review from a green verification report or a conversational acknowledgment that did not examine the diff. Continue authorized independent code work while any required merge review remains pending.
 
 ## Release QA
 
-Required before production release:
-
-- full checklist
-- smoke test plan
-- rollback plan — the Railway dashboard redeploy-last-good-build step from `TECHNICAL_STACK.md` Deploy Rollback Runbook, not a plan invented at incident time
-- migration rollback notes if schema changed, including migration/code compatibility check per `TECHNICAL_STACK.md` Deploy Rollback Runbook
-- deployment validation
-- cache/debug validation where relevant
-- final release QA report
-
----
+- Applicable code checks, release metadata, and changelog.
+- Code/migration compatibility and documented rollback approach when relevant.
+- Delivery through the project's existing GitHub-connected pipeline only.
+- Exact GitHub commit/status evidence when available, with live behavior explicitly unverified.
+- Missing external prerequisites are reported without provisioning them.
 
 # QA Execution Rules
 
-## Required Behavior
-
-- Run QA from the repository root unless a task explicitly says otherwise.
-- Validate only the task scope, but do not ignore global breakage caused by the task.
-- Do not mark an item complete without evidence.
-- Do not silently skip failed checks.
-- If a check cannot run, document why.
-- If a check is not applicable, mark it `N/A` with a reason.
-- If a command fails, paste the exact command and the failure summary into the final report.
-- Never claim build, lint, typecheck, or tests pass unless they were actually run.
-- Skipped checks must be listed under `Failures / gaps`, not hidden under the summary.
+- Run permitted commands from the repository root unless the task specifies a narrower package.
+- Inspect install/build/test/hook scripts before running them; reject browser, service, database, infrastructure, or deployment side effects.
+- Use an existing offline/test configuration when available; never weaken production behavior to make a check pass.
+- Validate the task scope and any global breakage it causes.
+- Report actual source evidence, exact commands, failures, skipped checks, and their reasons.
+- Never claim a command passed unless it ran. Do not hide gaps or substitute source review for runtime proof.
+- Do not add tests, recurring agents, CI workflows, dependency bots, monitoring, or backup jobs to satisfy a checklist.
+- Do not alter cloud resources, provider credentials, or repository settings as QA.
 
 ## Required Evidence Format
-
-Every final QA report must include:
 
 ```txt
 QA Summary:
 - Status: Pass / Pass with notes / Fail
 - Scope checked:
-- Branch:
-- Version:
-- Environment:
+- Branch and version:
+
+Source/diff review:
+- requirement — source reference — reviewed
 
 Commands run:
 - command — result
 
-Manual checks:
-- item — result
+Local tests:
+- risk trigger + command/result, or not required + reason
+
+Visual/runtime:
+- visual/runtime unverified — outside PHDK execution scope
+
+GitHub delivery, if requested:
+- existing pipeline / commit / status / reference, or delivery limitation
 
 Failures / gaps:
-- severity — description — next action
+- severity — description — next code step or external dependency
 
 N/A items:
-- item — reason — approved by/source
+- item — reason
 ```
-
-## UI Evidence Requirement
-
-For UI changes, the final QA report must include screenshots or a clear visual verification note for:
-
-- desktop
-- mobile
-- loading state where changed
-- empty state where changed
-- error state where changed
-- permission-denied state where changed
-
----
 
 # QA Result Rules
 
@@ -133,16 +106,6 @@ Minor   — may defer with STATUS.md note
 N/A     — not applicable with reason
 ```
 
-## N/A Format
-
-Use this format when marking an item as not applicable:
-
-```txt
-Item:
-Reason:
-Approved by / source:
-```
-
 ## Merge Rules
 
 - Blockers cannot be merged.
@@ -150,64 +113,31 @@ Approved by / source:
 - Minor issues may be deferred only if logged in `STATUS.md` with owner and next step.
 - N/A items require a real reason, not “not needed”.
 
----
-
 # Required Validation Commands
 
-Use the project’s actual package scripts. If names differ, use equivalent commands and document them.
-
-## Root-Level Commands
+Use existing project scripts and inspect their execution path first. Run the applicable gate once before push; use narrow checks while iterating.
 
 ```bash
-pnpm install --frozen-lockfile
+git diff --check
 pnpm lint
 pnpm typecheck
-pnpm build
 pnpm format:check
-# run the smallest relevant test command only when TESTING_STANDARD.md risk triggers apply
+pnpm build
+# Run the smallest permitted local test only when TESTING_STANDARD.md risk triggers apply.
 ```
 
-## App-Level Commands
+Use package-filtered equivalents for affected packages. Install with `pnpm install --frozen-lockfile` only when dependency/lockfile verification is needed and install hooks stay in scope. Do not repeatedly install dependencies or scaffold missing commands just to satisfy this document.
 
-```bash
-pnpm --filter @repo/web lint
-pnpm --filter @repo/web typecheck
-pnpm --filter @repo/web build
-
-pnpm --filter @repo/api lint
-pnpm --filter @repo/api typecheck
-pnpm --filter @repo/api build
-
-# package-level tests are conditional, not baseline gates
-```
-
-## Database Commands
-
-Use the project’s Drizzle scripts. Expected coverage:
-
-```bash
-pnpm --filter @repo/db db:generate
-pnpm --filter @repo/db db:migrate
-pnpm --filter @repo/db db:check
-pnpm --filter @repo/db db:push:check
-```
-
-If a command does not exist yet, log it as a gap.
-
-Do not require `db:studio` as a QA command. It opens a UI and is not an automated validation gate.
-
----
+For schema changes, review generated migration SQL, schemas, and compatibility notes. Run generation or static schema checks only if the existing command is offline and has no database connection or mutation. Never run `db:migrate`, `db:push`, `db:studio`, restore commands, or live database checks as QA. Record database execution as unverified.
 
 # Build Quality
 
-Checklist:
-
-- [ ] **Install:** `pnpm install --frozen-lockfile` runs cleanly from repository root.
+- [ ] **Install:** dependency/lockfile verification ran when needed; lifecycle scripts stayed within the execution scope.
 - [ ] **Lint:** lint passes with no errors.
 - [ ] **Typecheck:** TypeScript typecheck passes with no errors.
 - [ ] **Web build:** build passes for `apps/web`.
 - [ ] **API build:** build passes for `apps/api`.
-- [ ] **Risk-based tests:** if `TESTING_STANDARD.md` identifies a mandatory test trigger, the smallest relevant tests pass; otherwise direct diagnostics evidence is sufficient.
+- [ ] **Risk-based tests:** when a mandatory trigger applies, the smallest permitted local tests pass or failures/gaps are reported; otherwise source review and applicable static/build checks are sufficient.
 - [ ] **Format:** format check passes.
 - [ ] **Imports:** no unused imports introduced.
 - [ ] **Dead code:** no dead code introduced.
@@ -217,35 +147,21 @@ Checklist:
 - [ ] **Frameworks:** no framework/library replacement happened without explicit approval.
 - [ ] **Generated files:** no generated files were committed unless explicitly expected.
 
----
-
 # LSP / Code Intelligence QA
 
-Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Quality Gates), smoke-checked at session start after that — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup.
+Review existing local code-intelligence setup when relevant — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup. Use local IDE/LSP capabilities only; no browser or external-service session is required.
 
-- [ ] Diagnostics/errors surface correctly on a real project symbol.
-- [ ] Go to definition works, including across `apps/*`/`packages/*` boundaries.
-- [ ] Find references works.
-- [ ] Symbol rename works.
-- [ ] Hover/type information works.
-- [ ] Workspace symbol search works.
+- [ ] Available local diagnostics, navigation, references, rename, hover/types, and symbol search are checked only when relevant to the task.
 - [ ] Drizzle-generated types (from `packages/db`) resolve correctly, not as `any`.
 - [ ] No second, conflicting `tsconfig.json` was created to make a tool work.
 - [ ] Whether the AI coding agent has direct LSP access or only text/grep-based search is confirmed and reported, not assumed.
 
----
-
 # Product Baseline
 
-Checklist:
-
-- [ ] **Project identity:** project name appears in the top-left app shell.
-- [ ] **Logo:** logo or icon appears in the top-left app shell.
-- [ ] **App version:** version appears in the app shell.
-- [ ] **Login version:** version appears on the login page.
-- [ ] **Admin version:** version appears in the admin panel.
+- [ ] **Project identity:** source places the project name and logo/icon in the top-left app shell.
+- [ ] **Version placement:** source mounts the version in the app shell, login page, and admin panel.
 - [ ] **Version format:** version format is correct: `vMAJOR.MINOR.PATCH (shortSHA · UTC timestamp)`.
-- [ ] **Debug copy:** copy-debug-report button exists and works.
+- [ ] **Debug copy:** button, clipboard handler, and safe report formatter are wired in source.
 - [ ] **Debug metadata:** debug report includes all required metadata.
 - [ ] **Redaction:** debug report redacts all sensitive values.
 - [ ] **Real data:** no fake production data is shown anywhere.
@@ -255,11 +171,7 @@ Checklist:
 - [ ] **Success states:** success states exist where actions complete successfully.
 - [ ] **Permission states:** permission-denied states exist where relevant.
 
----
-
 # Routes
-
-Checklist:
 
 - [ ] **Dedicated routes:** every feature has a real URL route.
 - [ ] **No hash routing:** no primary feature relies on hash-fragment navigation.
@@ -271,33 +183,29 @@ Checklist:
 - [ ] **Admin separation:** admin routes are separated from customer/member routes.
 - [ ] **Route map:** route map is updated if routes changed.
 
----
+# Authentication and Google OAuth 2.0
 
-# Authentication
-
-Checklist:
-
-- [ ] **Login:** login page works.
-- [ ] **Google SSO:** Google SSO works.
-- [ ] **Logout:** logout works and clears session.
-- [ ] **Session expiry:** session expiry is configured.
-- [ ] **Protected routes:** unauthenticated users cannot access protected routes.
-- [ ] **Approved provider:** auth provider is custom Google OAuth 2.0, or an explicitly approved alternative in `ARCHITECTURE_DECISIONS.md`.
-- [ ] **Single provider:** exactly one primary auth provider is scaffolded unless migration/comparison is explicitly in scope.
-- [ ] **Redirect URI:** auth redirect URI is correctly configured.
-- [ ] **Invalid auth state:** invalid auth state is handled without blank screen.
-- [ ] **Session refresh:** session refresh behavior works as designed.
-
----
+- [ ] Login, Google redirect, callback success/failure, logout, and session-refresh handlers are wired in source.
+- [ ] Auth provider is custom Google OAuth 2.0, or an explicitly approved alternative in `ARCHITECTURE_DECISIONS.md`.
+- [ ] Exactly one primary auth provider is implemented unless migration/comparison is explicitly in scope.
+- [ ] Required OAuth variable names and redirect-URI expectations are documented in `.env.example`/setup docs without real credentials.
+- [ ] Redirect construction uses validated configuration; actual provider registration is an external prerequisite, not an agent check.
+- [ ] OAuth state is generated and validated; invalid state and callback failures have safe errors and correlation IDs.
+- [ ] User create/update and session creation logic handles successful callbacks securely.
+- [ ] Session expiry/refresh and logout invalidation are defined in code.
+- [ ] Cookies use appropriate HttpOnly, Secure, and SameSite settings.
+- [ ] Protected routes and APIs deny unauthenticated access; current-user responses expose safe data only.
+- [ ] Failed auth produces structured redacted logs and diagnostics.
+- [ ] No OAuth secrets are committed; managed auth alternatives require the recorded architecture approval.
+- [ ] Changed security boundaries have local tests using fake OAuth/session/persistence adapters.
+- [ ] Real Google login and provider configuration remain explicitly unverified.
 
 # Authorization and RBAC
 
-Checklist:
-
-- [ ] **super_admin:** `super_admin` permissions work correctly.
-- [ ] **admin:** `admin` permissions work correctly.
-- [ ] **team_leader:** `team_leader` permissions work correctly.
-- [ ] **member:** `member` permissions work correctly.
+- [ ] **super_admin:** permission matrix is reviewed in source and covered locally when changed.
+- [ ] **admin:** permission matrix is reviewed in source and covered locally when changed.
+- [ ] **team_leader:** permission matrix is reviewed in source and covered locally when changed.
+- [ ] **member:** permission matrix is reviewed in source and covered locally when changed.
 - [ ] **Role escalation:** role escalation is blocked server-side.
 - [ ] **API authorization:** authorization is enforced on every protected API endpoint.
 - [ ] **Server actions:** authorization is enforced on every protected server action where applicable.
@@ -307,18 +215,14 @@ Checklist:
 - [ ] **Self-escalation:** self-escalation is impossible.
 - [ ] **Tenant isolation:** cross-tenant access is blocked where multi-tenancy exists.
 
----
-
 # Admin Panel
 
-Checklist:
-
-- [ ] **Admin home:** `/admin` route is protected and works.
-- [ ] **Users:** `/admin/users` works — list, create, edit, deactivate.
-- [ ] **Roles:** `/admin/roles` works — assign and manage roles.
-- [ ] **Debug:** `/admin/debug` works — toggle debug mode and access debug tools.
-- [ ] **System:** `/admin/system` works — system info visible.
-- [ ] **Audit:** `/admin/audit` works — audit log visible.
+- [ ] **Admin home:** `/admin` route and authorization are implemented.
+- [ ] **Users:** `/admin/users` implements list, create, edit, and deactivate handlers.
+- [ ] **Roles:** `/admin/roles` implements protected role assignment and management.
+- [ ] **Debug:** `/admin/debug` implements authorized debug controls.
+- [ ] **System:** `/admin/system` maps safe system information into its UI.
+- [ ] **Audit:** `/admin/audit` maps authorized audit data into its UI.
 - [ ] **Debug permission:** debug mode can only be toggled by permitted roles.
 - [ ] **Debug audit:** debug mode toggle creates an audit log entry.
 - [ ] **Confirmations:** sensitive admin actions require confirmation.
@@ -326,18 +230,14 @@ Checklist:
 - [ ] **Reason field:** sensitive admin actions require a reason field where appropriate.
 - [ ] **Admin lists:** admin lists support loading, empty, error, pagination, sorting, and filtering where applicable.
 
----
-
 # Debug Mode
 
-Checklist:
-
-- [ ] **Activation:** debug mode activates correctly.
-- [ ] **Deactivation:** debug mode deactivates correctly.
+- [ ] **Activation:** debug-mode activation handler and authorization are reviewed in source.
+- [ ] **Deactivation:** debug-mode deactivation handler and authorization are reviewed in source.
 - [ ] **Dev default:** debug mode is ON by default in local/dev/preview/staging, with no manual setup step.
 - [ ] **Verbosity:** debug mode increases log verbosity.
 - [ ] **Production default:** debug mode never activates in production by default.
-- [ ] **Pre-release gate:** debug mode's forced-on default is explicitly confirmed switched off before this environment is promoted to production.
+- [ ] **Production code gate:** source/configuration keeps the forced-on default limited to non-production; actual deployment environment state remains unverified.
 - [ ] **Diagnostic coverage:** important new or changed execution boundaries emit high-signal structured diagnostics; trivial helpers are not blanket-instrumented.
 - [ ] **Activation audit:** debug mode activation is audited.
 - [ ] **Deactivation audit:** debug mode deactivation is audited.
@@ -353,13 +253,9 @@ Checklist:
 - [ ] **Redaction:** debug report redacts passwords, tokens, cookies, API keys, authorization headers, and secrets.
 - [ ] **Client context:** debug report includes browser, route, locale, environment, and build metadata.
 
----
-
 # Full Force Cache Dump
 
-The debug/admin tooling must include a full force cache dump action for authorized roles.
-
-This is mandatory because cache, session, browser, and stale build state can create too much back-and-forth during debugging.
+The debug/admin tooling implements a full force cache dump action for authorized human users. Review handlers and safety limits in code; the agent does not press the control, clear a real user's browser/session, or access platform caches.
 
 ## Required Behavior
 
@@ -419,58 +315,30 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] If any cache layer cannot be cleared, the UI must say so explicitly.
 - [ ] Production execution requires confirmation and clear warning text.
 
----
+# Database and Migration Code
 
-# Database
-
-- [ ] PostgreSQL works in local development (against the cloud dev database, not a local one).
-- [ ] PostgreSQL works in staging/production.
-- [ ] Local development connects to a dedicated Railway-hosted dev/staging PostgreSQL instance via `DATABASE_URL` — no PostgreSQL server (Docker container, local install, or otherwise) runs on the developer's machine.
-- [ ] Local development never points `DATABASE_URL` at the production database.
-- [ ] No local-only database behavior differs from staging/production.
-- [ ] `DATABASE_URL` uses PostgreSQL format.
-- [ ] No SQLite configuration exists.
-- [ ] No SQLite dependency or local DB file is introduced.
-- [ ] The app fails loudly (refuses to start, or `/health` returns `503`) when `DATABASE_URL` is unset or unreachable, rather than falling back to SQLite or an in-memory store.
-- [ ] All migrations run cleanly from scratch.
-- [ ] No schema changes exist without a migration file.
-- [ ] Migration rollback notes exist for every schema change.
-- [ ] Destructive migrations have explicit approval.
-- [ ] Soft delete works where required.
-- [ ] Audit fields are present where required: `created_at`, `updated_at`, `created_by`, `updated_by`.
-- [ ] No raw SQL exists without justification.
-- [ ] No production schema was mutated manually.
-- [ ] Local setup instructions point `DATABASE_URL` at the Railway dev database — no local PostgreSQL installation or Docker steps exist.
-- [ ] Database indexes exist for common query paths where needed.
-- [ ] Foreign key and uniqueness constraints exist where needed.
-- [ ] Seed data, if present, is dev-only and never presented as production data.
-- [ ] A data backup policy is recorded in `ARCHITECTURE_DECISIONS.md` (or an explicit "no policy yet" decision).
-- [ ] The backup job (weekly email export, weekly git backup branch, or the chosen alternative) runs and produces a usable SQL dump.
-- [ ] Backup job failures are logged and surfaced, not silent.
-- [ ] If backups are emailed, sensitive dumps are encrypted or password-protected before sending.
-- [ ] If backups are committed to git, they land only on dated backup branches in the private repo, never on `main` or a public repo.
-- [ ] A restore from an actual backup has been tested at least once.
-
----
-
-# Migrations and Rollback
-
-- [ ] Migration was generated through Drizzle workflow.
-- [ ] Migration was reviewed before commit.
-- [ ] Migration was tested against the Railway dev database before commit.
-- [ ] Migration can run from a clean database.
-- [ ] Migration can run against existing development data where applicable.
-- [ ] Rollback notes exist.
-- [ ] Destructive operations are explicitly approved.
-- [ ] Data backfill plan exists where needed.
-- [ ] Migration impact is documented in `STATUS.md` or release notes.
-
----
+- [ ] PostgreSQL configuration and typed data access follow the project stack; actual local/cloud database operation is unverified.
+- [ ] Environment examples distinguish development from production and never include real connection values.
+- [ ] `DATABASE_URL` uses validated PostgreSQL format; no SQLite dependency, local DB file, or fallback is introduced.
+- [ ] Missing/invalid database configuration fails clearly in code; no silent in-memory production store is added.
+- [ ] Schema changes include migration files generated through the existing offline Drizzle workflow where available.
+- [ ] Migration SQL is reviewed before commit, including clean-schema and existing-data assumptions.
+- [ ] Compatibility, rollback, and backfill notes exist for affected schema/data changes.
+- [ ] Destructive transformations are explicitly in task scope and have local deterministic coverage when risk requires it.
+- [ ] Soft-delete logic and audit fields (`created_at`, `updated_at`, `created_by`, `updated_by`) exist where required.
+- [ ] Raw SQL is justified and parameterized.
+- [ ] Indexes, foreign keys, and uniqueness constraints cover the relevant query/data rules.
+- [ ] Seed fixtures are dev/test-only and are never presented as real production data.
+- [ ] Source/test fixtures use fake persistence adapters without replacing production storage behavior.
+- [ ] No migration is applied to a database, no production state is mutated, and no cloud database is provisioned as QA.
+- [ ] No backup policy, recurring export job, email delivery, backup branch, or restore test is created merely because PHDK is present.
+- [ ] Existing external database/backup prerequisites are documented when relevant, without being operated by the agent.
+- [ ] Migration execution and operational recovery are explicitly reported as unverified.
 
 # Validation
 
 - [ ] All API inputs are validated with Zod at the boundary.
-- [ ] Zod schemas live in `packages/core`.
+- [ ] Shared Zod schemas live in `packages/validators`, following `TECHNICAL_STACK.md` and the foundation layout.
 - [ ] Schemas are shared between `apps/web` and `apps/api`.
 - [ ] No duplicate schemas exist across apps.
 - [ ] No client-supplied data is trusted without server-side validation.
@@ -478,8 +346,6 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] App fails fast when required environment variables are missing or invalid.
 - [ ] Form validation matches API validation where applicable.
 - [ ] Validation errors are shown clearly in the UI.
-
----
 
 # API Contracts
 
@@ -491,21 +357,18 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] Raw error internals are not exposed to clients.
 - [ ] API responses do not expose fields the user is not allowed to see.
 - [ ] Pagination, sorting, and filtering are implemented where list endpoints require them.
-- [ ] Rate limiting is considered for sensitive endpoints.
+- [ ] Rate limiting is enforced on API routes, with stricter limits on sensitive/auth endpoints as required by `DEVSECOPS.md`.
 
-## API Diagnostic Checks Where Applicable
+## API Diagnostic Code Checks Where Applicable
 
-- [ ] `GET /health` returns `200`.
-- [ ] `GET /health/deep` is protected.
-- [ ] Affected endpoints exist in the endpoint diagnostic registry.
-- [ ] Protected endpoint metadata states required auth/role.
-- [ ] Safe probe returns expected status/shape.
-- [ ] Invalid/validation probe returns the expected stable error shape.
-- [ ] Unsafe, destructive, private, or metered endpoints are not auto-executed.
-- [ ] Endpoint diagnostics provide sanitized request/success/error examples.
-- [ ] Failures include correlation ID and safe log context.
-
----
+- [ ] Public `/health` implements a minimal safe response contract; `/health/deep` enforces admin/developer authorization.
+- [ ] Affected endpoints register method/path, purpose, auth/roles, probe mode, expected statuses, and sanitized examples.
+- [ ] Local fake-handler tests cover changed authorization, validation, redaction, and probe-mode guards when risk requires them.
+- [ ] Unsafe, destructive, private, or metered endpoints cannot execute through automatic product probes.
+- [ ] Failure contracts include stable errors, correlation IDs, and safe log context.
+- [ ] Deep-health code reports database/migration/auth/configuration state without secrets and without creating paid calls for health.
+- [ ] Version, SHA, build timestamp, environment, registry, and last available probe results are represented in the response contract.
+- [ ] No service endpoint was called for verification; actual live responses remain unverified.
 
 # Logging and Observability
 
@@ -516,15 +379,13 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] Correlation IDs flow through requests.
 - [ ] Version-aware logs exist.
 - [ ] Environment-aware logs exist.
-- [ ] `/health` endpoint exists and responds on `apps/api`.
+- [ ] `/health` route and minimal response handler exist in `apps/api` source.
 - [ ] Readiness endpoint exists where applicable.
 - [ ] Debug mode increases log verbosity without exposing secrets.
 - [ ] Error tracking integration is used only if explicitly tasked/configured.
 - [ ] OpenTelemetry is used only if explicitly tasked/configured.
 - [ ] Important admin actions are audited.
 - [ ] Failed auth and authorization attempts are logged safely.
-
----
 
 # Feature Flags
 
@@ -535,75 +396,33 @@ This is mandatory because cache, session, browser, and stale build state can cre
 - [ ] Temporary feature flags include cleanup notes.
 - [ ] Disabled feature flags do not expose broken navigation or dead UI.
 
----
-
 # i18n
 
-- [ ] No hardcoded user-facing strings exist anywhere in the codebase.
-- [ ] All strings use the i18n system.
-- [ ] All configured project languages render correctly.
-- [ ] Fallback to English works when locale string is missing.
-- [ ] Date formatting respects locale.
-- [ ] Number formatting respects locale.
-- [ ] Currency formatting respects locale where relevant.
-- [ ] Longer translated labels do not break layout.
-- [ ] Locale switching works as designed.
-- [ ] Admin and error messages are translated where user-facing.
+- [ ] All user-facing strings use the i18n system, including admin and error messages.
+- [ ] Configured languages have the required translation keys and a defined English fallback.
+- [ ] Date, number, and currency formatting use the active locale where relevant.
+- [ ] Locale switching and persistence are wired in code.
+- [ ] Source styles accommodate longer translated labels; actual rendering remains unverified.
 
----
+# Design, Responsive UI, and Accessibility
 
-# Design and UX
+Review components, styles, markup, and handlers in source. Do not launch a browser, resize a viewport, collect screenshots, or run a browser accessibility scanner.
 
-- [ ] All core flows work on mobile.
-- [ ] All core flows work on tablet.
-- [ ] All core flows work on desktop.
-- [ ] Keyboard navigation works end to end.
-- [ ] Visible focus states exist on all interactive elements.
-- [ ] All buttons have accessible names.
-- [ ] All form fields have labels.
-- [ ] Form errors are linked to their fields.
-- [ ] Destructive actions require confirmation.
-- [ ] Color contrast meets WCAG AA minimum.
-- [ ] Images have alt text unless decorative.
-- [ ] No blank pages exist.
-- [ ] All states are handled: loading, empty, error, success, permission denied where relevant.
-- [ ] No mystery icons are used for critical actions.
-- [ ] Primary actions are not hidden behind hover-only UI.
-- [ ] Toasts are not the only place critical errors appear.
-- [ ] Tables support responsive behavior.
-- [ ] Charts show real data only.
-
----
-
-# Browser and Device QA
-
-Minimum manual check where UI changed:
-
-- [ ] Chrome or Chromium desktop.
-- [ ] Safari desktop if available.
-- [ ] Mobile viewport at 320px width.
-- [ ] Tablet viewport at 768px width.
-- [ ] Desktop viewport at 1024px or wider.
-- [ ] Keyboard-only navigation for changed flow.
-
-If browser/device checks are not possible, document why.
-
----
-
-# Accessibility QA
-
-- [ ] Page has logical heading structure.
-- [ ] Interactive elements are reachable by keyboard.
-- [ ] Focus order is logical.
-- [ ] Focus state is visible.
-- [ ] Forms have labels.
-- [ ] Errors are linked to fields.
-- [ ] Buttons and icon buttons have accessible names.
+- [ ] Responsive layouts account for phone (including 320px), tablet (768px), and desktop (1024px+) widths.
+- [ ] Navigation and controls support keyboard interaction in their semantics and event handlers.
+- [ ] Focus styles and logical tab order are defined; modal/dialog focus management is implemented where needed.
+- [ ] Buttons and critical icon controls have accessible names; form fields have labels and linked error messages.
+- [ ] Page headings have a logical structure.
+- [ ] Source color tokens meet WCAG AA minimum contrast where calculable; color is not the only state indicator.
 - [ ] Images have useful alt text or are marked decorative.
-- [ ] Color is not the only indicator of state.
-- [ ] Modal/dialog focus behavior works where applicable.
-
----
+- [ ] Loading, empty, error, success, and permission-denied states are implemented where relevant.
+- [ ] Destructive actions have confirmation flows.
+- [ ] Critical actions do not rely on mystery icons or hover-only discovery.
+- [ ] Critical errors remain available beyond a toast.
+- [ ] Tables include responsive handling; media reserves layout space where needed.
+- [ ] Charts and production views use real data paths, never fabricated data.
+- [ ] No blank/error-only route or unusable navigation path is introduced by the code change.
+- [ ] Actual browser/device appearance, interaction, and assistive-technology behavior are reported as `visual/runtime unverified`.
 
 # Security
 
@@ -620,14 +439,12 @@ If browser/device checks are not possible, document why.
 - [ ] CORS is an explicit origin allowlist — never a wildcard on a credentialed route (`DEVSECOPS.md` HTTP Security Headers).
 - [ ] CSP, HSTS (production), and the standard security header set are configured on `apps/api`.
 - [ ] Rate limiting is active globally and enforced more strictly on auth endpoints (`DEVSECOPS.md` Rate Limiting) — not merely "considered."
-- [ ] Any secret exposed this session (committed, logged, screenshotted) has been rotated at the provider.
+- [ ] Any exposed secret is removed/redacted from the code deliverable and reported as requiring owner-managed rotation; the agent does not access the provider or claim rotation occurred.
 - [ ] Sessions and cookies use secure settings where applicable.
 - [ ] Admin actions are protected server-side.
 - [ ] Sensitive API endpoints reject unauthorized access.
 - [ ] Environment variables are not printed to client logs.
 - [ ] If the project collects personal data, `/privacy` (and `/terms` if applicable) exist and a data-deletion request process is documented (`DEVSECOPS.md` Privacy and Legal Baseline).
-
----
 
 # Cost and Consumption Safety
 
@@ -639,10 +456,9 @@ If browser/device checks are not possible, document why.
 - [ ] A kill switch (env var or feature flag) exists that disables each metered integration without a deploy.
 - [ ] Per-user or per-session quota exists where the metered call is user-triggered.
 - [ ] Metered calls are logged with operation, cost/units consumed, actor, and correlation ID.
-- [ ] Current usage/spend is observable in logs, a dashboard, or `/health/deep`.
+- [ ] Product code exposes redacted usage/spend evidence through logs or authorized diagnostics; no provider call is made for agent verification.
+- [ ] Metered-integration code applies a configurable unusual-spend threshold to existing usage records in its normal logging/diagnostic path, with isolated threshold tests; no external alert, recurring check, or monitoring job is created.
 - [ ] No metered integration relies solely on the provider's own rate limit as its cost safety net.
-
----
 
 # AI / LLM Configuration QA
 
@@ -651,8 +467,8 @@ If browser/device checks are not possible, document why.
 - [ ] Expected output schema/format is visible and editable by an authorized admin.
 - [ ] AI provider (Anthropic, OpenAI, Google, etc.) is set via configuration, not hardcoded.
 - [ ] AI model is set via configuration, not hardcoded.
-- [ ] "Refresh model pricing" action exists and shows current cost per model in use.
-- [ ] Pricing refresh is admin-triggered or interval-scheduled, not called on every request.
+- [ ] Human-operated "Refresh model pricing" code maps provider pricing for models in use and records availability/version honestly.
+- [ ] Pricing refresh is admin-triggered, not called on every request; PHDK does not add a recurring refresh schedule.
 - [ ] User-supplied content is isolated from the system prompt — no direct concatenation.
 - [ ] LLM output is validated against the expected schema before use or display.
 - [ ] Invalid or malformed LLM output is rejected, not silently trusted.
@@ -670,11 +486,10 @@ If browser/device checks are not possible, document why.
 - [ ] A confirmation/approval gate exists before any destructive or side-effecting action that a model call driven by external content could trigger.
 - [ ] Cases where externally-sourced content is passed into an LLM call are logged, and flagged if the output contains action-like directives the user never requested.
 
----
-
 # Data Import / Intake QA
 
-- [ ] Applies only when the feature imports data from multiple source types, or on a recurring cadence — a one-off seed script or single admin-only CSV import is exempt.
+- [ ] Applies when approved product code imports multiple source types, supports repeated user-initiated imports, or explicitly implements recurring import logic; no schedule or live import is configured or run.
+- [ ] A one-off seed script or single admin-only CSV import is exempt only when it has no repeated or recurring execution, per `DEVELOPMENT_RULES.md`.
 - [ ] Every import is a batch with an explicit lifecycle state (`pending`/`processed`/`approved`/`deactivated`), not a bare insert.
 - [ ] Every business row created by an import carries a reference to the batch that created it.
 - [ ] A batch requires explicit manual approval before its data is treated as official — approval never moves or copies rows.
@@ -687,8 +502,6 @@ If browser/device checks are not possible, document why.
 - [ ] Every file in a batch gets a recorded outcome (parsed/errored/duplicate) with counts and a warnings/errors payload — parsing never fails silently.
 - [ ] Cutoff/period date is derived from file content, not requested from the user.
 
----
-
 # Dependency and Supply Chain QA
 
 - [ ] No dependency added without task justification.
@@ -697,10 +510,8 @@ If browser/device checks are not possible, document why.
 - [ ] No package with known unacceptable license added.
 - [ ] No abandoned/high-risk package added without approval.
 - [ ] Dependency upgrade, if any, is documented.
-- [ ] Dependabot or Renovate is configured on the project (`DEVSECOPS.md` Keeping Existing Dependencies Patched).
-- [ ] Any automated dependency-update PR beyond a security patch went through the same Dependency Safety review as a manually added dependency.
-
----
+- [ ] No Dependabot/Renovate configuration or recurring dependency-update workflow is added or enabled by PHDK.
+- [ ] Any dependency change received the same source/lockfile and Dependency Safety review, regardless of who authored it.
 
 # Performance QA
 
@@ -713,25 +524,17 @@ If browser/device checks are not possible, document why.
 - [ ] API calls are not duplicated unnecessarily.
 - [ ] Core page remains usable while async data loads.
 
----
+# Monorepo and GitHub Deployment
 
-# Monorepo and Deployment
-
-- [ ] `pnpm install` runs cleanly from repository root.
-- [ ] Turborepo build runs cleanly.
-- [ ] `apps/web` builds independently.
-- [ ] `apps/api` builds independently.
-- [ ] Railway uses repository root by default.
-- [ ] Any change to Railway root directory is explicitly documented and approved.
-- [ ] No local CLI deployment was used — no `railway up`, no local build/tarball upload; the deploy path is GitHub push to `main` only.
-- [ ] If this is the first deploy, it followed `TECHNICAL_STACK.md` First-time Railway Setup (GitHub-connected, not CLI-connected), and the `/health` endpoint was verified after.
-- [ ] `.env.example` is up to date.
-- [ ] No real secrets exist in `.env.example`.
-- [ ] `.env` files are in `.gitignore`.
-- [ ] Environment variables are configured in Railway dashboard or approved secret manager.
-- [ ] `apps/mobile` was not built or deployed unless explicitly tasked.
-
----
+- [ ] Applicable root/package builds cover changed `apps/web`, `apps/api`, and shared packages.
+- [ ] Existing repository deployment configuration is reviewed for the requested code change; provider settings are not modified.
+- [ ] Delivery uses only an authorized push/merge to the branch consumed by an existing GitHub-connected deployment pipeline.
+- [ ] No provider CLI/API/dashboard deployment or local build upload is performed.
+- [ ] No GitHub Actions, preview deployment, new trigger/schedule, dependency bot, or maintenance workflow is scaffolded as a PHDK prerequisite.
+- [ ] `.env.example` documents required names with safe placeholders; real `.env` files are ignored.
+- [ ] Missing hosting/OAuth/database/secrets prerequisites are reported without creating or configuring them.
+- [ ] GitHub deployment status is recorded when available; no live `/health` or browser check is used to certify delivery.
+- [ ] `apps/mobile` remains untouched unless explicitly tasked.
 
 # Documentation QA
 
@@ -744,149 +547,48 @@ If browser/device checks are not possible, document why.
 - [ ] Known gaps are documented, not hidden.
 - [ ] If `phdk-standards/` is vendored, `phdk-standards/VERSION` matches the PHDK standards repo's current version, or the gap is flagged in `STATUS.md`.
 
----
-
 # Release
 
 - [ ] Version updated if the merge changes deployable behavior.
 - [ ] Every commit message begins with the version it produces (`vX.Y.Z`).
 - [ ] Every commit bumped the version by at least a patch, with `package.json` updated in the same commit.
-- [ ] The version returned by `/health` on the deployed site maps to exactly one commit.
+- [ ] Health/version code and build metadata are wired to identify the released commit; actual deployed responses are unverified.
 - [ ] Checkpoint branch created if this is a major update.
 - [ ] `STATUS.md` updated with current state.
 - [ ] `TASK.md` updated for next session if work continues.
 - [ ] All gap notes from this session are logged in `STATUS.md`.
-- [ ] Rollback plan exists if deployment is high risk.
+- [ ] High-risk delivery has a documented code rollback/revert approach compatible with the existing GitHub pipeline; no provider operation is performed.
 - [ ] Migration rollback notes exist if schema changed.
-- [ ] Smoke test plan exists for deployment-impacting changes.
+- [ ] Deployment-impacting changes list source/local evidence and remaining visual/runtime limits; no browser or service smoke test is a PHDK gate.
 - [ ] Release notes or changelog entry exists where applicable.
 
----
+# Working Slice and Diagnostics QA
+
+- [ ] The approved scope and intended outcome are clear before coding.
+- [ ] Required task context was read; the agent stayed within `EXECUTION_SCOPE.md` and the approved files.
+- [ ] Code verification evidence, changed files, and known gaps are reported without hiding failures.
+- [ ] `TASK.md` and `STATUS.md` reflect completion or the next active slice; no unnecessary approval pause is added between authorized slices.
+- [ ] For debug diagnostics, source review covers the full contract in `DEBUG_DIAGNOSTICS_STANDARD.md`: version badges, paired copy/cache controls, safe reports, auth/metered metadata, and authorized visibility.
+- [ ] Cache and clipboard handlers are wired in source; any local test uses fake browser adapters, never a browser session.
+- [ ] Source defaults debug mode ON in non-production and OFF in production; risky default-selection logic is locally covered when needed.
+- [ ] Diagnostic buffers, registry/UI mapping, sanitized examples, correlation IDs, status/latency, and safe probe guards are reviewed in code.
+- [ ] No live report, health request, endpoint probe, browser interaction, or external settings confirmation is required to mark diagnostics code complete.
+- [ ] UI and operational behavior remain explicitly `visual/runtime unverified`.
+
+# Enforcement QA
+
+Review local enforcement when foundation work or the current change touches it. See `ENFORCEMENT.md`; repository settings remain outside agent administration.
+
+- [ ] Existing required `commit-msg`, `pre-commit`, and `pre-push` hooks are reviewed and checked locally when changed.
+- [ ] Local hook checks cover malformed commit messages, staged secrets, formatting, and the applicable static/build gate without browser or external-runtime execution.
+- [ ] `pre-push` validates the outgoing commit range; tests remain risk-triggered evidence rather than a universal hook.
+- [ ] No workflow, dependency bot, scheduled job, or repository-settings change is added merely to satisfy PHDK.
+- [ ] Existing repository merge/review constraints are respected; missing external prerequisites are reported without provisioning them.
+- [ ] The current tool's native rule block matches canonical `PHDK_NATIVE_RULES.md` and includes the `EXECUTION_SCOPE.md` boundary.
+- [ ] No hook is bypassed without the applicable authorization and a recorded explanation under `VERSIONING.md`.
 
 # Final QA Rule
 
-A task cannot be marked complete if any blocker remains unresolved.
+Unresolved code blockers prevent claiming code completion; major release issues require the project's recorded approval before release. Permitted checks that fail remain visible in the report. Browser and external runtime checks are excluded scope, not invented completion gates.
 
-A release cannot proceed if any blocker or major issue remains unresolved without explicit written approval in `STATUS.md`.
-
-The final response must clearly state what passed, what failed, what was not
----
-
-## Google OAuth 2.0 QA
-
-- [ ] Google OAuth credentials are documented in `.env.example`
-- [ ] README explains how to create OAuth credentials in Google Cloud Console
-- [ ] Login route redirects to Google OAuth
-- [ ] Callback route handles success correctly
-- [ ] Callback route handles failure with safe diagnostics
-- [ ] Redirect URI exactly matches the URI configured in Google Cloud Console
-- [ ] OAuth state parameter is validated
-- [ ] User record is created or updated after successful login
-- [ ] Session is created securely after callback
-- [ ] Session cookie uses HttpOnly, Secure, SameSite settings
-- [ ] Logout clears the session completely
-- [ ] Current-user endpoint returns safe user data only
-- [ ] Protected routes reject unauthenticated users with 401 or 403
-- [ ] Failed login creates structured logs with redaction
-- [ ] Failed login appears in debug diagnostics safely
-- [ ] OAuth credentials are not committed to the repository
-- [ ] WorkOS, Clerk, Supabase Auth, Firebase Auth, and Auth.js are not installed unless explicitly approved in `ARCHITECTURE_DECISIONS.md`
-
----
-
-## Working Slice QA
-
-- [ ] User-visible outcome is clearly defined before work starts
-- [ ] Scope is confirmed before coding begins
-- [ ] Slice produces something a human can see, use, or test
-- [ ] Verification evidence is produced — not just claimed
-- [ ] Feedback is collected before moving to the next slice
-- [ ] `STATUS.md` is updated after the slice
-- [ ] Next slice is proposed with a user-visible outcome
-
----
-
-## Verification Loop QA
-
-- [ ] `pnpm install` runs cleanly
-- [ ] `pnpm typecheck` passes or failures are honestly reported
-- [ ] `pnpm lint` passes or failures are honestly reported
-- [ ] `pnpm build` passes or failures are honestly reported
-- [ ] `GET /health` returns correct response
-- [ ] `GET /health/deep` returns correct protected diagnostic response for app-style projects
-- [ ] Affected endpoint probes were run when safe, with status/latency/correlation ID recorded
-- [ ] Browser verification is confirmed or honestly noted as not applicable
-- [ ] Changed files list is complete
-- [ ] Known failures are honestly reported — none hidden
-
----
-
-## Debug Diagnostics QA
-
-- [ ] Version badge is visible in app shell
-- [ ] Version badge is visible on login page
-- [ ] Version badge is visible in admin panel
-- [ ] Copy diagnostics button is present
-- [ ] Clear cache button is present immediately next to the copy diagnostics button
-- [ ] Copy diagnostics report copies to clipboard
-- [ ] Report includes all required fields per `DEBUG_DIAGNOSTICS_STANDARD.md`
-- [ ] Report redacts all sensitive values
-- [ ] No tokens, cookies, secrets, or passwords appear in the report
-- [ ] Auth diagnostics section captures required fields when login exists
-- [ ] Clear cache triggers logout, cache clear, and page reload
-- [ ] Debug floating panel appears when debug mode is active
-- [ ] Debug floating panel does not appear in production by default
-- [ ] Debug controls do not appear in customer-facing experience
-- [ ] Debug mode is ON by default in local/dev/preview/staging with no manual setup step required
-- [ ] Debug mode's forced-on default is explicitly confirmed switched off before production release — recorded in the slice release report
-- [ ] Endpoint diagnostics console shows the registry, probe modes, sanitized examples, last status/latency, and correlation ID
-- [ ] Safe endpoints expose Test actions and Run safe probes; unsafe/metered/destructive endpoints refuse automatic execution
-- [ ] Copy diagnostics report from a failed probe is immediately useful for IDE/AI debugging and remains redacted
-
----
-
-## Deep Health QA
-
-- [ ] `GET /health` is public and returns correct minimal response
-- [ ] `GET /health/deep` is protected and requires authentication
-- [ ] Deep health checks database connection
-- [ ] Deep health checks migration status
-- [ ] Deep health checks auth status when login exists
-- [ ] Deep health checks required environment-variable presence without values
-- [ ] Deep health returns version, git SHA, build timestamp, and environment
-- [ ] Deep health exposes the endpoint diagnostic registry and latest safe probe results
-- [ ] Every registered endpoint has an explicit probe mode
-- [ ] Deep health never exposes secrets, tokens, connection strings, raw logs, or private response bodies
-- [ ] Deep health response format matches the standard in `VERIFICATION_LOOP.md`
-
----
-
-## AI Developer Operating Model QA
-
-- [ ] AI developer read all required files before starting the task
-- [ ] Working slice had a clearly defined user-visible outcome
-- [ ] AI developer worked autonomously inside the approved scope
-- [ ] AI developer stopped and asked at security or scope boundaries
-- [ ] Verification evidence was produced and shown
-- [ ] `STATUS.md` was updated after the slice
-- [ ] No secrets were committed
-- [ ] No fake data was presented as real
-- [ ] Final report followed the format in `AI_DEVELOPER_OPERATING_MODEL.md`
-
----
-
-## Enforcement QA
-
-Verified once at foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Step 14), spot-checked whenever a rule seems to have been bypassed. See `ENFORCEMENT.md` for the full standard.
-
-- [ ] `commit-msg`, `pre-commit`, and `pre-push` git hooks are installed and were actually tested (a malformed commit message was rejected, not assumed to be rejected)
-- [ ] A pre-commit secrets scan is configured and runs on staged diffs
-- [ ] `lint-staged` runs Prettier against staged files on `pre-commit`, per `TECHNICAL_STACK.md`
-- [ ] `pre-push` runs lint/typecheck/build/format:check and was tested with an intentional failure; automated tests remain risk-triggered task evidence, not a universal hook
-- [ ] `pre-push` validates every outgoing commit in the branch range against the version-format regex
-- [ ] No GitHub Actions workflow is required or scaffolded by PHDK; any CI present is an explicit project-specific opt-in
-- [ ] "Squash and merge" is disabled in the repository's merge-method settings
-- [ ] GitHub branch protection on `main` was confirmed by the developer as actually configured (PR required, force-push disallowed; Actions/status checks are not required by PHDK). An approving review is not required by default; if this project opted into it, there is an `ARCHITECTURE_DECISIONS.md` entry
-- [ ] Dependabot or Renovate is configured
-- [ ] The current tool's native always-loaded rule file exists and its inlined hard-rules block matches the current `INANUTSHELL.md`, not a stale version
-- [ ] No hook was bypassed (`--no-verify` or equivalent) without it being flagged as a Stop-and-Ask condition per `VERSIONING.md`
+The final response states what source was reviewed, what commands passed or failed, what could not run, and what remains `visual/runtime unverified`.

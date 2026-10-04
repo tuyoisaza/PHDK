@@ -6,6 +6,8 @@ This file defines how PHDK projects track versions, commits, branches, changelog
 
 Its goal is to make AI development traceable across sessions and recoverable at any point.
 
+`EXECUTION_SCOPE.md` applies to versioning and release work. Update repository metadata and use git/GitHub; verify source and local output. Do not inspect a live UI, call health endpoints, create release automation, or operate deployment services.
+
 ---
 
 ## Status
@@ -28,7 +30,7 @@ Read this file when:
 
 ## Version Source of Truth
 
-Every project maintains a visible version in these locations:
+Product code must expose a consistent version in the applicable locations below. These are implementation requirements, not permission for the agent to open the UI or call live endpoints:
 
 - `package.json` at the workspace root
 - `CHANGELOG.md`
@@ -86,7 +88,7 @@ Rules:
 - Never commit directly to `main` (unless Finetuning Mode is explicitly active — see `DEVELOPMENT_RULES.md` Finetuning Mode)
 - Every **mission** starts on its own feature branch; planned slices inside that mission stay on the same branch
 - Checkpoint branches are created before major updates as recoverable backups
-- Verified slices may commit and push to the mission branch autonomously
+- Locally verified slices may commit and push to the mission branch during the active session
 - Merge the completed mission to `main` only after verification and Human Diff Review approval
 
 ---
@@ -114,7 +116,7 @@ Rules:
 - Every commit message must begin with the version that commit produces (`vX.Y.Z`), or with each affected component's version for multi-component projects — the conventional-commit type/scope/summary follows it
 - This applies to every commit on every branch — feature branches, fixes, chores, and docs included. There is no such thing as an unversioned commit
 - Every commit bumps the version by at least a patch — see Version Bump on Every Commit below
-- This rule is mechanically enforced by a `commit-msg` git hook when each commit is created and by an outgoing-commit range check in `pre-push` before the branch leaves the machine — see `ENFORCEMENT.md` Git Hooks and Local verification gate
+- This rule is enforced by a local `commit-msg` hook when each commit is created and by an outgoing-commit range check in `pre-push` before pushing — see `ENFORCEMENT.md`. These code checks may be scaffolded and run locally; do not create Actions workflows, scheduled jobs, or bots to enforce the rule
 - Use `feat`, `fix`, `chore`, `refactor`, `test`, `docs` prefixes
 - Scope to the feature or area changed
 - Keep messages short and specific
@@ -133,8 +135,8 @@ For each commit:
 
 Why this is absolute:
 
-- Deployment is a GitHub push to `main` (see `DEVSECOPS.md` Deployment Safety Rules). Because every commit carries a distinct version, the version reported by `/health` and shown in the UI always identifies exactly one commit. A deployed version that maps to more than one commit means this rule was broken.
-- A fix that ships without a bump is indistinguishable from the build before it. If you cannot tell from the running site whether a fix is live, the fix is not verifiable.
+- A requested deployment uses an approved GitHub push to `main` and the existing pipeline (see `DEVSECOPS.md` Deployment Safety Rules). A distinct version and commit identifier in the generated metadata make the built artifact traceable to its source.
+- A fix that ships without a bump is indistinguishable in version metadata from the build before it. Verify the source/build metadata locally; this does not establish that the live deployment is healthy or authorize checking the running site.
 
 Version numbers consumed on a feature branch that never merges are spent. Gaps in the sequence are expected and correct — never reuse, renumber, or backfill a version to close a gap.
 
@@ -146,13 +148,13 @@ Version numbers consumed on a feature branch that never merges are spent. Gaps i
 
 Each completed working slice inside an approved mission results in:
 
-- Verified user-visible outcome
+- Implemented product outcome with source/diff and applicable local code evidence
 - Updated `STATUS.md`
 - Updated `CHANGELOG.md` when user-facing behavior changed
 - Version bumped on every commit in the slice, per Version Bump on Every Commit
 - Commit with descriptive message
 - Push to the mission feature branch without requiring a separate slice-level approval
-- Continue to the next planned slice until the mission is done
+- Continue to the next planned code slice in the active session until the mission is done; never schedule a restart or follow-up job
 - Merge the completed mission to `main` only after explicit Human Diff Review approval
 
 ---
@@ -190,19 +192,18 @@ Version: [vX.Y.Z]
 Branch: [branch name]
 Commit: [short SHA]
 Mission branch: [branch]
-Verification: [pass/fail/partial]
-Health: [/health result]
-Deep health: [result or not applicable]
-Debug diagnostics: [safe/not tested/not applicable]
+Code verification: [pass/fail/partial + source/local evidence]
+Browser/UI/live runtime: not verified; outside execution scope
+Deployment: [not requested / existing GitHub pipeline triggered / unavailable]
 Known issues: [list or none]
-Next suggested slice: [proposal]
+Next planned code slice: [inside the active mission or none]
 ```
 
 ---
 
 ## Version Metadata in the App
 
-The app must expose version metadata in these locations:
+When these product surfaces exist, their source must expose version metadata as specified below. Inspect the implementation and local build output; do not exercise a browser, live endpoint, or database to verify it.
 
 ### UI locations
 
@@ -256,8 +257,9 @@ Stop before:
 
 Versioning work is complete when:
 
-- [ ] Version is visible in app shell, login page, and admin panel
-- [ ] `/health` returns correct version
+- [ ] Applicable UI source binds the correct version in the app shell, login page, and admin panel
+- [ ] Health/diagnostics response code uses the same version source when those features exist
+- [ ] Local metadata and applicable code checks were reviewed; browser/UI/live runtime behavior was not verified
 - [ ] `CHANGELOG.md` is updated for user-facing changes
 - [ ] `STATUS.md` reflects current state
 - [ ] Every commit message begins with the version it produces
@@ -265,3 +267,4 @@ Versioning work is complete when:
 - [ ] Commit message follows the format
 - [ ] Branch name follows the format
 - [ ] No direct commits to `main` without approval
+- [ ] No Actions workflows, schedules, bots, external deployment configuration, or manual browser-testing gates were added; local git hooks remain code checks only

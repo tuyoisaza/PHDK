@@ -1,3 +1,5 @@
+> **Historical reference only.** This archived file is not an active PHDK standard and must not be used to bootstrap or operate a project. Follow the current root standards and `../EXECUTION_SCOPE.md`; old browser, automation, and infrastructure instructions do not apply.
+
 # TECHNICAL_STACK.md
 
 ## Purpose
@@ -401,4 +403,5 @@ Do not introduce any technology outside this stack without:
 PostgreSQL is the only supported database for this standard.
 
 Do not scaffold, configure, or rely on SQLite in any environment.
+
 

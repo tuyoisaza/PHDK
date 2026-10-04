@@ -6,6 +6,8 @@ This file defines the design standards, UI rules, and UX expectations for every 
 
 Every agent doing frontend, UI, UX, or design-system work must read this file before writing or modifying a component.
 
+These are product-code requirements under `EXECUTION_SCOPE.md`. Review UI source, styles, semantics, and applicable local checks; do not open a browser, capture screenshots, or run browser/device tests. Code evidence does not establish actual rendering or usability, and optional human visual feedback is not a PHDK completion gate.
+
 ---
 
 # Brand Requirements
@@ -83,7 +85,7 @@ Core flows must work on:
 - Navigation must collapse gracefully on mobile.
 - Touch targets must be at least 44x44px.
 - Do not hardcode layout widths that break with translated labels.
-- Test all core flows at mobile breakpoint before marking complete.
+- Review responsive source and breakpoint rules for core flows; report rendered mobile behavior as unverified without operating a browser.
 - Horizontal scrolling is allowed only for data tables or explicitly justified cases.
 
 ---
@@ -447,14 +449,14 @@ The interface must always communicate which state it is in.
 
 # Design Completion Checklist
 
-Before marking UI work complete, verify:
+Before marking UI code complete, verify the implementation in source and applicable local code checks. This checklist does not authorize rendered UI, browser, or device testing:
 
 - [ ] Project name/logo placement is respected.
 - [ ] Version, copy-debug-report button, and clear-cache button are present where required.
 - [ ] Route-based navigation is used for primary features.
-- [ ] Mobile layout works at 320px and up.
-- [ ] Tablet layout works at 768px and up.
-- [ ] Desktop layout works at 1024px and up.
+- [ ] Responsive code covers mobile widths from 320px.
+- [ ] Responsive code covers tablet widths from 768px.
+- [ ] Responsive code covers desktop widths from 1024px.
 - [ ] Loading state exists.
 - [ ] Empty state exists.
 - [ ] Error state exists.
@@ -464,7 +466,7 @@ Before marking UI work complete, verify:
 - [ ] Typography uses tokens.
 - [ ] Colors use tokens.
 - [ ] Spacing uses tokens.
-- [ ] Focus states are visible.
+- [ ] Focus-state styles are implemented with appropriate contrast tokens.
 - [ ] Forms have labels and linked errors.
 - [ ] Destructive actions require confirmation.
 - [ ] Admin pages show environment, version, role, and audit/debug context where relevant.
@@ -472,5 +474,5 @@ Before marking UI work complete, verify:
 - [ ] Charts show real data only.
 - [ ] i18n layout impact was considered.
 - [ ] Critical errors are not toast-only.
-- [ ] Accessibility baseline is met.
+- [ ] Source-level accessibility requirements are implemented; rendered accessibility and usability remain unverified.
 

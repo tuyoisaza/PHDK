@@ -6,11 +6,13 @@ This file defines the working slice model for PHDK projects.
 
 Its goal is to prevent waterfall-style AI development where nothing visible is produced until everything is built.
 
+All steps operate inside `EXECUTION_SCOPE.md`: repository code/documentation and git/GitHub in the active session, with only allowed local code checks and an existing GitHub deployment pipeline.
+
 ---
 
 ## Core Rule
 
-A working slice is the smallest useful product outcome that can be built, verified, shown, and committed.
+A working slice implements the smallest useful product outcome that can be reviewed in source, verified locally, and committed.
 
 Every slice must produce something a human can see, use, or test.
 
@@ -18,7 +20,7 @@ Infrastructure alone is not a working slice.
 
 A passing build alone is not a working slice.
 
-A working slice is complete only when a human can observe the outcome.
+A code slice is complete when the approved implementation criteria have source/diff evidence and applicable local checks pass. Browser/UI and live runtime behavior remain unverified; they do not become a required manual testing task for the human.
 
 ---
 
@@ -60,7 +62,7 @@ Every working slice follows this lifecycle inside the active mission. Slices are
 
 ### Step 1 — Define the user-visible outcome
 
-If this slice originates from a new feature or bug ask that is not already covered by `PROJECT_BRIEF.md`, `FEATURES.md`, or `PRD.md`, capture it first as `docs/intents/<name>-intent.md` per `INTENT_CAPTURE_STANDARD.md`, and have its originator review it before continuing. Reference it in `TASK.md`'s `Intent:` field. This is conditional, not a new mandatory step for every slice — see `INTENT_CAPTURE_STANDARD.md` for when it applies.
+If the human provides a new feature or bug ask that is not already covered by `PROJECT_BRIEF.md`, `FEATURES.md`, or `PRD.md`, capture it first as `docs/intents/<name>-intent.md` per `INTENT_CAPTURE_STANDARD.md`. Request clarification only when that standard requires it for ambiguous intent; do not ask the current originator to reconfirm a clear request. Reference it in `TASK.md`'s `Intent:` field. Do not create work from a scheduled check, bot, monitoring trigger, or a self-assigned maintenance task.
 
 Before writing code, state clearly:
 
@@ -75,10 +77,10 @@ Before coding, the mission must have enough information to act:
 
 ```txt
 Mission goal: [what must be true when all work is done]
-Done when: [objective completion criteria]
+Done when: [objective code/documentation completion criteria]
 In scope: [features/areas the AI developer may touch]
 Out of scope: [what must not be added]
-Stop-and-ask conditions: [true human-decision boundaries]
+Stop-and-ask conditions: [true human-decision boundaries within EXECUTION_SCOPE.md]
 Plan: [ordered working slices]
 ```
 
@@ -88,36 +90,35 @@ Ask only when a missing decision materially prevents safe implementation.
 
 ### Step 3 — Work autonomously inside scope
 
-Move fast inside the approved mission.
+Continue the approved code mission inside the active session and `EXECUTION_SCOPE.md`.
 
 Make reasonable implementation decisions without asking for permission on routine details.
 
-When verification fails, diagnose, revise, and rerun the affected checks autonomously.
+When an allowed local check fails, diagnose, revise, and rerun the affected check autonomously. Do not create background agents, recurring work, or external triggers to continue the mission later.
 
 Stop only at a documented mission boundary or genuine blocker. Ask one precise question there and wait.
 
 ### Step 4 — Verify
 
-Do not self-report completion without running verification.
+Do not self-report completion without evidence appropriate to the change. Follow `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` within `EXECUTION_SCOPE.md`.
 
-Run:
+Review or run, as applicable:
 
-- Build commands
-- Type check
-- Lint
-- `/health` endpoint check
-- Browser or test runner check
-- Debug diagnostics check if applicable
+- Source and diff against the approved acceptance criteria
+- Local build, typecheck, lint, and format checks
+- Unit or in-process integration tests when required by risk
+
+Do not run browser tests, headless browsers, screenshots, Playwright/Puppeteer/Cypress/Selenium, live HTTP or health/probe checks, or database/cloud operations. Product diagnostic code can be inspected and tested in process without exercising the live product. For documentation-only changes, a source/diff and reference review is sufficient.
 
 ### Step 5 — Show proof
 
 Produce evidence:
 
 ```txt
-Commands run and their output
-/health result
-Browser verification note or screenshot
-Debug diagnostics result
+Source/diff review result
+Allowed local commands run and their output
+Risk-triggered unit/in-process integration results, when applicable
+Browser/UI/live runtime: not verified; outside execution scope
 Changed files list
 Known failures or gaps
 ```
@@ -138,7 +139,7 @@ Do not ask the user to say "continue." If the human sends feedback, incorporate 
 
 ### Step 7 — Self-revise when needed
 
-If verification or diagnostics find a defect, fix it and re-verify without handing the work back to the user.
+If source review, an allowed local check, or human-supplied evidence identifies a defect, fix it and re-verify locally without handing the work back to the user.
 
 If a revision remains inside mission scope, no new approval is required.
 
@@ -149,6 +150,8 @@ Follow the commit format from `VERSIONING.md`.
 Commit and push to the **mission feature branch** once the slice is verified. This does not require a separate approval.
 
 Do not merge to `main` without explicit Human Diff Review approval, and do not treat the AI's own verification evidence as that approval. The merge gate applies once at mission completion, not between slices. See `QA_CHECKLIST.md` Human Diff Review.
+
+A requested deployment uses an approved push through the existing GitHub-connected pipeline. Do not create or modify CI workflows, schedules, repository settings, service configuration, or a replacement deployment mechanism.
 
 ### Step 9 — Archive TASK.md and update STATUS.md
 
@@ -164,11 +167,11 @@ Record in `STATUS.md`:
 
 ### Step 10 — Continue or finish the mission
 
-If mission completion criteria are not yet satisfied, create the next `TASK.md` slice from the existing mission plan and continue immediately.
+If code completion criteria are not yet satisfied, create the next `TASK.md` slice from the existing mission plan and continue within the active session. If the session ends, save the next step without scheduling a restart.
 
 If they are satisfied, produce the Mission Complete report and present the branch/diff for Human Diff Review before merge.
 
-Recommendations outside the mission become follow-up proposals; do not silently expand scope to implement them.
+Recommendations outside the mission remain proposals; do not implement them, schedule maintenance, or launch another agent to work on them after the session.
 
 ---
 
@@ -179,12 +182,12 @@ A slice is too big if:
 - It takes more than one focused session to complete
 - It produces nothing visible until the very end
 - It requires building multiple independent systems before anything works
-- The user cannot verify the outcome without running code themselves
+- Its implementation criteria cannot be assessed from a coherent source change and focused local checks
 
 A slice is the right size if:
 
 - It produces one clear user-visible outcome
-- It can be verified in the browser or via a health check
+- Its code can be verified by source/diff review and focused local checks
 - It can be committed as a coherent unit
 - The next slice is obvious from the outcome of this one
 
@@ -201,7 +204,7 @@ Why now: [why this slice comes before others]
 In scope: [what will be built]
 Out of scope: [what will not be touched]
 Depends on: [previous slices or conditions]
-Verification plan: [how completion will be proven]
+Verification plan: [source/diff review and allowed local checks]
 Estimated complexity: [low / medium / high]
 ```
 
@@ -209,23 +212,26 @@ Estimated complexity: [low / medium / high]
 
 ## First Slice Rule
 
-The first slice of every project is always:
+For an approved new-project build, the first slice is:
 
 ```txt
 Fetch the latest standards from the standards repo.
-Read AI_DEVELOPER_OPERATING_MODEL.md, TASK.md, and STATUS.md.
-Build the initial scalable app foundation using BUILD_APP_FOUNDATION_PROMPT.md.
-Verify /health responds correctly.
-Record repo structure and verification evidence, then continue to the next planned foundation slice automatically unless the foundation mission is complete or blocked.
+Read EXECUTION_SCOPE.md, AI_DEVELOPER_OPERATING_MODEL.md, TASK.md, and STATUS.md.
+Implement the initial app foundation code using BUILD_APP_FOUNDATION_PROMPT.md.
+Review the health-route implementation if required and run applicable allowed local checks.
+Record repo structure and code evidence, then continue to the next planned code slice in this session unless the foundation mission is complete or blocked.
 ```
 
 The foundation slice is complete only when:
 
 - The repo structure matches the standard
-- `/health` responds correctly
-- The web app renders without errors
-- The build passes
+- Required route and health-response contracts are implemented in source
+- The web app source includes the planned pages and states
+- Applicable local build, typecheck, lint, and format checks pass
 - The README documents how to run the project locally
+- Browser/UI and live runtime verification are explicitly reported as not performed
+
+Foundation work does not create external services, database instances, GitHub Actions workflows, schedules, or deployment integrations. Missing external setup is documented without making the code completion report depend on the human performing browser tests or service setup.
 
 ---
 
@@ -257,7 +263,9 @@ The format of `TASK.md`, `STATUS.md`, and the completed-slice archive is defined
 ## Anti-Patterns to Avoid
 
 - Building everything before showing anything
-- Claiming a slice is complete without browser or health verification
+- Claiming live UI/runtime behavior was verified when only code checks were performed
+- Running browser tests, live probes, or external operations to complete a code slice
+- Creating recurring tasks or background agents from the backlog
 - Skipping `STATUS.md` updates between sessions
 - Expanding the approved mission goal or out-of-scope boundary without approval
 - Proposing slices that are not grounded in the PHDK product files

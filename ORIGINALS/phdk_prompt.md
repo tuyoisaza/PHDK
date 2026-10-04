@@ -1,3 +1,5 @@
+> **Historical reference only.** This archived file is not an active PHDK standard and must not be used to bootstrap or operate a project. Follow the current root standards and `../EXECUTION_SCOPE.md`; old browser, automation, and infrastructure instructions do not apply.
+
 # PHDK — Project Handoff to Development Kit
 ## Final Generation Prompt v1.5
 
@@ -756,4 +758,5 @@ After `README.md` is approved, say:
 `🎉 PHDK complete. [N] files generated. All gaps and open questions are consolidated in STATUS.md. Would you like instructions to package everything into a ZIP file?`
 
 If the environment supports file generation, offer to create the ZIP directly. Otherwise, provide packaging instructions.
+
 
