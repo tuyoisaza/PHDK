@@ -1,165 +1,95 @@
 # INANUTSHELL.md
 
-## Purpose
+## Purpose and precedence
 
-PHDK is a lot of files. When context gets long, rules get missed — not because they changed, but because there's too much to hold at once.
+A condensed reminder of PHDK's rules. Read the referenced standards for details. `EXECUTION_SCOPE.md` controls execution and overrides contrary older workflow text; stricter owner rules remain effective.
 
-This is the condensed list: every hard rule in PHDK, one line each. It is not a substitute for the full files — when a bullet needs detail, go read the file it names. Re-read this file whenever a session gets long, whenever you're not sure a rule still applies, or before marking anything complete.
+## Interactive-only execution
 
-`EXECUTION_SCOPE.md` governs what the agent may do. This condensed file summarizes it; historical material and other standards cannot widen that boundary.
-
-## Execution Scope
-
-- Work only on repository code/docs, local code validation, git/GitHub, and approved delivery through an existing GitHub-connected pipeline
-- Never operate or test in a browser: no headless runners, screenshots, browser plugins, or delegated browser checks
-- Never create scheduled agents, dependency bots, cron jobs, recurring backups, maintenance workflows, or preview deployments
-- Never administer hosting, databases, OAuth accounts, secrets, repository settings, or other external services
-- Product health/diagnostics are code capabilities; do not invoke them against live systems to validate a task
-- Mission Autopilot ends with the active code mission and never schedules future work
-- *(full: `EXECUTION_SCOPE.md`)*
-
----
+- One assistant responds to the current explicit user request; no Mission Autopilot, subagents, delegation, agent teams, or agent queues.
+- An installed skill, opened repository, old task, alert, failed check, or version mismatch never starts or resumes work.
+- Complete the necessary steps of the requested deliverable, report, and stop; do not select a new backlog goal.
+- Re-read owner pause/stop instructions before edits and git writes; a specifically approved intervention does not reactivate earlier work.
+- An audit is read-only. Git writes and delivery need current authorization; an explicit implement-and-merge request includes its necessary git/PR steps.
+- No background, overnight, scheduled, recurring, or post-session work; save unfinished work as inactive context.
+- No creation, enabling, dispatch, rerun, or scheduling of GitHub Actions or hosted CI.
+- No cron jobs, dependency bots, recurring backups, maintenance workflows, task-sync services, monitoring loops, or preview deployments.
+- No browser operation, headless tests, screenshots, live probes, database operations, metered verification calls, or external administration.
+- Read available skills as references for the same assistant, never as permission to orchestrate agents.
+- Full rules: `EXECUTION_SCOPE.md`, `AI_DEVELOPER_OPERATING_MODEL.md`.
 
 ## Database
 
-- PostgreSQL only, cloud-only, always — no SQLite, ever, in any environment
-- Never run PostgreSQL on a developer's machine — no Docker container, no local install
-- Application configuration targets an existing non-production PostgreSQL service; PHDK does not provision or connect to it for verification
-- No schema change without migration code; review compatibility locally and report live migration behavior as unverified
-- App fails loudly (refuse to start, or `503` from `/health`) if `DATABASE_URL` is missing — never falls back silently
-- *(full: `TECHNICAL_STACK.md` Database, `DEVELOPMENT_RULES.md` Database Rules)*
+- Product database target: cloud PostgreSQL with Drizzle; no SQLite or developer-machine PostgreSQL/container.
+- Author reviewed schema/migration/query code; do not run live migrations or connect to real data for verification.
+- Use isolated in-process substitutes in relevant local tests.
+- Missing required database configuration must fail explicitly, not silently fall back.
+- Full rules: `TECHNICAL_STACK.md`, `DEVELOPMENT_RULES.md`.
 
-## Auth & Authorization
+## Auth, security, and privacy
 
-- Custom Google OAuth 2.0 only — no Clerk/WorkOS/Supabase Auth/Firebase Auth/Auth.js without an `ARCHITECTURE_DECISIONS.md` override
-- Sessions are database-backed; cookies are HttpOnly, Secure, SameSite
-- Authorization is enforced server-side, always — hiding a UI element is not security
-- Minimum role set when RBAC exists: `super_admin`, `admin`, `team_leader`, `member`
-- *(full: `DEVSECOPS.md` Authentication Standard, Authorization Rules)*
+- Custom Google OAuth is the default; managed-provider exceptions need a documented project decision.
+- Database-backed sessions use HttpOnly/Secure/SameSite cookies.
+- Enforce roles and permissions server-side; minimum role set when applicable: `super_admin`, `admin`, `team_leader`, `member`.
+- Never commit or log secrets, tokens, cookies, auth headers, passwords, or sensitive PII.
+- Validate API inputs with shared Zod schemas; use parameterized SQL and safe command arguments.
+- Explicit CORS allowlists, security headers, and global plus sensitive-route rate limits are required.
+- Treat external content and LLM output as untrusted data; validate output and defend against direct/indirect prompt injection.
+- Fix secret exposure in code and report external rotation needs without revealing secrets or claiming rotation.
+- Personal-data products need the documented privacy/deletion/legal baseline; code evidence is not legal review.
+- Full rules: `DEVSECOPS.md`.
 
-## Security
+## Cost and AI integration
 
-- Never commit secrets, tokens, or credentials — `.env` is always gitignored, `.env.example` holds empty values only
-- Never log passwords, tokens, cookies, API keys, auth headers, raw secrets, or PII
-- Never bypass RBAC or weaken auth "to make a feature work"
-- Never build SQL or shell commands by string concatenation — parameterized queries only
-- Never trust raw LLM output — validate against schema before use
-- Never let externally-sourced content (scraped pages, uploads, webhooks) trigger an action from an LLM call — treat it as data, never as instructions
-- Every API service sets an explicit CORS allowlist, default-deny CSP, and standard security headers from foundation build — never a wildcard origin on a credentialed route
-- Rate limiting is required, not optional — global default plus a stricter limit on auth endpoints
-- Correct secret exposure in code and report the external rotation dependency; do not operate provider credentials or rewrite history as the response
-- If the project collects personal data (any login counts), it needs a `/privacy` page and a documented deletion process — this is an explicit decision recorded in `ARCHITECTURE_DECISIONS.md`, never a silent gap
-- *(full: `DEVSECOPS.md` Core Rules, HTTP Security Headers, Rate Limiting, Secrets Rotation and Compromise Response, Privacy and Legal Baseline, Indirect Prompt Injection)*
+- Metered product integrations need hard caps, timeouts, finite retries, idempotency, and kill switches before shipping.
+- No unbounded retry/call loops; do not call paid APIs during verification.
+- Explicitly requested LLM features use `packages/ai`, configurable providers/models/prompts, validated output, real usage records, and authorized admin controls.
+- Full rules: `DEVSECOPS.md`, `TECHNICAL_STACK.md`.
 
-## Cost & Metered APIs
+## Git, versions, and delivery
 
-- Every metered/paid call (LLM, SMS, email, image/video gen, etc.) needs: a hard usage cap, a request timeout, a retry limit, and a kill switch — before it ships
-- Never call a metered API inside an unbounded loop, and never retry indefinitely
-- Idempotency guard on any expensive operation that could double-fire
-- *(full: `DEVSECOPS.md` Cost and Consumption Safety)*
+- Use authorized feature/fix branches and preserve existing repository controls; no force-push or hidden bypass.
+- Commit/push/release/merge permissions come from the current request, never a slice checkpoint or stored task.
+- Follow `VERSIONING.md` for version metadata and messages when a commit is authorized; do not create a commit merely to bump a version.
+- An approved release may use the existing hosting-provider GitHub connection; no provider CLI/API/dashboard deployment, connection setup, trigger changes, or autodeploy reactivation.
+- Keep user approval, actual human diff review, source checks, and deployment status distinct.
+- A reviewed code revert does not itself prove runtime recovery.
+- Full rules: `VERSIONING.md`, `DEVELOPMENT_RULES.md`, `EXECUTION_SCOPE.md`.
 
-## AI / LLM
+## Verification and local hooks
 
-- Every LLM call goes through `packages/ai` — never a provider SDK called directly from feature code
-- Provider, model, and prompt are admin-configurable at `/admin/ai` — never hardcoded
-- Every call is recorded with the provider's real token usage (not a local estimate) and cost
-- Isolate user input from the system prompt — never concatenate it in directly
-- *(full: `TECHNICAL_STACK.md` AI / LLM Integration, `DEVSECOPS.md` LLM Integration Safety)*
+- Review the real diff and run relevant synchronous local format/lint/typecheck/build checks.
+- Focused non-browser tests remain risk-triggered for security, money, destructive transitions, complex deterministic logic, and regression coverage.
+- Do not test every component/method by default or leave watchers running.
+- Documentation-only changes need source/diff and reference review, not an app build.
+- Local hooks are checks attached to authorized git commands, not schedulers, agent launchers, or permission to generate commits/pushes.
+- A local hook or instruction file is not server-side enforcement and does not revoke external credentials or terminate agents.
+- No UI/live-runtime success claim without corresponding evidence; no invented manual testing requirement.
+- Full rules: `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md`, `ENFORCEMENT.md`.
 
-## Versioning & Git
+## Task state
 
-- Never commit directly to `main` — the only exception is Finetuning Mode, explicitly activated in-conversation
-- Branch names: `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`
-- Every commit message starts with `vX.Y.Z`, then conventional-commit type/scope/summary — every commit, every branch, no exceptions
-- Every commit bumps the version by at least a patch, `package.json` updated in the same commit
-- Deliver an approved release via the existing GitHub-connected pipeline; no provider CLI/API/dashboard or local build upload
-- Document repo-root build/start commands for the existing target; PHDK does not change provider settings
-- A bad deploy: prepare a reviewed revert for the existing GitHub pipeline, inspect migration compatibility in code, and do not claim runtime recovery without evidence
-- *(full: `VERSIONING.md`, `DEVELOPMENT_RULES.md` Branching Rules, Finetuning Mode, `TECHNICAL_STACK.md` Deploy Rollback Runbook)*
+- `TASK.md`/`STATUS.md` are local Markdown context, not Issues/Projects/Actions or execution queues.
+- Record only the current requested deliverable as active in this conversation.
+- Archive coherent completed work when useful; keep remaining ideas paused or proposed.
+- No multiple-agent claim markers or delegated task queues.
+- Full rules: `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`.
 
-## Working Slices & Verification
+## Code, data, and design
 
-- **Mission Autopilot applies to the active code task:** continue planned slices inside `EXECUTION_SCOPE.md` until complete or blocked; do not create future runs
-- Work in small, user-visible, verified slices — slices are internal checkpoints, not approval gates
-- No completion claim without evidence from the actual diff and appropriate local code checks; state visual/live-runtime limits
-- "It should work" is not evidence; a successful lint/build is code evidence, not proof of rendered UI or live behavior
-- Never ask the human to say "continue" between planned slices; verify, self-correct, commit/push the mission branch, update continuity, and proceed
-- Update `STATUS.md` and `TASK.md` as durable mission memory — don't trust what "feels" familiar
-- A human reading the actual diff is a separate, required gate from the AI's own verification evidence — a green report is never a substitute for someone looking at the code
-- A non-trivial feature/bug ask not already covered by the project docs gets `docs/intents/<name>-intent.md` before `TASK.md` scoping; the current user's clear request needs no repeated approval, and material ambiguity is clarified with that user
-- *(full: `AGILE_SLICE_WORKFLOW.md`, `VERIFICATION_LOOP.md`, `AI_DEVELOPER_OPERATING_MODEL.md`, `QA_CHECKLIST.md` Human Diff Review, `INTENT_CAPTURE_STANDARD.md`)*
+- Hard maximum 600 lines per file; prefer under 300 and split responsibilities.
+- No business logic in page components; organize features under `src/features/<name>/`.
+- Every feature has real routes, server-side permissions, validation, safe logs, i18n, and honest loading/empty/error/success states.
+- Never present fabricated KPIs, random metrics, or demo data as real.
+- Explicitly requested repeatable imports use traceable batches, reversible deactivation, and user approval; do not schedule or run live imports.
+- Implement authorized debug/health/diagnostic contracts in code without exercising live endpoints.
+- Keep public-only sites public-only unless the product explicitly requires private workflows.
+- Implement responsive, accessible UI code without claiming browser verification.
+- Full rules: `DEVELOPMENT_RULES.md`, `DESIGN_RULES.md`, `DEBUG_DIAGNOSTICS_STANDARD.md`.
 
-## Code Verification & Testing
+## Stop and ask when necessary
 
-- Verify source/diffs and relevant local format/lint/typecheck/build commands; add focused non-browser tests only when risk requires them
-- Every important API endpoint has diagnostic metadata: auth/role, probe mode, expected statuses, and sanitized request/success/error examples
-- Diagnostic UI is product code for authorized application users; the agent does not operate it or probe live endpoints
-- Automated tests are risk-triggered, not universal — require them for security boundaries, money, destructive transitions, complex deterministic rules, and cheap regression coverage
-- Do not test every service method, every Zod schema, every component, or every slice by default
-- Do not run browser automation or live-service tests; use existing non-browser code checks and isolated test doubles
-- *(full: `VERIFICATION_LOOP.md`, `DEBUG_DIAGNOSTICS_STANDARD.md`, `TESTING_STANDARD.md`)*
-
-## Mechanical Enforcement
-
-- Express code rules with local regex/lint/git-hook checks where useful; do not add cloud automation to enforce them
-- Respect existing GitHub branch/review restrictions; PHDK neither changes repository settings nor requires new Actions checks
-- Human diff review before merge is a `QA_CHECKLIST.md` gate; do not claim it happened, configure GitHub approvals, or require browser review
-- Git hooks (`commit-msg`, `pre-commit`, `pre-push`) catch a missing version prefix, an oversized file, unformatted staged files (auto-fixed by `lint-staged`/Prettier), a secret in the diff, or a push to `main` with no Finetuning Mode flag — before they land, not after
-- `pre-push` validates outgoing commit messages and runs safe local static/build commands; tests remain risk-triggered and live-runtime claims remain unverified
-- Bypassing a hook (`--no-verify`) is the same class of action as force-pushing — treat it as a Stop-and-Ask, not a shortcut
-- *(full: `ENFORCEMENT.md`)*
-
-## Task Tracking
-
-- `TASK.md`/`STATUS.md` are 100% local, plain-text markdown — never GitHub Issues, GitHub Projects, or GitHub Actions as the source of truth for tracking
-- One `TASK.md` per active slice; when it closes, archive it to `docs/completed-slices/` and start fresh
-- Do not scaffold GitHub Actions or task-sync workflows; existing deployment pipelines do not become a task system
-- *(full: `TASK_TRACKING_STANDARD.md`)*
-
-## Code & File Rules
-
-- Hard max 600 lines per file; prefer under 300
-- No business logic inside page components
-- No hardcoded user-facing strings — i18n system only, fallback to English
-- Every feature lives under `src/features/<name>/` with its own components, services, repositories, schemas, permissions, logs, types
-- *(full: `DEVELOPMENT_RULES.md` File Size Rules, Feature Structure Rules)*
-
-## Data Honesty
-
-- Never show fake KPIs, random numbers, or demo data presented as real
-- Only these states are allowed: empty, setup-required, loading, error, success-with-real-data
-- *(full: `DEVELOPMENT_RULES.md` Data Rules)*
-
-## Data Import / Intake
-
-- Explicitly requested multi-source import code uses a stateful batch (`pending → processed → approved | deactivated`); this does not authorize a schedule or live import
-- Every imported row carries a reference to its batch; a shared query filter — not physical deletion — decides what's live
-- Never hard-delete imported data to undo a bad import — deactivate the batch instead, with a reason, actor, and timestamp recorded
-- A batch needs explicit manual approval before its data counts as official
-- *(full: `TECHNICAL_STACK.md` Data Import / Intake Pipeline, `DEVELOPMENT_RULES.md` Data Rules)*
-
-## Debug Mode
-
-- Copy-diagnostics and clear-cache buttons, always paired, next to the version number
-- Debug mode is ON by default in local/dev/preview/staging — not opt-in — and must be confirmed OFF before production
-- Important execution boundaries use structured safe logs; do not instrument every helper function or run live diagnostics as a completion gate
-- Clear cache = clear browser cache + service worker + force logout + reload
-- *(full: `DEBUG_DIAGNOSTICS_STANDARD.md`)*
-
-## Design
-
-- Never a blank page, never a spinner with no timeout, never an error with no recovery path
-- Layout works at mobile 320px+, tablet 768px+, desktop 1024px+
-- WCAG AA contrast minimum — never rely on color alone to communicate meaning
-- *(full: `DESIGN_RULES.md` Never Do These)*
-
-## Stop-and-Ask — never assume, always ask first
-
-- Changes to destructive database code require explicit scope; live database and backup operations remain outside PHDK
-- Auth provider, tenant model, or permission model changes
-- Payment behavior changes
-- Deployment architecture changes
-- Code for new external integrations requires explicit scope and cost controls; provisioning, paid verification calls, and provider administration stay outside PHDK
-- Force-push, deleting an unmerged branch, or pushing to `main` without approval
-- Expanding the approved mission goal/out-of-scope boundary; moving to the next planned slice inside the mission does **not** count as expansion
-- *(full: `DEVSECOPS.md` Stop-and-Ask Conditions, `AI_DEVELOPER_OPERATING_MODEL.md` Stop-and-Ask Conditions)*
+- Clarify material ambiguity or a scope expansion not already authorized.
+- Stop before destructive data semantics, auth/payment/tenant architecture changes, new costly dependencies, history rewriting, or bypassing controls without explicit scope.
+- Do not ask for duplicate approval of a clear current request.
+- Never treat a blocker or a completed task as permission to create automation or another mission.

@@ -1,15 +1,16 @@
 <!-- PHDK-MANAGED:START -->
-## PHDK managed rules
+## PHDK managed rules — interactive-only
 
-- Read `phdk-standards/AGENTS.md` and `phdk-standards/EXECUTION_SCOPE.md` before project work. Read `TASK.md` and `STATUS.md` before changing code.
-- PHDK acts only on repository code/docs, local code validation, git/GitHub, and approved deployment through an existing GitHub-connected pipeline. Do not provision or administer external services, databases, secrets, OAuth accounts, or repository settings.
-- Never open, drive, or test in a browser, including headless runners, screenshots, browser MCP/devtools, Playwright/Puppeteer/Cypress/Selenium, or delegated browser work.
-- Never create scheduled agents, recurring tasks, cron jobs, Dependabot/Renovate, backup jobs, maintenance workflows, or preview deployments. Do not scaffold CI workflows or alter the existing deployment pipeline's triggers.
-- Canonical upgrade command: **`PHDK upgrade`**. When the developer gives that exact command, execute `phdk-standards/PHDK_UPGRADE.md` immediately. The command itself is approval to synchronize PHDK-managed files; do not ask for a second confirmation.
-- **Mission Autopilot applies to the active code task:** once `TASK.md` defines a clear goal/scope/Done When, keep working across planned slices within the execution boundary until complete or blocked. Never ask "continue?" between planned slices or schedule work after the mission ends.
-- Verified slices may be committed and pushed autonomously to the mission feature branch. Never commit directly to `main` unless Finetuning Mode is explicitly active. Never force-push; Human Diff Review is still required before merge to `main`.
-- Never weaken auth, RBAC, validation, privacy, or cost controls merely to make a feature work.
-- Verify source/diffs and use appropriate local format/lint/typecheck/build commands plus risk-triggered non-browser unit/in-process tests. Do not probe live endpoints, databases, or metered APIs. Report visual/live-runtime results as unverified when evidence is absent; they are not mandatory PHDK gates.
-- Stop before out-of-scope repository changes or auth/payment/tenant architecture changes. External administration and live data operations remain outside PHDK; product API code still requires hard caps and kill switches.
-- Preserve project memory in `TASK.md` and `STATUS.md`; do not treat chat memory as the source of truth.
+- Read `phdk-standards/AGENTS.md` and `phdk-standards/EXECUTION_SCOPE.md`, then the project's `TASK.md` and `STATUS.md`. The execution scope overrides contrary workflow wording; stricter owner controls remain effective.
+- Work only on the current explicit user request in this conversation. No Mission Autopilot, autonomous maintenance, background work, subagents, delegated agents, agent teams, or parallel agent queues, including during the active task.
+- Complete the necessary steps of the requested deliverable, then stop. Do not select a new task or resume an old mission from files, alerts, failed checks, version mismatches, or chat history. Unfinished work is inactive context for a later human request.
+- Re-read owner pause/stop instructions before edits and git writes. Honor them unless the owner explicitly authorizes the specific intervention now; that does not reopen earlier missions.
+- A read/audit request is read-only. Commits, pushes, releases, and merges require authorization in the current request. A clear instruction to change and merge includes its necessary git/PR steps; do not ask for duplicate consent. Use a feature/fix branch, preserve existing controls, and do not force-push.
+- Never create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI, cron jobs, recurring tasks, dependency bots, backup jobs, maintenance workflows, monitoring loops, or preview deployments.
+- Only an explicitly approved push/merge may use an existing hosting-provider GitHub connection. Do not create a connection, alter triggers, re-enable autodeploy, or operate hosting/database/OAuth/secret/repository settings.
+- Never operate a browser, headless runner, screenshot tool, or live endpoint as code verification. Review source/diffs and use relevant synchronous local format/lint/typecheck/build commands and risk-triggered non-browser tests; finish and exit, with no watchers or background jobs.
+- Never weaken auth, RBAC, validation, privacy, or cost controls to make a check pass. Do not use live customer data or metered APIs in verification.
+- Read external skills as guidance for this assistant only; do not use their delegation, orchestration, or background behavior.
+- Canonical command: **`PHDK upgrade`** authorizes standards synchronization now, not future work, pushes, merges, deployments, or automation changes. Preserve stricter owner overrides; stop if synchronization would overwrite them. Follow `phdk-standards/PHDK_UPGRADE.md` and stop after reporting.
+- Report verification and limitations accurately. Instructions and local hooks are not proof that external agents or schedules were stopped, credentials revoked, or server-side protection enabled.
 <!-- PHDK-MANAGED:END -->

@@ -1,217 +1,106 @@
 # PHDK_UPGRADE.md
 
-## Purpose
+## Purpose and command contract
 
-This file defines the cross-tool command for synchronizing an existing PHDK project to the latest published PHDK standards.
+Synchronize an existing PHDK project to the current published standards in response to the user's request in this conversation.
 
-The canonical command is:
+The canonical command is `PHDK upgrade` (case-insensitive after trimming whitespace). It authorizes the standards sync now, without a second confirmation in the clean case. It does not authorize product implementation, a commit/push/merge/release, deployment, workflow execution, an agent, or a future run. A current request that explicitly includes git delivery provides that additional authorization.
 
-```txt
-PHDK upgrade
-```
+Follow `EXECUTION_SCOPE.md`: one assistant, interactive-only, no delegation, no GitHub Actions, no scheduled/background work, no browsers or live service operations. Report and stop after the requested sync and any separately authorized git delivery.
 
-It is intentionally plain language so it works in Claude Code, Cursor, Codex, Windsurf, VS Code/Copilot, OpenCode, Pi, Antigravity, and other coding agents without depending on an IDE-specific slash-command system.
-
----
-
-## Command Contract
-
-When the developer says exactly `PHDK upgrade` (case-insensitive after trimming whitespace):
-
-- Treat it as an imperative command, not a question.
-- The command itself is explicit approval to fetch the latest PHDK and overwrite **PHDK-managed** vendored standards with the upstream copy.
-- Do **not** ask "Proceed?" or request a second confirmation in the normal clean case.
-- Do not run the project's normal feature task first. Upgrade PHDK first, then stop and report.
-- Do not regenerate the project brief, PRD, features, navigation, or other project-specific kit files.
-- Do not change application code, dependencies, database schema, deployment settings, secrets, or infrastructure merely because PHDK was upgraded.
-- Do not deploy or merge to `main` solely because this command was issued.
-- Follow `EXECUTION_SCOPE.md`: upgrades are repository-file work only. Never open a browser, run live probes, configure providers, or create/enable/disable existing bots, schedules, workflows, or external services during an upgrade.
-
-The one safety exception: if there are uncommitted changes inside `phdk-standards/`, do not overwrite them. Stop and report the conflicting paths. PHDK-owned files are supposed to be a clean mirror; silent destruction is not acceptable.
-
----
-
-## Canonical Upstream
-
-The only canonical source for this command is:
+## Canonical upstream
 
 ```txt
 https://github.com/tuyoisaza/PHDK.git
 branch: main
+version source: VERSION
 ```
 
-The upstream root `VERSION` file defines the latest PHDK version.
+Fetch the source rather than trusting cached version knowledge. A fix on an unmerged branch is not the published `main` version.
 
-Do not use a cached model memory of the latest version. Fetch it.
+## Procedure
 
----
+### 1. Identify the project and current request
 
-## Upgrade Procedure
+Read the current user request and repository root. Confirm PHDK is present through `phdk-standards/`, an existing native rule-file reference, or project task/status documentation. Do not convert an unrelated project silently.
 
-### 1. Identify the project
+Read owner pause/stop instructions. A specifically requested standards sync may operate only within that narrow scope; it never reactivates an old task or broadly removes the pause.
 
-Find the current git repository root.
+### 2. Protect local work and owner controls
 
-A project is considered PHDK-enabled when at least one of these is true:
+Inspect git status. Stop before overwriting any uncommitted change in `phdk-standards/`. Preserve unrelated files and changes without staging, discarding, stashing, or rewriting them.
 
-- `phdk-standards/` exists
-- the project-root tool rule file points to `phdk-standards/AGENTS.md`
-- `TASK.md` and `STATUS.md` exist and the project identifies itself as PHDK
+Preserve stricter owner controls wherever they are stored, including committed overrides. If syncing a managed file would overwrite a stricter stop/pause/interactive-only rule, stop and report that exact path. Do not silently move, delete, or weaken it in order to obtain a clean upstream mirror.
 
-If none apply, do not silently convert an unrelated repository into PHDK. Report that PHDK is not installed in this repo.
+Do not create instruction files for tools that are not in use. Respect all existing repository access/review controls.
 
-### 2. Safety preflight
+### 3. Obtain the current upstream
 
-Before fetching or overwriting:
+Fetch a fresh copy of canonical `main` into a temporary location outside the project, using the available repository tools. A shallow clone is one possible implementation:
 
-- inspect git status for `phdk-standards/`
-- if any uncommitted change exists inside that folder, stop and report it
-- unrelated uncommitted project files must not be staged, discarded, stashed, or rewritten by the upgrade
-
-If the current branch is the repository's default/protected branch and an upgrade will be needed, create a dedicated branch such as:
-
-```txt
-chore/phdk-upgrade-vX.Y.Z
-```
-
-If already on a non-default working branch, stay on it unless the project's own workflow requires a dedicated maintenance branch.
-
-### 3. Fetch a fresh upstream copy
-
-Use a platform-appropriate temporary directory outside the project and fetch a fresh shallow clone of `main`.
-
-Equivalent intent:
-
-```txt
+```sh
 git clone --depth 1 https://github.com/tuyoisaza/PHDK.git <temporary-directory>
 ```
 
-If the fetch fails, make no project changes. Report the failure.
+If the fetch fails, make no project changes and report it. Do not register a retry job, scheduled sync, session-start hook, or background updater. Do not force-reset a dirty installed skill clone.
 
-If the current IDE is using an installed PHDK skill clone and that clone is discoverable, it may also be fast-forwarded with `git pull --ff-only` after the project sync succeeds. A dirty skill clone must never be force-reset.
+### 4. Compare versions and choose the working branch
 
-### 4. Compare versions
+Read upstream `VERSION` and project `phdk-standards/VERSION`. Do not downgrade a newer local version. Missing local version metadata identifies an older/pre-versioned installation, not authority for product changes.
 
-Read:
+When versions match, check the managed block and file hashes before saying already current. Do not create a no-op commit.
 
-```txt
-project:  phdk-standards/VERSION
-latest:   <fresh-upstream>/VERSION
-```
+For an authorized update on a default/protected branch, use a dedicated working branch such as `chore/phdk-upgrade-vX.Y.Z`; keep unrelated work untouched. Branch creation is part of the requested file-sync safety workflow, not permission to push it.
 
-If the project has no vendored `VERSION`, treat it as pre-versioned/older and allow the standards folder to be created or normalized.
+### 5. Synchronize the manifest
 
-If project version equals latest version:
+Read the fetched `PHDK_MANIFEST.txt`; never use a handwritten file list or cached model memory. Each non-comment line maps an upstream source to its destination inside `phdk-standards/`.
 
-- verify the managed native-rules block is current
-- report "already current"
-- do not create a no-op commit
+Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md` and `PHDK_NATIVE_RULES.md`.
 
-If the project version is newer than upstream, do not downgrade. Report the mismatch.
+Remove an obsolete vendored file only when the previous manifest lists it, the new manifest omits it, it is clean, and it contains no stricter owner override. For pre-manifest projects, do not delete unknown extra files. Never delete unrelated project files.
 
-### 5. Read the upstream manifest
+### 6. Refresh the current tool's managed block
 
-Read the **latest upstream** `PHDK_MANIFEST.txt`.
+Use the exact latest `PHDK_NATIVE_RULES.md` block with its `PHDK-MANAGED:START` and `PHDK-MANAGED:END` markers.
 
-Each non-comment line is:
+Known project-native locations include `CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.windsurfrules`, and root `AGENTS.md`. Use only the current tool's applicable file.
 
-```txt
-source path | destination path inside phdk-standards/
-```
+- Replace only the marked managed block when it exists.
+- When the file exists without markers, append the block without deleting existing project instructions.
+- When the applicable file is absent, create it only as part of the requested install/sync.
+- Preserve stricter owner rules outside or inside the block; stop on an overwrite conflict rather than weakening them.
 
-Copy exactly those files from the fresh upstream clone into the listed destination paths. The manifest includes `EXECUTION_SCOPE.md`; this boundary must be available in every upgraded project.
-
-Do not guess the file list from memory.
-
-If the existing vendored copy has an older `PHDK_MANIFEST.txt`, remove files that were listed in the old manifest but are no longer listed in the new manifest. Never delete files outside `phdk-standards/`.
-
-For pre-manifest projects, do not delete unknown extra files during the first upgrade; only write the new manifest set.
-
-### 6. Refresh the tool-native PHDK block
-
-The latest vendored `phdk-standards/PHDK_NATIVE_RULES.md` is the canonical managed block for tool-native persistent instructions.
-
-Known locations include:
-
-```txt
-Claude Code                          CLAUDE.md
-Cursor                               .cursor/rules/phdk.mdc
-Windsurf                             .windsurfrules
-Codex / Antigravity / OpenCode       AGENTS.md
-```
-
-For the tool currently in use:
-
-- if the file contains `<!-- PHDK-MANAGED:START -->` and `<!-- PHDK-MANAGED:END -->`, replace only that block with the latest `PHDK_NATIVE_RULES.md`
-- if the file exists but has no managed markers, append the managed block without deleting existing user/project instructions
-- if the tool's native file does not exist and the current tool is known, create it with the managed block
-- do not create rule files for tools that are not in use
-
-This makes future `PHDK upgrade` commands self-updating without overwriting unrelated IDE instructions.
+Do not install a plugin, spawn an assistant, register a hook that runs tasks, or create a scheduler. Loading a rule file never starts work.
 
 ### 7. Record continuity
 
-If `STATUS.md` is clean enough to edit without absorbing unrelated uncommitted work, record:
+When safe to edit without absorbing unrelated work, record old/new PHDK versions, canonical repository, upstream commit SHA, date, and any conflicts in `STATUS.md`. Otherwise put that information only in the report.
 
-```txt
-PHDK standards: vOLD → vNEW
-Upstream: https://github.com/tuyoisaza/PHDK
-Upstream commit: <sha>
-Date: <current date>
-```
+Do not make an old product task active or create a next mission merely to record the sync.
 
-If `STATUS.md` already has unrelated uncommitted edits, leave it untouched and include the same information in the upgrade report instead. Do not let continuity logging cause unrelated work to be staged accidentally.
+### 8. Verify using repository evidence
 
-### 8. Verify the sync
+- Vendored `VERSION` matches the chosen upstream version.
+- Every manifest destination exists and matches its mapped source byte-for-byte.
+- The current native managed block matches the source block.
+- Interactive-only, single-assistant, no-delegation, no-Actions, no-scheduling, and owner-control rules are present.
+- No owner control or unrelated edit was overwritten or staged.
+- No product source changed except minimal version metadata when a currently authorized commit requires it.
+- No agents, background tasks, workflow runs, browser sessions, live probes, or external configuration changes occurred.
 
-Before committing, verify:
+Documentation-only verification is source/diff and reference checking. Do not run an application build or live check merely to satisfy an old checklist.
 
-- `phdk-standards/VERSION` equals upstream `VERSION`
-- every destination in the latest `PHDK_MANIFEST.txt` exists
-- every vendored file byte-for-byte matches its mapped upstream source
-- the current tool-native managed block matches `phdk-standards/PHDK_NATIVE_RULES.md`
-- the managed rules include the current code-and-GitHub boundary and the browser/recurring-automation exclusions
-- verification used repository files/diffs only; no browser session or external runtime check was started
-- no application/source files changed unless the project's own versioning rule requires minimal version metadata for the upgrade commit
-- no unrelated working-tree changes were staged
+### 9. Commit or deliver only when authorized
 
-### 9. Commit safely
+A bare `PHDK upgrade` leaves the verified sync available for review. It does not automatically commit, push, merge, tag, deploy, or delete branches.
 
-Stage only:
+When the current request also authorizes git delivery, stage only the synced standards, the changed native managed block, safe continuity changes, and minimal required version metadata. Use normal project version rules and an authorized feature/maintenance branch. A clear instruction to merge includes necessary commit/push/PR steps, without bypassing existing restrictions.
 
-- `phdk-standards/`
-- the current tool-native rule file if its PHDK-managed block changed
-- `STATUS.md` only when the upgrade itself changed it
-- minimum project version metadata only if the project's `VERSIONING.md` requires it for every commit
+Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI to validate or deliver the upgrade.
 
-Commit through the project's normal version/commit rules. The commit summary should clearly include the PHDK transition, for example:
+## Report and stop
 
-```txt
-chore(phdk): upgrade standards vOLD to vNEW
-```
+Report old/new versions, upstream SHA, vendored-file count, native-block state, branch/commit/merge state where applicable, checks, conflicts, and limitations. Then stop.
 
-If PHDK project rules require a leading product version, add that required prefix.
-
-Push the maintenance/working branch when the project's normal workflow authorizes pushes. Never merge, deploy, or delete branches solely because of `PHDK upgrade`.
-
----
-
-## Required Final Report
-
-Return a compact report:
-
-```txt
-PHDK upgrade
-from: vOLD
-to: vNEW
-upstream commit: <sha>
-vendored files: <count>
-native rules: updated / already current / not applicable
-status: updated / already current / blocked
-branch: <name>
-commit: <sha or not created>
-conflicts: none / <paths>
-```
-
-Do not turn the upgrade into a general project review. The command has one job: synchronize PHDK safely and stop. Old project automations are not removed by this command; removing their repository configuration requires a separate explicit code task, and external administration stays outside PHDK.
-
+An upgrade does not remove installed application automation, terminate a process, revoke a credential, disable an external scheduler, or change GitHub/hosting settings. Removing existing automation files is a separate explicit repository-code request; external administration remains outside PHDK. Never report those operations as completed merely because standards were updated.
