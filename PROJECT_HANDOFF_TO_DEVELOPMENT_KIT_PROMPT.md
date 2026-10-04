@@ -1,5 +1,5 @@
 # PHDK — Project Handoff to Development Kit
-## Final Generation Prompt v1.6
+## Final Generation Prompt v1.7
 
 This prompt uses the reusable PHDK standards repo at `https://github.com/tuyoisaza/PHDK`.
 
@@ -25,7 +25,7 @@ Before asking any setup questions, first respond exactly:
 Understood. I am now in PHDK MODE.
 Previous tasks are paused.
 Project identified: [project name from the conversation]
-I will now ask you 4 questions before generating any files.
+I will confirm the unanswered setup questions before generating any files.
 ```
 
 If the project name is unknown, use:
@@ -34,7 +34,7 @@ If the project name is unknown, use:
 Project identified: ⚠️ GAP: Project name not clearly identified from the conversation.
 ```
 
-After that confirmation, ask only Question 1.
+After that confirmation, ask the first unanswered setup question, starting with Question 1 when its answer is not already known.
 
 If you do not provide the exact confirmation above, you have not entered PHDK MODE.
 
@@ -46,7 +46,7 @@ When this prompt is activated, do **not** create one generic document about PHDK
 
 Do **not** summarize the kit.
 
-Do **not** generate all files at once.
+Generate each file separately, then continue through the complete kit in one pass after the interview.
 
 Do **not** create a single file that contains every section.
 
@@ -54,7 +54,7 @@ Your job is to enter **PHDK generation mode**, ask the setup questions, then gen
 
 Each generated file must be complete, standalone, and ready for the user to copy into a real repo using the exact filename provided.
 
-After the required PHDK MODE confirmation, ask **Question 1**. Nothing else.
+After the required PHDK MODE confirmation, ask only the first unanswered setup question.
 
 ---
 
@@ -117,6 +117,7 @@ Every generated file that references standards must point to this URL.
 Required standards files the AI coder must fetch before doing anything:
 
 - `AGENTS.md` — AI coder behavior rules
+- `EXECUTION_SCOPE.md` — code, git/GitHub, existing deployment, and verification boundaries
 - `DEVELOPMENT_RULES.md` — Git, branching, commits, versioning
 - `DESIGN_RULES.md` — Responsive, accessible, theming, performance
 - `TECHNICAL_STACK.md` — Full stack, monorepo, deployment
@@ -140,30 +141,31 @@ All project-specific files assume this standard architecture unless I explicitly
 - `packages/*` — shared core
 - Tailwind CSS + shadcn/ui compatible
 - Zod used where needed
-- Drizzle, PostgreSQL, and Redis ready, but not implemented unless the project phase requires them
+- Drizzle, PostgreSQL, and Redis code readiness, but not implemented unless the project phase requires them; provisioning and live database operations remain outside PHDK
 - Stripe-ready when payments are needed, not before
 - Custom Google OAuth 2.0-ready when login is needed, not before
 - OpenTelemetry-ready and Sentry-ready, not implemented until the relevant phase or task
-- Railway deployment from `main` branch push
-- Two Railway services: `@repo/web` and `@repo/api`
-- Both Railway services use the repository root — never set root to `apps/web` or `apps/api`
+- Deployment only through an existing GitHub-connected pipeline and its configured branch, when deployment is part of the task
+- For an existing Railway target, document repository-root build/start commands for `@repo/web` and `@repo/api`; do not create or configure services
 
 The product brief controls what the product does.  
 The standards repo controls how the product is built.
+
+`EXECUTION_SCOPE.md` limits the agent to repository code/documentation, git/GitHub, and the existing deployment path. Product features and architecture choices do not authorize the agent to operate browsers, infrastructure, or recurring jobs.
 
 ---
 
 ## Before Generating Any Files
 
-Ask these questions one at a time.
+There are six setup topics below. Use answers already present in the conversation; ask only the unanswered questions, one at a time.
 
 Wait for each answer before asking the next.
 
-Do not generate any files until all are answered.
+Do not generate any files until the necessary answers are captured. A stated unknown, `skip`, or `not connected` is a valid answer where offered; record it without inventing external setup work.
 
 Do not explain the whole process before asking.
 
-After the required PHDK MODE confirmation, ask Question 1 using exactly this format:
+When Question 1 is unanswered, use exactly this format after the required PHDK MODE confirmation:
 
 ```txt
 Question 1:
@@ -194,26 +196,15 @@ Answer options:
 
 ### Question 3
 
-What is the backup policy for this project's application data (the database)? This is separate from code backup — GitHub is always the code backup and is not being asked about here.
+Which GitHub repository and existing deployment target should this project use?
 
-If you have no preference, here is a simple recommended default — pick one:
-
-```txt
-Option A — Weekly email export:
-Every Monday, export a full SQL dump of the database and email it to the
-developer's configured address.
-
-Option B — Weekly git backup branch:
-Every Monday, export a full SQL dump and commit it to a dated backup
-branch (e.g. backup/2026-08-10) in the same private repository.
-```
+Include the repository URL and deployment branch/pipeline if already known. This records an existing connection; PHDK does not configure hosting, repository settings, credentials, or workflows.
 
 Answer options:
 
-- Option A
-- Option B
-- a different policy you describe
-- `none` — explicitly no backup policy for now (will be flagged as a gap)
+- existing repository and deployment details
+- repository only — deployment is `not connected`
+- `unknown` — continue with code/documentation; leave deployment unspecified
 
 ### Question 4
 
@@ -261,11 +252,7 @@ Is there anything you want to correct, add, or clarify about the project before 
 
 Answer with the correction, addition, or clarification. Or say `go`.
 
-After Question 6, `go` means begin generating only `PROJECT_BRIEF.md`.
-
-After each generated file, the user must say `next` before you generate the next file.
-
-Never proceed to the next file automatically.
+After Question 6, `go` means generate the complete kit, beginning with `PROJECT_BRIEF.md`, following the Generation Workflow below. Each file is separate; no `next` confirmation is needed between files.
 
 ---
 
@@ -301,10 +288,12 @@ If the project is a marketing site, landing page, or content site, include debug
 
 ### Debug mode specification
 
-- When active, all functions report verbose logs to the console
+These are product-code requirements for authorized users. They do not authorize the AI developer to open a browser, exercise the UI, call live diagnostics, or schedule probes. Validate the code with the methods allowed by `EXECUTION_SCOPE.md`.
+
+- When active, important execution boundaries emit structured, redacted logs into a bounded diagnostic buffer, per `DEBUG_DIAGNOSTICS_STANDARD.md`
 - A floating panel appears top-left showing the current version number
 - The panel has two buttons:
-  - **Copy Report** — copies version number plus full console verbose log to clipboard
+  - **Copy Report** — copies version/build context and the bounded, sanitized diagnostic report to the clipboard
   - **Clear Cache** — clears browser cache, forces logout if applicable, forces cookie and file reload, reloads the page
 - If login exists, debug mode is toggled from the admin or config panel
 - If no login exists, debug mode is toggled via environment variable or local developer config
@@ -313,26 +302,22 @@ If the project is a marketing site, landing page, or content site, include debug
 
 ---
 
-## Backup Policy Rule
+## Agent Execution Scope Rule
 
-This is about backing up the application's live data (the database), not the code. Code is always backed up by pushing to GitHub — that is not optional and is not part of this decision.
+Every generated kit must preserve `EXECUTION_SCOPE.md` in its tasks, architecture decisions, acceptance criteria, and follow-up work:
 
-### If the answer to Question 3 was Option A, Option B, or a described policy
+- Allowed work is repository code/documentation, git/GitHub branches/commits/PRs, and requested deployment through an already connected GitHub pipeline, subject to the release rules.
+- Record the known repository, deployment target, and branch from Question 3 in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. If none is connected, report that fact; do not turn setup into a required task or block independent code work.
+- Do not generate requirements or tasks for configuring provider dashboards, cloud resources, databases, secrets, repository settings, preview environments, or new CI/deployment workflows.
+- Do not generate recurring agents, scheduled Actions, cron jobs, backup jobs, periodic probes, Dependabot/Renovate configuration, or automatic dependency-update tasks.
+- Do not generate browser testing or browser verification requirements, including headless testing, screenshots, login/form interaction, or browser tools invoked indirectly through skills, plugins, MCP servers, or delegated agents.
+- Validation is code/diff review, lint, typecheck, formatting, build, and only risk-triggered local non-browser tests isolated from running apps and real external services. Browser and live-runtime behavior remain unverified by the agent and are not completion gates.
+- Product health/diagnostics, auth, UI, migrations, and integrations can be implemented as scoped code. Those features do not grant permission to run the app or operate external resources.
+- Data backup ownership is outside PHDK's coding mission. Do not ask for a backup policy during bootstrap, add backup automation to `FEATURES.md`, or flag the absence of agent-managed backups as a kit gap.
 
-- Record the chosen policy as a decision in `ARCHITECTURE_DECISIONS.md`, using the standard decision format
-- Include a P1 requirement in `FEATURES.md` to implement the scheduled backup job matching the chosen policy
-- If the database will hold PII or other sensitive data and Option A (email) was chosen, add a requirement that the exported dump is encrypted or password-protected before it is emailed
-- If Option B (git backup branch) was chosen, add a requirement that backup branches are pushed only to the private project repository, never to a public one, and old backup branches are pruned per a stated retention window
+An explicitly requested recurring product feature is a code-only requirement under `EXECUTION_SCOPE.md`; do not configure its schedule or enable external execution. PHDK itself must not introduce that requirement.
 
-### If the answer to Question 3 was `none`
-
-- Record it as an explicit decision in `ARCHITECTURE_DECISIONS.md` with Status: Accepted and Reason: "no backup policy at this stage — MVP/pre-data-risk"
-- Add `⚠️ GAP: No data backup policy configured. Revisit before the project holds real user data.` to `STATUS.md`
-
-### Always
-
-- Never assume a backup policy. If Question 3 was answered ambiguously, ask one follow-up before generating `ARCHITECTURE_DECISIONS.md`
-- Never scaffold backup automation before the database itself is implemented — this is a decision recorded for later implementation, not code generated now, unless the project phase already requires a working database
+When updating an older handoff, replace obsolete automation, external-setup, and browser-verification requirements with this boundary; do not copy them into the new task list.
 
 ---
 
@@ -491,6 +476,7 @@ Rules:
 - Features must be testable
 - Do not include generic infrastructure unless it affects product behavior
 - Do not include aspirational features unless marked as future
+- Product behavior does not expand agent execution authority; exclude agent-operated infrastructure, recurring automation, and browser-verification tasks per `EXECUTION_SCOPE.md`
 
 ---
 
@@ -622,6 +608,7 @@ Must include two permanent sections.
 
 This file defines the current PHDK mission and active working slice.
 The AI developer executes in Mission Autopilot by default: continue through planned slices until the mission's Done When criteria are satisfied or a true Stop-and-Ask boundary is reached.
+Mission Autopilot applies only to the current code/GitHub mission under EXECUTION_SCOPE.md; it does not create recurring or scheduled agent runs.
 Carry the Mission section forward when rotating slices. Do not treat archived slice tasks as active.
 ```
 
@@ -655,9 +642,24 @@ Mission Branch:
 
 [What the AI coder may touch across the mission]
 
+Allowed execution: repository code/documentation, git/GitHub operations, and requested deployment through the existing GitHub-connected pipeline, per EXECUTION_SCOPE.md.
+
+## Existing Deployment
+
+Repository: [known URL / unknown]
+Pipeline/target: [existing connection / not connected / unknown]
+Deployment branch: [existing configured branch / unknown]
+Release action in this mission: [requested action / not requested]
+No provider, secret, repository-setting, environment, or new workflow setup is included.
+
 ## Out of Scope
 
 [What the AI coder must not add/change]
+
+- Browser use/testing, headless checks, screenshots, and UI interaction, including through delegated tools/skills
+- Infrastructure/provider/database administration, credentials, repository settings, and live-service probes
+- Recurring agents, scheduled Actions/cron jobs, backups, dependency bots, automatic updates, and preview environments
+- Creating a new CI/deployment pipeline or modifying automation triggers
 
 ## Plan
 
@@ -677,7 +679,8 @@ User-visible outcome:
 1. TASK.md
 2. STATUS.md
 3. phdk-standards/AGENTS.md
-4. Only task-relevant standards routed by AGENTS.md
+4. phdk-standards/EXECUTION_SCOPE.md
+5. Only task-relevant standards routed by AGENTS.md
 
 ## Standards Repo
 
@@ -689,7 +692,9 @@ https://github.com/tuyoisaza/PHDK
 
 ## Validation Commands
 
-[Commands to run, or ⚠️ GAP: if unknown]
+[Allowed code/diff review, lint, typecheck, formatting, build, and risk-triggered isolated non-browser test commands; or ⚠️ GAP: if unknown]
+
+Inspect scripts before running them. Do not start the app, contact live services, or invoke browser tooling for verification. Report browser/runtime behavior as outside scope, not as a pending agent gate.
 
 ## Expected Final Report
 
@@ -702,7 +707,7 @@ Follow-up work:
 
 The first generated task is always:
 
-`Fetch/sync the latest PHDK standards, build the initial scalable app foundation using BUILD_APP_FOUNDATION_PROMPT.md, and continue autonomously through the planned foundation slices until the mission's Done When criteria are satisfied or a true Stop-and-Ask boundary is reached. Report when the mission is complete or genuinely blocked.`
+`Fetch/sync the latest PHDK standards, read EXECUTION_SCOPE.md, and build the initial app foundation code using BUILD_APP_FOUNDATION_PROMPT.md. Continue through the planned code/GitHub slices with allowed local verification. Use only an existing GitHub deployment pipeline if deployment is part of this mission. Do not operate browsers or infrastructure, create recurring automation, or make external setup a foundation gate. Report when the code mission is complete or genuinely blocked, including verification limits and deployment status.`
 
 ---
 
@@ -710,7 +715,14 @@ The first generated task is always:
 
 Records key decisions future AI agents must not undo.
 
-Always include the debug mode decision, the data backup policy decision (from Question 3), and the personal-data/privacy-baseline decision (from Question 5) as the first entries.
+Always include these as the first entries:
+
+1. Accepted agent execution boundary from `EXECUTION_SCOPE.md`: code/documentation and git/GitHub only, deployment through an existing connected pipeline, no browser verification, infrastructure administration, or recurring automation.
+2. Existing repository/deployment target from Question 3, including `not connected` or `unknown` when applicable. Do not imply that a connection has been configured or verified.
+3. Debug mode decision, clearly identified as a product-code capability.
+4. Personal-data/privacy-baseline decision from Question 5.
+
+Do not add a backup-policy decision or a requirement for external setup merely because PHDK was used.
 
 Use this format for each decision:
 
@@ -799,6 +811,7 @@ Must include:
 - Standards repo URL and which files to fetch before starting
 - How to use `TASK.md` to start and manage coding sessions
 - How to use `STATUS.md` to maintain continuity between sessions
+- Agent execution/verification limits from `EXECUTION_SCOPE.md` and the existing GitHub deployment target, if known
 - Next recommended step
 
 ---
@@ -815,6 +828,7 @@ Must include:
 - Do not generate app code
 - Do not generate generic standards files
 - Do not contradict the standards repo
+- Do not carry obsolete browser, scheduled automation, or infrastructure setup instructions into a generated kit
 - Do not ask me to repeat information already in the conversation
 - Ask one question at a time, only when necessary to unblock generation
 
@@ -823,4 +837,3 @@ Must include:
 ## Final Offer
 
 After the full kit is generated, verify that all required files exist and that `STATUS.md` consolidates gaps/open questions. Report completion once. If the original mission includes building the product, continue directly into the foundation/build workflow under Mission Autopilot; do not stop to offer packaging. In a chat-only documentation request, a ZIP/artifact may be offered as an optional convenience.
-

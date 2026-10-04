@@ -6,7 +6,13 @@ This file is the entry point and router for AI agents, developers, and automatio
 
 Every agent must read this file first, then read the project's `TASK.md` and `STATUS.md`. Load deeper standards only when the current task needs them.
 
-If a session runs long and rules start slipping, re-read `INANUTSHELL.md` — it is the one-line-per-rule condensed version of everything below. It is a memory aid, not a replacement for the task-relevant standards. `ENFORCEMENT.md` is the deeper fix: git hooks, local verification gates, and repository settings reduce dependence on memory.
+If a session runs long and rules start slipping, re-read `INANUTSHELL.md` — it is the one-line-per-rule condensed version of everything below. It is a memory aid, not a replacement for the task-relevant standards. `ENFORCEMENT.md` defines code-oriented local hooks and verification gates.
+
+## Execution Boundary
+
+PHDK is limited to repository code/documentation, local code validation, git/GitHub, and delivery through an existing GitHub-connected deployment pipeline. Read `EXECUTION_SCOPE.md` before acting; this boundary applies to every mode, delegated agent, and external skill.
+
+Do not operate or test in a browser, including headless tools and screenshots. Do not create dependency bots, scheduled agents, cron jobs, recurring backups, maintenance workflows, or preview deployments. Do not administer hosting, databases, OAuth accounts, secrets, repository settings, or other external services. Product requirements describe code to implement, not permission to operate that code against a live environment.
 
 ---
 
@@ -27,8 +33,9 @@ read `PHDK_UPGRADE.md` and execute it immediately. This exact command is explici
 For every task, load only this minimum set first:
 
 1. `AGENTS.md` — this file; router and hard rules
-2. `TASK.md` — the current slice and allowed scope
-3. `STATUS.md` — persistent project state, gaps, and next slices
+2. `EXECUTION_SCOPE.md` — allowed code work, delivery, and exclusions
+3. `TASK.md` — the current slice and allowed scope
+4. `STATUS.md` — persistent project state, gaps, and next slices
 
 Do **not** preload the full standards stack on every session. Extra context costs attention and tokens and increases the chance of conflicting instructions. Load the smallest relevant standard set for the task.
 
@@ -44,9 +51,9 @@ Read `ONBOARDING_AI_DEVELOPER.md` when joining a PHDK project for the first time
 | stack, architecture, database, deployment, AI/LLM integration, LSP | `TECHNICAL_STACK.md` |
 | auth, secrets, security, privacy, metered APIs | `DEVSECOPS.md` |
 | versions, commits, changelog, release/merge behavior | `VERSIONING.md` |
-| verification, health, probes, or tests | `VERIFICATION_LOOP.md`, `DEBUG_DIAGNOSTICS_STANDARD.md`, `TESTING_STANDARD.md` |
+| local code verification or tests; health/diagnostic implementation | `VERIFICATION_LOOP.md`, `DEBUG_DIAGNOSTICS_STANDARD.md`, `TESTING_STANDARD.md` |
 | debug mode or diagnostics UI | `DEBUG_DIAGNOSTICS_STANDARD.md` |
-| foundation scaffolding, hooks, repository protection, rule enforcement | `ENFORCEMENT.md` |
+| foundation scaffolding, local hooks, rule enforcement | `ENFORCEMENT.md` |
 
 A task may require more than one row. Load only the rows that apply.
 
@@ -56,7 +63,7 @@ Work only within the scope defined in `TASK.md`. Do not touch out-of-scope files
 
 ## AI Developer Operating Model
 
-Agents run in **Mission Autopilot by default**. Once the mission goal/scope is clear, plan the required working slices and execute them continuously until the mission is complete or a true Stop-and-Ask boundary/blocker is reached. Slice boundaries are checkpoints, not approval gates. Verify, self-correct, commit/push to the mission feature branch, update continuity, and keep going.
+Agents run in **Mission Autopilot for the active code task**. Once the mission goal/scope is clear, plan the required working slices and execute them within `EXECUTION_SCOPE.md` until complete or blocked. Slice boundaries are checkpoints, not approval gates. Verify locally, self-correct, commit/push to the mission feature branch, and update continuity. This does not authorize scheduled agents, future runs, or ongoing maintenance after the mission ends.
 
 When planning or scoping a slice, load `AI_DEVELOPER_OPERATING_MODEL.md` and `AGILE_SLICE_WORKFLOW.md`. When a slice originates from a new feature/bug ask not already covered by the project's brief/PRD/features docs, also load `INTENT_CAPTURE_STANDARD.md` first — it defines when to capture the why in a durable `docs/intents/` file before scoping in `TASK.md`.
 
@@ -65,7 +72,7 @@ When planning or scoping a slice, load `AI_DEVELOPER_OPERATING_MODEL.md` and `AG
 ## Core Agent Rules
 
 - Work in feature branches. Never commit directly to `main` — unless Finetuning Mode is explicitly active for this conversation, see `DEVELOPMENT_RULES.md` Finetuning Mode.
-- Never deploy from local CLI — no `railway up`, no dragging a local build/tarball into Railway. Deployment is triggered by GitHub push to `main`, connected once per `TECHNICAL_STACK.md` First-time Railway Setup.
+- Delivery uses an approved push/merge to the branch of the existing GitHub-connected pipeline. Never deploy through a provider CLI/API/dashboard or create the connection as a PHDK task; see `TECHNICAL_STACK.md` Deployment.
 - Do not create mock dashboards, fake KPIs, random metrics, or demo data in production code.
 - Every user-facing feature must have a real route.
 - Every feature must enforce RBAC server-side when roles exist.
@@ -73,10 +80,10 @@ When planning or scoping a slice, load `AI_DEVELOPER_OPERATING_MODEL.md` and `AG
 - Every important action must be logged with structured logs.
 - No file may exceed 600 lines. Prefer files under 300 lines.
 - Business logic must not live inside page components.
-- Do not implement infrastructure marked as ready unless the current task explicitly requires it.
+- Implement only the repository code/configuration required by the task. Provisioning and external administration remain outside `EXECUTION_SCOPE.md`.
 - Do not upgrade dependencies unless the task explicitly asks for it.
 - Do not change database schema without a migration.
-- Do not perform destructive actions unless explicitly approved in `TASK.md`.
+- Do not perform destructive operations on live data or external services. Destructive repository changes require explicit task scope.
 
 ---
 
@@ -175,15 +182,15 @@ Every feature is organized under `src/features/<feature-name>/` with its own com
 
 Before marking any task complete, verify:
 
-- [ ] Working slice user-visible outcome is confirmed
-- [ ] Verification evidence produced — static/build gate, health/deep health, affected safe probes, browser when applicable, and risk-triggered tests only when required
+- [ ] Requested behavior is implemented and reviewed in code; visual/live-runtime outcomes are not claimed without evidence
+- [ ] Local code verification evidence produced: appropriate source/diff checks, static/build commands, and non-browser risk-triggered tests
 - [ ] Route exists and permissions are enforced server-side
 - [ ] i18n strings exist for configured languages
 - [ ] Loading, empty, and error states exist
 - [ ] Structured logs exist
 - [ ] No fake data presented as real
 - [ ] No file exceeds 600 lines
-- [ ] Build, typecheck, and lint pass
+- [ ] Applicable local code checks pass; documentation-only work has a source/diff and reference review
 - [ ] `STATUS.md` updated and `TASK.md` reflects mission completion or the next active slice
 - [ ] No unnecessary approval pause occurred between planned slices
 
@@ -200,11 +207,13 @@ Before marking any task complete, verify:
 - Deploy from local CLI — including `railway up` or uploading a local build/tarball to Railway
 - Expose secrets in logs or debug reports
 - Install WorkOS, Clerk, or managed auth vendors without explicit approval
-- Call a metered or paid external API (image generation, LLM calls, SMS, email sending, etc.) without a hard usage cap, timeout, and loop/retry limit — see `DEVSECOPS.md` Cost and Consumption Safety
-- Implement infrastructure marked as ready unless explicitly tasked
+- Call a metered or paid external API to validate a change; implement and locally test the product's usage caps, timeouts, and retry limits instead
+- Provision infrastructure or administer external services
 - Change database schema without migrations
 - Touch files outside the scope defined in `TASK.md`
 - Hand a verification failure back to the human before attempting safe diagnosis and repair
 - Ask "continue?", "proceed?", or equivalent between planned slices inside the approved mission
-- Create speculative Python/Node/browser test harnesses before using existing health/probe diagnostics, unless the diagnostics cannot isolate the problem
-- Perform destructive actions without explicit approval
+- Open or automate a browser for verification, including headless runners, screenshots, plugins, and delegated browser work
+- Create scheduled agents, dependency bots, cron jobs, recurring backups, or maintenance workflows
+- Probe live endpoints, execute live database operations, or send notifications to validate code
+- Perform destructive repository changes without explicit task scope

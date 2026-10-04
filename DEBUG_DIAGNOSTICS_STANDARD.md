@@ -4,7 +4,7 @@
 
 This file defines the debug mode behavior, copy diagnostics report specification, and auth diagnostics requirements for all PHDK app-style projects.
 
-Debug diagnostics exist to reduce back-and-forth between the AI developer and the human. When implemented correctly, the human can copy a diagnostics report and paste it into the next session, giving the AI developer full context without needing to re-explain what happened.
+Debug diagnostics exist to reduce back-and-forth between the AI developer and the human. A human may supply a redacted diagnostics report as context for a code fix, without having to re-explain the failure.
 
 ---
 
@@ -13,6 +13,18 @@ Debug diagnostics exist to reduce back-and-forth between the AI developer and th
 This file applies to all app-style projects — projects with interactive features, user flows, login, dashboards, forms, workflows, or dynamic behavior.
 
 For static or public-only projects, debug mode is a recommended technical note, not a required implementation.
+
+---
+
+## Product Implementation and Agent Scope
+
+`EXECUTION_SCOPE.md` is authoritative. This document describes application features for authorized product users; it does not instruct the agent to operate them.
+
+PHDK agents review diagnostics code and run permitted local static/build checks or risk-triggered unit/in-process integration tests. Browser APIs, OAuth, database access, network requests, and metered providers must be replaced with test doubles in those tests. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call health/probe endpoints, retrieve live service logs, or inspect cloud settings. Another tool, skill, or subagent cannot bypass this restriction.
+
+User-supplied redacted diagnostics may inform source changes. They are not evidence that the agent verified the runtime. Report `visual/runtime unverified`; independent human use is optional and must not become a required step assigned merely to complete a PHDK checklist.
+
+Do not create recurring diagnostics, monitoring jobs, or scheduled agents. Existing product behavior remains subject to its own authentication, redaction, and consumption controls.
 
 ---
 
@@ -60,20 +72,22 @@ These controls must never appear in the customer-facing experience unless the us
 - App-style projects without login: debug mode is toggled via environment variable or local developer config
 - **In every non-production environment (local, dev, preview, staging) debug mode defaults to ON.** It is not an opt-in the developer has to remember to flip — a fresh clone or a fresh deploy to a non-production environment must show the debug panel and populate the console without any manual setup step.
 - Debug mode is never active in production by default
-- Before a production release or promotion, debug mode's forced-on default must be explicitly confirmed switched off for the production environment — this is a release gate, not a preference. See `Debug Diagnostics QA` and the `Release / Deploy QA` section of `QA_CHECKLIST.md`.
+- Before a production release or promotion, review the code and committed configuration that keep the forced-on default limited to non-production. Cover risky default-selection logic with local tests when needed; do not change or inspect live environment settings. Record production runtime state as unverified. See `Debug Diagnostics QA` and `QA_CHECKLIST.md`.
 - Debug mode activation must be audited when login and admin exist
 
 ---
 
 ## Clear Cache Button Behavior
 
-When the clear cache button is pressed:
+Implement the following behavior for an authorized human pressing the clear cache button:
 
 1. Clear browser cache
 2. Clear service worker cache if applicable
 3. Force logout if login exists
 4. Force reload of cookies and session files
 5. Reload the page
+
+The action may clear only application-accessible cache/session state; it must report any browser-managed or platform state it cannot clear. It must never delete durable business data. This behavior is reviewed in code and tested with local adapters when risk warrants it; the agent does not press the control or reset a user's session.
 
 This resolves the most common vibe-coding debugging pain point: stale cache causing confusing behavior that looks like a bug.
 
@@ -208,7 +222,7 @@ Cookie presence — summary only, never cookie values
 Correlation ID
 ```
 
-This information allows the AI developer to diagnose auth failures from a diagnostics report without the human having to describe what they saw.
+This information lets the AI developer trace likely code faults from a supplied diagnostics report without operating the login flow or accessing the OAuth provider.
 
 ---
 
@@ -228,7 +242,7 @@ Correlation ID
 
 Never include request or response payloads from the metered API, and never include API keys or provider account identifiers.
 
-This lets the AI developer catch a runaway loop against a metered API from the diagnostics report before it becomes an expensive incident — see `DEVSECOPS.md` Cost and Consumption Safety.
+This lets a supplied report identify code paths that may need a bounded retry, quota, or kill-switch fix — see `DEVSECOPS.md` Cost and Consumption Safety. The agent does not query usage, call the provider, or operate the kill switch as verification.
 
 ---
 
@@ -255,7 +269,7 @@ When debug mode is active, instrument **important execution boundaries**, not ev
 - form submissions and meaningful mutations
 - service operations containing business rules
 - database/migration/import state transitions
-- background jobs and queue consumers
+- existing product background jobs and queue consumers, when present; this is not an instruction to create or schedule them
 - metered or paid external API calls
 - caught errors that affect user-visible behavior
 
@@ -263,7 +277,7 @@ Do not add entry/success/failure logging to pure helpers, trivial getters, rende
 
 When debug mode is off, debug-only logging is a no-op or minimal-overhead path.
 
-A working slice is not complete if an important new execution boundary cannot be correlated from request/probe to its relevant safe logs.
+Source review must confirm that important new execution boundaries propagate correlation IDs into relevant safe logs. Local tests cover risky logging/redaction behavior with synthetic fixtures; a live request or probe is not a completion requirement.
 
 ### Endpoint Diagnostics Console
 
@@ -280,13 +294,13 @@ It consumes the endpoint diagnostic registry defined in `VERIFICATION_LOOP.md` a
 - last actual status and latency
 - correlation ID
 - safe related log summary
-- a **Test** button only when the registered probe mode permits safe execution
-- **Run safe probes** for all automatically safe checks
+- a human-operated **Test** button only when the registered probe mode permits safe execution
+- human-triggered **Run safe probes** for the registered safe modes, without creating a schedule
 - **Copy diagnostics** for the current result
 
 The endpoint registry is the source of truth. Do not maintain a second manually duplicated list in the UI.
 
-Unsafe, destructive, private, or metered operations must be `manual_only`, `validation_only`, or true `dry_run`; diagnostics must never create real side effects just to prove health.
+Unsafe, destructive, private, or metered operations must be `manual_only`, `validation_only`, or true `dry_run`; diagnostics must never create real side effects just to prove health. These are product controls, not agent verification tools. PHDK agents do not execute even a `safe_read` probe against a service.
 
 ### Backend
 
@@ -309,30 +323,24 @@ The version badge must:
 
 ## Debug Diagnostics QA
 
-Before marking debug diagnostics complete, verify:
+Before marking diagnostics code complete, record source references and applicable permitted local checks for these requirements. A checked item confirms the implementation evidence only; it does not claim the UI was rendered or a live action succeeded.
 
-- [ ] Version badge is visible in app shell
-- [ ] Version badge is visible on login page
-- [ ] Version badge is visible in admin panel
-- [ ] Copy diagnostics button is present
-- [ ] Clear cache button is present immediately next to the copy diagnostics button
-- [ ] Copy diagnostics report copies to clipboard
-- [ ] Report includes all required fields
-- [ ] Report redacts all sensitive values
-- [ ] No tokens, cookies, secrets, or passwords appear in the report
-- [ ] Auth diagnostics section captures required fields when login exists
-- [ ] Auth diagnostics section redacts sensitive values
-- [ ] Metered API diagnostics section captures required fields when the feature touches a metered API
-- [ ] Metered API diagnostics section redacts payloads, keys, and account identifiers
-- [ ] Clear cache triggers logout, cache clear, and page reload
-- [ ] Debug floating panel appears when debug mode is active
-- [ ] Debug floating panel does not appear in production by default
-- [ ] Debug controls do not appear in customer-facing experience
-- [ ] Debug mode is ON by default in local/dev/preview/staging with no manual setup step required
-- [ ] Debug mode's forced-on default is explicitly confirmed switched off before production release — recorded in the slice release report
-- [ ] Important new or changed execution boundaries emit high-signal structured diagnostics — not blanket logging on every helper function
-- [ ] Endpoint diagnostic registry is visible to authorized admin/developer roles
-- [ ] Safe endpoints have working Test actions; unsafe/metered/destructive endpoints refuse automatic execution
-- [ ] Request and response examples are sanitized and useful
-- [ ] A failed probe includes expected vs actual status, latency, correlation ID, and related safe log context
-- [ ] Copy diagnostics report, taken from a live session with debug mode on, shows real high-signal entries rather than empty or noisy logs
+- [ ] Source mounts the version badge in the app shell, login page, and admin panel.
+- [ ] Source pairs Copy diagnostics and Clear cache controls immediately next to each other.
+- [ ] Clipboard handler and report formatting are wired; any local test stubs the clipboard API.
+- [ ] Report schema includes all required fields and handles unavailable data honestly.
+- [ ] Redaction excludes passwords, tokens, cookies, secrets, private data, and sensitive URLs.
+- [ ] Auth diagnostics map the required safe fields when login exists.
+- [ ] Metered diagnostics map counts, failures, retry bounds, cap/kill-switch state, and correlation IDs without payloads, keys, or provider account identifiers.
+- [ ] Clear-cache handler implements authorized cache/session reset and reload, reports unsupported clearing, and cannot delete durable data.
+- [ ] Floating-panel visibility depends on debug mode and the authorized role.
+- [ ] Code defaults debug mode to ON in non-production and OFF in production; risky default-selection changes have a local test.
+- [ ] Production runtime state is not claimed from source/configuration review.
+- [ ] Important execution boundaries emit structured correlated diagnostics without blanket logging on trivial helpers.
+- [ ] Endpoint registry access and diagnostic actions enforce admin/developer permissions server-side.
+- [ ] Probe-mode guards refuse unsafe automatic execution; local tests use fake probes when these security boundaries change.
+- [ ] Request/success/error examples are sanitized.
+- [ ] Failure-report mapping includes expected/actual status, latency, correlation ID, and safe log context when available.
+- [ ] Diagnostic buffering collects meaningful bounded entries and does not invent successful live results.
+- [ ] No browser, health/probe request, live log retrieval, provider call, or recurring job was used as verification.
+- [ ] Final evidence states `visual/runtime unverified` for the actual UI and deployed behavior.

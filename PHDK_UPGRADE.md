@@ -25,6 +25,7 @@ When the developer says exactly `PHDK upgrade` (case-insensitive after trimming 
 - Do not regenerate the project brief, PRD, features, navigation, or other project-specific kit files.
 - Do not change application code, dependencies, database schema, deployment settings, secrets, or infrastructure merely because PHDK was upgraded.
 - Do not deploy or merge to `main` solely because this command was issued.
+- Follow `EXECUTION_SCOPE.md`: upgrades are repository-file work only. Never open a browser, run live probes, configure providers, or create/enable/disable existing bots, schedules, workflows, or external services during an upgrade.
 
 The one safety exception: if there are uncommitted changes inside `phdk-standards/`, do not overwrite them. Stop and report the conflicting paths. PHDK-owned files are supposed to be a clean mirror; silent destruction is not acceptable.
 
@@ -118,7 +119,7 @@ Each non-comment line is:
 source path | destination path inside phdk-standards/
 ```
 
-Copy exactly those files from the fresh upstream clone into the listed destination paths.
+Copy exactly those files from the fresh upstream clone into the listed destination paths. The manifest includes `EXECUTION_SCOPE.md`; this boundary must be available in every upgraded project.
 
 Do not guess the file list from memory.
 
@@ -169,6 +170,8 @@ Before committing, verify:
 - every destination in the latest `PHDK_MANIFEST.txt` exists
 - every vendored file byte-for-byte matches its mapped upstream source
 - the current tool-native managed block matches `phdk-standards/PHDK_NATIVE_RULES.md`
+- the managed rules include the current code-and-GitHub boundary and the browser/recurring-automation exclusions
+- verification used repository files/diffs only; no browser session or external runtime check was started
 - no application/source files changed unless the project's own versioning rule requires minimal version metadata for the upgrade commit
 - no unrelated working-tree changes were staged
 
@@ -210,4 +213,5 @@ commit: <sha or not created>
 conflicts: none / <paths>
 ```
 
-Do not turn the upgrade into a general project review. The command has one job: synchronize PHDK safely and stop.
+Do not turn the upgrade into a general project review. The command has one job: synchronize PHDK safely and stop. Old project automations are not removed by this command; removing their repository configuration requires a separate explicit code task, and external administration stays outside PHDK.
+

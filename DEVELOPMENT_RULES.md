@@ -6,6 +6,8 @@ This file defines the development principles, workflow rules, and coding standar
 
 Every agent and developer must follow these rules on every task, every branch, every commit.
 
+`EXECUTION_SCOPE.md` governs every action: work on repository code/documentation, use git/GitHub, verify code locally, and use only an existing GitHub-connected deployment pipeline. Product architecture requirements below are source-code requirements; they do not authorize external setup, live verification, or recurring automation. Local code-check hooks remain permitted by `ENFORCEMENT.md`.
+
 ---
 
 ## Development Principles
@@ -37,14 +39,16 @@ phdk/vX.Y.Z/short-slice-name
 
 Rules:
 
-- Never commit directly to `main` — enforced by GitHub branch protection, not only by this rule being followed; see `ENFORCEMENT.md`
+- Never commit directly to `main`; respect existing GitHub branch protection without changing repository settings — see `ENFORCEMENT.md`
 - Every mission starts in a feature branch; planned slices for that mission stay on the same branch
 - Every concurrent agent/subagent works on its own branch unless explicitly coordinating through the same mission queue
-- Verified slice commits may be pushed to the mission branch autonomously
+- Locally verified slice commits may be pushed to the mission branch during the active session
 - Merge to `main` only after mission verification and Human Diff Review approval
 - Every major update creates a checkpoint branch named `checkpoint/YYYY-MM-DD` as a recoverable backup
 - Version increments on every commit, on every branch — see `VERSIONING.md` Version Bump on Every Commit
-- Deployment is triggered by GitHub push to `main` — never from local CLI (no `railway up`, no uploading a local build/tarball); see `TECHNICAL_STACK.md` First-time Railway Setup for how the connection is made once
+- A requested deployment is triggered by an approved GitHub push to `main` through the existing connected pipeline — never from local CLI, a local build/tarball upload, a new Actions workflow, or external dashboard configuration
+- Do not create schedules, recurring tasks, background agents, dependency bots, or future triggers from a code task
+- Update existing dependencies only for a specifically requested update; do not add maintenance bots or scheduled dependency work
 
 See Finetuning Mode below for the one narrow, explicit exception to "never commit directly to `main`."
 
@@ -69,7 +73,8 @@ Finetuning Mode is a narrow, explicit exception to "never commit directly to `ma
 ### What changes while it is active
 
 - Every other rule in this file and in `AGENTS.md`, `DEVSECOPS.md`, `DESIGN_RULES.md`, `TECHNICAL_STACK.md`, and `QA_CHECKLIST.md` still applies in full. Finetuning Mode relaxes exactly one thing: the branch-per-change and merge-approval requirement.
-- For each requested change: make the change, run the relevant tests and checks, and only if they pass, commit and push directly to `main`.
+- `EXECUTION_SCOPE.md` still applies in full. Do not change branch protection or other repository settings to activate this mode, and do not imply that Human Diff Review occurred when it did not.
+- For each requested code change: make the change, run the applicable allowed local checks, and only if they pass and existing repository permissions allow it, commit and push directly to `main` through the existing deployment pipeline.
 - If tests or checks fail, do not commit or push. Report the failure and fix it, or ask, before touching `main`.
 - Still bump version and update `CHANGELOG.md`/`STATUS.md` per `VERSIONING.md` on each push, same as any other merge to `main`.
 - Still stop and ask on every condition listed in `DEVSECOPS.md` Stop-and-Ask Conditions and `AI_DEVELOPER_OPERATING_MODEL.md` Stop-and-Ask Conditions — Finetuning Mode does not waive those.
@@ -112,7 +117,7 @@ Read `AGILE_SLICE_WORKFLOW.md` for the full slice lifecycle.
 
 A working slice is not complete until verification evidence exists.
 
-Read `VERIFICATION_LOOP.md` for what counts as proof.
+Read `VERIFICATION_LOOP.md` for source/diff evidence and allowed local lint, typecheck, build, format, and risk-triggered unit/in-process integration checks. Browser testing and live UI/runtime verification are outside scope; state that limitation without turning it into a manual testing gate for the human.
 
 ---
 
@@ -150,9 +155,9 @@ Rules:
 
 - Use pnpm workspaces
 - Use Turborepo for build orchestration
-- Both `apps/web` and `apps/api` deploy as separate Railway services
-- Both services use the repository root
-- Never set Railway root to `apps/web` or `apps/api`
+- By default, app code targets separate Railway services for `apps/web` and `apps/api` through the project's existing GitHub-connected pipeline
+- Both service build configurations target the repository root; do not change live service settings
+- Do not create or reconfigure Railway services or connect a repository to a deployment provider
 - `apps/mobile` is a placeholder only
 - Shared code lives in `packages/*` — never duplicate across apps
 
@@ -220,10 +225,11 @@ Read `DEVSECOPS.md` for the full auth implementation requirements.
 ## Database Rules
 
 - ORM: Drizzle — required because it keeps a future provider switch configuration-driven
-- PostgreSQL only, and only in the cloud — all environments, including local development, connect over the network to a real, cloud-hosted PostgreSQL instance on Railway (a dedicated dev/staging instance for local work, never production)
-- Never run PostgreSQL on a developer's machine — no Docker container, no local install; `DATABASE_URL` in `.env` is the only local artifact
+- Cloud-hosted PostgreSQL remains the product's database target; implement repository schema, query, and migration code against that contract without connecting to it
+- Agent verification does not connect to a database, provision a cloud database, run a database container, or retrieve live credentials. Use pure logic or in-process dependency substitutes for local checks
+- Do not start PostgreSQL on a developer's machine or replace the product database with a local test database
 - Do not scaffold, configure, or rely on SQLite in any environment
-- Never manually mutate production schema without a migration
+- Author reviewed migrations when the schema changes; do not execute migrations or mutate a live database
 
 Core record fields where appropriate:
 
@@ -312,14 +318,14 @@ Never allowed:
 - Demo analytics presented as real
 - Placeholder totals without clear disclosure
 
-### Recurring or multi-source data imports
+### User-initiated or multi-source data imports
 
-If a feature imports data from multiple source types, or on a recurring cadence, it uses the stateful intake pipeline in `TECHNICAL_STACK.md` Data Import / Intake Pipeline — not a direct insert with no batch identity or review step.
+If an approved feature imports data from multiple source types, supports repeated user-initiated imports, or explicitly requires recurring import code, its code uses the stateful intake pipeline in `TECHNICAL_STACK.md` Data Import / Intake Pipeline. This is a product data model, not an instruction to schedule imports, run maintenance, or execute an import against a live system.
 
 - Never hard-delete imported data to undo a bad import — deactivate the owning batch and let the shared query filter exclude it; rows and files stay in place, deactivation is audited
 - Every row a batch import creates carries a reference to that batch
-- A batch requires explicit manual approval before its data is treated as official
-- A one-off seed script or single admin-only CSV import with no repeat cadence is exempt — direct insert is fine there
+- The product requires explicit user approval of a batch before treating its data as official
+- A one-off seed script or single admin-only CSV import with no repeated or recurring execution is exempt from the batch pattern; authoring that code does not authorize running it against a live database
 
 ---
 
@@ -327,8 +333,8 @@ If a feature imports data from multiple source types, or on a recurring cadence,
 
 A working slice is done only when:
 
-- [ ] User-visible outcome confirmed in browser or test runner
-- [ ] Verification evidence produced
+- [ ] Approved product outcome is implemented and reviewed in source/diff
+- [ ] Applicable local code verification evidence produced
 - [ ] Route exists
 - [ ] Permissions enforced server-side
 - [ ] i18n keys present for all configured languages
@@ -338,7 +344,9 @@ A working slice is done only when:
 - [ ] Zod validation exists at API boundary
 - [ ] All states handled: loading, empty, error, success
 - [ ] No file exceeds 600 lines
-- [ ] Build, typecheck, and lint pass
+- [ ] Applicable local build, typecheck, lint, and format checks pass; risk-triggered unit/in-process integration tests pass when required
+- [ ] Browser/UI and live runtime behavior are reported as not verified, without requiring manual tests from the human
 - [ ] `STATUS.md` updated
 - [ ] `TASK.md` expected final report completed
-- [ ] Mission Done criteria satisfied, or next planned slice activated automatically
+- [ ] Code mission criteria satisfied, or the next planned code slice is active within this session
+- [ ] No recurring work, background agents, CI workflows, external setup, or live service operations were created or performed

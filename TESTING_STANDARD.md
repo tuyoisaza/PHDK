@@ -2,108 +2,95 @@
 
 ## Purpose
 
-PHDK uses automated tests as a **risk-control tool**, not as the default proof that every slice works.
+PHDK uses automated tests to control concrete regression risks. Tests are not a default deliverable for every code change.
 
-The primary proof for normal product development is the running system itself: typecheck/lint/build where relevant, `/health`, protected `/health/deep`, endpoint probes, browser verification, structured logs, and a copyable diagnostics report.
-
-Automated tests are required only when the cost of a regression is high enough to justify maintaining them.
+`EXECUTION_SCOPE.md` is authoritative. Permitted verification consists of source/diff review, static checks, local builds, and local unit or in-process integration tests with external dependencies replaced by deterministic test doubles. See `VERIFICATION_LOOP.md` for evidence and reporting requirements.
 
 ---
 
-## Core Rule — Diagnostics First, Tests by Risk
+## Core Rule — Tests by Risk, Within Code Scope
 
-Do not write a test merely because code was added.
+Do not write a test merely because code was added. Ask:
 
-First ask:
+1. Can source review and applicable static/build checks adequately assess this change?
+2. Would a regression be dangerous, expensive, destructive, security-sensitive, or difficult to diagnose?
+3. Can a small deterministic local test catch that risk without a browser, network service, or database?
 
-1. Can the affected behavior be verified directly through the live app, `/health/deep`, or a safe endpoint probe?
-2. If it regresses later, would the failure be dangerous, expensive, destructive, security-sensitive, or difficult to diagnose?
-3. Is there a small deterministic automated test that catches that risk more cheaply than repeated manual diagnosis?
-
-If the answer to 1 is yes and 2 is no, diagnostics are normally sufficient.
-
-If 2 and 3 are yes, add the smallest useful automated test.
+If no risk trigger applies, source review and the applicable static/build gate are sufficient for code completion. If a risk trigger applies, add the smallest useful permitted test. A remaining runtime uncertainty must be reported; it never permits broader execution.
 
 ---
 
 ## Mandatory Automated-Test Triggers
 
-A slice requires automated coverage when it adds or materially changes:
+A slice requires local automated coverage when it adds or materially changes:
 
 - authorization/RBAC/security boundaries where an unauthorized actor must be denied
 - payment, billing, money, credits, quotas, or other financially consequential calculations or state transitions
-- destructive data operations, irreversible state transitions, or migration logic with meaningful data-loss risk
-- complex deterministic business rules or calculations where subtle regressions are hard to see from a health probe
+- destructive data logic, irreversible state transitions, or migration transformations with meaningful data-loss risk
+- complex deterministic business rules or calculations whose subtle regressions are difficult to spot in review
 - security-sensitive parsing or validation, including LLM output validation that can trigger actions
-- a previously observed production bug when a small deterministic regression test can reproduce it
+- a previously observed production bug when a small deterministic local regression test can reproduce the risky rule
 
-The test should target the risky rule, not create a broad suite around unrelated code.
+Target the risky code rather than creating a broad suite around unrelated behavior. If a risk cannot be fully covered locally, test the deterministic part and report the remaining gap. Do not mark unsupported runtime behavior as verified.
 
 ---
 
 ## Tests Are Not Required by Default For
 
-- simple CRUD that is covered by endpoint probes and diagnostics
-- every service method
-- every API-boundary Zod schema
-- every UI component
-- every working slice
-- route wiring and ordinary response-shape checks that the endpoint diagnostic registry already verifies
-- visual snapshots
+- simple CRUD without a specific regression risk
+- every service method or API-boundary Zod schema
+- every UI component or working slice
+- ordinary route wiring and response contracts adequately reviewed in source
+- documentation, formatting, or other reversible low-impact changes
 - third-party library internals
-- happy-path browser automation for flows that are cheaper and clearer to verify live
 
-Do not manufacture tests to satisfy a percentage or checklist count. PHDK has no coverage-percentage target.
+Do not manufacture tests to satisfy a percentage or checklist count. PHDK has no coverage-percentage target. Visual snapshots and browser-based tests are outside scope regardless of risk.
 
 ---
 
-## Choose the Smallest Test Layer
+## Choose the Smallest Permitted Test Layer
 
 When a test trigger exists:
 
-- **Unit test** — pure or nearly pure business rule/calculation.
-- **Integration test** — persistence, authorization, or boundary behavior whose correctness depends on the real application integration.
-- **E2E test** — only for a high-risk cross-system user flow that cannot be verified adequately by protected diagnostics and targeted probes.
+- **Unit test** — a pure or nearly pure rule, calculation, parser, authorization decision, or transformation.
+- **In-process integration test** — application modules or handlers composed inside the test process, with fake persistence, OAuth, clocks, filesystem boundaries where needed, and provider/network adapters. No HTTP listener, live endpoint, or database connection is allowed.
 
-Vitest is the default unit/integration runner when a project needs one. Playwright is the default E2E runner when a project genuinely needs E2E automation.
+Vitest in a Node environment is the default when a project needs a runner. Prefer the project's existing permitted runner. Add a runner or `test` script only when the first justified test requires it; do not scaffold test tooling at foundation time just because PHDK exists.
 
-Do **not** scaffold Vitest, Playwright, Testing Library, or a `test` script at foundation time merely because PHDK exists. Add the minimum test tooling when the first risk-triggered test appears.
+In-memory test doubles belong in test code. They must never become a silent production fallback for a missing database or external dependency.
 
-A project may use another runner only when there is a concrete project reason recorded in `ARCHITECTURE_DECISIONS.md`.
+### Browser and external execution are prohibited
+
+Do not create or run browser-based E2E, headed/headless browser tests, visual snapshots, screenshot comparisons, or browser-mode test runners. This includes Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, UI interaction through another skill, and delegation to another agent. Renaming a browser check as a smoke test, accessibility scan, preview, or manual confirmation does not make it permitted.
+
+Do not call an application health/probe endpoint, start a preview server, connect to local or cloud databases, use customer accounts, complete OAuth sign-in, call paid providers, or provision services to make tests pass. Existing test scripts must be inspected for these behaviors before execution. An existing browser suite may remain in a repository, but the PHDK agent must neither run nor expand it.
+
+A human may independently test the product. That is not a mandatory PHDK completion gate and must not be reported as an agent-performed check or assigned to the human merely to close a checklist.
 
 ---
 
-## Diagnostic Verification Is Not a Fake Test
+## Product Diagnostics Are Implementation Requirements
 
-A safe endpoint probe against the running application is valid verification when it proves the actual path under change.
+Health endpoints, protected probes, debug panels, redaction, correlation IDs, and copyable reports remain product features where specified by `VERIFICATION_LOOP.md` and `DEBUG_DIAGNOSTICS_STANDARD.md`.
 
-Use the endpoint diagnostic registry defined in `VERIFICATION_LOOP.md` and `DEBUG_DIAGNOSTICS_STANDARD.md` to capture:
+Review their implementation and use local tests for risky logic such as authorization, probe-mode enforcement, redaction, timeouts, quotas, and retry bounds. Stub the dependency boundary; do not execute a real probe or provider request.
 
-- method and route
-- required auth/role
-- probe mode
-- sanitized request example
-- expected status and response shape
-- actual status and latency
-- correlation ID
-- related safe logs
-
-This is often more useful than a synthetic test because it exercises the real runtime path and produces evidence the IDE can consume immediately.
+Human-supplied redacted diagnostics can inform a code fix. They do not authorize the agent to access a live service or operate the diagnostic UI.
 
 ---
 
 ## No Speculative Test Harnesses
 
-Do not create ad hoc Python, Node, shell, or browser scripts simply to prove that code "probably works" when the application already exposes a health/probe path that can verify it directly.
+Do not create ad hoc Python, Node, shell, or other scripts just to make a checklist green. Prefer existing static commands and local test infrastructure.
 
-A temporary diagnostic script is allowed only when:
+A temporary local diagnostic script is permitted only when:
 
-- the existing diagnostics cannot reproduce or isolate the failure
-- the script is the cheapest way to narrow the problem
-- its purpose is stated before it is created
-- it is deleted afterward unless it graduates into a justified permanent tool
+- it addresses a specific code-level uncertainty that existing checks cannot isolate
+- it is the smallest useful approach and its purpose is stated before creation
+- it remains within `EXECUTION_SCOPE.md`, without browser or external runtime access
+- it is deleted afterward unless retained as a justified project tool
 
-Do not repeatedly run full test/build loops while iterating on a narrow issue. Use targeted diagnostics during iteration; run the relevant full gate once before push/release.
+Do not repeatedly run full test/build loops while iterating on a narrow issue. Run targeted checks during iteration and the applicable gate once before push/release. Do not create CI, scheduled agents, dependency bots, or recurring test workflows to replace local evidence.
 
 ---
 
@@ -112,35 +99,44 @@ Do not repeatedly run full test/build loops while iterating on a narrow issue. U
 For each slice, report one of:
 
 ```txt
-Automated tests: not required — diagnostics cover the affected path; no risk trigger
+Automated tests: not required — no risk trigger; source review and applicable static/build checks completed
 ```
 
 or:
 
 ```txt
 Automated tests: required — <risk trigger>
-Tests run: <command/result>
+Local tests run: <command/result>
+Coverage limit: <external/runtime behavior not exercised, if relevant>
 ```
 
-A missing test is a gap only when a mandatory test trigger applies.
+For UI or deployment changes, also state:
+
+```txt
+Visual/runtime: visual/runtime unverified — outside PHDK execution scope
+```
+
+Missing coverage of an applicable risky rule is a gap. A prohibited browser or external runtime check is a scope limit, not a task to delegate or a reason to require a human browser check before continuing code work.
 
 ---
 
 ## Never
 
 - Never create tests solely to make a checklist green.
-- Never require an E2E test for every user-visible slice.
-- Never replace a direct live-system probe with a mock when the real safe path is available.
-- Never delete or skip a failing risk-required test just to merge.
-- Never let a test suite become a substitute for `/health/deep`, diagnostics, or Human Diff Review.
-- Never expose secrets or real private data in test fixtures, probe examples, or diagnostics.
+- Never use a browser or external service to verify a PHDK code change.
+- Never weaken security or alter production behavior merely to make local tests pass.
+- Never delete or skip a failing risk-required local test just to merge.
+- Never claim a local test establishes live health, visual correctness, or a successful real provider integration.
+- Never expose secrets or real private data in fixtures, examples, reports, or logs.
+- Never add recurring automation, deployment workflows, or cloud/database operations as a test prerequisite.
 
 ---
 
 ## Verification
 
-- [ ] The slice was checked against the mandatory automated-test triggers.
-- [ ] If no trigger applies, the affected runtime path has direct diagnostic/probe evidence.
-- [ ] If a trigger applies, the smallest useful automated test exists and passes or its failure is honestly reported.
-- [ ] No speculative one-off test harness was created when existing diagnostics were sufficient.
-- [ ] Test tooling was not scaffolded without a real test need.
+- [ ] The slice was assessed against the mandatory risk triggers.
+- [ ] Source review and applicable static/build checks have actual recorded results.
+- [ ] If a trigger applies, the smallest useful local test exists and passes or its failure/gap is reported.
+- [ ] Test scripts and dependencies do not launch browsers or access services/databases.
+- [ ] No speculative harness or unnecessary runner was added.
+- [ ] Remaining visual/runtime uncertainty is stated accurately.

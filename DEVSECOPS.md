@@ -6,6 +6,8 @@ This file defines the security and operational safety baseline for all PHDK proj
 
 Its goal is to prevent AI developers from accidentally exposing secrets, weakening authentication, leaking private data, adding unsafe dependencies, or making risky deployment changes.
 
+`EXECUTION_SCOPE.md` is the execution boundary. These standards govern repository code and local verification; they do not authorize the PHDK agent to configure or operate cloud services, real databases, external secrets, dashboards, scheduled jobs, or provider integrations. Deployment uses only the existing GitHub-connected push pipeline. Product security and diagnostics remain code requirements, tested without a browser or real-service calls.
+
 ---
 
 ## Status
@@ -34,10 +36,10 @@ Read this file before touching any of the following:
 - metered or paid external APIs (billing/consumption-based: AI generation, LLM calls, SMS, email sending, etc.)
 - LLM prompts, AI-powered features, and AI provider/model configuration
 - any feature that feeds externally-sourced content (scraped pages, CMS fields, uploaded files, third-party API responses) into an LLM call — indirect prompt injection surface
-- database backups and restore procedures
+- migration compatibility and user-supplied recovery requirements in repository documentation
 - dependencies
 - deployment configuration
-- CI/CD
+- repository build/start configuration for an existing deployment pipeline
 - webhooks
 - file uploads
 - payment behavior
@@ -55,22 +57,22 @@ These rules are non-negotiable. They apply to every task, every session, every a
 - Never bypass RBAC checks
 - Never expose private user data in diagnostics or debug reports
 - Never add a dependency without a clear reason
-- Never add external services without an architecture decision entry
-- Never call a metered or paid external API without a hard usage cap, request timeout, and loop/retry limit
+- Never create or operate external services from the PHDK agent; document any external prerequisite of requested integration code
+- Application code that calls a metered or paid API must enforce a hard usage cap, request timeout, and loop/retry limit; the PHDK agent verifies it with test doubles and never invokes the live API
 - Never ship a metered or paid integration without a kill switch that disables it immediately
 - Never concatenate user-supplied content directly into an LLM system prompt without isolation/delimiting
 - Never let content fetched from an external or attacker-reachable source (scraped pages, CMS fields, uploaded files, third-party API responses) trigger a tool call or side-effecting action directly — see LLM Integration Safety, Indirect Prompt Injection
 - Never trust raw LLM output — validate it against the expected schema before use
 - Never hardcode an LLM provider, model, or prompt string in application code
 - Never build SQL queries or shell commands by concatenating unsanitized input — use parameterized queries and never pass unsanitized input to a shell
-- Never perform destructive data actions unless explicitly approved in the current task
+- Never execute destructive actions on live data; proposed data-changing code and migrations require the appropriate review and isolated verification
 - Always validate inputs at every API boundary using Zod
 - Always enforce authorization server-side on every protected route and endpoint
 - Always redact sensitive data in all debug reports and copy diagnostics
 - Always document security-relevant decisions in `ARCHITECTURE_DECISIONS.md`
 - Always configure CORS as an explicit origin allowlist, CSP as default-deny, and the standard security header set — see HTTP Security Headers below
 - Always enable request rate limiting on every API service, with a stricter limit on auth endpoints — see Rate Limiting below
-- Always rotate a secret immediately if it is committed, logged, or otherwise exposed — see Secrets Rotation and Compromise Response below
+- Always report a committed, logged, or otherwise exposed secret immediately and correct the repository code that caused the exposure; provider rotation is outside PHDK — see Secrets Rotation and Compromise Response below
 
 ---
 
@@ -80,14 +82,14 @@ The default authentication method for all PHDK projects is custom Google OAuth 2
 
 PHDK does not use paid authentication vendors by default.
 
-When login is required, implement Google OAuth 2.0 directly using credentials created manually in Google Cloud Console.
+When login is required, implement Google OAuth 2.0 directly using environment-driven credential references. PHDK does not create credentials or operate Google Cloud Console.
 
 Do not scaffold WorkOS, Clerk, Supabase Auth, Firebase Auth, Auth.js, or any other managed auth provider unless the project explicitly overrides this standard in `ARCHITECTURE_DECISIONS.md`.
 
 ### Required Google OAuth 2.0 implementation
 
-- OAuth credentials created manually in Google Cloud Console
-- Exact redirect URI match between code and Google Cloud Console configuration
+- Credential names and callback requirements documented without real secret values
+- Exact redirect URI validation in code, with existing provider configuration treated as an external prerequisite
 - Secure callback handling with error states
 - OAuth state parameter validated on every callback
 - Secure session creation after successful callback
@@ -107,25 +109,11 @@ GOOGLE_OAUTH_ALLOWED_DOMAIN=""
 AUTH_SESSION_SECRET=""
 ```
 
-### Google OAuth credential setup
+### Google OAuth verification boundary
 
-Before implementing login, create credentials manually:
+Verify state validation, callback parsing, session creation, cookie flags, authorization failures, and error redaction with local unit or in-process tests using mocked OAuth and database adapters. Do not open a browser, complete a real sign-in, or contact Google or a live application endpoint.
 
-1. Go to `https://console.cloud.google.com/`
-2. Create or select the Google Cloud project for this app
-3. Go to `Google Auth Platform` → `Branding`
-4. Configure consent screen: app name, support email, authorized domains, developer contact email
-5. Go to `Google Auth Platform` → `Clients`
-6. Create a new client — Application type: Web application
-7. Add Authorized JavaScript origins:
-   - Local: `http://localhost:3000`
-   - Production: `https://[production-domain]`
-8. Add Authorized redirect URIs:
-   - Local: `http://localhost:4000/auth/google/callback`
-   - Production: `https://[api-production-domain]/auth/google/callback`
-9. Save and copy credentials to environment variables
-10. Never commit OAuth credentials
-11. Add all required variables to Railway for the API service
+Cloud projects, consent screens, OAuth clients, allowed origins, and real secret values are external prerequisites. Document required names and callback paths in `.env.example` and repository documentation. If external configuration is unknown, report that limit; do not create or change it and do not make it an extra code-completion gate.
 
 ---
 
@@ -216,12 +204,12 @@ Do not add dependencies speculatively or to satisfy a checklist item.
 
 ### Keeping Existing Dependencies Patched
 
-The rules above govern adding a new dependency. This governs the dependencies already in the project — manual-only maintenance reliably rots within weeks on a project with no dedicated ops time, and a stack this precisely pinned deserves the same discipline for staying current as it does for what gets added.
+Dependency updates are discrete code tasks requested by the user. Change only the relevant package declarations, lockfile, and compatibility code; explain the version change and run the applicable local static/build and isolated test checks before the normal git/GitHub review flow.
 
-- Every project foundation configures Dependabot (GitHub-native, no extra account) or Renovate for automated dependency update PRs — this is a foundation-slice default (`BUILD_APP_FOUNDATION_PROMPT.md`), not something added later when a CVE is found
-- Security-patch updates (a dependency's own patch release fixing a known CVE) may be merged directly once the required local verification gate passes — they still go through the normal branch/commit/`QA_CHECKLIST.md` Build Quality gate, but do not require the same scrutiny as a new dependency
-- Minor and major version bumps from the automated tool go through the full `Dependency Safety` review above before merge — an automated PR does not bypass "why is this needed" for anything beyond a security patch
-- This is dependency automation only, not a task-tracking system — it must never become the system of record for what work is planned, per `TASK_TRACKING_STANDARD.md` Local-Only Rule; a dependency-update PR is still just a PR, reviewed like any other
+- Do not configure Dependabot, Renovate, maintenance agents, scheduled scans, recurring update PRs, or automatic merging
+- Do not turn a foundation build, ordinary feature task, or discovered package age into an unsolicited update campaign
+- Security fixes and minor/major upgrades still need a clear scope, dependency review, and verification appropriate to the change
+- Report a security issue found during the task without starting a recurring maintenance process
 
 ---
 
@@ -268,20 +256,21 @@ Required:
 
 ## Secrets Rotation and Compromise Response
 
-Environment Variable Rules above cover prevention (secrets never committed, never logged). This covers what happens after a secret is suspected or confirmed leaked — a gap that is otherwise undefined until the day it matters.
+Environment Variable Rules cover prevention. When a secret is suspected or confirmed exposed, distinguish repository remediation from provider operations: removing a value from new code does not revoke it, and PHDK does not perform provider rotation.
 
 Required:
 
-- Every credential (`AUTH_SESSION_SECRET`, OAuth client secret, `DATABASE_URL`, AI provider API key, any third-party API key) is rotatable without a code change — set only via environment variable, per Environment Variable Rules, so rotation is a Railway dashboard edit plus redeploy, not a release
-- If a secret is committed to git history, even briefly and even if later removed in a subsequent commit: treat it as compromised immediately. Rotate it at the provider before doing anything else — removing it from a future commit does not remove it from history, and git history must never be force-rewritten to "fix" this without the Stop-and-Ask process in `VERSIONING.md`
-- If a secret is suspected exposed (logged, appeared in a diagnostics report, appeared in an error message, appeared in a screenshot shared outside the team): rotate it and treat the exposure as a Stop-and-Ask condition, not something to quietly fix and move on from
-- After rotating `AUTH_SESSION_SECRET` specifically, all existing sessions are invalidated — this is expected and correct, not a bug to route around
+- Keep credentials environment-driven so application code can accept replacement values without hardcoding them
+- Report the affected credential type and exposure location immediately without repeating the value; a secret in git history remains exposed even after removal from the current file
+- Remove the unsafe value from the current repository state, fix the logging/configuration path that leaked it, and verify the correction locally without the real credential
+- State that revocation/rotation and deployment-environment updates remain outside PHDK and unverified unless the user supplies evidence of their completion
+- Implement session-secret validation and invalidation behavior in code, and test it with dummy secrets and in-process session adapters
 
 ### Never
 
-- Never leave a secret in place "because rotating it is disruptive" once it is known or suspected exposed
-- Never rewrite git history to remove a leaked secret as the primary response — rotation at the provider is the fix; history rewriting is a separate, Stop-and-Ask decision with its own risks
-- Never rotate a secret without confirming every environment (dev, production) that used the old value has been updated to the new one — a rotation that breaks one environment silently is worse than the exposure it was responding to
+- Never claim an exposed credential is safe merely because the current code no longer contains it
+- Never open provider dashboards, rotate external secrets, inspect live secret stores, or update deployment environments from the PHDK agent
+- Never rewrite git history as routine remediation; any proposed history change remains subject to the existing authorization rules in `VERSIONING.md`
 
 ---
 
@@ -291,7 +280,7 @@ Required:
 - `.env` files are always in `.gitignore`
 - `.env.example` contains all required variable names with empty values
 - `.env.example` never contains real secrets
-- Railway environment variables are set in the Railway dashboard, never committed
+- Real deployment environment values are managed outside PHDK; the agent does not retrieve, set, or rotate them
 - Zod validates all required environment variables on application startup
 - Missing required environment variables must cause startup failure with a clear error
 
@@ -299,12 +288,14 @@ Required:
 
 ## Deployment Safety Rules
 
-- Never deploy from local CLI — no `railway up`, no uploading a local build/tarball to Railway
-- Deployment is always triggered by GitHub push to `main`, connected once per `TECHNICAL_STACK.md` First-time Railway Setup
-- Both Railway services use the repository root
-- Never set Railway root directory to `apps/web` or `apps/api`
+- Deploy only through an authorized GitHub push/merge to the existing connected pipeline and established release branch, per `EXECUTION_SCOPE.md`
+- Do not create services, pipelines, CI/task workflows, scheduled deployments, or preview environments
+- Do not use a provider dashboard, provider API/CLI, local artifact upload, or manual provider redeploy/rollback
+- Repository build/start configuration may be updated for the existing target; no external service settings are changed
+- Existing deployment triggers are preserved; no schedule, branch-trigger expansion, or maintenance workflow is added
 - Environment variables are never committed to the repository
-- Production deployments must pass all quality gates before merging to `main`
+- Apply local code verification and the existing GitHub review rules before release; no browser, live HTTP, database, or metered-API probes
+- Roll back through a reviewable revert or code fix on the same GitHub path; report deployment status only to the extent supported by available GitHub evidence
 
 ---
 
@@ -323,46 +314,24 @@ Whether a project collects personal data is decided during kit generation (`PROJ
 
 ### Never
 
-- Never treat "no privacy policy yet" as a silent default the way an undocumented backup policy is disallowed in Data Backup and Recovery Safety below — the same "explicit decision, not a gap by omission" rule applies
+- Never treat "no privacy policy yet" as a silent default when the product's data handling requires one; record the unresolved requirement explicitly
 - Never assume this baseline satisfies GDPR, CCPA, HIPAA, or PCI obligations — flag explicitly when a project's data (EU users, health data, payment data) needs real legal review beyond what this file covers
 
 ---
 
 ## Data Backup and Recovery Safety
 
-This covers backing up the live application database. Code backup is GitHub, always, and is out of scope here — see `TECHNICAL_STACK.md` Data Backup Policy for the product-level standard and the two recommended default policies (weekly email export, weekly git backup branch).
+Live backup and restore operations belong outside PHDK, as defined in `EXECUTION_SCOPE.md` and `TECHNICAL_STACK.md` Data Backup Policy. PHDK does not add backup jobs or features as a baseline or incidental requirement. It does not export databases, email dumps, create git backup branches, schedule retention/pruning, configure provider backups, or run restore drills.
 
-### Required
-
-- Every project has an explicit, documented backup policy for its database — recorded in `ARCHITECTURE_DECISIONS.md`. "No policy" is only acceptable as an explicit, dated decision, not a default by omission
-- Backup job failures are logged and surfaced — a silent failed backup is the same as no backup
-- Minimum retention of the last 4 weekly backups unless the developer specifies otherwise
-- A restore from a real backup has been tested at least once — an unverified backup is not a backup
-
-### If the SQL export is delivered by email
-
-- The dump is encrypted or password-protected before it is emailed if the database holds PII, credentials, payment data, or other sensitive data
-- The destination address is the developer's configured address, never a shared or public distribution list
-- The email itself is treated like any other channel that can leak sensitive data — see Logging and Diagnostics Safety above
-
-### If the SQL export is committed to a git backup branch
-
-- Backup branches are pushed only to the same private repository — never to a public repository or a different, less-controlled repo
-- The dump is never committed to `main` or any feature branch — only to dedicated, dated backup branches
-- Old backup branches are pruned per the project's stated retention window
-- If the database holds sensitive data, treat the backup branch with the same access controls as production secrets — a public flip of the repository would leak every historical dump
-
-### Never
-
-- Never assume a backup policy exists — verify it is recorded in `ARCHITECTURE_DECISIONS.md` before treating a database feature as production-ready
-- Never email or commit an unencrypted dump of a database containing PII, credentials, or payment data
-- Never let a backup job run unmonitored — failures must be visible, not silent
+Keep repository work limited to migration compatibility notes and any relevant recovery requirements already supplied by the user. Do not invent a weekly policy, require an external backup task before completing code, or claim a backup/restore has been verified without evidence. Never commit live database dumps or private application data to any source branch.
 
 ---
 
 ## Cost and Consumption Safety
 
 Any integration billed by usage — AI/image/video generation, LLM API calls, SMS, email sending, third-party enrichment APIs, or any other metered service — must never be able to spend money without a bound. An unbounded loop or retry storm against a metered API is a production incident, not a bug.
+
+The following requirements constrain requested application code. They do not authorize the PHDK agent to call a live provider, create a background service, add a schedule, or operate a monitoring dashboard. Verification uses deterministic test doubles.
 
 ### Required before a metered integration ships
 
@@ -378,7 +347,7 @@ Any integration billed by usage — AI/image/video generation, LLM API calls, SM
 ### Required for visibility
 
 - Current usage/spend against the metered API is observable — in logs at minimum, in a dashboard or `/health/deep` field where feasible
-- An alert or threshold check exists for unusual spend velocity, not just a monthly total
+- Metered-integration code must apply a configurable threshold to existing usage records and flag unusual spend in its normal logging/diagnostic path. Verify the threshold with isolated tests; do not create external alerts, recurring checks, or monitoring jobs
 - The debug diagnostics report includes recent metered-call counts and failures when the feature touches a metered API — see `DEBUG_DIAGNOSTICS_STANDARD.md`
 
 ### Never
@@ -413,7 +382,7 @@ Any feature that calls an LLM must be admin-manageable and provider-agnostic. Se
 - Never trust LLM output as safe to render, execute, or store without validation
 - Never hardcode a provider, model, or prompt string in application code
 - Never expose the AI provider API key client-side
-- Never let the pricing-refresh action call the provider on an unbounded schedule — it is admin-triggered or scheduled with a sane interval, not called on every request
+- The baseline pricing refresh is an explicit product-admin action; do not infer scheduled refreshes, polling, or maintenance agents from this standard. Any explicitly requested recurring product feature remains code-only under `EXECUTION_SCOPE.md`; never invoke its live action from PHDK verification
 - Never store full prompt or response content as part of token/cost tracking by default — that tracking is metrics and metadata only; capturing content is a separate, explicit opt-in that follows the project's data retention policy
 
 ### Indirect Prompt Injection
@@ -441,16 +410,16 @@ This is in addition to, not instead of, classical injection protection — see C
 
 ## Stop-and-Ask Conditions
 
-Stop immediately and ask before performing any of the following:
+Resolve material uncertainty before changing the following code or repository behavior. External operations excluded by `EXECUTION_SCOPE.md` remain excluded; these conditions do not authorize a provider action after a routine confirmation.
 
-- Destructive database operations: drops, truncations, irreversible migrations
-- Changing or disabling the project's configured backup policy
+- Proposed destructive database code or migrations: drops, truncations, irreversible transitions
+- Repository changes that conflict with recovery requirements supplied by the user
 - Authentication provider changes
 - Tenant model changes
 - Permission model changes
 - Payment behavior changes
 - Deployment architecture changes
-- Adding new external services
+- Integration code that depends on external resources not already available; report the prerequisite without provisioning it
 - Adding or enabling a metered/paid external API integration before its usage cap and kill switch are in place
 - Adding an LLM-powered feature before its admin-manageable prompt/output section, provider/model config, and injection guardrails are in place
 - Adding a feature that feeds externally-sourced or attacker-reachable content into an LLM call before indirect-injection guardrails and least-privilege credential scoping are in place
@@ -461,7 +430,7 @@ Stop immediately and ask before performing any of the following:
 - Pushing directly to `main` without approval (Finetuning Mode, explicitly activated for the current conversation per `DEVELOPMENT_RULES.md`, is the one standing exception — everything else still requires asking)
 - Deleting branches that have not been merged
 - Disabling or weakening CORS, CSP, or rate limiting on any endpoint
-- Leaving a known or suspected exposed secret in place instead of rotating it
+- A known or suspected credential exposure; report it and perform only the repository remediation described above
 
 Do not proceed with these actions based on assumptions. Wait for explicit approval.
 
@@ -469,20 +438,20 @@ Do not proceed with these actions based on assumptions. Wait for explicit approv
 
 ## Verification
 
-Security-sensitive work is not complete until all of the following are true:
+For the relevant code changes, record the applicable local evidence and any external limits:
 
-- [ ] Relevant tests pass
-- [ ] Auth and permission behavior verified through the browser or test runner
+- [ ] Relevant risk-triggered local unit or in-process integration tests pass
+- [ ] Auth and permission behavior is verified using isolated adapters/test doubles, without a browser, UI automation, screenshots, or real-service probes
 - [ ] Logs are structured and redact sensitive values
 - [ ] Debug diagnostics are safe and redact sensitive values
 - [ ] No secrets are committed to the repository
 - [ ] Any metered/paid external API touched by this work has a usage cap, timeout, retry limit, and kill switch
 - [ ] Any LLM feature touched by this work has admin-manageable prompt/output, configurable provider/model, injection guardrails, and output validation
 - [ ] Any LLM feature that consumes externally-sourced content has indirect-injection guardrails: content treated as data, action-triggering scoped to authenticated user requests, per-resource credential scoping, and a confirmation gate before destructive actions
-- [ ] Any database work has a recorded backup policy in `ARCHITECTURE_DECISIONS.md`, or an explicit "no policy yet" decision
+- [ ] Database changes include migration compatibility notes and any known external recovery dependency, without claiming a live database/restore test
 - [ ] CORS allowlist, CSP, and standard security headers are configured on `apps/api`
-- [ ] Rate limiting is active globally and specifically on auth endpoints
-- [ ] Any secret known or suspected exposed this session has been rotated, not just removed from future commits
+- [ ] Rate-limiting code covers the service and auth endpoints and is verified with isolated requests
+- [ ] Any suspected secret exposure is reported, repository leakage is corrected, and external revocation/rotation is accurately identified as outside PHDK and unverified unless evidence is supplied
 - [ ] `.env.example` is up to date
 - [ ] `ARCHITECTURE_DECISIONS.md` updated for any security-relevant decisions
 - [ ] `STATUS.md` updated with current state

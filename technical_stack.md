@@ -6,6 +6,8 @@ This file defines the canonical technical stack for all products built on this s
 
 Every agent must treat this file as the source of truth for technology choices. Do not introduce new dependencies outside this stack without explicit approval and a corresponding entry in `ARCHITECTURE_DECISIONS.md`.
 
+`EXECUTION_SCOPE.md` defines what the PHDK agent may do. This file specifies application code and repository configuration; it does not authorize provisioning or operating external services. Work stays in repository files, local code verification, git/GitHub, and authorized pushes to an existing GitHub-connected deployment pipeline. Browser testing, live HTTP/database/API probes, provider dashboards or CLIs, recurring jobs, and infrastructure setup are outside that scope.
+
 ---
 
 ## Monorepo
@@ -40,34 +42,19 @@ packages/
 
 ## LSP / Code Intelligence Setup
 
-PHDK's stack is fixed — TypeScript strict mode, pnpm workspaces, Turborepo — so language detection is not a per-project decision. The canonical language server is `typescript-language-server` (wrapping `tsserver`), the ecosystem-standard choice, driven by a root `tsconfig.json` with project references across `apps/*` and `packages/*`.
+Use the TypeScript code intelligence already available in the current coding tool. `typescript-language-server`/`tsserver` is the reference implementation, but PHDK does not install editor plugins, MCP integrations, or language servers as a foundation or session-completion gate.
 
-### Required setup
+### Repository configuration
 
-- `typescript-language-server` (or the current tool's built-in TS support, e.g. VS Code/Cursor's bundled TS server) is installed and configured — as a dev tool, not a runtime dependency
-- Root `tsconfig.json` uses project references or path mapping that covers every `apps/*` and `packages/*` workspace, so cross-package go-to-definition and find-references work, not just within a single package
-- The server resolves Drizzle-generated types from `packages/db` — if it can't, hover and go-to-definition on database queries silently degrade to `any`
-- The server resolves Next.js's generated types (`next-env.d.ts`) and NestJS's decorator metadata (`experimentalDecorators`, `emitDecoratorMetadata` in `tsconfig.json`)
-- Reuse the existing `tsconfig.json`/`tsconfig.base.json` — never create a second, conflicting TypeScript config to make a tool happy
+- Keep strict TypeScript settings and root project references/path mappings across `apps/*` and `packages/*`.
+- Preserve Drizzle-generated types, Next.js generated types (`next-env.d.ts`), and NestJS decorator metadata (`experimentalDecorators`, `emitDecoratorMetadata`) in the relevant code configuration.
+- Reuse `tsconfig.json`/`tsconfig.base.json`; do not create a conflicting config solely for a tool.
 
-### Required verification
+### Available capability and evidence
 
-Before treating LSP setup as done, confirm on at least one real symbol in the project (not a synthetic test file):
+When direct local LSP access is available and relevant to the change, use diagnostics, definitions, references, and type information to inspect real project symbols. Otherwise use repository text search and applicable TypeScript checks. Report which capability was actually used; an editor having an LSP does not prove the agent can access it.
 
-- Diagnostics/errors surface correctly
-- Go to definition works, including across package boundaries (e.g. from `apps/api` into `packages/db`)
-- Find references works
-- Symbol rename works
-- Hover/type information works
-- Workspace symbol search works
-
-### The non-obvious part
-
-A working editor LSP does not mean the AI coding agent has the same capability. Confirm explicitly whether the current AI tool has direct LSP access (a dedicated tool/MCP integration) or only text/grep-based search standing in for it — these are not equivalent. Grep-based "find references" misses re-exports, path aliases, and dynamic access that a real LSP catches, and "no other usages found" claims built on it are weaker than they sound. Report which one is actually available — see `VERIFICATION_LOOP.md` Honest Reporting Rule.
-
-### When to run this
-
-Set up and fully verify once, during the app foundation build (`BUILD_APP_FOUNDATION_PROMPT.md` Quality Gates). After that, a session only needs a quick smoke-check — confirm diagnostics and go-to-definition still work on a real symbol — not the full verification loop every time. Re-run full verification if `tsconfig.json` changes, a new workspace package is added, or the AI tool itself changes.
+Do not perform a synthetic rename, mandatory setup exercise, or per-session smoke check just to satisfy PHDK. When a requested code change affects TypeScript configuration or workspace boundaries, validate that code locally without expanding the task into environment setup or external integration installation.
 
 ---
 
@@ -122,7 +109,7 @@ Database:           PostgreSQL — all environments
 Migration tool:     Drizzle Kit
 ```
 
-PostgreSQL is the only supported database for this standard, and it only ever runs in the cloud. Do not scaffold, configure, or rely on SQLite in any environment. Do not run PostgreSQL on a developer's machine in any form — no Docker container, no local install, no `localhost` database of any kind. Local development points `DATABASE_URL` at a real, cloud-hosted PostgreSQL instance; the developer's machine is only ever a client.
+PostgreSQL is the application's supported runtime database. Runtime database infrastructure is an external prerequisite; PHDK implements its schema, migrations, queries, and configuration validation in the repository even when the runtime is not yet available. Do not provision a cloud database, start a local database/container, or replace the runtime database with SQLite. Local verification uses isolated test doubles or in-process adapters and never connects to a real database.
 
 Configuration is environment-driven:
 
@@ -131,61 +118,35 @@ DATABASE_PROVIDER="postgresql"
 DATABASE_URL="..."
 ```
 
-### Local development connects to a cloud database, never a local one
+### Database code and isolated verification
 
-There is no "local database" in this standard — only one kind of PostgreSQL, running in the cloud, that every environment (including a developer's own machine) connects to over the network.
-
-- Local development uses a dedicated Railway-hosted PostgreSQL instance, separate from the production database — provisioned once per project as part of `First-time Railway setup` below, not per developer machine
-- A developer's `.env` sets `DATABASE_URL` to that dev instance's Railway connection string; nothing runs locally to serve it
-- Never point local development at the production database
-- If `DATABASE_URL` is unset or unreachable, the app must fail loudly (e.g. refuse to start, or return `503` from `/health`) rather than falling back to SQLite or an in-memory store — see `QA_CHECKLIST.md` Database
+- Runtime connection values belong to the existing deployment environment; PHDK documents variable names in `.env.example` without retrieving or setting real credentials
+- Never run migrations, queries, seeds, or verification probes against a real dev, staging, or production database from the PHDK agent
+- Review migration SQL and compatibility locally; test query and migration-related application logic with explicit test doubles when risk-triggered coverage is needed
+- Test doubles are confined to verification and must never become a silent production fallback
+- If runtime `DATABASE_URL` is unset or unreachable, application code must fail clearly rather than fall back to SQLite or an in-memory store — see `QA_CHECKLIST.md` Database
 
 Rules:
 
 - Never mutate schema without a migration
-- Never commit migrations without testing against the Railway dev database first
+- Include migration compatibility and recovery notes with schema changes; report that live migration execution is outside PHDK rather than claiming it was tested
 - Core records include: `id`, `created_at`, `updated_at`, `created_by`, `updated_by`
 - Important records include soft delete: `deleted_at`
 - Drizzle and PostgreSQL are ready but not implemented unless the project phase requires them
 
 ### Data Backup Policy
 
-This is about backing up the live application data (the database), not the code. Code backup is always GitHub — that is separate and non-negotiable. This section is only about the database.
+Live database backup and recovery operations are outside PHDK under `EXECUTION_SCOPE.md`. PHDK does not create backup jobs, email exports, git backup branches, retention schedules, restore tasks, or backup product features as part of a foundation or database slice.
 
-Every project must have an explicit data backup policy. Do not assume one and do not skip asking — it is set during PHDK generation (`PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` Question 3) and recorded as a decision in `ARCHITECTURE_DECISIONS.md`.
+Keep source code and migration files in GitHub. Never put live database dumps, credentials, or private application data into source control. If the user supplies existing recovery constraints, record only the relevant requirements and migration dependencies in `ARCHITECTURE_DECISIONS.md`; do not invent a policy or claim a backup/restore was verified. External backup setup is not a PHDK code-completion gate.
 
-Recommended default when the developer has no preference — pick one:
-
-```txt
-Option A — Weekly email export
-Every Monday, a scheduled job exports a full SQL dump of the database
-and emails it to the developer's configured address. If the database
-holds PII or other sensitive data, the dump is encrypted or
-password-protected before it is emailed.
-
-Option B — Weekly git backup branch
-Every Monday, a scheduled job exports a full SQL dump and commits it
-to a dated backup branch (e.g. backup/2026-08-10) in the same private
-repository. Backup branches are never pushed to a public repository.
-Old backup branches are pruned per a stated retention window.
-```
-
-Both are intentionally minimal. A production system with meaningful data should graduate to managed provider backups (e.g. Railway/PostgreSQL automated backups, point-in-time recovery) as soon as that is available — but nothing here is scaffolded until the database itself exists and the project phase requires it.
-
-Required regardless of which option is chosen:
-
-- Backup job failures are logged and surfaced, never silent
-- Minimum retention: last 4 weekly backups, unless the developer specifies otherwise
-- The chosen policy is documented in `ARCHITECTURE_DECISIONS.md`
-- A restore has been tested at least once before the policy is considered verified — see `QA_CHECKLIST.md` Database
-
-See `DEVSECOPS.md` Data Backup and Recovery Safety for the security requirements around backup exports.
+See `DEVSECOPS.md` Data Backup and Recovery Safety for the corresponding boundary.
 
 ---
 
 ## Data Import / Intake Pipeline
 
-Any feature that ingests data from files, spreadsheets, or exports — from multiple source types, or on a recurring cadence (monthly closes, nightly syncs, repeated manual uploads) — uses a stateful intake pipeline, not a direct insert-and-forget import. Do not wire an upload straight into business tables with no batch identity, no review step, and no way to undo a bad import short of a manual `DELETE`.
+Any requested feature that ingests data from multiple file, spreadsheet, or export types, supports repeated manual uploads, or explicitly requires recurring import code uses a stateful intake pipeline. Do not wire an upload straight into business tables with no batch identity, no review step, and no way to undo a bad import short of a manual `DELETE`. This specifies import code; it does not authorize scheduled syncs, polling, background maintenance, or execution against live data.
 
 This does not apply to a one-off seed script or a single admin-only CSV import with no repeat cadence — those can insert directly. The pipeline is for imports that recur or come from more than one source.
 
@@ -271,7 +232,7 @@ Both checks run before rows are inserted, not after.
 - Deactivation always asks for a reason and records who/when.
 - `DELETE` on an import batch (API or UI) is wired to deactivate, never to a physical row delete.
 
-Data Import / Intake Pipeline is not scaffolded unless the project explicitly imports data from multiple sources or on a recurring cadence — see `QA_CHECKLIST.md` Data Import / Intake QA.
+Data Import / Intake Pipeline is not scaffolded unless the project explicitly requires imports from multiple sources or repeated uploads. If the user explicitly requests recurring import code, deliver only that code and its isolated tests under `EXECUTION_SCOPE.md`; do not configure a schedule or enable external execution. See `QA_CHECKLIST.md` Data Import / Intake QA.
 
 ---
 
@@ -281,7 +242,7 @@ Default authentication method: custom Google OAuth 2.0.
 
 PHDK does not use paid authentication vendors by default.
 
-When login is required, implement Google OAuth 2.0 directly using credentials created in Google Cloud Console.
+When login is required, implement Google OAuth 2.0 directly with environment-driven credential references. Creating credentials or configuring Google Cloud is outside PHDK.
 
 Do not scaffold WorkOS, Clerk, Supabase Auth, Firebase Auth, Auth.js, or any other managed auth provider unless the project explicitly overrides this standard in `ARCHITECTURE_DECISIONS.md`.
 
@@ -291,25 +252,11 @@ Sessions:           database-backed
 Authorization:      server-side RBAC when roles exist
 ```
 
-### Google OAuth credential setup
+### Google OAuth code contract
 
-Before implementing login, create credentials manually:
+Document the required variable names and exact callback path in repository configuration. Validate the configured redirect URI, OAuth state, token exchange result, and session behavior in code. Use mocked provider responses and session adapters for local verification; do not open a browser, complete a real login, or contact the provider.
 
-1. Go to `https://console.cloud.google.com/`
-2. Create or select the Google Cloud project for this app
-3. Go to `Google Auth Platform` → `Branding`
-4. Configure consent screen: app name, support email, authorized domains, developer contact email
-5. Go to `Google Auth Platform` → `Clients`
-6. Create a new client — Application type: Web application
-7. Add Authorized JavaScript origins:
-   - Local: `http://localhost:3000`
-   - Production: `https://[production-domain]`
-8. Add Authorized redirect URIs:
-   - Local: `http://localhost:4000/auth/google/callback`
-   - Production: `https://[api-production-domain]/auth/google/callback`
-9. Save and copy credentials to environment variables
-10. Never commit OAuth credentials
-11. Add all required variables to Railway for the API service
+Existing credential and allowed-origin configuration is an external runtime prerequisite. If it is unavailable, report that limitation while completing the code that can be implemented and verified locally. Do not create cloud projects, OAuth clients, consent screens, external secrets, or provider settings.
 
 ### Required env vars for auth
 
@@ -411,13 +358,15 @@ AI_API_KEY=""
 - **Guardrails against indirect prompt injection** — if the feature feeds externally-sourced content (scraped pages, CMS fields, uploaded files, third-party API responses) into an LLM call, that content is treated as data, credentials are scoped per resource/tenant, and destructive actions require a confirmation gate — see `DEVSECOPS.md` LLM Integration Safety, Indirect Prompt Injection
 - **Output validation** — LLM output is validated against the expected schema (e.g. with Zod) before it is used or displayed; invalid output is rejected, not trusted
 - **Prompt/config changes are audited** — every edit to a prompt template or output schema logs actor, timestamp, and diff
-- **Pricing is visible** — the AI management section includes a "refresh model pricing" action that fetches current per-model pricing and shows cost per model currently in use
+- **Pricing is visible** — the AI management section includes an admin-initiated "refresh model pricing" action and shows cost per model currently in use; this standard does not add scheduled refreshes or polling
 - **Every call is tracked** — see AI Token & Cost Observability below; this is built into `packages/ai` itself, not something each feature implements separately
 - Cost and loop safeguards from `DEVSECOPS.md` Cost and Consumption Safety apply to every LLM call
 
 See `AGENTS.md` Required Routes (`/admin/ai`) and `QA_CHECKLIST.md` AI / LLM Configuration QA.
 
 AI/LLM integration is not scaffolded unless the project explicitly requires it.
+
+These are product-code requirements. The PHDK agent verifies provider adapters, pricing, and usage handling with test doubles; it does not invoke a live model, operate the admin controls, or configure an external provider.
 
 ### AI Token & Cost Observability
 
@@ -448,26 +397,11 @@ status, error_type                          — on failure
 
 ---
 
-## Deployment
+## Deployment Through GitHub
 
-```txt
-Platform:           Railway
-Trigger:            GitHub push to main
-Services:           two Railway services
-  @repo/web         — apps/web
-  @repo/api         — apps/api
-Root directory:     repository root for both services
-```
+PHDK releases code through an authorized push or merge to the existing GitHub-connected deployment pipeline, as defined in `EXECUTION_SCOPE.md`. Use the project's established release branch and target; `main` is the default only when the existing pipeline uses it. Do not change its triggers or create/connect a pipeline when none exists.
 
-Rules:
-
-- Never deploy from local CLI
-- Both Railway services use the repository root
-- Never set Railway root to `apps/web` or `apps/api`
-- Environment variables are set in Railway dashboard, never committed
-- `apps/mobile` is never deployed unless explicitly tasked
-
-Railway commands:
+Repository build/start configuration may be maintained for that existing path. For an already connected Railway monorepo, both app builds use the repository root and the matching package commands:
 
 ```bash
 # API service
@@ -479,63 +413,41 @@ pnpm --filter @repo/web build
 pnpm --filter @repo/web start
 ```
 
-### First-time Railway setup
+These commands describe the pipeline's application contract. Do not start an app locally if doing so would contact real services. Local build checks must stay within the verification boundary.
 
-This is the only supported path to a running deployment. There is no other way to get a first deploy live.
+### Release procedure
 
-1. Commit the project through the normal branch and commit rules in `DEVELOPMENT_RULES.md`, with the version bumped per `VERSIONING.md`.
-2. Push to GitHub. `main` must be current before connecting anything to Railway.
-3. In the Railway dashboard, create a new project and choose "Deploy from GitHub repo." Authorize Railway's GitHub App if this is the first time, and select this repository. Do not use `railway up`, the Railway CLI's deploy command, or drag-and-drop a local build/tarball — none of those create the GitHub-connected pipeline this standard requires, and both silently violate "never deploy from local CLI."
-4. Inside that Railway project, create two services from the same connected repo — `@repo/api` and `@repo/web`. Both services point at the same repo.
-5. For each service, set Root Directory to the repository root (`/`) — never `apps/web` or `apps/api`. Set Build Command and Start Command to the matching pair from Railway commands above (e.g. `pnpm --filter @repo/api build` / `pnpm --filter @repo/api start` for the API service).
-6. Set environment variables for each service in the Railway dashboard, from `.env.example` — never commit real values.
-7. Railway auto-deploys once the GitHub connection and both services are configured — no manual "deploy" action is needed beyond this setup. Every push to `main` after this point triggers a new deploy on its own.
-8. Verify the deploy actually worked: hit the API service's public `/health` endpoint and confirm the response matches `VERIFICATION_LOOP.md` Health Check Standard, then confirm the web service can reach the API through its public URL (`NEXT_PUBLIC_API_URL` pointed at the deployed API, not `localhost`).
+1. Review the code diff and run the applicable local static/build checks and risk-triggered unit or in-process tests, without a browser or real services.
+2. Commit and push through the authorized git/GitHub branch and review flow in `DEVELOPMENT_RULES.md` and `VERSIONING.md`.
+3. Let the already connected pipeline respond to that push. Report the commit SHA and any deployment status already available through GitHub; do not poll repeatedly or claim runtime health from a successful push alone.
+4. If the pipeline or required external configuration is missing, report the deployment limitation. Do not create infrastructure to remove it.
 
-After this one-time setup, deployment is fully push-triggered — there is nothing left to do in the Railway dashboard for a normal release.
-
-### First-time Railway database setup
-
-This provisions the cloud PostgreSQL instance that local development connects to — see `Database` above. Do this once per project, not once per developer.
-
-1. In the same Railway project, add a PostgreSQL database service (`+ New` → `Database` → `PostgreSQL`). This is the **dev/staging database** — it is separate from whatever PostgreSQL instance backs the production deploy, and it is the only database any developer's machine is ever allowed to connect to.
-2. Copy its connection string from the Railway dashboard (`Postgres` service → `Connect` → `Connection URL`).
-3. Set `DATABASE_URL` to that connection string in each developer's local `.env` — never commit it. No local PostgreSQL server, Docker container, or SQLite fallback is scaffolded; the local `.env` is the only local artifact involved.
-4. Run migrations against it (`Drizzle Kit`) before any schema change is committed — this is the "test locally" step required elsewhere in this standard, and it means testing against this cloud instance, not a machine-local one.
-5. Production gets its own separate PostgreSQL service (or an external managed provider) with its own `DATABASE_URL`, set only in the production service's Railway environment variables — never shared with the dev database and never present in a developer's `.env`.
+Do not use a provider dashboard, provider API/CLI, `railway up`, local upload, manual provider redeploy, or live `/health` probe. Do not provision projects, services, databases, secrets, domains, preview environments, or monitoring. PHDK does not add CI/task workflows, cron triggers, scheduled deployments, or maintenance agents. Product endpoints and diagnostics remain application code, verified locally as described in `VERIFICATION_LOOP.md`.
 
 ---
 
 ## Deploy Rollback Runbook
 
-Migration rollback notes (`QA_CHECKLIST.md` Migrations and Rollback) cover schema changes. This covers the app deploy itself: what to do when the code just shipped by a push to `main` is bad in production.
-
-Because deployment is fully automatic on every push to `main` (`First-time Railway Setup` above), a bad deploy needs an equally fast, equally well-known way back — not something invented under pressure the first time it happens.
+Rollback stays in the repository and existing GitHub deployment path. PHDK does not operate the hosting provider or production database.
 
 ### If a deploy is bad
 
-1. In the Railway dashboard, open the affected service's Deployments tab and redeploy the last known-good deployment — Railway keeps prior build artifacts, so this does not require a new git push or a new build.
-2. In parallel, revert the bad commit on `main` (`git revert`, not `git reset` — see `VERSIONING.md` Stop-and-Ask Conditions on rewriting history) so the next automatic deploy from a future push doesn't reintroduce the same bug. The dashboard rollback in step 1 buys time; the revert is what actually fixes `main`.
-3. If the bad deploy included a migration that already ran against the production database, the code rollback alone is not sufficient — check whether the migration is backward-compatible with the previous code version before rolling back. A migration that dropped a column the previous code still reads from is not safely reversible by redeploying old code alone; see `QA_CHECKLIST.md` Migrations and Rollback.
-4. Confirm recovery against `/health` and `/health/deep` per `VERIFICATION_LOOP.md` before considering the incident resolved.
-5. Record what happened in `STATUS.md` — what broke, how it was caught, and what the fix or process gap was, so the next session (or the next AI developer) has the context.
+1. Inspect the relevant commits and migration files. Identify a code revert or corrective patch and flag any schema-compatibility uncertainty; do not infer the live database state.
+2. Prepare a reviewable `git revert` or corrective change on the appropriate branch, following the existing authorization and review flow. Do not rewrite history.
+3. Verify the change locally with static/build checks and applicable isolated tests, then use the authorized GitHub push/merge path so the existing pipeline deploys it.
+4. Report the GitHub evidence that is available and its limits. Do not contact `/health`, `/health/deep`, the database, or a provider dashboard to claim recovery.
+5. Record the incident, code change, migration caveats, and any unverified external recovery state in `STATUS.md`.
 
 ### Never
 
-- Never treat "push a fix forward" as the only option when a dashboard rollback to the last-good build is faster and safer for a production-impacting bug
-- Never roll back the app deploy without checking migration compatibility first — a code-only rollback against an incompatible schema state can be worse than the original bug
+- Never use a provider rollback or CLI deployment as a shortcut around the authorized GitHub path
+- Never represent a code rollback as a database rollback or confirmed runtime recovery
 
 ---
 
 ## Preview Environments
 
-Only two Railway environments exist by the standard defaults: the dev/staging database from `First-time Railway database setup` above (used by every developer's local machine and by any optional project-specific CI) and production. There is no PR-level preview deploy by default — a human reviewing a slice before merge (`QA_CHECKLIST.md` Human Diff Review) verifies against localhost, per `VERIFICATION_LOOP.md` Browser verification, not against a deployed preview.
-
-This is a deliberate default, not an oversight: a Railway PR-environment service per open branch has a real, ongoing cost, and most PHDK projects do not need it. If a project wants one:
-
-- Enable Railway's PR environments (or an equivalent Railway service configured to deploy feature branches) as an explicit, approved addition — this is an "adding new external services"-adjacent decision per `AI_DEVELOPER_OPERATING_MODEL.md` Stop-and-Ask Conditions, and belongs in `ARCHITECTURE_DECISIONS.md` once approved
-- A PR preview environment still points at the same shared dev/staging database from `First-time Railway database setup`, unless the project explicitly provisions a separate ephemeral database per preview — decide and record which, since concurrent previews sharing one dev database can collide on schema/migration state
-- A preview environment is never a substitute for the Human Diff Review gate — it makes that review easier (a real deployed URL instead of localhost), it does not replace someone reading the diff
+PHDK does not create, enable, or require preview environments. It does not run browser-based or screenshot-based verification on localhost, previews, or production. A person's optional visual review is external feedback, not a mandatory PHDK gate or evidence the agent may claim as its own.
 
 ---
 
@@ -599,7 +511,6 @@ Every app must include:
     "start": "...",
     "lint": "...",
     "typecheck": "...",
-    "test": "...",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   }
@@ -607,6 +518,8 @@ Every app must include:
 ```
 
 Root-level Prettier config (`.prettierrc`, `.prettierignore`) lives at the repository root, not duplicated per app. Wire it into the `pre-commit` hook via `lint-staged` per `ENFORCEMENT.md` Git Hooks — formatting is fixed automatically on staged files, not just checked.
+
+Add a `test` script only when `TESTING_STANDARD.md` identifies a concrete need. Tests are local unit or in-process integration checks with test doubles; do not install or run Playwright, Puppeteer, Cypress, Selenium, browser/UI automation, screenshots, or real-service probes for verification.
 
 ---
 

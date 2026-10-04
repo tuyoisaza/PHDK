@@ -4,7 +4,7 @@
 
 Every other PHDK file assumes the AI developer read it, remembers it, and keeps following it — for the whole session, across sessions, and across whichever of PHDK's 8 supported tools is in use. In practice, that assumption breaks: sessions get long, context gets summarized, a new session starts cold, or a different tool is used that never triggered the reading order at all. The result is a rule that was followed in slice 1 quietly stops being followed by slice 12 — not through a decision, just through drift.
 
-This file defines how PHDK stops depending on that assumption for as much as possible. The strategy is not "try harder to remember." It is: convert every rule that *can* be mechanically checked into something git, local verification, repository settings, or the AI tool itself enforces automatically — so compliance does not depend on anyone's memory — and for the smaller set of rules that genuinely require judgment and cannot be reduced to a check, maximize how persistently they stay in front of the AI regardless of session length or tool.
+This file defines repository-local enforcement: git hooks, local code verification, and short persistent instruction files. `EXECUTION_SCOPE.md` takes precedence. Enforcement does not authorize repository administration, provider setup, browser testing, live-service probes, recurring automation, or new CI workflows. Existing local code-validation hooks remain in scope.
 
 ---
 
@@ -23,7 +23,7 @@ Read this file when:
 
 ### Tier 1 — Machine-Enforced (does not depend on the AI at all)
 
-If a rule can be expressed as a check a computer can run — a regex, lint rule, git hook, local validation command, or repository setting — it belongs here, not in a document someone has to remember to consult. A Tier 1 rule is enforced the same way regardless of which PHDK-supported tool produced the change.
+If a rule can be expressed as a repository-local check — a regex, lint rule, git hook, or local code-validation command — it belongs here. A Tier 1 rule is enforced the same way regardless of which PHDK-supported tool produced the change. Do not turn a rule into an external service, scheduled job, or repository-settings change.
 
 ### Tier 2 — Context-Persistence (depends on the AI, but engineered to be hard to forget)
 
@@ -35,21 +35,13 @@ Every rule in this repo falls into one tier or the other. When adding a new PHDK
 
 ## Tier 1 — Required Scaffolding
 
-All of this is created once, at app foundation build (`BUILD_APP_FOUNDATION_PROMPT.md`), the same way `TECHNICAL_STACK.md` First-time Railway Setup is a one-time procedure, not a per-slice task.
+At app foundation build (`BUILD_APP_FOUNDATION_PROMPT.md`), create only the repository code/configuration needed for local enforcement. Reuse existing hooks and scripts; do not generate external setup tasks.
 
-### GitHub branch protection (the strongest lever — a repository setting, not code)
+### Existing GitHub rules
 
-This is the single most reliable mechanism in this file because it is enforced by GitHub itself and cannot be bypassed by an agent forgetting a rule, regardless of which AI tool or how many parallel agents are pushing commits.
+Follow the repository's existing branch protection, review requirements, and allowed merge methods. Do not change settings, require new checks or accounts, add bypass actors, disable protection, or claim settings are configured without evidence. Finetuning Mode never overrides an existing access restriction or permits settings changes.
 
-Configure once, on `main`, in the repository's GitHub settings:
-
-- Require a pull request before merging — direct pushes to `main` are rejected by GitHub, not by an agent's discipline. This is what actually makes `DEVELOPMENT_RULES.md`'s "never commit directly to `main`" true by construction instead of by request.
-- PHDK does **not** require status checks or GitHub Actions. The baseline must remain fully usable when Actions are disabled or unavailable. Required validation is performed locally and recorded as evidence before merge.
-- Do not allow force-pushes to `main`. Do not allow branch deletion of `main`.
-- Disable "Squash and merge" as an allowed merge method (repository Settings → General → Pull Requests). Squashing discards the individual commits that the `commit-msg` hook already validated and replaces them with one new commit built from the PR title or an edited message that was never checked by anything. Allow only "Merge commit" or "Rebase and merge" — both land the already-validated commits on `main` with their original messages intact.
-- Finetuning Mode (`DEVELOPMENT_RULES.md`) is the one standing exception to "never push directly to `main`" — implement it as a scoped bypass (e.g. a repo admin temporarily disabling the direct-push restriction, or an allowlisted bypass actor) that is itself visible in the repository's settings audit log, not as something branch protection has no record of.
-
-PHDK does **not** require GitHub's "require an approving review before merge" setting. GitHub blocks self-approval, so on a single-maintainer repo that setting cannot be satisfied without a second account — a cost PHDK does not impose by default. `QA_CHECKLIST.md` Human Diff Review still applies to every merge: a human must open the actual diff before merging, and their approval must be a distinct recorded action (a review, a merge click), not a chat "looks good". That gate is owned by the person merging the PR, not enforced by branch protection. A project with two or more maintainers that wants the mechanical backstop can turn required approval on — record it in `ARCHITECTURE_DECISIONS.md`.
+Use the authorized branch/commit/PR flow in `DEVELOPMENT_RULES.md` and `VERSIONING.md`. Review the actual code diff and follow the existing merge authorization; do not add a provider-dashboard or browser-verification gate. Missing server-side enforcement is not permission to create GitHub Actions or administer the repository.
 
 ### Git hooks (Husky, scaffolded in `package.json` — root-level, applies regardless of which AI tool is driving `git`)
 
@@ -57,7 +49,7 @@ Hooks run on the `git` command itself. They fire the same way whether a human ty
 
 - **`commit-msg`** — regex-validates the commit message against `VERSIONING.md` Commit Message Format (a leading `vMAJOR.MINOR.PATCH` followed by a conventional-commit type/scope/summary). A commit with no version prefix is rejected before it is created, not caught later in review. This is the direct mechanical fix for "commits shipped without a version bump."
 - **`pre-commit`** — runs the fast subset of `QA_CHECKLIST.md` Build Quality: lint, typecheck, `lint-staged` running Prettier against staged files (auto-fixes formatting rather than just flagging it, per `TECHNICAL_STACK.md`), and a file-size check that rejects any staged file over the 600-line limit in `DEVELOPMENT_RULES.md`. Also runs a secrets scan (see below) on the staged diff.
-- **`pre-push`** — blocks a push targeting `main` unless a local `PHDK_FINETUNING_MODE=1` environment variable is set; validates every outgoing commit message against `VERSIONING.md`; and runs the required local static/build gate (`lint`, `typecheck`, `format:check`, `build`) before the branch is pushed. Automated tests are not a universal hook: they are run only when the current slice triggers `TESTING_STANDARD.md`. GitHub branch protection remains the backstop against direct pushes to `main`.
+- **`pre-push`** — blocks a push targeting `main` unless the existing authorized Finetuning Mode permits it and the corresponding local flag is set; validates every outgoing commit message against `VERSIONING.md`; and runs the applicable local static/build gate (`lint`, `typecheck`, `format:check`, `build`) before the branch is pushed. Tests are task-level and risk-triggered under `TESTING_STANDARD.md`, limited to non-browser unit or in-process checks with test doubles. Respect existing GitHub protection; never alter it to make a push work.
 
 ### Secrets scanning (mechanical enforcement of "never commit secrets")
 
@@ -65,19 +57,19 @@ Hooks run on the `git` command itself. They fire the same way whether a human ty
 - A scan finding is a hard block on the commit, not a warning to note and continue past.
 - This is in addition to, not instead of, `DEVSECOPS.md` Environment Variable Rules and Secrets Rotation and Compromise Response — the scan catches the accident; that section defines what to do once one gets through anyway.
 
-### Local verification gate (required; no GitHub Actions)
+### Local verification gate
 
-PHDK's baseline requires zero GitHub Actions. A project must remain fully operable when GitHub Actions is disabled, unavailable, or intentionally unused.
+PHDK does not scaffold GitHub Actions or other CI workflows. Existing GitHub-connected deployment pipelines may deliver an approved release under `EXECUTION_SCOPE.md`; do not add schedules, change their triggers, or expand them into task tracking, maintenance, or preview automation.
 
-Before a branch is pushed for review, the `pre-push` hook runs the baseline static/build commands required by `QA_CHECKLIST.md`: lint, typecheck, build, and format:check. The agent records results as verification evidence. Risk-triggered automated tests are run separately at the narrowest useful scope; diagnostics and endpoint probes are the default runtime verification.
+Before a branch is pushed for review, apply the local code checks required by `QA_CHECKLIST.md` and record their results. Existing hooks can run lint, typecheck, build, and format:check. A documentation-only change needs source/diff consistency review, not an application build. Run risk-triggered unit or in-process integration tests separately at the narrowest useful scope, with test doubles for external dependencies. Do not open a browser, run browser test tools, take verification screenshots, or probe live endpoints/databases/APIs.
 
 The same `pre-push` hook validates **every outgoing commit** in the branch range against `VERSIONING.md` Commit Message Format.
 
-GitHub Actions, another CI provider, or required status checks may be added only as a project-specific opt-in recorded in `ARCHITECTURE_DECISIONS.md`. Optional CI is additive: it never replaces the local verification gate, never becomes the task system, and its absence is never a PHDK gap.
+An existing pipeline's GitHub status/logs may supply deployment evidence for an approved release. Do not treat that evidence as a browser or live application test, poll it in a loop, or use another tool or agent to perform excluded verification.
 
-### Dependency automation
+### Requested dependency updates
 
-- Dependabot or Renovate, per `DEVSECOPS.md` Keeping Existing Dependencies Patched — already a Tier 1 mechanism by nature (it opens PRs on a schedule; it does not require anyone to remember to check for updates).
+Dependency changes are discrete user-requested code tasks, verified locally and reviewed through the normal git/GitHub flow. Do not configure Dependabot, Renovate, scheduled scans, recurring update PRs, or automatic merging. PHDK installation or upgrade does not enable or disable an existing project's bots; report a relevant existing configuration without altering it unless removal is the explicit code task. See `DEVSECOPS.md` Keeping Existing Dependencies Patched.
 
 ### What Tier 1 already covers from other files
 
@@ -87,11 +79,11 @@ This section does not repeat rules defined elsewhere — it is the index of whic
 |---|---|---|
 | Commit message begins with `vX.Y.Z` | `VERSIONING.md` | `commit-msg` hook + outgoing-commit range validation in `pre-push` |
 | No file exceeds 600 lines | `DEVELOPMENT_RULES.md` | `pre-commit` hook |
-| Never commit directly to `main` | `DEVELOPMENT_RULES.md` | GitHub branch protection |
-| Build/lint/typecheck/format:check must actually pass before push | `VERIFICATION_LOOP.md` | required local `pre-push` static/build gate + recorded evidence |
-| Risk-triggered behavior must have automated coverage when required | `TESTING_STANDARD.md` | task-level targeted test evidence, not a universal hook |
+| Honor the authorized branch and merge flow | `DEVELOPMENT_RULES.md` | local `pre-push` guard and existing GitHub restrictions |
+| Applicable static/build checks must actually pass before push | `VERIFICATION_LOOP.md` | local `pre-push` code checks + recorded evidence; source/diff review for documentation-only changes |
+| Risk-triggered behavior must have isolated coverage when required | `TESTING_STANDARD.md` | task-level unit/in-process test evidence, not a browser or live-service check |
 | Never commit secrets | `DEVSECOPS.md` | `pre-commit` secrets scan |
-| Dependencies stay patched | `DEVSECOPS.md` | Dependabot/Renovate |
+| Requested dependency changes are verified | `DEVSECOPS.md` | package/lockfile diff review and local code checks |
 
 ---
 
@@ -126,14 +118,13 @@ The managed block includes the `PHDK upgrade` command and the smallest high-seve
 
 On `PHDK upgrade`, replace only the marked block with the latest vendored `PHDK_NATIVE_RULES.md`. If an older project has no markers, append the managed block once without deleting existing content. From that point forward the PHDK portion is mechanically refreshable without overwriting user-authored rules.
 
-### Session-start ritual, made mechanical where the tool allows it
+### Session context
 
-- Where the current tool supports a session-start or first-prompt hook (a hook that runs before the first response in a session), wire it to print `phdk-standards/INANUTSHELL.md` into context automatically — this replaces "the AI is instructed to read it" with "the AI cannot start without having seen it."
-- Where no such hook exists, the tool-native always-loaded rule file above is the fallback — it is present without requiring a hook mechanism, because the tool loads it unconditionally by convention.
+Use the tool-native instruction file and the minimum context in `AGENTS.md`. Do not install session-start agents, external hooks, schedulers, or background tasks to load the standards. Persistent text in the repository provides the context; delegated agents inherit the same `EXECUTION_SCOPE.md` boundary.
 
 ### The commit-time reminder
 
-Every `commit-msg` hook invocation (Tier 1, above) also prints the Tier 2 hard-rules block from the tool-native rule file to stdout after a successful commit. This is deliberate, low-cost redundancy: it re-surfaces the highest-severity rules at the single most frequent, most mechanically-guaranteed touchpoint in the entire workflow — a commit happens every few minutes in an active session, far more often than a human would think to say "hey, re-read the standards." A long session that has drifted from the rules gets re-exposed to them dozens of times before it ends, without anyone having to notice the drift first.
+A local `commit-msg` hook may print the short managed rules block during the requested git operation. This is a local reminder only: it must not launch an agent, contact a service, or schedule follow-up work.
 
 ---
 
@@ -142,15 +133,15 @@ Every `commit-msg` hook invocation (Tier 1, above) also prints the Tier 2 hard-r
 Being honest about the limits matters more here than anywhere else in PHDK, per the Ethos Rules in `AI_DEVELOPER_OPERATING_MODEL.md`.
 
 - Tier 1 only works for what can be expressed as a check. "Understand the human's actual goal before writing code" has no lint rule. Tier 2 narrows how often this kind of rule gets forgotten; it does not guarantee it never is.
-- A local git hook can be bypassed, or be absent if setup never ran. PHDK therefore requires Human Diff Review and explicit verification evidence in addition to hooks. GitHub branch protection is still the backstop for direct pushes to `main`, but PHDK deliberately does not require GitHub Actions as a second execution environment.
-- Human Diff Review (`QA_CHECKLIST.md`) is deliberately not mechanically enforced. It stays a checklist gate the merging human owns, because the only GitHub mechanism for it — required approval — cannot be met on a single-maintainer repo without a second account. A team project that wants the backstop opts in via `ARCHITECTURE_DECISIONS.md`.
+- A local git hook can be bypassed or absent. Review the diff and report actual verification evidence; respect existing GitHub restrictions without changing them or creating CI as a fallback.
+- Review and merge follow the current authorization and existing repository rules. PHDK does not add account, settings, browser, or external-runtime prerequisites to finish a code task.
 - None of this replaces a human actually reading `STATUS.md` and the diff periodically. Tooling raises the floor; it does not remove the need for the feedback loop in `AI_DEVELOPER_OPERATING_MODEL.md`.
 
 ---
 
 ## Never
 
-- Never write a new PHDK rule that has an obvious Tier 1 equivalent (a regex, git hook, local validation command, or repo setting) as prose only, without also adding the mechanical version here
+- Never implement enforcement beyond the repository-local code boundary in `EXECUTION_SCOPE.md`
 - Never treat a bypassed local hook as routine — it is the same class of action as force-pushing or pushing directly to `main`, and belongs in `VERSIONING.md` Stop-and-Ask Conditions
 - Never let the marked PHDK-managed block in the tool-native rule file drift from `PHDK_NATIVE_RULES.md`; `PHDK upgrade` refreshes that block automatically
 - Never generate rule files for tools the project isn't using "just in case" — this bloats the repo with dead configuration nobody maintains
@@ -159,13 +150,13 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 
 ## Verification
 
-- [ ] GitHub branch protection on `main` requires a PR and disallows force-push; PHDK does not require status checks or GitHub Actions
+- [ ] Existing GitHub branch/review rules are respected; no repository settings, CI workflows, schedules, bots, or provider resources were created or changed for enforcement
 - [ ] `commit-msg` hook rejects a commit with no `vX.Y.Z` prefix
 - [ ] `pre-commit` hook rejects a staged file over 600 lines, runs `lint-staged`/Prettier against staged files, and runs a secrets scan
-- [ ] `pre-push` hook blocks a push to `main` unless `PHDK_FINETUNING_MODE=1` is set locally, validates every outgoing commit message, and runs lint/typecheck/build/format:check
-- [ ] A test branch with an intentionally malformed outgoing commit is rejected by `pre-push`
+- [ ] `pre-push` respects the authorized branch flow, validates outgoing commit messages, and runs applicable local code checks; documentation-only changes use source/diff review without an application build
+- [ ] Hook validation is checked locally when changed, without publishing a synthetic test branch
 - [ ] A failing local validation command blocks `pre-push`
-- [ ] "Squash and merge" is disabled in the repository's merge-method settings; only "Merge commit" or "Rebase and merge" are enabled
-- [ ] Dependabot or Renovate is configured
+- [ ] Verification stayed in source/diff review, applicable static/build commands, and isolated non-browser tests; no live-service probes were used
+- [ ] Any dependency update was a scoped code task; no recurring dependency automation was added
 - [ ] The current tool's native always-loaded rule file contains the marked block from `PHDK_NATIVE_RULES.md`, including the `PHDK upgrade` command, and the managed block matches the vendored copy
-- [ ] A test commit with an intentionally malformed message was actually rejected by the hook, not just assumed to work
+- [ ] Changed hook behavior has local evidence; untouched hooks are not repeatedly tested just to close a checklist

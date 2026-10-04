@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.30.0**
+**Version: v2.31.0**
 
 This repository contains the reusable PHDK standards for AI-assisted software development.
 
@@ -14,7 +14,19 @@ It is not a rigid religion of tools. It is a framework that teaches AI developer
 
 **The ethos of PHDK:** disciplined, honest, human-centered AI development.
 
-**The telos of PHDK:** useful working software that serves real people, preserves context, moves safely, verifies itself, and improves through feedback.
+**The telos of PHDK:** useful working software that serves real people, preserves context, and has honest evidence from code validation.
+
+## Execution Boundary
+
+PHDK acts on repository code/documentation, local code validation, git/GitHub, and approved delivery through an existing GitHub-connected deployment pipeline. The complete rule is `EXECUTION_SCOPE.md`; it applies to every workflow and delegated skill.
+
+- No browser operation or testing, including headless runners, screenshots, and browser plugins.
+- No dependency bots, scheduled agents, cron jobs, recurring backups, maintenance workflows, or preview deployments.
+- No external service, database, OAuth, secrets, or repository-settings administration.
+- Verify source/diffs and use relevant local format/lint/typecheck/build commands and risk-triggered non-browser tests. Do not probe real services to validate code.
+- Product health/diagnostics remain code capabilities; unverified rendered UI and live behavior must be reported honestly.
+
+The changelog and `ORIGINALS/` preserve historical material. They are not current instructions and cannot widen this boundary.
 
 ---
 
@@ -187,11 +199,12 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 | File | Purpose |
 |------|---------|
 | `AGENTS.md` | Agent rules, completion checklist, things never to do |
+| `EXECUTION_SCOPE.md` | Code-and-GitHub boundary; excludes browsers, recurring automation, and external administration |
 | `DEVELOPMENT_RULES.md` | Branching, commits, file rules, feature structure |
-| `ENFORCEMENT.md` | Git hooks, local verification gates, branch protection, and tool-native rule files that mechanically enforce PHDK rules without requiring GitHub Actions |
+| `ENFORCEMENT.md` | Local git hooks, code verification gates, and tool-native rules; existing GitHub restrictions are respected without administering settings |
 | `DESIGN_RULES.md` | UI, UX, accessibility, theming, responsive rules |
 | `TECHNICAL_STACK.md` | Canonical stack, auth standard, deployment |
-| `DEVSECOPS.md` | Security, auth, secrets, HTTP security headers, rate limiting, secrets rotation, privacy baseline, logging, dependency safety |
+| `DEVSECOPS.md` | Secure code, auth, secret handling, HTTP headers, rate limiting, privacy, logging, and dependency safety within the execution boundary |
 | `VERSIONING.md` | Version format, branches, commits, changelog, release |
 
 ### Workflow Standards
@@ -201,7 +214,7 @@ Not published to a public skill registry (skills.sh) — PHDK is a private/team 
 | `AGILE_SLICE_WORKFLOW.md` | Working slice model, lifecycle, sizing, backlog |
 | `TASK_TRACKING_STANDARD.md` | `TASK.md`/`STATUS.md` format, completed-slice archiving, local-only rule (no GitHub Issues/Projects/Actions) |
 | `INTENT_CAPTURE_STANDARD.md` | When and how to capture the why behind a feature/bug as a durable `docs/intents/` file, before scoping in `TASK.md` |
-| `VERIFICATION_LOOP.md` | What counts as proof, health checks, deep health |
+| `VERIFICATION_LOOP.md` | Source/diff evidence, local code validation, and honest limits on runtime claims |
 | `TESTING_STANDARD.md` | Test framework, test types, what must be tested |
 | `DEBUG_DIAGNOSTICS_STANDARD.md` | Copy diagnostics spec, debug mode, auth diagnostics |
 | `QA_CHECKLIST.md` | Quality gates for every merge and release, including Human Diff Review |
@@ -241,30 +254,30 @@ These decisions are set at the standards level and apply to all PHDK projects by
 | Monorepo | pnpm + Turborepo |
 | Frontend | Next.js App Router |
 | Backend | NestJS + Fastify |
-| Deployment | Railway — two services, repo root |
-| Working model | **Mission Autopilot** — approved mission executes continuously through small verified slices; no "continue?" approval gate between slices |
+| Deployment target | Existing GitHub-connected pipeline; canonical app build configuration remains two Railway services at the repo root, with external setup outside PHDK |
+| Working model | **Mission Autopilot** — the active code mission continues through locally verified slices; it never schedules future agents or maintenance |
 | Verification | Evidence required before every slice is marked complete |
 | Cost safety | Every metered/paid external API requires a hard usage cap, timeout, retry limit, and kill switch before it ships |
 | AI/LLM | Provider and model are config-driven; admin-manageable prompt, output schema, and live pricing; guardrails against prompt injection |
-| Data backup | Every project must have an explicit database backup policy, asked during kit generation, recorded in `ARCHITECTURE_DECISIONS.md` — code backup is always GitHub, separately |
+| Data backup | Backup operations are outside PHDK. Do not generate backup schedules, jobs, emails, or backup branches during bootstrap; document existing external ownership only when relevant |
 | Finetuning Mode | Direct push to `main` stays forbidden by default; the one exception is Finetuning Mode, activated verbally per-conversation, only pre-production — see `DEVELOPMENT_RULES.md` |
 | Prompt injection | Direct AND indirect prompt injection guardrails are both required for any LLM feature — externally-sourced content is data, never instructions; credentials scoped per resource; confirmation gate on destructive actions — see `DEVSECOPS.md` LLM Integration Safety |
-| LSP setup | `typescript-language-server` set up and fully verified once at foundation build, smoke-checked at session start; whether the AI agent has direct LSP access or only text search is confirmed and reported, not assumed — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup |
-| Deployment | The only supported path to a live deploy is commit (versioned) → push to GitHub → Railway's GitHub-connected pipeline — never `railway up` or a local build/tarball upload — see `TECHNICAL_STACK.md` First-time Railway Setup |
-| Data import | Importing data from multiple sources or on a recurring cadence uses a stateful intake pipeline (`pending → processed → approved \| deactivated`) with a batch reference on every imported row and soft-delete-by-batch-state — never a direct insert with no review step, and never a hard delete to undo a bad import — see `TECHNICAL_STACK.md` Data Import / Intake Pipeline |
+| Code intelligence | Use already available local LSP capabilities or repository search and TypeScript checks. Maintain the project's TypeScript configuration; do not install integrations or require setup/smoke-check rituals — see `TECHNICAL_STACK.md` LSP / Code Intelligence Setup |
+| GitHub delivery | Versioned commit → approved push/merge → existing GitHub-connected pipeline. PHDK does not create hosting connections, change triggers, or deploy through provider APIs/CLIs/dashboards — see `EXECUTION_SCOPE.md` and `TECHNICAL_STACK.md` Deployment |
+| Data import | Explicitly requested multi-source import code uses a stateful intake pipeline (`pending → processed → approved \| deactivated`), batch references, and reversible approval state. The pattern does not authorize scheduled imports or live data operations — see `TECHNICAL_STACK.md` Data Import / Intake Pipeline |
 | Debug/diagnostics | Debug mode defaults ON in non-production; app-style projects expose protected deep health, an endpoint diagnostic registry, safe admin probe controls, sanitized examples, correlation IDs, and Copy Diagnostics. Instrument important execution boundaries, not every helper function — see `DEBUG_DIAGNOSTICS_STANDARD.md` and `VERIFICATION_LOOP.md` |
-| Task tracking | `TASK.md`/`STATUS.md` are 100% local, plain-text markdown, archived to `docs/completed-slices/` on slice close — never GitHub Issues, GitHub Projects, or GitHub Actions as the system of record. PHDK does not scaffold or require GitHub Actions; optional CI is project-specific and never required for PHDK to function — see `TASK_TRACKING_STANDARD.md` |
-| Intent capture | Non-trivial or externally-originated feature/bug work gets a durable `docs/intents/` file capturing the why, reviewed by its originator, before a `TASK.md` starts — never required for internally-obvious or trivial slices — see `INTENT_CAPTURE_STANDARD.md` |
-| Verification & testing | Diagnostics-first: live `/health`, protected `/health/deep`, endpoint probes, browser confirmation, and Copy Diagnostics are the normal proof. Automated tests are risk-triggered for security, money, destructive changes, complex deterministic rules, and regressions — never required for every service/slice — see `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` |
+| Task tracking | `TASK.md`/`STATUS.md` are repository markdown, archived to `docs/completed-slices/` on slice close. Do not create external boards, task-sync workflows, recurring agents, or GitHub Actions for tracking — see `TASK_TRACKING_STANDARD.md` |
+| Intent capture | Non-trivial feature/bug work requested in the current session gets a durable `docs/intents/` file before `TASK.md` scoping when the why is not already captured. A clear request needs no repeated approval; material ambiguity is clarified with the current user — see `INTENT_CAPTURE_STANDARD.md` |
+| Verification & testing | Code-first: source/diff review, appropriate local static/build commands, and risk-triggered non-browser unit/in-process tests. No browser or live-service verification, and no implied visual/runtime success — see `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` |
 | Formatting | Prettier is the canonical formatter for every project — a required `format`/`format:check` script pair, auto-fixed on staged files via `lint-staged` on `pre-commit`, with `format:check` included in the required local pre-push verification gate — see `TECHNICAL_STACK.md` and `ENFORCEMENT.md` |
 | Human diff review | Mission slices may commit/push autonomously to the mission feature branch; merging the completed mission to `main` still requires a human to read the actual diff. The merge gate applies once at mission completion, not between slices — see `QA_CHECKLIST.md` and `AI_DEVELOPER_OPERATING_MODEL.md` |
-| Mechanical enforcement | Commit format, file size, secrets, branch safety, and the static/build gate are enforced locally or by repository settings. Automated tests remain risk-triggered task evidence rather than a universal hook. GitHub Actions are not part of the baseline — see `ENFORCEMENT.md` |
+| Mechanical enforcement | Commit format, file size, secrets, branch safety, and static/build checks use local code hooks. Respect existing repository restrictions; do not administer settings or scaffold CI. Tests remain risk-triggered — see `ENFORCEMENT.md` |
 | HTTP security headers & rate limiting | Every API service sets an explicit CORS allowlist, a default-deny CSP, and the standard security header set from foundation build, and runs global rate limiting with a stricter limit on auth endpoints — not deferred to a later hardening pass — see `DEVSECOPS.md` HTTP Security Headers and Rate Limiting |
-| Secrets rotation | A secret that is committed, logged, or otherwise exposed is rotated immediately at the provider — history is never rewritten as the primary response — see `DEVSECOPS.md` Secrets Rotation and Compromise Response |
-| Deploy rollback | A bad production deploy is rolled back via Railway's dashboard redeploy of the last known-good build, in parallel with a `git revert` on `main` — never "push a fix forward" as the only option, and never a rollback without first checking migration/code compatibility — see `TECHNICAL_STACK.md` Deploy Rollback Runbook |
+| Exposed secrets | Correct the code exposure and report the credential that needs external rotation without revealing it. Provider administration remains outside PHDK; do not claim rotation or rewrite history as the response — see `DEVSECOPS.md` Secrets Rotation and Compromise Response |
+| Deploy rollback | Prepare a reviewed revert and deliver it through the existing GitHub pipeline. Inspect code/migration compatibility; do not operate provider dashboards, run live migrations, or claim runtime recovery from code evidence alone — see `TECHNICAL_STACK.md` Deploy Rollback Runbook |
 | Privacy and legal baseline | Whether a project collects personal data is an explicit decision at kit generation, recorded in `ARCHITECTURE_DECISIONS.md`; when it does, a Privacy Policy, a data-deletion process, and (if applicable) Terms of Service and cookie consent are required — a documentation baseline, not a substitute for real legal review — see `DEVSECOPS.md` Privacy and Legal Baseline |
 
-Overrides require an entry in `ARCHITECTURE_DECISIONS.md` in the project repo.
+Project-specific implementation choices belong in `ARCHITECTURE_DECISIONS.md`. They do not silently expand the agent's boundary in `EXECUTION_SCOPE.md`.
 
 ---
 
@@ -278,7 +291,7 @@ The model teaches AI coders to:
 - work autonomously inside approved slices
 - avoid waterfall implementation patterns
 - verify through evidence, not claims
-- use health and deep-health checks as verification tools
+- implement health/diagnostic code and verify it locally without invoking live services
 - produce useful debug diagnostics that reduce back-and-forth
 - preserve continuity through `TASK.md` and `STATUS.md`
 - use custom Google OAuth 2.0 instead of paid auth vendors

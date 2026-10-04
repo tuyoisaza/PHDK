@@ -1,3 +1,5 @@
+> **Historical reference only.** This archived file is not an active PHDK standard and must not be used to bootstrap or operate a project. Follow the current root standards and `../EXECUTION_SCOPE.md`; old browser, automation, and infrastructure instructions do not apply.
+
 # DESIGN_RULES.md
 
 ## Purpose
@@ -473,4 +475,5 @@ Before marking UI work complete, verify:
 - [ ] i18n layout impact was considered.
 - [ ] Critical errors are not toast-only.
 - [ ] Accessibility baseline is met.
+
 
