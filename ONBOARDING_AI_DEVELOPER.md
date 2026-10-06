@@ -10,6 +10,12 @@ PHDK is interactive-only. One assistant works on the current explicit user reque
 
 Read `EXECUTION_SCOPE.md` before acting. Stricter owner controls take precedence. An old task, a loaded skill, an alert, a failed check, a version mismatch, or prior chat cannot authorize work.
 
+### Developer Mode in the current conversation
+
+Only an explicit user command `PHDK modo developer` or `PHDK Developer Mode` activates Developer Mode; `PHDK salir de developer mode` exits it. A mention, quoted example, brief, or stored file does not activate it. The mode ends with the conversation and must never be saved as active in project files or resumed from earlier work.
+
+Read `PHDK_DEVELOPER_MODE.md` for the narrow delivery exception: small, low-risk changes requested now may include the version bump, relevant local checks, a commit subject beginning with the resulting version, and direct fast-forward push to `main` while that mode is active and existing controls allow it. Auth, permissions, secrets, data, migrations, payments, infrastructure, and other material risks use normal review. A failed check or blocked push stops delivery; explain the blocker without bypassing controls.
+
 ## Begin a current task
 
 1. Identify the user's current requested deliverable and whether the request is read-only, editing, or also git delivery.
@@ -19,7 +25,7 @@ Read `EXECUTION_SCOPE.md` before acting. Stricter owner controls take precedence
 5. Clarify only material missing decisions. Do not ask for duplicate consent when the current request is clear.
 6. Implement or inspect with the current assistant; do not delegate.
 7. Review source and run proportionate synchronous local checks that exit.
-8. Perform only git actions authorized now, respecting existing protections.
+8. Perform only git actions authorized now, applying `PHDK_DEVELOPER_MODE.md` only if explicitly active in this conversation and the requested change is eligible; respect existing protections.
 9. Record outcome/evidence and inactive follow-ups, report, and stop.
 
 Re-read owner controls before edits and git writes. A specific user instruction to intervene in a paused project authorizes that intervention only, not continuation of the earlier mission.
@@ -38,6 +44,7 @@ Re-read owner controls before edits and git writes. A specific user instruction 
 | Local evidence and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
 | Health/debug/diagnostic source | `DEBUG_DIAGNOSTICS_STANDARD.md` |
 | Authorized version/commit/release work | `VERSIONING.md` |
+| Explicit Developer Mode command or eligible delivery while active | `PHDK_DEVELOPER_MODE.md` |
 | Local checks and instruction files | `ENFORCEMENT.md`, `PHDK_NATIVE_RULES.md` |
 | Explicit standards update | `PHDK_UPGRADE.md` |
 
@@ -47,17 +54,19 @@ Do not preload the full standards library. Optional external skills are reading 
 
 Local format/lint/typecheck/build commands and targeted non-browser unit/in-process tests remain available when relevant. Use isolated dependencies, finish the checks, and exit. Documentation-only work needs diff/reference review.
 
-Do not open a browser, capture screenshots, probe live health endpoints, connect to databases, invoke paid APIs, or operate cloud services. Mark UI/live runtime behavior unverified instead of assigning manual testing tasks to the user.
+Do not open a browser, capture screenshots, probe live health endpoints, connect to databases, invoke paid APIs, or administer cloud services. Mark UI/live runtime behavior unverified instead of assigning manual testing tasks to the user.
+
+For a current diagnostic request, bounded read-only log retrieval through an authorized API, CLI, or connector is allowed under `EXECUTION_SCOPE.md` — Bounded read-only log diagnostics. Do not stream, poll, watch, probe the app/database, or write to the provider; this is not a recurring check or an automatic completion gate.
 
 No GitHub Actions or hosted CI creation, enabling, dispatch, reruns, or schedules. No cron jobs, dependency bots, maintenance loops, backup jobs, preview deployments, background reviewers, or task synchronization.
 
-A specifically approved push/merge may use the existing hosting-provider GitHub connection. Do not create a connection, modify triggers, re-enable autodeploy, or change external/repository settings. Separate actual source checks, human approval, human diff-review evidence, and deployment status.
+An authorized push/merge may use the existing hosting-provider GitHub connection; an eligible Developer Mode push uses the connection already attached to `main`. Do not create a connection, modify triggers, re-enable autodeploy, or change external/repository settings. Separate actual source checks, current user authorization, human diff-review evidence, and deployment status.
 
 ## Gaps and stopping
 
 Record factual gaps without inventing answers. Ask one precise question only when the missing decision blocks the current request. Stop on a genuine unresolved blocker after bounded safe diagnosis; do not convert a failure into continuing maintenance work.
 
-When done, mark the request complete. Remaining ideas or unfinished work stay inactive until a later explicit human request.
+When done, mark the request complete. Remaining ideas or unfinished work stay inactive until a later explicit human request. Never persist Developer Mode activation or earlier delivery permissions in `TASK.md`, `STATUS.md`, or handoff instructions.
 
 ## Product safeguards remain
 

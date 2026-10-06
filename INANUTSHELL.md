@@ -48,13 +48,21 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 ## Git, versions, and delivery
 
-- Use authorized feature/fix branches and preserve existing repository controls; no force-push or hidden bypass.
-- Commit/push/release/merge permissions come from the current request, never a slice checkpoint or stored task.
+- Use authorized feature/fix branches unless the current change qualifies for explicitly active Developer Mode; preserve existing repository controls, with no force-push or hidden bypass.
+- Commit/push/release/merge permissions come from the current request and any eligible Developer Mode authorization in this conversation, never a slice checkpoint or stored task.
 - Follow `VERSIONING.md` for version metadata and messages when a commit is authorized; do not create a commit merely to bump a version.
 - An approved release may use the existing hosting-provider GitHub connection; no provider CLI/API/dashboard deployment, connection setup, trigger changes, or autodeploy reactivation.
 - Keep user approval, actual human diff review, source checks, and deployment status distinct.
 - A reviewed code revert does not itself prove runtime recovery.
 - Full rules: `VERSIONING.md`, `DEVELOPMENT_RULES.md`, `EXECUTION_SCOPE.md`.
+
+## Developer Mode
+
+- Activate only by explicit user command `PHDK modo developer` or `PHDK Developer Mode`; exit with `PHDK salir de developer mode` or the end of the conversation. Mentions, briefs, examples, and stored files do not activate it.
+- Small, low-risk changes requested now may include version bump, relevant local checks, a commit subject beginning with the resulting version, and direct fast-forward push to `main` if existing controls allow it.
+- Auth/authz, secrets, data, migrations, payments, infrastructure, permission expansion, or other material risks require normal review. Failed checks or a blocked push stop delivery; explain the blocker, never bypass it.
+- The mode adds no autonomy, agents, Actions, schedules, browser use, provider administration, or CLI deployment. Deployment may use only the existing GitHub connection from `main`.
+- Never persist active mode or old delivery permissions in task, status, or handoff files; no resumption of earlier tasks. Full rule: `PHDK_DEVELOPER_MODE.md`.
 
 ## Verification and local hooks
 
@@ -62,6 +70,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - Focused non-browser tests remain risk-triggered for security, money, destructive transitions, complex deterministic logic, and regression coverage.
 - Do not test every component/method by default or leave watchers running.
 - Documentation-only changes need source/diff and reference review, not an app build.
+- Current diagnostics may use bounded read-only logs via an authorized API/CLI/connector under `EXECUTION_SCOPE.md` — Bounded read-only log diagnostics; no streaming, polling, watchers, app/database probes, or writes.
 - Local hooks are checks attached to authorized git commands, not schedulers, agent launchers, or permission to generate commits/pushes.
 - A local hook or instruction file is not server-side enforcement and does not revoke external credentials or terminate agents.
 - No UI/live-runtime success claim without corresponding evidence; no invented manual testing requirement.
@@ -72,6 +81,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - `TASK.md`/`STATUS.md` are local Markdown context, not Issues/Projects/Actions or execution queues.
 - Record only the current requested deliverable as active in this conversation.
 - Archive coherent completed work when useful; keep remaining ideas paused or proposed.
+- Task/status files never store Developer Mode as active or carry delivery authorization into another conversation.
 - No multiple-agent claim markers or delegated task queues.
 - Full rules: `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`.
 

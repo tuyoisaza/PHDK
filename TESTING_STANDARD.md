@@ -4,7 +4,9 @@
 
 PHDK uses automated tests to control concrete regression risks. Tests are not a default deliverable for every code change.
 
-`EXECUTION_SCOPE.md` is authoritative. Permitted verification consists of source/diff review, static checks, local builds, and local unit or in-process integration tests with external dependencies replaced by deterministic test doubles. See `VERIFICATION_LOOP.md` for evidence and reporting requirements.
+`EXECUTION_SCOPE.md` is authoritative. Permitted code checks consist of source/diff review, static checks, local builds, and local unit or in-process integration tests with external dependencies replaced by deterministic test doubles. See `VERIFICATION_LOOP.md` for evidence and reporting requirements.
+
+The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics** — allows requested retrieval of existing logs independently of PHDK Developer Mode. Those logs are diagnostic evidence, not an executed product test.
 
 ---
 
@@ -16,7 +18,7 @@ Do not write a test merely because code was added. Ask:
 2. Would a regression be dangerous, expensive, destructive, security-sensitive, or difficult to diagnose?
 3. Can a small deterministic local test catch that risk without a browser, network service, or database?
 
-If no risk trigger applies, source review and the applicable static/build gate are sufficient for code completion. If a risk trigger applies, add the smallest useful permitted test. A remaining runtime uncertainty must be reported; it never permits broader execution.
+If no risk trigger applies, source review and the applicable static/build gate are sufficient for code completion. If a risk trigger applies, add the smallest useful permitted test. A remaining runtime uncertainty must be reported; it never authorizes broader execution by itself.
 
 ---
 
@@ -59,7 +61,7 @@ Vitest in a Node environment is the default when a project needs a runner. Prefe
 
 In-memory test doubles belong in test code. They must never become a silent production fallback for a missing database or external dependency.
 
-### Browser and external execution are prohibited
+### Browser and external test execution are prohibited
 
 Do not create or run browser-based E2E, headed/headless browser tests, visual snapshots, screenshot comparisons, or browser-mode test runners. This includes Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, UI interaction through another skill, and delegation to another agent. Renaming a browser check as a smoke test, accessibility scan, preview, or manual confirmation does not make it permitted.
 
@@ -73,9 +75,9 @@ A human may independently test the product. That is not a mandatory PHDK complet
 
 Health endpoints, protected probes, debug panels, redaction, correlation IDs, and copyable reports remain product features where specified by `VERIFICATION_LOOP.md` and `DEBUG_DIAGNOSTICS_STANDARD.md`.
 
-Review their implementation and use local tests for risky logic such as authorization, probe-mode enforcement, redaction, timeouts, quotas, and retry bounds. Stub the dependency boundary; do not execute a real probe or provider request.
+Review their implementation and use local tests for risky logic such as authorization, probe-mode enforcement, redaction, timeouts, quotas, and retry bounds. Stub the dependency boundary; do not execute a real probe or provider request as a test.
 
-Human-supplied redacted diagnostics can inform a code fix. They do not authorize the agent to access a live service or operate the diagnostic UI.
+Human-supplied redacted diagnostics and logs retrieved under **Bounded read-only log diagnostics** in `EXECUTION_SCOPE.md` can inform a code fix. Retrieval requires a current human request and stays within that section's limits; it does not authorize diagnostic UI operation or live product tests/probes.
 
 ---
 
@@ -113,8 +115,10 @@ Coverage limit: <external/runtime behavior not exercised, if relevant>
 For UI or deployment changes, also state:
 
 ```txt
-Visual/runtime: visual/runtime unverified — outside PHDK execution scope
+Visual/runtime: visual/runtime unverified — no browser or live product test/probe executed
 ```
+
+When bounded log diagnostics were requested, report the source, query bounds, redacted findings, and limits separately from test results. Existing log events do not prove that the agent executed or retested the product.
 
 Missing coverage of an applicable risky rule is a gap. A prohibited browser or external runtime check is a scope limit, not a task to delegate or a reason to require a human browser check before continuing code work.
 
@@ -123,7 +127,7 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 ## Never
 
 - Never create tests solely to make a checklist green.
-- Never use a browser or external service to verify a PHDK code change.
+- Never execute product tests through a browser or external service; permitted read-only log diagnostics remain separate evidence under `EXECUTION_SCOPE.md`.
 - Never weaken security or alter production behavior merely to make local tests pass.
 - Never delete or skip a failing risk-required local test just to merge.
 - Never claim a local test establishes live health, visual correctness, or a successful real provider integration.
@@ -140,3 +144,4 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 - [ ] Test scripts and dependencies do not launch browsers or access services/databases.
 - [ ] No speculative harness or unnecessary runner was added.
 - [ ] Remaining visual/runtime uncertainty is stated accurately.
+- [ ] If log diagnostics were requested, retrieval followed `EXECUTION_SCOPE.md` and findings are reported separately from product-test evidence.

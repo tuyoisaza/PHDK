@@ -6,7 +6,7 @@ This file defines the canonical technical stack for all products built on this s
 
 Every agent must treat this file as the source of truth for technology choices. Do not introduce new dependencies outside this stack without explicit approval and a corresponding entry in `ARCHITECTURE_DECISIONS.md`.
 
-`EXECUTION_SCOPE.md` defines what the PHDK agent may do. This file specifies application code and repository configuration; it does not authorize provisioning or operating external services. Work stays in repository files, local code verification, git/GitHub, and authorized pushes to an existing GitHub-connected deployment pipeline. Browser testing, live HTTP/database/API probes, provider dashboards or CLIs, recurring jobs, and infrastructure setup are outside that scope.
+`EXECUTION_SCOPE.md` defines what the PHDK agent may do. This file specifies application code and repository configuration; it does not authorize provisioning or administering external services. Work stays in repository files, local code verification, git/GitHub, authorized pushes to an existing GitHub-connected deployment pipeline, and requested diagnostics under its **Bounded read-only log diagnostics** section. Browser testing, application HTTP/database/API probes, provider administration, recurring jobs, and infrastructure setup remain outside scope. Bounded log access does not require PHDK Developer Mode.
 
 ---
 
@@ -319,6 +319,8 @@ Rules:
 - Correlation IDs must flow through every request
 - Read `DEBUG_DIAGNOSTICS_STANDARD.md` for copy diagnostics spec
 
+For a current request to consult existing service logs or diagnose an incident, use `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**. This permits only the defined finite log queries, not a new observability integration or monitoring process.
+
 ---
 
 ## Payments
@@ -422,20 +424,20 @@ These commands describe the pipeline's application contract. Do not start an app
 3. Let the already connected pipeline respond to that push. Report the commit SHA and any deployment status already available through GitHub; do not poll repeatedly or claim runtime health from a successful push alone.
 4. If the pipeline or required external configuration is missing, report the deployment limitation. Do not create infrastructure to remove it.
 
-Do not use a provider dashboard, provider API/CLI, `railway up`, local upload, manual provider redeploy, or live `/health` probe. Do not provision projects, services, databases, secrets, domains, preview environments, or monitoring. PHDK does not add CI/task workflows, cron triggers, scheduled deployments, or maintenance agents. Product endpoints and diagnostics remain application code, verified locally as described in `VERIFICATION_LOOP.md`.
+Do not use a provider dashboard, provider deployment/administration API or CLI commands, `railway up`, local upload, manual provider redeploy, or live `/health` probe. Requested log queries through an authorized API/CLI/connector are governed by `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**. Do not provision projects, services, databases, secrets, domains, preview environments, or monitoring. PHDK does not add CI/task workflows, cron triggers, scheduled deployments, or maintenance agents. Product endpoints and diagnostics remain application code, verified locally as described in `VERIFICATION_LOOP.md`.
 
 ---
 
 ## Deploy Rollback Runbook
 
-Rollback stays in the repository and existing GitHub deployment path. PHDK does not operate the hosting provider or production database.
+Rollback stays in the repository and existing GitHub deployment path. PHDK does not perform provider-side rollback or mutate the production database. Requested reads of existing incident logs remain subject to `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**.
 
 ### If a deploy is bad
 
 1. Inspect the relevant commits and migration files. Identify a code revert or corrective patch and flag any schema-compatibility uncertainty; do not infer the live database state.
 2. Prepare a reviewable `git revert` or corrective change on the appropriate branch, following the existing authorization and review flow. Do not rewrite history.
 3. Verify the change locally with static/build checks and applicable isolated tests, then use the authorized GitHub push/merge path so the existing pipeline deploys it.
-4. Report the GitHub evidence that is available and its limits. Do not contact `/health`, `/health/deep`, the database, or a provider dashboard to claim recovery.
+4. Report the available GitHub evidence, any separately requested bounded log findings, and their limits. Neither proves the agent ran a product test or confirmed recovery. Do not contact `/health`, `/health/deep`, the database, or a provider dashboard to claim recovery.
 5. Record the incident, code change, migration caveats, and any unverified external recovery state in `STATUS.md`.
 
 ### Never

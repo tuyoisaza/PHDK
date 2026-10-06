@@ -14,23 +14,31 @@ Prioritize correctness, security, maintainability, observability, user experienc
 
 Use `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`, or `phdk/vX.Y.Z/short-slice-name` when relevant to an authorized git operation.
 
-- Use a feature/fix branch for the current requested change. Do not launch concurrent agents or subagents on separate branches.
+- Use a feature/fix branch for the current requested change, except for an eligible direct-to-`main` task under explicitly active `PHDK_DEVELOPER_MODE.md`. Do not launch concurrent agents or subagents on separate branches.
 - Respect existing GitHub protection and review controls without administering or bypassing them.
-- Commit/push/PR/merge/release authority must come from the current request. A slice checkpoint and `TASK.md` are not standing permission.
+- Commit/push/PR/merge/release authority must come from the current request or the narrow conversational authorization in PHDK Developer Mode for a task requested while it is active. A slice checkpoint and `TASK.md` are not standing permission.
 - A read/audit request remains read-only. A clear instruction to implement and merge includes the necessary branch/commit/push/PR steps, without duplicate confirmation.
 - Do not force-push, overwrite another contributor's changes, or rewrite history to resolve a conflict silently.
 - When an authorized major change warrants a recoverable checkpoint, create it within that request; do not create recurring backup branches or jobs.
 - Follow `VERSIONING.md` when a commit is authorized. Do not generate commits merely to bump metadata.
-- Deliver only a specifically approved release through the existing hosting-provider GitHub connection. Do not create or run GitHub Actions, add a provider connection, change triggers, enable previews, or use a provider deployment CLI/API/dashboard.
+- Deliver only through a currently authorized push/merge and the existing hosting-provider GitHub connection. An eligible Developer Mode push to `main` may trigger that existing deployment. Do not create or run GitHub Actions, add a provider connection, change triggers, enable previews, or deploy through a provider CLI/API/dashboard, including Railway.
 - Updating dependencies is a specifically requested code task, not a reason to install a dependency bot or schedule future maintenance.
 
-### Finetuning Mode
+### PHDK Developer Mode
 
-The existing narrow pre-production exception for a user-authorized direct push does not grant autonomous execution. It may be activated only explicitly in the current conversation, for requested small changes to a product not serving real users, and only when existing repository controls permit it.
+Follow `PHDK_DEVELOPER_MODE.md` and `EXECUTION_SCOPE.md`. Activate only when the user explicitly issues `PHDK modo developer` or `PHDK Developer Mode` as a command in the current interactive conversation. Exit with `PHDK salir de developer mode` or when that conversation ends. Mentions, quotations, documentation, historical Finetuning records, or reading an instruction file do not activate it.
 
-It does not persist in task files, environment flags, prior chats, or subsequent sessions. It never permits agents, delegation, Actions, schedules, background work, external administration, or bypassing protection. An owner pause remains effective unless the current owner request specifically authorizes the limited intervention.
+While active, the mode authorizes the necessary steps of small, low-risk translations, copy, ordinary documentation, or simple visual edits requested during that mode: implement, bump the version according to the repository, run applicable local checks, create a commit whose subject begins with the resulting version, and push fast-forward directly to `main` when existing controls allow it. Do not ask for duplicate consent for those steps. Activation alone selects no work, and read/audit requests remain read-only.
 
-Even in this mode, git writes must match the current request, relevant local checks must pass, scope/security controls remain intact, and actual human-review evidence must not be invented. The mode ends when the user ends it or the conversation ends.
+Judge eligibility by the actual diff, not the task label. Changes to authentication, authorization, secrets, data, migrations, payments, infrastructure, permissions, or agent policy require the normal review flow, even when expressed as a small documentation edit. Mixed or uncertain changes do not qualify for the direct flow.
+
+Do not persist activation or an authorizing flag/state in repository files, environment/config flags, memory, tasks, or status records; never restore it automatically. Owner pause/stop controls remain effective. The mode permits no agents, autonomy, Actions, cron, scheduled/background work, old-task execution, or work after the conversation.
+
+If an applicable check fails, `main` rejects the push, `main` has advanced so the planned update cannot fast-forward, or any existing control cannot be satisfied, stop the direct flow and explain. Preserve the work for review. Do not automatically retry, rebase, force-push, change settings/hooks/credentials, or use an alternative API/CLI to get around the failure or restriction.
+
+### Historical Finetuning Mode
+
+Earlier Finetuning wording is historical. It neither activates Developer Mode nor supplies an independent direct-to-`main` exception or standing permission. Use only the explicit, conversation-limited exception in `PHDK_DEVELOPER_MODE.md`; preserve all other project controls.
 
 ## Commit rules
 
@@ -108,6 +116,8 @@ Validate at the API boundary with Zod, not only in the UI. Share schemas through
 Use structured logs at important execution boundaries. Include applicable event, timestamp, environment, version, correlation ID, actor/role, route/operation, and result. Never log passwords, secrets, cookies, tokens, auth headers, or sensitive PII.
 
 Errors need stable codes, useful messages, safe technical detail, correlation IDs, and severity. Follow `DEBUG_DIAGNOSTICS_STANDARD.md` for diagnostic-code contracts without invoking live diagnostics.
+
+Separately from Developer Mode, a current request may authorize finite, read-only API/CLI queries of existing logs under [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics). Redact sensitive content; do not turn log reading into runtime probes, watchers, or writes.
 
 ## i18n
 
