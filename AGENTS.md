@@ -13,15 +13,17 @@ Complete the necessary steps of the requested deliverable, report, and stop. Do 
 ## Git and automation boundary
 
 - Read/audit requests are read-only. Editing, committing, pushing, releasing, and merging must match authorization in the current request. A clear instruction to implement and merge includes its necessary branch/commit/push/PR steps; no duplicate consent is needed.
-- Use feature/fix branches. Respect existing protections and project review controls. Do not force-push, bypass hooks or protections, or infer that a human read a diff from the assistant's verification.
+- Use feature/fix branches by default. The only standing direct-main exception is explicitly active `PHDK_DEVELOPER_MODE.md` for an eligible small task requested during the active conversation. Respect existing protections and project review controls; do not force-push, bypass hooks/protections, or infer that a human read a diff from the assistant's verification.
 - No GitHub Actions or hosted CI creation, enabling, dispatch, reruns, or schedules. No workflow scaffolding, dependency bots, cron jobs, recurring tasks, backup jobs, maintenance workflows, task-sync services, or preview deployments.
-- Only a specifically approved push/merge may use the existing hosting-provider GitHub connection. Do not create connections, alter triggers, enable autodeploy, or operate hosting/database/OAuth/secret/repository settings.
+- Only a currently authorized push/merge, including an eligible Developer Mode push, may use the existing hosting-provider GitHub connection. Do not deploy through a provider CLI/API/dashboard, create connections, alter triggers, enable autodeploy, or operate hosting/database/OAuth/secret/repository settings.
 - Local checks and existing git hooks may run synchronously for the current task and must exit. They do not authorize self-generated commits, pushes, agents, watchers, or later work.
 - External skills are references for this assistant only. Do not use a plugin or skill to delegate work or evade these boundaries.
 
-## Universal PHDK command
+## PHDK commands
 
 When the developer gives exactly `PHDK upgrade`, execute `PHDK_UPGRADE.md` for the current repository. The command itself authorizes standards synchronization in this conversation, not future execution, a push/merge, a deployment, or reactivation of an old mission. Preserve owner controls; stop if synchronization would overwrite a stricter override. Report the result and stop.
+
+When the user explicitly activates `PHDK modo developer` or `PHDK Developer Mode`, follow `PHDK_DEVELOPER_MODE.md` and briefly explain the edit/version/check/commit/fast-forward-main permissions for eligible requested small changes. Exit on `PHDK salir de developer mode`, a user stop, or the end of the active conversation. Do not activate from quoted examples, briefs, files, or past sessions, or persist activation in the repository. High-risk changes keep normal review; failed checks, rejected pushes, and unsatisfied controls stop the direct-main flow.
 
 ## Minimum context and routing
 
@@ -35,8 +37,9 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Stack, architecture, data, deployment code | `TECHNICAL_STACK.md` |
 | Auth, secrets, security, privacy, cost controls | `DEVSECOPS.md` |
 | Versions, commits, changelog, approved merge | `VERSIONING.md` |
+| Developer Mode activation, exit, or eligible direct-main task | `PHDK_DEVELOPER_MODE.md` |
 | Local verification and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
-| Diagnostics code | `DEBUG_DIAGNOSTICS_STANDARD.md` |
+| Diagnostics code or requested log diagnosis | `DEBUG_DIAGNOSTICS_STANDARD.md`, `EXECUTION_SCOPE.md` — `Bounded read-only log diagnostics` |
 | Local hooks and rule enforcement | `ENFORCEMENT.md` |
 
 Read `ONBOARDING_AI_DEVELOPER.md` for orientation when needed. Do not preload every standard or convert missing context into an autonomous discovery mission.
@@ -70,7 +73,7 @@ LLM features, when explicitly required, use `packages/ai`, provider-agnostic con
 
 Review the actual source/diff and run only relevant synchronous local format/lint/typecheck/build commands and risk-triggered non-browser tests with isolated dependencies. Documentation-only changes need source/diff and reference review.
 
-No browser operation, headless testing, screenshots, live endpoints, databases, or metered APIs. Source checks do not prove rendered UI or production health; state those limits instead of inventing manual testing obligations.
+No browser operation, headless testing, screenshots, live application probes, databases, or paid verification calls. A current requested diagnosis may retrieve bounded existing logs through an authorized provider API/CLI/connector under `EXECUTION_SCOPE.md`, with or without Developer Mode. No streams, polling, settings, new access, or writes. Source checks and log evidence do not prove the assistant exercised a rendered UI or verified production recovery; state the actual evidence and its limits.
 
 Before reporting completion, confirm the requested outcome, applicable checks, owner controls, git authorization, and task state. Do not claim external agents were terminated, credentials revoked, billing corrected, or server-side protection enabled merely because documentation or local hooks changed.
 

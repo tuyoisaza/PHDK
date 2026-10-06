@@ -1,5 +1,29 @@
 # CHANGELOG.md
 
+## v2.32.0 — 2026-10-06
+
+### Added
+
+- Added explicit, temporary `PHDK Developer Mode`, activated by `PHDK modo developer` or `PHDK Developer Mode` and exited with `PHDK salir de developer mode` or the end of the active conversation.
+- Authorized the requested edit, repository-standard version bump, applicable local checks, version-prefixed commit, and fast-forward push to `main` for eligible small, low-risk tasks requested while the mode is active. Existing deployment connections may react to that push; provider deployment commands and configuration remain excluded.
+- Added `PHDK_DEVELOPER_MODE.md` to the vendoring manifest and routed its commands through the skill, managed rules, onboarding, and task/git standards.
+
+### Fixed
+
+- Replaced the blanket ban on live-service logs with bounded read-only retrieval of existing logs through an authorized provider API/CLI/connector for a current requested diagnosis. This permission is independent of Developer Mode and requires finite target/time/result/timeout bounds and redaction of sensitive data.
+- Kept authentication, authorization, secrets, data/migrations, payments, infrastructure, permission-policy changes, and other high-risk work in the normal review flow. Failed applicable checks, rejected/non-fast-forward pushes, and unsatisfied controls stop the direct-main flow; no hook/protection bypass, settings changes, forced updates, or automatic retry.
+- Removed the legacy Finetuning flag as a separate direct-main permission and reconciled bootstrap text that could otherwise revive old missions. No activation persists in task files, flags, hooks, or later conversations.
+
+### Verification
+
+- Validated the skill metadata, version consistency, all 24 manifest mappings, new Markdown references, managed-rule markers, and diff whitespace. Existing source blobs and preserved history/hook/script files were checked against the canonical base.
+- Reviewed 13 fresh-context policy scenarios covering activation, task boundaries, low/high risk, failed checks, protected or advancing `main`, exit, log reads, and unavailable hooks. Reconciled the normal verification-repair wording with Developer Mode's stop rule.
+
+### Migration
+
+- Existing projects need an explicitly requested standards sync to receive the new manifest entry and managed rules. A standards update never activates Developer Mode. Policy changes retain normal review even when they are documentation files.
+- No agents, Actions, schedules, monitoring streams, browser tests, application probes, provider writes, or external configuration are introduced. Updating these instructions does not disable existing external automation.
+
 ## v2.31.1 — 2026-10-04
 
 ### Interactive-only execution; no delegated agents or GitHub Actions

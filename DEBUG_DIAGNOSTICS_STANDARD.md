@@ -20,9 +20,9 @@ For static or public-only projects, debug mode is a recommended technical note, 
 
 `EXECUTION_SCOPE.md` is authoritative. This document describes application features for authorized product users; it does not instruct the agent to operate them.
 
-PHDK agents review diagnostics code and run permitted local static/build checks or risk-triggered unit/in-process integration tests. Browser APIs, OAuth, database access, network requests, and metered providers must be replaced with test doubles in those tests. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call health/probe endpoints, retrieve live service logs, or inspect cloud settings. Another tool, skill, or subagent cannot bypass this restriction.
+PHDK agents review diagnostics code and run permitted local static/build checks or risk-triggered unit/in-process integration tests. Browser APIs, OAuth, database access, network requests, and metered providers must be replaced with test doubles in those tests. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call application/health/probe endpoints, or inspect cloud settings. Another tool, skill, or subagent cannot bypass this restriction.
 
-User-supplied redacted diagnostics may inform source changes. They are not evidence that the agent verified the runtime. Report `visual/runtime unverified`; independent human use is optional and must not become a required step assigned merely to complete a PHDK checklist.
+For a current request to inspect logs or diagnose an incident, follow `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**. That permission is independent of PHDK Developer Mode. User-supplied redacted diagnostics and logs retrieved within that boundary may inform the diagnosis or source changes; they do not prove the agent executed a product test. Report the log evidence separately and retain `visual/runtime unverified` for behavior not exercised. Independent human use is optional and must not become a required step assigned merely to complete a PHDK checklist.
 
 Do not create recurring diagnostics, monitoring jobs, or scheduled agents. Existing product behavior remains subject to its own authentication, redaction, and consumption controls.
 
@@ -242,7 +242,7 @@ Correlation ID
 
 Never include request or response payloads from the metered API, and never include API keys or provider account identifiers.
 
-This lets a supplied report identify code paths that may need a bounded retry, quota, or kill-switch fix — see `DEVSECOPS.md` Cost and Consumption Safety. The agent does not query usage, call the provider, or operate the kill switch as verification.
+This lets a supplied report identify code paths that may need a bounded retry, quota, or kill-switch fix — see `DEVSECOPS.md` Cost and Consumption Safety. The agent does not query provider billing, invoke the metered integration, or operate the kill switch as verification. Reading existing logs remains governed by `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**.
 
 ---
 
@@ -342,5 +342,6 @@ Before marking diagnostics code complete, record source references and applicabl
 - [ ] Request/success/error examples are sanitized.
 - [ ] Failure-report mapping includes expected/actual status, latency, correlation ID, and safe log context when available.
 - [ ] Diagnostic buffering collects meaningful bounded entries and does not invent successful live results.
-- [ ] No browser, health/probe request, live log retrieval, provider call, or recurring job was used as verification.
+- [ ] No browser, application/health/probe request, metered integration call, service administration, or recurring job was used as verification.
+- [ ] Any retrieved logs followed `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**, including its query limits and redaction, and are reported as diagnostic evidence rather than a product test.
 - [ ] Final evidence states `visual/runtime unverified` for the actual UI and deployed behavior.

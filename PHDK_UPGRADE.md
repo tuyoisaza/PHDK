@@ -6,7 +6,9 @@ Synchronize an existing PHDK project to the current published standards in respo
 
 The canonical command is `PHDK upgrade` (case-insensitive after trimming whitespace). It authorizes the standards sync now, without a second confirmation in the clean case. It does not authorize product implementation, a commit/push/merge/release, deployment, workflow execution, an agent, or a future run. A current request that explicitly includes git delivery provides that additional authorization.
 
-Follow `EXECUTION_SCOPE.md`: one assistant, interactive-only, no delegation, no GitHub Actions, no scheduled/background work, no browsers or live service operations. Report and stop after the requested sync and any separately authorized git delivery.
+Follow `EXECUTION_SCOPE.md`: one assistant, interactive-only, no delegation, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Bounded read-only log retrieval is available only for a current requested diagnosis; it is not a standards-sync check. Report and stop after the requested sync and any authorized git delivery.
+
+An upgrade copies the definition of `PHDK_DEVELOPER_MODE.md`; it never activates that mode. A sync that changes execution or authorization policy, including this release's new permissions, requires the normal branch/review flow even if Developer Mode is already active. Do not classify permission changes as low-risk merely because they are Markdown.
 
 ## Canonical upstream
 
@@ -56,7 +58,7 @@ For an authorized update on a default/protected branch, use a dedicated working 
 
 Read the fetched `PHDK_MANIFEST.txt`; never use a handwritten file list or cached model memory. Each non-comment line maps an upstream source to its destination inside `phdk-standards/`.
 
-Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md` and `PHDK_NATIVE_RULES.md`.
+Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md`, `PHDK_DEVELOPER_MODE.md`, and `PHDK_NATIVE_RULES.md`.
 
 Remove an obsolete vendored file only when the previous manifest lists it, the new manifest omits it, it is clean, and it contains no stricter owner override. For pre-manifest projects, do not delete unknown extra files. Never delete unrelated project files.
 
@@ -79,12 +81,16 @@ When safe to edit without absorbing unrelated work, record old/new PHDK versions
 
 Do not make an old product task active or create a next mission merely to record the sync.
 
+Do not store or restore Developer Mode activation in the continuity record. Historical evidence that the mode was used does not authorize a new conversation or task.
+
 ### 8. Verify using repository evidence
 
 - Vendored `VERSION` matches the chosen upstream version.
 - Every manifest destination exists and matches its mapped source byte-for-byte.
 - The current native managed block matches the source block.
 - Interactive-only, single-assistant, no-delegation, no-Actions, no-scheduling, and owner-control rules are present.
+- Developer Mode's explicit activation/exit, temporary lifetime, risk limits, and no-bypass rules match upstream; the upgrade itself did not activate it.
+- The bounded read-only log-diagnostics permission is present without adding provider writes, live probes, streams, or monitoring.
 - No owner control or unrelated edit was overwritten or staged.
 - No product source changed except minimal version metadata when a currently authorized commit requires it.
 - No agents, background tasks, workflow runs, browser sessions, live probes, or external configuration changes occurred.
@@ -103,4 +109,4 @@ Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI to 
 
 Report old/new versions, upstream SHA, vendored-file count, native-block state, branch/commit/merge state where applicable, checks, conflicts, and limitations. Then stop.
 
-An upgrade does not remove installed application automation, terminate a process, revoke a credential, disable an external scheduler, or change GitHub/hosting settings. Removing existing automation files is a separate explicit repository-code request; external administration remains outside PHDK. Never report those operations as completed merely because standards were updated.
+An upgrade does not activate Developer Mode, remove installed application automation, terminate a process, revoke a credential, disable an external scheduler, or change GitHub/hosting settings. Removing existing automation files is a separate explicit repository-code request; external administration remains outside PHDK. Never report those operations as completed merely because standards were updated.

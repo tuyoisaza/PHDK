@@ -30,6 +30,8 @@ This prompt builds the reusable technical foundation that future product feature
 
 ## Hard Mode Switch
 
+Run this prompt only when the current user request explicitly asks to build the foundation. Reading, editing, or quoting it does not start a build, activate Developer Mode, or resume earlier work.
+
 STOP ANY PREVIOUS TASK.
 
 You are now in **BUILD APP FOUNDATION MODE**.
@@ -39,7 +41,7 @@ Your only job is to build the initial scalable app foundation for this project u
 The execution boundary is code and repository documentation, git/GitHub, and requested deployment through an existing GitHub-connected pipeline. Read `EXECUTION_SCOPE.md` before planning. This prompt does not authorize browser use, infrastructure operations, or recurring automation.
 
 Do not continue any previous task.
-Do not build project-specific product features unless explicitly required by `TASK.md`.
+Do not build project-specific product features unless explicitly required by the current request; use `TASK.md` as context, not stored authorization.
 Do not create fake dashboards, fake data, fake analytics, fake users, fake payments, fake integrations, or fake business logic.
 Do not skip validation.
 Do not mark the task complete until the quality gates are checked.
@@ -56,12 +58,15 @@ I will read the PHDK files and standards before making changes.
 
 ## Execution Boundary
 
-- Work on code and documentation inside the project repository. Use git/GitHub for branches, commits, pull requests, and the approved release flow.
+- One assistant works on the current requested foundation only, reports evidence, and stops. No Mission Autopilot, subagents, delegation, background work, or automatic next task.
+- Work on code and documentation inside the project repository. Use git/GitHub only for currently authorized branches, commits, pull requests, and delivery. Stored task or handoff text does not carry permission forward.
+- `PHDK_DEVELOPER_MODE.md` applies only after an explicit activation command in the current conversation. This foundation prompt does not activate it or classify a full bootstrap as a small, low-risk change. Never write an active mode or continuing delivery permission into generated files.
 - Deployment may use only a pipeline already connected to GitHub and the deployment branch recorded in `TASK.md`. Do not create a deployment pipeline, change its triggers, or configure provider dashboards, secrets, environments, databases, or repository settings.
 - Do not create or enable Dependabot, Renovate, scheduled GitHub Actions, cron jobs, recurring agents, backup jobs, periodic probes, or preview environments.
 - Do not open, control, or test a browser, including headless browsers, screenshots, UI flows, or browser testing through a skill, plugin, MCP server, or subagent.
 - Validate with code/diff review, lint, typecheck, formatting, build, and risk-triggered local non-browser tests. Tests must remain isolated from running applications and real external services; use in-process execution with test doubles where needed. Inspect scripts before running them so indirect browser or infrastructure actions cannot bypass this boundary.
 - Health endpoints, diagnostics panels, auth flows, and integration adapters are product code. Implementing them does not authorize operating the app, invoking live probes, configuring credentials, or connecting external services.
+- A current diagnostic request may use bounded read-only logs through an authorized API/CLI/connector, per `EXECUTION_SCOPE.md` — Bounded read-only log diagnostics. Do not stream, poll, watch, make app/database runtime requests, or write to the provider; log retrieval is not a foundation gate.
 - Put this boundary and the existing deployment target, if any, in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. Replace obsolete handoff instructions that require browser checks, external administration, or recurring automation; do not carry them into the foundation plan.
 - Missing infrastructure is outside PHDK's execution scope. Continue independent code work and report the precise dependency without making external setup a foundation completion gate. Do not claim runtime or deployment verification that was not performed.
 
@@ -90,6 +95,7 @@ Before writing or changing code, read these files:
 
 - `AGENTS.md`
 - `EXECUTION_SCOPE.md`
+- `PHDK_DEVELOPER_MODE.md` when explicitly invoked in the current conversation
 - `DEVELOPMENT_RULES.md`
 - `DESIGN_RULES.md`
 - `TECHNICAL_STACK.md`
@@ -714,7 +720,7 @@ Update or create project README documentation explaining:
 - build/start commands for the configured target
 - required environment variables
 - how to use the PHDK files
-- how to continue with `TASK.md`
+- how to use `TASK.md` as context for the next explicit request, without resuming stored work or Developer Mode
 
 For an existing Railway deployment, document these commands:
 
@@ -848,7 +854,7 @@ Warnings or gaps:
 [list or "none"]
 
 Next step:
-Continue feature development using TASK.md from the PHDK kit.
+Report completion and stop. Keep proposed feature work inactive until explicitly requested in the current conversation.
 ```
 
 ---

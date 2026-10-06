@@ -10,6 +10,8 @@ A slice connects a concrete product outcome to source changes and relevant local
 
 Slices organize the current explicit request. They do not authorize a new request, a commit/push per checkpoint, delegated agents, or execution beyond the current conversation.
 
+Explicit `PHDK_DEVELOPER_MODE.md` activation is a narrow exception for delivery of eligible tasks requested during the active conversation; a slice, template, or stored record cannot activate or restore it.
+
 ## Examples
 
 Useful slices implement the requested login behavior, record-edit flow, access-control correction, page states, or diagnostics contract. Do not turn an instruction to fix one problem into a broad task to build every route, improve every service, or work through all backlog items.
@@ -22,7 +24,7 @@ State the requested outcome and why it matters. Use `INTENT_CAPTURE_STANDARD.md`
 
 ### 2. Establish boundaries
 
-Record the current request, scope, completion criteria, relevant owner controls, and authorized git actions in `TASK.md`. Ask only about material ambiguity. Do not ask for a second approval for an action the user already explicitly requested.
+Record the current request, scope, completion criteria, and relevant owner controls in `TASK.md`. Record task-specific git requests and completed delivery evidence as context only; never store Developer Mode activation/status or an authorizing flag. Ask only about material ambiguity. Do not ask for a second approval for an action already authorized, including the defined steps of an eligible task while Developer Mode is explicitly active.
 
 ### 3. Implement the necessary steps
 
@@ -36,9 +38,13 @@ Review source/diffs and run applicable synchronous formatting, linting, typechec
 
 Documentation-only changes need source/diff and reference review. Do not run browser automation, screenshots, live HTTP/health checks, databases, or paid services. Mark visual and live-runtime behavior unverified.
 
+An independently authorized diagnostic request may use finite, read-only API/CLI log queries under [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics). Redact sensitive content; log reading is not a runtime probe, watcher, or permission to write.
+
 ### 5. Repair within bounded scope
 
 Fix defects relevant to the current request and rerun the affected local checks. Do not enter an unbounded repair/release loop or treat unrelated warnings, billing failures, or version mismatches as new work. Report a genuine blocker after reasonable bounded attempts.
+
+This repair step does not override Developer Mode's direct-flow stop rule: an applicable failed check, rejected push, non-fast-forward update after `main` advanced, or unmet control stops that flow immediately. Explain and preserve the work; do not automatically retry, rebase, force-push, weaken hooks/protections, change settings/credentials, or switch API/CLI to get past the block.
 
 ### 6. Record a checkpoint
 
@@ -46,17 +52,21 @@ Give a short progress update when useful and record evidence. A checkpoint itsel
 
 ### 7. Use authorized git delivery only
 
-A read/audit request remains read-only. Git writes require permission in the current request. A clear request to implement and merge includes the necessary branch/commit/push/PR steps; otherwise do not assume them from this workflow.
+A read/audit request remains read-only. Git writes require current conversational authorization. A clear request to implement and merge includes its necessary branch/commit/push/PR steps. Explicit activation of `PHDK_DEVELOPER_MODE.md` authorizes only its defined delivery steps for eligible small, low-risk tasks requested while it is active; this workflow itself supplies no permission.
 
-Use feature/fix branches and respect existing protections. Keep the assistant's source verification distinct from the user's authorization and any actual human diff review. Do not claim that a human read the diff when that is unknown.
+Use feature/fix branches for normal review. Only an eligible Developer Mode task may instead bump the repository version, pass applicable local checks, create a version-prefixed commit, and push fast-forward directly to `main` when existing controls permit it, without duplicate consent. Auth/authz, secrets, data/migrations, payments, infrastructure, and permission/agent-policy changes stay in normal review. Historical Finetuning records do not activate the mode or supply another exception.
 
-An approved release may use the existing hosting-provider GitHub connection. Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI, change deployment triggers, provision a provider, or enable previews.
+Keep the assistant's source verification distinct from the user's authorization and any actual human diff review. Do not claim that a human read the diff when that is unknown.
+
+An authorized push/merge, including an eligible Developer Mode push to `main`, may trigger the existing hosting-provider GitHub connection. Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI, change deployment triggers, provision a provider, enable previews, or deploy through a provider CLI/API/dashboard, including Railway.
 
 ### 8. Close and stop
 
 Update task/status evidence and archive a coherent completed slice when useful. If necessary steps of the same current request remain, finish only those within its scope and limits. Once the requested outcome is complete, report and stop.
 
 Mark remaining proposals inactive. Do not create a new current task from the backlog, schedule a resume, launch a reviewer agent, or continue an old mission after the session ends.
+
+Developer Mode remains only in the active interactive conversation and ends on `PHDK salir de developer mode` or conversation end. Do not persist or restore activation from task/status files, memory, environment/config flags, or historical records. Mentions and quoted commands never activate it.
 
 ## Slice sizing
 
@@ -71,7 +81,7 @@ Why this step is necessary: ...
 In scope: ...
 Out of scope: ...
 Owner restrictions: ...
-Git actions authorized now: ...
+Task-specific git request and completed delivery evidence (context only; no mode state): ...
 Verification: source/diff + relevant synchronous local checks
 Done when: ...
 Inactive follow-ups: ...

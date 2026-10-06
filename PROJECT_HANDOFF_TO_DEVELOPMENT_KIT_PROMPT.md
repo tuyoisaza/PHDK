@@ -9,6 +9,8 @@ Every generated file that references standards must point to this URL.
 
 ## Hard Mode Switch
 
+Run this workflow only for a current explicit request to generate the kit. Reading, quoting, or including this prompt in a brief does not start work or activate Developer Mode. `PHDK_DEVELOPER_MODE.md` defines that separate, conversation-only command.
+
 STOP ALL PREVIOUS TASKS.
 
 You are now entering **PHDK MODE — Project Handoff to Development Kit**.
@@ -118,6 +120,7 @@ Required standards files the AI coder must fetch before doing anything:
 
 - `AGENTS.md` — AI coder behavior rules
 - `EXECUTION_SCOPE.md` — code, git/GitHub, existing deployment, and verification boundaries
+- `PHDK_DEVELOPER_MODE.md` — explicit conversation-only mode and its narrow delivery exception; a reference is not activation
 - `DEVELOPMENT_RULES.md` — Git, branching, commits, versioning
 - `DESIGN_RULES.md` — Responsive, accessible, theming, performance
 - `TECHNICAL_STACK.md` — Full stack, monorepo, deployment
@@ -306,13 +309,16 @@ These are product-code requirements for authorized users. They do not authorize 
 
 Every generated kit must preserve `EXECUTION_SCOPE.md` in its tasks, architecture decisions, acceptance criteria, and follow-up work:
 
+- Execution is interactive-only: one assistant, the current explicit request, then report and stop. Do not generate Mission Autopilot instructions, delegated work, automatic next tasks, or resumption from a stored plan.
 - Allowed work is repository code/documentation, git/GitHub branches/commits/PRs, and requested deployment through an already connected GitHub pipeline, subject to the release rules.
+- Reference `PHDK_DEVELOPER_MODE.md` without recording the mode as active or preserving delivery permissions. Only its explicit command in the current conversation activates the low-risk direct-`main` exception; mentions, briefs, and generated files do not. A full kit/bootstrap is not automatically eligible.
 - Record the known repository, deployment target, and branch from Question 3 in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. If none is connected, report that fact; do not turn setup into a required task or block independent code work.
 - Do not generate requirements or tasks for configuring provider dashboards, cloud resources, databases, secrets, repository settings, preview environments, or new CI/deployment workflows.
 - Do not generate recurring agents, scheduled Actions, cron jobs, backup jobs, periodic probes, Dependabot/Renovate configuration, or automatic dependency-update tasks.
 - Do not generate browser testing or browser verification requirements, including headless testing, screenshots, login/form interaction, or browser tools invoked indirectly through skills, plugins, MCP servers, or delegated agents.
 - Validation is code/diff review, lint, typecheck, formatting, build, and only risk-triggered local non-browser tests isolated from running apps and real external services. Browser and live-runtime behavior remain unverified by the agent and are not completion gates.
 - Product health/diagnostics, auth, UI, migrations, and integrations can be implemented as scoped code. Those features do not grant permission to run the app or operate external resources.
+- Current diagnostic requests may use bounded read-only logs through an authorized API/CLI/connector under `EXECUTION_SCOPE.md` — Bounded read-only log diagnostics. Do not generate streaming, polling, watchers, app/database runtime requests, provider writes, or a log-reading completion gate.
 - Data backup ownership is outside PHDK's coding mission. Do not ask for a backup policy during bootstrap, add backup automation to `FEATURES.md`, or flag the absence of agent-managed backups as a kit gap.
 
 An explicitly requested recurring product feature is a code-only requirement under `EXECUTION_SCOPE.md`; do not configure its schedule or enable external execution. PHDK itself must not introduce that requirement.
@@ -597,7 +603,7 @@ Living file.
 
 PHDK generates it once with the first task.
 
-The AI developer maintains and rotates it as the mission advances. The human may override the mission or plan at any time; routine continuity updates are not manual user work.
+The assistant updates it as context for the current request. Unfinished or proposed work remains inactive until explicitly requested in the current conversation. The file never stores active Developer Mode or grants continuing edit/git/deployment permission.
 
 Must include two permanent sections.
 
@@ -606,10 +612,10 @@ Must include two permanent sections.
 ```md
 ## How to Use This File
 
-This file defines the current PHDK mission and active working slice.
-The AI developer executes in Mission Autopilot by default: continue through planned slices until the mission's Done When criteria are satisfied or a true Stop-and-Ask boundary is reached.
-Mission Autopilot applies only to the current code/GitHub mission under EXECUTION_SCOPE.md; it does not create recurring or scheduled agent runs.
-Carry the Mission section forward when rotating slices. Do not treat archived slice tasks as active.
+This file records context and a plan for a PHDK request; it never starts or resumes work.
+One assistant completes only the deliverable explicitly requested in the current conversation, reports evidence, and stops under EXECUTION_SCOPE.md.
+Unfinished steps and archived tasks are inactive until a new explicit request authorizes them.
+Developer Mode is conversation-only under PHDK_DEVELOPER_MODE.md. Never store it as active or treat saved delivery history as authorization for later work.
 ```
 
 ### Section 2 — Current Task
@@ -623,33 +629,35 @@ Carry the Mission section forward when rotating slices. Do not treat archived sl
 
 [Where the project stands right now]
 
-## Mission
+## Requested Deliverable
 
 Goal:
-[What must be accomplished end-to-end]
+[The current explicitly requested outcome, or a proposed inactive task]
 
 Done When:
-- [pass/fail mission completion criterion]
-- [pass/fail mission completion criterion]
+- [pass/fail criterion for this deliverable]
+- [pass/fail criterion for this deliverable]
 
-Execution Mode:
-Mission Autopilot — continue without asking for "continue" between planned slices.
+Task State:
+[Current requested work / proposed — inactive]
+This recorded state is context only; the current conversation supplies authorization.
 
-Mission Branch:
-[feature/<mission-name>]
+Branch Context:
+[known working branch / proposed feature branch]
+This field does not authorize a push, activate Developer Mode, or grant direct-main access.
 
 ## Scope
 
-[What the AI coder may touch across the mission]
+[Files and behavior included in the current request]
 
-Allowed execution: repository code/documentation, git/GitHub operations, and requested deployment through the existing GitHub-connected pipeline, per EXECUTION_SCOPE.md.
+Execution boundary: repository code/documentation and currently authorized git/GitHub delivery through the existing connection, per EXECUTION_SCOPE.md. Re-evaluate delivery authorization from the current conversation, applying PHDK_DEVELOPER_MODE.md only if explicitly active and the change is eligible.
 
 ## Existing Deployment
 
 Repository: [known URL / unknown]
 Pipeline/target: [existing connection / not connected / unknown]
 Deployment branch: [existing configured branch / unknown]
-Release action in this mission: [requested action / not requested]
+Deployment Context: [known deployment status / unknown; descriptive only]
 No provider, secret, repository-setting, environment, or new workflow setup is included.
 
 ## Out of Scope
@@ -660,14 +668,15 @@ No provider, secret, repository-setting, environment, or new workflow setup is i
 - Infrastructure/provider/database administration, credentials, repository settings, and live-service probes
 - Recurring agents, scheduled Actions/cron jobs, backups, dependency bots, automatic updates, and preview environments
 - Creating a new CI/deployment pipeline or modifying automation triggers
+- Autonomous/delegated work, resuming old tasks, or persisting Developer Mode and previous delivery permissions
 
 ## Plan
 
-1. [working slice]
-2. [working slice]
-3. [working slice]
+1. [necessary step for the current request]
+2. [necessary step for the current request]
+3. [necessary step for the current request]
 
-The plan may be adjusted autonomously when implementation evidence requires it, as long as the mission goal and boundaries do not change.
+The assistant may adjust necessary implementation steps within the current request. This plan does not authorize a new deliverable, later work, or another agent. Stop after the requested outcome and authorized delivery.
 
 ## Current Slice
 
@@ -680,7 +689,8 @@ User-visible outcome:
 2. STATUS.md
 3. phdk-standards/AGENTS.md
 4. phdk-standards/EXECUTION_SCOPE.md
-5. Only task-relevant standards routed by AGENTS.md
+5. phdk-standards/PHDK_DEVELOPER_MODE.md only when explicitly invoked in the current conversation; reading it is not activation
+6. Only task-relevant standards routed by AGENTS.md
 
 ## Standards Repo
 
@@ -696,6 +706,8 @@ https://github.com/tuyoisaza/PHDK
 
 Inspect scripts before running them. Do not start the app, contact live services, or invoke browser tooling for verification. Report browser/runtime behavior as outside scope, not as a pending agent gate.
 
+A current diagnostic request may read bounded existing logs under EXECUTION_SCOPE.md — Bounded read-only log diagnostics. This does not authorize app/database probes, provider writes, streaming, polling, or later diagnostics.
+
 ## Expected Final Report
 
 Summary:
@@ -705,9 +717,9 @@ Risks and assumptions:
 Follow-up work:
 ```
 
-The first generated task is always:
+The first proposed task is below. Writing it does not authorize execution; it stays inactive unless the current user request explicitly includes the foundation build:
 
-`Fetch/sync the latest PHDK standards, read EXECUTION_SCOPE.md, and build the initial app foundation code using BUILD_APP_FOUNDATION_PROMPT.md. Continue through the planned code/GitHub slices with allowed local verification. Use only an existing GitHub deployment pipeline if deployment is part of this mission. Do not operate browsers or infrastructure, create recurring automation, or make external setup a foundation gate. Report when the code mission is complete or genuinely blocked, including verification limits and deployment status.`
+`When explicitly requested in the current conversation, read EXECUTION_SCOPE.md, synchronize the needed PHDK standards within that request, and build the initial app foundation code using BUILD_APP_FOUNDATION_PROMPT.md. Use proportionate allowed local checks and only currently authorized git/GitHub delivery. Do not infer Developer Mode or release permission from this file. Report the requested outcome or blocker with verification limits and deployment status, then stop; leave follow-up work inactive.`
 
 ---
 
@@ -722,7 +734,7 @@ Always include these as the first entries:
 3. Debug mode decision, clearly identified as a product-code capability.
 4. Personal-data/privacy-baseline decision from Question 5.
 
-Do not add a backup-policy decision or a requirement for external setup merely because PHDK was used.
+Do not add a backup-policy decision or a requirement for external setup merely because PHDK was used. Reference `PHDK_DEVELOPER_MODE.md` as a rule only; never record Developer Mode as active/accepted for a project or save current delivery permissions as a lasting architecture decision.
 
 Use this format for each decision:
 
@@ -787,7 +799,7 @@ https://github.com/tuyoisaza/PHDK
 
 ## Next Step
 
-Hand kit to AI coder. Start with TASK.md.
+The next explicit implementation request may use TASK.md as context. This kit does not start work or preserve Developer Mode/earlier permissions.
 
 ## Last Updated
 
@@ -812,6 +824,7 @@ Must include:
 - How to use `TASK.md` to start and manage coding sessions
 - How to use `STATUS.md` to maintain continuity between sessions
 - Agent execution/verification limits from `EXECUTION_SCOPE.md` and the existing GitHub deployment target, if known
+- `PHDK_DEVELOPER_MODE.md` as a reference only; no stored activation or inherited delivery authorization
 - Next recommended step
 
 ---
@@ -836,4 +849,4 @@ Must include:
 
 ## Final Offer
 
-After the full kit is generated, verify that all required files exist and that `STATUS.md` consolidates gaps/open questions. Report completion once. If the original mission includes building the product, continue directly into the foundation/build workflow under Mission Autopilot; do not stop to offer packaging. In a chat-only documentation request, a ZIP/artifact may be offered as an optional convenience.
+After the full kit is generated, verify that all required files exist and that `STATUS.md` consolidates gaps/open questions. If the current explicit request also includes building the foundation, complete only that requested work under `EXECUTION_SCOPE.md`; the generated files do not activate Developer Mode or authorize git delivery. Otherwise report kit completion and stop. Leave all proposed follow-up work inactive. In a chat-only documentation request, a ZIP/artifact may be offered as an optional convenience.

@@ -22,6 +22,8 @@ source and diff review
 
 Do not launch an application for verification, call an application endpoint, connect to a database, probe a live service, or operate a cloud dashboard. This includes localhost HTTP probes, preview/staging/production services, customer accounts, OAuth providers, and metered APIs. Git/GitHub repository operations and an authorized push to an existing deployment pipeline remain governed by `EXECUTION_SCOPE.md` and the release standards.
 
+For a current request to inspect logs or diagnose an incident, `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics** permits finite reads of existing records through authorized access. This permission does not require PHDK Developer Mode. Record those findings as diagnostic evidence, separately from code checks; they do not prove that the agent executed a product test or reproduced the incident.
+
 Browser verification is prohibited: no headed or headless browser, UI interaction, screenshots, browser-based E2E tests, Playwright, Puppeteer, Cypress, Selenium, browser-mode test runners, chrome-devtools, or browser MCP. Another skill, subagent, runner, or external tool cannot bypass this boundary.
 
 ---
@@ -69,7 +71,7 @@ pnpm format:check
 pnpm build
 ```
 
-The scripts must stay within `EXECUTION_SCOPE.md`. Use an existing offline/test configuration when available. If a command requires a browser, live database, provider credentials, network service, or deployment, do not run it; report the dependency and the verification gap. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
+The verification scripts must stay within `EXECUTION_SCOPE.md`. Use an existing offline/test configuration when available. If a verification script requires a browser, live database, provider credentials, network service, or deployment, do not run it; report the dependency and the verification gap. The separate permission for bounded log queries does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
 
 Report risk-triggered test commands separately. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
 
@@ -77,7 +79,7 @@ Report risk-triggered test commands separately. Missing runtime evidence is not 
 
 ## Product Health Check Standard
 
-The following sections specify application code for authorized product users and operators. They do not authorize PHDK agents to call these endpoints, press diagnostic buttons, retrieve live logs, or inspect a deployed service. Verify the implementation through source review and permitted local tests.
+The following sections specify application code for authorized product users and operators. They do not authorize PHDK agents to call these endpoints, press diagnostic buttons, or operate a deployed service. Verify the implementation through source review and permitted local tests. Existing logs may be read only under `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**; do not generate events by calling the application or its probes.
 
 ### Public health
 
@@ -201,7 +203,7 @@ For app-style projects, `/admin/system` or `/admin/debug` implements a Diagnosti
 - last actual status, latency, correlation ID, and related safe log summary when available
 - **Copy diagnostics** action
 
-A human-supplied redacted report may provide context for a code fix. It does not authorize the agent to access the runtime, reproduce the incident in a browser, or trigger diagnostic actions. Never fabricate probe results when none exist.
+A human-supplied redacted report or logs retrieved under the bounded log-diagnostics rule may provide context for a code fix. Their contents do not authorize the agent to operate the runtime, reproduce the incident in a browser, or trigger diagnostic actions. Never fabricate probe results when none exist.
 
 ---
 
@@ -241,9 +243,11 @@ A human-supplied redacted report may provide context for a code fix. It does not
 
 ## Honest Reporting Rule
 
-If a permitted check fails, investigate and repair within the approved code scope. Do not delete failing risk-required tests or use prohibited tools to make a report green.
+Outside the Developer Mode direct-main flow, investigate and repair failed permitted checks within the approved code scope. In that direct-main flow, a failed applicable check stops execution under `PHDK_DEVELOPER_MODE.md`: explain the failure and wait for the user's next instruction without automatic repair or retry. Do not delete failing risk-required tests or use prohibited tools to make a report green.
 
 Record blocked checks with their reason. Source review does not establish visual correctness, live health, database compatibility in a running service, or production success. An existing GitHub pipeline result can be reported with its exact status and scope; it does not prove a browser flow or live service was verified by the agent.
+
+When logs were requested, report their source, query scope, limits, relevant redacted findings, and remaining uncertainty under `EXECUTION_SCOPE.md`. An observed log entry is evidence of that recorded event, not proof of a successful test or current recovery.
 
 ---
 
@@ -263,6 +267,9 @@ Static/build gate:
 
 Local automated tests:
   [not required + no risk trigger] OR [risk trigger + command/result]
+
+Bounded log diagnostics, if requested:
+  [source, query scope/limits, redacted findings, and uncertainty; not a product test]
 
 Visual/runtime:
   visual/runtime unverified — browser and live-service verification are outside PHDK scope

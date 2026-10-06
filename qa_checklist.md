@@ -2,17 +2,17 @@
 
 ## Purpose
 
-This file defines code quality gates for task completion, merging, and GitHub delivery. `EXECUTION_SCOPE.md` is authoritative: PHDK agents work on repository code and existing GitHub delivery only.
+This file defines code quality gates for task completion, merging, and GitHub delivery. `EXECUTION_SCOPE.md` is authoritative for repository work, existing GitHub delivery, and separately requested bounded log diagnostics.
 
 Choose the smallest relevant QA scope. Review applicable requirements in the changed area, record source references and actual command results, and mark unrelated items `N/A` with a reason. Documentation-only work requires source/diff consistency and applicable formatting checks, not application builds or test scaffolding.
 
 ## Evidence Boundary
 
-The product requirements below are checked through source/diff review, static checks, local builds, and risk-triggered local unit/in-process integration tests with deterministic doubles. A checked UI, auth, database, or diagnostics item confirms its implementation evidence only; it does not claim the real user flow or deployed system was exercised.
+The product requirements below are checked through source/diff review, static checks, local builds, and risk-triggered local unit/in-process integration tests with deterministic doubles. A checked UI, auth, database, or diagnostics item confirms its implementation evidence only; it does not claim the real user flow or deployed system was exercised. Requested log retrieval follows **Bounded read-only log diagnostics** in `EXECUTION_SCOPE.md`, independently of PHDK Developer Mode; existing logs are separate diagnostic evidence, never an executed product test.
 
 Do not launch a browser, preview server, or service; collect screenshots; use headed/headless E2E, Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, or a browser-mode runner; call application HTTP endpoints, including localhost; connect to databases; use customer accounts; or call OAuth/metered providers. Tools, plugins, and delegated agents must follow the same boundary.
 
-Record `visual/runtime unverified` for UI appearance and deployed behavior. A human may independently inspect the product; that inspection is not a PHDK gate and must not be assigned to the user merely to close a checklist. An existing GitHub pipeline status is delivery evidence only.
+Record `visual/runtime unverified` for UI appearance and product execution, and report requested log findings separately. A human may independently inspect the product; that inspection is not a PHDK gate and must not be assigned to the user merely to close a checklist. An existing GitHub pipeline status is delivery evidence only.
 
 # QA Scope Levels
 
@@ -33,16 +33,16 @@ Record `visual/runtime unverified` for UI appearance and deployed behavior. A hu
 
 ## Human Diff Review
 
-Code verification and human review of the actual diff are distinct. PHDK requires human diff review before merging to `main`, even when GitHub does not enforce approvals. Existing repository rules may add restrictions; the explicitly activated Finetuning exception for direct pushes is defined in `DEVELOPMENT_RULES.md`. Browser or live-service use is not part of diff review.
+Code verification and human review of the actual diff are distinct. Normal delivery to `main` requires human diff review, even when GitHub does not enforce approvals. The exception is temporary PHDK Developer Mode, explicitly activated for the current session under `PHDK_DEVELOPER_MODE.md`, for small, low-risk changes and fast-forward delivery only. High-risk changes retain normal review. Existing controls remain effective; the mode never permits bypasses, settings changes, or force-pushes. Browser or live-service use is not part of diff review.
 
-Before merging a completed mission to `main`:
+When normal Human Diff Review applies, before merging the requested change to `main`:
 
 - [ ] A human opened the actual diff (`git diff`, the GitHub PR diff, or equivalent), not only the AI summary.
 - [ ] The human confirmed it matches the approved task and contains no unrelated scope.
 - [ ] Judgment calls, workarounds, and security-sensitive changes were specifically reviewed.
 - [ ] Approval is a recorded action under the project's merge policy.
 
-Do not infer human review from a green verification report or a conversational acknowledgment that did not examine the diff. Continue authorized independent code work while any required merge review remains pending.
+Record whether normal human review or explicitly activated PHDK Developer Mode applies. Do not infer human review from a green verification report or a conversational acknowledgment that did not examine the diff. Continue authorized independent code work while any required merge review remains pending.
 
 ## Release QA
 
@@ -80,11 +80,14 @@ Commands run:
 Local tests:
 - risk trigger + command/result, or not required + reason
 
+Log diagnostics, only if requested:
+- source and query bounds / redacted findings / limits; diagnostic evidence only
+
 Visual/runtime:
-- visual/runtime unverified — outside PHDK execution scope
+- visual/runtime unverified — no browser or live product test/probe executed
 
 GitHub delivery, if requested:
-- existing pipeline / commit / status / reference, or delivery limitation
+- existing pipeline / commit / status / reference / review or mode authorization, or delivery limitation
 
 Failures / gaps:
 - severity — description — next code step or external dependency
@@ -386,6 +389,7 @@ The debug/admin tooling implements a full force cache dump action for authorized
 - [ ] OpenTelemetry is used only if explicitly tasked/configured.
 - [ ] Important admin actions are audited.
 - [ ] Failed auth and authorization attempts are logged safely.
+- [ ] If log diagnostics were requested, retrieval followed **Bounded read-only log diagnostics** in `EXECUTION_SCOPE.md`; source, bounds, redacted findings, and limits are reported separately from test results.
 
 # Feature Flags
 
@@ -439,7 +443,7 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 - [ ] CORS is an explicit origin allowlist — never a wildcard on a credentialed route (`DEVSECOPS.md` HTTP Security Headers).
 - [ ] CSP, HSTS (production), and the standard security header set are configured on `apps/api`.
 - [ ] Rate limiting is active globally and enforced more strictly on auth endpoints (`DEVSECOPS.md` Rate Limiting) — not merely "considered."
-- [ ] Any exposed secret is removed/redacted from the code deliverable and reported as requiring owner-managed rotation; the agent does not access the provider or claim rotation occurred.
+- [ ] Any exposed secret is removed/redacted from the code deliverable and reported as requiring owner-managed rotation; the agent does not rotate provider credentials or claim rotation occurred.
 - [ ] Sessions and cookies use secure settings where applicable.
 - [ ] Admin actions are protected server-side.
 - [ ] Sensitive API endpoints reject unauthorized access.
@@ -573,7 +577,7 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 - [ ] Source defaults debug mode ON in non-production and OFF in production; risky default-selection logic is locally covered when needed.
 - [ ] Diagnostic buffers, registry/UI mapping, sanitized examples, correlation IDs, status/latency, and safe probe guards are reviewed in code.
 - [ ] No live report, health request, endpoint probe, browser interaction, or external settings confirmation is required to mark diagnostics code complete.
-- [ ] UI and operational behavior remain explicitly `visual/runtime unverified`.
+- [ ] Product execution remains explicitly `visual/runtime unverified`; requested bounded log findings are separate diagnostic evidence.
 
 # Enforcement QA
 
@@ -589,6 +593,6 @@ Review local enforcement when foundation work or the current change touches it. 
 
 # Final QA Rule
 
-Unresolved code blockers prevent claiming code completion; major release issues require the project's recorded approval before release. Permitted checks that fail remain visible in the report. Browser and external runtime checks are excluded scope, not invented completion gates.
+Unresolved code blockers prevent claiming code completion; major release issues require the project's recorded approval before release. Permitted checks that fail remain visible in the report. Browser and live product tests are excluded scope, not invented completion gates; requested bounded log diagnostics remain separate evidence.
 
 The final response states what source was reviewed, what commands passed or failed, what could not run, and what remains `visual/runtime unverified`.
