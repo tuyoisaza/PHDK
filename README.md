@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.32.0**
+**Version: v2.33.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -13,18 +13,30 @@ One assistant works on the user's explicit request in the current conversation. 
 - No creation, enabling, dispatch, rerun, or scheduling of GitHub Actions or hosted CI. PHDK contains no Actions workflows and does not require them.
 - No browser/headless testing, screenshots, live endpoint/database probes, paid verification calls, or external administration.
 - Relevant local formatting, linting, typechecking, builds, and isolated non-browser tests remain allowed. They run synchronously for the current request and exit; they are not background tasks.
-- Commit, push, release, and merge actions need current authorization. An audit is read-only; a clear request to implement and merge includes its necessary git/PR steps. Explicitly active Developer Mode supplies only its bounded commit/fast-forward-main permission for eligible requested changes.
+- A current implementation/fix/update request includes scoped versioned branch/PR delivery through verified remote `main`, without a repeated merge order. Honor a narrower requested outcome and existing controls. Audits remain read-only; explicitly active Developer Mode supplies only its separate eligible direct-main exception.
 - A requested diagnosis may retrieve bounded existing logs through an authorized provider API/CLI/connector. No browser, continuous monitoring, application probes, or provider writes are permitted by that exception.
 
 The authoritative rules are in `EXECUTION_SCOPE.md`. They override contrary wording in older documents, examples, and external skills. Stricter owner controls remain in effect.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
 
-## What changed in v2.32.0
+## What changed in v2.33.0
 
-This release adds explicit, temporary PHDK Developer Mode for small, low-risk changes requested during the active conversation. It also fixes the overly broad ban on live-service logs: bounded read-only API/CLI retrieval for a current requested diagnosis is now allowed independently of Developer Mode. Live application tests, provider writes, recurring monitoring, and autonomous work remain excluded.
+Normal development now finishes with the requested change and consistent version verified on remote `main`, unless the user specified a narrower outcome. The same current request includes its branch, version, checks, commit, push, PR, required review, and merge. Ordinary changes use assistant diff review; human review remains mandatory for high-risk changes and stricter repository requirements.
+
+Task records no longer create a second authorization barrier: status/link questions, context compaction, or an assistant-written inactive flag cannot cancel an unfinished request in the same conversation. Real owner stops remain binding. Integration includes routine in-scope conflict/version reconciliation and avoids redundant post-merge bumps or pushes.
+
+Existing GitHub-connected provider autodeploy remains allowed. PHDK must not disable it or install dummy never-matching watch filters to enforce its limits on autonomous work. Observed deployment blockers/statuses are reported separately from integration in `main`; valid service-specific filters and intended skips for unaffected services are normal. Provider configuration writes remain outside a generic development request.
 
 `AGENTS.md` and `SKILL.md` are instruction files, not runnable agents. Loading them does not start a task. Existing local code-check hooks are not schedules and may not launch agents or generate pushes.
+
+## Complete the requested delivery
+
+Follow [MAIN_DELIVERY_STANDARD.md](MAIN_DELIVERY_STANDARD.md). For a normal implementation request, use the scoped feature/fix branch, applicable local checks, repository version standard, version-prefixed commits, PR, required review, and merge. Resolve clear integration conflicts while preserving other contributors' work, recheck the result, and verify the remote target and version before calling delivery complete.
+
+A pushed branch or open PR is an intermediate state for a request targeting `main`. Report a real unmet check, material conflict, required review, or access restriction as blocked delivery. A request limited to local work, a branch, or a PR retains that limit. A GitHub PR merge already updates remote `main`; it does not require a second bump or push just to finish.
+
+Preserve the same task's authorization across turns in the active conversation. Compare task/status snapshots with the actual user request and current git/PR state. Do not mistake an old unchecked delivery box for evidence that a merge is still pending or restart old work from a saved record.
 
 ## PHDK Developer Mode
 
@@ -101,7 +113,7 @@ An upstream standards update does not update every existing project automaticall
 
 | Area | Source files |
 |---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
 | Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
 | Intent and onboarding | `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |

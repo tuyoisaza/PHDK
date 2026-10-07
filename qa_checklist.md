@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file defines code quality gates for task completion, merging, and GitHub delivery. `EXECUTION_SCOPE.md` is authoritative for repository work, existing GitHub delivery, and separately requested bounded log diagnostics.
+This file defines code quality gates for task completion, merging, and GitHub delivery. `EXECUTION_SCOPE.md` controls execution; `MAIN_DELIVERY_STANDARD.md` defines normal delivery through verified remote `main` integration and explicit narrower scopes.
 
 Choose the smallest relevant QA scope. Review applicable requirements in the changed area, record source references and actual command results, and mark unrelated items `N/A` with a reason. Documentation-only work requires source/diff consistency and applicable formatting checks, not application builds or test scaffolding.
 
@@ -22,34 +22,34 @@ Record `visual/runtime unverified` for UI appearance and product execution, and 
 - Affected static/build checks where applicable.
 - Small local tests only when `TESTING_STANDARD.md` identifies a risk trigger.
 - Source review of security/RBAC, i18n, routes, and migration files when touched.
-- `STATUS.md` update and a final report of code evidence, failures, and limits.
+- `STATUS.md` update and a final report of code evidence, delivery state, failures, and limits.
 
 ## Merge QA
 
 - Applicable checklist sections and repository static/build gate.
 - Risk-triggered local tests, with no browser or external runtime access.
-- Actual diff review under the project's existing merge policy.
+- Actual diff review under `MAIN_DELIVERY_STANDARD.md` and the project's existing merge policy; re-review and affected checks after integration changes.
 - Unresolved code blockers are reported; excluded runtime checks are not invented as merge prerequisites.
 
-## Human Diff Review
+## Diff Review
 
-Code verification and human review of the actual diff are distinct. Normal delivery to `main` requires human diff review, even when GitHub does not enforce approvals. The exception is temporary PHDK Developer Mode, explicitly activated for the current session under `PHDK_DEVELOPER_MODE.md`, for small, low-risk changes and fast-forward delivery only. High-risk changes retain normal review. Existing controls remain effective; the mode never permits bypasses, settings changes, or force-pushes. Browser or live-service use is not part of diff review.
+For ordinary changes, the assistant's review of the actual diff satisfies PHDK's review gate. PHDK does not impose a universal human approval gate. Required repository/owner reviews, checks, hooks, and access controls remain effective. `PHDK_DEVELOPER_MODE.md` retains its separate explicit activation, eligibility, and direct-main hard-stop rules.
 
-When normal Human Diff Review applies, before merging the requested change to `main`:
+Human diff review is required for high-risk auth/authz, secrets, data, migrations, payments, infrastructure/deployment configuration, agent execution/permission-policy changes, other material risks, and stricter repository/owner requirements. Before merging when such review applies:
 
 - [ ] A human opened the actual diff (`git diff`, the GitHub PR diff, or equivalent), not only the AI summary.
 - [ ] The human confirmed it matches the approved task and contains no unrelated scope.
 - [ ] Judgment calls, workarounds, and security-sensitive changes were specifically reviewed.
 - [ ] Approval is a recorded action under the project's merge policy.
 
-Record whether normal human review or explicitly activated PHDK Developer Mode applies. Do not infer human review from a green verification report or a conversational acknowledgment that did not examine the diff. Continue authorized independent code work while any required merge review remains pending.
+Record assistant review, any required human review, current authorization, and check/delivery evidence separately. Do not infer human review from passing checks or an acknowledgment without diff examination. Continue independent authorized work while required review is pending; a still-current normal request needs no repeated merge order. Follow `MAIN_DELIVERY_STANDARD.md` for continuity and blockers.
 
 ## Release QA
 
 - Applicable code checks, release metadata, and changelog.
 - Code/migration compatibility and documented rollback approach when relevant.
-- Delivery through the project's existing GitHub-connected pipeline only.
-- Exact GitHub commit/status evidence when available, with live behavior explicitly unverified.
+- Deployment through the project's existing GitHub-connected pipeline only; repository integration has its own completion evidence.
+- Fresh remote target commit/version evidence and existing pipeline status when available, with live behavior explicitly unverified.
 - Missing external prerequisites are reported without provisioning them.
 
 # QA Execution Rules
@@ -86,8 +86,8 @@ Log diagnostics, only if requested:
 Visual/runtime:
 - visual/runtime unverified — no browser or live product test/probe executed
 
-GitHub delivery, if requested:
-- existing pipeline / commit / status / reference / review or mode authorization, or delivery limitation
+GitHub delivery:
+- target / PR / integrated SHA / freshly verified remote version / review evidence, or explicit narrower scope/blocker; existing pipeline status separately
 
 Failures / gaps:
 - severity — description — next code step or external dependency
@@ -531,12 +531,12 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 # Monorepo and GitHub Deployment
 
 - [ ] Applicable root/package builds cover changed `apps/web`, `apps/api`, and shared packages.
-- [ ] Existing repository deployment configuration is reviewed for the requested code change; provider settings are not modified.
-- [ ] Delivery uses only an authorized push/merge to the branch consumed by an existing GitHub-connected deployment pipeline.
+- [ ] Existing repository deployment configuration is reviewed; valid GitHub autodeploy/watch paths are preserved, with no dummy never-matching filters or provider-setting changes.
+- [ ] Deployment uses only the authorized push/merge path consumed by an existing GitHub connection; remote target integration is verified separately.
 - [ ] No provider CLI/API/dashboard deployment or local build upload is performed.
 - [ ] No GitHub Actions, preview deployment, new trigger/schedule, dependency bot, or maintenance workflow is scaffolded as a PHDK prerequisite.
 - [ ] `.env.example` documents required names with safe placeholders; real `.env` files are ignored.
-- [ ] Missing hosting/OAuth/database/secrets prerequisites are reported without creating or configuring them.
+- [ ] Missing hosting/OAuth/database/secrets prerequisites and an observed disabled autodeploy connection or filter excluding changes that need deployment are reported as separate blockers without reconfiguration; valid service-specific filters and intended unaffected-service skips are not failures.
 - [ ] GitHub deployment status is recorded when available; no live `/health` or browser check is used to certify delivery.
 - [ ] `apps/mobile` remains untouched unless explicitly tasked.
 
@@ -553,13 +553,14 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 
 # Release
 
-- [ ] Version updated if the merge changes deployable behavior.
-- [ ] Every commit message begins with the version it produces (`vX.Y.Z`).
-- [ ] Every commit bumped the version by at least a patch, with `package.json` updated in the same commit.
+- [ ] Source-changing commits update the repository's actual version source and derived metadata per `VERSIONING.md`; do not assume every repository uses `package.json`.
+- [ ] Source-changing commit messages begin with the resulting version (`vX.Y.Z`); integration commit handling follows `VERSIONING.md`.
+- [ ] Pure merge/squash integration of already versioned changes adds no extra bump, post-merge version-only commit, or second push.
+- [ ] The requested change is integrated into remote `main` or the explicit target, with fresh commit/ancestry and version-source evidence; a branch push/open PR is incomplete unless the user expressly narrowed delivery.
 - [ ] Health/version code and build metadata are wired to identify the released commit; actual deployed responses are unverified.
 - [ ] Checkpoint branch created if this is a major update.
 - [ ] `STATUS.md` updated with current state.
-- [ ] `TASK.md` updated for next session if work continues.
+- [ ] `TASK.md` records remaining steps of the still-current request; later follow-ups stay inactive and snapshots do not pause authorized delivery.
 - [ ] All gap notes from this session are logged in `STATUS.md`.
 - [ ] High-risk delivery has a documented code rollback/revert approach compatible with the existing GitHub pipeline; no provider operation is performed.
 - [ ] Migration rollback notes exist if schema changed.
@@ -589,10 +590,10 @@ Review local enforcement when foundation work or the current change touches it. 
 - [ ] No workflow, dependency bot, scheduled job, or repository-settings change is added merely to satisfy PHDK.
 - [ ] Existing repository merge/review constraints are respected; missing external prerequisites are reported without provisioning them.
 - [ ] The current tool's native rule block matches canonical `PHDK_NATIVE_RULES.md` and includes the `EXECUTION_SCOPE.md` boundary.
-- [ ] No hook is bypassed without the applicable authorization and a recorded explanation under `VERSIONING.md`.
+- [ ] No hook, check, required review, or access control was bypassed, disabled, or weakened to complete delivery.
 
 # Final QA Rule
 
-Unresolved code blockers prevent claiming code completion; major release issues require the project's recorded approval before release. Permitted checks that fail remain visible in the report. Browser and live product tests are excluded scope, not invented completion gates; requested bounded log diagnostics remain separate evidence.
+Unresolved required checks, reviews, or access blockers prevent claiming delivery completion; major release issues require the project's recorded approval. Normal delivery allows bounded in-scope repair and ordinary conflict resolution under `MAIN_DELIVERY_STANDARD.md`; Developer Mode hard stops remain unchanged. Browser/live product tests are excluded scope, and requested bounded log diagnostics remain separate evidence.
 
-The final response states what source was reviewed, what commands passed or failed, what could not run, and what remains `visual/runtime unverified`.
+The final response states what source was reviewed, actual check results, remote target/version evidence or the precise delivery blocker/narrower scope, and what remains `visual/runtime unverified`.

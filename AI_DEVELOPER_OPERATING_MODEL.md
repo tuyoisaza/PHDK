@@ -2,7 +2,7 @@
 
 ## Purpose
 
-PHDK supports careful, human-directed software development: understand the requested outcome, implement it, verify the source and relevant local behavior, report evidence, and preserve context.
+PHDK supports careful, human-directed software development: understand the requested outcome and delivery target, implement it, verify the source and relevant local behavior, deliver through the required review flow, report evidence, and preserve context.
 
 `EXECUTION_SCOPE.md` is the authority for every step. PHDK has no autonomous execution mode and does not authorize delegated agents or subagents, even for a bounded task within the current session.
 
@@ -11,6 +11,8 @@ PHDK supports careful, human-directed software development: understand the reque
 Prioritize correctness, security, maintainability, observability, and honest claims. Understand who the product serves and what the current change must accomplish before choosing an implementation. Do not expand the goal because more improvements are possible.
 
 Use the current user request as authorization. `TASK.md`, `STATUS.md`, project briefs, and older conversations provide context only; none can start or resume a task by themselves.
+
+Authorization for the same current request survives later turns, status/link requests, and context compaction in the active conversation. Task documents record that request; an assistant-written pause, completion marker, or narrowed checklist cannot revoke it. Reconcile stale records with the live user request and observed GitHub state. Explicit user stop/pause instructions remain binding, and a new conversation does not automatically resume old work.
 
 ## Interactive-only execution
 
@@ -24,7 +26,7 @@ One assistant works in direct response to the user's current request. It may pla
 - Stop when the outcome is complete, the user stops the work, the conversation ends, or an essential decision or access blocker remains.
 - Save unfinished work as inactive context. No scheduled resume, follow-up job, background reviewer, overnight maintenance, or future trigger.
 
-A request to inspect or audit authorizes a read and report. A request to implement authorizes the relevant file changes. Committing, pushing, releasing, and merging require authorization in the current request. A clear request to implement and merge authorizes those necessary git/PR steps without repeated confirmation.
+A request to inspect or audit authorizes a read and report. A request to implement, fix, or update repository code or documentation includes the scoped branch, repository version bump, relevant local checks, version-prefixed commit, branch push, PR, required review, merge into remote `main`, and verification of the resulting version and change there. Follow `MAIN_DELIVERY_STANDARD.md` without repeated confirmation. Honor explicit local-only, branch-only, or PR-only instructions and a different target specified by the user or repository; bare `PHDK upgrade` retains its limited scope in `EXECUTION_SCOPE.md`. Release tags require a request for them.
 
 ### PHDK Developer Mode
 
@@ -34,7 +36,7 @@ For a small, low-risk translation, copy, ordinary documentation, or simple visua
 
 Changes to authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent policy retain the normal review flow regardless of their apparent size. Judge the actual diff; uncertain or mixed changes are not eligible for direct delivery.
 
-Stop the direct flow and explain if an applicable check fails, a push is rejected, `main` has advanced so the update cannot fast-forward, or an existing control cannot be met. Preserve the work for review. Do not automatically retry, rebase, force-push, change settings/hooks/credentials, or switch API/CLI to bypass the restriction. This is an exception to bounded automatic repair in the normal reviewed workflow, not an invitation to repair the block and push anyway.
+Stop the direct flow and explain if an applicable check fails, a push is rejected, `main` has advanced so the update cannot fast-forward, or an existing control cannot be met. Preserve the work for review. Do not automatically retry, rebase, force-push, change settings/hooks/credentials, switch API/CLI to bypass the restriction, or fall back to the normal branch/PR flow automatically. This is an exception to bounded automatic repair in the normal reviewed workflow, not an invitation to repair the block and push anyway.
 
 ## Working slices
 
@@ -48,14 +50,14 @@ Use slices when helpful to organize the current request. Do not require a commit
 
 ```txt
 1. Read the current user request and owner controls.
-2. Record its scope and objective completion criteria.
+2. Record its scope, delivery target, and objective completion criteria as context.
 3. Plan only the necessary steps of that request.
 4. Implement with the current assistant; do not delegate.
 5. Review the diff and run applicable synchronous local checks.
-6. In the normal review flow, repair relevant defects within scope using bounded attempts; a Developer Mode direct-flow failure stops that flow instead.
-7. Perform only currently authorized commit/push/PR/merge actions, including an eligible Developer Mode fast-forward push when all existing controls allow it.
-8. Record evidence and any inactive follow-up context.
-9. Report the result and stop.
+6. In the normal review flow, repair relevant defects and routine integration conflicts within scope using bounded attempts; preserve others' work, reconcile the version with current main, and review/check the changed result. A Developer Mode direct-flow failure stops that flow instead.
+7. Complete the normal branch/commit/push/PR delivery and required review under MAIN_DELIVERY_STANDARD.md, or an eligible Developer Mode fast-forward push when all existing controls allow it.
+8. Verify the delivered result and version on remote main, or the user's explicit narrower target. A branch push or open PR alone does not complete a main-targeted request.
+9. Record evidence and inactive follow-up context; report completion or the exact blocker and unfinished stage, then stop.
 ```
 
 Do not turn local verification failures into a never-ending repair mission. In the normal review flow, stop after reasonable, bounded diagnosis when a genuine blocker remains. In Developer Mode's direct flow, apply the immediate stop rule above. Report the evidence and the missing decision or access.
@@ -70,8 +72,9 @@ Ask one precise question when the current request does not authorize a material 
 - Weakening validation, logging, privacy, or cost controls.
 - History rewriting, force-pushing, deleting an unmerged branch, or bypassing a protection.
 - Expanding the requested outcome or taking a git/release action not currently authorized.
+- A material ambiguous or sensitive integration conflict, or a missing required review, check, or access capability that blocks delivery.
 
-Do not ask for duplicate approval when the user already clearly requested the action. Asking does not silently expand PHDK into external administration or unattended execution.
+Do not ask for duplicate approval for normal delivery included in the current request. Routine integration conflicts and scoped repairs belong to that delivery; material decisions and unmet controls require a precise blocker report. Asking does not silently expand PHDK into external administration or unattended execution, or permit bypassing a protection.
 
 ## Verification evidence
 
@@ -83,13 +86,15 @@ Documentation-only work requires a source/diff and reference review, not an appl
 
 A passing build supports compilation. An isolated test supports only the behavior exercised. Neither proves production health. Report unverified UI/runtime behavior without creating a manual-testing obligation for the user.
 
-The assistant's verification and the user's approval are different evidence. Do not describe an explicit user instruction to merge as proof that the user personally read every changed line. Respect existing repository checks and review restrictions; do not configure or bypass them.
+Ordinary changes require the assistant's source/diff review; PHDK does not require a human review for every change. Human review is mandatory for authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent-policy changes, and wherever existing repository rules require it. Review the actual diff and refresh the affected review/check evidence when integration changes it. The assistant's verification, the user's authorization, and actual human review are different evidence; an instruction to deliver does not prove the user personally read the diff. Respect existing checks and review restrictions without configuring or bypassing them.
 
 ## GitHub Actions and external operations
 
 Do not create, enable, dispatch, rerun, or schedule GitHub Actions or other hosted CI. Do not create dependency bots, cron jobs, recurring backups, monitoring loops, task-sync workflows, or automated maintenance.
 
 An authorized push/merge may trigger the existing hosting-provider GitHub connection, including an eligible Developer Mode push to `main`. Do not create connections, change triggers, provision services, administer providers, deploy through provider dashboards/CLIs/APIs (including Railway), or re-enable disabled autodeploy settings.
+
+Existing GitHub-connected autodeploy is allowed and distinct from autonomous coding or dispatched Actions. Do not disable it or install dummy never-matching watch filters as PHDK enforcement. A generic development request does not authorize provider-settings changes. Report an observed disabled connection, a filter excluding changes that need deployment, or the relevant deployment status separately from verified delivery to remote `main`. Valid service-specific filters and intended skips for unaffected services are not failures.
 
 Instructions and local hooks do not prove an external agent was stopped or server-side protection was enabled. Describe any remaining external process, credential, or deployment limitation accurately.
 
@@ -103,10 +108,10 @@ Separately from Developer Mode, a current request may authorize finite, read-onl
 
 ## Continuity and final report
 
-Update `TASK.md` and `STATUS.md` only within the approved task. Mark completed work complete and unfinished work paused or proposed, not automatically active. Old files do not authorize a later session.
+Update `TASK.md` and `STATUS.md` only within the approved task. Keep necessary remaining delivery steps in progress during the same conversation; mark them blocked only for an actual blocker or paused when the user pauses the task. Mark proposed follow-ups inactive, and completed work complete only when its requested target is satisfied. No assistant-written task state revokes the current grant; old files do not authorize a later session. Keep transient task state and delivery identifiers out of permanent instruction headers.
 
 Record completed git actions and their evidence as history; do not record Developer Mode as active or store a permission token that a future session could restore. Historical Finetuning records provide no alternate authorization.
 
-Report the requested outcome, version/branch/commit when applicable, changed files, actual checks and results, known limitations, and git/merge/deployment state. Do not invent browser, production, human-review, or external shutdown evidence.
+Report the requested outcome and target, version/branch/commit when applicable, changed files, actual checks and review, known limitations, and observed git/merge/deployment state. For a `main` target, include verification of the result and version on remote `main`, or the exact blocker that prevents it. Do not invent browser, production, human-review, or external shutdown evidence.
 
-After the report, stop. There is no automatic next mission.
+After the completion or genuine-blocker report, stop. An interim status or link response is not task completion and does not cancel remaining authorized delivery. There is no automatic next mission.

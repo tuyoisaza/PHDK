@@ -41,7 +41,11 @@ At app foundation build (`BUILD_APP_FOUNDATION_PROMPT.md`), create only the repo
 
 Follow the repository's existing branch protection, review requirements, and allowed merge methods. Do not change settings, require new checks or accounts, add bypass actors, disable protection, or claim settings are configured without evidence. `PHDK_DEVELOPER_MODE.md` permits a fast-forward direct push only for eligible tasks requested while explicitly active and only when every existing control allows it. Historical Finetuning records provide no separate exception and do not activate the mode.
 
-Use the authorized branch/commit/PR flow in `DEVELOPMENT_RULES.md` and `VERSIONING.md`. Review the actual code diff and follow the existing merge authorization; do not add a provider-dashboard or browser-verification gate. Missing server-side enforcement is not permission to create GitHub Actions or administer the repository.
+Use the normal delivery contract in `MAIN_DELIVERY_STANDARD.md`, with `DEVELOPMENT_RULES.md` and `VERSIONING.md`. A current implementation/fix/update request includes versioned branch/PR delivery through required review and merge to verified remote `main` without repeated consent. Respect explicit local-only, branch-only, or PR-only limits, a different target specified by the user or repository, and the separate read/audit and bare `PHDK upgrade` boundaries in `EXECUTION_SCOPE.md`.
+
+Ordinary changes require assistant source/diff review; PHDK adds no universal human-review gate. Human review is mandatory for authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent-policy changes and stricter existing repository rules. Review the actual diff and record actual evidence. A user instruction to deliver is authorization, not proof of human diff review. Unmet required reviews/checks/access remain blockers; missing server-side enforcement is not permission to create Actions, administer the repository, or invent a provider-dashboard or browser-verification gate.
+
+A passing local gate, successful branch push, or open PR does not prove completion on `main`. Verify the merged result and version on remote `main`, or the explicit narrower target, and report the exact remaining blocker when it cannot be reached. In the normal branch/PR flow, routine integration conflicts are scoped delivery work: refresh `main`, preserve both sides, reconcile the branch version, and review/check the changed result. Pause for material ambiguous or sensitive conflicts; preserve history and all existing controls. A GitHub PR merge already updates remote `main`; it does not require another push or a post-merge version-only commit.
 
 ### Git hooks (Husky, scaffolded in `package.json` — root-level, applies regardless of which AI tool is driving `git`)
 
@@ -57,7 +61,7 @@ The explicit commands and eligibility rules live in `PHDK_DEVELOPER_MODE.md`. Ac
 
 Only an eligible small, low-risk task requested while the mode is active may use its version bump, applicable local checks, version-prefixed commit, and fast-forward push to `main` without duplicate consent. Auth/authz, secrets, data/migrations, payments, infrastructure, and permission/agent-policy changes require normal review. The mode grants no agents, autonomy, Actions, background/scheduled work, or old-task execution.
 
-If an applicable check fails, `main` rejects the push, `main` advanced so the planned push is not fast-forward, or a control is unmet, stop the direct flow and explain. Do not retry automatically, rebase, force-push, disable hooks/protections, or route the write through another API/CLI or credential to evade the block. An existing hook that requires a legacy enabling flag is a blocker, not permission to set that flag.
+If an applicable check fails, `main` rejects the push, `main` advanced so the planned push is not fast-forward, or a control is unmet, stop the direct flow and explain. Do not retry automatically, rebase, force-push, disable hooks/protections, route the write through another API/CLI or credential to evade the block, or automatically fall back to the normal branch/PR flow. An existing hook that requires a legacy enabling flag is a blocker, not permission to set that flag.
 
 ### Secrets scanning (mechanical enforcement of "never commit secrets")
 
@@ -68,6 +72,8 @@ If an applicable check fails, `main` rejects the push, `main` advanced so the pl
 ### Local verification gate
 
 PHDK does not scaffold GitHub Actions or other CI workflows. A currently authorized push/merge, including an eligible Developer Mode push to `main`, may trigger the existing hosting-provider GitHub connection under `EXECUTION_SCOPE.md`; do not add schedules, change its triggers, or expand it into task tracking, maintenance, or preview automation. Never deploy through provider CLI/API/dashboard, including Railway.
+
+Existing GitHub-connected autodeploy is an allowed delivery path. PHDK's restrictions on autonomous coding and Actions are not instructions to disable it or install dummy never-matching watch filters. Do not make those changes as enforcement, and do not treat a generic development request as authority to modify provider settings. If existing settings disable or skip deployment, report deployment blocked/skipped separately from the verified code and version on remote `main`.
 
 Before a branch is pushed for review, apply the local code checks required by `QA_CHECKLIST.md` and record their results. Existing hooks can run lint, typecheck, build, and format:check. A documentation-only change needs source/diff consistency review, not an application build. Run risk-triggered unit or in-process integration tests separately at the narrowest useful scope, with test doubles for external dependencies. Do not open a browser, run browser test tools, take verification screenshots, or probe live endpoints/databases/APIs.
 
@@ -89,7 +95,7 @@ This section does not repeat rules defined elsewhere — it is the index of whic
 |---|---|---|
 | Commit message begins with `vX.Y.Z` | `VERSIONING.md` | `commit-msg` hook + outgoing-commit range validation in `pre-push` |
 | No file exceeds 600 lines | `DEVELOPMENT_RULES.md` | `pre-commit` hook |
-| Honor the authorized branch and merge flow | `DEVELOPMENT_RULES.md` | local `pre-push` guard and existing GitHub restrictions |
+| Honor the authorized branch and merge flow | `MAIN_DELIVERY_STANDARD.md`, `DEVELOPMENT_RULES.md` | local `pre-push` guard and existing GitHub restrictions; completion still requires observed remote evidence |
 | Applicable static/build checks must actually pass before push | `VERIFICATION_LOOP.md` | local `pre-push` code checks + recorded evidence; source/diff review for documentation-only changes |
 | Risk-triggered behavior must have isolated coverage when required | `TESTING_STANDARD.md` | task-level unit/in-process test evidence, not a browser or live-service check |
 | Never commit secrets | `DEVSECOPS.md` | `pre-commit` secrets scan |
@@ -116,7 +122,7 @@ The project-root `AGENTS.md` above is the *project's own* file, distinct from PH
 
 Only generate the file for whichever tool the project is actually using — this is not "generate all four speculatively," it is the same one-per-project pattern as the Skill install in `README.md`.
 
-Content stays short — this is injected into every session or every turn depending on the tool, so length defeats the purpose.
+Content stays short — this is injected into every session or every turn depending on the tool, so length defeats the purpose. Keep it to stable rules and pointers. Do not put transient task state, pending delivery steps, branch/PR identifiers, or a current task's authorization/status into permanent instruction headers or managed blocks; record factual progress in task/status context instead.
 
 The canonical block is `PHDK_NATIVE_RULES.md`. At foundation build:
 
@@ -132,6 +138,8 @@ On `PHDK upgrade`, replace only the marked block with the latest vendored `PHDK_
 
 Use the tool-native instruction file and the minimum context in `AGENTS.md`. Do not install session-start agents, external hooks, schedulers, or background tasks to load the standards. Persistent text supplies rules and historical context only; it never restores Developer Mode or authorizes a later task. Do not store active-mode state or an enabling flag, or launch delegated agents.
 
+Within the same conversation, later turns, status/link requests, and context compaction do not end the current delivery grant. Task documents record it; assistant-written updates cannot revoke it. Reconcile stale records with the live user request and observed GitHub state, while honoring explicit user stops/pauses. A new conversation does not automatically resume old work.
+
 ### The commit-time reminder
 
 A local `commit-msg` hook may print the short managed rules block during the requested git operation. This is a local reminder only: it must not launch an agent, contact a service, or schedule follow-up work.
@@ -144,8 +152,8 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 
 - Tier 1 only works for what can be expressed as a check. "Understand the human's actual goal before writing code" has no lint rule. Tier 2 narrows how often this kind of rule gets forgotten; it does not guarantee it never is.
 - A local git hook can be bypassed or absent. Review the diff and report actual verification evidence; respect existing GitHub restrictions without changing them or creating CI as a fallback.
-- Review and merge follow the current authorization and existing repository rules. PHDK does not add account, settings, browser, or external-runtime prerequisites to finish a code task.
-- None of this replaces a human actually reading `STATUS.md` and the diff periodically. Tooling raises the floor; it does not remove the need for the feedback loop in `AI_DEVELOPER_OPERATING_MODEL.md`.
+- Review and merge follow the current request's delivery scope and existing repository rules. PHDK does not add universal human approval, account, settings, browser, or external-runtime prerequisites to finish an ordinary change.
+- Neither tier proves that a human reviewed a diff. Required human review remains an actual evidence requirement for the listed high-risk changes and stricter repository controls; hook output, assistant review, and user delivery authorization cannot substitute for it.
 
 ---
 
@@ -161,6 +169,8 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 ## Verification
 
 - [ ] Existing GitHub branch/review rules are respected; no repository settings, CI workflows, schedules, bots, or provider resources were created or changed for enforcement
+- [ ] Normal delivery reached the requested target and its result/version were verified, or the exact blocker and unfinished stage were reported; branch push/PR creation alone was not labeled complete for a `main` target
+- [ ] Ordinary changes received assistant diff review, and high-risk or repository-required human review has actual evidence without fabricated approval
 - [ ] `commit-msg` hook rejects a commit with no `vX.Y.Z` prefix
 - [ ] `pre-commit` hook rejects a staged file over 600 lines, runs `lint-staged`/Prettier against staged files, and runs a secrets scan
 - [ ] `pre-push` respects the authorized branch flow, validates outgoing commit messages, and runs applicable local code checks; documentation-only changes use source/diff review without an application build
@@ -171,4 +181,5 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 - [ ] Verification stayed in source/diff review, applicable static/build commands, and isolated non-browser tests; no live-service probes were used
 - [ ] Any dependency update was a scoped code task; no recurring dependency automation was added
 - [ ] The current tool's native always-loaded rule file contains the marked block from `PHDK_NATIVE_RULES.md`, including the `PHDK upgrade` command, and the managed block matches the vendored copy
+- [ ] Permanent instruction headers contain no transient task state, and task records did not revoke same-conversation authorization or outrank observed GitHub state
 - [ ] Changed hook behavior has local evidence; untouched hooks are not repeatedly tested just to close a checklist

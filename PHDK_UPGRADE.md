@@ -8,7 +8,7 @@ The canonical command is `PHDK upgrade` (case-insensitive after trimming whitesp
 
 Follow `EXECUTION_SCOPE.md`: one assistant, interactive-only, no delegation, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Bounded read-only log retrieval is available only for a current requested diagnosis; it is not a standards-sync check. Report and stop after the requested sync and any authorized git delivery.
 
-An upgrade copies the definition of `PHDK_DEVELOPER_MODE.md`; it never activates that mode. A sync that changes execution or authorization policy, including this release's new permissions, requires the normal branch/review flow even if Developer Mode is already active. Do not classify permission changes as low-risk merely because they are Markdown.
+An upgrade copies `MAIN_DELIVERY_STANDARD.md` and the definition of `PHDK_DEVELOPER_MODE.md`; it never activates that mode. A sync that changes execution or authorization policy, including this release's delivery permissions, requires the normal branch/human-review flow even if Developer Mode is already active. Do not classify permission changes as low-risk merely because they are Markdown.
 
 ## Canonical upstream
 
@@ -34,6 +34,8 @@ Inspect git status. Stop before overwriting any uncommitted change in `phdk-stan
 
 Preserve stricter owner controls wherever they are stored, including committed overrides. If syncing a managed file would overwrite a stricter stop/pause/interactive-only rule, stop and report that exact path. Do not silently move, delete, or weaken it in order to obtain a clean upstream mirror.
 
+Distinguish an actual owner restriction from an assistant-written snapshot of a past task. Do not introduce permanent routing claims such as "TASK remains paused" or use a generated summary to revoke an already-authorized current delivery. When the current request includes reconciling such records, verify the owner's instructions and live git/PR facts, correct the stale record, and preserve every genuine remaining control. A bare standards sync never silently removes a stricter owner rule.
+
 Do not create instruction files for tools that are not in use. Respect all existing repository access/review controls.
 
 ### 3. Obtain the current upstream
@@ -58,7 +60,7 @@ For an authorized update on a default/protected branch, use a dedicated working 
 
 Read the fetched `PHDK_MANIFEST.txt`; never use a handwritten file list or cached model memory. Each non-comment line maps an upstream source to its destination inside `phdk-standards/`.
 
-Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md`, `PHDK_DEVELOPER_MODE.md`, and `PHDK_NATIVE_RULES.md`.
+Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_DEVELOPER_MODE.md`, and `PHDK_NATIVE_RULES.md`.
 
 Remove an obsolete vendored file only when the previous manifest lists it, the new manifest omits it, it is clean, and it contains no stricter owner override. For pre-manifest projects, do not delete unknown extra files. Never delete unrelated project files.
 
@@ -81,6 +83,8 @@ When safe to edit without absorbing unrelated work, record old/new PHDK versions
 
 Do not make an old product task active or create a next mission merely to record the sync.
 
+Record the sync as its own scoped change; do not cancel an unfinished currently authorized delivery because a status/link question or the sync produced a new tracking entry. Verify observed git/PR completion before repeating an operation listed as pending in an older checkpoint. A report can record post-merge evidence without manufacturing another version-only commit.
+
 Do not store or restore Developer Mode activation in the continuity record. Historical evidence that the mode was used does not authorize a new conversation or task.
 
 ### 8. Verify using repository evidence
@@ -90,6 +94,8 @@ Do not store or restore Developer Mode activation in the continuity record. Hist
 - The current native managed block matches the source block.
 - Interactive-only, single-assistant, no-delegation, no-Actions, no-scheduling, and owner-control rules are present.
 - Developer Mode's explicit activation/exit, temporary lifetime, risk limits, and no-bypass rules match upstream; the upgrade itself did not activate it.
+- Normal delivery's verified remote-target completion, risk-based review, authorization continuity, version reconciliation, and no-redundant-push rules match upstream; narrower requests and existing controls remain effective.
+- Existing provider GitHub autodeploy and watch paths were not disabled or replaced with dummy filters as a PHDK restriction. Report observed deployment blockers/statuses separately without inferring permission for provider writes. Valid service-specific filters and intended skips for unaffected services are not configuration errors.
 - The bounded read-only log-diagnostics permission is present without adding provider writes, live probes, streams, or monitoring.
 - No owner control or unrelated edit was overwritten or staged.
 - No product source changed except minimal version metadata when a currently authorized commit requires it.
