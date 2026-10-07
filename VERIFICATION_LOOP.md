@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file defines the evidence required to complete a code change within `EXECUTION_SCOPE.md`, the authoritative boundary for every PHDK agent.
+This file defines code-verification evidence within `EXECUTION_SCOPE.md`, the authoritative boundary for every PHDK agent. `MAIN_DELIVERY_STANDARD.md` defines normal development completion, including verified integration into remote `main` or the user's explicit target.
 
 Verification uses repository review, static checks, local builds, and risk-triggered unit or in-process integration tests. A successful check proves only the behavior it actually exercised; it does not prove that a deployed application works.
 
@@ -20,7 +20,7 @@ source and diff review
 → accurate report of evidence and remaining uncertainty
 ```
 
-Do not launch an application for verification, call an application endpoint, connect to a database, probe a live service, or operate a cloud dashboard. This includes localhost HTTP probes, preview/staging/production services, customer accounts, OAuth providers, and metered APIs. Git/GitHub repository operations and an authorized push to an existing deployment pipeline remain governed by `EXECUTION_SCOPE.md` and the release standards.
+Do not launch an application for verification, call an application endpoint, connect to a database, probe a live service, or operate a cloud dashboard. This includes localhost HTTP probes, preview/staging/production services, customer accounts, OAuth providers, and metered APIs. Git/GitHub repository operations and delivery through an existing deployment connection remain governed by `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md`.
 
 For a current request to inspect logs or diagnose an incident, `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics** permits finite reads of existing records through authorized access. This permission does not require PHDK Developer Mode. Record those findings as diagnostic evidence, separately from code checks; they do not prove that the agent executed a product test or reproduced the incident.
 
@@ -36,8 +36,11 @@ For every working slice:
 2. **Inspect commands before running them** so test, build, install, or hook scripts do not start browsers, reach services, perform migrations, provision infrastructure, or deploy.
 3. **Run targeted static checks** on the affected code while iterating.
 4. **Run the smallest local automated test** when `TESTING_STANDARD.md` identifies a risk trigger. Integrations run in process with test doubles for external dependencies, without a network listener or database connection.
-5. **Before push/release**, run the applicable repository static/build gate once. Documentation-only work needs source/diff and applicable formatting checks, not application test scaffolding.
-6. **Record actual results and limits** in the final report and `STATUS.md`. For UI or deployed behavior, state `visual/runtime unverified`.
+5. **Before push/release**, run the applicable repository static/build gate once. Documentation-only work needs source/diff and applicable formatting checks, not application test scaffolding. Recheck affected behavior after material fixes or integration changes.
+6. **Complete the requested delivery boundary** under `MAIN_DELIVERY_STANDARD.md`. Normal development includes the scoped versioned branch/PR workflow, applicable reviews, merge, and fresh remote target/version verification; a branch push or open PR alone does not complete it. Honor an explicit local-only, branch-only, PR-only, or different-target instruction.
+7. **Record actual results and limits** in the final report and `STATUS.md`, including delivery evidence or its precise blocker. For UI or deployed behavior, state `visual/runtime unverified`.
+
+Review the actual diff. Assistant review satisfies PHDK's ordinary-change review gate; high-risk changes and stricter repository/owner rules require human review as defined in `MAIN_DELIVERY_STANDARD.md`. Do not infer that a human examined the diff from user authorization or passing checks.
 
 A human may independently examine the application. PHDK does not require that examination as a gate for continuing code work or a permitted GitHub push, and the agent must not claim to have performed it or assign it to the human merely to close a checklist.
 
@@ -243,9 +246,13 @@ A human-supplied redacted report or logs retrieved under the bounded log-diagnos
 
 ## Honest Reporting Rule
 
-Outside the Developer Mode direct-main flow, investigate and repair failed permitted checks within the approved code scope. In that direct-main flow, a failed applicable check stops execution under `PHDK_DEVELOPER_MODE.md`: explain the failure and wait for the user's next instruction without automatic repair or retry. Do not delete failing risk-required tests or use prohibited tools to make a report green.
+In normal branch/PR delivery, investigate and make bounded repairs to failed permitted checks within the approved code scope. Resolve ordinary integration conflicts while preserving other contributors' changes, then recheck affected behavior and review the resulting diff. An ordinary conflict or status/link question does not require a new merge instruction. Stop for material ambiguity or an unresolved check, review, or access blocker; do not expand into unrelated cleanup or bypass controls.
 
-Record blocked checks with their reason. Source review does not establish visual correctness, live health, database compatibility in a running service, or production success. An existing GitHub pipeline result can be reported with its exact status and scope; it does not prove a browser flow or live service was verified by the agent.
+In the Developer Mode direct-main flow, a failed applicable check stops execution under `PHDK_DEVELOPER_MODE.md`: explain the failure and wait for the user's next instruction without automatic repair, retry, or fallback. Do not delete failing risk-required tests or use prohibited tools to make a report green.
+
+Record blocked checks with their reason. Source review does not establish visual correctness, live health, database compatibility in a running service, or production success. An existing GitHub pipeline result can be reported with its exact status and scope; it does not prove a browser flow or live service was verified by the agent. An observed disabled autodeploy connection or filter excluding changes that need deployment is a separate blocker. Valid service-specific filters and intended skips for unaffected services are not failures; neither case authorizes provider-setting changes under a generic development request.
+
+For normal delivery, freshly read the remote target commit and its repository version source, and establish that the requested change is included using the applicable merge/squash evidence under `MAIN_DELIVERY_STANDARD.md`. Local `HEAD`, a pushed branch, or an open PR is insufficient. Report the verified remote version without adding an extra version-only commit or push solely for pure integration of already versioned changes. A status snapshot or context compaction does not end the still-current request; an actual user pause or stop does.
 
 When logs were requested, report their source, query scope, limits, relevant redacted findings, and remaining uncertainty under `EXECUTION_SCOPE.md`. An observed log entry is evidence of that recorded event, not proof of a successful test or current recovery.
 
@@ -274,8 +281,12 @@ Bounded log diagnostics, if requested:
 Visual/runtime:
   visual/runtime unverified — browser and live-service verification are outside PHDK scope
 
-GitHub deployment, if in scope:
-  [existing pipeline + commit/status/reference, or not requested/not configured]
+GitHub delivery:
+  [requested scope/target, branch/commit, PR and review evidence, merge result,
+   freshly verified remote target SHA/version source/version, or precise blocker]
+
+GitHub deployment, when existing status is available:
+  [existing pipeline + commit/status/reference, or not configured/unverified]
 
 Changed files:
   [list]

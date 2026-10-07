@@ -1,5 +1,29 @@
 # CHANGELOG.md
 
+## v2.33.0 — 2026-10-07
+
+### Added
+
+- Added `MAIN_DELIVERY_STANDARD.md` and its manifest/routing entry. A current implementation/fix/update request includes scoped versioned branch/PR delivery through the requested change and version verified on remote `main`, unless the user explicitly limits delivery or specifies another target.
+- Included necessary normal integration conflict resolution, final version reconciliation, checks, required review, and merge within the same requested outcome; a branch push or open PR is not completion for a `main` target.
+
+### Fixed
+
+- Preserved current authorization across same-conversation status/link questions, clarifications, compaction, and assistant-written tracking updates. Task records cannot independently revoke permission; genuine owner stops remain binding, and old records cannot resume work in a new conversation.
+- Removed PHDK's universal human-review gate for ordinary normal delivery. Human review remains required for high-risk changes and stricter owner/repository rules, with truthful review evidence and all existing controls intact.
+- Reconciled QA/versioning wording: use the repository's version source, prepare the version on the working branch, and do not add another bump, version-only commit, or push merely because already-versioned changes were merged.
+- Separated code integration from deployment. Existing provider GitHub autodeploy is allowed; PHDK must not disable it or add dummy never-matching watch filters to enforce restrictions on autonomous work. Observed deployment blockers/statuses are reported separately without granting provider configuration writes; valid service-specific filters and intended skips for unaffected services remain normal.
+
+### Migration and limits
+
+- Existing installations require a requested sync and reconciliation of conflicting assistant-written task-state snapshots. Preserve genuine owner restrictions and existing hooks/protections; a standards update does not change GitHub/Railway settings.
+- Developer Mode retains explicit activation, its narrow direct-main path, and immediate hard stops. Bare `PHDK upgrade`, read/audit/plan requests, and explicit local/branch/PR-only requests retain their scope limits. No browser testing, live probes, provider writes, Actions dispatch, scheduled work, or autonomous continuation is added.
+
+### Verification
+
+- Verified all 43 original Git blobs, the 25 manifest mappings, version/skill metadata, new Markdown references, managed-rule markers, preserved history/hooks/scripts/archives, and diff whitespace.
+- Reviewed 11 policy scenarios covering complete delivery, task continuity, real stops, new conversations, narrower targets, required review/hooks, integration conflicts, squash/version handling, Developer Mode failures, and provider deployment evidence. Clarified valid service-specific filters and the existing bounded read-only log exception after that review.
+
 ## v2.32.0 — 2026-10-06
 
 ### Added

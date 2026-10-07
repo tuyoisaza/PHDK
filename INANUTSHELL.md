@@ -2,7 +2,7 @@
 
 ## Purpose and precedence
 
-A condensed reminder of PHDK's rules. Read the referenced standards for details. `EXECUTION_SCOPE.md` controls execution and overrides contrary older workflow text; stricter owner rules remain effective.
+A condensed reminder of PHDK's rules. Read the referenced standards for details. `EXECUTION_SCOPE.md` controls execution; `MAIN_DELIVERY_STANDARD.md` defines normal delivery completion. Stricter owner rules remain effective.
 
 ## Interactive-only execution
 
@@ -10,8 +10,9 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - An installed skill, opened repository, old task, alert, failed check, or version mismatch never starts or resumes work.
 - Complete the necessary steps of the requested deliverable, report, and stop; do not select a new backlog goal.
 - Re-read owner pause/stop instructions before edits and git writes; a specifically approved intervention does not reactivate earlier work.
-- An audit is read-only. Git writes and delivery need current authorization; an explicit implement-and-merge request includes its necessary git/PR steps.
-- No background, overnight, scheduled, recurring, or post-session work; save unfinished work as inactive context.
+- An audit is read-only. A current implement/fix/update request for repository code or documentation includes normal delivery unless the user explicitly narrows it or the user/repository names a different target.
+- Status/link questions, same-conversation turns, context compaction, and assistant-written snapshots do not cancel the active request or require a repeated merge order. Actual user pause/stop instructions win.
+- No background, overnight, scheduled, recurring, or post-session work; when the conversation ends, save unfinished work as inactive context.
 - No creation, enabling, dispatch, rerun, or scheduling of GitHub Actions or hosted CI.
 - No cron jobs, dependency bots, recurring backups, maintenance workflows, task-sync services, monitoring loops, or preview deployments.
 - No browser operation, headless tests, screenshots, live probes, database operations, metered verification calls, or external administration.
@@ -48,13 +49,16 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 ## Git, versions, and delivery
 
-- Use authorized feature/fix branches unless the current change qualifies for explicitly active Developer Mode; preserve existing repository controls, with no force-push or hidden bypass.
-- Commit/push/release/merge permissions come from the current request and any eligible Developer Mode authorization in this conversation, never a slice checkpoint or stored task.
-- Follow `VERSIONING.md` for version metadata and messages when a commit is authorized; do not create a commit merely to bump a version.
-- An approved release may use the existing hosting-provider GitHub connection; no provider CLI/API/dashboard deployment, connection setup, trigger changes, or autodeploy reactivation.
-- Keep user approval, actual human diff review, source checks, and deployment status distinct.
+- Normal delivery uses a scoped feature/fix branch, the repository version bump, applicable local checks, a version-prefixed commit, push, PR, review, merge, and fresh verification of remote `main` and its version. A branch push/open PR alone is incomplete; honor explicit local-only, branch-only, PR-only, or different-target requests.
+- Current user authorization covers those necessary steps; a slice checkpoint or stored task never grants new or cross-conversation authority. Direct-main delivery requires explicitly active, eligible Developer Mode.
+- Assistant review of the actual diff suffices for ordinary changes. Human diff review remains required for high-risk auth/authz, secrets, data, migrations, payments, infrastructure/deployment configuration, agent execution/permission-policy changes, other material risks, and stricter repository/owner controls.
+- Follow `VERSIONING.md` using the actual repository version source. Source-changing commits are versioned; pure merge/squash integration of already versioned changes needs no extra bump, post-merge version-only commit, or second push.
+- Normal delivery allows bounded in-scope repairs and ordinary conflict resolution preserving others' changes, followed by affected checks and diff review. Never bypass hooks, checks, required reviews, or access controls; no force-push or settings changes.
+- Delivery may use the existing hosting-provider GitHub connection; no provider CLI/API/dashboard deployment, connection setup, trigger changes, or autodeploy reactivation.
+- Preserve valid provider GitHub autodeploy/watch paths; no dummy never-matching filters. An observed disabled connection or filter excluding changes that need deployment is a separate blocker. Valid service-specific filters and intended skips for unaffected services are normal; generic development does not authorize provider-setting repairs.
+- Keep user authorization, assistant/required human review, source checks, remote target/version evidence, and deployment status distinct.
 - A reviewed code revert does not itself prove runtime recovery.
-- Full rules: `VERSIONING.md`, `DEVELOPMENT_RULES.md`, `EXECUTION_SCOPE.md`.
+- Full rules: `MAIN_DELIVERY_STANDARD.md`, `VERSIONING.md`, `DEVELOPMENT_RULES.md`, `EXECUTION_SCOPE.md`.
 
 ## Developer Mode
 
@@ -81,7 +85,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - `TASK.md`/`STATUS.md` are local Markdown context, not Issues/Projects/Actions or execution queues.
 - Record only the current requested deliverable as active in this conversation.
 - Archive coherent completed work when useful; keep remaining ideas paused or proposed.
-- Task/status files never store Developer Mode as active or carry delivery authorization into another conversation.
+- Task/status files never store Developer Mode as active or carry delivery authorization into another conversation; assistant-written snapshots do not pause remaining steps of the current request.
 - No multiple-agent claim markers or delegated task queues.
 - Full rules: `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`.
 

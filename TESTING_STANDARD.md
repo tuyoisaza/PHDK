@@ -4,7 +4,7 @@
 
 PHDK uses automated tests to control concrete regression risks. Tests are not a default deliverable for every code change.
 
-`EXECUTION_SCOPE.md` is authoritative. Permitted code checks consist of source/diff review, static checks, local builds, and local unit or in-process integration tests with external dependencies replaced by deterministic test doubles. See `VERIFICATION_LOOP.md` for evidence and reporting requirements.
+`EXECUTION_SCOPE.md` is authoritative. Permitted code checks consist of source/diff review, static checks, local builds, and local unit or in-process integration tests with external dependencies replaced by deterministic test doubles. See `VERIFICATION_LOOP.md` for evidence and reporting requirements and `MAIN_DELIVERY_STANDARD.md` for normal delivery completion.
 
 The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics** — allows requested retrieval of existing logs independently of PHDK Developer Mode. Those logs are diagnostic evidence, not an executed product test.
 
@@ -19,6 +19,8 @@ Do not write a test merely because code was added. Ask:
 3. Can a small deterministic local test catch that risk without a browser, network service, or database?
 
 If no risk trigger applies, source review and the applicable static/build gate are sufficient for code completion. If a risk trigger applies, add the smallest useful permitted test. A remaining runtime uncertainty must be reported; it never authorizes broader execution by itself.
+
+Passing local verification alone does not finish a normal development request. Continue its authorized branch/PR delivery through review, integration, and fresh verification of the remote target and version under `MAIN_DELIVERY_STANDARD.md`, unless the user explicitly narrowed the scope. Ordinary changes need assistant diff review; high-risk changes and stricter repository/owner rules retain human review.
 
 ---
 
@@ -92,7 +94,7 @@ A temporary local diagnostic script is permitted only when:
 - it remains within `EXECUTION_SCOPE.md`, without browser or external runtime access
 - it is deleted afterward unless retained as a justified project tool
 
-Do not repeatedly run full test/build loops while iterating on a narrow issue. Run targeted checks during iteration and the applicable gate once before push/release. Do not create CI, scheduled agents, dependency bots, or recurring test workflows to replace local evidence.
+Do not repeatedly run full test/build loops while iterating on a narrow issue. Run targeted checks during iteration and the applicable gate once before push/release; rerun affected checks after a material fix or integration change. Normal delivery permits bounded in-scope repairs and conflict resolution; `PHDK_DEVELOPER_MODE.md` retains its direct-main hard stops. Never bypass a failed check or hook. Do not create CI, scheduled agents, dependency bots, or recurring test workflows to replace local evidence.
 
 ---
 

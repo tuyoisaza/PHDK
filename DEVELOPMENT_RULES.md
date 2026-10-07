@@ -16,13 +16,19 @@ Use `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`, or `phdk/vX.Y.Z/short
 
 - Use a feature/fix branch for the current requested change, except for an eligible direct-to-`main` task under explicitly active `PHDK_DEVELOPER_MODE.md`. Do not launch concurrent agents or subagents on separate branches.
 - Respect existing GitHub protection and review controls without administering or bypassing them.
-- Commit/push/PR/merge/release authority must come from the current request or the narrow conversational authorization in PHDK Developer Mode for a task requested while it is active. A slice checkpoint and `TASK.md` are not standing permission.
-- A read/audit request remains read-only. A clear instruction to implement and merge includes the necessary branch/commit/push/PR steps, without duplicate confirmation.
+- A current request to implement, fix, or update repository code or documentation includes normal delivery: a scoped branch, the repository's version bump, relevant local checks, a version-prefixed commit, branch push, PR, required review, merge into remote `main`, and verification of the resulting version and change there. Follow `MAIN_DELIVERY_STANDARD.md` without asking the user to repeat those steps.
+- Respect an explicit local-only, branch-only, or PR-only instruction and a different target specified by the user or repository. A read/audit request remains read-only; a bare `PHDK upgrade` retains its limited scope under `EXECUTION_SCOPE.md`. Release tags require a request for them.
+- Current authorization continues through turns, status/link requests, and context compaction in the same conversation. Task records describe it; an assistant-written task/status change cannot grant or revoke it. Explicit user stop/pause instructions remain binding, and a new conversation does not automatically resume stored work.
 - Do not force-push, overwrite another contributor's changes, or rewrite history to resolve a conflict silently.
+- In the normal branch/PR flow, refresh remote `main` and resolve routine integration conflicts within the authorized scope while preserving both contributors' intended changes. Reconcile the branch version, review the resulting diff, and rerun affected checks before merging. Pause for a material ambiguous or sensitive conflict, or an unmet check, required review, or access restriction; do not bypass it.
 - When an authorized major change warrants a recoverable checkpoint, create it within that request; do not create recurring backup branches or jobs.
-- Follow `VERSIONING.md` when a commit is authorized. Do not generate commits merely to bump metadata.
+- Follow `VERSIONING.md` and include required metadata in the scoped change. Reconcile the branch version before merge; pure integration does not require another version-only commit or extra push.
 - Deliver only through a currently authorized push/merge and the existing hosting-provider GitHub connection. An eligible Developer Mode push to `main` may trigger that existing deployment. Do not create or run GitHub Actions, add a provider connection, change triggers, enable previews, or deploy through a provider CLI/API/dashboard, including Railway.
 - Updating dependencies is a specifically requested code task, not a reason to install a dependency bot or schedule future maintenance.
+
+Ordinary changes require the assistant's source/diff review; PHDK does not add a universal human-review gate. Human review is mandatory for changes to authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent policy, and wherever existing repository rules require it. Judge the actual diff, including policy changes expressed as documentation. Keep user authorization, assistant review, and actual human-review evidence distinct.
+
+The existing hosting-provider GitHub autodeploy connection is an allowed consequence of authorized code delivery. PHDK's restrictions on autonomous coding and Actions do not require disabling it. Do not disable that connection or install dummy never-matching watch filters as enforcement. A generic development request grants no provider-settings changes. Report an observed disabled connection, a filter excluding changes that need deployment, or the relevant deployment status separately from verified code delivery to remote `main`. Valid service-specific filters and intended skips for unaffected services are not failures.
 
 ### PHDK Developer Mode
 
@@ -34,7 +40,7 @@ Judge eligibility by the actual diff, not the task label. Changes to authenticat
 
 Do not persist activation or an authorizing flag/state in repository files, environment/config flags, memory, tasks, or status records; never restore it automatically. Owner pause/stop controls remain effective. The mode permits no agents, autonomy, Actions, cron, scheduled/background work, old-task execution, or work after the conversation.
 
-If an applicable check fails, `main` rejects the push, `main` has advanced so the planned update cannot fast-forward, or any existing control cannot be satisfied, stop the direct flow and explain. Preserve the work for review. Do not automatically retry, rebase, force-push, change settings/hooks/credentials, or use an alternative API/CLI to get around the failure or restriction.
+If an applicable check fails, `main` rejects the push, `main` has advanced so the planned update cannot fast-forward, or any existing control cannot be satisfied, stop the direct flow and explain. Preserve the work for review. Do not automatically retry, rebase, force-push, change settings/hooks/credentials, or use an alternative API/CLI to get around the failure or restriction. Do not automatically switch to the normal branch/PR flow after a direct-flow failure.
 
 ### Historical Finetuning Mode
 
@@ -136,7 +142,8 @@ The contract does not authorize scheduling imports or running them against live 
 - The requested outcome is implemented and reviewed in source/diff.
 - Relevant local evidence exists; security, permissions, validation, i18n, logs, accessibility, and state handling remain intact.
 - Applicable file-size and code-quality rules are satisfied.
+- For the normal `main` target, the scoped change is merged and its result and version are verified on remote `main` under `MAIN_DELIVERY_STANDARD.md`. A local commit, pushed branch, or open PR is an intermediate state. An explicitly narrower target is complete only when that target is satisfied.
 - User authorization, actual human review, git/merge state, and deployment evidence are reported accurately and separately.
 - No agents, delegation, Actions, schedules, background work, external setup, or live verification was introduced.
 - Task/status context is accurate; follow-ups are inactive.
-- The requested deliverable is complete or honestly blocked. Report and stop, rather than selecting another mission.
+- Report completion only when the requested target is satisfied; otherwise report the exact blocker and unfinished delivery stage. Stop after that report, without selecting another mission.

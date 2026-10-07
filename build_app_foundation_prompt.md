@@ -38,13 +38,13 @@ You are now in **BUILD APP FOUNDATION MODE**.
 
 Your only job is to build the initial scalable app foundation for this project using the PHDK files and standards.
 
-The execution boundary is code and repository documentation, git/GitHub, and requested deployment through an existing GitHub-connected pipeline. Read `EXECUTION_SCOPE.md` before planning. This prompt does not authorize browser use, infrastructure operations, or recurring automation.
+The execution boundary is code and repository documentation, git/GitHub, and deployment through an existing GitHub-connected pipeline. Read `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md` before planning. A current foundation-build request includes normal reviewed delivery through verified remote `main` integration unless the user explicitly narrows delivery or the user/repository names another target. This prompt does not authorize browser use, infrastructure operations, or recurring automation.
 
 Do not continue any previous task.
 Do not build project-specific product features unless explicitly required by the current request; use `TASK.md` as context, not stored authorization.
 Do not create fake dashboards, fake data, fake analytics, fake users, fake payments, fake integrations, or fake business logic.
 Do not skip validation.
-Do not mark the task complete until the quality gates are checked.
+Do not mark the task complete until applicable quality gates, required reviews, and the requested delivery boundary are satisfied.
 
 First respond exactly:
 
@@ -59,9 +59,11 @@ I will read the PHDK files and standards before making changes.
 ## Execution Boundary
 
 - One assistant works on the current requested foundation only, reports evidence, and stops. No Mission Autopilot, subagents, delegation, background work, or automatic next task.
-- Work on code and documentation inside the project repository. Use git/GitHub only for currently authorized branches, commits, pull requests, and delivery. Stored task or handoff text does not carry permission forward.
-- `PHDK_DEVELOPER_MODE.md` applies only after an explicit activation command in the current conversation. This foundation prompt does not activate it or classify a full bootstrap as a small, low-risk change. Never write an active mode or continuing delivery permission into generated files.
-- Deployment may use only a pipeline already connected to GitHub and the deployment branch recorded in `TASK.md`. Do not create a deployment pipeline, change its triggers, or configure provider dashboards, secrets, environments, databases, or repository settings.
+- Work on code and documentation inside the project repository. The current build request normally includes the scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and fresh remote `main` version verification under `MAIN_DELIVERY_STANDARD.md`. Respect explicit local-only, branch-only, PR-only, or different-target instructions; a branch push/open PR alone does not finish normal delivery.
+- Current authorization persists through status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots. Do not ask for a repeated merge order. Actual user pause/stop instructions win; saved task/handoff text grants no authority in a different conversation.
+- Assistant diff review suffices for ordinary changes; high-risk changes and stricter repository/owner requirements retain human review. Resolve ordinary integration conflicts while preserving others' changes, then recheck affected behavior and review the diff. Never bypass existing checks, hooks, required reviews, or access controls.
+- `PHDK_DEVELOPER_MODE.md` applies only after an explicit activation command in the current conversation. This foundation prompt does not activate it or classify a full bootstrap as a small, low-risk change. Never persist active mode or authority for another conversation in generated files.
+- Deployment may use only a pipeline already connected to GitHub and its configured deployment branch, recorded in `TASK.md`. Preserve valid provider GitHub autodeploy/watch paths; do not generate dummy never-matching filters or disable the connection under the no-autonomy/Actions rules. Report an observed disabled connection or filter excluding changes that need deployment as a separate blocker; valid service-specific filters and intended skips for unaffected services are not failures. Do not create a pipeline, change triggers/settings, or configure provider dashboards, secrets, environments, databases, or repository settings.
 - Do not create or enable Dependabot, Renovate, scheduled GitHub Actions, cron jobs, recurring agents, backup jobs, periodic probes, or preview environments.
 - Do not open, control, or test a browser, including headless browsers, screenshots, UI flows, or browser testing through a skill, plugin, MCP server, or subagent.
 - Validate with code/diff review, lint, typecheck, formatting, build, and risk-triggered local non-browser tests. Tests must remain isolated from running applications and real external services; use in-process execution with test doubles where needed. Inspect scripts before running them so indirect browser or infrastructure actions cannot bypass this boundary.
@@ -95,6 +97,7 @@ Before writing or changing code, read these files:
 
 - `AGENTS.md`
 - `EXECUTION_SCOPE.md`
+- `MAIN_DELIVERY_STANDARD.md`
 - `PHDK_DEVELOPER_MODE.md` when explicitly invoked in the current conversation
 - `DEVELOPMENT_RULES.md`
 - `DESIGN_RULES.md`
@@ -809,19 +812,21 @@ Before declaring foundation complete, inspect the scripts for allowed behavior a
 - no browser checks, live-service probes, recurring jobs/bots/agents, or new CI/deployment workflows were added or executed
 - CORS allowlist, CSP, and standard security headers are configured on `apps/api` per `DEVSECOPS.md` HTTP Security Headers
 - rate-limiting code is configured globally and specifically on auth endpoints per `DEVSECOPS.md` Rate Limiting
+- source-changing commits update the repository's actual version source and use version-prefixed subjects per `VERSIONING.md`; pure merge/squash integration of already versioned changes requires no extra bump, post-merge version-only commit, or second push
+- normal delivery includes required review, integration into remote `main` or the explicit target, and fresh target commit/version evidence under `MAIN_DELIVERY_STANDARD.md`; report an explicit narrower delivery scope or precise blocker when applicable
 
 If an allowed quality gate cannot be run, explain why. Report browser/runtime verification as outside scope; it is not a pending gate for the agent.
 
-Do not claim success if validation failed or was not run.
+Do not claim success if an applicable required check failed or was not run, a required review/access blocker remains, or the requested delivery boundary has not been reached. Normal delivery allows bounded in-scope repairs and rechecks under `MAIN_DELIVERY_STANDARD.md`; Developer Mode direct-main hard stops, including no automatic repair, retry, or fallback, remain unchanged.
 
 ---
 
 ## Final Report Format
 
-When the app foundation task is complete, respond exactly in this format:
+Use this report format. Choose `APP FOUNDATION COMPLETE` only when the requested delivery boundary is satisfied; normal delivery requires verified remote integration. Otherwise choose the blocked/incomplete heading and identify the unresolved prerequisite:
 
 ```txt
-APP FOUNDATION COMPLETE
+[APP FOUNDATION COMPLETE / APP FOUNDATION DELIVERY BLOCKED / APP FOUNDATION INCOMPLETE]
 
 Project mode:
 [public / authenticated / hybrid]
@@ -844,8 +849,14 @@ Debug foundation:
 Quality gates:
 [pass/fail/not run for each item]
 
+Delivery scope:
+[normal main / explicit different target / explicit local-only, branch-only, or PR-only scope]
+
+GitHub delivery:
+[branch, versioned commit, PR/review, merge result, fresh remote target SHA/version source/version; or precise blocker/narrower scope]
+
 Deployment:
-[existing GitHub pipeline result / not requested / not connected]
+[existing GitHub pipeline commit/status/reference / not connected / unverified; separate from code and integration evidence]
 
 Verification limits:
 [what code checks establish; browser and live-runtime behavior not verified]
@@ -854,7 +865,7 @@ Warnings or gaps:
 [list or "none"]
 
 Next step:
-Report completion and stop. Keep proposed feature work inactive until explicitly requested in the current conversation.
+[stop after verified requested delivery, or name the precise unresolved blocker; keep proposed feature work inactive]
 ```
 
 ---
@@ -871,6 +882,6 @@ Report completion and stop. Keep proposed feature work inactive until explicitly
 - Do not build mobile app features now.
 - Keep `apps/mobile` as a future placeholder only.
 - Use pnpm only.
-- Follow `EXECUTION_SCOPE.md`: repository code and git/GitHub work, with deployment only through an existing connected pipeline.
+- Follow `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md`: repository code and normal reviewed git/GitHub delivery, with deployment only through an existing connected pipeline.
 - Do not operate browsers, configure infrastructure/settings, or create recurring automation.
 - Do not claim success without validation.

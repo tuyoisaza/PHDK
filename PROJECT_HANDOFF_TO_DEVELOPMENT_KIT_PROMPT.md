@@ -120,6 +120,7 @@ Required standards files the AI coder must fetch before doing anything:
 
 - `AGENTS.md` — AI coder behavior rules
 - `EXECUTION_SCOPE.md` — code, git/GitHub, existing deployment, and verification boundaries
+- `MAIN_DELIVERY_STANDARD.md` — normal repository delivery through reviewed integration and verified remote target/version; explicit scope limits and blockers
 - `PHDK_DEVELOPER_MODE.md` — explicit conversation-only mode and its narrow delivery exception; a reference is not activation
 - `DEVELOPMENT_RULES.md` — Git, branching, commits, versioning
 - `DESIGN_RULES.md` — Responsive, accessible, theming, performance
@@ -311,8 +312,12 @@ Every generated kit must preserve `EXECUTION_SCOPE.md` in its tasks, architectur
 
 - Execution is interactive-only: one assistant, the current explicit request, then report and stop. Do not generate Mission Autopilot instructions, delegated work, automatic next tasks, or resumption from a stored plan.
 - Allowed work is repository code/documentation, git/GitHub branches/commits/PRs, and requested deployment through an already connected GitHub pipeline, subject to the release rules.
-- Reference `PHDK_DEVELOPER_MODE.md` without recording the mode as active or preserving delivery permissions. Only its explicit command in the current conversation activates the low-risk direct-`main` exception; mentions, briefs, and generated files do not. A full kit/bootstrap is not automatically eligible.
+- A current implement/fix/update request for repository code or documentation includes normal delivery under `MAIN_DELIVERY_STANDARD.md`: scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and fresh remote `main` version verification. Honor explicit local-only, branch-only, PR-only, or different-target instructions; a branch push/open PR alone does not finish normal delivery.
+- Status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots do not cancel the active request or require a repeated merge order. Actual user pause/stop instructions win; generated files never grant authority in another conversation.
+- Assistant review of the actual diff suffices for ordinary changes. Preserve human review for high-risk changes and stricter repository/owner requirements under `MAIN_DELIVERY_STANDARD.md`; never bypass hooks, checks, required reviews, or access controls.
+- Reference `PHDK_DEVELOPER_MODE.md` without recording the mode as active or preserving authority for a later conversation. Only its explicit command in the current conversation activates the low-risk direct-`main` exception; mentions, briefs, and generated files do not. A full kit/bootstrap is not automatically eligible; its direct-main hard stops remain unchanged.
 - Record the known repository, deployment target, and branch from Question 3 in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. If none is connected, report that fact; do not turn setup into a required task or block independent code work.
+- Preserve valid provider GitHub autodeploy/watch paths. The no-autonomy/Actions rules do not authorize disabling that connection or generating dummy never-matching filters. Record an observed disabled connection or filter excluding changes that need deployment as a separate blocker; preserve valid service-specific filters and intended skips for unaffected services. A generic development request does not authorize provider-setting changes.
 - Do not generate requirements or tasks for configuring provider dashboards, cloud resources, databases, secrets, repository settings, preview environments, or new CI/deployment workflows.
 - Do not generate recurring agents, scheduled Actions, cron jobs, backup jobs, periodic probes, Dependabot/Renovate configuration, or automatic dependency-update tasks.
 - Do not generate browser testing or browser verification requirements, including headless testing, screenshots, login/form interaction, or browser tools invoked indirectly through skills, plugins, MCP servers, or delegated agents.
@@ -603,7 +608,7 @@ Living file.
 
 PHDK generates it once with the first task.
 
-The assistant updates it as context for the current request. Unfinished or proposed work remains inactive until explicitly requested in the current conversation. The file never stores active Developer Mode or grants continuing edit/git/deployment permission.
+The assistant updates it as context for the current request. Necessary unfinished steps, including normal delivery, remain part of that still-current request; proposed later work stays inactive. An assistant-written snapshot cannot pause the user-authorized task or require a new merge order. The file never stores active Developer Mode or grants authority for another conversation.
 
 Must include two permanent sections.
 
@@ -612,9 +617,10 @@ Must include two permanent sections.
 ```md
 ## How to Use This File
 
-This file records context and a plan for a PHDK request; it never starts or resumes work.
-One assistant completes only the deliverable explicitly requested in the current conversation, reports evidence, and stops under EXECUTION_SCOPE.md.
-Unfinished steps and archived tasks are inactive until a new explicit request authorizes them.
+This file records context and a plan for a PHDK request; it never independently starts or resumes work.
+One assistant completes the current requested deliverable under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, reports evidence, and stops at the requested delivery boundary.
+Necessary remaining steps stay active within that request; proposed later work and archived tasks need a new explicit request.
+Status/link questions, context compaction, and assistant-written snapshots do not revoke current user authorization. Actual user pause/stop instructions take precedence.
 Developer Mode is conversation-only under PHDK_DEVELOPER_MODE.md. Never store it as active or treat saved delivery history as authorization for later work.
 ```
 
@@ -637,20 +643,23 @@ Goal:
 Done When:
 - [pass/fail criterion for this deliverable]
 - [pass/fail criterion for this deliverable]
+- [Normal repository delivery: requested changes are integrated into remote main or the explicit target, with fresh commit/version and required review evidence; record an explicit narrower scope when applicable]
 
 Task State:
-[Current requested work / proposed — inactive]
-This recorded state is context only; the current conversation supplies authorization.
+[Current requested work, including any pending delivery / complete / user-paused / proposed — inactive]
+This recorded state is context only; the current conversation supplies authorization. An assistant snapshot cannot narrow or pause that request.
 
 Branch Context:
 [known working branch / proposed feature branch]
-This field does not authorize a push, activate Developer Mode, or grant direct-main access.
+Delivery Target:
+[main unless the user/repository explicitly identifies another target; honor the user's local-only, branch-only, or PR-only scope]
+These fields record the current request, never activate Developer Mode or grant future-conversation authority. Normal delivery does not authorize a direct-main push.
 
 ## Scope
 
 [Files and behavior included in the current request]
 
-Execution boundary: repository code/documentation and currently authorized git/GitHub delivery through the existing connection, per EXECUTION_SCOPE.md. Re-evaluate delivery authorization from the current conversation, applying PHDK_DEVELOPER_MODE.md only if explicitly active and the change is eligible.
+Execution boundary: repository code/documentation and normal git/GitHub delivery under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, subject to explicit user scope limits. Preserve current authorization through necessary delivery steps; do not request a repeated merge order. Apply PHDK_DEVELOPER_MODE.md only if explicitly active and the change is eligible. Deployment may use only an existing connection.
 
 ## Existing Deployment
 
@@ -668,7 +677,7 @@ No provider, secret, repository-setting, environment, or new workflow setup is i
 - Infrastructure/provider/database administration, credentials, repository settings, and live-service probes
 - Recurring agents, scheduled Actions/cron jobs, backups, dependency bots, automatic updates, and preview environments
 - Creating a new CI/deployment pipeline or modifying automation triggers
-- Autonomous/delegated work, resuming old tasks, or persisting Developer Mode and previous delivery permissions
+- Autonomous/delegated work, resuming old tasks, or persisting active Developer Mode and delivery authority into another conversation
 
 ## Plan
 
@@ -676,7 +685,7 @@ No provider, secret, repository-setting, environment, or new workflow setup is i
 2. [necessary step for the current request]
 3. [necessary step for the current request]
 
-The assistant may adjust necessary implementation steps within the current request. This plan does not authorize a new deliverable, later work, or another agent. Stop after the requested outcome and authorized delivery.
+The assistant may adjust necessary implementation steps within the current request. Normal branch/PR delivery includes bounded in-scope repairs and ordinary conflict resolution preserving others' changes, followed by affected checks and diff review. This plan does not authorize unrelated work, another agent, or bypassing controls. Stop after the requested delivery boundary, an actual user pause/stop, or a material unresolved blocker; Developer Mode direct-main hard stops remain unchanged.
 
 ## Current Slice
 
@@ -689,8 +698,9 @@ User-visible outcome:
 2. STATUS.md
 3. phdk-standards/AGENTS.md
 4. phdk-standards/EXECUTION_SCOPE.md
-5. phdk-standards/PHDK_DEVELOPER_MODE.md only when explicitly invoked in the current conversation; reading it is not activation
-6. Only task-relevant standards routed by AGENTS.md
+5. phdk-standards/MAIN_DELIVERY_STANDARD.md
+6. phdk-standards/PHDK_DEVELOPER_MODE.md only when explicitly invoked in the current conversation; reading it is not activation
+7. Only task-relevant standards routed by AGENTS.md
 
 ## Standards Repo
 
@@ -713,13 +723,16 @@ A current diagnostic request may read bounded existing logs under EXECUTION_SCOP
 Summary:
 Changed files:
 Validation:
+Delivery scope/target:
+PR/review/merge and fresh remote target SHA/version evidence, or precise blocker:
+Existing deployment status, separately from code/delivery evidence:
 Risks and assumptions:
 Follow-up work:
 ```
 
 The first proposed task is below. Writing it does not authorize execution; it stays inactive unless the current user request explicitly includes the foundation build:
 
-`When explicitly requested in the current conversation, read EXECUTION_SCOPE.md, synchronize the needed PHDK standards within that request, and build the initial app foundation code using BUILD_APP_FOUNDATION_PROMPT.md. Use proportionate allowed local checks and only currently authorized git/GitHub delivery. Do not infer Developer Mode or release permission from this file. Report the requested outcome or blocker with verification limits and deployment status, then stop; leave follow-up work inactive.`
+`When explicitly requested in the current conversation, read EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, synchronize the needed PHDK standards within that request, and build the initial app foundation code using BUILD_APP_FOUNDATION_PROMPT.md. Complete proportionate local checks and normal reviewed delivery through verified remote main integration unless the current user explicitly narrows the scope or the user/repository names a different target. That current request supplies authorization; this saved proposal never starts work or activates Developer Mode. Report the outcome or precise blocker with remote target/version evidence, verification limits, and separate deployment status, then stop; leave later follow-up work inactive.`
 
 ---
 
@@ -729,7 +742,7 @@ Records key decisions future AI agents must not undo.
 
 Always include these as the first entries:
 
-1. Accepted agent execution boundary from `EXECUTION_SCOPE.md`: code/documentation and git/GitHub only, deployment through an existing connected pipeline, no browser verification, infrastructure administration, or recurring automation.
+1. Accepted agent execution boundary from `EXECUTION_SCOPE.md` and normal delivery policy from `MAIN_DELIVERY_STANDARD.md`: code/documentation and git/GitHub only, reviewed integration and remote target/version evidence unless explicitly narrowed, deployment through an existing connected pipeline, no browser verification, infrastructure administration, or recurring automation. These policy references do not grant future-conversation authority.
 2. Existing repository/deployment target from Question 3, including `not connected` or `unknown` when applicable. Do not imply that a connection has been configured or verified.
 3. Debug mode decision, clearly identified as a product-code capability.
 4. Personal-data/privacy-baseline decision from Question 5.
@@ -775,7 +788,7 @@ Scope: MVP only / MVP + future phases
 
 ## Current Status
 
-Kit generated — not yet handed to coder.
+[Kit generated; current repository delivery complete/pending/not applicable, with evidence or blocker. Foundation work stays inactive unless included in the current request.]
 
 ## Files Generated
 
@@ -799,7 +812,7 @@ https://github.com/tuyoisaza/PHDK
 
 ## Next Step
 
-The next explicit implementation request may use TASK.md as context. This kit does not start work or preserve Developer Mode/earlier permissions.
+Finish any remaining necessary steps of the current request under MAIN_DELIVERY_STANDARD.md before reporting completion. Otherwise leave proposed implementation inactive until explicitly requested. TASK.md is context; this kit neither starts later work nor preserves active Developer Mode or authority for another conversation.
 
 ## Last Updated
 
@@ -824,7 +837,8 @@ Must include:
 - How to use `TASK.md` to start and manage coding sessions
 - How to use `STATUS.md` to maintain continuity between sessions
 - Agent execution/verification limits from `EXECUTION_SCOPE.md` and the existing GitHub deployment target, if known
-- `PHDK_DEVELOPER_MODE.md` as a reference only; no stored activation or inherited delivery authorization
+- Normal delivery completion and explicit scope limits from `MAIN_DELIVERY_STANDARD.md`; current authorization persists through status questions and snapshots, while actual user pause/stop instructions take precedence
+- `PHDK_DEVELOPER_MODE.md` as a reference only; no saved activation or cross-conversation delivery authorization
 - Next recommended step
 
 ---
@@ -849,4 +863,6 @@ Must include:
 
 ## Final Offer
 
-After the full kit is generated, verify that all required files exist and that `STATUS.md` consolidates gaps/open questions. If the current explicit request also includes building the foundation, complete only that requested work under `EXECUTION_SCOPE.md`; the generated files do not activate Developer Mode or authorize git delivery. Otherwise report kit completion and stop. Leave all proposed follow-up work inactive. In a chat-only documentation request, a ZIP/artifact may be offered as an optional convenience.
+After the full kit is generated, verify that all required files exist and that `STATUS.md` consolidates gaps/open questions. When the current request changes repository documentation, finish normal delivery under `MAIN_DELIVERY_STANDARD.md` unless the user explicitly limited it. The current request supplies that authority; generated files do not activate Developer Mode or authorize later work.
+
+If the current explicit request also includes building the foundation, complete that work and its requested delivery boundary under `EXECUTION_SCOPE.md`. Report completion only with the required remote target/version evidence or the explicit narrower scope; otherwise report the precise blocker. A chat-only documentation request ends with its files, and a ZIP/artifact may be offered as an optional convenience. Leave proposed later work inactive.

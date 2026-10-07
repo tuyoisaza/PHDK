@@ -8,7 +8,9 @@ Orient the assistant for a human-initiated PHDK task. This file is reference mat
 
 PHDK is interactive-only. One assistant works on the current explicit user request, completes its necessary steps, reports evidence, and stops. There is no Mission Autopilot, delegated coding/review, subagent, agent team, or agent queue, including during the active session.
 
-Read `EXECUTION_SCOPE.md` before acting. Stricter owner controls take precedence. An old task, a loaded skill, an alert, a failed check, a version mismatch, or prior chat cannot authorize work.
+Read `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md` before acting. Stricter owner controls take precedence. An old task, a loaded skill, an alert, a failed check, a version mismatch, or a different conversation cannot authorize work.
+
+A current implement/fix/update request for repository code or documentation normally includes the scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and verified remote `main` version. Honor explicit local-only, branch-only, PR-only, or different-target instructions. Do not ask for a repeated merge order. The active request continues through status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots; an actual user pause or stop takes precedence.
 
 ### Developer Mode in the current conversation
 
@@ -18,15 +20,15 @@ Read `PHDK_DEVELOPER_MODE.md` for the narrow delivery exception: small, low-risk
 
 ## Begin a current task
 
-1. Identify the user's current requested deliverable and whether the request is read-only, editing, or also git delivery.
-2. Read owner pause/stop instructions, `AGENTS.md`, and `EXECUTION_SCOPE.md`.
-3. Read project `TASK.md` and `STATUS.md` as context; reconcile them with the current request without reactivating old work.
+1. Identify the user's current requested deliverable: read-only, normal repository delivery, or an explicitly narrower scope/different target.
+2. Read owner pause/stop instructions, `AGENTS.md`, `EXECUTION_SCOPE.md`, and `MAIN_DELIVERY_STANDARD.md`.
+3. Read project `TASK.md` and `STATUS.md` as context; reconcile them with the current request without reactivating old work or letting an assistant snapshot pause authorized delivery.
 4. Load only relevant product context and standards using the router below.
 5. Clarify only material missing decisions. Do not ask for duplicate consent when the current request is clear.
 6. Implement or inspect with the current assistant; do not delegate.
 7. Review source and run proportionate synchronous local checks that exit.
-8. Perform only git actions authorized now, applying `PHDK_DEVELOPER_MODE.md` only if explicitly active in this conversation and the requested change is eligible; respect existing protections.
-9. Record outcome/evidence and inactive follow-ups, report, and stop.
+8. Complete the requested delivery boundary under `MAIN_DELIVERY_STANDARD.md`, including remote target/version evidence for normal delivery. Apply `PHDK_DEVELOPER_MODE.md` only if explicitly active in this conversation and the requested change is eligible; respect existing protections.
+9. Record completion or the precise unresolved blocker, evidence, and inactive follow-ups; report and stop only when that boundary is reached or a genuine blocker/user stop applies.
 
 Re-read owner controls before edits and git writes. A specific user instruction to intervene in a paused project authorizes that intervention only, not continuation of the earlier mission.
 
@@ -43,7 +45,8 @@ Re-read owner controls before edits and git writes. A specific user instruction 
 | Security, privacy, permissions, money, dependencies | `DEVSECOPS.md` |
 | Local evidence and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
 | Health/debug/diagnostic source | `DEBUG_DIAGNOSTICS_STANDARD.md` |
-| Authorized version/commit/release work | `VERSIONING.md` |
+| Normal delivery, reviews, scope limits, and completion evidence | `MAIN_DELIVERY_STANDARD.md` |
+| Version/commit/release details | `VERSIONING.md` |
 | Explicit Developer Mode command or eligible delivery while active | `PHDK_DEVELOPER_MODE.md` |
 | Local checks and instruction files | `ENFORCEMENT.md`, `PHDK_NATIVE_RULES.md` |
 | Explicit standards update | `PHDK_UPGRADE.md` |
@@ -60,13 +63,15 @@ For a current diagnostic request, bounded read-only log retrieval through an aut
 
 No GitHub Actions or hosted CI creation, enabling, dispatch, reruns, or schedules. No cron jobs, dependency bots, maintenance loops, backup jobs, preview deployments, background reviewers, or task synchronization.
 
-An authorized push/merge may use the existing hosting-provider GitHub connection; an eligible Developer Mode push uses the connection already attached to `main`. Do not create a connection, modify triggers, re-enable autodeploy, or change external/repository settings. Separate actual source checks, current user authorization, human diff-review evidence, and deployment status.
+Normal integration may use the existing hosting-provider GitHub connection; an eligible Developer Mode push uses the connection already attached to `main`. Do not create a connection, modify triggers, re-enable autodeploy, or change external/repository settings. Assistant diff review suffices for ordinary changes; high-risk changes and stricter repository/owner rules retain human review under `MAIN_DELIVERY_STANDARD.md`. Record actual source checks, current authorization, review evidence, fresh remote target/version evidence, and deployment status separately.
+
+No autonomous work or Actions does not mean disabling an existing provider GitHub connection. Preserve valid autodeploy/watch paths; never introduce dummy never-matching filters. Report an observed disabled connection or filter excluding changes that need deployment as a separate blocker, preserving valid service-specific filters and intended skips for unaffected services. A generic development request grants no provider-setting changes.
 
 ## Gaps and stopping
 
-Record factual gaps without inventing answers. Ask one precise question only when the missing decision blocks the current request. Stop on a genuine unresolved blocker after bounded safe diagnosis; do not convert a failure into continuing maintenance work.
+Record factual gaps without inventing answers. In normal branch/PR delivery, make bounded in-scope repairs and resolve ordinary integration conflicts while preserving others' changes, then rerun affected checks and review the diff. Ask one precise question only for a material missing decision or unresolved check, review, or access blocker; never bypass controls or expand into unrelated maintenance. Developer Mode direct-main hard stops remain unchanged, with no automatic repair, retry, or fallback.
 
-When done, mark the request complete. Remaining ideas or unfinished work stay inactive until a later explicit human request. Never persist Developer Mode activation or earlier delivery permissions in `TASK.md`, `STATUS.md`, or handoff instructions.
+Mark the request complete only at its requested delivery boundary; a pushed branch or open PR is insufficient for normal delivery. Remaining necessary steps stay part of the still-current request. Later ideas and work outside it remain inactive until explicitly requested. Task/status files may record scope and evidence, but they neither revoke the active user request nor grant authority in another conversation. Never persist active Developer Mode or lasting delivery permission in them.
 
 ## Product safeguards remain
 

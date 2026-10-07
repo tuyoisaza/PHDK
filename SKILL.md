@@ -19,7 +19,15 @@ Read `EXECUTION_SCOPE.md`. Its interactive-only, single-assistant boundary overr
 
 Identify what the user explicitly asked for in this conversation. Read/audit requests are read-only. An opened repository, a saved task, a failed check, an alert, or old chat context is not a new request.
 
-Do not resume a previous mission, choose another backlog item, delegate to an agent, or start a background job. Complete only the necessary steps of the requested deliverable and stop.
+Do not resume a previous mission from records alone, choose another backlog item, delegate to an agent, or start a background job. Preserve the same current request across status/link questions, clarifications, and context compaction. Assistant-written task records cannot revoke the user's current authorization; real owner stops and narrower requests remain binding.
+
+## Complete normal delivery to main
+
+Read `MAIN_DELIVERY_STANDARD.md` for a current request to implement, fix, or update repository code or documentation. That request includes the scoped branch, version bump, applicable local checks, version-prefixed commit, branch push, PR, required review, merge, and verification on remote `main`. Do not stop at a pushed branch or open PR and ask for the same delivery permission again. Honor a narrower local/branch/PR-only request, another explicit target, and the bare `PHDK upgrade` limit.
+
+Use assistant diff review for ordinary changes; require human review for high-risk auth/permissions, secrets, data/migrations, payments, infrastructure, agent policy, or stricter owner/repository rules. Resolve clear in-scope integration conflicts, reconcile version metadata before merging, and recheck/review the result. Respect all hooks and protections; explain a real unmet check, material decision, review, or access blocker. Never use another transport to evade a control.
+
+Confirm the resulting remote version and change before calling the delivery complete. A GitHub PR merge already updates `main`; do not invent a second version-only commit or push. Compare stale task records with the live user request and git/PR state. An existing provider GitHub autodeploy may follow the authorized merge; do not disable it or add dummy watch filters as PHDK enforcement. Report deployment evidence or a skipped/disabled deployment separately, without provider writes.
 
 ## PHDK Developer Mode
 
@@ -66,7 +74,7 @@ A request for a kit or standards update is not permission to start implementatio
 2. Read `TASK.md` and `STATUS.md` as context, not standing authorization.
 3. Load only the detailed standards needed for the current request.
 4. Implement and verify the necessary steps with this assistant. Do not use autopilot, subagents, delegated reviewers, parallel queues, or future execution.
-5. Commit, push, create a PR, or merge only as authorized now. A clear request to implement and merge includes the required git/PR steps without duplicate confirmation. An active Developer Mode supplies only its bounded commit/direct-main permission for eligible requested tasks; it does not authorize high-risk delivery or extra merges/releases.
+5. Complete the current request's normal delivery under `MAIN_DELIVERY_STANDARD.md`, including verified remote `main` unless the user set a narrower outcome. An active Developer Mode supplies only its separate bounded direct-main exception for eligible requested tasks; its hard stops and high-risk exclusions remain effective. No extra releases or unrelated work.
 6. Read relevant entries in `SKILLS_REGISTRY.md` yourself; do not execute their orchestration, delegation, or background behaviors.
 7. Report and stop; preserve remaining ideas as inactive context.
 

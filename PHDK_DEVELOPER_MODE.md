@@ -4,7 +4,7 @@
 
 Provide a temporary direct-main delivery flow for small, low-risk changes the user requests during the active interactive conversation. `EXECUTION_SCOPE.md` remains authoritative; all stricter owner, repository, hook, review, and access controls remain in force.
 
-Developer Mode changes the permitted git delivery path for eligible tasks. It does not start work, choose tasks, add tools, grant infrastructure access, or enable autonomous execution. A request to create, document, or update this mode does not activate it.
+Developer Mode changes the permitted git delivery path for eligible tasks. The normal branch/PR delivery path is defined in `MAIN_DELIVERY_STANDARD.md`; it does not require this mode. Developer Mode does not start work, choose tasks, add tools, grant infrastructure access, or enable autonomous execution. A request to create, document, or update this mode does not activate it.
 
 ## Activation and exit
 
@@ -35,7 +35,7 @@ Also honor an unambiguous request to disable the mode or stop the work. Confirm 
 - Never store an active-mode flag in git config, environment variables, task/status files, hooks, settings, credentials, or cross-conversation memory. A completed-work report may record that the mode was used, but no saved record can enable or renew it.
 - Do not restore activation from an earlier conversation, an old summary, an installed skill, an open repository, or a pending task. If the current conversation's activation is not established, use the normal flow until the user explicitly activates it.
 - Activation authorizes the bounded edit/version/check/commit/direct-main flow only for eligible changes requested while the mode is active. Do not ask for duplicate approval for those steps when the requested task and existing controls are clear.
-- A read/audit request remains read-only even while the mode is active. Do not publish a task that was completed or queued before activation merely because the mode was enabled; the user must request that work or its delivery while the mode is active.
+- A request limited to read/audit does not itself authorize changes even while the mode is active. A status/link question about the same already-authorized unfinished task does not cancel its remaining steps. Do not publish a task that was completed or queued before activation merely because the mode was enabled; the user must request that work or its delivery while the mode is active.
 - After each requested outcome, report and wait for the user's next request. Do not select a backlog task, follow an alert, launch another agent, register a recurrence, or continue in the background or after the conversation ends.
 
 ## Eligible changes
@@ -69,7 +69,7 @@ Keep the change scoped to the user's request. Do not split a sensitive change in
 
 ## Deployment and diagnostics
 
-A permitted push may trigger the deployment already connected to `main`. Read the available GitHub deployment evidence without launching a polling loop. Do not claim a successful deploy without corresponding evidence, or infer UI/runtime health from a version bump or merge.
+A permitted push may trigger the deployment already connected to `main`. Do not disable this GitHub autodeploy or install dummy never-matching watch filters as an autonomy restriction. Report an observed disabled connection or filter excluding changes that need deployment separately; valid service-specific filters and intended skips for unaffected services are not failures. The mode grants no provider configuration writes. Read the available GitHub deployment evidence without launching a polling loop. Do not claim a successful deploy without corresponding evidence, or infer UI/runtime health from a version bump or merge.
 
 Developer Mode never authorizes Railway CLI/API/dashboard deployment, `railway up`, provider redeploy/rollback, new connections, trigger changes, secrets, infrastructure, or GitHub/Railway settings. It does not authorize creating, enabling, dispatching, rerunning, or scheduling Actions/hosted CI, browser tests, autonomous agents, or recurring/background jobs.
 

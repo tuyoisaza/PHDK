@@ -8,14 +8,16 @@ Read `EXECUTION_SCOPE.md` first, then the current user request and the project's
 
 Stricter owner pause/stop instructions remain effective. Re-read them before edits and git writes. A specific current request to intervene in a paused repository does not restart its previous mission. Old tasks, alerts, failed checks, version mismatches, and skill installation never authorize work.
 
-Complete the necessary steps of the requested deliverable, report, and stop. Do not choose the next backlog task. Save unfinished work as inactive context for a later explicit user request.
+Complete the necessary steps of the current requested deliverable, including its authorized delivery, then report and stop. Do not choose the next backlog task. Status/link questions and assistant-written task summaries do not cancel an unfinished request in the same active conversation; preserve real owner stops and leave unrelated or post-conversation work inactive.
 
 ## Git and automation boundary
 
-- Read/audit requests are read-only. Editing, committing, pushing, releasing, and merging must match authorization in the current request. A clear instruction to implement and merge includes its necessary branch/commit/push/PR steps; no duplicate consent is needed.
+- A current implementation/fix/update request includes the scoped branch, version, local checks, version-prefixed commit, push, PR, required review, merge, and verified remote `main` result under `MAIN_DELIVERY_STANDARD.md`. Do not ask again for these delivery steps. Honor a narrower read/audit/plan/local/branch/PR-only request, another explicit target, and the bare `PHDK upgrade` limit.
+- Ordinary normal delivery requires assistant diff review and applicable checks; human review remains mandatory for high-risk changes and whenever owner/repository rules require it. A branch push or open PR does not complete a request targeting `main`. Report any actual unmet check, material conflict, review, or access requirement as blocked delivery.
+- Task records reflect the user's instructions and observed progress, not independent authority to revoke them. Compare a stale pause or pending-delivery record with the current user request and remote git/PR facts; honor real owner restrictions, correct bookkeeping contradictions, and do not invent permanent task-state rules.
 - Use feature/fix branches by default. The only standing direct-main exception is explicitly active `PHDK_DEVELOPER_MODE.md` for an eligible small task requested during the active conversation. Respect existing protections and project review controls; do not force-push, bypass hooks/protections, or infer that a human read a diff from the assistant's verification.
 - No GitHub Actions or hosted CI creation, enabling, dispatch, reruns, or schedules. No workflow scaffolding, dependency bots, cron jobs, recurring tasks, backup jobs, maintenance workflows, task-sync services, or preview deployments.
-- Only a currently authorized push/merge, including an eligible Developer Mode push, may use the existing hosting-provider GitHub connection. Do not deploy through a provider CLI/API/dashboard, create connections, alter triggers, enable autodeploy, or operate hosting/database/OAuth/secret/repository settings.
+- A currently authorized push/merge, including an eligible Developer Mode push, may trigger the existing hosting-provider GitHub autodeploy. PHDK must not disable that connection or introduce never-matching watch filters as an autonomy restriction. Do not deploy through a provider CLI/API/dashboard, create connections, change triggers/autodeploy, or administer provider/repository settings. Report an observed deployment blocker or status separately from integration in `main`; valid service-specific filters and intended skips for unaffected services are not failures.
 - Local checks and existing git hooks may run synchronously for the current task and must exit. They do not authorize self-generated commits, pushes, agents, watchers, or later work.
 - External skills are references for this assistant only. Do not use a plugin or skill to delegate work or evade these boundaries.
 
@@ -37,6 +39,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Stack, architecture, data, deployment code | `TECHNICAL_STACK.md` |
 | Auth, secrets, security, privacy, cost controls | `DEVSECOPS.md` |
 | Versions, commits, changelog, approved merge | `VERSIONING.md` |
+| Completing an implementation in remote main, conflicts, or delivery state | `MAIN_DELIVERY_STANDARD.md` |
 | Developer Mode activation, exit, or eligible direct-main task | `PHDK_DEVELOPER_MODE.md` |
 | Local verification and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
 | Diagnostics code or requested log diagnosis | `DEBUG_DIAGNOSTICS_STANDARD.md`, `EXECUTION_SCOPE.md` — `Bounded read-only log diagnostics` |
@@ -75,6 +78,6 @@ Review the actual source/diff and run only relevant synchronous local format/lin
 
 No browser operation, headless testing, screenshots, live application probes, databases, or paid verification calls. A current requested diagnosis may retrieve bounded existing logs through an authorized provider API/CLI/connector under `EXECUTION_SCOPE.md`, with or without Developer Mode. No streams, polling, settings, new access, or writes. Source checks and log evidence do not prove the assistant exercised a rendered UI or verified production recovery; state the actual evidence and its limits.
 
-Before reporting completion, confirm the requested outcome, applicable checks, owner controls, git authorization, and task state. Do not claim external agents were terminated, credentials revoked, billing corrected, or server-side protection enabled merely because documentation or local hooks changed.
+Before reporting completion, confirm the requested outcome, applicable checks, owner controls, and verified delivery target. For a request targeting `main`, verify the remote change and version; do not trust a stale task checkbox instead of git/PR evidence or create a redundant post-merge bump/push. Report deployment evidence separately. Do not claim external agents were terminated, credentials revoked, billing corrected, or server-side protection enabled merely because documentation or local hooks changed.
 
 Record proposed follow-ups as inactive context. After the requested outcome and authorized delivery are complete, stop.
