@@ -26,7 +26,9 @@ Use `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`, or `phdk/vX.Y.Z/short
 - Deliver only through a currently authorized push/merge and the existing hosting-provider GitHub connection. An eligible Developer Mode push to `main` may trigger that existing deployment. Do not create or run GitHub Actions, add a provider connection, change triggers, enable previews, or deploy through a provider CLI/API/dashboard, including Railway.
 - Updating dependencies is a specifically requested code task, not a reason to install a dependency bot or schedule future maintenance.
 
-Ordinary changes require the assistant's source/diff review; PHDK does not add a universal human-review gate. Human review is mandatory for changes to authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent policy, and wherever existing repository rules require it. Judge the actual diff, including policy changes expressed as documentation. Keep user authorization, assistant review, and actual human-review evidence distinct.
+Review the complete outgoing diff. Changes to authentication/authorization, secrets, sensitive data/schema/migrations, payments, infrastructure, deployment configuration, or agent execution/permissions use normal branch delivery and require owner approval of the sensitive decision under `MAIN_DELIVERY_STANDARD.md`. A well-defined current request or "push to main", "merge", or "aprobado" for the identified task/PR can supply that approval in the conversation. PHDK does not require a separate GitHub review event or proof that the owner opened every diff line. Classify the actual behavior: a package-format fix restoring login is not automatically an authentication-policy change. Preserve actual named, independent, or formal review requirements; record owner approval, assistant review, and any required formal review separately without inventing human inspection.
+
+Use `PHDK_UNLOCK.md` when the owner requests `PHDK unlock` or explicitly asks to reconcile/remove local PHDK exceptions. Reconcile obsolete documentary blockers across existing active instructions within that request; the current owner can replace an earlier documentary rule. Bare synchronization preserves unrelated/unknown local restrictions. Never weaken hooks, checks, access controls, or server protections, and do not demand this command to recognize an already clear approval.
 
 The existing hosting-provider GitHub autodeploy connection is an allowed consequence of authorized code delivery. PHDK's restrictions on autonomous coding and Actions do not require disabling it. Do not disable that connection or install dummy never-matching watch filters as enforcement. A generic development request grants no provider-settings changes. Report an observed disabled connection, a filter excluding changes that need deployment, or the relevant deployment status separately from verified code delivery to remote `main`. Valid service-specific filters and intended skips for unaffected services are not failures.
 
@@ -123,7 +125,7 @@ Use structured logs at important execution boundaries. Include applicable event,
 
 Errors need stable codes, useful messages, safe technical detail, correlation IDs, and severity. Follow `DEBUG_DIAGNOSTICS_STANDARD.md` for diagnostic-code contracts without invoking live diagnostics.
 
-Separately from Developer Mode, a current request may authorize finite, read-only API/CLI queries of existing logs under [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics). Redact sensitive content; do not turn log reading into runtime probes, watchers, or writes.
+A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics), independently of Developer Mode or unlock. Through existing authorized API/CLI/connector access, read finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and existing logs needed for that question. An earlier task's exclusion does not cancel a later scoped read request. Redact sensitive content; do not retrieve secret values, run browser tests or live application probes, stream/watch, write settings, or deploy.
 
 ## i18n
 
@@ -143,7 +145,7 @@ The contract does not authorize scheduling imports or running them against live 
 - Relevant local evidence exists; security, permissions, validation, i18n, logs, accessibility, and state handling remain intact.
 - Applicable file-size and code-quality rules are satisfied.
 - For the normal `main` target, the scoped change is merged and its result and version are verified on remote `main` under `MAIN_DELIVERY_STANDARD.md`. A local commit, pushed branch, or open PR is an intermediate state. An explicitly narrower target is complete only when that target is satisfied.
-- User authorization, actual human review, git/merge state, and deployment evidence are reported accurately and separately.
+- Owner approval, assistant source/diff review, any actual required formal review, git/merge state, and deployment evidence are reported accurately and separately.
 - No agents, delegation, Actions, schedules, background work, external setup, or live verification was introduced.
 - Task/status context is accurate; follow-ups are inactive.
 - Report completion only when the requested target is satisfied; otherwise report the exact blocker and unfinished delivery stage. Stop after that report, without selecting another mission.

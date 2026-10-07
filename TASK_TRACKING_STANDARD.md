@@ -14,6 +14,8 @@ A current request to implement, fix, or update repository code or documentation 
 
 The current grant survives same-conversation turns, status/link requests, context compaction, and assistant-written task/status changes. A stale task marked paused, complete, or PR-only does not outrank the live request or observed GitHub state. Explicit user stop/pause instructions remain binding. A new conversation does not automatically resume old tasks.
 
+Record owner approval and its task/PR scope separately from assistant source review and any actual required formal review. Under `MAIN_DELIVERY_STANDARD.md`, a well-defined current request or "push to main", "merge", or "aprobado" for the identified change can supply owner approval in the conversation. Do not invent a requirement to open every diff line or create a GitHub review event. Preserve actual named, independent, or formal review requirements; never label conversation approval as verified human source inspection.
+
 One assistant handles the current request. Do not delegate tasks, create subagents, coordinate agent teams, or distribute a task queue, including inside the current session.
 
 Stop when the deliverable is complete or blocked, the user pauses it, or the conversation ends. Proposed follow-ups remain inactive until a later explicit user request.
@@ -25,6 +27,10 @@ Stop when the deliverable is complete or blocked, the user pauses it, or the con
 The live activation authorizes the defined version/check/version-prefixed-commit/fast-forward-push steps for eligible small, low-risk tasks requested while active, without duplicate consent. It does not activate an existing task or authorize selecting backlog work. Authentication/authorization, secrets, data/migrations, payments, infrastructure, and permission/agent-policy changes stay in normal review. Existing hooks, protections, and owner controls remain binding.
 
 Record the requested outcome, changed files, checks, resulting version/SHA, and actual delivery as facts. Do not record a reusable grant to push `main`. A failed applicable check, rejected push, non-fast-forward update after `main` advanced, or unmet control stops the direct flow; record the blocker and explain instead of retrying automatically, rebasing, force-pushing, changing settings/hooks/credentials, changing API/CLI to bypass it, or automatically falling back to the normal branch/PR flow.
+
+### PHDK unlock is a current request
+
+Follow `PHDK_UNLOCK.md` for the command or an explicit request to reconcile/remove local PHDK exceptions. Record the documentary blockers, current owner instruction, bounded repairs, and observed delivery state as dated facts. The owner can replace earlier documentary exceptions within the new request; bare synchronization preserves unknown/unrelated restrictions. Do not store an unlock flag or reusable permission, weaken actual hooks/checks/protections/access controls, or resume an unidentified old product task.
 
 ## Files
 
@@ -53,6 +59,7 @@ Out of scope: ...
 Owner stop/pause controls: ...
 Delivery target: <remote main by default for implementation/fix/update, or user's explicit limit>
 Delivery instructions: <current user instructions as context, not a permission token>
+Approval evidence: <current scoped owner decision; assistant review and any required formal review recorded separately>
 Branch: <branch actually used, or not applicable; never an enabling flag>
 Delivery evidence: <actual commit, push, PR, required review, merge, remote version/result; pending where unknown>
 
@@ -70,7 +77,7 @@ A recorded task-specific request summarizes history; copying it into a later ses
 
 ## Before each mutation
 
-Read task context and explicit owner pause/stop instructions before editing, committing, pushing, or merging. Honor the user's current scope and applicable repository controls. A specific current owner instruction may authorize a limited intervention in a paused project; it does not restart old work or remove the pause generally.
+Read the current user instructions before relying on task context and recorded owner pause/stop instructions when editing, committing, pushing, or merging. Honor the user's current scope and applicable repository controls. A specific current owner instruction can replace an older documentary exception or authorize a limited intervention in a paused project; it does not restart unrelated old work or remove the pause beyond its stated scope.
 
 If task files disagree with the current request or observed GitHub state, correct the stale record within the current scope. An assistant-written pause, completion marker, or delivery limit is not an owner stop instruction and cannot block already-authorized work. Ask only when a real owner instruction or material decision remains ambiguous; never treat stale metadata as permission to expand the task.
 
@@ -84,7 +91,9 @@ If task files disagree with the current request or observed GitHub state, correc
 
 Multiple necessary steps of the same current request may be completed without repeated approval. This does not authorize selecting a new goal from the backlog.
 
-An eligible Developer Mode push may trigger the existing hosting-provider GitHub connection. Record deployment evidence only when available; never create or run Actions, deploy through Railway/provider CLI/API/dashboard, or change external configuration. Separately authorized, finite read-only API/CLI log queries follow [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics), with redaction and no runtime probes, watchers, or writes; they do not require Developer Mode or authorize git delivery.
+An eligible Developer Mode push may trigger the existing hosting-provider GitHub connection. Record deployment evidence only when available; never create or run Actions, deploy through Railway/provider CLI/API/dashboard, or change external configuration.
+
+A current request such as "verifica Railway" permits [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics): finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and needed existing logs through existing authorized API/CLI/connector access. A prior code task's exclusion cannot cancel the newer scoped read; update its recorded scope without deleting history. Redact sensitive content; no secret-value retrieval, browser tests, live application probes, streams/watchers, settings writes, or provider deployments. This permission requires neither Developer Mode nor unlock and does not authorize git delivery.
 
 Track code delivery and provider deployment as separate observed facts. Existing GitHub-connected autodeploy is allowed; do not disable it or install dummy never-matching watch filters as PHDK enforcement. A generic development request does not authorize provider-settings writes. An observed disabled connection or filter excluding changes that need deployment may block deployment after code/version verification on remote `main`; do not mark code delivery absent or invent deployment success. Preserve valid service-specific filters and distinguish intended skips for unaffected services.
 
@@ -95,6 +104,7 @@ Do not create or use a multiple-agent queue. If another human or independently a
 ## Verification
 
 - [ ] Current user authorization and owner restrictions are accurately recorded.
+- [ ] Current owner approval, assistant source review, and any actual required formal review are distinguished; no redundant review ritual or fabricated inspection was introduced.
 - [ ] Same-conversation authorization was retained; stale task state and assistant-written edits did not override the live request or observed GitHub state.
 - [ ] Only necessary steps of the requested deliverable were executed.
 - [ ] No subagents, agent team, delegated work, scheduler, recurring task, or background watcher was started.

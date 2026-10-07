@@ -6,7 +6,7 @@ PHDK uses automated tests to control concrete regression risks. Tests are not a 
 
 `EXECUTION_SCOPE.md` is authoritative. Permitted code checks consist of source/diff review, static checks, local builds, and local unit or in-process integration tests with external dependencies replaced by deterministic test doubles. See `VERIFICATION_LOOP.md` for evidence and reporting requirements and `MAIN_DELIVERY_STANDARD.md` for normal delivery completion.
 
-The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics** — allows requested retrieval of existing logs independently of PHDK Developer Mode. Those logs are diagnostic evidence, not an executed product test.
+The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics** — allows requested finite reads of service/deployment status, non-secret source/branch/configuration/watch metadata, and existing logs independently of Developer Mode or unlock. Those observations are diagnostic evidence, not an executed product test.
 
 ---
 
@@ -20,7 +20,7 @@ Do not write a test merely because code was added. Ask:
 
 If no risk trigger applies, source review and the applicable static/build gate are sufficient for code completion. If a risk trigger applies, add the smallest useful permitted test. A remaining runtime uncertainty must be reported; it never authorizes broader execution by itself.
 
-Passing local verification alone does not finish a normal development request. Continue its authorized branch/PR delivery through review, integration, and fresh verification of the remote target and version under `MAIN_DELIVERY_STANDARD.md`, unless the user explicitly narrowed the scope. Ordinary changes need assistant diff review; high-risk changes and stricter repository/owner rules retain human review.
+Passing local verification alone does not finish a normal development request. Continue its authorized branch/PR delivery through review, integration, and fresh verification of the remote target and version under `MAIN_DELIVERY_STANDARD.md`, unless the user explicitly narrowed the scope. Review the complete actual diff; owner approval of sensitive decisions may already be present in the current request. Preserve actual named, independent, or formal review requirements without adding a universal human-diff or GitHub-review-event gate. Classify the changed behavior: restoring login through a packaging fix does not itself change authentication policy.
 
 ---
 
@@ -79,7 +79,7 @@ Health endpoints, protected probes, debug panels, redaction, correlation IDs, an
 
 Review their implementation and use local tests for risky logic such as authorization, probe-mode enforcement, redaction, timeouts, quotas, and retry bounds. Stub the dependency boundary; do not execute a real probe or provider request as a test.
 
-Human-supplied redacted diagnostics and logs retrieved under **Bounded read-only log diagnostics** in `EXECUTION_SCOPE.md` can inform a code fix. Retrieval requires a current human request and stays within that section's limits; it does not authorize diagnostic UI operation or live product tests/probes.
+Human-supplied redacted diagnostics and observations retrieved under **Bounded read-only provider diagnostics** in `EXECUTION_SCOPE.md` can inform a code fix. A current request such as "verifica Railway" authorizes the relevant finite reads through existing access; an older code-sync task exclusion cannot veto that newer read request. Retrieval does not authorize diagnostic UI operation, live product tests/probes, secret-value reads, or provider writes.
 
 ---
 
@@ -120,7 +120,7 @@ For UI or deployment changes, also state:
 Visual/runtime: visual/runtime unverified — no browser or live product test/probe executed
 ```
 
-When bounded log diagnostics were requested, report the source, query bounds, redacted findings, and limits separately from test results. Existing log events do not prove that the agent executed or retested the product.
+When bounded provider diagnostics were requested, report the service/deployment, source, query bounds, non-secret metadata or redacted logs, and limits separately from test results. Provider status and existing log events do not prove that the agent executed or retested the product.
 
 Missing coverage of an applicable risky rule is a gap. A prohibited browser or external runtime check is a scope limit, not a task to delegate or a reason to require a human browser check before continuing code work.
 
@@ -129,7 +129,7 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 ## Never
 
 - Never create tests solely to make a checklist green.
-- Never execute product tests through a browser or external service; permitted read-only log diagnostics remain separate evidence under `EXECUTION_SCOPE.md`.
+- Never execute product tests through a browser or external service; permitted read-only provider diagnostics remain separate evidence under `EXECUTION_SCOPE.md`.
 - Never weaken security or alter production behavior merely to make local tests pass.
 - Never delete or skip a failing risk-required local test just to merge.
 - Never claim a local test establishes live health, visual correctness, or a successful real provider integration.
@@ -146,4 +146,4 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 - [ ] Test scripts and dependencies do not launch browsers or access services/databases.
 - [ ] No speculative harness or unnecessary runner was added.
 - [ ] Remaining visual/runtime uncertainty is stated accurately.
-- [ ] If log diagnostics were requested, retrieval followed `EXECUTION_SCOPE.md` and findings are reported separately from product-test evidence.
+- [ ] If provider diagnostics were requested, retrieval followed `EXECUTION_SCOPE.md` and findings are reported separately from product-test evidence.

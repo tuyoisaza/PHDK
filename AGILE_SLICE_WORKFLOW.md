@@ -28,6 +28,8 @@ State the requested outcome and why it matters. Use `INTENT_CAPTURE_STANDARD.md`
 
 Record the current request, delivery target, scope, completion criteria, and relevant owner controls in `TASK.md`. Record delivery instructions and observed evidence as context only; never store Developer Mode activation/status or an authorizing flag. The current request continues through same-conversation turns, status/link requests, and context compaction. Assistant-written task/status changes cannot revoke it, and stale task records do not outrank the live request or observed GitHub state. Honor explicit user stops or pauses. Ask only about material ambiguity, without seeking repeat approval for normal delivery or eligible Developer Mode steps.
 
+For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptions, follow `PHDK_UNLOCK.md` across the existing active instructions. The current owner can replace documentary exceptions within that scope; hooks, checks, access controls, and server protections remain. Bare synchronization does not silently remove unknown local restrictions, and unlock does not select an old product task.
+
 ### 3. Implement the necessary steps
 
 Work with the current assistant only. Do not create subagents, delegated coding/review tasks, agent teams, coordination queues, or background workers. Relevant skills may be read as references; they do not supply additional execution permissions.
@@ -40,7 +42,7 @@ Review source/diffs and run applicable synchronous formatting, linting, typechec
 
 Documentation-only changes need source/diff and reference review. Do not run browser automation, screenshots, live HTTP/health checks, databases, or paid services. Mark visual and live-runtime behavior unverified.
 
-An independently authorized diagnostic request may use finite, read-only API/CLI log queries under [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics). Redact sensitive content; log reading is not a runtime probe, watcher, or permission to write.
+A current request such as "verifica Railway" permits [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics), independently of Developer Mode or unlock. Use existing authorized API/CLI/connector access for finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and needed existing logs. Reconcile an older task exclusion with the new scoped request. Redact sensitive content; no secret-value retrieval, browser tests, live application probes, streams/watchers, settings writes, or provider deployments.
 
 ### 5. Repair within bounded scope
 
@@ -58,7 +60,7 @@ Follow the versioned branch/PR procedure in `MAIN_DELIVERY_STANDARD.md` through 
 
 Use feature/fix branches for normal review. Only an eligible Developer Mode task may instead bump the repository version, pass applicable local checks, create a version-prefixed commit, and push fast-forward directly to `main` when existing controls permit it, without duplicate consent. Auth/authz, secrets, data/migrations, payments, infrastructure, and permission/agent-policy changes stay in normal review. Historical Finetuning records do not activate the mode or supply another exception.
 
-Ordinary changes require assistant source/diff review, without a universal human-review gate. Authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, and agent-policy changes require human review, as do stricter existing repository rules. Keep that evidence distinct from the user's delivery authorization and the assistant's review; do not claim that a human read the diff when that is unknown.
+Review the complete outgoing diff. Sensitive behavior and policy changes require owner approval under `MAIN_DELIVERY_STANDARD.md`; a well-defined current request or "push to main", "merge", or "aprobado" for the identified task/PR can already supply it in chat. Classify the actual behavior rather than the feature label: restoring login through a packaging fix does not itself change authentication policy. Do not invent a GitHub review-event or manual diff-inspection requirement. Preserve actual named, independent, or formal review requirements, and record their evidence separately from owner approval and the assistant's review without claiming unknown human inspection.
 
 An authorized push/merge, including an eligible Developer Mode push to `main`, may trigger the existing hosting-provider GitHub connection. Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI, change deployment triggers, provision a provider, enable previews, or deploy through a provider CLI/API/dashboard, including Railway.
 
@@ -66,7 +68,7 @@ That existing GitHub-connected autodeploy is allowed by PHDK. Do not disable it 
 
 ### 8. Close and stop
 
-Update task/status evidence and archive a coherent completed slice when useful. If necessary steps of the same current request remain, finish those within its scope and limits. For a `main` target, complete the merge and verify the change and version on remote `main`; a pushed branch or open PR is intermediate progress. If a required check, human review, conflict decision, or access restriction prevents delivery, report that exact blocker and the unfinished stage. Report completion only when the requested target is satisfied, then stop.
+Update task/status evidence and archive a coherent completed slice when useful. If necessary steps of the same current request remain, finish those within its scope and limits. For a `main` target, complete the merge and verify the change and version on remote `main`; a pushed branch or open PR is intermediate progress. If a required check, actual review requirement, unapproved sensitive/conflict decision, or access restriction prevents delivery, report its source and the unfinished stage. Report completion only when the requested target is satisfied, then stop.
 
 Mark remaining proposals inactive. Do not create a new current task from the backlog, schedule a resume, launch a reviewer agent, or continue an old mission after the session ends.
 

@@ -43,7 +43,9 @@ Follow the repository's existing branch protection, review requirements, and all
 
 Use the normal delivery contract in `MAIN_DELIVERY_STANDARD.md`, with `DEVELOPMENT_RULES.md` and `VERSIONING.md`. A current implementation/fix/update request includes versioned branch/PR delivery through required review and merge to verified remote `main` without repeated consent. Respect explicit local-only, branch-only, or PR-only limits, a different target specified by the user or repository, and the separate read/audit and bare `PHDK upgrade` boundaries in `EXECUTION_SCOPE.md`.
 
-Ordinary changes require assistant source/diff review; PHDK adds no universal human-review gate. Human review is mandatory for authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent-policy changes and stricter existing repository rules. Review the actual diff and record actual evidence. A user instruction to deliver is authorization, not proof of human diff review. Unmet required reviews/checks/access remain blockers; missing server-side enforcement is not permission to create Actions, administer the repository, or invent a provider-dashboard or browser-verification gate.
+Review the complete outgoing diff. Sensitive behavior and policy changes require owner approval under `MAIN_DELIVERY_STANDARD.md`; a well-defined current request or "push to main", "merge", or "aprobado" for the identified task/PR can supply it in chat. Classify actual behavior, not labels: a packaging repair restoring login does not itself alter authentication policy. PHDK adds no requirement to prove the owner opened every diff line or to submit a GitHub review solely for that approval. Preserve actual named, independent, or formal review requirements; record owner approval, assistant review, and any required formal review separately without inventing human inspection.
+
+Identify the concrete applicable requirement before reporting a block. A missing GitHub review event alone does not negate owner approval; a mergeable PR alone does not prove required checks/reviews passed. In normal delivery, an existing direct-main guard still permits the authorized branch/PR route; Developer Mode's failed direct flow retains its separate immediate stop. Unmet actual reviews/checks/access remain blockers, and an unknown/unreadable server rule remains unknown; neither justifies bypasses, new Actions, repository administration, or an invented provider-dashboard/browser-verification gate.
 
 A passing local gate, successful branch push, or open PR does not prove completion on `main`. Verify the merged result and version on remote `main`, or the explicit narrower target, and report the exact remaining blocker when it cannot be reached. In the normal branch/PR flow, routine integration conflicts are scoped delivery work: refresh `main`, preserve both sides, reconcile the branch version, and review/check the changed result. Pause for material ambiguous or sensitive conflicts; preserve history and all existing controls. A GitHub PR merge already updates remote `main`; it does not require another push or a post-merge version-only commit.
 
@@ -75,13 +77,13 @@ PHDK does not scaffold GitHub Actions or other CI workflows. A currently authori
 
 Existing GitHub-connected autodeploy is an allowed delivery path. PHDK's restrictions on autonomous coding and Actions are not instructions to disable it or install dummy never-matching watch filters. Do not make those changes as enforcement, and do not treat a generic development request as authority to modify provider settings. If existing settings disable or skip deployment, report deployment blocked/skipped separately from the verified code and version on remote `main`.
 
-Before a branch is pushed for review, apply the local code checks required by `QA_CHECKLIST.md` and record their results. Existing hooks can run lint, typecheck, build, and format:check. A documentation-only change needs source/diff consistency review, not an application build. Run risk-triggered unit or in-process integration tests separately at the narrowest useful scope, with test doubles for external dependencies. Do not open a browser, run browser test tools, take verification screenshots, or probe live endpoints/databases/APIs.
+Before a branch is pushed for review, apply the local code checks required by `QA_CHECKLIST.md` and record their results. Existing hooks can run lint, typecheck, build, and format:check. A documentation-only change needs source/diff consistency review unless stricter applicable hooks/checks require more; do not change transport or skip a required application build to avoid that gate. Run risk-triggered unit or in-process integration tests separately at the narrowest useful scope, with test doubles for external dependencies. Do not open a browser, run browser test tools, take verification screenshots, or probe live endpoints/databases/APIs.
 
 The same `pre-push` hook validates **every outgoing commit** in the branch range against `VERSIONING.md` Commit Message Format.
 
 An existing pipeline's GitHub status/logs may supply deployment evidence for an approved release. Do not treat that evidence as a browser or live application test, poll it in a loop, or use another tool or agent to perform excluded verification.
 
-Independent of Developer Mode or a release, a current request may authorize finite, read-only API/CLI queries of existing logs under [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics). Redact sensitive content; no runtime probes, watchers, writes, or external administration. Logs do not satisfy an unmet local check or bypass an existing control.
+A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics) independently of Developer Mode, unlock, or a release. Use existing authorized API/CLI/connector access for finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and needed existing logs. An earlier task exclusion does not cancel a newer scoped read. Redact sensitive content; no secret-value retrieval, browser tests, live application probes, streams/watchers, settings writes, or provider deployments. Provider evidence does not satisfy an unmet local check or bypass an existing control.
 
 ### Requested dependency updates
 
@@ -96,7 +98,7 @@ This section does not repeat rules defined elsewhere — it is the index of whic
 | Commit message begins with `vX.Y.Z` | `VERSIONING.md` | `commit-msg` hook + outgoing-commit range validation in `pre-push` |
 | No file exceeds 600 lines | `DEVELOPMENT_RULES.md` | `pre-commit` hook |
 | Honor the authorized branch and merge flow | `MAIN_DELIVERY_STANDARD.md`, `DEVELOPMENT_RULES.md` | local `pre-push` guard and existing GitHub restrictions; completion still requires observed remote evidence |
-| Applicable static/build checks must actually pass before push | `VERIFICATION_LOOP.md` | local `pre-push` code checks + recorded evidence; source/diff review for documentation-only changes |
+| Applicable static/build checks must actually pass before push | `VERIFICATION_LOOP.md` | local `pre-push` code checks + recorded evidence; source/diff review for documentation-only changes unless stricter hooks/checks apply |
 | Risk-triggered behavior must have isolated coverage when required | `TESTING_STANDARD.md` | task-level unit/in-process test evidence, not a browser or live-service check |
 | Never commit secrets | `DEVSECOPS.md` | `pre-commit` secrets scan |
 | Requested dependency changes are verified | `DEVSECOPS.md` | package/lockfile diff review and local code checks |
@@ -130,9 +132,11 @@ The canonical block is `PHDK_NATIVE_RULES.md`. At foundation build:
 2. preserve the `<!-- PHDK-MANAGED:START -->` / `<!-- PHDK-MANAGED:END -->` markers
 3. put any project/tool-specific instructions outside those markers
 
-The managed block includes the `PHDK upgrade` command and the smallest high-severity rules that must survive context drift.
+The managed block includes the `PHDK upgrade` and `PHDK unlock` commands and the smallest high-severity rules that must survive context drift.
 
 On `PHDK upgrade`, replace only the marked block with the latest vendored `PHDK_NATIVE_RULES.md`. If an older project has no markers, append the managed block once without deleting existing content. From that point forward the PHDK portion is mechanically refreshable without overwriting user-authored rules.
+
+For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptions, follow `PHDK_UNLOCK.md` across existing native files, owner prefaces, and active supplemental PHDK copies. A current owner instruction can replace an earlier documentary exception; bare synchronization preserves unknown/unrelated local restrictions. Inspect customizations before replacing them and preserve history and product requirements. This repair does not remove or weaken hook commands, checks, code-owner rules, access controls, or server protections, and it cannot persist an `unlocked=true` permission flag.
 
 ### Session context
 
@@ -153,7 +157,7 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 - Tier 1 only works for what can be expressed as a check. "Understand the human's actual goal before writing code" has no lint rule. Tier 2 narrows how often this kind of rule gets forgotten; it does not guarantee it never is.
 - A local git hook can be bypassed or absent. Review the diff and report actual verification evidence; respect existing GitHub restrictions without changing them or creating CI as a fallback.
 - Review and merge follow the current request's delivery scope and existing repository rules. PHDK does not add universal human approval, account, settings, browser, or external-runtime prerequisites to finish an ordinary change.
-- Neither tier proves that a human reviewed a diff. Required human review remains an actual evidence requirement for the listed high-risk changes and stricter repository controls; hook output, assistant review, and user delivery authorization cannot substitute for it.
+- Neither tier proves that a person inspected source. PHDK owner approval can be recorded in the current conversation without inventing that inspection. Actual named, independent, or formal reviews still require their specified evidence; hook output or conversation approval cannot impersonate a platform review that an applicable control requires.
 
 ---
 
@@ -170,16 +174,17 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 
 - [ ] Existing GitHub branch/review rules are respected; no repository settings, CI workflows, schedules, bots, or provider resources were created or changed for enforcement
 - [ ] Normal delivery reached the requested target and its result/version were verified, or the exact blocker and unfinished stage were reported; branch push/PR creation alone was not labeled complete for a `main` target
-- [ ] Ordinary changes received assistant diff review, and high-risk or repository-required human review has actual evidence without fabricated approval
+- [ ] The outgoing diff received assistant review; sensitive decisions have current scoped owner approval, and any actual named/independent/formal review requirement has its own evidence without fabricated human inspection
 - [ ] `commit-msg` hook rejects a commit with no `vX.Y.Z` prefix
 - [ ] `pre-commit` hook rejects a staged file over 600 lines, runs `lint-staged`/Prettier against staged files, and runs a secrets scan
-- [ ] `pre-push` respects the authorized branch flow, validates outgoing commit messages, and runs applicable local code checks; documentation-only changes use source/diff review without an application build
+- [ ] `pre-push` respects the authorized branch flow, validates outgoing commit messages, and runs applicable local code checks; documentation-only source/diff review does not override stricter existing hooks/checks
 - [ ] Hook validation is checked locally when changed, without publishing a synthetic test branch
 - [ ] A failing local validation command blocks `pre-push`
 - [ ] Developer Mode has no persisted activation/authorization flag; legacy Finetuning flags are not used to permit direct delivery
 - [ ] An applicable check failure, rejected push, non-fast-forward update, or unmet control stopped the direct flow without automatic retries or bypasses
 - [ ] Verification stayed in source/diff review, applicable static/build commands, and isolated non-browser tests; no live-service probes were used
 - [ ] Any dependency update was a scoped code task; no recurring dependency automation was added
-- [ ] The current tool's native always-loaded rule file contains the marked block from `PHDK_NATIVE_RULES.md`, including the `PHDK upgrade` command, and the managed block matches the vendored copy
+- [ ] The current tool's native always-loaded rule file contains the marked block from `PHDK_NATIVE_RULES.md`, including the `PHDK upgrade` and `PHDK unlock` commands, and the managed block matches the vendored copy
+- [ ] Requested documentary exception repairs cover existing active instruction copies without weakening hooks, checks, access rights, or server protections or storing an unlock flag
 - [ ] Permanent instruction headers contain no transient task state, and task records did not revoke same-conversation authorization or outrank observed GitHub state
 - [ ] Changed hook behavior has local evidence; untouched hooks are not repeatedly tested just to close a checklist

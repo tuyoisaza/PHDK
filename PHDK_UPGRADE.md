@@ -6,9 +6,9 @@ Synchronize an existing PHDK project to the current published standards in respo
 
 The canonical command is `PHDK upgrade` (case-insensitive after trimming whitespace). It authorizes the standards sync now, without a second confirmation in the clean case. It does not authorize product implementation, a commit/push/merge/release, deployment, workflow execution, an agent, or a future run. A current request that explicitly includes git delivery provides that additional authorization.
 
-Follow `EXECUTION_SCOPE.md`: one assistant, interactive-only, no delegation, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Bounded read-only log retrieval is available only for a current requested diagnosis; it is not a standards-sync check. Report and stop after the requested sync and any authorized git delivery.
+Follow `EXECUTION_SCOPE.md`: one assistant, interactive-only, no delegation, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Bounded read-only provider diagnostics are available for a current requested check/diagnosis; a bare sync does not start that investigation. Report and stop after the requested sync and any authorized git delivery.
 
-An upgrade copies `MAIN_DELIVERY_STANDARD.md` and the definition of `PHDK_DEVELOPER_MODE.md`; it never activates that mode. A sync that changes execution or authorization policy, including this release's delivery permissions, requires the normal branch/human-review flow even if Developer Mode is already active. Do not classify permission changes as low-risk merely because they are Markdown.
+An upgrade copies `MAIN_DELIVERY_STANDARD.md`, `PHDK_UNLOCK.md`, and the definition of `PHDK_DEVELOPER_MODE.md`; copying them invokes neither command nor mode. Execution/authorization policy changes use the normal branch flow, even if Developer Mode is active. Review their actual diff and apply the approval rules in `MAIN_DELIVERY_STANDARD.md`: a well-defined owner request can already approve the policy decision, and a current instruction to deliver the identified update supplies delivery approval. Do not add a PHDK-only demand to open the diff or submit a GitHub review; actual formal review requirements remain binding.
 
 ## Canonical upstream
 
@@ -32,9 +32,9 @@ Read owner pause/stop instructions. A specifically requested standards sync may 
 
 Inspect git status. Stop before overwriting any uncommitted change in `phdk-standards/`. Preserve unrelated files and changes without staging, discarding, stashing, or rewriting them.
 
-Preserve stricter owner controls wherever they are stored, including committed overrides. If syncing a managed file would overwrite a stricter stop/pause/interactive-only rule, stop and report that exact path. Do not silently move, delete, or weaken it in order to obtain a clean upstream mirror.
+For a bare standards sync, preserve genuine owner controls wherever they are stored, including committed overrides; report an actual overwrite conflict. When the current owner also requests removing local PHDK exceptions or reconciling blockers, follow `PHDK_UNLOCK.md` to replace those documentary rules within that scope. Their owner-override label does not make them immutable. Preserve unrelated requirements and actual hooks, checks, security/access controls, and server protections.
 
-Distinguish an actual owner restriction from an assistant-written snapshot of a past task. Do not introduce permanent routing claims such as "TASK remains paused" or use a generated summary to revoke an already-authorized current delivery. When the current request includes reconciling such records, verify the owner's instructions and live git/PR facts, correct the stale record, and preserve every genuine remaining control. A bare standards sync never silently removes a stricter owner rule.
+Distinguish an actual current owner restriction from an older task-specific exclusion or assistant-written snapshot. Do not introduce permanent routing claims such as "TASK remains paused" or use a generated summary to revoke an already-authorized current delivery or a newer provider-read request. Verify instructions and git/PR facts when reconciling records. A bare sync does not silently remove a genuine owner rule, while an explicit current request to replace it supplies that documentary authority.
 
 Do not create instruction files for tools that are not in use. Respect all existing repository access/review controls.
 
@@ -60,9 +60,9 @@ For an authorized update on a default/protected branch, use a dedicated working 
 
 Read the fetched `PHDK_MANIFEST.txt`; never use a handwritten file list or cached model memory. Each non-comment line maps an upstream source to its destination inside `phdk-standards/`.
 
-Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_DEVELOPER_MODE.md`, and `PHDK_NATIVE_RULES.md`.
+Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, and `PHDK_NATIVE_RULES.md`.
 
-Remove an obsolete vendored file only when the previous manifest lists it, the new manifest omits it, it is clean, and it contains no stricter owner override. For pre-manifest projects, do not delete unknown extra files. Never delete unrelated project files.
+Remove an obsolete vendored file only when the previous manifest lists it, the new manifest omits it, it is clean, and removal respects the current owner's scope. For pre-manifest projects, do not delete unknown extra files. An explicitly requested complete PHDK reconciliation or unlock also inspects active supplemental copies such as in-repository `SKILL.md`, README, and handoff instructions; compare their source and customizations before replacing stale generic PHDK content. Keep required history references and unrelated project files.
 
 ### 6. Refresh the current tool's managed block
 
@@ -73,7 +73,7 @@ Known project-native locations include `CLAUDE.md`, `.cursor/rules/phdk.mdc`, `.
 - Replace only the marked managed block when it exists.
 - When the file exists without markers, append the block without deleting existing project instructions.
 - When the applicable file is absent, create it only as part of the requested install/sync.
-- Preserve stricter owner rules outside or inside the block; stop on an overwrite conflict rather than weakening them.
+- Preserve genuine owner rules outside or inside the block during a bare sync. Apply a current explicit request to remove/reconcile documentary exceptions through `PHDK_UNLOCK.md`, across the existing active native files that could retain the blocker. Do not change enforced hooks, checks, or protections.
 
 Do not install a plugin, spawn an assistant, register a hook that runs tasks, or create a scheduler. Loading a rule file never starts work.
 
@@ -96,8 +96,9 @@ Do not store or restore Developer Mode activation in the continuity record. Hist
 - Developer Mode's explicit activation/exit, temporary lifetime, risk limits, and no-bypass rules match upstream; the upgrade itself did not activate it.
 - Normal delivery's verified remote-target completion, risk-based review, authorization continuity, version reconciliation, and no-redundant-push rules match upstream; narrower requests and existing controls remain effective.
 - Existing provider GitHub autodeploy and watch paths were not disabled or replaced with dummy filters as a PHDK restriction. Report observed deployment blockers/statuses separately without inferring permission for provider writes. Valid service-specific filters and intended skips for unaffected services are not configuration errors.
-- The bounded read-only log-diagnostics permission is present without adding provider writes, live probes, streams, or monitoring.
-- No owner control or unrelated edit was overwritten or staged.
+- `PHDK unlock` is routed without persistent activation, bypasses, or old-task resumption; approvals in the current conversation and actual formal review requirements are distinguished.
+- Bounded read-only provider diagnostics cover requested metadata/status/log reads without extra consent, provider writes, secret values, live probes, streams, or monitoring.
+- Any documentary owner exceptions changed were explicitly included in the current request; actual enforced controls and unrelated edits were preserved.
 - No product source changed except minimal version metadata when a currently authorized commit requires it.
 - No agents, background tasks, workflow runs, browser sessions, live probes, or external configuration changes occurred.
 

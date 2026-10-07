@@ -2,7 +2,7 @@
 
 ## Purpose and precedence
 
-A condensed reminder of PHDK's rules. Read the referenced standards for details. `EXECUTION_SCOPE.md` controls execution; `MAIN_DELIVERY_STANDARD.md` defines normal delivery completion. Stricter owner rules remain effective.
+A condensed reminder of PHDK's rules. Read the referenced standards for details. `EXECUTION_SCOPE.md` controls execution; `MAIN_DELIVERY_STANDARD.md` defines normal delivery completion. Current owner instructions and actual controls remain effective; the owner can explicitly replace documentary local exceptions.
 
 ## Interactive-only execution
 
@@ -51,12 +51,12 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 - Normal delivery uses a scoped feature/fix branch, the repository version bump, applicable local checks, a version-prefixed commit, push, PR, review, merge, and fresh verification of remote `main` and its version. A branch push/open PR alone is incomplete; honor explicit local-only, branch-only, PR-only, or different-target requests.
 - Current user authorization covers those necessary steps; a slice checkpoint or stored task never grants new or cross-conversation authority. Direct-main delivery requires explicitly active, eligible Developer Mode.
-- Assistant review of the actual diff suffices for ordinary changes. Human diff review remains required for high-risk auth/authz, secrets, data, migrations, payments, infrastructure/deployment configuration, agent execution/permission-policy changes, other material risks, and stricter repository/owner controls.
+- Review the complete actual diff. Sensitive behavior or policy decisions need owner approval, which a current well-defined request or identified-task/PR "push to main", "merge", or "aprobado" can already supply. PHDK adds no universal personal diff-inspection or GitHub-review-event gate; preserve actual named, independent, or formal reviews. Classify behavior: a packaging fix restoring login does not itself change authentication policy.
 - Follow `VERSIONING.md` using the actual repository version source. Source-changing commits are versioned; pure merge/squash integration of already versioned changes needs no extra bump, post-merge version-only commit, or second push.
 - Normal delivery allows bounded in-scope repairs and ordinary conflict resolution preserving others' changes, followed by affected checks and diff review. Never bypass hooks, checks, required reviews, or access controls; no force-push or settings changes.
 - Delivery may use the existing hosting-provider GitHub connection; no provider CLI/API/dashboard deployment, connection setup, trigger changes, or autodeploy reactivation.
 - Preserve valid provider GitHub autodeploy/watch paths; no dummy never-matching filters. An observed disabled connection or filter excluding changes that need deployment is a separate blocker. Valid service-specific filters and intended skips for unaffected services are normal; generic development does not authorize provider-setting repairs.
-- Keep user authorization, assistant/required human review, source checks, remote target/version evidence, and deployment status distinct.
+- Keep owner approval, assistant source review, actual required review, source checks, remote target/version evidence, and deployment status distinct. Never invent human diff inspection from approval or passing checks.
 - A reviewed code revert does not itself prove runtime recovery.
 - Full rules: `MAIN_DELIVERY_STANDARD.md`, `VERSIONING.md`, `DEVELOPMENT_RULES.md`, `EXECUTION_SCOPE.md`.
 
@@ -68,13 +68,19 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - The mode adds no autonomy, agents, Actions, schedules, browser use, provider administration, or CLI deployment. Deployment may use only the existing GitHub connection from `main`.
 - Never persist active mode or old delivery permissions in task, status, or handoff files; no resumption of earlier tasks. Full rule: `PHDK_DEVELOPER_MODE.md`.
 
+## Unlock
+
+- A current `PHDK unlock` invokes `PHDK_UNLOCK.md` to inspect blockers, reconcile PHDK/local documentary restrictions with current owner instructions, and deliver the scoped repair through the permitted route. State its scope briefly; clear natural-language instructions already count without this command.
+- Preserve hooks, checks, actual required reviews, security controls, access permissions, and provider-write boundaries. Do not resume unnamed old tasks, activate Developer Mode, or save a persistent unlocked state.
+- A failed control remains a real blocker; diagnose bounded in-scope repairs or report the exact gate, never disable it or invent success.
+
 ## Verification and local hooks
 
 - Review the real diff and run relevant synchronous local format/lint/typecheck/build checks.
 - Focused non-browser tests remain risk-triggered for security, money, destructive transitions, complex deterministic logic, and regression coverage.
 - Do not test every component/method by default or leave watchers running.
 - Documentation-only changes need source/diff and reference review, not an app build.
-- Current diagnostics may use bounded read-only logs via an authorized API/CLI/connector under `EXECUTION_SCOPE.md` — Bounded read-only log diagnostics; no streaming, polling, watchers, app/database probes, or writes.
+- A current "verifica Railway" or similar request allows finite service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through existing authorized API/CLI/connector access under `EXECUTION_SCOPE.md` — Bounded read-only provider diagnostics. No Developer Mode/unlock prerequisite; an old code-sync task exclusion cannot veto this newer read. No secret values, streaming, polling, watchers, app/database probes, or writes.
 - Local hooks are checks attached to authorized git commands, not schedulers, agent launchers, or permission to generate commits/pushes.
 - A local hook or instruction file is not server-side enforcement and does not revoke external credentials or terminate agents.
 - No UI/live-runtime success claim without corresponding evidence; no invented manual testing requirement.

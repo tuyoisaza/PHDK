@@ -3,8 +3,9 @@ name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, validate locally, deliver through GitHub, synchronize standards,
-  retrieve bounded read-only logs for a requested diagnosis, or activate/exit PHDK
-  Developer Mode. One interactive assistant; no autopilot, delegated agents,
+  repair PHDK blockers with PHDK unlock, retrieve bounded read-only provider
+  status/configuration metadata or logs, or activate/exit PHDK Developer Mode.
+  One interactive assistant; no autopilot, delegated agents,
   background or scheduled work, GitHub Actions, browser operation, or external
   infrastructure administration.
 ---
@@ -13,7 +14,7 @@ description: >-
 
 This skill routes the current assistant to PHDK standards. It does not launch an agent, create a task, or authorize work just because a tool discovers or loads `SKILL.md`.
 
-Read `EXECUTION_SCOPE.md`. Its interactive-only, single-assistant boundary overrides contrary language in an older standard or an external skill. Existing owner pause/stop controls and stricter project instructions remain effective.
+Read the current user request and `EXECUTION_SCOPE.md`. Its interactive-only, single-assistant boundary overrides contrary language in an older standard or external skill. Honor current owner controls within their scope; the owner can explicitly replace older documentary exceptions. A file cannot veto that current instruction or remove actual access/security controls.
 
 ## Start only from the current request
 
@@ -25,9 +26,17 @@ Do not resume a previous mission from records alone, choose another backlog item
 
 Read `MAIN_DELIVERY_STANDARD.md` for a current request to implement, fix, or update repository code or documentation. That request includes the scoped branch, version bump, applicable local checks, version-prefixed commit, branch push, PR, required review, merge, and verification on remote `main`. Do not stop at a pushed branch or open PR and ask for the same delivery permission again. Honor a narrower local/branch/PR-only request, another explicit target, and the bare `PHDK upgrade` limit.
 
-Use assistant diff review for ordinary changes; require human review for high-risk auth/permissions, secrets, data/migrations, payments, infrastructure, agent policy, or stricter owner/repository rules. Resolve clear in-scope integration conflicts, reconcile version metadata before merging, and recheck/review the result. Respect all hooks and protections; explain a real unmet check, material decision, review, or access blocker. Never use another transport to evade a control.
+Review the complete diff and apply the approval rules in `MAIN_DELIVERY_STANDARD.md`. Sensitive behavior/policy decisions need owner approval; a well-defined current request or "push to main", "merge", or "aprobado" for the identified change may already supply it in the conversation. Do not invent a GitHub review event or proof-of-opening-the-diff requirement. Preserve formal/named/independent reviews actually required by current owner instructions, hooks, or server rules, and never invent human inspection. Resolve clear in-scope conflicts, reconcile versions, and recheck. Respect hooks/protections; explain an actual unmet control or decision without changing transports to evade it.
 
 Confirm the resulting remote version and change before calling the delivery complete. A GitHub PR merge already updates `main`; do not invent a second version-only commit or push. Compare stale task records with the live user request and git/PR state. An existing provider GitHub autodeploy may follow the authorized merge; do not disable it or add dummy watch filters as PHDK enforcement. Report deployment evidence or a skipped/disabled deployment separately, without provider writes.
+
+## PHDK unlock
+
+For the current command `PHDK unlock`, read `PHDK_UNLOCK.md`. Explain briefly that it audits PHDK-related blockers and repairs documentary restrictions in this repository according to the owner's current instructions, while preserving real checks, reviews, hooks, protections, access, security, and provider-write boundaries.
+
+Inspect all relevant existing active native instruction files, copied PHDK sources and in-repository skills, task records, actual hooks/toolchain, and current GitHub evidence. Reconcile the authorized local exceptions and stale task boundaries, then finish the scoped normal versioned branch/PR delivery. Do not stop after fixing only one wrapper while another active copy retains the blocker.
+
+Do not persist an unlocked flag, activate Developer Mode, resume old missions, merge unrelated PRs, weaken controls, or alter provider settings. Natural-language approval and bounded diagnosis requests already count without this command; quoted examples do not invoke it.
 
 ## PHDK Developer Mode
 
@@ -37,16 +46,16 @@ Deactivate on `PHDK salir de developer mode`, an unambiguous user stop/exit, or 
 
 High-risk authentication, authorization, secrets, data/migrations, payments, infrastructure, and permission-policy changes follow normal review. Stop the direct-main flow on a failed applicable check, rejected/non-fast-forward push, or a control that cannot be satisfied. No hook/protection bypass, forced update, settings changes, automatic retry, or provider CLI/API/dashboard deployment.
 
-## Requested log diagnosis
+## Requested provider diagnostics
 
-Follow `EXECUTION_SCOPE.md` — `Bounded read-only log diagnostics` when the current request calls for logs or incident diagnosis. Retrieve only existing logs through an existing authorized API/CLI/connector, with a resolved target, finite time/result/timeout limits, and redaction of sensitive data. This permission does not require Developer Mode. No browser, follow/stream/polling mode, application/health probe, database access, new permissions, configuration, or provider writes. Report what the logs support without claiming a product test was run.
+Follow `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics` for a current request such as "verifica Railway", a deployment/version check, or log/incident diagnosis. Read only relevant existing service/deployment/status/source/branch/non-secret configuration/watch metadata and logs through an authorized API/CLI/connector, with a resolved target, finite bounds, and redaction. No second authorization phrase, Developer Mode, or unlock is needed; an older task-specific exclusion does not cancel the newer read request. No browser, streams/polling, app probes, database access, secret values, new permissions, settings writes, or deployment. Report provider evidence separately from product-test or recovery claims.
 
 ## Universal command — `PHDK upgrade`
 
 For the exact command `PHDK upgrade` (case-insensitive after trimming whitespace):
 
 1. Fetch the current canonical PHDK `main` and read its `VERSION` and upgrade instructions.
-2. Follow `PHDK_UPGRADE.md` within the current request. Preserve dirty work and stricter owner overrides.
+2. Follow `PHDK_UPGRADE.md` within the current request. Preserve dirty work and genuine owner overrides in a bare sync; apply any explicit current request to remove/reconcile local PHDK exceptions through `PHDK_UNLOCK.md`.
 3. Synchronize the manifest-controlled standards and the current tool's managed rule block.
 4. Verify the source copy, report, and stop. Do not continue into product work or schedule a later upgrade.
 
@@ -81,9 +90,9 @@ A request for a kit or standards update is not permission to start implementatio
 ## Never
 
 - Regenerate existing project kit files as if the project were new.
-- Replace stricter owner pause/stop controls with upstream defaults.
+- Replace a genuine current owner restriction with upstream defaults without the owner's scoped instruction; remove actual checks, access rights, or security controls as documentary cleanup.
 - Treat `TASK.md`, `STATUS.md`, a skill trigger, or an old approval as a new request.
 - Launch another agent, delegate code/review work, create a schedule, or continue after the session.
 - Create, enable, dispatch, rerun, or schedule GitHub Actions or hosted CI.
-- Operate browsers, probe live applications, connect to databases, or administer live services, provider settings, secrets, or repositories. Use existing service logs only through the bounded read-only diagnostic exception.
+- Operate browsers, probe live applications, connect to databases, or administer live services, provider settings, secrets, or repositories. Requested existing provider metadata/log reads use only the bounded read-only diagnostic rule.
 - Claim a standards upgrade disabled external automation or stopped a running process.
