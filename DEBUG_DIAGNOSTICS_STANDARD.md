@@ -20,9 +20,9 @@ For static or public-only projects, debug mode is a recommended technical note, 
 
 `EXECUTION_SCOPE.md` is authoritative. This document describes application features for authorized product users; it does not instruct the agent to operate them.
 
-PHDK agents review diagnostics code and run permitted local static/build checks or risk-triggered unit/in-process integration tests. Browser APIs, OAuth, database access, network requests, and metered providers must be replaced with test doubles in those tests. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call application/health/probe endpoints, or inspect cloud settings. Another tool, skill, or subagent cannot bypass this restriction.
+PHDK agents review diagnostics code and run permitted local static/build checks or risk-triggered unit/in-process integration tests. Browser APIs, OAuth, database access, network requests, and metered providers must be replaced with test doubles in those tests. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call application/health/probe endpoints, or change cloud settings. Requested non-secret provider metadata reads follow the separate boundary below; another tool, skill, or subagent cannot widen it.
 
-For a current request to inspect logs or diagnose an incident, follow `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**. That permission is independent of PHDK Developer Mode. User-supplied redacted diagnostics and logs retrieved within that boundary may inform the diagnosis or source changes; they do not prove the agent executed a product test. Report the log evidence separately and retain `visual/runtime unverified` for behavior not exercised. Independent human use is optional and must not become a required step assigned merely to complete a PHDK checklist.
+For a current request such as "verifica Railway", follow `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**. Existing authorized API/CLI/connector access may retrieve finite service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs. Neither Developer Mode nor unlock is required, and an older code-sync task exclusion cannot veto a newer read request. No secret values, application probes, browser use, streams, polling, watchers, writes, or recurring work. Report provider observations and user-supplied redacted diagnostics separately from source checks; retain `visual/runtime unverified` for behavior not exercised. Independent human product use is optional, never a checklist chore.
 
 Do not create recurring diagnostics, monitoring jobs, or scheduled agents. Existing product behavior remains subject to its own authentication, redaction, and consumption controls.
 
@@ -72,7 +72,7 @@ These controls must never appear in the customer-facing experience unless the us
 - App-style projects without login: debug mode is toggled via environment variable or local developer config
 - **In every non-production environment (local, dev, preview, staging) debug mode defaults to ON.** It is not an opt-in the developer has to remember to flip — a fresh clone or a fresh deploy to a non-production environment must show the debug panel and populate the console without any manual setup step.
 - Debug mode is never active in production by default
-- Before a production release or promotion, review the code and committed configuration that keep the forced-on default limited to non-production. Cover risky default-selection logic with local tests when needed; do not change or inspect live environment settings. Record production runtime state as unverified. See `Debug Diagnostics QA` and `QA_CHECKLIST.md`.
+- Before a production release or promotion, review the code and committed configuration that keep the forced-on default limited to non-production. Cover risky default-selection logic with local tests when needed; do not change live environment settings or retrieve secret values. Requested bounded non-secret provider observations are separate evidence, not a completion gate or a product test. Record production runtime state as unverified. See `Debug Diagnostics QA` and `QA_CHECKLIST.md`.
 - Debug mode activation must be audited when login and admin exist
 
 ---
@@ -242,7 +242,7 @@ Correlation ID
 
 Never include request or response payloads from the metered API, and never include API keys or provider account identifiers.
 
-This lets a supplied report identify code paths that may need a bounded retry, quota, or kill-switch fix — see `DEVSECOPS.md` Cost and Consumption Safety. The agent does not query provider billing, invoke the metered integration, or operate the kill switch as verification. Reading existing logs remains governed by `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**.
+This lets a supplied report identify code paths that may need a bounded retry, quota, or kill-switch fix — see `DEVSECOPS.md` Cost and Consumption Safety. The agent does not query provider billing, invoke the metered integration, or operate the kill switch as verification. Requested provider observations remain governed by `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**.
 
 ---
 
@@ -343,5 +343,5 @@ Before marking diagnostics code complete, record source references and applicabl
 - [ ] Failure-report mapping includes expected/actual status, latency, correlation ID, and safe log context when available.
 - [ ] Diagnostic buffering collects meaningful bounded entries and does not invent successful live results.
 - [ ] No browser, application/health/probe request, metered integration call, service administration, or recurring job was used as verification.
-- [ ] Any retrieved logs followed `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**, including its query limits and redaction, and are reported as diagnostic evidence rather than a product test.
+- [ ] Any requested provider observations followed `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**, including finite query limits and redaction; non-secret metadata and relevant logs are reported as diagnostic evidence rather than a product test.
 - [ ] Final evidence states `visual/runtime unverified` for the actual UI and deployed behavior.

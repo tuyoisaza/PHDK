@@ -22,7 +22,7 @@ source and diff review
 
 Do not launch an application for verification, call an application endpoint, connect to a database, probe a live service, or operate a cloud dashboard. This includes localhost HTTP probes, preview/staging/production services, customer accounts, OAuth providers, and metered APIs. Git/GitHub repository operations and delivery through an existing deployment connection remain governed by `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md`.
 
-For a current request to inspect logs or diagnose an incident, `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics** permits finite reads of existing records through authorized access. This permission does not require PHDK Developer Mode. Record those findings as diagnostic evidence, separately from code checks; they do not prove that the agent executed a product test or reproduced the incident.
+For a current request such as "verifica Railway", `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics** permits finite reads of existing service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through an authorized API, CLI, or connector. Neither Developer Mode nor unlock is required; an older task-specific code-sync exclusion cannot cancel the newer read request. Report these observations separately from code checks; they do not prove an executed product test or reproduced incident. No secret values, browser, app probes, streams, polling, watchers, provider writes, or later autonomous work.
 
 Browser verification is prohibited: no headed or headless browser, UI interaction, screenshots, browser-based E2E tests, Playwright, Puppeteer, Cypress, Selenium, browser-mode test runners, chrome-devtools, or browser MCP. Another skill, subagent, runner, or external tool cannot bypass this boundary.
 
@@ -40,7 +40,7 @@ For every working slice:
 6. **Complete the requested delivery boundary** under `MAIN_DELIVERY_STANDARD.md`. Normal development includes the scoped versioned branch/PR workflow, applicable reviews, merge, and fresh remote target/version verification; a branch push or open PR alone does not complete it. Honor an explicit local-only, branch-only, PR-only, or different-target instruction.
 7. **Record actual results and limits** in the final report and `STATUS.md`, including delivery evidence or its precise blocker. For UI or deployed behavior, state `visual/runtime unverified`.
 
-Review the actual diff. Assistant review satisfies PHDK's ordinary-change review gate; high-risk changes and stricter repository/owner rules require human review as defined in `MAIN_DELIVERY_STANDARD.md`. Do not infer that a human examined the diff from user authorization or passing checks.
+Review the complete actual diff and classify the changed behavior under `MAIN_DELIVERY_STANDARD.md`. Sensitive decisions require owner approval, which the current explicit request or approval of the identified task/PR may already supply. Do not demand personal diff inspection or a GitHub review event solely for PHDK; actual named, independent, or formal review requirements remain binding. Record owner approval separately from assistant source review, and never claim human diff inspection from authorization or passing checks.
 
 A human may independently examine the application. PHDK does not require that examination as a gate for continuing code work or a permitted GitHub push, and the agent must not claim to have performed it or assign it to the human merely to close a checklist.
 
@@ -74,7 +74,7 @@ pnpm format:check
 pnpm build
 ```
 
-The verification scripts must stay within `EXECUTION_SCOPE.md`. Use an existing offline/test configuration when available. If a verification script requires a browser, live database, provider credentials, network service, or deployment, do not run it; report the dependency and the verification gap. The separate permission for bounded log queries does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
+The verification scripts must stay within `EXECUTION_SCOPE.md`. Use an existing offline/test configuration when available. If a verification script requires a browser, live database, provider credentials, network service, or deployment, do not run it; report the dependency and the verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
 
 Report risk-triggered test commands separately. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
 
@@ -82,7 +82,7 @@ Report risk-triggered test commands separately. Missing runtime evidence is not 
 
 ## Product Health Check Standard
 
-The following sections specify application code for authorized product users and operators. They do not authorize PHDK agents to call these endpoints, press diagnostic buttons, or operate a deployed service. Verify the implementation through source review and permitted local tests. Existing logs may be read only under `EXECUTION_SCOPE.md` — **Bounded read-only log diagnostics**; do not generate events by calling the application or its probes.
+The following sections specify application code for authorized product users and operators. They do not authorize PHDK agents to call these endpoints, press diagnostic buttons, or operate a deployed service. Verify the implementation through source review and permitted local tests. Requested provider observations follow `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**; do not generate events by calling the application or its probes.
 
 ### Public health
 
@@ -206,7 +206,7 @@ For app-style projects, `/admin/system` or `/admin/debug` implements a Diagnosti
 - last actual status, latency, correlation ID, and related safe log summary when available
 - **Copy diagnostics** action
 
-A human-supplied redacted report or logs retrieved under the bounded log-diagnostics rule may provide context for a code fix. Their contents do not authorize the agent to operate the runtime, reproduce the incident in a browser, or trigger diagnostic actions. Never fabricate probe results when none exist.
+A human-supplied redacted report or observations retrieved under the bounded provider-diagnostics rule may provide context for a code fix. Their contents do not authorize the agent to operate the runtime, reproduce the incident in a browser, or trigger diagnostic actions. Never fabricate probe results when none exist.
 
 ---
 
@@ -254,7 +254,7 @@ Record blocked checks with their reason. Source review does not establish visual
 
 For normal delivery, freshly read the remote target commit and its repository version source, and establish that the requested change is included using the applicable merge/squash evidence under `MAIN_DELIVERY_STANDARD.md`. Local `HEAD`, a pushed branch, or an open PR is insufficient. Report the verified remote version without adding an extra version-only commit or push solely for pure integration of already versioned changes. A status snapshot or context compaction does not end the still-current request; an actual user pause or stop does.
 
-When logs were requested, report their source, query scope, limits, relevant redacted findings, and remaining uncertainty under `EXECUTION_SCOPE.md`. An observed log entry is evidence of that recorded event, not proof of a successful test or current recovery.
+When provider diagnostics were requested, report the service/deployment, source, query scope, limits, non-secret metadata or relevant redacted logs, and remaining uncertainty under `EXECUTION_SCOPE.md`. An observed status or log entry records that observation, not a successful product test or confirmed recovery.
 
 ---
 
@@ -275,8 +275,8 @@ Static/build gate:
 Local automated tests:
   [not required + no risk trigger] OR [risk trigger + command/result]
 
-Bounded log diagnostics, if requested:
-  [source, query scope/limits, redacted findings, and uncertainty; not a product test]
+Bounded provider diagnostics, if requested:
+  [service/deployment, source, query scope/limits, non-secret metadata or redacted logs, and uncertainty; not a product test]
 
 Visual/runtime:
   visual/runtime unverified — browser and live-service verification are outside PHDK scope

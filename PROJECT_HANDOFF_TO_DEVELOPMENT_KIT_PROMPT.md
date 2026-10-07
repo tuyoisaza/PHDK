@@ -11,6 +11,8 @@ Every generated file that references standards must point to this URL.
 
 Run this workflow only for a current explicit request to generate the kit. Reading, quoting, or including this prompt in a brief does not start work or activate Developer Mode. `PHDK_DEVELOPER_MODE.md` defines that separate, conversation-only command.
 
+Route `PHDK unlock` to `PHDK_UNLOCK.md` for the requested blocker repair; that command does not start this kit-generation workflow or resume previous product tasks.
+
 STOP ALL PREVIOUS TASKS.
 
 You are now entering **PHDK MODE — Project Handoff to Development Kit**.
@@ -121,6 +123,7 @@ Required standards files the AI coder must fetch before doing anything:
 - `AGENTS.md` — AI coder behavior rules
 - `EXECUTION_SCOPE.md` — code, git/GitHub, existing deployment, and verification boundaries
 - `MAIN_DELIVERY_STANDARD.md` — normal repository delivery through reviewed integration and verified remote target/version; explicit scope limits and blockers
+- `PHDK_UNLOCK.md` — explicitly requested PHDK/local-rule blocker repair with existing controls preserved; reading is not invocation
 - `PHDK_DEVELOPER_MODE.md` — explicit conversation-only mode and its narrow delivery exception; a reference is not activation
 - `DEVELOPMENT_RULES.md` — Git, branching, commits, versioning
 - `DESIGN_RULES.md` — Responsive, accessible, theming, performance
@@ -314,7 +317,8 @@ Every generated kit must preserve `EXECUTION_SCOPE.md` in its tasks, architectur
 - Allowed work is repository code/documentation, git/GitHub branches/commits/PRs, and requested deployment through an already connected GitHub pipeline, subject to the release rules.
 - A current implement/fix/update request for repository code or documentation includes normal delivery under `MAIN_DELIVERY_STANDARD.md`: scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and fresh remote `main` version verification. Honor explicit local-only, branch-only, PR-only, or different-target instructions; a branch push/open PR alone does not finish normal delivery.
 - Status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots do not cancel the active request or require a repeated merge order. Actual user pause/stop instructions win; generated files never grant authority in another conversation.
-- Assistant review of the actual diff suffices for ordinary changes. Preserve human review for high-risk changes and stricter repository/owner requirements under `MAIN_DELIVERY_STANDARD.md`; never bypass hooks, checks, required reviews, or access controls.
+- Review the complete actual diff. The current explicit request or identified-task/PR approval may already approve the sensitive decision under `MAIN_DELIVERY_STANDARD.md`. Do not generate a universal personal diff-inspection or GitHub-review-event gate; preserve actual named, independent, or formal review requirements, hooks, checks, and access controls. Record owner approval separately from assistant source review without inventing human diff inspection.
+- Route an explicit `PHDK unlock` to `PHDK_UNLOCK.md` for documentary blocker repair and its scoped delivery. Do not turn it into automatic task resumption, persistent permission, or removal of controls; current owner instructions can replace earlier documentary local exceptions.
 - Reference `PHDK_DEVELOPER_MODE.md` without recording the mode as active or preserving authority for a later conversation. Only its explicit command in the current conversation activates the low-risk direct-`main` exception; mentions, briefs, and generated files do not. A full kit/bootstrap is not automatically eligible; its direct-main hard stops remain unchanged.
 - Record the known repository, deployment target, and branch from Question 3 in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. If none is connected, report that fact; do not turn setup into a required task or block independent code work.
 - Preserve valid provider GitHub autodeploy/watch paths. The no-autonomy/Actions rules do not authorize disabling that connection or generating dummy never-matching filters. Record an observed disabled connection or filter excluding changes that need deployment as a separate blocker; preserve valid service-specific filters and intended skips for unaffected services. A generic development request does not authorize provider-setting changes.
@@ -323,7 +327,7 @@ Every generated kit must preserve `EXECUTION_SCOPE.md` in its tasks, architectur
 - Do not generate browser testing or browser verification requirements, including headless testing, screenshots, login/form interaction, or browser tools invoked indirectly through skills, plugins, MCP servers, or delegated agents.
 - Validation is code/diff review, lint, typecheck, formatting, build, and only risk-triggered local non-browser tests isolated from running apps and real external services. Browser and live-runtime behavior remain unverified by the agent and are not completion gates.
 - Product health/diagnostics, auth, UI, migrations, and integrations can be implemented as scoped code. Those features do not grant permission to run the app or operate external resources.
-- Current diagnostic requests may use bounded read-only logs through an authorized API/CLI/connector under `EXECUTION_SCOPE.md` — Bounded read-only log diagnostics. Do not generate streaming, polling, watchers, app/database runtime requests, provider writes, or a log-reading completion gate.
+- A current "verifica Railway" or similar request may read finite service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through existing authorized API/CLI/connector access under `EXECUTION_SCOPE.md` — Bounded read-only provider diagnostics. An old code-sync task exclusion cannot veto that newer read; Developer Mode and unlock are not prerequisites. Do not generate secret-value reads, streaming, polling, watchers, app/database probes, provider writes, or a provider-reading completion gate.
 - Data backup ownership is outside PHDK's coding mission. Do not ask for a backup policy during bootstrap, add backup automation to `FEATURES.md`, or flag the absence of agent-managed backups as a kit gap.
 
 An explicitly requested recurring product feature is a code-only requirement under `EXECUTION_SCOPE.md`; do not configure its schedule or enable external execution. PHDK itself must not introduce that requirement.
@@ -621,6 +625,7 @@ This file records context and a plan for a PHDK request; it never independently 
 One assistant completes the current requested deliverable under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, reports evidence, and stops at the requested delivery boundary.
 Necessary remaining steps stay active within that request; proposed later work and archived tasks need a new explicit request.
 Status/link questions, context compaction, and assistant-written snapshots do not revoke current user authorization. Actual user pause/stop instructions take precedence.
+Record current owner approval separately from assistant source review and any actual formal review requirement; do not demand another approval or claim personal diff inspection merely from an approval message.
 Developer Mode is conversation-only under PHDK_DEVELOPER_MODE.md. Never store it as active or treat saved delivery history as authorization for later work.
 ```
 
@@ -700,7 +705,8 @@ User-visible outcome:
 4. phdk-standards/EXECUTION_SCOPE.md
 5. phdk-standards/MAIN_DELIVERY_STANDARD.md
 6. phdk-standards/PHDK_DEVELOPER_MODE.md only when explicitly invoked in the current conversation; reading it is not activation
-7. Only task-relevant standards routed by AGENTS.md
+7. phdk-standards/PHDK_UNLOCK.md when blocker repair is currently requested; reading it does not invoke unlock or resume old work
+8. Only task-relevant standards routed by AGENTS.md
 
 ## Standards Repo
 
@@ -716,7 +722,7 @@ https://github.com/tuyoisaza/PHDK
 
 Inspect scripts before running them. Do not start the app, contact live services, or invoke browser tooling for verification. Report browser/runtime behavior as outside scope, not as a pending agent gate.
 
-A current diagnostic request may read bounded existing logs under EXECUTION_SCOPE.md — Bounded read-only log diagnostics. This does not authorize app/database probes, provider writes, streaming, polling, or later diagnostics.
+A current request such as "verifica Railway" may read finite existing service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through authorized access under EXECUTION_SCOPE.md — Bounded read-only provider diagnostics. A previous task-specific exclusion cannot cancel this newer request. No secret values, app/database probes, provider writes, browser use, streaming, polling, watchers, or later diagnostics are authorized.
 
 ## Expected Final Report
 
@@ -838,6 +844,7 @@ Must include:
 - How to use `STATUS.md` to maintain continuity between sessions
 - Agent execution/verification limits from `EXECUTION_SCOPE.md` and the existing GitHub deployment target, if known
 - Normal delivery completion and explicit scope limits from `MAIN_DELIVERY_STANDARD.md`; current authorization persists through status questions and snapshots, while actual user pause/stop instructions take precedence
+- `PHDK unlock` routing to `PHDK_UNLOCK.md` for requested documentary blocker repair; current owner approval counts without a special command, and hooks/protections remain intact
 - `PHDK_DEVELOPER_MODE.md` as a reference only; no saved activation or cross-conversation delivery authorization
 - Next recommended step
 

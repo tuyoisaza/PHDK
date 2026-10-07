@@ -73,7 +73,7 @@ A permitted push may trigger the deployment already connected to `main`. Do not 
 
 Developer Mode never authorizes Railway CLI/API/dashboard deployment, `railway up`, provider redeploy/rollback, new connections, trigger changes, secrets, infrastructure, or GitHub/Railway settings. It does not authorize creating, enabling, dispatching, rerunning, or scheduling Actions/hosted CI, browser tests, autonomous agents, or recurring/background jobs.
 
-For a separately requested current diagnosis, follow `EXECUTION_SCOPE.md` — `Bounded read-only log diagnostics`. That finite API/CLI log-read permission is available with or without Developer Mode and never permits a provider write or continuous monitoring.
+For a current provider check or diagnosis such as "verifica Railway", follow `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics`. Relevant existing status/deployment/source/branch/non-secret configuration metadata and logs may be read through an authorized API/CLI/connector with finite bounds. The request itself supplies that read authorization without another phrase, Developer Mode, or unlock; a previous task-specific exclusion does not cancel it. No app probes, secret values, provider writes, or continuous monitoring.
 
 ## Blocker report
 
@@ -81,4 +81,4 @@ State which step is blocked, the actual failing check or repository requirement,
 
 ## Existing installations
 
-`PHDK_MANIFEST.txt` includes this file and `PHDK_NATIVE_RULES.md` routes activation and exit to it. A requested `PHDK upgrade` copies the definitions; it never activates the mode or restores old activation. Changes to execution/authorization policy follow the normal review flow even when they are documentation files.
+`PHDK_MANIFEST.txt` includes this file and `PHDK_NATIVE_RULES.md` routes activation and exit to it. A requested `PHDK upgrade` copies the definitions; it never activates the mode or restores old activation. Changes to execution/authorization policy use normal branch delivery and the owner-approval/formal-review rules in `MAIN_DELIVERY_STANDARD.md`. `PHDK unlock` is a separate rule-repair instruction; it does not waive this mode's failed-check or rejected-push stops or automatically retry a stopped direct delivery.

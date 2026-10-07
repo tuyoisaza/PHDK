@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.33.0**
+**Version: v2.34.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -14,21 +14,37 @@ One assistant works on the user's explicit request in the current conversation. 
 - No browser/headless testing, screenshots, live endpoint/database probes, paid verification calls, or external administration.
 - Relevant local formatting, linting, typechecking, builds, and isolated non-browser tests remain allowed. They run synchronously for the current request and exit; they are not background tasks.
 - A current implementation/fix/update request includes scoped versioned branch/PR delivery through verified remote `main`, without a repeated merge order. Honor a narrower requested outcome and existing controls. Audits remain read-only; explicitly active Developer Mode supplies only its separate eligible direct-main exception.
-- A requested diagnosis may retrieve bounded existing logs through an authorized provider API/CLI/connector. No browser, continuous monitoring, application probes, or provider writes are permitted by that exception.
+- A requested provider check/diagnosis may retrieve bounded existing status, deployment/source/branch/non-secret configuration metadata, and logs through an authorized API/CLI/connector. No browser, continuous monitoring, application probes, secret values, or provider writes are permitted.
 
-The authoritative rules are in `EXECUTION_SCOPE.md`. They override contrary wording in older documents, examples, and external skills. Stricter owner controls remain in effect.
+The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
 
-## What changed in v2.33.0
+## What changed in v2.34.0
 
-Normal development now finishes with the requested change and consistent version verified on remote `main`, unless the user specified a narrower outcome. The same current request includes its branch, version, checks, commit, push, PR, required review, and merge. Ordinary changes use assistant diff review; human review remains mandatory for high-risk changes and stricter repository requirements.
+`PHDK unlock` audits and repairs PHDK-related documentary blockers across the existing active instructions in the current repository. It recognizes the owner's current approval, reconciles explicitly unwanted local exceptions and stale task boundaries, and completes the permitted scoped delivery. It preserves real checks, hooks, required formal reviews, security/access controls, and provider-write boundaries.
+
+PHDK accepts owner approval in the conversation for the identified current change; it no longer invents a requirement to open every diff line or submit a GitHub review event. The assistant still reviews the actual diff, sensitive decisions need owner approval, and any formal/named/independent review actually required by current owner instructions or enforced controls remains effective.
+
+A request such as "verifica Railway" authorizes bounded read-only provider status/configuration metadata and relevant logs through existing access. It needs no second explicit-authorization phrase, Developer Mode, or unlock. An earlier code-sync task exclusion does not cancel a newer scoped diagnostic request.
 
 Task records no longer create a second authorization barrier: status/link questions, context compaction, or an assistant-written inactive flag cannot cancel an unfinished request in the same conversation. Real owner stops remain binding. Integration includes routine in-scope conflict/version reconciliation and avoids redundant post-merge bumps or pushes.
 
 Existing GitHub-connected provider autodeploy remains allowed. PHDK must not disable it or install dummy never-matching watch filters to enforce its limits on autonomous work. Observed deployment blockers/statuses are reported separately from integration in `main`; valid service-specific filters and intended skips for unaffected services are normal. Provider configuration writes remain outside a generic development request.
 
 `AGENTS.md` and `SKILL.md` are instruction files, not runnable agents. Loading them does not start a task. Existing local code-check hooks are not schedules and may not launch agents or generate pushes.
+
+## PHDK unlock
+
+Use this command in the current project's conversation:
+
+```txt
+PHDK unlock
+```
+
+The assistant identifies each blocker's source and actual enforcement, reconciles the requested documentary rules across existing native files and copied PHDK sources, makes bounded in-scope repairs, and finishes the currently authorized delivery to `main`. With no identified current product task, it only repairs the PHDK rules; it does not choose old work or merge every open PR.
+
+Actual failed checks, unavailable access, required formal reviews, and material unresolved decisions remain explicit blockers. The command does not disable them, change provider settings, activate Developer Mode, or create a permanent unlocked state. Clear natural-language approvals and read requests already work without the command. Full procedure: [PHDK_UNLOCK.md](PHDK_UNLOCK.md).
 
 ## Complete the requested delivery
 
@@ -59,11 +75,11 @@ PHDK salir de developer mode
 
 The mode also ends when the user stops the work or the active conversation ends. Documentation, quoted commands, installation, and previous task records never activate or restore it. Full procedure: [PHDK_DEVELOPER_MODE.md](PHDK_DEVELOPER_MODE.md).
 
-## Requested log diagnosis
+## Requested provider diagnostics
 
-For an explicit current log or incident diagnosis, use an existing authorized API/CLI/connector to read existing logs for the identified project, service, environment, and deployment. Bound the time window, result count, and timeout; redact sensitive data and report the evidence's limits. Do not follow a live stream, poll, create traffic, change settings, deploy, or grant new access.
+For a current request to check Railway or another provider, inspect deployment/version information, or diagnose a specified incident, use an existing authorized API/CLI/connector. Read only relevant existing service/deployment/status/source/branch/non-secret configuration/watch metadata and logs for the identified target. Set finite query bounds, redact sensitive data, and report the evidence's limits. Do not stream, poll, create application traffic, read secret values, change settings, deploy, or grant new access.
 
-This permission is available with or without Developer Mode. It does not turn log evidence into an executed application test. Details: [EXECUTION_SCOPE.md — Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics).
+The request itself supplies this read authorization, independently of Developer Mode or unlock; a previous task-specific exclusion does not cancel it. Provider evidence is separate from an executed application test or confirmed recovery. Details: [EXECUTION_SCOPE.md — Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics).
 
 ## Getting started
 
@@ -103,7 +119,7 @@ PHDK upgrade
 
 The command fetches canonical `main`, reads `VERSION`, synchronizes the `PHDK_MANIFEST.txt` mappings into `phdk-standards/`, refreshes the current tool's marked `PHDK_NATIVE_RULES.md` block, verifies the copy, reports, and stops.
 
-The exact command authorizes synchronization now without duplicate confirmation. It does not authorize git delivery, product changes, automation changes, or a future session. Preserve dirty files and stricter owner controls; stop if they would be overwritten. Full procedure: `PHDK_UPGRADE.md`.
+The exact command authorizes synchronization now without duplicate confirmation. It does not authorize git delivery, product changes, automation changes, or a future session. Preserve dirty files and genuine owner controls in a bare sync. A current request to remove/reconcile local PHDK exceptions supplies that documentary scope under `PHDK_UNLOCK.md`; a current request to publish supplies its delivery scope. Full procedure: `PHDK_UPGRADE.md`.
 
 An upstream standards update does not update every existing project automatically. It also does not terminate an external process, revoke credentials, disable installed jobs, or change hosting/GitHub settings. Existing projects need their own explicitly requested standards sync; removing old automation is a separate scoped operation.
 
@@ -113,7 +129,7 @@ An upstream standards update does not update every existing project automaticall
 
 | Area | Source files |
 |---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
 | Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
 | Intent and onboarding | `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |
@@ -135,7 +151,7 @@ Product-specific choices belong in `ARCHITECTURE_DECISIONS.md`. They describe so
 
 An explicitly approved push/merge, including an eligible Developer Mode push, may use the project's existing hosting-provider GitHub connection. This is not permission to add or run a GitHub Actions workflow, create a deployment connection, alter triggers, re-enable autodeploy, or deploy through Railway/provider CLI/API/dashboard.
 
-Use feature/fix branches by default and respect existing repository review/access controls. Only the explicitly active, low-risk Developer Mode flow permits direct-main delivery; high-risk changes retain normal review. Keep actual source verification, user authorization, human diff review, and deployment status distinct. Never claim a human review or production health check that did not happen.
+Use feature/fix branches by default and respect existing review/access controls. Only explicitly active, low-risk Developer Mode permits its direct-main flow; high-risk changes use normal delivery and the approval rules in `MAIN_DELIVERY_STANDARD.md`. Keep assistant source review, owner approval, any actual formal review, and deployment evidence distinct. Never claim human source inspection or a production health check that did not happen.
 
 Instructions and local hooks do not enforce every external action. A standards commit is not evidence that a running agent stopped, a token was revoked, server-side branch protection was enabled, or costs fell.
 

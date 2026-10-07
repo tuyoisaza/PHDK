@@ -1,5 +1,31 @@
 # CHANGELOG.md
 
+## v2.34.0 — 2026-10-07
+
+### Added
+
+- Added `PHDK unlock`, an explicit interactive instruction to inspect PHDK blockers, reconcile documentary restrictions with the current owner's request, make bounded authorized repairs, and complete their normal versioned branch/PR delivery. Added `PHDK_UNLOCK.md` to the manifest and active routing, templates, and onboarding.
+- Included existing native instruction files, managed blocks, owner prefaces, stale copied PHDK skills/standards, task records, actual hooks/toolchains, and fresh GitHub evidence in the blocker inventory. The current owner can replace local documentary exceptions; an old wrapper or task snapshot cannot veto that current request.
+
+### Fixed
+
+- Distinguished owner approval in the conversation from assistant source review and actual required formal review. A well-defined current request or an identified-task/PR "push to main", "merge", or "aprobado" can already supply owner approval. PHDK adds no requirement to repeat approval, attest to opening every diff line, or create a GitHub review event. Existing formal/named/independent review requirements remain binding.
+- Classified sensitive changes by their actual diff and behavior. A package-format repair restoring login does not itself change authentication policy; an explicitly requested PHDK policy correction does not create another approval ritual for that same decision.
+- Expanded bounded read-only provider diagnostics from logs to relevant service/deployment status, source/branch and non-secret configuration/watch metadata, and existing logs. A current "verifica Railway" request supplies this read scope without a second authorization phrase, Developer Mode, or unlock. An earlier code-task exclusion does not cancel the newer request. Kept the old log-section anchor for compatibility.
+- Distinguished empty check/status evidence and unavailable ruleset visibility from an actual failed check or missing review. An already-authorized ordinary merge may be attempted with all known gates satisfied when that route preserves server enforcement; an actual rejection remains a blocker.
+- Required checking overlapping PR content and version metadata before integration. A standards PR does not implicitly include a separate product fix or authorize merging every open PR.
+
+### Migration and limits
+
+- Existing installations need a requested sync or unlock to receive these instructions. Bare `PHDK upgrade` retains its synchronization-only contract and preserves genuine owner exceptions; explicit reconciliation/removal supplies that additional documentary scope.
+- Unlock is not a shell executable, persistent flag, access credential, Developer Mode activation, or resumption of old product work. It preserves real hooks/checks/reviews/protections/security/access controls and provider-write boundaries. No browser tests, application probes, secret-value retrieval, provider deployment/configuration, Actions dispatch, recurring monitoring, or autonomous continuation is added.
+- Existing GitHub-connected autodeploy remains permitted. A PHDK update does not change provider settings or establish that a deployment or application recovery succeeded.
+
+### Verification
+
+- Reviewed twelve policy scenarios covering conversation approval, actual formal review and hook failures, requested provider reads, unavailable deployed-version evidence, owner stops and new conversations, quoted commands, Developer Mode rejection, overlapping PRs, ruleset visibility, and removal of documentary exceptions. Clarified the ordinary server-enforced merge route after that review.
+- Verified all 44 original Git blobs, 45 final source files, 26 manifest mappings, version/skill metadata, new Markdown references and diagnostic anchors, managed-rule markers, preserved history/hooks/scripts/archives, and diff whitespace. This documentation release uses source/reference and scenario review, with no application build or browser test.
+
 ## v2.33.0 — 2026-10-07
 
 ### Added

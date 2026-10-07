@@ -31,7 +31,9 @@ Typical prefixes are `feature/`, `fix/`, `chore/`, `phdk/vX.Y.Z/`, and a specifi
 - Normal implementation/fix/update authorization includes the required version, checks, version-prefixed commit, branch push, PR, required review, merge, and remote verification without repeated consent. Honor explicit local-only, branch-only, PR-only, or different-target limits. Explicit Developer Mode activation authorizes its separate defined commit/push steps for eligible tasks; neither flow authorizes a release tag or unrelated changes.
 - Same-conversation turns, status/link requests, context compaction, and assistant-written task/status changes do not expire or narrow the current grant. Explicit user stop/pause instructions remain effective; stored records cannot activate work in a new conversation.
 - Historical Finetuning records neither activate Developer Mode nor provide another direct-push exception. No mode state or authorizing flag may be stored in the repository, memory, task/status files, or environment/config flags, or restored in another session.
-- Ordinary changes require assistant source/diff review. Human review is required for authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent-policy changes and stricter repository requirements. Do not claim a human read the diff merely because the assistant verified it or the user authorized delivery; record actual evidence distinctly.
+- Review the complete outgoing diff and obtain owner approval for sensitive behavior/policy decisions under `MAIN_DELIVERY_STANDARD.md`. A well-defined current request or "push to main", "merge", or "aprobado" tied to the current task/PR can already supply that approval in chat. PHDK requires no additional GitHub review event or attestation of opening every line. Preserve actual named, independent, or formal review requirements and report their evidence separately; never claim human inspection from conversation approval alone.
+
+`PHDK unlock` includes scoped rule repair and normal versioned delivery under `PHDK_UNLOCK.md`; it is not a persistent mode or an exception to hooks/checks/protections. An explicitly requested policy correction does not need another approval merely because it edits PHDK Markdown. Unapproved sensitive behavior or unrelated changes still require their own decision.
 
 ## Commit format
 
@@ -58,7 +60,7 @@ Local commit-message/outgoing-commit checks may validate these rules as part of 
 1. Identify the requested change and its delivery target; normal implementation/fix/update requests target verified remote `main` without separate merge confirmation.
 2. Read explicit owner stop/pause controls and existing repository restrictions. Reconcile stale task records with the live request and observed GitHub state.
 3. Implement only the requested source/doc changes and required version metadata.
-4. Review the diff, run appropriate synchronous local checks, and identify the human review required by the actual risk or repository rules.
+4. Review the actual behavior and diff, run appropriate synchronous local checks, record current owner approval of sensitive decisions, and satisfy actual reviewer/formal-review requirements. A packaging repair that restores login does not itself change authentication policy.
 5. Follow `MAIN_DELIVERY_STANDARD.md` through the scoped branch/commit/push/PR flow, or the eligible Developer Mode direct flow below.
 6. Before a normal merge, refresh remote `main`, reconcile versions and routine conflicts while preserving others' work, and review/check any changed result. Material ambiguous or sensitive conflicts and unmet controls remain blockers.
 7. Merge by an allowed method and verify the resulting change, exact SHA, and version on remote `main`, or verify the user's explicitly narrower target. Branch push or PR creation alone does not complete delivery to `main`.
@@ -82,7 +84,7 @@ Existing GitHub-connected autodeploy is allowed; it is not autonomous coding or 
 
 Do not describe a merge as a deployment unless corresponding evidence exists. A provider's deployment success does not prove browser/UI or live application health.
 
-Independent of Developer Mode, a current request may authorize finite, read-only API/CLI queries of existing logs under [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics). Redact sensitive content; no runtime probes, watchers, or writes. Log access does not authorize a release or git action.
+A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics) through existing authorized API/CLI/connector access: finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and needed existing logs. This is independent of Developer Mode or unlock; an earlier task exclusion does not cancel the new scoped request. Redact sensitive content; no secret-value retrieval, browser tests, live application probes, streams/watchers, settings writes, or provider deployments. Diagnostic access does not authorize a release or git action.
 
 ## Changelog and preserved history
 

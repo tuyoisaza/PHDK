@@ -20,13 +20,15 @@ One assistant works in direct response to the user's current request. It may pla
 
 - Identify the requested deliverable, scope, constraints, and completion criteria.
 - Read owner stop/pause controls before changing files and before git writes. A specifically authorized repair of a pause control is not permission to restart the old mission.
-- Use only the code/documentation work, local checks, and GitHub operations authorized for this task.
+- Use only the code/documentation work, local checks, GitHub operations, and separately requested bounded provider reads authorized for this task.
 - Do not launch, coordinate, or hand work to subagents, other coding agents, agent teams, or parallel queues. Read relevant skills yourself as references instead.
 - Do not select the next backlog item after delivering the requested outcome.
 - Stop when the outcome is complete, the user stops the work, the conversation ends, or an essential decision or access blocker remains.
 - Save unfinished work as inactive context. No scheduled resume, follow-up job, background reviewer, overnight maintenance, or future trigger.
 
 A request to inspect or audit authorizes a read and report. A request to implement, fix, or update repository code or documentation includes the scoped branch, repository version bump, relevant local checks, version-prefixed commit, branch push, PR, required review, merge into remote `main`, and verification of the resulting version and change there. Follow `MAIN_DELIVERY_STANDARD.md` without repeated confirmation. Honor explicit local-only, branch-only, or PR-only instructions and a different target specified by the user or repository; bare `PHDK upgrade` retains its limited scope in `EXECUTION_SCOPE.md`. Release tags require a request for them.
+
+`PHDK unlock` requests scoped inspection and repair of PHDK documentary blockers, with normal versioned delivery under `PHDK_UNLOCK.md`. The current owner can explicitly replace local documentary exceptions; inspect all existing active instruction copies rather than preserving an obsolete override as immutable. Bare synchronization preserves unknown/unrelated local restrictions. Do not weaken hooks, checks, access controls, or server protections, or use unlock to select an old product task. Clear natural-language approval and diagnostic requests remain valid without the command.
 
 ### PHDK Developer Mode
 
@@ -74,7 +76,7 @@ Ask one precise question when the current request does not authorize a material 
 - Expanding the requested outcome or taking a git/release action not currently authorized.
 - A material ambiguous or sensitive integration conflict, or a missing required review, check, or access capability that blocks delivery.
 
-Do not ask for duplicate approval for normal delivery included in the current request. Routine integration conflicts and scoped repairs belong to that delivery; material decisions and unmet controls require a precise blocker report. Asking does not silently expand PHDK into external administration or unattended execution, or permit bypassing a protection.
+Do not ask for duplicate approval for normal delivery or a well-defined sensitive decision already covered by the current request. Routine integration conflicts and scoped repairs belong to that delivery; a new material decision or actual unmet control requires a precise blocker report after completing everything otherwise permitted. Asking does not silently expand PHDK into external administration or unattended execution, or permit bypassing a protection.
 
 ## Verification evidence
 
@@ -86,7 +88,9 @@ Documentation-only work requires a source/diff and reference review, not an appl
 
 A passing build supports compilation. An isolated test supports only the behavior exercised. Neither proves production health. Report unverified UI/runtime behavior without creating a manual-testing obligation for the user.
 
-Ordinary changes require the assistant's source/diff review; PHDK does not require a human review for every change. Human review is mandatory for authentication/authorization, secrets, data/migrations, payments, infrastructure, permissions, or agent-policy changes, and wherever existing repository rules require it. Review the actual diff and refresh the affected review/check evidence when integration changes it. The assistant's verification, the user's authorization, and actual human review are different evidence; an instruction to deliver does not prove the user personally read the diff. Respect existing checks and review restrictions without configuring or bypassing them.
+Review the complete outgoing diff and refresh affected checks when integration changes it. Authentication/authorization, secrets, sensitive data/schema/migrations, payments, infrastructure, deployment configuration, and agent execution/permission changes require normal branch delivery and owner approval of the sensitive decision under `MAIN_DELIVERY_STANDARD.md`. A well-defined current request or "push to main", "merge", or "aprobado" tied to the current task/PR can already supply that approval in the conversation. Judge actual behavior: a package-format repair restoring login is not automatically an authentication-policy change, and an explicitly requested PHDK correction does not create another approval ritual.
+
+PHDK does not require the owner to prove they opened every diff line or submit a GitHub review solely to record that approval. Preserve an actual named, independent, or formal review requirement from current owner instructions, hooks, or server rules. Record owner approval, assistant source review, and required formal-review evidence separately; never claim a person inspected source without evidence. Do not treat a missing GitHub review event alone as missing owner approval or bypass a real required control.
 
 ## GitHub Actions and external operations
 
@@ -98,13 +102,13 @@ Existing GitHub-connected autodeploy is allowed and distinct from autonomous cod
 
 Instructions and local hooks do not prove an external agent was stopped or server-side protection was enabled. Describe any remaining external process, credential, or deployment limitation accurately.
 
-## Diagnostics as code
+## Diagnostics
 
 Implement explicitly requested health/diagnostic routes, authorization, redaction, output contracts, and UI source. Inspect that code and use isolated in-process tests where relevant. Analyze sanitized diagnostics already supplied by the user.
 
 Do not operate the product UI, call live health probes, connect to a database, or send notifications as a completion gate.
 
-Separately from Developer Mode, a current request may authorize finite, read-only API/CLI queries of existing logs under [Bounded read-only log diagnostics](EXECUTION_SCOPE.md#bounded-read-only-log-diagnostics). Redact sensitive content and stop after the bounded read; no runtime probes, watchers, writes, or external configuration changes.
+A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics), independently of Developer Mode or unlock. Through existing authorized API/CLI/connector access, read finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and existing logs needed for the question. A prior code task's exclusion does not cancel this newer scoped request. Redact sensitive content and stop after the bounded read; no secret-value retrieval, browser tests, live application probes, streams/watchers, settings writes, or provider deployments.
 
 ## Continuity and final report
 

@@ -8,11 +8,11 @@ Choose the smallest relevant QA scope. Review applicable requirements in the cha
 
 ## Evidence Boundary
 
-The product requirements below are checked through source/diff review, static checks, local builds, and risk-triggered local unit/in-process integration tests with deterministic doubles. A checked UI, auth, database, or diagnostics item confirms its implementation evidence only; it does not claim the real user flow or deployed system was exercised. Requested log retrieval follows **Bounded read-only log diagnostics** in `EXECUTION_SCOPE.md`, independently of PHDK Developer Mode; existing logs are separate diagnostic evidence, never an executed product test.
+The product requirements below are checked through source/diff review, static checks, local builds, and risk-triggered local unit/in-process integration tests with deterministic doubles. A checked UI, auth, database, or diagnostics item confirms implementation evidence, not an exercised user flow. Requested status, non-secret configuration metadata, and existing logs follow **Bounded read-only provider diagnostics** in `EXECUTION_SCOPE.md`, independently of Developer Mode or unlock; they are separate diagnostic evidence, never an executed product test.
 
 Do not launch a browser, preview server, or service; collect screenshots; use headed/headless E2E, Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, or a browser-mode runner; call application HTTP endpoints, including localhost; connect to databases; use customer accounts; or call OAuth/metered providers. Tools, plugins, and delegated agents must follow the same boundary.
 
-Record `visual/runtime unverified` for UI appearance and product execution, and report requested log findings separately. A human may independently inspect the product; that inspection is not a PHDK gate and must not be assigned to the user merely to close a checklist. An existing GitHub pipeline status is delivery evidence only.
+Record `visual/runtime unverified` for UI appearance and product execution, and report requested provider findings separately. A human may independently inspect the product; that inspection is not a PHDK gate and must not be assigned to the user merely to close a checklist. An existing GitHub pipeline status is delivery evidence only.
 
 # QA Scope Levels
 
@@ -33,16 +33,16 @@ Record `visual/runtime unverified` for UI appearance and product execution, and 
 
 ## Diff Review
 
-For ordinary changes, the assistant's review of the actual diff satisfies PHDK's review gate. PHDK does not impose a universal human approval gate. Required repository/owner reviews, checks, hooks, and access controls remain effective. `PHDK_DEVELOPER_MODE.md` retains its separate explicit activation, eligibility, and direct-main hard-stop rules.
+Review the complete actual diff as the assistant. Ordinary changes need no PHDK-only human approval. Sensitive decisions require owner approval under `MAIN_DELIVERY_STANDARD.md`, which a clear current request can already supply. Actual required reviews, checks, hooks, and access controls remain effective. `PHDK_DEVELOPER_MODE.md` retains its separate activation, eligibility, and direct-main hard-stop rules.
 
-Human diff review is required for high-risk auth/authz, secrets, data, migrations, payments, infrastructure/deployment configuration, agent execution/permission-policy changes, other material risks, and stricter repository/owner requirements. Before merging when such review applies:
+For auth/authz, secrets, sensitive data, migrations, payments, infrastructure/deployment configuration, agent execution/permission-policy changes, and other material risks, classify the actual behavior and the decision needing approval. Before normal integration:
 
-- [ ] A human opened the actual diff (`git diff`, the GitHub PR diff, or equivalent), not only the AI summary.
-- [ ] The human confirmed it matches the approved task and contains no unrelated scope.
-- [ ] Judgment calls, workarounds, and security-sensitive changes were specifically reviewed.
-- [ ] Approval is a recorded action under the project's merge policy.
+- [ ] The assistant reviewed the complete outgoing diff, integration result, scope, and security-sensitive behavior.
+- [ ] Risk classification follows the changed behavior; a packaging fix restoring login does not itself change authentication policy.
+- [ ] The owner's approval covers the sensitive decision; the current request or an identified-task/PR "push to main", "merge", or "aprobado" can supply it without a second ritual.
+- [ ] Any named, independent, or formal GitHub review required by an actual applicable owner/repository control is satisfied; conversation approval does not replace that control.
 
-Record assistant review, any required human review, current authorization, and check/delivery evidence separately. Do not infer human review from passing checks or an acknowledgment without diff examination. Continue independent authorized work while required review is pending; a still-current normal request needs no repeated merge order. Follow `MAIN_DELIVERY_STANDARD.md` for continuity and blockers.
+Record owner approval, assistant source review, any actual required review, and check/delivery evidence separately. Never claim human diff inspection from approval or passing checks; a missing GitHub review event alone does not prove owner approval is absent. A requested `PHDK unlock` reconciles documentary blockers under `PHDK_UNLOCK.md`, preserving controls and current scope. Finish permitted work before asking only for a genuinely missing decision.
 
 ## Release QA
 
@@ -80,8 +80,8 @@ Commands run:
 Local tests:
 - risk trigger + command/result, or not required + reason
 
-Log diagnostics, only if requested:
-- source and query bounds / redacted findings / limits; diagnostic evidence only
+Provider diagnostics, only if requested:
+- service/deployment, source and query bounds / non-secret metadata or redacted logs / limits; diagnostic evidence only
 
 Visual/runtime:
 - visual/runtime unverified — no browser or live product test/probe executed
@@ -112,7 +112,7 @@ N/A     — not applicable with reason
 ## Merge Rules
 
 - Blockers cannot be merged.
-- Major issues cannot be released without explicit written approval in `STATUS.md`.
+- Major issues require the project's applicable approval; record existing conversation approval truthfully in `STATUS.md` without inventing a second approval step.
 - Minor issues may be deferred only if logged in `STATUS.md` with owner and next step.
 - N/A items require a real reason, not “not needed”.
 
@@ -389,7 +389,7 @@ The debug/admin tooling implements a full force cache dump action for authorized
 - [ ] OpenTelemetry is used only if explicitly tasked/configured.
 - [ ] Important admin actions are audited.
 - [ ] Failed auth and authorization attempts are logged safely.
-- [ ] If log diagnostics were requested, retrieval followed **Bounded read-only log diagnostics** in `EXECUTION_SCOPE.md`; source, bounds, redacted findings, and limits are reported separately from test results.
+- [ ] If provider diagnostics were requested, retrieval followed **Bounded read-only provider diagnostics** in `EXECUTION_SCOPE.md`; source, bounds, non-secret metadata, redacted logs, and limits are reported separately from test results.
 
 # Feature Flags
 
@@ -578,7 +578,7 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 - [ ] Source defaults debug mode ON in non-production and OFF in production; risky default-selection logic is locally covered when needed.
 - [ ] Diagnostic buffers, registry/UI mapping, sanitized examples, correlation IDs, status/latency, and safe probe guards are reviewed in code.
 - [ ] No live report, health request, endpoint probe, browser interaction, or external settings confirmation is required to mark diagnostics code complete.
-- [ ] Product execution remains explicitly `visual/runtime unverified`; requested bounded log findings are separate diagnostic evidence.
+- [ ] Product execution remains explicitly `visual/runtime unverified`; requested bounded provider findings are separate diagnostic evidence.
 
 # Enforcement QA
 
@@ -594,6 +594,6 @@ Review local enforcement when foundation work or the current change touches it. 
 
 # Final QA Rule
 
-Unresolved required checks, reviews, or access blockers prevent claiming delivery completion; major release issues require the project's recorded approval. Normal delivery allows bounded in-scope repair and ordinary conflict resolution under `MAIN_DELIVERY_STANDARD.md`; Developer Mode hard stops remain unchanged. Browser/live product tests are excluded scope, and requested bounded log diagnostics remain separate evidence.
+Unresolved required checks, reviews, or access blockers prevent claiming delivery completion; major release issues require the project's recorded approval. Normal delivery allows bounded in-scope repair and ordinary conflict resolution under `MAIN_DELIVERY_STANDARD.md`; Developer Mode hard stops remain unchanged. Browser/live product tests are excluded scope, and requested bounded provider diagnostics remain separate evidence.
 
 The final response states what source was reviewed, actual check results, remote target/version evidence or the precise delivery blocker/narrower scope, and what remains `visual/runtime unverified`.
