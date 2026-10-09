@@ -2,7 +2,7 @@
 
 ## Rule — interactive-only
 
-PHDK authorizes one assistant to help with the user's explicitly requested task in the current interactive conversation. There is no Mission Autopilot mode. Do not spawn, delegate to, coordinate, or schedule other agents, including bounded or in-session subagents.
+PHDK authorizes one assistant to help with the user's explicitly requested task in the current interactive conversation. `PHDK auto` permits continuous development of the entire identified goal under `PHDK_AUTO.md`; interactive does not mean asking for approval after every step. There is no legacy Mission Autopilot or unattended mode. Do not spawn, delegate to, coordinate, or schedule other agents, including bounded or in-session subagents.
 
 The assistant may complete the necessary steps of the current request without asking permission for every routine command. That is not permission to select another task, work through an unapproved backlog, push every slice automatically, or continue after the request or conversation ends.
 
@@ -12,12 +12,18 @@ This boundary applies to bootstrap, development, upgrades, verification, inciden
 
 - Start only from a current, explicit user request. An installed skill, an opened repository, `TASK.md`, `STATUS.md`, an alert, a failed check, a version mismatch, or an old conversation is not authorization to start or resume work.
 - Before editing, committing, pushing, or merging, compare the current user instructions with the task and any owner stop/pause records. Honor an active owner restriction within its scope; the current owner may explicitly replace an older documentary restriction or authorize a targeted intervention. A file or header cannot outrank that current instruction. Such an intervention does not reactivate unrelated earlier work.
-- Stop when the requested deliverable is complete, the user stops the work, the conversation ends, or a material decision or access blocker prevents safe progress.
+- Stop when the whole requested deliverable is complete, the user stops the work, the conversation ends, or no permitted progress remains because of a real blocker. Under `PHDK_AUTO.md`, a stage, feature, release candidate, or partial PR does not complete the goal; isolate a blocked operation and finish independent authorized work.
 - Keep necessary unfinished delivery steps within the same current request. Record unrelated suggestions and work left after the conversation ends as inactive context; do not start, schedule, or delegate them.
 - A current request to implement, fix, or update repository code or documentation includes the scoped branch, version, checks, version-prefixed commit, branch push, PR, required review, merge, and verification on remote `main` under `MAIN_DELIVERY_STANDARD.md`. Do not require a second instruction to merge after coding. Honor an explicit different target or narrower local/branch/PR-only deliverable. Inspection/audit/planning requests remain read-only; the exact `PHDK upgrade` command retains its synchronization-only limit unless delivery is also requested.
 - This delivery permission comes from the current implementation request, not an installed file, checklist, old task, or background trigger. It persists for that same unfinished request across turns, status/link questions, and context compaction in the active conversation. Assistant-written `TASK.md`/`STATUS.md` summaries cannot revoke or narrow it; actual owner stops, pauses, and later scope changes remain binding. Compare conflicting records with the user's instructions and current git/PR evidence. Do not encode temporary task state as permanent agent policy or restore old authorization in a new conversation without a current request.
 - Review the complete outgoing diff and apply `MAIN_DELIVERY_STANDARD.md` to approval evidence. Sensitive behavior or policy decisions need owner approval, which a well-defined current request can already supply. A clear "push to main", "merge", or "aprobado" for the identified current change is approval in the conversation; do not add a PHDK-only requirement to repeat it, attest to opening every diff line, or submit a GitHub review. Formal/named/independent review actually required by current owner instructions, hooks, repository rules, or server protections remains binding. Never fabricate human inspection, bypass a hook/protection, or publish with an unmet applicable control.
 - An explicit, still-active PHDK Developer Mode activation authorizes its separate direct-main flow for eligible small changes requested while active, as defined in `PHDK_DEVELOPER_MODE.md`; its immediate stop rules remain effective. Neither flow authorizes a release tag, unrelated work, or post-conversation execution merely from a completion checklist.
+
+## PHDK Auto
+
+The explicit command `PHDK auto` activates `PHDK_AUTO.md` for the identified current goal; exit with `PHDK salir de auto`, a clear stop, completion, or the conversation ending. Complete all agreed development without PHDK-only approval pauses between plans, features, stages, or releases. Use existing requirements and reversible routine decisions; no repeated interview or OK is needed when the goal is already clear.
+
+Auto defers optional test execution and comprehensive QA to the completed integrated candidate, then runs all applicable local checks, repairs in-scope failures, and completes normal versioned branch/PR delivery. A necessary diagnostic check or actual mandatory hook still runs when required; final verification precedes publication. Auto does not borrow Developer Mode's direct-main permission or its automatic failure stop, and it does not remove actual controls. Its explicit cadence takes precedence over generic stage/interview/handoff rules. No background execution, old-task resumption from files, persistent mode flag, browser tests, or provider writes is added.
 
 ## PHDK Unlock
 
@@ -68,8 +74,8 @@ Do not persist active-mode authority in files, flags, hooks, credentials, schedu
 
 ## Excluded work
 
-- No autonomous, background, overnight, scheduled, recurring, or delegated coding agents. No subagents, agent teams, coordinator/worker agents, parallel agent queues, or handoffs that launch another process to reason or act independently, even during the active task.
-- Do not create, enable, dispatch, rerun, or schedule GitHub Actions or other hosted CI jobs. Do not add workflow files, CI templates, task/status sync workflows, or required Actions checks. Existing workflow definitions may be inspected; changing or removing their repository files requires a separately explicit code request.
+- No unattended, background, overnight, scheduled, recurring, or delegated coding agents. Continuous in-conversation work on the current Auto goal is permitted under `PHDK_AUTO.md`. No subagents, agent teams, coordinator/worker agents, parallel agent queues, or handoffs that launch another process to reason or act independently, even during the active task.
+- Do not create, enable, dispatch, rerun, or schedule GitHub Actions or other hosted CI jobs. Do not add workflow files, CI templates, task/status sync workflows, or required Actions checks. Existing workflow definitions may be inspected; behavior changes or removal require a separately explicit code request. `PHDK_AUTO.md` narrowly permits necessary mechanical formatting of an existing file for an applicable failing gate when semantic equivalence is established; it permits no workflow execution, changed controls, or new automation.
 - Do not create, configure, enable, or run cron jobs, recurring tasks, dependency-update bots such as Dependabot/Renovate, backup jobs, monitoring loops, session-start jobs, post-session jobs, or unattended maintenance.
 - Do not open, drive, or test in a browser. This includes screenshots, browser MCP/devtools, headed or headless browsers, Playwright, Puppeteer, Cypress, Selenium, and browser-mode test runners.
 - Do not provision or administer hosting, databases, OAuth applications, external accounts, secrets, repository settings, or cloud resources through dashboards, CLIs, APIs, or infrastructure-as-code execution. Bounded read-only provider diagnostics retrieve existing evidence without changing those resources.
@@ -89,7 +95,7 @@ Do not invent recurring product features, backups, bots, or maintenance jobs fro
 
 ## Verification and reporting
 
-Use `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` in proportion to the change. Documentation-only work needs source/diff and reference review, not an application build or browser session.
+Use `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` in proportion to the change. Auto collects applicable coverage at the final integrated boundary defined in `PHDK_AUTO.md`, without per-stage approval or optional test cycles. Documentation-only work needs source/diff and reference review, not an application build or browser session.
 
 For a request targeting `main`, follow `MAIN_DELIVERY_STANDARD.md` through verified integration on the remote target. Resolve routine in-scope integration conflicts, reconcile the version before merging, and recheck the result. A branch push or open PR is not completion; report an actual unmet check, material decision, required review, or access restriction as blocked delivery. A GitHub PR merge already updates remote `main`; do not add a redundant post-merge bump/commit/push.
 

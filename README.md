@@ -1,12 +1,12 @@
 # PHDK Standards Repository
 
-**Version: v2.34.0**
+**Version: v2.35.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
 ## Execution model — interactive-only
 
-One assistant works on the user's explicit request in the current conversation. There is no Mission Autopilot mode, delegated-agent allowance, or automatic next mission.
+One assistant works on the user's explicit request in the current conversation. Explicit `PHDK auto` enables continuous development through the entire agreed goal and final integrated verification. There is no legacy Mission Autopilot, delegated-agent allowance, or automatic next mission.
 
 - No subagents, agent teams, autonomous reviewers, or delegated code tasks, even within the active session.
 - No unattended, overnight, background, scheduled, or recurring work; no cron jobs, dependency bots, backup jobs, maintenance loops, or task-sync workflows.
@@ -20,19 +20,31 @@ The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner ins
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
 
-## What changed in v2.34.0
+## What changed in v2.35.0
 
-`PHDK unlock` audits and repairs PHDK-related documentary blockers across the existing active instructions in the current repository. It recognizes the owner's current approval, reconciles explicitly unwanted local exceptions and stale task boundaries, and completes the permitted scoped delivery. It preserves real checks, hooks, required formal reviews, security/access controls, and provider-write boundaries.
+`PHDK auto` carries the entire identified development goal through implementation, final integrated verification, in-scope repairs, and normal versioned branch/PR delivery. It does not stop for another human OK after a plan, feature, scaffold, stage, or release candidate. A whole-project request is not silently reduced to an MVP or first release.
 
-PHDK accepts owner approval in the conversation for the identified current change; it no longer invents a requirement to open every diff line or submit a GitHub review event. The assistant still reviews the actual diff, sensitive decisions need owner approval, and any formal/named/independent review actually required by current owner instructions or enforced controls remains effective.
+Auto writes needed test coverage during implementation and runs planned tests against the completed candidate. Checklists become final coverage, not per-stage acceptance gates. Necessary diagnostic checks and actual mandatory hooks remain applicable when they govern an operation; the complete verification still precedes publication. Source/QA/onboarding/bootstrap instructions now follow this same cadence.
 
-A request such as "verifica Railway" authorizes bounded read-only provider status/configuration metadata and relevant logs through existing access. It needs no second explicit-authorization phrase, Developer Mode, or unlock. An earlier code-sync task exclusion does not cancel a newer scoped diagnostic request.
+Current scoped owner approval remains sufficient without another PHDK-only human sign-off. Actual repository/security/access controls remain effective. Auto's continuous development is limited to the current goal and active conversation, with no background jobs, browser tests, live probes, provider writes, or persistent authorization flags.
 
 Task records no longer create a second authorization barrier: status/link questions, context compaction, or an assistant-written inactive flag cannot cancel an unfinished request in the same conversation. Real owner stops remain binding. Integration includes routine in-scope conflict/version reconciliation and avoids redundant post-merge bumps or pushes.
 
 Existing GitHub-connected provider autodeploy remains allowed. PHDK must not disable it or install dummy never-matching watch filters to enforce its limits on autonomous work. Observed deployment blockers/statuses are reported separately from integration in `main`; valid service-specific filters and intended skips for unaffected services are normal. Provider configuration writes remain outside a generic development request.
 
 `AGENTS.md` and `SKILL.md` are instruction files, not runnable agents. Loading them does not start a task. Existing local code-check hooks are not schedules and may not launch agents or generate pushes.
+
+## PHDK auto
+
+Activate for the current identified development goal:
+
+```txt
+PHDK auto
+```
+
+If the goal is already clear in the conversation, the assistant starts immediately. It implements every agreed stage, communicates progress without asking for an OK, then verifies the complete integrated candidate, fixes in-scope failures, and finishes the authorized versioned branch/PR delivery to `main`. The assistant performs the applicable local checks; final human acceptance is not a PHDK prerequisite unless actually requested as one.
+
+Exit with `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Auto replaces Developer Mode for that goal and uses normal branch/PR delivery; it does not inherit direct-main permissions. A real unavailable control/decision/access can block an operation, while independent authorized work continues. No files or examples activate the mode. Full contract: [PHDK_AUTO.md](PHDK_AUTO.md).
 
 ## PHDK unlock
 
@@ -129,7 +141,7 @@ An upstream standards update does not update every existing project automaticall
 
 | Area | Source files |
 |---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
 | Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
 | Intent and onboarding | `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |

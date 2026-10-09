@@ -59,4 +59,5 @@ Use only relevant source-level ideas. These entries do not authorize installatio
 - A reused code pattern may be documented as a skill only when currently requested; it must not become a recurring task, workflow, or automatic agent trigger.
 - Reading a skill or the phrase `PHDK Developer Mode` is not activation. Only the user's explicit command in the active conversation grants the permissions defined in `PHDK_DEVELOPER_MODE.md`.
 - A current `PHDK unlock` request follows `PHDK_UNLOCK.md` for this repository's relevant active copied skills/instructions. Their availability or an example of the command does not invoke it; do not repair unrelated personal/plugin installations from this registry.
+- Explicit `PHDK auto` follows `PHDK_AUTO.md` through the complete authorized goal and final integrated verification; a referenced skill's interview, stage approval, or scaffold-completion instruction cannot interrupt that goal. Auto adds no plugin installation, delegation, background work, or new access.
 - Finish the current request and stop; no background or post-session skill execution.

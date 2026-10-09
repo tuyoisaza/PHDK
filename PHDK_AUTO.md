@@ -1,0 +1,60 @@
+# PHDK Auto
+
+## Command and lifetime
+
+`PHDK auto` explicitly starts continuous development of the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, or project goal supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. A request to add this command, quoted examples, installed files, and old task records do not activate it.
+
+Briefly state the goal and execution contract, then work: implement the entire agreed scope, run the final integrated verification, repair in-scope failures, and complete the authorized delivery. Send concise progress updates without turning them into approval questions or ending the task at a milestone.
+
+The mode lasts for this goal in the active conversation. Exit on `PHDK salir de auto`, a clear owner stop, completion of the whole requested outcome, or the conversation ending. A status/link question, context compaction, or assistant-written checkpoint does not end an unfinished goal. Keep task evidence across turns, but never save a reusable `auto=true` authority flag or resume from files alone in another conversation. This is an instruction to the assistant, not a daemon, scheduler, or shell executable.
+
+## One complete goal, no stage approvals
+
+Take scope from the owner's current request and agreed brief/specification. The goal may include multiple features, packages, stages, or an explicitly selected backlog. Break it into implementation steps internally and continue through all of them; finishing a slice, scaffold, feature, stage, candidate version, or PR is not finishing the whole goal. Do not reduce an explicitly requested complete project to its first release or MVP.
+
+The activation authorizes necessary in-scope planning, implementation decisions, code/documentation/test-source changes, integration repairs, final verification, version metadata, commits, branch push, PR, and merge under `MAIN_DELIVERY_STANDARD.md`. Do not ask for an OK per plan, file, stage, feature, risk label, commit, or merge. Honor an explicitly narrower audit/local/branch/PR-only outcome or a different delivery target.
+
+Use existing product requirements, architecture, design tokens, and repository conventions to resolve routine choices. Prefer a reversible choice consistent with them and record material assumptions. Do not restart a specification interview, handoff-approval cycle, or bootstrap approval merely because another PHDK template contains one. If there is no identifiable current goal, inspect the available context and ask only for the missing goal; do not invent work or select an unapproved old backlog.
+
+Current authorization covers the sensitive behavior actually described in the goal; authentication, data, payments, infrastructure, and policy labels do not create a second PHDK-only human-review gate. Review the actual behavior carefully. A broad statement that there is no risk does not prove that fact or authorize undisclosed destructive behavior, unrelated access, new spending, or a new material product/security decision. Use a safe in-scope alternative where possible. Isolate a genuinely unresolved decision and continue independent authorized work before asking only for that missing decision.
+
+## Keep development moving
+
+1. Read the current request, active repository instructions, actual worktree, target, toolchain, hooks, and requirements. Define the completion criteria for the whole goal and identify final verification commands and access prerequisites early. Use the reconciliation rules in `PHDK_UNLOCK.md` to correct actual stale documentary stops contradicting this authorization; no extra unlock command is required. This does not silently start a full standards upgrade unrelated to the goal.
+2. Use a suitable existing task branch or create one from a known target. Preserve unrelated edits and other contributors' work. Keep one cohesive candidate for the whole goal; do not create a release, push to `main`, or require acceptance after every stage.
+3. Implement the complete agreed behavior and necessary tests, documentation, states, permissions, and integration wiring. A TODO, disabled path, scaffold, fabricated data, or claimed future stage does not satisfy a requested working feature. Do not silently shrink the goal to report completion.
+4. Maintain concise factual task/progress records. Complete the next necessary step within the same goal without requesting permission to continue. New issues may be repaired when they prevent the requested behavior or its verification; unrelated enhancements remain outside scope.
+5. When a component is blocked, diagnose and make bounded in-scope repairs, use an already permitted route, or continue independent parts. A dependency or actual control may block one operation without blocking all development. Do not repeat an unchanged failing command or wait in a polling loop. When no permitted progress remains, report the precise blocker and completed work instead of claiming success or asking for a generic OK.
+
+## Verify the whole candidate at the end
+
+Do the full development first. Write necessary test coverage with the implementation, but execute planned tests and comprehensive QA on the completed integrated candidate. This includes risk-triggered coverage required for final acceptance; its being required does not itself mean running it after each slice. PHDK slice checklists, stage reviews, and foundation checks describe coverage to collect at this final boundary; they are not intermediate permission or acceptance gates in Auto.
+
+Use an intermediate local check only when it is necessary to diagnose an implementation blocker or an actual mandatory hook/control requires it. Do not run full install/build/test cycles after each stage. Preserve mandatory controls at the operation they govern: delaying final QA never permits skipping a hook, publishing unverified code, or postponing a required pre-push check until after `main` is updated. Avoid unnecessary checkpoint commits that would create early validation cycles; any necessary checkpoint still obeys repository rules and is not a release.
+
+After every in-scope part is implemented and integrated, review the entire outgoing diff and run all applicable local verification for the whole goal: repository-required format/lint/typecheck/build gates, meaningful unit/in-process integration tests, and cross-feature regression checks justified by the changed behavior. Use existing isolated fixtures/doubles. Documentation-only goals use complete source/reference and policy-scenario review where relevant; do not invent an application build for a standards repository.
+
+Fix in-scope failures and rerun the affected checks until the candidate meets the completion criteria or a concrete unsatisfied control/access/decision blocks it. Expand verification only to address remaining risk or a required gate. Do not delete meaningful failing tests, weaken a check, label a failure passed, or declare all tests passed when any required check did not run. The assistant performs the permitted checks; do not hand routine local verification to the owner.
+
+Necessary mechanical formatting repairs for an applicable failing gate are part of this goal, including an existing workflow file when its meaning is demonstrably unchanged. Review the exact diff and use appropriate parsed/source evidence to retain commands, triggers, jobs, permissions, and other behavior. Do not demand another OK solely for a non-semantic format repair. This narrow permission does not authorize workflow behavior changes, CI execution, unrelated cleanup, or removing the gate. If equivalence or scope cannot be established, isolate that blocker and finish independent work.
+
+The final test boundary covers everything applicable to this complete goal, not every possible future feature or a browser/live-service test. `EXECUTION_SCOPE.md` still excludes browser/headless tests, application probes, live databases, paid verification calls, and provider writes. Requested bounded provider metadata/log reads remain available as separate diagnostic evidence. If the owner wants final acceptance, present the complete result and actual evidence then; do not require human testing after every stage or invent a human-acceptance prerequisite for an otherwise permitted merge.
+
+## Deliver once the complete candidate is verified
+
+Reconcile the final version and changelog against fresh remote `main` using the repository standard. Bump for the complete delivery, not each internal stage. Ensure the source-changing commit subjects start with the resulting version; if integration changes version metadata or behavior, refresh the affected final checks. Follow existing commit rules without unnecessary checkpoint releases.
+
+Finish the scoped branch push, PR, actual required controls, merge, and remote content/version verification. Current owner approval is already present for the identified outcome; no additional PHDK-only human sign-off is required at the end. A server-required or current explicitly required named/independent/formal review remains a real control: finish all otherwise permitted work and report that exact requirement if it prevents integration. Never use an admin override, force-push, skipped hook, alternate credential, or fabricated review to evade it.
+
+A permitted update to `main` may trigger the existing GitHub-connected autodeploy. Do not disable it, create Actions/workflows, deploy through Railway/provider CLI/API/dashboard, or change provider/repository settings. Report code integration and any observed deployment state separately; neither a local test nor a merge proves production health.
+
+## Relationship to other PHDK commands
+
+- Auto uses the normal branch/PR delivery route. An explicit `PHDK auto` for the identified goal replaces Developer Mode for that goal, including a currently identified task whose direct push stopped. Diagnose and satisfy the failed control before the permitted normal delivery; this is a new owner instruction, not a retry/bypass of the stopped direct push. A later explicit Developer Mode activation replaces Auto for its eligible requested task; neither mode silently inherits the other's permissions.
+- Unlock repairs documentary blockers; Auto also carries the whole authorized development goal through final verification and delivery. A scoped rule repair does not start unrelated product work or cancel the rest of the current Auto goal.
+- A bare `PHDK upgrade` keeps its synchronization-only contract. Include synchronization in Auto delivery only when the owner includes it in the identified goal. Installing/updating command definitions activates no mode.
+- Auto changes PHDK's development cadence and eliminates PHDK-only approval pauses for the current goal. Its specific cadence takes precedence over generic per-slice verification, interview, stop-and-ask, or handoff templates. It grants no unattended/background/post-conversation execution, delegated agents, recurring work, expanded credentials, or removal of actual security/access/repository controls.
+
+## Completion report
+
+Report once the entire requested outcome and permitted delivery are complete: implemented scope, final verification and repairs, version/commit/PR/remote target, and remaining evidence limits. During work, keep communicating without surrendering the task at an intermediate stage. If a real blocker prevents full completion, identify its source and affected operation, finish everything independent, and report the unfinished scope explicitly. Never call a partial release the completed goal.

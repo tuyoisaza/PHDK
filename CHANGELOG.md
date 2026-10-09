@@ -1,5 +1,31 @@
 # CHANGELOG.md
 
+## v2.35.0 — 2026-10-09
+
+### Added
+
+- Added the explicit `PHDK auto` command and `PHDK salir de auto` exit, with the canonical contract in `PHDK_AUTO.md`, the 27th manifest entry, and routing through active instructions, onboarding, and templates.
+- Auto carries the entire identified current goal through development, final integrated verification, in-scope repairs, and normal versioned branch/PR delivery without human OKs between plans, features, stages, or release candidates. Progress updates do not end the task; completion refers to all agreed scope.
+
+### Changed
+
+- In Auto, write necessary test coverage with the code and run planned tests, including risk-triggered coverage, against the completed integrated candidate. Slice/foundation checklists specify final coverage rather than intermediate acceptance gates. Actual mandatory hooks and checks needed to diagnose implementation blockers remain effective when required; publication follows final verification.
+- Include necessary non-semantic formatting repairs for a failing applicable gate, even in an existing workflow file when equivalence is established. Preserve workflow behavior and controls; this grants no CI execution, new workflow, or unrelated cleanup.
+- Aligned interview, intent capture, handoff, foundation, QA, and task-tracking instructions so they do not pause an authorized Auto goal, request another go-ahead, or substitute an MVP/first release for an explicitly requested complete outcome.
+- Preserve current scoped owner approval, resolve routine reversible implementation choices from existing conventions, and isolate genuinely unresolved material decisions while continuing independent authorized work. No PHDK-only human sign-off is added at final delivery.
+- Auto explicitly replaces Developer Mode for the identified goal and uses the normal branch/PR repair and integration flow. It never inherits direct-main permissions or bypasses the control that stopped a prior direct push. Later explicit Developer Mode activation restores that separate eligible flow.
+
+### Migration and limits
+
+- Existing projects need a requested standards sync to receive the command and managed routing. Copying definitions, quoted commands, old tasks, and stored flags never activate Auto. Bare upgrade and narrower audit/local/branch/PR-only requests keep their scope limits.
+- Auto operates only on the agreed goal in the active conversation. It adds no unattended/background/post-conversation execution, delegated agents, schedules, Actions, browser tests, live probes, provider writes, or new access. Existing hooks, actual review requirements, protections, and product security controls remain intact.
+- Final evidence distinguishes completed code and local verification from remote integration, observed deployment state, and unverified application runtime. Existing GitHub-connected autodeploy remains permitted; a standards update does not change provider settings or installed projects automatically.
+
+### Verification
+
+- Reviewed fifteen behavioral scenarios covering complete multi-stage goals, final risk-based tests, necessary diagnostics and hooks, delivery without repeated approval, actual formal review, Developer Mode replacement, quoted commands, missing provider credentials, scope choices, exit/status continuity, missing goals, PR-only delivery, and necessary non-semantic workflow formatting.
+- Verified all 45 canonical original blobs, 46 final files, 27 manifest mappings, new references/anchors and aliases, version/skill metadata, managed markers, unchanged prior history/hooks/scripts/archives/attributes, and diff whitespace. No application build, browser test, provider operation, or hosted CI dispatch was used for this documentation release.
+
 ## v2.34.0 — 2026-10-07
 
 ### Added

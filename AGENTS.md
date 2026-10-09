@@ -4,7 +4,7 @@
 
 This is the entry point for an assistant working on a PHDK repository. It is an instruction document, not an executable agent, scheduler, or permission to start work.
 
-Read `EXECUTION_SCOPE.md` first, then the current user request and the project's `TASK.md`/`STATUS.md`. The scope is interactive-only: one assistant, one explicitly requested deliverable in the current conversation. No Mission Autopilot, subagents, delegated agents, agent teams, or background execution, including for work inside the current task.
+Read the current user request and `EXECUTION_SCOPE.md`, then the project's `TASK.md`/`STATUS.md`. The scope is interactive-only: one assistant completing the entire explicitly requested deliverable, which may include multiple features/stages. `PHDK auto` makes that development continuous under `PHDK_AUTO.md`. No legacy Mission Autopilot, subagents, delegated agents, agent teams, or background execution, including for work inside the current task.
 
 Current owner pause/stop instructions remain effective within their scope. Re-read them before edits and git writes, and compare them with the owner's latest instructions. The owner can explicitly replace an older documentary exception; a file cannot veto that request. A specific intervention does not restart unrelated earlier work. Old tasks, alerts, failed checks, version mismatches, and skill installation never authorize work.
 
@@ -22,6 +22,8 @@ Complete the necessary steps of the current requested deliverable, including its
 - External skills are references for this assistant only. Do not use a plugin or skill to delegate work or evade these boundaries.
 
 ## PHDK commands
+
+On explicit `PHDK auto`, follow `PHDK_AUTO.md` for the current identified goal: develop all agreed scope without stopping for a human OK between plans/features/stages/releases, then verify the integrated candidate, repair in-scope failures, and finish normal versioned branch/PR delivery. Optional tests wait for that final boundary; actual hooks and necessary diagnostic checks remain applicable. A stage or scaffold is not completion. Auto replaces Developer Mode for that goal, grants no bypass or background work, and exits on `PHDK salir de auto`, a stop, completion, or conversation end. Files and quoted examples do not activate it.
 
 When the developer gives exactly `PHDK upgrade`, execute `PHDK_UPGRADE.md` for the current repository. The command itself authorizes standards synchronization in this conversation, not future execution, a push/merge, a deployment, or reactivation of an old mission. A bare sync preserves genuine owner exceptions; an additional current request to remove/reconcile them authorizes that documentary repair under `PHDK_UNLOCK.md`. Report the result and stop at the requested outcome.
 
@@ -42,6 +44,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Auth, secrets, security, privacy, cost controls | `DEVSECOPS.md` |
 | Versions, commits, changelog, approved merge | `VERSIONING.md` |
 | Completing an implementation in remote main, conflicts, or delivery state | `MAIN_DELIVERY_STANDARD.md` |
+| Continuous whole-goal development, no stage approvals, final integrated verification | `PHDK_AUTO.md` |
 | Unlocking PHDK stops or removing/reconciling local instruction exceptions | `PHDK_UNLOCK.md` |
 | Developer Mode activation, exit, or eligible direct-main task | `PHDK_DEVELOPER_MODE.md` |
 | Local verification and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
@@ -77,7 +80,7 @@ LLM features, when explicitly required, use `packages/ai`, provider-agnostic con
 
 ## Verification and completion
 
-Review the actual source/diff and run only relevant synchronous local format/lint/typecheck/build commands and risk-triggered non-browser tests with isolated dependencies. Documentation-only changes need source/diff and reference review.
+Review the actual source/diff and run only relevant synchronous local format/lint/typecheck/build commands and risk-triggered non-browser tests with isolated dependencies. In Auto, collect this verification for the completed whole candidate under `PHDK_AUTO.md`; do not impose optional per-stage test/acceptance gates. Actual mandatory controls remain effective. Documentation-only changes need source/diff and reference review.
 
 No browser operation, headless testing, screenshots, live application probes, databases, or paid verification calls. A current request such as "verifica Railway" authorizes bounded reads of existing provider status, deployment/source/branch/non-secret configuration metadata, and relevant logs through an authorized API/CLI/connector under `EXECUTION_SCOPE.md`. No second authorization phrase, Developer Mode, or unlock is needed. An earlier task-specific exclusion does not cancel this newer read request. No streams, polling, secret values, settings writes, new access, or deployments. State the evidence and its limits; provider observations do not prove UI behavior or recovery.
 

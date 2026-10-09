@@ -414,6 +414,8 @@ This is in addition to, not instead of, classical injection protection — see C
 
 Resolve material uncertainty before changing the following code or repository behavior. External operations excluded by `EXECUTION_SCOPE.md` remain excluded; these conditions do not authorize a provider action after a routine confirmation.
 
+For `PHDK auto`, follow `PHDK_AUTO.md`: a sensitive decision already specified and authorized in the current goal does not need another human OK or an approval per stage. Preserve the security controls below, choose safe in-scope alternatives, and continue independent authorized development when one action has a genuine unresolved decision. Collect applicable security verification at the completed candidate's final boundary unless an actual mandatory control or implementation blocker requires an earlier check.
+
 - Proposed destructive database code or migrations: drops, truncations, irreversible transitions
 - Repository changes that conflict with recovery requirements supplied by the user
 - Authentication provider changes
@@ -434,7 +436,7 @@ Resolve material uncertainty before changing the following code or repository be
 - Disabling or weakening CORS, CSP, or rate limiting on any endpoint
 - A known or suspected credential exposure; report it and perform only the repository remediation described above
 
-Do not proceed with these actions based on assumptions. Wait for explicit approval.
+Do not invent authorization for an unspecified material sensitive action. Check the current request first: an approval already supplied for the identified behavior is sufficient under `MAIN_DELIVERY_STANDARD.md`. Ask only for a genuinely missing decision after finishing otherwise permitted work. No approval phrase or Auto activation bypasses an excluded operation, actual protection, or security/access control.
 
 ---
 

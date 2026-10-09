@@ -6,6 +6,8 @@ Provide a temporary direct-main delivery flow for small, low-risk changes the us
 
 Developer Mode changes the permitted git delivery path for eligible tasks. The normal branch/PR delivery path is defined in `MAIN_DELIVERY_STANDARD.md`; it does not require this mode. Developer Mode does not start work, choose tasks, add tools, grant infrastructure access, or enable autonomous execution. A request to create, document, or update this mode does not activate it.
 
+`PHDK auto` is a separate explicit command for continuous whole-goal development under `PHDK_AUTO.md`. Its activation for an identified current goal replaces Developer Mode with normal branch/PR delivery, including when the identified direct-main task had stopped. Diagnose and satisfy the actual failed control; do not retry/bypass the stopped direct push. A later explicit Developer Mode activation replaces Auto for its eligible task. Outside that explicit switch, the direct-main hard stops below remain unchanged.
+
 ## Activation and exit
 
 Recognize these explicit user activation commands, case-insensitively after trimming surrounding whitespace:

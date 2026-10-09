@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Break the user's current deliverable into coherent, reviewable code changes without creating an autonomous mission or an agent queue. `EXECUTION_SCOPE.md` governs every step.
+Break the user's current deliverable into coherent, reviewable code changes within the active conversation, without selecting an unrelated mission or creating an agent queue. `EXECUTION_SCOPE.md` governs every step.
 
 ## Core rule
 
@@ -13,6 +13,8 @@ Slices organize the current explicit request. They do not authorize a new reques
 A request to implement, fix, or update repository code or documentation includes normal delivery to verified remote `main` under `MAIN_DELIVERY_STANDARD.md`, unless the user specifies a narrower scope or the user/repository specifies another target. Organizing that work into slices does not reduce its completion target to local edits, a branch push, or an open PR. Read/audit requests and bare `PHDK upgrade` requests retain their narrower scope in `EXECUTION_SCOPE.md`.
 
 Explicit `PHDK_DEVELOPER_MODE.md` activation is a narrow exception for delivery of eligible tasks requested during the active conversation; a slice, template, or stored record cannot activate or restore it.
+
+With explicit `PHDK auto`, `PHDK_AUTO.md` takes precedence over this workflow's per-slice cadence. Implement every part of the whole agreed goal before comprehensive verification and normal branch/PR delivery. Slices, stages, and candidate releases are internal organization, never approval, human-acceptance, or completion gates. Preserve mandatory hooks at their governed operations and continue independent authorized work around a genuine blocker.
 
 ## Examples
 
@@ -26,7 +28,7 @@ State the requested outcome and why it matters. Use `INTENT_CAPTURE_STANDARD.md`
 
 ### 2. Establish boundaries
 
-Record the current request, delivery target, scope, completion criteria, and relevant owner controls in `TASK.md`. Record delivery instructions and observed evidence as context only; never store Developer Mode activation/status or an authorizing flag. The current request continues through same-conversation turns, status/link requests, and context compaction. Assistant-written task/status changes cannot revoke it, and stale task records do not outrank the live request or observed GitHub state. Honor explicit user stops or pauses. Ask only about material ambiguity, without seeking repeat approval for normal delivery or eligible Developer Mode steps.
+Record the current request, delivery target, scope, completion criteria, and relevant owner controls in `TASK.md`. Record delivery instructions and observed evidence as context only; never store Developer Mode or Auto activation/status or an authorizing flag. The current request continues through same-conversation turns, status/link requests, and context compaction. Assistant-written task/status changes cannot revoke it, and stale task records do not outrank the live request or observed GitHub state. Honor explicit user stops or pauses. Resolve routine reversible choices through existing conventions; ask only about a genuinely missing material decision after completing independent authorized work, without seeking repeat approval.
 
 For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptions, follow `PHDK_UNLOCK.md` across the existing active instructions. The current owner can replace documentary exceptions within that scope; hooks, checks, access controls, and server protections remain. Bare synchronization does not silently remove unknown local restrictions, and unlock does not select an old product task.
 
@@ -34,9 +36,11 @@ For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptio
 
 Work with the current assistant only. Do not create subagents, delegated coding/review tasks, agent teams, coordination queues, or background workers. Relevant skills may be read as references; they do not supply additional execution permissions.
 
-Make routine decisions within the approved change. Complete its necessary steps, but do not select another backlog goal or launch follow-up work.
+Make routine decisions within the approved change. Complete its necessary steps, but do not select another backlog goal or launch follow-up work. In Auto, proceed through all authorized features and stages before moving to the final verification boundary; an explicitly selected multi-feature goal is not limited to its first useful slice.
 
-### 4. Verify locally
+### 4. Verify locally at the applicable boundary
+
+In Auto, apply this coverage to the completed integrated candidate under `PHDK_AUTO.md`, not after each slice. Write needed tests with implementation; execute intermediate checks only to diagnose an implementation blocker or satisfy an actual mandatory control. Final QA and in-scope repairs precede publication.
 
 Review source/diffs and run applicable synchronous formatting, linting, typechecking, builds, and risk-triggered non-browser unit/in-process integration tests. Use isolated test doubles, not real services or customer data. End the checks; do not leave a watcher running.
 
@@ -46,9 +50,11 @@ A current request such as "verifica Railway" permits [Bounded read-only provider
 
 ### 5. Repair within bounded scope
 
-Fix defects relevant to the current request and rerun the affected local checks. In the normal branch/PR flow, this includes routine integration conflicts and version reconciliation required by the latest remote `main`; preserve both sides' intended changes and review/check the resulting diff. Pause for material ambiguous or sensitive conflicts. Do not enter an unbounded repair/release loop or treat unrelated warnings, billing failures, or version mismatches as new work. Report a genuine blocker after reasonable bounded attempts.
+Fix defects relevant to the current request and rerun the affected local checks. In the normal branch/PR flow, this includes routine integration conflicts and version reconciliation required by the latest remote `main`; preserve both sides' intended changes and review/check the resulting diff. Isolate genuinely unresolved material decisions and continue independent work. Do not expand repairs into unrelated warnings, billing failures, or unrequested releases. Report a genuine blocker after bounded diagnosis when no permitted progress remains; do not repeat an unchanged failure indefinitely.
 
 This repair step does not override Developer Mode's direct-flow stop rule: an applicable failed check, rejected push, non-fast-forward update after `main` advanced, or unmet control stops that flow immediately. Explain and preserve the work; do not automatically retry, rebase, force-push, weaken hooks/protections, change settings/credentials, switch API/CLI to get past the block, or fall back to the normal branch/PR flow automatically.
+
+A subsequent explicit `PHDK auto` replaces Developer Mode for the identified goal under `PHDK_AUTO.md`. Diagnose and satisfy the failed control before normal delivery; no automatic switch or bypass is implied.
 
 ### 6. Record a checkpoint
 
@@ -64,11 +70,11 @@ Review the complete outgoing diff. Sensitive behavior and policy changes require
 
 An authorized push/merge, including an eligible Developer Mode push to `main`, may trigger the existing hosting-provider GitHub connection. Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI, change deployment triggers, provision a provider, enable previews, or deploy through a provider CLI/API/dashboard, including Railway.
 
-That existing GitHub-connected autodeploy is allowed by PHDK. Do not disable it or install dummy never-matching watch filters to enforce the no-autonomy/Actions rules. Generic development work does not authorize provider-settings changes. Report an observed deployment blocker or status separately from the code's verified state on remote `main`, following `MAIN_DELIVERY_STANDARD.md`; valid service-specific filters and intended skips for unaffected services are not failures.
+That existing GitHub-connected autodeploy is allowed by PHDK. Do not disable it or install dummy never-matching watch filters to enforce the limits on unattended execution and Actions. Generic development work does not authorize provider-settings changes. Report an observed deployment blocker or status separately from the code's verified state on remote `main`, following `MAIN_DELIVERY_STANDARD.md`; valid service-specific filters and intended skips for unaffected services are not failures.
 
 ### 8. Close and stop
 
-Update task/status evidence and archive a coherent completed slice when useful. If necessary steps of the same current request remain, finish those within its scope and limits. For a `main` target, complete the merge and verify the change and version on remote `main`; a pushed branch or open PR is intermediate progress. If a required check, actual review requirement, unapproved sensitive/conflict decision, or access restriction prevents delivery, report its source and the unfinished stage. Report completion only when the requested target is satisfied, then stop.
+Update task/status evidence and archive a coherent completed slice when useful. If necessary steps of the same current request remain, finish those within its scope and limits; an Auto goal stays in progress across slice and stage boundaries. For a `main` target, complete the merge and verify the entire requested change and version on remote `main`; a pushed branch or open PR is intermediate progress. If an actual check/review/access control or a new material decision prevents delivery, complete independent work and report its source and the unfinished scope. Report completion only when the whole goal and requested target are satisfied, then stop.
 
 Mark remaining proposals inactive. Do not create a new current task from the backlog, schedule a resume, launch a reviewer agent, or continue an old mission after the session ends.
 
@@ -76,7 +82,7 @@ Developer Mode remains only in the active interactive conversation and ends on `
 
 ## Slice sizing
 
-A useful slice has a clear outcome, a coherent source diff, and proportionate local checks. A slice is too broad when it spans unrelated features or cannot be reviewed as one change. Split the implementation plan without inventing additional authorization or agents.
+A useful slice has a clear outcome, a coherent source diff, and proportionate local coverage. Split a broad implementation plan into understandable steps without reducing the owner's complete goal, inventing additional approvals, or creating agents. Auto validates those steps together at the final boundary.
 
 ## Planning template
 
@@ -88,14 +94,14 @@ In scope: ...
 Out of scope: ...
 Owner restrictions: ...
 Delivery target and observed git/review evidence (context only; no mode state): ...
-Verification: source/diff + relevant synchronous local checks
-Done when: requested result and version verified on remote main, or explicit narrower target satisfied
+Verification: source/diff + relevant synchronous local checks; Auto collects full coverage at the completed candidate, with mandatory controls at their actual operations
+Done when: whole requested scope is complete and result/version verified on remote main, or explicit narrower target satisfied
 Inactive follow-ups: ...
 ```
 
 ## Foundation work
 
-For an explicitly requested app foundation, read the current standards and `BUILD_APP_FOUNDATION_PROMPT.md`. Implement only the authorized code and document relevant existing prerequisites. Do not provision services, install bots, create CI, schedule jobs, delegate implementation, or begin features outside the request.
+For an explicitly requested app foundation, read the current standards and `BUILD_APP_FOUNDATION_PROMPT.md`. Implement only the authorized code and document relevant existing prerequisites. If the current Auto goal includes the complete app, a finished foundation is an internal step: continue its remaining authorized features without a new handoff or approval. Do not provision services, install bots, create CI, schedule jobs, delegate implementation, or begin features outside the request.
 
 ## Backlog management
 
@@ -106,6 +112,7 @@ Keep completed/current/proposed/blocked lists in local `STATUS.md` as defined in
 - Starting work from an old task, skill installation, alert, or failed check instead of a current request.
 - Treating a slice boundary as standing permission to bump a version, commit, push, or deploy.
 - Closing a request at branch push or PR creation when its delivery target is `main`, or asking the user to repeat already-authorized delivery steps.
+- Stopping Auto for stage acceptance, testing every slice by default, or delivering only a first release when the current request covers the complete goal.
 - Treating an assistant-written task/status edit or context compaction as revocation of the current request.
 - Spawning agents or background checks to continue a task.
 - Selecting new goals after finishing the requested deliverable.

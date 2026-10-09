@@ -8,6 +8,8 @@ Every agent doing frontend, UI, UX, or design-system work must read this file be
 
 These are product-code requirements under `EXECUTION_SCOPE.md`. Review UI source, styles, semantics, and applicable local checks; do not open a browser, capture screenshots, or run browser/device tests. Code evidence does not establish actual rendering or usability, and optional human visual feedback is not a PHDK completion gate.
 
+In explicit `PHDK auto`, use `PHDK_AUTO.md` for continuous development and final integrated verification. Apply existing design tokens and product decisions without a per-screen or per-stage approval; choose a conforming reversible implementation rather than inventing an exception that needs approval. Optional visual feedback never interrupts the whole authorized goal.
+
 ---
 
 # Brand Requirements

@@ -22,11 +22,17 @@ If no risk trigger applies, source review and the applicable static/build gate a
 
 Passing local verification alone does not finish a normal development request. Continue its authorized branch/PR delivery through review, integration, and fresh verification of the remote target and version under `MAIN_DELIVERY_STANDARD.md`, unless the user explicitly narrowed the scope. Review the complete actual diff; owner approval of sensitive decisions may already be present in the current request. Preserve actual named, independent, or formal review requirements without adding a universal human-diff or GitHub-review-event gate. Classify the changed behavior: restoring login through a packaging fix does not itself change authentication policy.
 
+### Auto cadence
+
+When `PHDK auto` is explicitly active, follow `PHDK_AUTO.md`: implement the entire identified goal and write necessary coverage with its code, then execute the applicable integrated verification at the end. Slice checklists collect coverage for that boundary; they do not require intermediate test suites, human acceptance, or a release per feature. Run an intermediate check only to resolve an actual implementation blocker or satisfy a mandatory hook/control at the operation it governs.
+
+At the final boundary, review the whole candidate, run all applicable local gates and risk-triggered tests, repair in-scope failures, and rerun affected checks before normal branch/PR delivery. Do not require another PHDK-only approval or assign routine local testing to the owner. Final verification happens before publication to `main`; Auto neither skips required checks nor authorizes browser/live-service tests.
+
 ---
 
 ## Mandatory Automated-Test Triggers
 
-A slice requires local automated coverage when it adds or materially changes:
+A change requires local automated coverage when it adds or materially changes the behavior below. In Auto, write that coverage with the implementation and execute it in final whole-goal verification, except for a genuine implementation blocker or mandatory intermediate control:
 
 - authorization/RBAC/security boundaries where an unauthorized actor must be denied
 - payment, billing, money, credits, quotas, or other financially consequential calculations or state transitions
@@ -94,13 +100,13 @@ A temporary local diagnostic script is permitted only when:
 - it remains within `EXECUTION_SCOPE.md`, without browser or external runtime access
 - it is deleted afterward unless retained as a justified project tool
 
-Do not repeatedly run full test/build loops while iterating on a narrow issue. Run targeted checks during iteration and the applicable gate once before push/release; rerun affected checks after a material fix or integration change. Normal delivery permits bounded in-scope repairs and conflict resolution; `PHDK_DEVELOPER_MODE.md` retains its direct-main hard stops. Never bypass a failed check or hook. Do not create CI, scheduled agents, dependency bots, or recurring test workflows to replace local evidence.
+Do not repeatedly run full test/build loops while iterating on a narrow issue. Outside Auto, use targeted checks during iteration and the applicable gate before push/release. In Auto, execute risk-triggered tests and other applicable verification on the completed whole candidate; only a real blocker or mandatory control justifies an intermediate check. Rerun affected checks after a final-verification repair or integration change. Normal delivery permits bounded in-scope repairs and conflict resolution. Developer Mode retains its direct-main hard stops while it is active; an explicit Auto activation replaces that mode for the identified goal under `PHDK_AUTO.md`. Never bypass a failed check or hook. Do not create CI, scheduled agents, dependency bots, or recurring test workflows to replace local evidence.
 
 ---
 
 ## Verification Record
 
-For each slice, report one of:
+Report the relevant risk coverage for the requested deliverable. During Auto implementation, record pending final checks factually and continue; do not emit a completion report or mark checks passed at each slice. At the final integrated boundary, report one of:
 
 ```txt
 Automated tests: not required — no risk trigger; source review and applicable static/build checks completed
@@ -140,7 +146,7 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 
 ## Verification
 
-- [ ] The slice was assessed against the mandatory risk triggers.
+- [ ] The entire requested goal was assessed against the mandatory risk triggers; Auto coverage includes all implemented features and their relevant interactions.
 - [ ] Source review and applicable static/build checks have actual recorded results.
 - [ ] If a trigger applies, the smallest useful local test exists and passes or its failure/gap is reported.
 - [ ] Test scripts and dependencies do not launch browsers or access services/databases.

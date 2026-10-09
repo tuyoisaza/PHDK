@@ -6,11 +6,17 @@ Orient the assistant for a human-initiated PHDK task. This file is reference mat
 
 ## Operating model
 
-PHDK is interactive-only. One assistant works on the current explicit user request, completes its necessary steps, reports evidence, and stops. There is no Mission Autopilot, delegated coding/review, subagent, agent team, or agent queue, including during the active session.
+PHDK is interactive-only. One assistant completes the whole current explicit user request, reports evidence, and stops at that outcome. Continuous development during an active Auto goal is allowed under `PHDK_AUTO.md`; unattended/background work, Mission Autopilot, delegated coding/review, subagents, agent teams, and agent queues remain excluded.
 
 Read `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md` before acting. Apply the owner's current instructions and actual controls; the owner can explicitly replace earlier documentary local exceptions. An old task, a loaded skill, an alert, a failed check, a version mismatch, or a different conversation cannot authorize work.
 
 A current implement/fix/update request for repository code or documentation normally includes the scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and verified remote `main` version. Honor explicit local-only, branch-only, PR-only, or different-target instructions. Do not ask for a repeated merge order. The active request continues through status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots; an actual user pause or stop takes precedence.
+
+### Auto for the complete current goal
+
+Explicit `PHDK auto` starts `PHDK_AUTO.md` for the identified current goal; `PHDK salir de auto` exits it. State the goal and cadence briefly, then implement all of it without an OK per plan, feature, stage, release, or merge. Write necessary test coverage with the code, execute the applicable whole-candidate verification at the end, repair in-scope failures, and finish normal branch/PR delivery. Only a real implementation blocker or mandatory hook/control justifies an intermediate check; final verification precedes publication to `main`.
+
+Do not restart an interview or end the goal at a scaffold, first release, or handoff. Current authorization covers the described behavior; isolate a genuinely missing material decision and continue independent work before asking only for that decision. Existing actual reviews and controls remain binding. Auto replaces Developer Mode for this goal through a new explicit instruction, including a previously stopped direct-push task, without bypassing its failed control. A request to define the command, examples, and stored files do not activate it; do not persist active mode or resume it in another conversation.
 
 ### Developer Mode in the current conversation
 
@@ -30,9 +36,9 @@ Read `PHDK_DEVELOPER_MODE.md` for the narrow delivery exception: small, low-risk
 4. Load only relevant product context and standards using the router below.
 5. Clarify only material missing decisions. Do not ask for duplicate consent when the current request is clear.
 6. Implement or inspect with the current assistant; do not delegate.
-7. Review source and run proportionate synchronous local checks that exit.
-8. Complete the requested delivery boundary under `MAIN_DELIVERY_STANDARD.md`, including remote target/version evidence for normal delivery. Apply `PHDK_DEVELOPER_MODE.md` only if explicitly active in this conversation and the requested change is eligible; respect existing protections.
-9. Record completion or the precise unresolved blocker, evidence, and inactive follow-ups; report and stop only when that boundary is reached or a genuine blocker/user stop applies.
+7. Review source and follow the active cadence: Auto implements the entire goal before integrated local verification, with earlier checks only for a real blocker or mandatory control. Checks are synchronous and exit.
+8. Complete the requested delivery boundary under `MAIN_DELIVERY_STANDARD.md`, including remote target/version evidence for normal delivery. Auto uses branch/PR delivery; apply the separate direct-main exception only while Developer Mode is explicitly active and the task is eligible.
+9. Report completion only for the whole requested outcome. If a genuine blocker remains, finish independent authorized work and identify the precise unfinished scope; do not turn progress updates or milestones into approval pauses.
 
 Re-read owner controls before edits and git writes. A specific user instruction to intervene in a paused project authorizes that intervention only, not continuation of the earlier mission.
 
@@ -50,6 +56,7 @@ Re-read owner controls before edits and git writes. A specific user instruction 
 | Local evidence and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
 | Health/debug/diagnostic source | `DEBUG_DIAGNOSTICS_STANDARD.md` |
 | Normal delivery, reviews, scope limits, and completion evidence | `MAIN_DELIVERY_STANDARD.md` |
+| Explicit `PHDK auto`, whole-goal development, and final verification cadence | `PHDK_AUTO.md` |
 | Explicit `PHDK unlock` or requested PHDK/local-rule blocker repair | `PHDK_UNLOCK.md` |
 | Version/commit/release details | `VERSIONING.md` |
 | Explicit Developer Mode command or eligible delivery while active | `PHDK_DEVELOPER_MODE.md` |
@@ -60,7 +67,7 @@ Do not preload the full standards library. Optional external skills are reading 
 
 ## Verification and delivery
 
-Local format/lint/typecheck/build commands and targeted non-browser unit/in-process tests remain available when relevant. Use isolated dependencies, finish the checks, and exit. Documentation-only work needs diff/reference review.
+Local format/lint/typecheck/build commands and targeted non-browser unit/in-process tests remain available when relevant. Use isolated dependencies, finish checks, and exit. In Auto, run the applicable integrated checks after the entire goal is implemented and repair in-scope failures before publication; preserve any mandatory control at its governed operation. Documentation-only work needs diff/reference review.
 
 Do not open a browser, capture screenshots, probe live health endpoints, connect to databases, invoke paid APIs, or administer cloud services. Mark UI/live runtime behavior unverified instead of assigning manual testing tasks to the user.
 
@@ -70,13 +77,13 @@ No GitHub Actions or hosted CI creation, enabling, dispatch, reruns, or schedule
 
 Normal integration may use the existing hosting-provider GitHub connection; an eligible Developer Mode push uses the connection already attached to `main`. Do not create a connection, modify triggers, re-enable autodeploy, or change external/repository settings. Review the complete actual diff. Owner approval of a sensitive decision may already be supplied by the current request or an identified-task/PR "push to main", "merge", or "aprobado" under `MAIN_DELIVERY_STANDARD.md`. Preserve actual named, independent, or formal review requirements without inventing a universal GitHub review event or personal diff-inspection gate. Record owner approval, assistant source review, actual required review, checks, remote target/version, and deployment status separately; never claim unobserved human diff inspection.
 
-No autonomous work or Actions does not mean disabling an existing provider GitHub connection. Preserve valid autodeploy/watch paths; never introduce dummy never-matching filters. Report an observed disabled connection or filter excluding changes that need deployment as a separate blocker, preserving valid service-specific filters and intended skips for unaffected services. A generic development request grants no provider-setting changes.
+The ban on unattended work or Actions does not mean disabling an existing provider GitHub connection. Preserve valid autodeploy/watch paths; never introduce dummy never-matching filters. Report an observed disabled connection or filter excluding changes that need deployment as a separate blocker, preserving valid service-specific filters and intended skips for unaffected services. A generic development request grants no provider-setting changes.
 
 ## Gaps and stopping
 
-Record factual gaps without inventing answers. In normal branch/PR delivery, make bounded in-scope repairs and resolve ordinary integration conflicts while preserving others' changes, then rerun affected checks and review the diff. Ask one precise question only for a material missing decision or unresolved check, review, or access blocker; never bypass controls or expand into unrelated maintenance. Developer Mode direct-main hard stops remain unchanged, with no automatic repair, retry, or fallback.
+Record factual gaps without inventing answers. In normal branch/PR delivery, make bounded in-scope repairs and resolve ordinary integration conflicts while preserving others' changes, then rerun affected checks and review the diff. In Auto, finish independent work before asking only for a genuinely missing material decision or reporting an unsatisfied actual control/access requirement; no generic OK is needed. Never bypass controls or expand into unrelated maintenance. Developer Mode direct-main hard stops remain while that mode is active; explicit Auto replaces the mode for the identified goal and must diagnose and satisfy any failed control.
 
-Mark the request complete only at its requested delivery boundary; a pushed branch or open PR is insufficient for normal delivery. Remaining necessary steps stay part of the still-current request. Later ideas and work outside it remain inactive until explicitly requested. Task/status files may record scope and evidence, but they neither revoke the active user request nor grant authority in another conversation. Never persist active Developer Mode or lasting delivery permission in them.
+Mark the request complete only at its requested delivery boundary; a pushed branch, open PR, or first scaffold/release is insufficient when the goal includes more work. Remaining necessary steps stay part of the still-current request. Later ideas and work outside it remain inactive until explicitly requested. Task/status files may record scope and evidence, but they neither revoke the active user request nor grant authority in another conversation. Never persist active Auto/Developer Mode or lasting delivery permission in them.
 
 ## Product safeguards remain
 

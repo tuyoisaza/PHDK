@@ -2,13 +2,15 @@
 
 ## Purpose
 
-This file defines when and how to capture the *why* behind a feature, bug, or body of work as a durable, git-committed, human-reviewable artifact — before scoping (`TASK.md`) or building starts.
+This file defines when and how to capture the *why* behind a feature, bug, or body of work as a durable, human-reviewable repository artifact. Capture relevant intent while defining scope in `TASK.md` and include it in the authorized change; it does not require a separate commit or human-approval gate before implementation.
 
 It extends `SPEC_INTERVIEW_PROMPT.md`'s one-time, project-level interview down to individual asks that a human presents during an active session, such as a stakeholder request, customer bug report, or teammate's report.
 
 Its goal is that the reason a piece of work exists survives a context reset, a different AI tool picking up the thread, or months passing — the same way `TASK_TRACKING_STANDARD.md` makes sure the *plan* survives, and `CHANGELOG.md` makes sure the *outcome* survives.
 
 `EXECUTION_SCOPE.md` governs which work may be performed. Intent capture never authorizes scheduled maintenance, automated alerts, dependency bots, or an agent to launch a mission. Diagnosis and repair discovered during an approved code mission stay within that mission; a new objective requires a human request.
+
+For explicit `PHDK auto`, follow `PHDK_AUTO.md`: derive intent from the identified current goal, proceed through all its stages, and collect final verification after complete implementation. Do not start an interview, intent-approval round, or new handoff merely because a slice needs a record. Existing requirements and reversible conventional choices settle routine details; isolate only genuinely missing material decisions and continue independent authorized work.
 
 ---
 
@@ -25,7 +27,7 @@ Read this file when:
 
 ## Core Rule
 
-An intent file captures the problem and the desired outcome, separately from the plan and separately from the code. It is written and reviewed *before* scope is confirmed in `TASK.md`.
+An intent file captures the problem and the desired outcome, separately from the implementation plan and code. The assistant reviews it against the current request while recording scope in `TASK.md`; a clear owner request already supplies its authorization. Do not require the owner to confirm the same intent again.
 
 This is not a spec. It does not describe files, routes, or implementation. If it starts describing how something will be built, that content belongs in `TASK.md`'s `Slice` section instead.
 
@@ -78,7 +80,7 @@ Create the file at `docs/intents/<short-name>-intent.md`:
 
 ## Optional Capture Interview
 
-For an ask that arrives as a short, informal request (a one-line bug report, a vague feature ask), use a short interview instead of writing the file directly:
+Use a short interview only when the supplied context leaves a material goal or constraint genuinely unresolved. A short request with a clear outcome needs no interview. Use the prompts below to identify the one missing decision, not as a compulsory sequence:
 
 1. Who is asking for this, and what prompted it right now?
 2. What problem or pain does this address — what happens today without it?
@@ -86,14 +88,14 @@ For an ask that arrives as a short, informal request (a one-line bug report, a v
 4. Is there anything this must not become, or anything explicitly out of scope?
 5. Anything unresolved that needs to be settled before scoping starts?
 
-This is deliberately shorter than `SPEC_INTERVIEW_PROMPT.md`'s 14-question project-level interview — it is scoped to one ask, not a whole product.
+Ask only what the current request and available evidence do not answer, one question at a time. Under Auto, finish independent authorized work before requesting a blocked decision; neither this list nor `SPEC_INTERVIEW_PROMPT.md` interrupts an already clear whole-project goal.
 
 ---
 
 ## File Location and Lifecycle
 
 - Intent files live in `docs/intents/`, one file per intent.
-- An intent file is created once and never overwritten. Unlike `TASK.md`, which is replaced when a slice closes, an intent can span multiple slices and multiple `TASK.md` cycles over time — it is a permanent record, not a rotating current-file.
+- An intent file is created once and never overwritten. It can span multiple slices and `TASK.md` cycles over time; it is a permanent record. Keep `TASK.md` focused on the whole current goal until that goal closes, including all Auto stages, rather than replacing it at each internal checkpoint.
 - Never delete an intent file. If the work it describes is abandoned, add a line under `Open Questions` noting that and why, rather than removing the file.
 - As slices that implement an intent close, add a pointer to each closed slice's archived `TASK.md` (per `TASK_TRACKING_STANDARD.md`) under the intent's `Linked Slices` section.
 
@@ -103,7 +105,7 @@ This is deliberately shorter than `SPEC_INTERVIEW_PROMPT.md`'s 14-question proje
 
 Intent capture must preserve the originator's meaning, but it is not a mandatory approval pause. If the current user is the originator and their request already clearly states the problem, desired outcome, and relevant constraints, write the intent file from that request and continue into mission scoping without asking them to confirm their own words again.
 
-If the human's request relies on an external source or delegated report and contains a material ambiguity that could change the mission, ask the current user only the decision that blocks safe scoping. Their clear authorization is sufficient; do not contact third parties or require a separate originator approval. External evidence and captured intent do not authorize work beyond the approved mission or `EXECUTION_SCOPE.md`.
+If the human's request relies on an external source or delegated report and contains a material ambiguity that could change the mission, isolate that decision, complete independent authorized work, and ask the current user only what still blocks progress. Their clear authorization is sufficient; do not contact third parties or require a separate originator approval. External evidence and captured intent do not authorize work beyond the approved mission or `EXECUTION_SCOPE.md`.
 
 ---
 
@@ -121,6 +123,7 @@ PHDK deliberately does not add a separate `spec.md` artifact on top of this. `PR
 
 - Writing an intent file that describes implementation details instead of the problem and desired outcome
 - Asking the current originator to reconfirm an intent that already faithfully captures their explicit request
+- Pausing Auto for an intent interview, checkpoint commit, or stage approval when the whole current goal is already clear
 - Acting on a materially ambiguous externally-originated intent without resolving the ambiguity
 - Treating a trivial, undisputed one-line fix as requiring an intent file
 - Overwriting or deleting an intent file instead of updating its `Linked Slices` and `Open Questions`

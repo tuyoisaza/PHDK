@@ -18,7 +18,13 @@ Record owner approval and its task/PR scope separately from assistant source rev
 
 One assistant handles the current request. Do not delegate tasks, create subagents, coordinate agent teams, or distribute a task queue, including inside the current session.
 
-Stop when the deliverable is complete or blocked, the user pauses it, or the conversation ends. Proposed follow-ups remain inactive until a later explicit user request.
+Stop when the whole deliverable is complete, the user pauses it, the conversation ends, or a real blocker leaves no permitted progress after independent authorized work is complete. A blocked component does not make the whole task inactive. Proposed follow-ups remain inactive until a later explicit user request.
+
+### PHDK Auto tracks one complete goal
+
+An explicit `PHDK auto` follows `PHDK_AUTO.md`: record the entire current goal, all its necessary stages, final verification coverage, and delivery target. Keep that goal in progress across slices, candidate releases, status questions, and context compaction; do not replace it with the first stage or move its remaining authorized work into inactive follow-ups. Progress records never require an OK to continue.
+
+Complete implementation before comprehensive final checks and normal branch/PR delivery. Required risk-based tests belong to this final coverage; only implementation-blocker diagnosis and actual mandatory controls require earlier execution. Auto replaces Developer Mode for this goal only through explicit activation. Record scope and evidence as dated facts, never `auto=true`, active-mode state, or reusable authority; exit and conversation lifetime remain governed by `PHDK_AUTO.md`.
 
 ### Developer Mode is not task state
 
@@ -34,7 +40,7 @@ Follow `PHDK_UNLOCK.md` for the command or an explicit request to reconcile/remo
 
 ## Files
 
-- `TASK.md`: the current request, scope, delivery target, owner controls, completion criteria, observed git/review evidence, and necessary delivery steps; never mode activation/state.
+- `TASK.md`: the whole current request, scope, delivery target, owner controls, completion criteria, final verification coverage, observed git/review evidence, and necessary delivery steps; never mode activation/state.
 - `STATUS.md`: durable completed/current/proposed/blocked context, versions, evidence, gaps, and open decisions.
 - `docs/completed-slices/`: archived completed task/slice records when an archive is useful for the current change.
 - `docs/intents/`: immutable intent records when required by `INTENT_CAPTURE_STANDARD.md`.
@@ -62,18 +68,19 @@ Delivery instructions: <current user instructions as context, not a permission t
 Approval evidence: <current scoped owner decision; assistant review and any required formal review recorded separately>
 Branch: <branch actually used, or not applicable; never an enabling flag>
 Delivery evidence: <actual commit, push, PR, required review, merge, remote version/result; pending where unknown>
+Final verification coverage: <applicable commands and behavior checks for the whole goal; actual mandatory controls keep their operation timing>
 
 ## Necessary steps for this request
 - [ ] <step>
   - Files: <relevant paths>
-  - Acceptance: <source review and allowed local checks>
+  - Coverage: <source review and allowed local checks; in Auto, collect at the completed candidate rather than as stage acceptance>
   - Blocked by: <decision/dependency, or none>
 
 ## Inactive follow-up context
 <proposals or unfinished work; NOT authorized for execution>
 ```
 
-A recorded task-specific request summarizes history; copying it into a later session does not renew permission, and editing its summary does not revoke the live current request. It must not store Developer Mode activation or authorize restoration. Normal implementation/fix/update requests include delivery under `MAIN_DELIVERY_STANDARD.md` without a separate merge request. An audit request remains read-only even while Developer Mode is active.
+A recorded task-specific request summarizes history; copying it into a later session does not renew permission, and editing its summary does not revoke the live current request. It must not store Developer Mode or Auto activation or authorize restoration. Normal implementation/fix/update requests include delivery under `MAIN_DELIVERY_STANDARD.md` without a separate merge request. An audit request remains read-only; a command definition in the record activates no mode.
 
 ## Before each mutation
 
@@ -83,11 +90,11 @@ If task files disagree with the current request or observed GitHub state, correc
 
 ## Closing work
 
-1. Complete the delivery steps already included in the current request, following `MAIN_DELIVERY_STANDARD.md` or the separately eligible Developer Mode flow. A slice boundary does not require a commit/push or another approval.
+1. Complete the whole requested outcome and its included delivery steps, following `MAIN_DELIVERY_STANDARD.md` or the separately eligible Developer Mode flow. In Auto, final integrated verification follows all implementation under `PHDK_AUTO.md`; a slice boundary requires neither a commit/push nor another approval.
 2. Verify the result and version on remote `main`, or verify the user's explicitly narrower target. Record the actual checks, review, and delivery state; a branch push or open PR is intermediate progress for a `main` target.
 3. Mark the request complete only when that target is satisfied. Otherwise record the exact blocker and unfinished stage, or the user's pause; do not label incomplete delivery done.
 4. Archive a coherent completed slice when appropriate and link it from `STATUS.md`. Keep unrelated proposed follow-ups inactive.
-5. Report completion or the genuine blocker and stop. If final merge evidence arrived after the last source commit, include it in the report; another commit solely to restate that evidence is not required.
+5. Report whole-goal completion or, after independent work is complete, the genuine blocker and unfinished scope, then stop. If final merge evidence arrived after the last source commit, include it in the report; another commit solely to restate that evidence is not required.
 
 Multiple necessary steps of the same current request may be completed without repeated approval. This does not authorize selecting a new goal from the backlog.
 
@@ -99,7 +106,7 @@ Track code delivery and provider deployment as separate observed facts. Existing
 
 ## Concurrent edits
 
-Do not create or use a multiple-agent queue. If another human or independently active session changes overlapping files, preserve their work. In the normal branch/PR flow, refresh remote `main`, resolve routine integration conflicts within the current scope, reconcile the branch version, and review/check the changed result. Pause for material ambiguous or sensitive conflicts or unmet controls. Do not decide that an old claim marker permits taking over someone else's work, overwrite their changes, rewrite history, or force-push. Use observed branch and commit identifiers for git writes; Developer Mode's separate immediate stops remain binding.
+Do not create or use a multiple-agent queue. If another human or independently active session changes overlapping files, preserve their work. In the normal branch/PR flow, refresh remote `main`, resolve routine integration conflicts within the current scope, reconcile the branch version, and review/check the changed result. Isolate genuinely unresolved material conflicts or unmet controls and continue independent work. Do not decide that an old claim marker permits taking over someone else's work, overwrite their changes, rewrite history, or force-push. Use observed branch and commit identifiers for git writes; Developer Mode's separate immediate stops apply unless explicitly replaced by Auto for the identified goal, without bypassing the control.
 
 ## Verification
 
@@ -113,7 +120,8 @@ Do not create or use a multiple-agent queue. If another human or independently a
 - [ ] Commit/push/PR/merge actions match the current user's authorization.
 - [ ] A `main` target is complete only with remote result/version evidence; otherwise the exact blocker and remaining delivery stage are recorded.
 - [ ] Permanent instruction headers contain stable rules and pointers, with no transient task state.
-- [ ] Developer Mode was not stored or restored from task/status/configuration/memory; only actual task outcomes and delivery evidence were recorded.
+- [ ] Developer Mode and Auto were not stored or restored from task/status/configuration/memory; only actual task outcomes and delivery evidence were recorded.
 - [ ] Any direct-flow check failure, rejection, non-fast-forward update, or unmet control stopped that flow and was reported without automatic retry or bypass.
 - [ ] Proposed or unfinished follow-ups are inactive.
+- [ ] Auto's remaining authorized stages stayed within the current goal; none was turned into an inactive proposal or a separate human-acceptance gate.
 - [ ] Completion does not automatically start another task.
