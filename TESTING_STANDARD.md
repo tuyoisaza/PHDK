@@ -153,3 +153,17 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 - [ ] No speculative harness or unnecessary runner was added.
 - [ ] Remaining visual/runtime uncertainty is stated accurately.
 - [ ] If provider diagnostics were requested, retrieval followed `EXECUTION_SCOPE.md` and findings are reported separately from product-test evidence.
+
+
+## User acceptance testing
+
+`PHDK uat` is governed by `UAT_STANDARD.md`. UAT is the requirements-to-observable-behavior acceptance layer above implementation-focused tests.
+
+- Derive cases from actual actors, goals, requirements, acceptance criteria, workflows, errors, permissions, and materially changed behavior.
+- Give every case a stable ID and requirement/source traceability.
+- Exercise behavior through the strongest permitted channel available: existing automated acceptance/integration tests, in-process API/service/domain flows, isolated fixtures, or focused test sources added to exercise acceptance behavior.
+- Build/type/static evidence counts only when it genuinely establishes the acceptance condition.
+- Code inspection alone cannot make an unexecuted behavioral case PASS.
+- Browser/headless UI execution, screenshots, live app/database probes, destructive writes, paid calls, provider administration, hosted CI dispatch, and background monitoring remain excluded.
+- Cases requiring unavailable/excluded evidence are BLOCKED or MANUAL with the missing evidence stated explicitly.
+- Store the catalog in `UAT_CASES.md` and the current run in `UAT_REPORT.md`, unless the repository already defines equivalent canonical paths.
