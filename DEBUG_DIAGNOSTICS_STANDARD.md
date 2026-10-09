@@ -22,6 +22,8 @@ For static or public-only projects, debug mode is a recommended technical note, 
 
 PHDK agents review diagnostics code and run permitted local static/build checks or risk-triggered unit/in-process integration tests. Browser APIs, OAuth, database access, network requests, and metered providers must be replaced with test doubles in those tests. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call application/health/probe endpoints, or change cloud settings. Requested non-secret provider metadata reads follow the separate boundary below; another tool, skill, or subagent cannot widen it.
 
+When `PHDK auto` is explicitly active, follow `PHDK_AUTO.md`: implement diagnostics and necessary test coverage as part of the full goal, then verify these requirements with the completed integrated candidate. The checklist below is not a separate release, human acceptance, or intermediate test gate. Only an actual implementation blocker or mandatory control justifies an earlier check; permitted scope remains unchanged.
+
 For a current request such as "verifica Railway", follow `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**. Existing authorized API/CLI/connector access may retrieve finite service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs. Neither Developer Mode nor unlock is required, and an older code-sync task exclusion cannot veto a newer read request. No secret values, application probes, browser use, streams, polling, watchers, writes, or recurring work. Report provider observations and user-supplied redacted diagnostics separately from source checks; retain `visual/runtime unverified` for behavior not exercised. Independent human product use is optional, never a checklist chore.
 
 Do not create recurring diagnostics, monitoring jobs, or scheduled agents. Existing product behavior remains subject to its own authentication, redaction, and consumption controls.
@@ -323,7 +325,7 @@ The version badge must:
 
 ## Debug Diagnostics QA
 
-Before marking diagnostics code complete, record source references and applicable permitted local checks for these requirements. A checked item confirms the implementation evidence only; it does not claim the UI was rendered or a live action succeeded.
+Before claiming the requested delivery complete, record source references and applicable permitted local checks for these requirements. During Auto, collect this evidence in the whole goal's final integrated verification, repair in-scope failures, and continue authorized delivery without another PHDK-only approval. A checked item confirms implementation evidence only; it does not claim the UI was rendered or a live action succeeded.
 
 - [ ] Source mounts the version badge in the app shell, login page, and admin panel.
 - [ ] Source pairs Copy diagnostics and Clear cache controls immediately next to each other.

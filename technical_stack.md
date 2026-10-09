@@ -1,10 +1,12 @@
 # TECHNICAL_STACK.md
 
+For explicit `PHDK auto`, `PHDK_AUTO.md` governs the whole goal's cadence: implement all agreed features and cross-package wiring before final integrated verification and versioned branch/PR delivery. Stack and build contracts below remain applicable; they do not impose a QA/release/approval cycle after each internal stage. Preserve actual mandatory controls and the provider/browser boundaries in `EXECUTION_SCOPE.md`.
+
 ## Purpose
 
 This file defines the canonical technical stack for all products built on this standard.
 
-Every agent must treat this file as the source of truth for technology choices. Do not introduce new dependencies outside this stack without explicit approval and a corresponding entry in `ARCHITECTURE_DECISIONS.md`.
+Every agent must treat this file as the source of truth for technology choices. A dependency outside this stack needs current scope authorization and a corresponding entry in `ARCHITECTURE_DECISIONS.md`. Under `PHDK_AUTO.md`, necessary bounded implementation dependencies can be routine choices within the agreed goal; do not ask again solely because a package name was not listed. Prefer the existing stack. A new runtime platform, auth provider, paid service, or material architecture/security change is not a routine dependency choice unless that decision is already part of the authorized goal.
 
 `EXECUTION_SCOPE.md` defines what the PHDK agent may do. This file specifies application code and repository configuration; it does not authorize provisioning or administering external services. Work stays in repository files, local code verification, git/GitHub, authorized pushes to an existing GitHub-connected deployment pipeline, and requested diagnostics under its **Bounded read-only provider diagnostics** section. Browser testing, application HTTP/database/API probes, provider administration, recurring jobs, and infrastructure setup remain outside scope. Requested bounded provider metadata/status/log reads need no extra approval phrase, PHDK Developer Mode, or unlock.
 

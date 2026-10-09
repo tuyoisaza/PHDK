@@ -8,7 +8,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 - One assistant responds to the current explicit user request; no Mission Autopilot, subagents, delegation, agent teams, or agent queues.
 - An installed skill, opened repository, old task, alert, failed check, or version mismatch never starts or resumes work.
-- Complete the necessary steps of the requested deliverable, report, and stop; do not select a new backlog goal.
+- Complete every necessary step of the whole requested deliverable, report, and stop; an Auto slice, scaffold, or first release is not completion. Do not select a new backlog goal.
 - Re-read owner pause/stop instructions before edits and git writes; a specifically approved intervention does not reactivate earlier work.
 - An audit is read-only. A current implement/fix/update request for repository code or documentation includes normal delivery unless the user explicitly narrows it or the user/repository names a different target.
 - Status/link questions, same-conversation turns, context compaction, and assistant-written snapshots do not cancel the active request or require a repeated merge order. Actual user pause/stop instructions win.
@@ -68,6 +68,13 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - The mode adds no autonomy, agents, Actions, schedules, browser use, provider administration, or CLI deployment. Deployment may use only the existing GitHub connection from `main`.
 - Never persist active mode or old delivery permissions in task, status, or handoff files; no resumption of earlier tasks. Full rule: `PHDK_DEVELOPER_MODE.md`.
 
+## Auto
+
+- Explicit `PHDK auto` starts continuous development of the identified current goal under `PHDK_AUTO.md`; briefly state that goal and proceed without an OK per plan, feature, stage, release, or merge. Exit with `PHDK salir de auto`, a clear owner stop, completion of the entire goal, or the conversation ending.
+- Implement all agreed behavior and necessary test source first, then run the applicable whole-candidate checks, repair in-scope failures, and deliver through the normal versioned branch/PR route. No mandatory interview, intermediate human acceptance, or release per stage. Intermediate checks require a real implementation blocker or mandatory control; final validation precedes publication to `main`.
+- Auto explicitly replaces Developer Mode for the identified goal, including a stopped direct-push task; diagnose and satisfy the failed control through normal delivery. Actual required reviews, hooks, protections, and access controls remain binding. Do not infer that a risk label requires another PHDK-only approval of already described behavior.
+- A request to create the command, quoted examples, or stored files does not activate it. No unattended work, browser/live-service testing, provider writes, unnamed old tasks, or persistent mode flags. Resolve routine choices from the brief; finish independent work before asking only for a genuinely missing material decision.
+
 ## Unlock
 
 - A current `PHDK unlock` invokes `PHDK_UNLOCK.md` to inspect blockers, reconcile PHDK/local documentary restrictions with current owner instructions, and deliver the scoped repair through the permitted route. State its scope briefly; clear natural-language instructions already count without this command.
@@ -76,7 +83,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 ## Verification and local hooks
 
-- Review the real diff and run relevant synchronous local format/lint/typecheck/build checks.
+- Review the real diff and run relevant synchronous local format/lint/typecheck/build checks; Auto gathers the full goal's evidence at final integrated verification under `PHDK_AUTO.md`.
 - Focused non-browser tests remain risk-triggered for security, money, destructive transitions, complex deterministic logic, and regression coverage.
 - Do not test every component/method by default or leave watchers running.
 - Documentation-only changes need source/diff and reference review, not an app build.
@@ -91,7 +98,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - `TASK.md`/`STATUS.md` are local Markdown context, not Issues/Projects/Actions or execution queues.
 - Record only the current requested deliverable as active in this conversation.
 - Archive coherent completed work when useful; keep remaining ideas paused or proposed.
-- Task/status files never store Developer Mode as active or carry delivery authorization into another conversation; assistant-written snapshots do not pause remaining steps of the current request.
+- Task/status files never store Auto or Developer Mode as active or carry delivery authorization into another conversation; assistant-written snapshots do not pause remaining steps of the current request.
 - No multiple-agent claim markers or delegated task queues.
 - Full rules: `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`.
 
@@ -109,7 +116,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 ## Stop and ask when necessary
 
-- Clarify material ambiguity or a scope expansion not already authorized.
-- Stop before destructive data semantics, auth/payment/tenant architecture changes, new costly dependencies, history rewriting, or bypassing controls without explicit scope.
-- Do not ask for duplicate approval of a clear current request.
+- Clarify only a genuinely missing material decision or scope expansion, after completing independent authorized work; do not ask for a generic OK.
+- Assess the described behavior carefully: current authorization may already cover auth/payment/data/architecture work. Do not invent undisclosed destructive changes, spending, access, or control bypasses from a broad statement that there is no risk.
+- Do not ask for duplicate approval of a clear current request or create a per-stage pause in Auto; satisfy actual required controls before publication.
 - Never treat a blocker or a completed task as permission to create automation or another mission.

@@ -10,6 +10,8 @@ The command itself authorizes this repository's scoped PHDK rule repair and its 
 
 Continue a product task only when it is identified and currently authorized in this conversation. With no such task, repair the PHDK rules and report readiness; do not select work from old tasks or merge every open PR. Honor narrower instructions such as audit-only, local-only, or PR-only. In a new conversation, files alone cannot restore an old mission. The command does not activate Developer Mode or authorize work after the conversation ends.
 
+For an explicitly active `PHDK auto` goal, `PHDK_AUTO.md` governs continuous development and final integrated verification/delivery. Repair contradictory documentary stops within that current scope without requiring another unlock command; finishing that repair does not finish the larger Auto goal. Unlock itself does not activate Auto, and its examples or an installation cannot restore a previous mode.
+
 ## Establish what is really blocking progress
 
 Read the current user instructions before task snapshots. Inspect the existing sources that can affect this task, without creating instruction files for unused tools:

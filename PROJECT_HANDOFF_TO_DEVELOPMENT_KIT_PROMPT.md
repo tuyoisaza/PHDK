@@ -7,29 +7,28 @@ Every generated file that references standards must point to this URL.
 
 ---
 
-## Hard Mode Switch
+## Requested Workflow
 
-Run this workflow only for a current explicit request to generate the kit. Reading, quoting, or including this prompt in a brief does not start work or activate Developer Mode. `PHDK_DEVELOPER_MODE.md` defines that separate, conversation-only command.
+Run this workflow for a current explicit kit-generation request or as a necessary documentation step in an explicitly authorized goal under `PHDK_AUTO.md`. Reading, quoting, or including the prompt in a brief does not start work or activate Auto/Developer Mode.
 
 Route `PHDK unlock` to `PHDK_UNLOCK.md` for the requested blocker repair; that command does not start this kit-generation workflow or resume previous product tasks.
 
-STOP ALL PREVIOUS TASKS.
+Keep the current owner's requested scope. A standalone kit request ends at its requested documentation delivery; when the kit is part of an active Auto goal, continue the rest of that goal without a separate handoff approval.
 
-You are now entering **PHDK MODE — Project Handoff to Development Kit**.
+Use **Project Handoff to Development Kit** as this documentation step, not as a new authority or a mode that cancels the parent goal.
 
-Do not continue any previous task.
+Only a current user pause, stop, or replacement request cancels earlier authorized work; this template does not.
 
-Do not generate content, UI, copy, code, strategy, brainstorming, or implementation plans.
+Keep this step focused on the requested project documentation. Do not invent additional product scope.
 
-Your only job from this point forward is to generate structured project documentation files through the PHDK workflow.
+Generate the structured project files through the workflow below, then continue any remaining implementation already included in the current Auto goal.
 
-Before asking any setup questions, first respond exactly:
+Give a brief progress update, for example:
 
 ```txt
-Understood. I am now in PHDK MODE.
-Previous tasks are paused.
+I will generate the project documentation from the established brief.
 Project identified: [project name from the conversation]
-I will confirm the unanswered setup questions before generating any files.
+I will resolve only material missing decisions and continue the authorized scope.
 ```
 
 If the project name is unknown, use:
@@ -38,9 +37,9 @@ If the project name is unknown, use:
 Project identified: ⚠️ GAP: Project name not clearly identified from the conversation.
 ```
 
-After that confirmation, ask the first unanswered setup question, starting with Question 1 when its answer is not already known.
+Use existing answers and the current brief. Ask only for a genuinely missing material decision after completing independent work; do not require a new setup interview merely because this template lists questions.
 
-If you do not provide the exact confirmation above, you have not entered PHDK MODE.
+No exact phrase, confirmation reply, or additional `go` is required when generation is already authorized.
 
 ---
 
@@ -50,15 +49,15 @@ When this prompt is activated, do **not** create one generic document about PHDK
 
 Do **not** summarize the kit.
 
-Generate each file separately, then continue through the complete kit in one pass after the interview.
+Generate each file separately and continue through the complete kit when the necessary requirements are available.
 
 Do **not** create a single file that contains every section.
 
-Your job is to enter **PHDK generation mode**, ask the setup questions, then generate the requested files **one at a time as separate markdown files**.
+Generate the requested files **one at a time as separate markdown files**, using the brief and only necessary clarification.
 
 Each generated file must be complete, standalone, and ready for the user to copy into a real repo using the exact filename provided.
 
-After the required PHDK MODE confirmation, ask only the first unanswered setup question.
+In Auto, follow `PHDK_AUTO.md` instead of starting another interview or handoff-approval cycle.
 
 ---
 
@@ -70,7 +69,7 @@ This kit is not the app.
 This kit is not source code.  
 This kit is not generic development standards.
 
-This kit is the structured project-specific documentation a developer or AI coding agent will use to understand the project, prepare the repo, and start the first build task safely.
+This kit is the structured project-specific documentation a developer or AI coding agent will use to understand the project and implement its requested scope. Under Auto, the first build task is an internal step when the goal includes more development.
 
 The deliverable is not one document. The deliverable is a file-by-file generation workflow that produces the files listed in this prompt.
 
@@ -123,6 +122,7 @@ Required standards files the AI coder must fetch before doing anything:
 - `AGENTS.md` — AI coder behavior rules
 - `EXECUTION_SCOPE.md` — code, git/GitHub, existing deployment, and verification boundaries
 - `MAIN_DELIVERY_STANDARD.md` — normal repository delivery through reviewed integration and verified remote target/version; explicit scope limits and blockers
+- `PHDK_AUTO.md` — explicitly activated whole-goal development, final integrated verification, and normal delivery without intermediate approval gates; a reference is not activation
 - `PHDK_UNLOCK.md` — explicitly requested PHDK/local-rule blocker repair with existing controls preserved; reading is not invocation
 - `PHDK_DEVELOPER_MODE.md` — explicit conversation-only mode and its narrow delivery exception; a reference is not activation
 - `DEVELOPMENT_RULES.md` — Git, branching, commits, versioning
@@ -164,15 +164,15 @@ The standards repo controls how the product is built.
 
 ## Before Generating Any Files
 
-There are six setup topics below. Use answers already present in the conversation; ask only the unanswered questions, one at a time.
+There are six setup topics below. Use the current brief, established answers, and repository conventions. In Auto, make reasonable reversible in-scope choices and record assumptions; these topics do not create a mandatory interview.
 
-Wait for each answer before asking the next.
+Ask one question at a time only for a genuinely missing material decision. Continue independent authorized work before asking; a missing answer need not block every file.
 
-Do not generate any files until the necessary answers are captured. A stated unknown, `skip`, or `not connected` is a valid answer where offered; record it without inventing external setup work.
+Generate the files that can be completed from known requirements. A stated unknown, `skip`, or `not connected` is a valid answer where offered; record it without inventing external setup work.
 
-Do not explain the whole process before asking.
+Do not ask for repeated authorization to generate the kit or continue the current Auto goal.
 
-When Question 1 is unanswered, use exactly this format after the required PHDK MODE confirmation:
+When login is genuinely undecided and its decision blocks the requested content, ask only that question, for example:
 
 ```txt
 Question 1:
@@ -195,6 +195,8 @@ Answer options:
 ### Question 2
 
 Should this kit target MVP only, or MVP plus future phases?
+
+Use the scope already requested. If Auto covers a complete project or selected later phases, include all of that scope; do not silently reduce it to an MVP or end development at the first release.
 
 Answer options:
 
@@ -259,7 +261,7 @@ Is there anything you want to correct, add, or clarify about the project before 
 
 Answer with the correction, addition, or clarification. Or say `go`.
 
-After Question 6, `go` means generate the complete kit, beginning with `PROJECT_BRIEF.md`, following the Generation Workflow below. Each file is separate; no `next` confirmation is needed between files.
+This optional correction opportunity is not a new approval gate. When generation is already authorized, proceed with the complete kit without waiting for `go`, beginning with `PROJECT_BRIEF.md` under the Generation Workflow. Each file is separate; no `next` confirmation is needed between files.
 
 ---
 
@@ -313,19 +315,20 @@ These are product-code requirements for authorized users. They do not authorize 
 
 Every generated kit must preserve `EXECUTION_SCOPE.md` in its tasks, architecture decisions, acceptance criteria, and follow-up work:
 
-- Execution is interactive-only: one assistant, the current explicit request, then report and stop. Do not generate Mission Autopilot instructions, delegated work, automatic next tasks, or resumption from a stored plan.
+- Execution is interactive-only: one assistant completes the whole current explicit request, then reports and stops. An active Auto goal continues across its internal tasks; do not generate unattended Mission Autopilot instructions, delegated work, new unrequested goals, or resumption from a stored plan.
 - Allowed work is repository code/documentation, git/GitHub branches/commits/PRs, and requested deployment through an already connected GitHub pipeline, subject to the release rules.
 - A current implement/fix/update request for repository code or documentation includes normal delivery under `MAIN_DELIVERY_STANDARD.md`: scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and fresh remote `main` version verification. Honor explicit local-only, branch-only, PR-only, or different-target instructions; a branch push/open PR alone does not finish normal delivery.
 - Status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots do not cancel the active request or require a repeated merge order. Actual user pause/stop instructions win; generated files never grant authority in another conversation.
 - Review the complete actual diff. The current explicit request or identified-task/PR approval may already approve the sensitive decision under `MAIN_DELIVERY_STANDARD.md`. Do not generate a universal personal diff-inspection or GitHub-review-event gate; preserve actual named, independent, or formal review requirements, hooks, checks, and access controls. Record owner approval separately from assistant source review without inventing human diff inspection.
 - Route an explicit `PHDK unlock` to `PHDK_UNLOCK.md` for documentary blocker repair and its scoped delivery. Do not turn it into automatic task resumption, persistent permission, or removal of controls; current owner instructions can replace earlier documentary local exceptions.
-- Reference `PHDK_DEVELOPER_MODE.md` without recording the mode as active or preserving authority for a later conversation. Only its explicit command in the current conversation activates the low-risk direct-`main` exception; mentions, briefs, and generated files do not. A full kit/bootstrap is not automatically eligible; its direct-main hard stops remain unchanged.
+- Route explicit `PHDK auto` and `PHDK salir de auto` to `PHDK_AUTO.md`. Auto develops the entire identified goal, writes necessary test coverage with the code, and executes applicable integrated verification at the end before normal delivery. Do not generate stage approvals, intermediate release gates, or a first-scaffold completion claim. Earlier checks require an actual implementation blocker or mandatory control; actual required reviews and controls remain binding.
+- Reference `PHDK_DEVELOPER_MODE.md` without recording a mode as active or preserving authority for a later conversation. Only its explicit command activates the low-risk direct-`main` exception; mentions, briefs, and generated files do not. Auto uses normal branch/PR delivery and explicitly replaces Developer Mode for its identified goal under `PHDK_AUTO.md`; failed controls must be satisfied, never bypassed.
 - Record the known repository, deployment target, and branch from Question 3 in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. If none is connected, report that fact; do not turn setup into a required task or block independent code work.
 - Preserve valid provider GitHub autodeploy/watch paths. The no-autonomy/Actions rules do not authorize disabling that connection or generating dummy never-matching filters. Record an observed disabled connection or filter excluding changes that need deployment as a separate blocker; preserve valid service-specific filters and intended skips for unaffected services. A generic development request does not authorize provider-setting changes.
 - Do not generate requirements or tasks for configuring provider dashboards, cloud resources, databases, secrets, repository settings, preview environments, or new CI/deployment workflows.
 - Do not generate recurring agents, scheduled Actions, cron jobs, backup jobs, periodic probes, Dependabot/Renovate configuration, or automatic dependency-update tasks.
 - Do not generate browser testing or browser verification requirements, including headless testing, screenshots, login/form interaction, or browser tools invoked indirectly through skills, plugins, MCP servers, or delegated agents.
-- Validation is code/diff review, lint, typecheck, formatting, build, and only risk-triggered local non-browser tests isolated from running apps and real external services. Browser and live-runtime behavior remain unverified by the agent and are not completion gates.
+- Validation is code/diff review, lint, typecheck, formatting, build, and risk-triggered local non-browser tests isolated from running apps and real external services. In Auto, checklists collect coverage for final verification of the entire implemented goal, not per-stage acceptance. Browser and live-runtime behavior remain unverified by the agent and are not completion gates.
 - Product health/diagnostics, auth, UI, migrations, and integrations can be implemented as scoped code. Those features do not grant permission to run the app or operate external resources.
 - A current "verifica Railway" or similar request may read finite service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through existing authorized API/CLI/connector access under `EXECUTION_SCOPE.md` — Bounded read-only provider diagnostics. An old code-sync task exclusion cannot veto that newer read; Developer Mode and unlock are not prerequisites. Do not generate secret-value reads, streaming, polling, watchers, app/database probes, provider writes, or a provider-reading completion gate.
 - Data backup ownership is outside PHDK's coding mission. Do not ask for a backup policy during bootstrap, add backup automation to `FEATURES.md`, or flag the absence of agent-managed backups as a kit gap.
@@ -338,7 +341,7 @@ When updating an older handoff, replace obsolete automation, external-setup, and
 
 ## Generation Workflow
 
-Generate the complete kit in one uninterrupted pass after the interview is complete.
+Generate the complete kit in one uninterrupted pass from available requirements. Resolve only genuinely blocking missing decisions; an already authorized Auto goal does not need another interview or `go`.
 
 Treat each filename as a separate file/artifact, but do not turn file boundaries into approval gates.
 
@@ -610,9 +613,9 @@ Must include:
 
 Living file.
 
-PHDK generates it once with the first task.
+PHDK generates it with the current requested goal and its implementation steps, or an inactive proposed first task when implementation was not requested.
 
-The assistant updates it as context for the current request. Necessary unfinished steps, including normal delivery, remain part of that still-current request; proposed later work stays inactive. An assistant-written snapshot cannot pause the user-authorized task or require a new merge order. The file never stores active Developer Mode or grants authority for another conversation.
+The assistant updates it as context for the current request. In Auto, record the whole goal rather than narrowing it to a scaffold or first release. Necessary unfinished steps, including final verification and normal delivery, remain part of that still-current request; proposed later work stays inactive. An assistant-written snapshot cannot pause the user-authorized task or require a new merge order. The file never stores active Auto/Developer Mode or grants authority for another conversation.
 
 Must include two permanent sections.
 
@@ -622,11 +625,11 @@ Must include two permanent sections.
 ## How to Use This File
 
 This file records context and a plan for a PHDK request; it never independently starts or resumes work.
-One assistant completes the current requested deliverable under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, reports evidence, and stops at the requested delivery boundary.
+One assistant completes the whole current requested deliverable under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, reports evidence, and stops at that outcome. Under explicit PHDK auto, follow PHDK_AUTO.md through all implementation steps, final integrated verification, in-scope repair, and normal delivery without intermediate approval gates.
 Necessary remaining steps stay active within that request; proposed later work and archived tasks need a new explicit request.
 Status/link questions, context compaction, and assistant-written snapshots do not revoke current user authorization. Actual user pause/stop instructions take precedence.
 Record current owner approval separately from assistant source review and any actual formal review requirement; do not demand another approval or claim personal diff inspection merely from an approval message.
-Developer Mode is conversation-only under PHDK_DEVELOPER_MODE.md. Never store it as active or treat saved delivery history as authorization for later work.
+Auto and Developer Mode are conversation-only under their command definitions. Never store them as active or treat saved delivery history as authorization for later work.
 ```
 
 ### Section 2 — Current Task
@@ -658,13 +661,13 @@ Branch Context:
 [known working branch / proposed feature branch]
 Delivery Target:
 [main unless the user/repository explicitly identifies another target; honor the user's local-only, branch-only, or PR-only scope]
-These fields record the current request, never activate Developer Mode or grant future-conversation authority. Normal delivery does not authorize a direct-main push.
+These fields record the current request, never activate Auto/Developer Mode or grant future-conversation authority. Auto uses normal branch/PR delivery, not the Developer direct-main exception.
 
 ## Scope
 
 [Files and behavior included in the current request]
 
-Execution boundary: repository code/documentation and normal git/GitHub delivery under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, subject to explicit user scope limits. Preserve current authorization through necessary delivery steps; do not request a repeated merge order. Apply PHDK_DEVELOPER_MODE.md only if explicitly active and the change is eligible. Deployment may use only an existing connection.
+Execution boundary: repository code/documentation and normal git/GitHub delivery under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, subject to explicit user scope limits. Preserve current authorization through all necessary steps; do not request a repeated merge order. Explicit Auto applies PHDK_AUTO.md to the whole goal and replaces Developer Mode for that goal; the separate direct-main exception applies only while Developer Mode is active and eligible. Deployment may use only an existing connection.
 
 ## Existing Deployment
 
@@ -682,7 +685,7 @@ No provider, secret, repository-setting, environment, or new workflow setup is i
 - Infrastructure/provider/database administration, credentials, repository settings, and live-service probes
 - Recurring agents, scheduled Actions/cron jobs, backups, dependency bots, automatic updates, and preview environments
 - Creating a new CI/deployment pipeline or modifying automation triggers
-- Autonomous/delegated work, resuming old tasks, or persisting active Developer Mode and delivery authority into another conversation
+- Unattended/background/delegated work, resuming unnamed old tasks, or persisting active Auto/Developer Mode and delivery authority into another conversation
 
 ## Plan
 
@@ -690,7 +693,7 @@ No provider, secret, repository-setting, environment, or new workflow setup is i
 2. [necessary step for the current request]
 3. [necessary step for the current request]
 
-The assistant may adjust necessary implementation steps within the current request. Normal branch/PR delivery includes bounded in-scope repairs and ordinary conflict resolution preserving others' changes, followed by affected checks and diff review. This plan does not authorize unrelated work, another agent, or bypassing controls. Stop after the requested delivery boundary, an actual user pause/stop, or a material unresolved blocker; Developer Mode direct-main hard stops remain unchanged.
+The assistant may adjust necessary implementation steps within the current request. In Auto, implement the entire goal and write necessary tests before final integrated verification, repair in-scope failures, then complete normal branch/PR delivery. A slice, scaffold, release, or handoff is not a stopping point when more of the goal remains. Preserve others' changes and actual controls; earlier checks require a real blocker or mandatory hook. Finish independent authorized work before reporting an unresolved material decision/control/access blocker. Developer Mode hard stops apply only while that mode remains active.
 
 ## Current Slice
 
@@ -704,9 +707,10 @@ User-visible outcome:
 3. phdk-standards/AGENTS.md
 4. phdk-standards/EXECUTION_SCOPE.md
 5. phdk-standards/MAIN_DELIVERY_STANDARD.md
-6. phdk-standards/PHDK_DEVELOPER_MODE.md only when explicitly invoked in the current conversation; reading it is not activation
-7. phdk-standards/PHDK_UNLOCK.md when blocker repair is currently requested; reading it does not invoke unlock or resume old work
-8. Only task-relevant standards routed by AGENTS.md
+6. phdk-standards/PHDK_AUTO.md when explicitly active for the current goal; reading, updating, or quoting it is not activation
+7. phdk-standards/PHDK_DEVELOPER_MODE.md only when explicitly invoked in the current conversation; reading it is not activation
+8. phdk-standards/PHDK_UNLOCK.md when blocker repair is currently requested; reading it does not invoke unlock or resume old work
+9. Only task-relevant standards routed by AGENTS.md
 
 ## Standards Repo
 
@@ -714,13 +718,13 @@ https://github.com/tuyoisaza/PHDK
 
 ## Acceptance Criteria
 
-[Pass/fail checklist for the current slice]
+[Pass/fail coverage for the whole requested outcome; internal slice criteria roll into the final integrated verification during Auto]
 
 ## Validation Commands
 
 [Allowed code/diff review, lint, typecheck, formatting, build, and risk-triggered isolated non-browser test commands; or ⚠️ GAP: if unknown]
 
-Inspect scripts before running them. Do not start the app, contact live services, or invoke browser tooling for verification. Report browser/runtime behavior as outside scope, not as a pending agent gate.
+Inspect scripts before running them. In Auto, execute applicable verification on the complete integrated candidate; earlier checks require an implementation blocker or mandatory control. Repair in-scope failures before publication. Do not start the app, contact live services, or invoke browser tooling. Report browser/runtime behavior as outside scope, not as a pending agent gate.
 
 A current request such as "verifica Railway" may read finite existing service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through authorized access under EXECUTION_SCOPE.md — Bounded read-only provider diagnostics. A previous task-specific exclusion cannot cancel this newer request. No secret values, app/database probes, provider writes, browser use, streaming, polling, watchers, or later diagnostics are authorized.
 
@@ -736,9 +740,9 @@ Risks and assumptions:
 Follow-up work:
 ```
 
-The first proposed task is below. Writing it does not authorize execution; it stays inactive unless the current user request explicitly includes the foundation build:
+The proposed foundation step is below. Writing it does not authorize execution; it stays inactive unless the current request includes it. When it is part of an active Auto goal, continue through all other requested features before final verification and delivery:
 
-`When explicitly requested in the current conversation, read EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, synchronize the needed PHDK standards within that request, and build the initial app foundation code using BUILD_APP_FOUNDATION_PROMPT.md. Complete proportionate local checks and normal reviewed delivery through verified remote main integration unless the current user explicitly narrows the scope or the user/repository names a different target. That current request supplies authorization; this saved proposal never starts work or activates Developer Mode. Report the outcome or precise blocker with remote target/version evidence, verification limits, and separate deployment status, then stop; leave later follow-up work inactive.`
+`When included in the current explicit request, read EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md, synchronize standards only when that synchronization is in scope, and build the initial foundation using BUILD_APP_FOUNDATION_PROMPT.md. If PHDK auto is active for a broader goal, continue the entire agreed implementation under PHDK_AUTO.md without a scaffold release, separate interview, or approval pause; perform applicable integrated verification at the end, repair in-scope failures, and finish normal delivery. For a standalone foundation request, complete its applicable checks and normal delivery. Honor explicit narrower scope or a different target. Report the whole requested outcome or precise blocker with remote target/version evidence and verification limits. This saved proposal activates no mode or future work.`
 
 ---
 
@@ -753,7 +757,7 @@ Always include these as the first entries:
 3. Debug mode decision, clearly identified as a product-code capability.
 4. Personal-data/privacy-baseline decision from Question 5.
 
-Do not add a backup-policy decision or a requirement for external setup merely because PHDK was used. Reference `PHDK_DEVELOPER_MODE.md` as a rule only; never record Developer Mode as active/accepted for a project or save current delivery permissions as a lasting architecture decision.
+Do not add a backup-policy decision or a requirement for external setup merely because PHDK was used. Reference `PHDK_AUTO.md` and `PHDK_DEVELOPER_MODE.md` as rules only; never record either mode as active/accepted for a project or save current delivery permissions as a lasting architecture decision.
 
 Use this format for each decision:
 
@@ -790,11 +794,11 @@ Project: [name]
 Kit version: 0.0.0
 Generated: [date]
 Login required: yes / no
-Scope: MVP only / MVP + future phases
+Scope: [the current requested outcome, including all explicitly selected phases/features; do not narrow an Auto goal to its first release]
 
 ## Current Status
 
-[Kit generated; current repository delivery complete/pending/not applicable, with evidence or blocker. Foundation work stays inactive unless included in the current request.]
+[Kit generated; the whole current goal and remaining implementation/verification/delivery are complete/pending/not applicable, with evidence or blocker. Other work stays inactive unless included in the current request.]
 
 ## Files Generated
 
@@ -818,7 +822,7 @@ https://github.com/tuyoisaza/PHDK
 
 ## Next Step
 
-Finish any remaining necessary steps of the current request under MAIN_DELIVERY_STANDARD.md before reporting completion. Otherwise leave proposed implementation inactive until explicitly requested. TASK.md is context; this kit neither starts later work nor preserves active Developer Mode or authority for another conversation.
+Finish all remaining necessary steps of the current request before reporting completion. Under explicitly active Auto, continue all agreed development, then final integrated verification, repair, and normal delivery under PHDK_AUTO.md. Otherwise leave proposed implementation inactive until explicitly requested. TASK.md is context; this kit neither starts later work nor preserves active Auto/Developer Mode or authority for another conversation.
 
 ## Last Updated
 
@@ -845,6 +849,7 @@ Must include:
 - Agent execution/verification limits from `EXECUTION_SCOPE.md` and the existing GitHub deployment target, if known
 - Normal delivery completion and explicit scope limits from `MAIN_DELIVERY_STANDARD.md`; current authorization persists through status questions and snapshots, while actual user pause/stop instructions take precedence
 - `PHDK unlock` routing to `PHDK_UNLOCK.md` for requested documentary blocker repair; current owner approval counts without a special command, and hooks/protections remain intact
+- `PHDK auto` / `PHDK salir de auto` routing to `PHDK_AUTO.md` for explicitly activated whole-goal development, final integrated verification, and normal delivery; no stage approvals or saved activation
 - `PHDK_DEVELOPER_MODE.md` as a reference only; no saved activation or cross-conversation delivery authorization
 - Next recommended step
 
@@ -858,7 +863,7 @@ Must include:
 - Separate confirmed facts from assumptions throughout
 - Mark every assumption with `Assumption:`
 - Flag every gap with `⚠️ GAP:`
-- Keep MVP separate from future phases
+- Distinguish phase priorities while preserving the entire requested goal; Auto does not stop at the MVP when later phases are included
 - Do not generate app code
 - Do not generate generic standards files
 - Do not contradict the standards repo
@@ -868,8 +873,8 @@ Must include:
 
 ---
 
-## Final Offer
+## Completion Boundary
 
-After the full kit is generated, verify that all required files exist and that `STATUS.md` consolidates gaps/open questions. When the current request changes repository documentation, finish normal delivery under `MAIN_DELIVERY_STANDARD.md` unless the user explicitly limited it. The current request supplies that authority; generated files do not activate Developer Mode or authorize later work.
+For a standalone kit request, verify all required files and consolidated gaps, then finish its requested delivery under `MAIN_DELIVERY_STANDARD.md`. If kit generation is one step of an active Auto goal, continue the rest of the implementation and defer the integrated evidence checks to the final whole-goal boundary under `PHDK_AUTO.md`; do not publish a stage release or ask for handoff approval. Current authorization supplies this scope; generated files activate no mode or later work.
 
-If the current explicit request also includes building the foundation, complete that work and its requested delivery boundary under `EXECUTION_SCOPE.md`. Report completion only with the required remote target/version evidence or the explicit narrower scope; otherwise report the precise blocker. A chat-only documentation request ends with its files, and a ZIP/artifact may be offered as an optional convenience. Leave proposed later work inactive.
+If the current request includes foundation and further product features, complete all of them, not just the first build task. Report completion only for the whole requested outcome with final verification and remote target/version evidence or the explicit narrower scope; finish independent work before reporting a precise blocker. A chat-only documentation request ends with its files. Leave unrequested later work inactive.

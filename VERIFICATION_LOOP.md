@@ -30,15 +30,15 @@ Browser verification is prohibited: no headed or headless browser, UI interactio
 
 ## Code Verification Loop
 
-For every working slice:
+For the requested deliverable, use this loop. When `PHDK auto` is explicitly active, `PHDK_AUTO.md` takes precedence over the per-slice cadence: implement the whole goal and necessary test source first, then execute the integrated verification. Internal slices, scaffolds, and candidate releases are coverage categories, not intermediate test or human-approval gates.
 
 1. **Review the changed source and diff** against the requested behavior and security requirements.
 2. **Inspect commands before running them** so test, build, install, or hook scripts do not start browsers, reach services, perform migrations, provision infrastructure, or deploy.
-3. **Run targeted static checks** on the affected code while iterating.
-4. **Run the smallest local automated test** when `TESTING_STANDARD.md` identifies a risk trigger. Integrations run in process with test doubles for external dependencies, without a network listener or database connection.
-5. **Before push/release**, run the applicable repository static/build gate once. Documentation-only work needs source/diff and applicable formatting checks, not application test scaffolding. Recheck affected behavior after material fixes or integration changes.
+3. **Develop the candidate** and write justified test coverage with the implementation. Outside Auto, targeted static checks may support iteration; in Auto, an intermediate check requires an actual implementation blocker or a mandatory hook/control.
+4. **Run the smallest useful local tests** when `TESTING_STANDARD.md` identifies risk triggers. In Auto, execute them for the completed integrated goal, including relevant interactions across its features. Integrations run in process with test doubles for external dependencies, without a network listener or database connection.
+5. **Before publication**, run the applicable repository static/build gate. In Auto, this is the final whole-candidate boundary, not a release per stage. Documentation-only work needs source/diff and applicable formatting checks, not application test scaffolding. Repair in-scope failures and recheck affected behavior after material fixes or integration changes. Required hooks still run at the operations they govern.
 6. **Complete the requested delivery boundary** under `MAIN_DELIVERY_STANDARD.md`. Normal development includes the scoped versioned branch/PR workflow, applicable reviews, merge, and fresh remote target/version verification; a branch push or open PR alone does not complete it. Honor an explicit local-only, branch-only, PR-only, or different-target instruction.
-7. **Record actual results and limits** in the final report and `STATUS.md`, including delivery evidence or its precise blocker. For UI or deployed behavior, state `visual/runtime unverified`.
+7. **Record actual results and limits** in the final report and `STATUS.md`, including delivery evidence or its precise blocker. During Auto, communicate progress and continue until the whole requested outcome is complete; a milestone is not a final handoff. For UI or deployed behavior, state `visual/runtime unverified`.
 
 Review the complete actual diff and classify the changed behavior under `MAIN_DELIVERY_STANDARD.md`. Sensitive decisions require owner approval, which the current explicit request or approval of the identified task/PR may already supply. Do not demand personal diff inspection or a GitHub review event solely for PHDK; actual named, independent, or formal review requirements remain binding. Record owner approval separately from assistant source review, and never claim human diff inspection from authorization or passing checks.
 
@@ -50,7 +50,7 @@ A human may independently examine the application. PHDK does not require that ex
 
 ### During iteration
 
-Run only the checks needed to answer the current question, using the project's existing scripts:
+Outside Auto, run only checks needed to answer the current implementation question, using existing scripts. During Auto, these commands are available before final verification only for a real implementation blocker or mandatory control; the list is not an instruction to run them after every stage:
 
 ```txt
 git diff --check
@@ -64,7 +64,7 @@ Do not repeatedly run install + full build + full test suites after every small 
 
 ### Before push/release
 
-Run each applicable gate once:
+Run each applicable gate on the completed candidate; Auto reaches this boundary after the whole goal is implemented. Repair and rerun affected checks as needed before publishing, while preserving mandatory hooks:
 
 ```txt
 pnpm install --frozen-lockfile   — only when dependency/lockfile verification is needed
@@ -212,6 +212,8 @@ A human-supplied redacted report or observations retrieved under the bounded pro
 
 ## Verification by Slice Type
 
+In Auto, accumulate these requirements across the entire goal and verify them at its final integrated boundary. Completing one category never requires a human OK or authorizes a separate release.
+
 ### Foundation
 
 - [ ] Applicable typecheck/lint/format/build checks pass or failures are reported.
@@ -246,9 +248,9 @@ A human-supplied redacted report or observations retrieved under the bounded pro
 
 ## Honest Reporting Rule
 
-In normal branch/PR delivery, investigate and make bounded repairs to failed permitted checks within the approved code scope. Resolve ordinary integration conflicts while preserving other contributors' changes, then recheck affected behavior and review the resulting diff. An ordinary conflict or status/link question does not require a new merge instruction. Stop for material ambiguity or an unresolved check, review, or access blocker; do not expand into unrelated cleanup or bypass controls.
+In normal branch/PR delivery, investigate and make bounded repairs to failed permitted checks within the approved code scope. Resolve ordinary integration conflicts while preserving other contributors' changes, then recheck affected behavior and review the resulting diff. An ordinary conflict or status/link question does not require a new merge instruction. In Auto, finish independent authorized work before reporting a precise unresolved decision, check, required review, or access blocker; do not stop merely for a stage approval, expand into unrelated cleanup, or bypass controls.
 
-In the Developer Mode direct-main flow, a failed applicable check stops execution under `PHDK_DEVELOPER_MODE.md`: explain the failure and wait for the user's next instruction without automatic repair, retry, or fallback. Do not delete failing risk-required tests or use prohibited tools to make a report green.
+While Developer Mode remains active, its direct-main flow stops on a failed applicable check under `PHDK_DEVELOPER_MODE.md`, without automatic repair, retry, or fallback. A later explicit `PHDK auto` for the identified goal replaces that mode and uses normal branch/PR delivery: diagnose and satisfy the control under `PHDK_AUTO.md`, never bypass it. Do not delete failing risk-required tests or use prohibited tools to make a report green.
 
 Record blocked checks with their reason. Source review does not establish visual correctness, live health, database compatibility in a running service, or production success. An existing GitHub pipeline result can be reported with its exact status and scope; it does not prove a browser flow or live service was verified by the agent. An observed disabled autodeploy connection or filter excluding changes that need deployment is a separate blocker. Valid service-specific filters and intended skips for unaffected services are not failures; neither case authorizes provider-setting changes under a generic development request.
 

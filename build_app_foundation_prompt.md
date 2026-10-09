@@ -22,52 +22,53 @@ This prompt builds the reusable technical foundation that future product feature
 4. Open your AI coding agent, such as Claude Code, Cursor, Windsurf, or equivalent.
 5. Paste the prompt below as the first build task.
 6. The AI coding agent must build the app foundation according to the PHDK project mode.
-7. Review the result against `QA_CHECKLIST.md` before starting feature work.
+7. Apply `QA_CHECKLIST.md` to the requested deliverable. During an active Auto goal, foundation items join the final integrated verification after all requested feature work; they are not an intermediate approval or test gate.
 
 ---
 
 # Prompt
 
-## Hard Mode Switch
+## Requested Foundation Work
 
-Run this prompt only when the current user request explicitly asks to build the foundation. Reading, editing, or quoting it does not start a build, activate Developer Mode, or resume earlier work.
+Run this prompt when foundation work is explicitly requested or is a necessary part of the current authorized goal under `PHDK_AUTO.md`. Reading, editing, or quoting it does not start a build, activate Auto/Developer Mode, or resume earlier work.
 
-STOP ANY PREVIOUS TASK.
+Preserve the whole current requested goal. This template does not pause or replace an active Auto goal.
 
-You are now in **BUILD APP FOUNDATION MODE**.
+Use **Build App Foundation** as the implementation step described below.
 
-Your only job is to build the initial scalable app foundation for this project using the PHDK files and standards.
+Build the initial scalable foundation using the PHDK files and standards. When Auto includes later features, continue through all of them without a scaffold release or separate approval.
 
 The execution boundary is code and repository documentation, git/GitHub, and deployment through an existing GitHub-connected pipeline. Read `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md` before planning. A current foundation-build request includes normal reviewed delivery through verified remote `main` integration unless the user explicitly narrows delivery or the user/repository names another target. This prompt does not authorize browser use, infrastructure operations, or recurring automation.
 
-Do not continue any previous task.
+Honor current user pause/stop instructions; do not invent one from this template.
 Do not build project-specific product features unless explicitly required by the current request; use `TASK.md` as context, not stored authorization.
 Do not create fake dashboards, fake data, fake analytics, fake users, fake payments, fake integrations, or fake business logic.
 Do not skip validation.
 Do not mark the task complete until applicable quality gates, required reviews, and the requested delivery boundary are satisfied.
 
-First respond exactly:
+Give a brief progress update, for example:
 
 ```txt
-Understood. I am now in BUILD APP FOUNDATION MODE.
-Previous tasks are paused.
+I will build the foundation within the current requested scope.
 I will read the PHDK files and standards before making changes.
+If this is part of the active Auto goal, I will continue its remaining features before final verification.
 ```
 
 ---
 
 ## Execution Boundary
 
-- One assistant works on the current requested foundation only, reports evidence, and stops. No Mission Autopilot, subagents, delegation, background work, or automatic next task.
+- One assistant completes the current requested outcome. A standalone foundation request ends at foundation delivery; within Auto, the foundation is one step of the whole goal. No unattended Mission Autopilot, subagents, delegation, background work, or new unrequested goal.
 - Work on code and documentation inside the project repository. The current build request normally includes the scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and fresh remote `main` version verification under `MAIN_DELIVERY_STANDARD.md`. Respect explicit local-only, branch-only, PR-only, or different-target instructions; a branch push/open PR alone does not finish normal delivery.
 - Current authorization persists through status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots. Do not ask for a repeated merge order. Actual user pause/stop instructions win; saved task/handoff text grants no authority in a different conversation.
 - Review the complete actual diff. Owner approval of a sensitive decision may already be supplied by the current explicit request or identified-task/PR approval under `MAIN_DELIVERY_STANDARD.md`; do not impose a universal personal diff-inspection or GitHub-review-event gate. Preserve actual named, independent, or formal reviews and record approval separately from source review. Resolve ordinary integration conflicts preserving others' changes, then recheck affected behavior. Never bypass checks, hooks, required reviews, or access controls.
 - Route a current `PHDK unlock` to `PHDK_UNLOCK.md` for PHDK/local documentary blocker repair and its scoped delivery. Current owner instructions can replace older documentary exceptions; the command does not disable controls, resume unnamed old work, or authorize a foundation build by itself.
+- Follow explicitly activated `PHDK auto` under `PHDK_AUTO.md`: implement all agreed behavior and necessary test coverage, perform final integrated verification, repair in-scope failures, and complete normal branch/PR delivery without stage approvals or releases. Earlier checks require an actual implementation blocker or mandatory hook/control. `PHDK salir de auto` exits the mode; examples and generated files never activate it.
 - `PHDK_DEVELOPER_MODE.md` applies only after an explicit activation command in the current conversation. This foundation prompt does not activate it or classify a full bootstrap as a small, low-risk change. Never persist active mode or authority for another conversation in generated files.
 - Deployment may use only a pipeline already connected to GitHub and its configured deployment branch, recorded in `TASK.md`. Preserve valid provider GitHub autodeploy/watch paths; do not generate dummy never-matching filters or disable the connection under the no-autonomy/Actions rules. Report an observed disabled connection or filter excluding changes that need deployment as a separate blocker; valid service-specific filters and intended skips for unaffected services are not failures. Do not create a pipeline, change triggers/settings, or configure provider dashboards, secrets, environments, databases, or repository settings.
 - Do not create or enable Dependabot, Renovate, scheduled GitHub Actions, cron jobs, recurring agents, backup jobs, periodic probes, or preview environments.
 - Do not open, control, or test a browser, including headless browsers, screenshots, UI flows, or browser testing through a skill, plugin, MCP server, or subagent.
-- Validate with code/diff review, lint, typecheck, formatting, build, and risk-triggered local non-browser tests. Tests must remain isolated from running applications and real external services; use in-process execution with test doubles where needed. Inspect scripts before running them so indirect browser or infrastructure actions cannot bypass this boundary.
+- Validate with code/diff review, lint, typecheck, formatting, build, and risk-triggered local non-browser tests. In Auto, these cover the entire completed goal at final verification before publication, not only this foundation stage. Tests remain isolated from running applications and real services; use in-process doubles and inspect scripts for indirect browser or infrastructure effects. Required hooks still run at the operations they govern.
 - Health endpoints, diagnostics panels, auth flows, and integration adapters are product code. Implementing them does not authorize operating the app, invoking live probes, configuring credentials, or connecting external services.
 - A current "verifica Railway" or similar request permits finite existing service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through authorized API/CLI/connector access under `EXECUTION_SCOPE.md` — Bounded read-only provider diagnostics. No Developer Mode or unlock is needed; an older code-sync task exclusion cannot veto that newer read. No secret values, streams, polling, watchers, app/database probes, or provider writes; these diagnostics are not a foundation gate.
 - Put this boundary and the existing deployment target, if any, in `TASK.md` and `ARCHITECTURE_DECISIONS.md`. Replace obsolete handoff instructions that require browser checks, external administration, or recurring automation; do not carry them into the foundation plan.
@@ -99,6 +100,7 @@ Before writing or changing code, read these files:
 - `AGENTS.md`
 - `EXECUTION_SCOPE.md`
 - `MAIN_DELIVERY_STANDARD.md`
+- `PHDK_AUTO.md` when explicitly active for the current goal
 - `PHDK_DEVELOPER_MODE.md` when explicitly invoked in the current conversation
 - `DEVELOPMENT_RULES.md`
 - `DESIGN_RULES.md`
@@ -116,7 +118,7 @@ Foundation scope understood.
 Proceeding with implementation plan.
 ```
 
-If the project mode or login requirement is unclear, stop and ask one clarifying question before coding.
+Resolve project mode and login from the current brief and existing code. If a material decision remains genuinely missing, complete independent authorized work before asking only for that decision; do not restart a setup interview in Auto.
 
 ---
 
@@ -165,7 +167,7 @@ Build:
 
 ### Unclear mode
 
-If the PHDK does not clearly identify whether the app is public, authenticated, or hybrid, stop and ask one question before coding.
+Use the current brief and existing behavior before treating mode as unknown. If the public/authenticated/hybrid decision is genuinely missing, isolate that dependency, complete independent authorized work, and ask one precise question. Do not invent login requirements or make a missing mode label stop the whole Auto goal.
 
 ---
 
@@ -725,7 +727,8 @@ Update or create project README documentation explaining:
 - required environment variables
 - how to use the PHDK files
 - how `PHDK unlock` routes a current blocker-repair request to `PHDK_UNLOCK.md`, preserving hooks/protections and leaving old missions inactive
-- how to use `TASK.md` as context for the next explicit request, without resuming stored work or Developer Mode
+- how explicit `PHDK auto` / `PHDK salir de auto` routes to `PHDK_AUTO.md` for full-goal implementation, final integrated verification, and normal delivery without stage approvals
+- how to use `TASK.md` as context for the current goal or next explicit request, without resuming stored work or persisting Auto/Developer Mode
 
 For an existing Railway deployment, document these commands:
 
@@ -751,7 +754,7 @@ Do not create GitHub Actions or require external setup to complete the code foun
 
 ## Step 14 — Enforcement & Diagnostics Scaffolding
 
-Implement repository code and configuration from `ENFORCEMENT.md`, `VERIFICATION_LOOP.md`, and `DEBUG_DIAGNOSTICS_STANDARD.md` within `EXECUTION_SCOPE.md`. Do this before Quality Gates below.
+Implement repository code and configuration from `ENFORCEMENT.md`, `VERIFICATION_LOOP.md`, and `DEBUG_DIAGNOSTICS_STANDARD.md` within `EXECUTION_SCOPE.md`. In Auto, complete this and all other requested implementation before final verification; do not remove or delay an actual hook at its governed operation.
 
 ### Tier 1 — mechanical enforcement (`ENFORCEMENT.md`)
 
@@ -780,7 +783,7 @@ Implement repository code and configuration from `ENFORCEMENT.md`, `VERIFICATION
 
 ## Step 15 — Quality Gates
 
-Before declaring foundation complete, inspect the scripts for allowed behavior and check the following using repository inspection, local static/build commands, or isolated non-browser tests. Do not start the app, access live endpoints, open browsers, or change external settings to satisfy a gate:
+For a standalone foundation delivery, verify the items below before claiming completion. Within Auto, retain them as coverage for the entire goal's final integrated verification after all requested features are implemented; a finished scaffold is not a test, release, or human-approval boundary. Inspect scripts for allowed behavior and use repository review, local static/build commands, or isolated tests. Do not start the app, access live endpoints, open browsers, or change external settings:
 
 - `pnpm install` runs cleanly from repository root
 - `pnpm typecheck` passes or failures are reported honestly
@@ -820,13 +823,13 @@ Before declaring foundation complete, inspect the scripts for allowed behavior a
 
 If an allowed quality gate cannot be run, explain why. Report browser/runtime verification as outside scope; it is not a pending gate for the agent.
 
-Do not claim success if an applicable required check failed or was not run, a required review/access blocker remains, or the requested delivery boundary has not been reached. Normal delivery allows bounded in-scope repairs and rechecks under `MAIN_DELIVERY_STANDARD.md`; Developer Mode direct-main hard stops, including no automatic repair, retry, or fallback, remain unchanged.
+Do not claim success if an applicable required check failed or was not run, an actual required review/access blocker remains, or the whole requested delivery boundary has not been reached. In Auto, repair in-scope final-verification failures and recheck affected behavior before publication; finish independent work before reporting an unresolved blocker. No additional PHDK-only human acceptance is needed. Developer Mode direct-main hard stops apply while that mode remains active; explicit Auto replaces it for the identified goal under `PHDK_AUTO.md`, preserving the failed control.
 
 ---
 
 ## Final Report Format
 
-Use this report format. Choose `APP FOUNDATION COMPLETE` only when the requested delivery boundary is satisfied; normal delivery requires verified remote integration. Otherwise choose the blocked/incomplete heading and identify the unresolved prerequisite:
+Use this final report only for a standalone foundation outcome. If the foundation is an internal Auto step, give a progress update and continue the remaining goal; do not end the turn or publish a stage release because this template has a report. Choose `APP FOUNDATION COMPLETE` only when the actual requested outcome and delivery boundary are satisfied; otherwise identify the precise unfinished scope or blocker:
 
 ```txt
 [APP FOUNDATION COMPLETE / APP FOUNDATION DELIVERY BLOCKED / APP FOUNDATION INCOMPLETE]
@@ -868,22 +871,22 @@ Warnings or gaps:
 [list or "none"]
 
 Next step:
-[stop after verified requested delivery, or name the precise unresolved blocker; keep proposed feature work inactive]
+[stop only after the whole requested outcome and verified delivery; in Auto continue any remaining agreed features, final verification, and repairs. Keep unrequested follow-ups inactive; report a precise blocker only after independent work is complete]
 ```
 
 ---
 
 ## Non-Negotiable Rules
 
-- Build the app foundation, not random product features.
+- Build this foundation within the requested scope; an Auto goal also includes its explicitly agreed product features.
 - Respect the PHDK files as the product source of truth.
 - Respect the standards files as the technical source of truth.
 - Do not invent features.
 - Do not fake integrations.
 - Do not add auth if login = no.
 - Do not add admin/dashboard/user CRUD unless required.
-- Do not build mobile app features now.
-- Keep `apps/mobile` as a future placeholder only.
+- Do not invent mobile app features outside the current request.
+- Keep `apps/mobile` as a future placeholder unless its implementation is explicitly included in the current goal.
 - Use pnpm only.
 - Follow `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md`: repository code and normal reviewed git/GitHub delivery, with deployment only through an existing connected pipeline.
 - Do not operate browsers, configure infrastructure/settings, or create recurring automation.

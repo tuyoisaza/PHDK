@@ -4,7 +4,7 @@
 
 This file defines code quality gates for task completion, merging, and GitHub delivery. `EXECUTION_SCOPE.md` controls execution; `MAIN_DELIVERY_STANDARD.md` defines normal delivery through verified remote `main` integration and explicit narrower scopes.
 
-Choose the smallest relevant QA scope. Review applicable requirements in the changed area, record source references and actual command results, and mark unrelated items `N/A` with a reason. Documentation-only work requires source/diff consistency and applicable formatting checks, not application builds or test scaffolding.
+Choose the QA scope for the whole requested outcome. With explicit `PHDK auto`, `PHDK_AUTO.md` makes the sections below coverage for final integrated verification after all development, not intermediate stage tests, releases, or human-approval gates. Record source references and actual results; mark unrelated items `N/A` with a reason. Documentation-only work needs source/diff consistency and applicable formatting checks, not an app build.
 
 ## Evidence Boundary
 
@@ -18,9 +18,9 @@ Record `visual/runtime unverified` for UI appearance and product execution, and 
 
 ## Task QA
 
-- Source/diff review against the approved slice and acceptance criteria.
-- Affected static/build checks where applicable.
-- Small local tests only when `TESTING_STANDARD.md` identifies a risk trigger.
+- Source/diff review against the entire requested scope and acceptance criteria; slices remain implementation steps within an Auto goal.
+- Applicable static/build checks at the delivery boundary; Auto uses the completed integrated candidate.
+- Write risk-triggered tests with the code under `TESTING_STANDARD.md`; in Auto, execute them at final integrated verification unless a real blocker or mandatory control requires an earlier check.
 - Source review of security/RBAC, i18n, routes, and migration files when touched.
 - `STATUS.md` update and a final report of code evidence, delivery state, failures, and limits.
 
@@ -33,7 +33,7 @@ Record `visual/runtime unverified` for UI appearance and product execution, and 
 
 ## Diff Review
 
-Review the complete actual diff as the assistant. Ordinary changes need no PHDK-only human approval. Sensitive decisions require owner approval under `MAIN_DELIVERY_STANDARD.md`, which a clear current request can already supply. Actual required reviews, checks, hooks, and access controls remain effective. `PHDK_DEVELOPER_MODE.md` retains its separate activation, eligibility, and direct-main hard-stop rules.
+Review the complete actual diff as the assistant. Current authorization, including explicit Auto for a defined goal, covers the behavior it describes under `MAIN_DELIVERY_STANDARD.md`; do not ask for a PHDK-only OK per feature, stage, risk label, or merge. Actual required reviews, checks, hooks, and access controls remain effective. Developer Mode retains its own hard stops while active; explicit Auto replaces that mode for the identified goal under `PHDK_AUTO.md`.
 
 For auth/authz, secrets, sensitive data, migrations, payments, infrastructure/deployment configuration, agent execution/permission-policy changes, and other material risks, classify the actual behavior and the decision needing approval. Before normal integration:
 
@@ -57,7 +57,7 @@ Record owner approval, assistant source review, any actual required review, and 
 - Run permitted commands from the repository root unless the task specifies a narrower package.
 - Inspect install/build/test/hook scripts before running them; reject browser, service, database, infrastructure, or deployment side effects.
 - Use an existing offline/test configuration when available; never weaken production behavior to make a check pass.
-- Validate the task scope and any global breakage it causes.
+- In Auto, validate the whole goal and cross-feature regressions at the end; intermediate checks require a real implementation blocker or mandatory control, and required hooks still run before their governed operation.
 - Report actual source evidence, exact commands, failures, skipped checks, and their reasons.
 - Never claim a command passed unless it ran. Do not hide gaps or substitute source review for runtime proof.
 - Do not add tests, recurring agents, CI workflows, dependency bots, monitoring, or backup jobs to satisfy a checklist.
@@ -553,7 +553,7 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 
 # Release
 
-- [ ] Source-changing commits update the repository's actual version source and derived metadata per `VERSIONING.md`; do not assume every repository uses `package.json`.
+- [ ] Source-changing commits update the actual version source and derived metadata per `VERSIONING.md`; Auto reconciles one complete delivery, not a bump/release per internal stage.
 - [ ] Source-changing commit messages begin with the resulting version (`vX.Y.Z`); integration commit handling follows `VERSIONING.md`.
 - [ ] Pure merge/squash integration of already versioned changes adds no extra bump, post-merge version-only commit, or second push.
 - [ ] The requested change is integrated into remote `main` or the explicit target, with fresh commit/ancestry and version-source evidence; a branch push/open PR is incomplete unless the user expressly narrowed delivery.
@@ -570,9 +570,9 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 # Working Slice and Diagnostics QA
 
 - [ ] The approved scope and intended outcome are clear before coding.
-- [ ] Required task context was read; the agent stayed within `EXECUTION_SCOPE.md` and the approved files.
+- [ ] Required task context was read; the agent stayed within `EXECUTION_SCOPE.md` and the current authorized goal, without demanding an OK per file.
 - [ ] Code verification evidence, changed files, and known gaps are reported without hiding failures.
-- [ ] `TASK.md` and `STATUS.md` reflect completion or the next active slice; no unnecessary approval pause is added between authorized slices.
+- [ ] `TASK.md` and `STATUS.md` reflect the whole current goal and remaining steps; Auto continues between authorized slices without an approval, release, or final-report pause.
 - [ ] For debug diagnostics, source review covers the full contract in `DEBUG_DIAGNOSTICS_STANDARD.md`: version badges, paired copy/cache controls, safe reports, auth/metered metadata, and authorized visibility.
 - [ ] Cache and clipboard handlers are wired in source; any local test uses fake browser adapters, never a browser session.
 - [ ] Source defaults debug mode ON in non-production and OFF in production; risky default-selection logic is locally covered when needed.
@@ -594,6 +594,6 @@ Review local enforcement when foundation work or the current change touches it. 
 
 # Final QA Rule
 
-Unresolved required checks, reviews, or access blockers prevent claiming delivery completion; major release issues require the project's recorded approval. Normal delivery allows bounded in-scope repair and ordinary conflict resolution under `MAIN_DELIVERY_STANDARD.md`; Developer Mode hard stops remain unchanged. Browser/live product tests are excluded scope, and requested bounded provider diagnostics remain separate evidence.
+Unresolved actual required checks, reviews, or access blockers prevent claiming delivery completion. In Auto, complete all independent work, repair in-scope final-verification failures, and satisfy applicable gates before publishing the whole candidate to `main`; no additional PHDK-only human sign-off is required. A genuinely new material decision follows `PHDK_AUTO.md`. Developer Mode hard stops apply only while that mode remains active. Browser/live tests stay excluded; requested provider diagnostics remain separate evidence.
 
 The final response states what source was reviewed, actual check results, remote target/version evidence or the precise delivery blocker/narrower scope, and what remains `visual/runtime unverified`.

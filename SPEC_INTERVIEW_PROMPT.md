@@ -8,6 +8,8 @@ Use this prompt when you have an idea but have not yet done a full project brief
 
 This is an optional pre-step. If you have already done a deep brief through conversation, skip this file and go directly to the PHDK generation prompt.
 
+The prompt below runs only when the owner explicitly requests a specification interview. Reading this file does not activate interview mode or stop current work. With `PHDK auto` and an identifiable goal, follow `PHDK_AUTO.md`: use existing context and conventions, record material assumptions, and continue the whole authorized development. Ask only for a genuinely missing goal or material decision; finish independent work before asking about a blocked decision. An interview checklist never requires another OK for an already clear request.
+
 ---
 
 ## When to Use This File
@@ -23,6 +25,7 @@ Skip this file when:
 
 - You have already briefed the AI through conversation, refinement, and research
 - You are ready to go directly to PHDK generation
+- The current development request, including an Auto goal, is already clear enough to proceed
 
 ---
 
@@ -30,7 +33,7 @@ Skip this file when:
 
 ---
 
-⛔ STOP ANY PREVIOUS TASK.
+Apply this prompt only to my explicitly requested specification interview. Do not cancel another active goal merely because these instructions were read or quoted.
 
 You are now in **SPEC INTERVIEW MODE**.
 
@@ -85,6 +88,8 @@ What does success look like in real life for this person? Not in the app — in 
 
 **Question 6:**
 What is the smallest useful outcome this product could deliver? What would make someone say "this is already worth it"?
+
+Use this answer to identify a useful milestone, not to shrink an explicitly requested complete product to that milestone.
 
 **Question 7:**
 What is your goal with this project? Personal, commercial, service, or creative — be honest about what you want from it.
@@ -161,27 +166,22 @@ When all questions are answered, produce a short project brief using this format
 [Constraints or failure conditions]
 
 ## First Working Version
-[What the user can do on day one]
+[What the user can do on day one; an internal milestone unless explicitly selected as the complete goal]
+
+## Complete Requested Scope
+[All outcomes currently requested, including later features or stages within that same goal; distinguish unrelated future proposals]
 
 ## MVP Scope
-[What is in and what is out for the first version]
+[Only an explicitly requested MVP limit; otherwise record the first milestone without excluding the rest of the agreed goal]
 
 ## Open Questions
 [Anything unresolved]
 
 ## Assumptions
-[Anything inferred that should be confirmed]
+[Material inferences and reversible choices consistent with existing requirements; identify only genuinely unresolved decisions that need an answer]
 ```
 
-Then say:
-
-```txt
-Brief complete.
-
-When you are ready to generate the Project Handoff to Development Kit,
-paste the PHDK generation prompt into this conversation.
-The AI will use this brief as the source of truth for the kit.
-```
+If the request is limited to this interview or brief, present the completed brief and stop at that requested outcome. If the owner already authorized kit generation or development, continue that work using the brief without asking them to paste another prompt or approve a handoff. In Auto, continue all agreed implementation before final integrated verification under `PHDK_AUTO.md`; a first working version does not finish a larger goal.
 
 ---
 
@@ -194,3 +194,4 @@ The AI will use this brief as the source of truth for the kit.
 - If an answer is vague, ask one follow-up question to clarify
 - Do not move to the brief until all 14 questions are answered or clearly covered
 - Mark any unanswered or unclear areas as open questions in the brief
+- These interview rules apply only to an explicitly selected interview; Auto and already clear development goals do not require this sequence or intermediate human acceptance

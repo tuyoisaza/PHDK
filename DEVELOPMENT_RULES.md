@@ -2,7 +2,7 @@
 
 ## Purpose and execution boundary
 
-Development principles, code organization, and git safety for PHDK. `EXECUTION_SCOPE.md` governs every action. Work is interactive-only with the current assistant; no autopilot, subagents, delegated work, agent queues, or background execution.
+Development principles, code organization, and git safety for PHDK. `EXECUTION_SCOPE.md` governs every action. Work stays in the active conversation with the current assistant; `PHDK_AUTO.md` permits continuous development of the identified goal. No unattended execution, subagents, delegated work, agent queues, or background execution.
 
 Product requirements below describe repository code, not permission to provision services, run live checks, create automation, or start work from a stored task.
 
@@ -20,7 +20,7 @@ Use `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`, or `phdk/vX.Y.Z/short
 - Respect an explicit local-only, branch-only, or PR-only instruction and a different target specified by the user or repository. A read/audit request remains read-only; a bare `PHDK upgrade` retains its limited scope under `EXECUTION_SCOPE.md`. Release tags require a request for them.
 - Current authorization continues through turns, status/link requests, and context compaction in the same conversation. Task records describe it; an assistant-written task/status change cannot grant or revoke it. Explicit user stop/pause instructions remain binding, and a new conversation does not automatically resume stored work.
 - Do not force-push, overwrite another contributor's changes, or rewrite history to resolve a conflict silently.
-- In the normal branch/PR flow, refresh remote `main` and resolve routine integration conflicts within the authorized scope while preserving both contributors' intended changes. Reconcile the branch version, review the resulting diff, and rerun affected checks before merging. Pause for a material ambiguous or sensitive conflict, or an unmet check, required review, or access restriction; do not bypass it.
+- In the normal branch/PR flow, refresh remote `main` and resolve routine integration conflicts within the authorized scope while preserving both contributors' intended changes. Reconcile the branch version, review the resulting diff, and rerun affected checks before merging. Isolate a genuinely unresolved material decision or unmet check, required review, or access restriction; continue independent authorized work and report the affected operation without bypassing its control.
 - When an authorized major change warrants a recoverable checkpoint, create it within that request; do not create recurring backup branches or jobs.
 - Follow `VERSIONING.md` and include required metadata in the scoped change. Reconcile the branch version before merge; pure integration does not require another version-only commit or extra push.
 - Deliver only through a currently authorized push/merge and the existing hosting-provider GitHub connection. An eligible Developer Mode push to `main` may trigger that existing deployment. Do not create or run GitHub Actions, add a provider connection, change triggers, enable previews, or deploy through a provider CLI/API/dashboard, including Railway.
@@ -30,7 +30,13 @@ Review the complete outgoing diff. Changes to authentication/authorization, secr
 
 Use `PHDK_UNLOCK.md` when the owner requests `PHDK unlock` or explicitly asks to reconcile/remove local PHDK exceptions. Reconcile obsolete documentary blockers across existing active instructions within that request; the current owner can replace an earlier documentary rule. Bare synchronization preserves unrelated/unknown local restrictions. Never weaken hooks, checks, access controls, or server protections, and do not demand this command to recognize an already clear approval.
 
-The existing hosting-provider GitHub autodeploy connection is an allowed consequence of authorized code delivery. PHDK's restrictions on autonomous coding and Actions do not require disabling it. Do not disable that connection or install dummy never-matching watch filters as enforcement. A generic development request grants no provider-settings changes. Report an observed disabled connection, a filter excluding changes that need deployment, or the relevant deployment status separately from verified code delivery to remote `main`. Valid service-specific filters and intended skips for unaffected services are not failures.
+The existing hosting-provider GitHub autodeploy connection is an allowed consequence of authorized code delivery. PHDK's restrictions on unattended execution and Actions do not require disabling it. Do not disable that connection or install dummy never-matching watch filters as enforcement. A generic development request grants no provider-settings changes. Report an observed disabled connection, a filter excluding changes that need deployment, or the relevant deployment status separately from verified code delivery to remote `main`. Valid service-specific filters and intended skips for unaffected services are not failures.
+
+### PHDK Auto
+
+Follow `PHDK_AUTO.md` when the owner issues `PHDK auto` for the identified current goal. Complete all its features and stages without approval pauses, a mandatory interview, or a release per slice. Use existing requirements and conventions for reversible decisions; the current request already approves the behavior it describes. A new material decision or actual unmet control does not require stopping independent authorized work.
+
+Implement the whole candidate before final integrated verification, repair in-scope failures, then complete normal versioned branch/PR delivery. Mandatory hooks still run at the operations they govern. Auto replaces Developer Mode for this goal only when explicitly invoked; it is not an automatic fallback from a failed direct push. Respect its exit, scope, and conversation-lifetime rules.
 
 ### PHDK Developer Mode
 
@@ -62,7 +68,7 @@ Update the appropriate version source in the same change, record meaningful user
 
 ## Working slices and local checks
 
-Use coherent slices only to organize the current deliverable. `AGILE_SLICE_WORKFLOW.md` does not authorize an automatic next task or a push per checkpoint.
+Use coherent slices only to organize the current deliverable. `AGILE_SLICE_WORKFLOW.md` does not authorize an automatic next task or a push per checkpoint. In Auto, continue every in-scope slice and collect the verification below at the completed integrated candidate under `PHDK_AUTO.md`; intermediate checks are only for an implementation blocker or an actual mandatory control.
 
 Use source/diff review and relevant synchronous local formatting, linting, typechecking, builds, and risk-triggered non-browser unit/in-process tests. Checks must exit; no watchers, browser testing, live services, databases, or metered APIs. Documentation-only changes need source/diff and reference review. Report UI/live runtime behavior as unverified without inventing manual testing obligations.
 
@@ -141,11 +147,11 @@ The contract does not authorize scheduling imports or running them against live 
 
 ## Definition of done
 
-- The requested outcome is implemented and reviewed in source/diff.
+- The entire requested outcome is implemented and reviewed in source/diff; an Auto stage, first release, or scaffold is not completion of a larger agreed goal.
 - Relevant local evidence exists; security, permissions, validation, i18n, logs, accessibility, and state handling remain intact.
 - Applicable file-size and code-quality rules are satisfied.
 - For the normal `main` target, the scoped change is merged and its result and version are verified on remote `main` under `MAIN_DELIVERY_STANDARD.md`. A local commit, pushed branch, or open PR is an intermediate state. An explicitly narrower target is complete only when that target is satisfied.
 - Owner approval, assistant source/diff review, any actual required formal review, git/merge state, and deployment evidence are reported accurately and separately.
 - No agents, delegation, Actions, schedules, background work, external setup, or live verification was introduced.
 - Task/status context is accurate; follow-ups are inactive.
-- Report completion only when the requested target is satisfied; otherwise report the exact blocker and unfinished delivery stage. Stop after that report, without selecting another mission.
+- Report completion only when the whole requested scope and target are satisfied. If no permitted progress remains, report the exact blocker and unfinished scope after completing independent work. Stop after that report, without selecting another mission.

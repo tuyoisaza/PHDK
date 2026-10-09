@@ -2,11 +2,13 @@
 
 ## Purpose and authority
 
-Keep authorized changes, commits, releases, and built artifacts traceable. `EXECUTION_SCOPE.md` governs all versioning and delivery: interactive-only, current request, no autopilot, agents/delegation, background work, GitHub Actions, or external administration.
+Keep authorized changes, commits, releases, and built artifacts traceable. `EXECUTION_SCOPE.md` governs all versioning and delivery: active conversation and current request, no unattended execution, agents/delegation, background work, GitHub Actions, or external administration. `PHDK_AUTO.md` defines continuous development through the whole identified goal.
 
 Versioning follows the current request's delivery scope. A request to implement, fix, or update repository code or documentation includes the normal versioned branch/PR delivery to verified remote `main` in `MAIN_DELIVERY_STANDARD.md`, unless the user specifies a narrower scope or the user/repository specifies another target. An audit produces a report, not a version bump; a bare `PHDK upgrade` retains its limited scope in `EXECUTION_SCOPE.md`. Versioning alone does not authorize a new task or a release tag.
 
 `PHDK_DEVELOPER_MODE.md` defines a separate, explicit conversational authorization for the version/check/commit/fast-forward-push steps of eligible small tasks requested while the mode is active. The versioning checklist does not activate that mode.
+
+With explicit `PHDK auto`, build the entire goal into one cohesive candidate, run final integrated verification, and reconcile its version for normal branch/PR delivery. Do not bump, release, commit, push, or ask for acceptance merely because a stage ended. Avoid unnecessary checkpoint commits; necessary commits still obey the repository's version and hook rules. Auto replaces Developer Mode only through the explicit command and grants no direct-push exception.
 
 ## Version source and metadata
 
@@ -19,7 +21,7 @@ vMAJOR.MINOR.PATCH (shortSHA · UTC build timestamp)
 Example: v0.4.12 (a1b2c3d · 2026-03-23 18:22 UTC)
 ```
 
-Increment guidance: patch for fixes/copy/internal changes, minor for new features, major for breaking changes. Follow explicit project release decisions; a major change needs current approval.
+Increment guidance: patch for fixes/copy/internal changes, minor for new features, major for breaking changes. Follow explicit project release decisions. The current request can already approve a described breaking change; ask only about a new material breaking decision it does not cover, without blocking independent authorized work.
 
 ## Branches and current authorization
 
@@ -60,11 +62,11 @@ Local commit-message/outgoing-commit checks may validate these rules as part of 
 1. Identify the requested change and its delivery target; normal implementation/fix/update requests target verified remote `main` without separate merge confirmation.
 2. Read explicit owner stop/pause controls and existing repository restrictions. Reconcile stale task records with the live request and observed GitHub state.
 3. Implement only the requested source/doc changes and required version metadata.
-4. Review the actual behavior and diff, run appropriate synchronous local checks, record current owner approval of sensitive decisions, and satisfy actual reviewer/formal-review requirements. A packaging repair that restores login does not itself change authentication policy.
+4. Review the actual behavior and diff, run appropriate synchronous local checks, record current owner approval of sensitive decisions, and satisfy actual reviewer/formal-review requirements. In Auto, perform comprehensive verification after the whole candidate is implemented; mandatory hooks and necessary blocker diagnosis retain their actual timing. A packaging repair that restores login does not itself change authentication policy.
 5. Follow `MAIN_DELIVERY_STANDARD.md` through the scoped branch/commit/push/PR flow, or the eligible Developer Mode direct flow below.
-6. Before a normal merge, refresh remote `main`, reconcile versions and routine conflicts while preserving others' work, and review/check any changed result. Material ambiguous or sensitive conflicts and unmet controls remain blockers.
+6. Before a normal merge, refresh remote `main`, reconcile versions and routine conflicts while preserving others' work, and review/check any changed result. Isolate genuinely unresolved material decisions and unmet controls to their affected operations; continue independent authorized work.
 7. Merge by an allowed method and verify the resulting change, exact SHA, and version on remote `main`, or verify the user's explicitly narrower target. Branch push or PR creation alone does not complete delivery to `main`.
-8. Report completion or the exact blocker and unfinished stage, then stop. Leave unrelated follow-ups inactive.
+8. Report completion of the whole requested outcome, or the exact blocker and unfinished scope once no permitted progress remains, then stop. Leave unrelated follow-ups inactive.
 
 Do not create a release/tag unless requested. Do not force-push or rewrite history. If a real restriction or material conflict blocks the approved action, report it rather than bypassing it.
 
@@ -80,7 +82,7 @@ Stop that direct flow and explain if a check fails, a push is rejected, `main` a
 
 A currently authorized push/merge may use the existing hosting-provider GitHub connection, including an eligible Developer Mode push to `main`. Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI; no new deployment connections, trigger changes, provider CLI/API/dashboard deployment or administration, previews, or autodeploy reactivation. Never deploy through Railway CLI/API/dashboard.
 
-Existing GitHub-connected autodeploy is allowed; it is not autonomous coding or an instruction to create/dispatch Actions. Do not disable it or add dummy never-matching watch filters as PHDK enforcement. Generic development authorization does not include provider-settings writes. If that connection is disabled or its filters exclude changes that need deployment, report the evidenced blocker separately from verified code/version delivery to remote `main`. Record the relevant deployment status accurately; an intended skip for an unaffected service is not a failure.
+Existing GitHub-connected autodeploy is allowed; it grants no unattended coding or instruction to create/dispatch Actions. Do not disable it or add dummy never-matching watch filters as PHDK enforcement. Generic development authorization does not include provider-settings writes. If that connection is disabled or its filters exclude changes that need deployment, report the evidenced blocker separately from verified code/version delivery to remote `main`. Record the relevant deployment status accurately; an intended skip for an unaffected service is not a failure.
 
 Do not describe a merge as a deployment unless corresponding evidence exists. A provider's deployment success does not prove browser/UI or live application health.
 
@@ -105,7 +107,7 @@ Keep historical records, moving oversized history to an explicitly linked archiv
 
 ## Verification and report
 
-Review version consistency in relevant source files, the actual diff, changed paths, and the resulting commit/PR/merge state. Run relevant local checks; documentation-only changes need source/diff/reference validation, not an app build or browser.
+Review version consistency in relevant source files, the actual diff, changed paths, and the resulting commit/PR/merge state. Run relevant local checks; documentation-only changes need source/diff/reference validation, not an app build or browser. Auto collects this evidence at the completed candidate under `PHDK_AUTO.md`, never after an unverified publication or as an acceptance gate for every internal stage.
 
 Report the requested target, version, branch, commit/merge SHA, requested outcome, actual checks and review, observed remote state, and limitations. When `main` is the target, verify the result and version there before claiming completion; otherwise identify the exact remaining check, review, conflict, access, or user decision. Do not invent human review, production health, external agent shutdown, credential revocation, server-side protection, or cost reduction.
 

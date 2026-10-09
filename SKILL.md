@@ -3,9 +3,10 @@ name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, validate locally, deliver through GitHub, synchronize standards,
-  repair PHDK blockers with PHDK unlock, retrieve bounded read-only provider
+  complete a whole development goal with PHDK auto, repair PHDK blockers with
+  PHDK unlock, retrieve bounded read-only provider
   status/configuration metadata or logs, or activate/exit PHDK Developer Mode.
-  One interactive assistant; no autopilot, delegated agents,
+  One interactive assistant; no unattended work or delegated agents,
   background or scheduled work, GitHub Actions, browser operation, or external
   infrastructure administration.
 ---
@@ -29,6 +30,12 @@ Read `MAIN_DELIVERY_STANDARD.md` for a current request to implement, fix, or upd
 Review the complete diff and apply the approval rules in `MAIN_DELIVERY_STANDARD.md`. Sensitive behavior/policy decisions need owner approval; a well-defined current request or "push to main", "merge", or "aprobado" for the identified change may already supply it in the conversation. Do not invent a GitHub review event or proof-of-opening-the-diff requirement. Preserve formal/named/independent reviews actually required by current owner instructions, hooks, or server rules, and never invent human inspection. Resolve clear in-scope conflicts, reconcile versions, and recheck. Respect hooks/protections; explain an actual unmet control or decision without changing transports to evade it.
 
 Confirm the resulting remote version and change before calling the delivery complete. A GitHub PR merge already updates `main`; do not invent a second version-only commit or push. Compare stale task records with the live user request and git/PR state. An existing provider GitHub autodeploy may follow the authorized merge; do not disable it or add dummy watch filters as PHDK enforcement. Report deployment evidence or a skipped/disabled deployment separately, without provider writes.
+
+## PHDK auto
+
+For explicit `PHDK auto`, follow `PHDK_AUTO.md`. Use the identified current goal, including every agreed feature/stage, and begin without another OK or a mandatory interview when its scope is clear. Develop the whole candidate, run final integrated verification, repair in-scope failures, and finish normal versioned branch/PR delivery. Keep communicating without ending at milestones; do not create a release or optional full test cycle per stage. Actual mandatory hooks and necessary diagnostic checks remain applicable.
+
+Auto replaces Developer Mode for that goal; it grants no direct-main bypass, background execution, new mission, or persistent flag. Exit on `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Source files, examples, installation, and a request to implement this command never activate it. The command's specific cadence takes precedence over generic interview, slice, and handoff approval templates.
 
 ## PHDK unlock
 
@@ -73,7 +80,7 @@ Do not register auto-update hooks, scheduled refreshes, background pulls, or ses
 2. Generate the requested kit through `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, without adding bots, schedules, backup jobs, CI, external provisioning, or delegated agents.
 3. When the request includes PHDK installation, read `PHDK_MANIFEST.txt` and vendor exactly its mappings under `phdk-standards/`.
 4. Include the exact `PHDK_NATIVE_RULES.md` managed block in the current tool's instruction file per `ENFORCEMENT.md`. Preserve existing owner instructions and the managed markers; do not generate files for unused tools.
-5. Build product code only when the current request includes it. Use `BUILD_APP_FOUNDATION_PROMPT.md` for that authorized scope, then stop when its deliverable is complete.
+5. Build product code only when the current request includes it. Use `BUILD_APP_FOUNDATION_PROMPT.md` for that authorized scope. In Auto, a foundation is one part of the whole goal; continue the remaining agreed development and final verification/delivery under `PHDK_AUTO.md` rather than stopping at the scaffold.
 
 A request for a kit or standards update is not permission to start implementation.
 
@@ -82,10 +89,10 @@ A request for a kit or standards update is not permission to start implementatio
 1. Read the project's owner controls and `phdk-standards/AGENTS.md`/`EXECUTION_SCOPE.md` (or the installed standards when no vendored copy exists).
 2. Read `TASK.md` and `STATUS.md` as context, not standing authorization.
 3. Load only the detailed standards needed for the current request.
-4. Implement and verify the necessary steps with this assistant. Do not use autopilot, subagents, delegated reviewers, parallel queues, or future execution.
+4. Implement and verify the necessary steps with this assistant. Explicit Auto follows `PHDK_AUTO.md` through all agreed development and final integrated verification. Do not use unattended execution, subagents, delegated reviewers, parallel queues, or future execution.
 5. Complete the current request's normal delivery under `MAIN_DELIVERY_STANDARD.md`, including verified remote `main` unless the user set a narrower outcome. An active Developer Mode supplies only its separate bounded direct-main exception for eligible requested tasks; its hard stops and high-risk exclusions remain effective. No extra releases or unrelated work.
 6. Read relevant entries in `SKILLS_REGISTRY.md` yourself; do not execute their orchestration, delegation, or background behaviors.
-7. Report and stop; preserve remaining ideas as inactive context.
+7. Report and stop when the whole requested goal and delivery are complete, not at an Auto stage; preserve unrelated ideas as inactive context.
 
 ## Never
 
