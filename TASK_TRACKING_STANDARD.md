@@ -125,3 +125,10 @@ Do not create or use a multiple-agent queue. If another human or independently a
 - [ ] Proposed or unfinished follow-ups are inactive.
 - [ ] Auto's remaining authorized stages stayed within the current goal; none was turned into an inactive proposal or a separate human-acceptance gate.
 - [ ] Completion does not automatically start another task.
+
+
+## UAT evidence
+
+When `PHDK uat` runs, `UAT_CASES.md` and `UAT_REPORT.md` are the authoritative acceptance artifacts. Task/status files may record the candidate revision/version and summary counts but should not duplicate every UAT step.
+
+UAT evidence does not create or revoke authorization. PASS starts no new task. FAIL/BLOCKED/MANUAL does not make the current task inactive. Under active `PHDK auto`, an in-scope UAT failure remains part of the same whole goal until repaired or concretely blocked.
