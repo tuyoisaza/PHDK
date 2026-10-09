@@ -1,3 +1,13 @@
+## v2.36.1 — 2026-10-09
+
+### Fixed
+
+- Made project intent the mandatory upstream source for UAT user stories and acceptance cases.
+- Added the required traceability chain: `Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence`.
+- Added an Intent Alignment Gate: every applicable story must trace to intent, every case must link to a story, every applicable story must be covered, and UAT must not validate behavior outside or contrary to intent.
+- Untraceable stories are marked `OUT OF INTENT` and excluded from acceptance counts rather than silently expanding product scope.
+- UAT cannot conclude ACCEPTED unless intent alignment passes.
+
 ## v2.36.0 — 2026-10-09
 
 ### Added

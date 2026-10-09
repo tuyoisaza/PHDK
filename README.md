@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.36.0**
+**Version: v2.36.1**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,12 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.36.1
+
+UAT user stories are now intent-first. Every story must trace to the project's current intent, and acceptance uses the chain **Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence**.
+
+Stories generated only from implementation details are invalid. Untraceable stories are marked `OUT OF INTENT` and excluded from acceptance counts. UAT cannot conclude ACCEPTED unless the intent-alignment gate passes and all applicable stories are covered.
 
 ## What changed in v2.36.0
 
@@ -62,7 +68,7 @@ Run autonomous user acceptance testing for the identified current candidate:
 PHDK uat
 ```
 
-The assistant creates or refreshes `UAT_CASES.md`, assigns stable case IDs, maps each case to requirements, records preconditions/actions/expected outcomes, executes every feasible acceptance check through permitted repository-local channels, and writes `UAT_REPORT.md`.
+The assistant first identifies the project's current intent, derives user stories aligned to that intent, then creates or refreshes `UAT_CASES.md`. Each case follows the traceability chain `Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence`, then executes every feasible acceptance check through permitted repository-local channels and writes `UAT_REPORT.md`.
 
 The report distinguishes PASS, FAIL, BLOCKED, MANUAL, and NOT APPLICABLE; records the tested revision/version, evidence, defects and coverage gaps; and concludes ACCEPTED, NOT ACCEPTED, or ACCEPTANCE INCOMPLETE. It does not claim browser, production, or human acceptance evidence that did not occur. Full contract: [UAT_STANDARD.md](UAT_STANDARD.md).
 

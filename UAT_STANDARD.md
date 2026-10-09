@@ -13,15 +13,27 @@ Use explicit existing equivalents when the repository already defines them. Othe
 - `UAT_CASES.md` — durable catalog of acceptance/use cases.
 - `UAT_REPORT.md` — evidence and conclusion for the current candidate/run.
 
-## Build the case catalog
+## Intent-first user stories and case catalog
+
+Before deriving UAT cases, identify the project's current intent from the strongest available source in this order: `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, relevant `docs/intents/*-intent.md`, the current authorized request, and the current `TASK.md`. Use `INTENT_CAPTURE_STANDARD.md` when the why is not already durable.
+
+Every UAT user story must align with that intent. Express each story in user-value form such as "As <actor>, I want <goal>, so that <intent-linked outcome>." The "so that" outcome must point to a stated project problem, desired outcome, business/user objective, or explicit constraint. Do not create stories merely because the code contains a route, component, API, database field, or implementation detail.
+
+Maintain an explicit traceability chain:
+
+**Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence**
+
+A user story is invalid for UAT when its value cannot be traced to the current project intent. Mark it **OUT OF INTENT** and exclude it from acceptance counts rather than silently expanding project scope. If an apparently necessary story contradicts the recorded intent, report the conflict as a product-scope decision; do not rewrite project intent from implementation evidence.
 
 Derive cases from the actual product and changed behavior. Cover applicable primary actors and goals, happy paths, authorization boundaries, invalid input, important empty/error/retry states, state transitions, cross-feature flows, business rules, accessibility/i18n requirements, and regressions materially affected by the candidate.
+
+Every user story must contain a stable story ID such as `US-001`, actor, user goal, intent-linked outcome, and source intent reference.
 
 Every case must contain:
 
 1. Stable ID such as `UAT-001`.
-2. Title and actor.
-3. Requirement/source traceability.
+2. Linked user story ID and actor.
+3. Intent source and requirement/acceptance-criterion traceability.
 4. Preconditions and test data/fixtures.
 5. User/business actions.
 6. Expected observable outcome.
@@ -31,6 +43,16 @@ Every case must contain:
 10. Defect/reference when failed.
 
 Keep cases deterministic and repeatable. Do not inflate the catalog with cosmetic permutations that do not represent distinct acceptance risk.
+
+Before execution, perform an **Intent Alignment Gate**:
+
+- every applicable user story has a valid intent source;
+- every applicable UAT case links to a user story;
+- every applicable user story has at least one UAT case unless explicitly justified;
+- no UAT case validates behavior that is outside or contrary to the current intent;
+- non-goals and constraints from the intent are represented where they materially affect acceptance.
+
+If this gate fails, acceptance is incomplete until the traceability defect is repaired or reported.
 
 ## Execute autonomously
 
@@ -73,6 +95,8 @@ A defect requiring a new material product decision, unavailable access, undisclo
 
 - candidate repository, branch/PR/commit and product version when available;
 - run date/time;
+- project intent sources and intent-alignment summary;
+- user-story coverage and any OUT OF INTENT items;
 - UAT scope and source requirements;
 - environment/harness, distinguishing local/in-process evidence from production;
 - summary counts by PASS/FAIL/BLOCKED/MANUAL/NOT APPLICABLE;
@@ -82,7 +106,7 @@ A defect requiring a new material product decision, unavailable access, undisclo
 - coverage gaps and excluded channels;
 - final conclusion: ACCEPTED, NOT ACCEPTED, or ACCEPTANCE INCOMPLETE.
 
-Use **ACCEPTED** only when all applicable cases PASS and no required acceptance evidence is BLOCKED or MANUAL. Use **NOT ACCEPTED** when any applicable case FAILs. Use **ACCEPTANCE INCOMPLETE** when there are no FAIL cases but required cases remain BLOCKED or MANUAL.
+Use **ACCEPTED** only when the Intent Alignment Gate passes, all applicable stories are covered, all applicable cases PASS, and no required acceptance evidence is BLOCKED or MANUAL. Use **NOT ACCEPTED** when any applicable case FAILs. Use **ACCEPTANCE INCOMPLETE** when there are no FAIL cases but required cases remain BLOCKED or MANUAL.
 
 Never claim production, browser, or human acceptance evidence that did not occur.
 

@@ -141,3 +141,16 @@ PHDK deliberately does not add a separate `spec.md` artifact on top of this. `PR
 - [ ] The intent file describes the problem and desired outcome, not implementation
 - [ ] Closed slices that implemented the intent are linked back under its `Linked Slices` section
 - [ ] No intent file was deleted or overwritten
+
+
+## Relationship to UAT and user stories
+
+`PHDK uat` must treat project intent as the upstream source for user stories and acceptance cases. The required traceability chain is:
+
+**Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence**
+
+User stories are not generated from implementation inventory. A route, component, endpoint, schema field, or existing code path does not justify a story unless its user value can be traced to the project's problem, desired outcome, objective, or constraint.
+
+When a proposed story cannot be traced to an existing project-level intent or a current scoped intent, mark it `OUT OF INTENT` and exclude it from acceptance counts. If it appears necessary, surface it as a product-scope decision instead of silently expanding the product.
+
+The UAT report must state which intent sources were used and identify any uncovered intent, uncovered story, or out-of-intent behavior.
