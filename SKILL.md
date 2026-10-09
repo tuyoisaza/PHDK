@@ -33,7 +33,7 @@ Confirm the resulting remote version and change before calling the delivery comp
 
 ## PHDK uat
 
-For explicit `PHDK uat`, follow `UAT_STANDARD.md`. Derive traceable use/acceptance cases for the current candidate, create/update `UAT_CASES.md`, execute all permitted acceptance evidence autonomously, and create/update `UAT_REPORT.md`. Do not ask for approval between cases. Never pass an unexecuted behavioral case by inspection; use BLOCKED or MANUAL when the required evidence is unavailable or excluded.
+For explicit `PHDK uat`, follow `UAT_STANDARD.md`. Identify the project's current intent first, derive user stories that explicitly align to that intent, then derive traceable acceptance cases for the current candidate and create/update `UAT_CASES.md`, execute all permitted acceptance evidence autonomously, and create/update `UAT_REPORT.md`. Do not ask for approval between cases. Never pass an unexecuted behavioral case by inspection; use BLOCKED or MANUAL when the required evidence is unavailable or excluded.
 
 Standalone UAT validates and reports the candidate. Under active `PHDK auto`, repair in-scope UAT failures and rerun affected cases before final delivery.
 
