@@ -3,7 +3,7 @@ name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, validate locally, deliver through GitHub, synchronize standards,
-  complete a whole development goal with PHDK auto, repair PHDK blockers with
+  complete a whole development goal with PHDK auto, run autonomous acceptance validation with PHDK uat, repair PHDK blockers with
   PHDK unlock, retrieve bounded read-only provider
   status/configuration metadata or logs, or activate/exit PHDK Developer Mode.
   One interactive assistant; no unattended work or delegated agents,
@@ -30,6 +30,12 @@ Read `MAIN_DELIVERY_STANDARD.md` for a current request to implement, fix, or upd
 Review the complete diff and apply the approval rules in `MAIN_DELIVERY_STANDARD.md`. Sensitive behavior/policy decisions need owner approval; a well-defined current request or "push to main", "merge", or "aprobado" for the identified change may already supply it in the conversation. Do not invent a GitHub review event or proof-of-opening-the-diff requirement. Preserve formal/named/independent reviews actually required by current owner instructions, hooks, or server rules, and never invent human inspection. Resolve clear in-scope conflicts, reconcile versions, and recheck. Respect hooks/protections; explain an actual unmet control or decision without changing transports to evade it.
 
 Confirm the resulting remote version and change before calling the delivery complete. A GitHub PR merge already updates `main`; do not invent a second version-only commit or push. Compare stale task records with the live user request and git/PR state. An existing provider GitHub autodeploy may follow the authorized merge; do not disable it or add dummy watch filters as PHDK enforcement. Report deployment evidence or a skipped/disabled deployment separately, without provider writes.
+
+## PHDK uat
+
+For explicit `PHDK uat`, follow `UAT_STANDARD.md`. Derive traceable use/acceptance cases for the current candidate, create/update `UAT_CASES.md`, execute all permitted acceptance evidence autonomously, and create/update `UAT_REPORT.md`. Do not ask for approval between cases. Never pass an unexecuted behavioral case by inspection; use BLOCKED or MANUAL when the required evidence is unavailable or excluded.
+
+Standalone UAT validates and reports the candidate. Under active `PHDK auto`, repair in-scope UAT failures and rerun affected cases before final delivery.
 
 ## PHDK auto
 
