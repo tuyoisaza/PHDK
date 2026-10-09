@@ -35,7 +35,7 @@ When a real required review or sensitive decision remains missing, prepare all o
 
 ## Normal branch-to-main procedure
 
-For an explicitly active `PHDK auto` goal, use `PHDK_AUTO.md` for cadence: finish all agreed development, then the integrated final verification/repair and delivery. Do not request human OKs or produce releases after each stage. Treat the entire goal as the deliverable in this procedure. An explicit Auto command switches that goal to this normal branch route from Developer Mode; repair real failures within scope while preserving every applicable control.
+For an explicitly active `PHDK auto` goal, use `PHDK_AUTO.md` for cadence and `UAT_STANDARD.md` for applicable final user-acceptance evidence: finish all agreed development, then the integrated final verification/repair and delivery. Do not request human OKs or produce releases after each stage. Treat the entire goal as the deliverable in this procedure. An explicit Auto command switches that goal to this normal branch route from Developer Mode; repair real failures within scope while preserving every applicable control.
 
 1. Identify the repository, remote, target, current task, owner instructions, review requirements, and local state. Inspect the relevant hooks, version scripts, package-manager requirements, and applicable gates early enough to disclose a delivery blocker before calling development complete. Preserve unrelated edits and other contributors' commits.
 2. Start or continue the task's existing suitable feature/fix branch from a known target state. A new message or checkpoint does not require another branch for the same unfinished delivery. Keep the outgoing range limited to the approved task and necessary version metadata.
