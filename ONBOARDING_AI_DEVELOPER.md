@@ -18,6 +18,10 @@ Explicit `PHDK auto` starts `PHDK_AUTO.md` for the identified current goal; `PHD
 
 Do not restart an interview or end the goal at a scaffold, first release, or handoff. Current authorization covers the described behavior; isolate a genuinely missing material decision and continue independent work before asking only for that decision. Existing actual reviews and controls remain binding. Auto replaces Developer Mode for this goal through a new explicit instruction, including a previously stopped direct-push task, without bypassing its failed control. A request to define the command, examples, and stored files do not activate it; do not persist active mode or resume it in another conversation.
 
+### UAT in the current conversation
+
+An explicit `PHDK uat` invokes `UAT_STANDARD.md` for the identified candidate. Create/update `UAT_CASES.md`, execute all permitted acceptance evidence autonomously, and create/update `UAT_REPORT.md`. Do not require another approval between cases, and do not convert excluded browser/live behavior into an inferred PASS.
+
 ### Developer Mode in the current conversation
 
 Only an explicit user command `PHDK modo developer` or `PHDK Developer Mode` activates Developer Mode; `PHDK salir de developer mode` exits it. A mention, quoted example, brief, or stored file does not activate it. The mode ends with the conversation and must never be saved as active in project files or resumed from earlier work.
@@ -53,6 +57,7 @@ Re-read owner controls before edits and git writes. A specific user instruction 
 | UI/code accessibility requirements | `DESIGN_RULES.md` |
 | Architecture and source configuration | `TECHNICAL_STACK.md`, existing `ARCHITECTURE_DECISIONS.md` |
 | Security, privacy, permissions, money, dependencies | `DEVSECOPS.md` |
+| UAT / user acceptance evidence | `UAT_STANDARD.md`, `TESTING_STANDARD.md` |
 | Local evidence and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
 | Health/debug/diagnostic source | `DEBUG_DIAGNOSTICS_STANDARD.md` |
 | Normal delivery, reviews, scope limits, and completion evidence | `MAIN_DELIVERY_STANDARD.md` |
