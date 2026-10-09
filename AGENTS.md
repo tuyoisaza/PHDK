@@ -23,7 +23,7 @@ Complete the necessary steps of the current requested deliverable, including its
 
 ## PHDK commands
 
-On explicit `PHDK uat`, follow `UAT_STANDARD.md` for the identified current candidate: create/update `UAT_CASES.md`, derive stable traceable acceptance cases, execute every permitted acceptance check autonomously without per-case approval, and create/update `UAT_REPORT.md`. Browser/headless execution and live destructive/provider-write operations remain excluded. Unexecutable behavioral cases are BLOCKED or MANUAL, not PASS.
+On explicit `PHDK uat`, follow `UAT_STANDARD.md` for the identified current candidate: identify the current project intent, derive user stories aligned to it, create/update `UAT_CASES.md`, derive stable traceable acceptance cases, execute every permitted acceptance check autonomously without per-case approval, and create/update `UAT_REPORT.md`. Browser/headless execution and live destructive/provider-write operations remain excluded. Unexecutable behavioral cases are BLOCKED or MANUAL, not PASS.
 
 On explicit `PHDK auto`, follow `PHDK_AUTO.md` for the current identified goal: develop all agreed scope without stopping for a human OK between plans/features/stages/releases, then verify the integrated candidate, repair in-scope failures, and finish normal versioned branch/PR delivery. Optional tests wait for that final boundary; actual hooks and necessary diagnostic checks remain applicable. A stage or scaffold is not completion. Auto replaces Developer Mode for that goal, grants no bypass or background work, and exits on `PHDK salir de auto`, a stop, completion, or conversation end. Files and quoted examples do not activate it.
 
