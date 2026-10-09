@@ -1,3 +1,23 @@
+## v2.36.0 — 2026-10-09
+
+### Added
+
+- Added `PHDK uat` and `UAT_STANDARD.md` for autonomous, traceable user acceptance testing of the current candidate.
+- UAT derives stable use/acceptance cases, writes `UAT_CASES.md`, executes every permitted acceptance channel available, and writes `UAT_REPORT.md` with PASS/FAIL/BLOCKED/MANUAL evidence and an ACCEPTED / NOT ACCEPTED / ACCEPTANCE INCOMPLETE conclusion.
+- Integrated UAT with `PHDK auto`: applicable final UAT runs after the whole goal is implemented; in-scope failures are repaired and retested before final delivery.
+- Added `UAT_STANDARD.md` to the vendoring manifest and routing instructions.
+
+### Boundaries
+
+- Browser/headless execution, screenshots, live app probes, destructive/live data operations, paid calls, provider writes, hosted CI dispatch, recurring monitoring, and background work remain excluded.
+- Code inspection alone cannot make an unexecuted behavioral case PASS. Cases needing unavailable/excluded evidence are BLOCKED or MANUAL.
+- Standalone UAT validates and reports the candidate; it does not silently broaden into unrelated product development.
+
+### Verification
+
+- Reviewed command routing, artifact schema, status semantics, Auto integration, manifest mapping, version metadata, and delivery behavior for the new standard.
+- No browser, live-service write, provider administration, hosted CI, or background execution was used.
+
 # CHANGELOG.md
 
 ## v2.35.0 — 2026-10-09
