@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.35.0**
+**Version: v2.36.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,14 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.36.0
+
+`PHDK uat` adds autonomous, traceable user acceptance testing for the identified current candidate. It derives use/acceptance cases from roles, requirements, acceptance criteria, current code, and existing test evidence; writes `UAT_CASES.md`; executes every permitted acceptance check it can; and writes `UAT_REPORT.md` with PASS/FAIL/BLOCKED/MANUAL evidence and a final acceptance conclusion.
+
+UAT never converts code inspection into a behavioral PASS. Browser/headless execution, screenshots, live application probes, destructive/live data operations, paid calls, hosted CI dispatch, provider writes, recurring monitoring, and background work remain excluded. Cases that require unavailable or excluded evidence are reported honestly as BLOCKED or MANUAL.
+
+Under an active `PHDK auto` goal, applicable UAT is part of the final whole-goal acceptance boundary. In-scope failures are repaired and the affected cases rerun before final delivery. Standalone `PHDK uat` validates and reports the current candidate without silently expanding into unrelated product development.
 
 ## What changed in v2.35.0
 
@@ -45,6 +53,18 @@ PHDK auto
 If the goal is already clear in the conversation, the assistant starts immediately. It implements every agreed stage, communicates progress without asking for an OK, then verifies the complete integrated candidate, fixes in-scope failures, and finishes the authorized versioned branch/PR delivery to `main`. The assistant performs the applicable local checks; final human acceptance is not a PHDK prerequisite unless actually requested as one.
 
 Exit with `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Auto replaces Developer Mode for that goal and uses normal branch/PR delivery; it does not inherit direct-main permissions. A real unavailable control/decision/access can block an operation, while independent authorized work continues. No files or examples activate the mode. Full contract: [PHDK_AUTO.md](PHDK_AUTO.md).
+
+## PHDK uat
+
+Run autonomous user acceptance testing for the identified current candidate:
+
+```txt
+PHDK uat
+```
+
+The assistant creates or refreshes `UAT_CASES.md`, assigns stable case IDs, maps each case to requirements, records preconditions/actions/expected outcomes, executes every feasible acceptance check through permitted repository-local channels, and writes `UAT_REPORT.md`.
+
+The report distinguishes PASS, FAIL, BLOCKED, MANUAL, and NOT APPLICABLE; records the tested revision/version, evidence, defects and coverage gaps; and concludes ACCEPTED, NOT ACCEPTED, or ACCEPTANCE INCOMPLETE. It does not claim browser, production, or human acceptance evidence that did not occur. Full contract: [UAT_STANDARD.md](UAT_STANDARD.md).
 
 ## PHDK unlock
 
@@ -141,7 +161,7 @@ An upstream standards update does not update every existing project automaticall
 
 | Area | Source files |
 |---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
 | Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
 | Intent and onboarding | `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |

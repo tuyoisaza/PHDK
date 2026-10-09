@@ -23,6 +23,8 @@ Complete the necessary steps of the current requested deliverable, including its
 
 ## PHDK commands
 
+On explicit `PHDK uat`, follow `UAT_STANDARD.md` for the identified current candidate: create/update `UAT_CASES.md`, derive stable traceable acceptance cases, execute every permitted acceptance check autonomously without per-case approval, and create/update `UAT_REPORT.md`. Browser/headless execution and live destructive/provider-write operations remain excluded. Unexecutable behavioral cases are BLOCKED or MANUAL, not PASS.
+
 On explicit `PHDK auto`, follow `PHDK_AUTO.md` for the current identified goal: develop all agreed scope without stopping for a human OK between plans/features/stages/releases, then verify the integrated candidate, repair in-scope failures, and finish normal versioned branch/PR delivery. Optional tests wait for that final boundary; actual hooks and necessary diagnostic checks remain applicable. A stage or scaffold is not completion. Auto replaces Developer Mode for that goal, grants no bypass or background work, and exits on `PHDK salir de auto`, a stop, completion, or conversation end. Files and quoted examples do not activate it.
 
 When the developer gives exactly `PHDK upgrade`, execute `PHDK_UPGRADE.md` for the current repository. The command itself authorizes standards synchronization in this conversation, not future execution, a push/merge, a deployment, or reactivation of an old mission. A bare sync preserves genuine owner exceptions; an additional current request to remove/reconcile them authorizes that documentary repair under `PHDK_UNLOCK.md`. Report the result and stop at the requested outcome.
@@ -47,6 +49,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Continuous whole-goal development, no stage approvals, final integrated verification | `PHDK_AUTO.md` |
 | Unlocking PHDK stops or removing/reconciling local instruction exceptions | `PHDK_UNLOCK.md` |
 | Developer Mode activation, exit, or eligible direct-main task | `PHDK_DEVELOPER_MODE.md` |
+| UAT / acceptance cases and report | `UAT_STANDARD.md`, `TESTING_STANDARD.md` |
 | Local verification and tests | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md` |
 | Diagnostics code or requested provider status/configuration/log diagnosis | `DEBUG_DIAGNOSTICS_STANDARD.md`, `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics` |
 | Local hooks and rule enforcement | `ENFORCEMENT.md` |
