@@ -140,7 +140,7 @@ After explicit approval in the same conversation:
 3. Build one coherent remediation plan from the approved AUTO-FIXABLE / FIXABLE WITH VALIDATION items.
 4. Follow project intent. Closing a PHDK gap must not create features that conflict with the product's intent or non-goals.
 5. Implement autonomously without asking for approval per file or gap.
-6. Run the applicable checks and UAT where user-facing behavior changes. Use `PHDK auto` cadence for the remediation batch only when the approved gap set forms a development goal; the `yes` itself is enough authorization for the listed fixes.
+6. Run the applicable checks and UAT where user-facing behavior changes. If remediation touches multiple PMO workstreams/shared surfaces, update PMO integration evidence rather than creating an untracked parallel portfolio. Use `PHDK auto` cadence for the remediation batch only when the approved gap set forms a development goal; the `yes` itself is enough authorization for the listed fixes.
 7. Preserve actual hooks, protections, required reviews, access controls, and execution boundaries.
 8. Version, commit, push, PR, and merge under `MAIN_DELIVERY_STANDARD.md` when the approved remediation request targets repository delivery.
 9. Rerun `PHDK check` against the resulting candidate/main.
@@ -150,6 +150,7 @@ Do not fix DECISION REQUIRED or EXTERNAL / MANUAL items merely because they appe
 
 ## Relationship to other commands
 
+- **`PHDK PMO`** coordinates owner-confirmed workstreams and integrated delivery; Check is not a workstream detector or PMO replacement.
 - **`PHDK check`** audits standards compliance and asks before remediation.
 - **`PHDK auto`** continuously develops an already-authorized product goal; it does not automatically trigger a full standards compliance sweep.
 - **`PHDK uat`** validates intent-aligned user acceptance behavior; it can provide evidence for check findings but does not replace the broader standards audit.
