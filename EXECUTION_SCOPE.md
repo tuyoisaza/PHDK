@@ -19,6 +19,16 @@ This boundary applies to bootstrap, development, upgrades, verification, inciden
 - Review the complete outgoing diff and apply `MAIN_DELIVERY_STANDARD.md` to approval evidence. Sensitive behavior or policy decisions need owner approval, which a well-defined current request can already supply. A clear "push to main", "merge", or "aprobado" for the identified current change is approval in the conversation; do not add a PHDK-only requirement to repeat it, attest to opening every diff line, or submit a GitHub review. Formal/named/independent review actually required by current owner instructions, hooks, repository rules, or server protections remains binding. Never fabricate human inspection, bypass a hook/protection, or publish with an unmet applicable control.
 - An explicit, still-active PHDK Developer Mode activation authorizes its separate direct-main flow for eligible small changes requested while active, as defined in `PHDK_DEVELOPER_MODE.md`; its immediate stop rules remain effective. Neither flow authorizes a release tag, unrelated work, or post-conversation execution merely from a completion checklist.
 
+## PHDK PMO
+
+The explicit command `PHDK PMO` activates `PHDK_PMO.md` for the current project/portfolio in the active conversation. PMO first discovers candidate workstreams and requires owner confirmation of the active portfolio before delegated execution.
+
+PMO is the only PHDK context that may coordinate runtime-supported in-session worker/subagents. The PMO orchestrator remains the only coordinator; each worker is bounded to one confirmed workstream, may not recursively delegate, may not choose new work, and may not continue after the conversation. No worker/background daemon/schedule survives PMO exit.
+
+PMO delegation does not widen browser/live-service/provider-write/security/repository permissions. All workers inherit this execution scope and the controls applicable to their workstream.
+
+If the runtime does not support subagents/workers, PMO may coordinate the same workstreams sequentially with the current assistant, but must state that no parallel workers were launched.
+
 ## PHDK Auto
 
 The explicit command `PHDK auto` activates `PHDK_AUTO.md` for the identified current goal; exit with `PHDK salir de auto`, a clear stop, completion, or the conversation ending. Complete all agreed development without PHDK-only approval pauses between plans, features, stages, or releases. Use existing requirements and reversible routine decisions; no repeated interview or OK is needed when the goal is already clear.
