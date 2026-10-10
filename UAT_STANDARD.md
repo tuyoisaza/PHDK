@@ -105,9 +105,39 @@ A defect requiring a new material product decision, unavailable access, undisclo
 - defects and retest status;
 - for every FAIL: observed failure, expected behavior, probable root cause, affected requirement/story/case, affected component/files when identifiable, proposed repair, repair risk/scope, and exact retest needed;
 - coverage gaps and excluded channels;
+- an **Action Plan** for every FAIL, BLOCKED, and MANUAL case that prevents ACCEPTED status;
 - final conclusion: ACCEPTED, NOT ACCEPTED, or ACCEPTANCE INCOMPLETE.
 
-Use **ACCEPTED** only when the Intent Alignment Gate passes, all applicable stories are covered, all applicable cases PASS, and no required acceptance evidence is BLOCKED or MANUAL. Use **NOT ACCEPTED** when any applicable case FAILs. Use **ACCEPTANCE INCOMPLETE** when there are no FAIL cases but required cases remain BLOCKED or MANUAL.
+Use **ACCEPTED** only when the Intent Alignment Gate passes, all applicable stories are covered, all applicable cases PASS, and no required acceptance evidence is BLOCKED or MANUAL.
+
+## Mandatory action guidance for incomplete UAT
+
+When the conclusion is NOT ACCEPTED or ACCEPTANCE INCOMPLETE, the report must never stop at status labels. It must tell the owner what to do next.
+
+For every unresolved FAIL, BLOCKED, or MANUAL case include an actionable card with:
+
+- **Case / defect ID**
+- **What is preventing acceptance**
+- **Why it matters** — requirement, intent, risk, or acceptance criterion affected
+- **What must happen**
+- **Who/what must act** — assistant/code change, repository owner, provider/admin, human reviewer, or other dependency
+- **Where** — repository file/component, environment, provider, account, browser/manual flow, or external system
+- **How** — concrete repair/verification steps in order
+- **When** — prerequisite/order relative to other actions
+- **Evidence needed to close it**
+- **After that** — exact retest/UAT command or next PHDK command
+- **Can PHDK do it now?** — YES / PARTIAL / NO, with reason
+
+Then add a top-level **Recommended next actions** section ordered by dependency and impact. It must be concrete enough that the owner can follow it without reverse-engineering the UAT files.
+
+Examples:
+
+- If a case is BLOCKED because a browser/manual flow is excluded, say exactly which flow a human must exercise, what result to record, and what command/report to rerun afterward.
+- If a case is BLOCKED because an external secret/access/provider setting is missing, identify the missing prerequisite without exposing secrets, identify where it must be configured, and state what evidence should be supplied back.
+- If a case is MANUAL because visual/UX acceptance is required, provide a human review checklist and expected acceptance evidence.
+- If no FAIL exists but BLOCKED/MANUAL cases remain, explicitly say: **"No hay defectos de código reparables automáticamente; la aceptación está incompleta por estos prerequisitos/validaciones pendientes."**
+
+Never answer only "no hay FAIL" when acceptance is incomplete. Use **NOT ACCEPTED** when any applicable case FAILs. Use **ACCEPTANCE INCOMPLETE** when there are no FAIL cases but required cases remain BLOCKED or MANUAL.
 
 Never claim production, browser, or human acceptance evidence that did not occur.
 
@@ -149,4 +179,4 @@ A standalone UAT run normally leaves product behavior unchanged unless the user 
 
 ## Completion report
 
-Do not stop after generating cases. Execute every feasible case and produce the report in the same request. Report the conclusion, totals, candidate revision/version, artifact paths, failures/blocked/manual gaps, strongest evidence used, and—when any FAIL exists—the recommended next command `PHDK uat fix` plus a concise repair summary.
+Do not stop after generating cases. Execute every feasible case and produce the report in the same request. Report the conclusion, totals, candidate revision/version, artifact paths, failures/blocked/manual gaps, strongest evidence used, and a prioritized next-action plan whenever the conclusion is not ACCEPTED. When FAILs exist, include the recommended next command `PHDK uat fix`. When only BLOCKED/MANUAL items remain, explain exactly how to unblock/perform them and what to rerun afterward.
