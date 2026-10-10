@@ -36,6 +36,10 @@ Read `PHDK_DEVELOPER_MODE.md` for the narrow delivery exception: small, low-risk
 
 `PHDK unlock` invokes `PHDK_UNLOCK.md`: inspect current blockers, reconcile PHDK and local documentary restrictions with current owner instructions, and complete the scoped authorized repair/delivery. Explain that scope briefly. Preserve hooks, checks, access controls, actual required reviews, and provider-write boundaries; do not resume unnamed old work, activate Developer Mode, or invent a persistent unlocked state. Natural-language approval already counts without this command.
 
+### Capture requirements
+
+An explicit `PHDK capture` invokes `PHDK_CAPTURE.md`. Investigate existing repository evidence before asking questions; create/update the canonical project requirements package and resolve blocking/material gaps through focused questions. Capture is interactive requirements work and does not by itself authorize product implementation.
+
 ## Begin a current task
 
 1. Identify the user's current requested deliverable: read-only, normal repository delivery, or an explicitly narrower scope/different target.
@@ -55,6 +59,7 @@ Re-read owner controls before edits and git writes. A specific user instruction 
 | Need | Read |
 |---|---|
 | Requested product purpose | `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md` as relevant |
+| Project discovery / professional requirements / ethos | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md` |
 | Current task, plan, completion criteria | `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`, `AI_DEVELOPER_OPERATING_MODEL.md` |
 | New or ambiguous intent | `INTENT_CAPTURE_STANDARD.md` |
 | Code structure and branching | `DEVELOPMENT_RULES.md` |

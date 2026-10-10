@@ -139,3 +139,10 @@ UAT evidence does not create or revoke authorization. PASS starts no new task. F
 `PHDK check` uses `PHDK_CHECK_REPORT.md` as the authoritative compliance artifact for the audited revision. TASK/STATUS may record the report revision, summary counts, and whether remediation was approved, but they must not convert audit findings into standing authorization.
 
 The initial check is read-only. A later explicit yes to the presented report authorizes only the enumerated AUTO-FIXABLE and FIXABLE WITH VALIDATION gap IDs in that report revision. Record the approved IDs and resulting delivery evidence. DECISION REQUIRED, EXTERNAL / MANUAL, UNKNOWN, and newly discovered material gaps remain outside that approval until separately resolved.
+
+
+## Capture requirements baseline
+
+`PHDK capture` produces the project-level requirements baseline in `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`. TASK/STATUS may reference these artifacts but must not replace them or treat incomplete task notes as the project's canonical intent.
+
+Capture may span multiple turns while resolving Blocking/Material requirements gaps. This is an explicit interactive requirements task, not a persistent mode or background job. Capture completion does not authorize implementation unless the current request separately includes development.

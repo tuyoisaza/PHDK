@@ -10,7 +10,7 @@ The mode lasts for this goal in the active conversation. Exit on `PHDK salir de 
 
 ## One complete goal, no stage approvals
 
-Take scope from the owner's current request and agreed brief/specification. The goal may include multiple features, packages, stages, or an explicitly selected backlog. Break it into implementation steps internally and continue through all of them; finishing a slice, scaffold, feature, stage, candidate version, or PR is not finishing the whole goal. Do not reduce an explicitly requested complete project to its first release or MVP.
+Take scope from the owner's current request and the strongest available project requirements baseline. When `PHDK capture` artifacts exist, use `PROJECT_INTENT.md`, `REQUIREMENTS_TRACEABILITY.md`, `PRD.md`, and `FEATURES.md` as the canonical project-level scope/intent inputs. The goal may include multiple features, packages, stages, or an explicitly selected backlog. Break it into implementation steps internally and continue through all of them; finishing a slice, scaffold, feature, stage, candidate version, or PR is not finishing the whole goal. Do not reduce an explicitly requested complete project to its first release or MVP.
 
 The activation authorizes necessary in-scope planning, implementation decisions, code/documentation/test-source changes, integration repairs, final verification, version metadata, commits, branch push, PR, and merge under `MAIN_DELIVERY_STANDARD.md`. Do not ask for an OK per plan, file, stage, feature, risk label, commit, or merge. Honor an explicitly narrower audit/local/branch/PR-only outcome or a different delivery target.
 

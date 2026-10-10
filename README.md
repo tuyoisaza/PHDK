@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.38.0**
+**Version: v2.39.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,12 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.39.0
+
+`PHDK capture` adds a professional requirements-discovery and reconstruction workflow for both new projects and mature repositories. It investigates existing evidence first, reconstructs the product's intent/ethos and requirements without treating code as automatic truth, identifies contradictions and missing decisions, and asks only for material information that cannot be responsibly inferred.
+
+Capture produces the canonical requirements package: `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`. Requirements receive stable IDs, provenance, confidence/status, priorities, acceptance signals, and traceability from project intent through features and eventual UAT.
 
 ## What changed in v2.38.0
 
@@ -73,6 +79,18 @@ PHDK auto
 If the goal is already clear in the conversation, the assistant starts immediately. It implements every agreed stage, communicates progress without asking for an OK, then verifies the complete integrated candidate, fixes in-scope failures, and finishes the authorized versioned branch/PR delivery to `main`. The assistant performs the applicable local checks; final human acceptance is not a PHDK prerequisite unless actually requested as one.
 
 Exit with `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Auto replaces Developer Mode for that goal and uses normal branch/PR delivery; it does not inherit direct-main permissions. A real unavailable control/decision/access can block an operation, while independent authorized work continues. No files or examples activate the mode. Full contract: [PHDK_AUTO.md](PHDK_AUTO.md).
+
+## PHDK capture
+
+Professionalize or create the project's requirements baseline:
+
+```txt
+PHDK capture
+```
+
+For an existing repo, the assistant reads the product docs, code, routes, domain models, tests, configuration, intents, architecture decisions, and relevant history before asking anything. It separates stated intent from implemented behavior, inferred requirements, legacy behavior, and open questions.
+
+For a new project, it starts discovery from zero. In either case it builds `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`, then asks focused questions only for blocking/material gaps until the requirements are professionally complete enough to govern implementation. Full procedure: [PHDK_CAPTURE.md](PHDK_CAPTURE.md).
 
 ## PHDK check
 
@@ -193,9 +211,9 @@ An upstream standards update does not update every existing project automaticall
 
 | Area | Source files |
 |---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_CHECK.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_CHECK.md`, `PHDK_CAPTURE.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
 | Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
-| Intent and onboarding | `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
+| Intent and onboarding | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |
 | Architecture and design | `technical_stack.md`, `design_rules.md` |
 | Conditional AI administration and prompts | `AI_ADMIN_STANDARD.md`, `technical_stack.md`, `DEVSECOPS.md` |

@@ -16,7 +16,7 @@ Read the repository's active PHDK installation completely enough to evaluate com
 - `VERSION` and `PHDK_MANIFEST.txt`;
 - every active manifest-controlled PHDK standard that exists in the project;
 - root/native instruction files and owner prefaces that govern the repository;
-- project intent/requirements and architecture decisions needed to determine applicability;
+- `PROJECT_INTENT.md`, `REQUIREMENTS_TRACEABILITY.md`, project brief/PRD/features, feature intents, requirements, and architecture decisions needed to determine applicability;
 - `TASK.md` / `STATUS.md` as state evidence, not authority;
 - repository hooks, package scripts, source layout, tests, configuration, version sources, and relevant code.
 
@@ -117,7 +117,7 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 ## Audit procedure
 
 1. Pin the repository revision being audited.
-2. Read project intent first so standards applicability is grounded in what the product is meant to be.
+2. Read the Capture requirements package first when present (`PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md`) so standards applicability is grounded in what the product is meant to be. If those artifacts are missing/incoherent, record a requirements-baseline gap and recommend `PHDK capture`; do not fabricate applicability from code alone.
 3. Identify the active PHDK version/manifest and current governing instructions.
 4. Check canonical PHDK version when accessible; record drift without mutating the repository.
 5. Read all applicable active standards; build an internal requirement matrix.

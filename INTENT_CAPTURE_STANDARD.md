@@ -2,6 +2,9 @@
 
 ## Purpose
 
+`PHDK capture` is the preferred project-level discovery/reconstruction workflow and is governed by `PHDK_CAPTURE.md`. It produces `PROJECT_INTENT.md` for project-level ethos/purpose plus the professional requirements package. This standard remains the durable mechanism for later feature/bug/change-level intent files under `docs/intents/`.
+
+
 This file defines when and how to capture the *why* behind a feature, bug, or body of work as a durable, human-reviewable repository artifact. Capture relevant intent while defining scope in `TASK.md` and include it in the authorized change; it does not require a separate commit or human-approval gate before implementation.
 
 It extends `SPEC_INTERVIEW_PROMPT.md`'s one-time, project-level interview down to individual asks that a human presents during an active session, such as a stakeholder request, customer bug report, or teammate's report.

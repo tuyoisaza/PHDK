@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file contains the prompt to use when you want to brief an AI on a new project idea before generating a PHDK kit.
+This file is a narrow legacy/reference interview for a new project idea before kit generation. For full professional project discovery, existing-repo reconstruction, intent/ethos capture, and requirements normalization, prefer `PHDK capture` under `PHDK_CAPTURE.md`.
 
 Use this prompt when you have an idea but have not yet done a full project brief. It guides the AI to interview you for the human context and goals that the PHDK generation prompt needs.
 
