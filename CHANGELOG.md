@@ -1,3 +1,18 @@
+## v2.40.0 — 2026-10-10
+
+### Added
+
+- Added `PHDK upgrade force` for authoritative replacement of the locally installed PHDK-owned standards surface from canonical upstream `main`.
+- Force may overwrite dirty manifest-owned files under `phdk-standards/` and exact `PHDK-MANAGED` blocks.
+- Force may remove obsolete files only when the previously installed manifest proves those paths were PHDK-owned.
+
+### Safety boundary
+
+- Product/application code, project requirements/docs, Capture artifacts, TASK/STATUS, intents, ADRs, hooks, workflows, package files, provider/repository settings, secrets, unknown extra files, and owner instructions outside managed markers are never overwritten by force.
+- Bare `PHDK upgrade` remains conservative and stops on dirty PHDK-owned conflicts.
+- Force supplies overwrite authority only; it does not authorize commit/push/merge/deployment or product work.
+- Force verification must prove canonical PHDK byte equality and unchanged non-PHDK repository content.
+
 ## v2.39.1 — 2026-10-10
 
 ### Fixed
