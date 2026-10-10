@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.42.1**
+**Version v2.43.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -36,6 +36,8 @@ For a multi-workstream project:
 ```text
 PHDK capture
     ↓
+PHDK plan
+    ↓
 PHDK PMO
     ↓
 confirm workstreams
@@ -68,8 +70,9 @@ Each stage has one job.
 | Stage | Purpose |
 |---|---|
 | **Capture** | Understand the product, its intent, ethos, requirements, users, constraints and success criteria. |
+| **Plan** | Design or reconstruct the solution/repository/UX architecture and turn it into an executable implementation plan. |
 | **PMO** | Detect and coordinate multiple fronts, dependencies, ownership, workers and integration. |
-| **Auto** | Execute one complete authorized goal without stopping for repeated approval. |
+| **Auto** | Orchestrate the complete lifecycle from Capture through final Check/remediation and delivery. |
 | **UAT** | Validate the integrated product against intent-aligned user stories and acceptance criteria. |
 | **UAT Fix** | Repair FAILs and removable blockers; guide the owner through manual/external blockers. |
 | **Check** | Compare the repository against the applicable PHDK standards and produce a remediation backlog. |
@@ -117,6 +120,49 @@ REQUIREMENTS_TRACEABILITY.md
 If Capture has no material questions, it says so. If information is missing, it asks focused questions until the requirements baseline is coherent.
 
 At completion it tells you exactly where everything was captured so you can review it.
+
+---
+
+## `PHDK plan`
+
+Turn requirements into architecture and an executable delivery plan.
+
+```text
+PHDK plan
+```
+
+Plan works in two modes:
+
+- **Greenfield** — design the target architecture from requirements and applicable PHDK standards.
+- **Brownfield** — read the architecture that already exists, preserve sound decisions, identify gaps/debt, define a target state and produce an incremental convergence plan.
+
+Plan covers:
+
+- solution/system architecture;
+- repository topology (mono/polyrepo and package boundaries);
+- web/API/service boundaries;
+- PostgreSQL/data ownership when applicable;
+- integrations and external dependencies;
+- auth/security boundaries;
+- AI architecture when applicable;
+- testing/observability architecture;
+- conceptual UX/information architecture;
+- dependency ordering and workstream decomposition.
+
+It creates or updates:
+
+```text
+SOLUTION_ARCHITECTURE.md
+REPOSITORY_ARCHITECTURE.md
+UX_ARCHITECTURE.md
+IMPLEMENTATION_PLAN.md
+ARCHITECTURE_DECISIONS.md
+TASK.md
+```
+
+On an existing repo, Plan **does not reset the project to a default scaffold**. It starts from current reality and recommends the smallest coherent path from current state to target state.
+
+Full procedure: [PHDK_PLAN.md](PHDK_PLAN.md).
 
 ---
 
@@ -176,29 +222,36 @@ If the runtime does not support workers, PMO coordinates the workstreams sequent
 
 ## `PHDK auto`
 
-Execute one complete authorized development goal.
+Run the complete PHDK delivery lifecycle for one authorized goal.
 
 ```text
 PHDK auto
 ```
 
-Auto does not stop after every plan, feature, stage, scaffold, or candidate release.
+Auto now orchestrates:
 
-It continues through:
+```text
+Capture
+→ Plan
+→ PMO/workstream execution
+→ PMO Integration Review
+→ UAT
+→ UAT Fix
+→ Check
+→ in-scope Check remediation
+→ delivery
+```
 
-- implementation;
-- necessary test source;
-- integration;
-- final verification;
-- in-scope repairs;
-- versioning;
-- branch/PR delivery;
-- merge to the requested target when permitted.
+If Capture or Plan is already current, Auto reuses it rather than repeating work.
 
-Auto is intentionally different from PMO:
+If the repo already exists, Auto's Plan stage operates in brownfield mode: it understands the current architecture before proposing or executing convergence.
 
-- **PMO coordinates many workstreams.**
-- **Auto completes one workstream or goal.**
+PMO still has a distinct role:
+
+- **PMO** is the workstream coordination engine.
+- **Auto** is the end-to-end lifecycle orchestrator that can invoke PMO as one stage.
+
+PMO workers use Auto-style execution semantics for their assigned workstream, but they do not recursively activate the full Auto lifecycle.
 
 ---
 
@@ -454,16 +507,23 @@ It is separate from Auto and PMO.
 
 ### New project
 
+For maximum control, run the stages explicitly:
+
 ```text
 PHDK capture
+PHDK plan
+PHDK PMO
 ```
 
-Capture the intent and requirements first.
+Then continue through UAT/Check as needed.
 
-Then:
+For end-to-end execution, simply run:
 
-- one front → `PHDK auto`
-- several fronts → `PHDK PMO`
+```text
+PHDK auto
+```
+
+Auto will create/reuse the Capture baseline, create/reuse Plan, coordinate workstreams, integrate, validate, repair and check the final candidate.
 
 ### Existing project
 
@@ -472,11 +532,12 @@ Run:
 ```text
 PHDK upgrade
 PHDK capture
+PHDK plan
 ```
 
-Capture reconstructs what the project is supposed to be from the repository evidence and asks only for missing material decisions.
+Capture reconstructs what the product is supposed to be. Plan reconstructs how it is currently built, then defines the target architecture and an incremental convergence path.
 
-Then choose Auto or PMO.
+Or run `PHDK auto` and let it orchestrate those stages automatically when they are missing/outdated.
 
 ### Existing project with unclear standards drift
 
@@ -513,6 +574,7 @@ PHDK is built around a few simple ideas:
 |---|---|
 | Execution boundaries | [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) |
 | Professional requirements capture | [PHDK_CAPTURE.md](PHDK_CAPTURE.md) |
+| Solution architecture & implementation planning | [PHDK_PLAN.md](PHDK_PLAN.md) |
 | Multi-workstream orchestration | [PHDK_PMO.md](PHDK_PMO.md) |
 | Autonomous single-goal development | [PHDK_AUTO.md](PHDK_AUTO.md) |
 | UAT and UAT repair | [UAT_STANDARD.md](UAT_STANDARD.md) |
