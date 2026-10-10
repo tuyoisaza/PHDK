@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.44.0**
+**Version v2.44.1**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -42,7 +42,7 @@ PHDK PMO
     ↓
 confirm workstreams
     ↓
-PHDK auto / PMO workers
+PMO workers using Auto execution semantics
     ↓
 PMO Integration Review
     ↓
@@ -59,11 +59,19 @@ approved remediation
 Done
 ```
 
-For a single focused workstream:
+For a single focused workstream, either run the stages explicitly:
 
 ```text
-PHDK capture → PHDK auto → PHDK uat → PHDK uat fix → PHDK check
+PHDK capture → PHDK plan → implementation/integration → PHDK uat → PHDK uat fix → PHDK check
 ```
+
+or simply run:
+
+```text
+PHDK auto
+```
+
+Auto will orchestrate the complete applicable lifecycle and reuse current Capture/Plan artifacts.
 
 Each stage has one job.
 
