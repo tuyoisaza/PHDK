@@ -326,6 +326,31 @@ Capture is complete when:
 
 Capture must not declare requirements "complete" merely because every template section has text.
 
+## User-facing interaction contract
+
+At the beginning of `PHDK capture`, explain briefly what Capture is doing: it will investigate existing evidence, formulate the professional requirements baseline, identify missing material information, and ask only the questions that are actually needed.
+
+After the first investigation/draft pass, explicitly state one of these two conditions:
+
+- **No questions needed:** say clearly that the available repository/conversation evidence is sufficient and that there are no Blocking/Material questions to ask.
+- **Questions needed:** say clearly that material information is still missing, then ask the highest-value question(s) under the gap-driven interview rules.
+
+Do not leave the user guessing whether Capture is still analyzing or waiting for information.
+
+When the last required question has been answered—or immediately when no questions are needed—finish the canonical artifacts and give an explicit completion message. The completion message must say, in substance:
+
+> Todo lo que levanté y formulé quedó capturado en estos archivos para que puedas revisarlos.
+
+Then list each produced/updated artifact with a one-line description and, when the environment supports it, a direct file/repository link:
+
+- `PROJECT_INTENT.md` — intent, ethos, purpose, outcomes, constraints and non-goals.
+- `PROJECT_BRIEF.md` — executive project summary.
+- `PRD.md` — professional detailed requirements.
+- `FEATURES.md` — prioritized delivery feature model and acceptance criteria.
+- `REQUIREMENTS_TRACEABILITY.md` — intent-to-requirement/feature/story/UAT traceability.
+
+Also state whether any INFERRED or OPEN items remain. Never imply that requirements are owner-confirmed when they are inferred.
+
 ## Interaction and stopping behavior
 
 `PHDK capture` is an interactive requirements command. It may span multiple turns because its purpose is to obtain missing human information.
@@ -338,7 +363,7 @@ During the interview:
 - continuously update the canonical artifacts when repository editing is available;
 - do not start product implementation.
 
-When all Blocking gaps are resolved and the professional requirements baseline is complete, present:
+When all Blocking gaps are resolved and the professional requirements baseline is complete, explicitly state that there are no further required questions, then present:
 - captured intent/ethos;
 - scope/non-goals;
 - actors;
@@ -346,7 +371,7 @@ When all Blocking gaps are resolved and the professional requirements baseline i
 - requirements/features counts;
 - confirmed vs inferred vs open items;
 - remaining material decisions;
-- artifact paths.
+- artifact paths/links, introduced with a clear statement that everything captured/formulated is stored there for owner review.
 
 Then stop unless the user's current request also explicitly included the next step such as kit generation, `PHDK auto`, UAT, check, or git delivery.
 
