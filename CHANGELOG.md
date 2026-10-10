@@ -1,3 +1,22 @@
+## v2.44.0 — 2026-10-10
+
+### Added
+
+- Added `PHDK_PREFLIGHT.md` as the universal first step for all PHDK lifecycle commands.
+- Preflight verifies active PHDK installation, installed/canonical version, manifest completeness, managed-rule presence, and stage-relevant skills/capabilities.
+- Clean stale PHDK-owned standards may be conservatively synchronized before the requested command continues; dirty PHDK-owned changes are never force-overwritten silently.
+- Added stage-aware recommended-capability checks for Capture, Plan, PMO, Auto, Integration Review, UAT/UAT Fix, and Check.
+- Relevant already-installed capabilities should actually be used unless the user explicitly disables skills/plugins/connectors or a named capability.
+- Added explicit availability states: AVAILABLE, BUILT-IN EQUIVALENT, MISSING OPTIONAL, MISSING IMPORTANT, DISABLED BY USER, and INCOMPATIBLE / OUT OF SCOPE.
+- Added `PHDK_PREFLIGHT.md` and `SKILLS_REGISTRY.md` to the vendoring manifest so downstream projects receive the operational skill registry.
+
+### Changed
+
+- Reworked `SKILLS_REGISTRY.md` from a passive reference list into an operational, stage-mapped capability registry.
+- Missing optional skills no longer matter silently; important missing capabilities are surfaced when they materially affect quality, while core PHDK remains self-contained.
+- Plugin/connector installation or connection continues to follow host-product consent requirements; PHDK never falsely claims installation.
+- Updated AGENTS, SKILL, native rules, execution scope, core command standards, Upgrade, onboarding, README, change management, and version metadata for the universal Preflight.
+
 ## v2.43.0 — 2026-10-10
 
 ### Added
