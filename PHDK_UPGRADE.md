@@ -13,7 +13,7 @@ Match both case-insensitively after trimming whitespace.
 
 A bare `PHDK upgrade` authorizes the conservative standards sync now, without a second confirmation in the clean case. `PHDK upgrade force` additionally authorizes discarding local modifications only inside the explicitly PHDK-owned surface defined below. It does not authorize product implementation, a commit/push/merge/release, deployment, workflow execution, an agent, or a future run. A current request that explicitly includes git delivery provides that additional authorization.
 
-Follow `EXECUTION_SCOPE.md`: one assistant, interactive-only, no delegation, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Bounded read-only provider diagnostics are available for a current requested check/diagnosis; a bare sync does not start that investigation. Report and stop after the requested sync and any authorized git delivery.
+Follow `EXECUTION_SCOPE.md`: interactive-only, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Delegation is prohibited except inside an explicitly active PMO session under `PHDK_PMO.md`. Bounded read-only provider diagnostics are available for a current requested check/diagnosis; a bare sync does not start that investigation. Report and stop after the requested sync and any authorized git delivery.
 
 An upgrade copies `MAIN_DELIVERY_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_AUTO.md`, and the definition of `PHDK_DEVELOPER_MODE.md`; copying them activates no command or mode. Execution/authorization policy changes use the normal branch flow, even if Developer Mode is active. Review their actual diff and apply the approval rules in `MAIN_DELIVERY_STANDARD.md`: a well-defined owner request can already approve the policy decision, and a current instruction to deliver the identified update supplies delivery approval. Do not add a PHDK-only demand to open the diff or submit a GitHub review; actual formal review requirements remain binding.
 
@@ -137,7 +137,7 @@ If any non-PHDK file changed, restore it before reporting success.
 - Vendored `VERSION` matches the chosen upstream version.
 - Every manifest destination exists and matches its mapped source byte-for-byte.
 - The current native managed block matches the source block.
-- Interactive-only, single-assistant, no-delegation, no-Actions, no-scheduling, and owner-control rules are present.
+- Interactive-only rules are present; delegation remains prohibited except for explicit PMO's bounded in-session worker model; no-Actions, no-scheduling, and owner-control rules remain present.
 - Developer Mode's explicit activation/exit, temporary lifetime, risk limits, and no-bypass rules match upstream; the upgrade itself did not activate it.
 - Normal delivery's verified remote-target completion, risk-based review, authorization continuity, version reconciliation, and no-redundant-push rules match upstream; narrower requests and existing controls remain effective.
 - Existing provider GitHub autodeploy and watch paths were not disabled or replaced with dummy filters as a PHDK restriction. Report observed deployment blockers/statuses separately without inferring permission for provider writes. Valid service-specific filters and intended skips for unaffected services are not configuration errors.
