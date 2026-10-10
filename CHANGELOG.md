@@ -1,3 +1,14 @@
+## v2.39.1 — 2026-10-10
+
+### Fixed
+
+- Made `PHDK capture` explicitly explain its workflow to the user at the start.
+- After repository investigation, Capture now states clearly whether Blocking/Material questions remain.
+- When questions exist, Capture asks them under the gap-driven interview until the necessary information is resolved.
+- When no questions remain, Capture explicitly says so instead of ending silently.
+- On completion, Capture tells the owner that everything discovered/formulated was saved in the canonical requirements artifacts and lists/links `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md` for review.
+- The completion summary must also identify remaining INFERRED or OPEN items without presenting them as owner-confirmed.
+
 ## v2.39.0 — 2026-10-10
 
 ### Added
