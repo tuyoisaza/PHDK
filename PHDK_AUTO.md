@@ -6,14 +6,104 @@ Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant ca
 
 `PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. If there is no single current delivery but the repository already exposes multiple parallel pillars/fronts through Capture, Plan, PMO artifacts, requirements, or current work, do not collapse them into a request for one arbitrary goal; enter PMO portfolio discovery instead. A request to add this command, quoted examples, installed files, and old task records do not activate it.
 
-Briefly state the goal and execution contract, then run the applicable lifecycle end-to-end:
+Before substantive execution, explain the lifecycle visibly to the user.
+
+The opening Auto message must include:
+- the identified goal or detected portfolio;
+- the complete applicable lifecycle;
+- the current status of every stage;
+- which stages are being reused from existing artifacts;
+- which stage is starting now;
+- any genuine blocker/decision that could interrupt the lifecycle.
+
+Use these stage statuses:
+
+- **PENDING** — not started yet.
+- **RUNNING** — current stage.
+- **REUSED** — existing artifacts/evidence are current and will be reused.
+- **COMPLETED** — executed in this Auto run.
+- **BLOCKED** — cannot proceed for a concrete reason.
+- **NOT APPLICABLE** — genuinely irrelevant to this goal.
+
+Present a compact lifecycle board such as:
+
+```text
+PHDK Auto — lifecycle
+Goal: <goal / confirmed portfolio>
+
+Preflight ............ COMPLETED
+Capture .............. REUSED
+Plan ................. RUNNING
+PMO / Workstreams .... PENDING
+Integration Review ... PENDING
+UAT .................. PENDING
+UAT Fix .............. PENDING
+Check ................ PENDING
+Remediation .......... PENDING
+Delivery ............. PENDING
+
+Current stage: Plan
+Next: PMO / Workstreams
+```
+
+Do not replace this with only a prose summary of permissions such as "puedo revisar, probar, versionar y entregar." The owner must be able to see where Auto is in the PHDK lifecycle.
+
+Then run the applicable lifecycle end-to-end:
 
 ```text
 Capture → Plan → PMO/workstream execution → PMO Integration Review
 → UAT → UAT Fix → Check → in-scope Check remediation → delivery
 ```
 
-Skip a stage only when its output is already current/coherent or it is genuinely not applicable. Do not rerun Capture or Plan merely for ceremony. Send concise progress updates without turning them into approval questions or ending the task at a milestone.
+Skip a stage only when its output is already current/coherent or it is genuinely not applicable. Do not rerun Capture or Plan merely for ceremony.
+
+## Lifecycle communication contract
+
+Whenever Auto transitions to another lifecycle stage, send a concise progress update that states:
+
+1. **Completed/reused stage** — what just closed and the strongest artifact/evidence.
+2. **Current stage** — what Auto is doing now.
+3. **Next stage** — what follows when the current stage closes.
+4. **Lifecycle status change** — only the statuses that changed; do not repeat a huge report every time.
+5. **Blockers** — only genuine blockers/decisions, with the exact affected stage.
+
+Examples:
+
+```text
+Capture — REUSED
+Evidence: PROJECT_INTENT.md + PRD.md + REQUIREMENTS_TRACEABILITY.md are coherent.
+
+Plan — RUNNING
+I am reconstructing the current architecture and updating the target/convergence plan.
+
+Next: PMO / Workstreams.
+```
+
+```text
+Plan — COMPLETED
+Artifacts: SOLUTION_ARCHITECTURE.md, IMPLEMENTATION_PLAN.md.
+
+PMO / Workstreams — RUNNING
+Detected 3 workstreams; executing the confirmed portfolio.
+
+Next: Integration Review.
+```
+
+```text
+UAT — COMPLETED: ACCEPTANCE INCOMPLETE
+UAT Fix — RUNNING
+I am repairing 1 local blocker and preparing explicit actions for 1 manual case.
+
+Next: Check.
+```
+
+Progress updates are informational, not approval gates. Continue automatically unless a real decision/control blocks the affected stage.
+
+Do not narrate every command/file operation. Communicate lifecycle movement and material evidence.
+
+At any user status question such as "¿qué estás haciendo?", "status", or "dónde vas", answer with the current lifecycle board/stage first, then relevant execution detail.
+
+Send concise progress updates without turning them into approval questions or ending the task at a milestone.
 
 The mode lasts for this goal in the active conversation. Exit on `PHDK salir de auto`, a clear owner stop, completion of the whole requested outcome, or the conversation ending. A status/link question, context compaction, or assistant-written checkpoint does not end an unfinished goal. Keep task evidence across turns, but never save a reusable `auto=true` authority flag or resume from files alone in another conversation. This is an instruction to the assistant, not a daemon, scheduler, or shell executable.
 
@@ -129,5 +219,23 @@ A standalone explicit Auto invocation owns the complete lifecycle described abov
 - Auto changes PHDK's development cadence and eliminates PHDK-only approval pauses for the current goal. Its specific cadence takes precedence over generic per-slice verification, interview, stop-and-ask, or handoff templates. Standalone Auto grants no delegated agents; when invoked as a PMO worker, delegation authority belongs only to the PMO orchestrator and the worker itself may not delegate. Auto never grants unattended/background/post-conversation execution, recurring work, expanded credentials, or removal of actual security/access/repository controls.
 
 ## Completion report
+
+The final report must close the lifecycle explicitly. Include a compact final board showing the terminal status of every applicable stage and links/paths to the principal artifacts/evidence.
+
+Example:
+
+```text
+PHDK Auto — final lifecycle
+Preflight ............ COMPLETED
+Capture .............. REUSED
+Plan ................. COMPLETED
+PMO / Workstreams .... COMPLETED
+Integration Review ... COMPLETED
+UAT .................. COMPLETED — ACCEPTED
+UAT Fix .............. NOT APPLICABLE
+Check ................ COMPLETED — ALIGNED
+Remediation .......... NOT APPLICABLE
+Delivery ............. COMPLETED
+```
 
 Report once the entire requested outcome and permitted delivery are complete: implemented scope, final verification and repairs, version/commit/PR/remote target, and remaining evidence limits. During work, keep communicating without surrendering the task at an intermediate stage. If a real blocker prevents full completion, identify its source and affected operation, finish everything independent, and report the unfinished scope explicitly. Never call a partial release the completed goal.
