@@ -1,3 +1,13 @@
+## v2.41.1 — 2026-10-10
+
+### Fixed
+
+- UAT no longer treats "0 FAIL" as equivalent to "nothing actionable" when acceptance remains incomplete.
+- Every unresolved FAIL, BLOCKED, and MANUAL case now requires an explicit action card: what blocks acceptance, why it matters, who/what acts, where, how, ordering/prerequisites, closure evidence, next retest/command, and whether PHDK can do it now.
+- `PHDK uat fix` now treats repository-local missing verification infrastructure as a removable blocker. Missing permitted isolated fixtures, fake adapters, auth stubs, in-process API harnesses, and similar local test plumbing should be created/repaired and the affected case rerun.
+- Genuine external/manual/browser/provider/access blockers remain unresolved, but the report must provide an exact step-by-step owner/manual action plan instead of a status-only response.
+- When no FAIL exists but BLOCKED/MANUAL cases remain, the response must explicitly explain that acceptance is incomplete because of those prerequisites/validations and recommend the ordered next actions.
+
 ## v2.41.0 — 2026-10-10
 
 ### Added
