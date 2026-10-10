@@ -177,9 +177,9 @@ If the user also requested normal repository delivery, follow `MAIN_DELIVERY_STA
 
 ## Relationship to Auto and delivery
 
-`PHDK uat` is standalone and does not activate `PHDK auto`. Under active Auto, UAT becomes part of the final integrated acceptance boundary when end-user behavior is in scope: finish implementation, run final UAT, repair in-scope failures, rerun affected cases, then complete remaining final verification and delivery.
+`PHDK uat` is standalone and does not activate `PHDK auto` or PMO. Under active Auto, UAT becomes part of the final integrated acceptance boundary when end-user behavior is in scope: finish implementation, run final UAT, repair in-scope failures, rerun affected cases, then complete remaining final verification and delivery.
 
-A standalone UAT run normally leaves product behavior unchanged unless the user separately asks for fixes. If UAT artifact/test-source changes are requested for repository delivery, follow `MAIN_DELIVERY_STANDARD.md` for versioning and delivery.
+When PMO is active, UAT runs against the PMO-integrated candidate after central integration review; worker-level passes do not replace integrated UAT. A standalone UAT run normally leaves product behavior unchanged unless the user separately asks for fixes. If UAT artifact/test-source changes are requested for repository delivery, follow `MAIN_DELIVERY_STANDARD.md` for versioning and delivery.
 
 ## Completion report
 
