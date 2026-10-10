@@ -33,6 +33,20 @@ Honor an actual requirement for a named reviewer, independent review, or a forma
 
 When a real required review or sensitive decision remains missing, prepare all otherwise permitted work, show the exact PR/diff and the source of that requirement, and request only the missing decision. Once it is satisfied, complete the already-authorized merge. Do not use a newly edited instruction file as authority for unrelated actions; authority comes from the current user request and applicable controls.
 
+## Lifecycle delivery handoff
+
+When delivery is the final stage of a PHDK lifecycle run, verify the upstream handoffs required by `PHDK_LIFECYCLE.md` before publishing. Do not treat an old UAT/Check artifact as current evidence.
+
+Create/update:
+
+```text
+DELIVERY_REPORT.md
+```
+
+with the lifecycle goal/portfolio, final version, branch, source commit(s), PR, merge method, remote target SHA, actual checks/reviews, observed deployment evidence if any, residual limitations, and links to the lifecycle run's stage folders.
+
+After delivery (or a concrete delivery blocker), create `docs/phdk/lifecycle/<run-id>/90-delivery/HANDOFF.md`, snapshot `DELIVERY_REPORT.md`, and finalize the run-level `docs/phdk/lifecycle/<run-id>/LIFECYCLE.md`.
+
 ## PMO integration delivery
 
 When explicit PMO coordinates multiple workstreams, individual workers should not independently finalize the same project release on `main`. Each worker returns its verified workstream result to PMO. The PMO orchestrator performs the central integration review defined in `PHDK_PMO.md`, reconciles shared files/version/changelog/contracts, reruns affected integrated checks, and then uses the normal branch-to-main procedure below for the coherent integrated candidate.
