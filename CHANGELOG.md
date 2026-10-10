@@ -1,3 +1,31 @@
+## v2.42.0 — 2026-10-10
+
+### Added
+
+- Added `PHDK PMO` and `PHDK_PMO.md` for portfolio/program orchestration across multiple owner-confirmed project workstreams.
+- PMO discovers candidate fronts from Capture/requirements, TASK/STATUS, code, current git work, UAT and Check evidence, then asks the owner to confirm/add/remove/prioritize the active portfolio.
+- Added PMO coordination artifacts: `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md`.
+- Added stable workstream IDs, scope/outcome/intent/requirements traceability, dependency graphs, path/component ownership, risk/blocker state, worker/branch evidence, and integration readiness.
+- Added central PMO Integration Review for shared-file conflicts, API/schema/data/navigation contracts, version/changelog reconciliation, integrated verification, and one coherent candidate before UAT.
+- Documented the lifecycle: Capture → PMO → Auto/workers → PMO Integration Review → optional/required human integrated review → UAT → UAT Fix → Check → approved remediation → Done.
+- Added the single-workstream shortcut: Capture → Auto → UAT → UAT Fix → Check.
+
+### Controlled delegation exception
+
+- PMO is the only PHDK mode that may delegate coding/review work to runtime-supported in-session worker/subagents.
+- Only the PMO orchestrator may delegate; workers may not create or coordinate additional agents.
+- Every worker receives one owner-confirmed workstream contract with intent/requirements, scope/non-goals, ownership, dependencies, branch/worktree and verification expectations.
+- No unattended/background/post-conversation workers, recursive delegation, schedules, agent queues, GitHub Actions, or external orchestration semantics are authorized.
+- When subagent capability is unavailable, PMO reports that limit and coordinates workstreams sequentially rather than pretending parallel workers exist.
+
+### Governance
+
+- Portfolio selection and material decisions remain human-accountable.
+- Proposed fronts stay PROPOSED until owner confirmation.
+- Auto remains the single-goal/workstream executor; PMO owns portfolio coordination and integrated delivery.
+- Worker success does not equal product acceptance; UAT evaluates the integrated candidate and Check evaluates standards conformance.
+- Updated execution scope, development/versioning/upgrade rules, agent/native routing, onboarding, handoff/foundation, task tracking, Auto, Capture, UAT, Check, main delivery and README to recognize the PMO exception without reopening general delegation.
+
 ## v2.41.1 — 2026-10-10
 
 ### Fixed
