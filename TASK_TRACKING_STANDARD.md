@@ -176,3 +176,14 @@ Worker TASK/STATUS records, when used, remain subordinate to the PMO workstream 
 `PHDK plan` produces the architecture/planning baseline in `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, architecture decisions, and TASK integration.
 
 For brownfield repositories, TASK must reflect the incremental convergence path from current architecture to target architecture rather than assuming a clean rebuild. Plan IDs/dependencies/workstream recommendations may be referenced from PMO artifacts, but TASK remains current execution context rather than the permanent architecture source.
+
+
+## Lifecycle run records
+
+Full PHDK lifecycle executions maintain root `PHDK_LIFECYCLE.md` plus immutable run history under `docs/phdk/lifecycle/<run-id>/` according to `PHDK_LIFECYCLE.md`.
+
+TASK may reference the current run ID/stage, but it must not duplicate or replace lifecycle handoff artifacts.
+
+Before marking a lifecycle stage complete, verify its required canonical outputs and `HANDOFF.md` exist. Before beginning the next stage, verify the upstream handoff/exit gate and candidate/revision are still applicable.
+
+If an upstream stage is reopened, record the new stage revision/snapshot and revalidate all materially affected downstream stages.
