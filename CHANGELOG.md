@@ -1,3 +1,19 @@
+## v2.42.1 — 2026-10-10
+
+### Changed
+
+- Rebuilt `README.md` as a product-facing introduction to PHDK instead of a release-history document.
+- Added a clearer value proposition, problem statement, delivery lifecycle, command guide, PMO/Auto distinction, UAT/Check flow, conditional AI capabilities, human-control model, safety boundaries, installation guidance, and documentation map.
+- Removed release-by-release "What changed" sections from the README.
+- Added `CHANGE_MANAGEMENT.md` for release/adoption policy, versioning, downstream migration guidance, and high-level capability milestones.
+- Kept `CHANGELOG.md` as the detailed technical release history.
+
+### Documentation model
+
+- `README.md` explains what PHDK is and how to use it.
+- `CHANGE_MANAGEMENT.md` explains how PHDK versions/releases are managed and adopted.
+- `CHANGELOG.md` records exact technical changes by release.
+
 ## v2.42.0 — 2026-10-10
 
 ### Added
