@@ -1,3 +1,12 @@
+## v2.44.1 — 2026-10-10
+
+### Fixed
+
+- Corrected two README lifecycle remnants found during the repository-wide standards review.
+- Replaced the obsolete "PHDK auto / PMO workers" wording with PMO workers using bounded Auto execution semantics.
+- Corrected the single-workstream guidance so explicit stages include Plan, while `PHDK auto` is presented as the complete lifecycle orchestrator rather than one middle implementation step.
+- Repository-wide review otherwise confirmed the v2.44.0 manifest/preflight/routing model is coherent.
+
 ## v2.44.0 — 2026-10-10
 
 ### Added
