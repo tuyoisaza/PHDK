@@ -4,7 +4,7 @@
 
 Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant capabilities when later lifecycle stages need them. Do not repeat a noisy full preflight at every internal stage.
 
-`PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. A request to add this command, quoted examples, installed files, and old task records do not activate it.
+`PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. If there is no single current delivery but the repository already exposes multiple parallel pillars/fronts through Capture, Plan, PMO artifacts, requirements, or current work, do not collapse them into a request for one arbitrary goal; enter PMO portfolio discovery instead. A request to add this command, quoted examples, installed files, and old task records do not activate it.
 
 Briefly state the goal and execution contract, then run the applicable lifecycle end-to-end:
 
@@ -33,9 +33,15 @@ Ask only for architecture decisions that materially change product/security/infr
 
 ### 3. PMO and workstream execution
 
-Use PMO semantics to derive workstreams from the authorized goal, `IMPLEMENTATION_PLAN.md`, requirements, architecture ownership boundaries, and current repo state.
+Use PMO semantics to derive workstreams from the authorized goal, `IMPLEMENTATION_PLAN.md`, requirements, architecture ownership boundaries, and current repo state. When Auto was invoked without a narrower textual goal and the project evidence identifies several parallel fronts, treat the Auto command as authorization to discover and present the candidate portfolio, not as authorization to silently select only one front.
 
-When the workstreams are unambiguously contained inside the already authorized Auto goal, do not ask the owner to reconfirm the same portfolio. Ask only when PMO proposes a front that would materially expand the authorized goal or when prioritization is genuinely ambiguous.
+When the workstreams are unambiguously contained inside an already explicit Auto goal, do not ask the owner to reconfirm the same portfolio.
+
+When Auto was invoked generically and no single delivery goal exists, but multiple credible active fronts can be reconstructed, present the detected portfolio and ask the PMO confirmation question once. That portfolio confirmation becomes the Auto goal for the current conversation.
+
+Do not ask "¿qué resultado concreto debe completar Auto?" merely because there is no single next TASK item when project-level evidence already supplies a coherent set of parallel fronts.
+
+Ask for a missing goal only when neither a single goal nor a coherent candidate portfolio can be established from current project evidence.
 
 When runtime-supported workers are available, the PMO orchestrator may delegate confirmed/in-scope workstreams under `PHDK_PMO.md`. Workers use **Auto execution semantics** inside one workstream but do not activate a nested `PHDK auto` lifecycle or recursively invoke Capture/Plan/PMO.
 
@@ -63,7 +69,9 @@ Take scope from the owner's current request and the strongest available project 
 
 The activation authorizes necessary in-scope planning, implementation decisions, code/documentation/test-source changes, integration repairs, final verification, version metadata, commits, branch push, PR, and merge under `MAIN_DELIVERY_STANDARD.md`. Do not ask for an OK per plan, file, stage, feature, risk label, commit, or merge. Honor an explicitly narrower audit/local/branch/PR-only outcome or a different delivery target.
 
-Use existing product requirements, architecture, design tokens, and repository conventions to resolve routine choices. Prefer a reversible choice consistent with them and record material assumptions. Do not restart a specification interview, handoff-approval cycle, or bootstrap approval merely because another PHDK template contains one. If there is no identifiable current goal, inspect the available context and ask only for the missing goal; do not invent work or select an unapproved old backlog.
+Use existing product requirements, architecture, design tokens, and repository conventions to resolve routine choices. Prefer a reversible choice consistent with them and record material assumptions. Do not restart a specification interview, handoff-approval cycle, or bootstrap approval merely because another PHDK template contains one.
+
+If there is no identifiable single current goal, inspect Capture/Plan/PMO artifacts, requirements, active branches/changes, UAT/Check findings, and current plans for a coherent active portfolio. If one exists, enter PMO portfolio confirmation rather than asking for a single goal. Only ask for a missing goal when no coherent single goal or portfolio can be derived. Do not select an arbitrary stale TASK item or unrelated backlog entry.
 
 Current authorization covers the sensitive behavior actually described in the goal; authentication, data, payments, infrastructure, and policy labels do not create a second PHDK-only human-review gate. Review the actual behavior carefully. A broad statement that there is no risk does not prove that fact or authorize undisclosed destructive behavior, unrelated access, new spending, or a new material product/security decision. Use a safe in-scope alternative where possible. Isolate a genuinely unresolved decision and continue independent authorized work before asking only for that missing decision.
 
