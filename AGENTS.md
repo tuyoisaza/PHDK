@@ -23,6 +23,9 @@ Complete the necessary steps of the current requested deliverable, including its
 
 ## PHDK commands
 
+On explicit `PHDK capture`, follow `PHDK_CAPTURE.md`: investigate the current repository and conversation first, reconstruct or elicit project intent/ethos and professional requirements, create/update the canonical requirements package, then ask only for material missing information until the baseline is coherent. Capture may ask requirements questions across turns but does not start product implementation.
+
+
 On explicit `PHDK check`, follow `PHDK_CHECK.md`: audit the current repository against all active applicable PHDK standards, compare implementation/evidence against those requirements, produce a prioritized gap report, and ask once whether to execute the AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps. The audit phase is read-only except for its report artifact. Do not remediate until the user explicitly answers yes.
 
 
@@ -42,6 +45,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 
 | Current task | Relevant standards |
 |---|---|
+| Project discovery, ethos, requirements capture/reconstruction | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Planning, scope, task state | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md`; `INTENT_CAPTURE_STANDARD.md` when needed |
 | Branching, code organization, dependencies | `DEVELOPMENT_RULES.md` |
 | UI, accessibility, responsive behavior | `DESIGN_RULES.md` |
