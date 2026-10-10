@@ -9,7 +9,7 @@ It serves two cases:
 1. **Existing/advanced repository** — investigate the repository, existing product documentation, code, routes, data models, tests, configuration, intents, and historical decisions to reconstruct what the product currently appears to be, then professionalize that evidence into a coherent requirements baseline.
 2. **New or empty project** — interview the owner from first principles and build the same professional requirements baseline from zero.
 
-Capture does not implement product code. Its deliverable is a complete, professional, internally consistent requirements package that later governs planning, `PHDK PMO`, `PHDK auto`, `PHDK uat`, and `PHDK check`.
+Capture does not implement product code. Its deliverable is a complete, professional, internally consistent requirements package that later governs `PHDK plan`, PMO, Auto, UAT, and Check.
 
 Match `PHDK capture` case-insensitively after trimming whitespace. Reading this file, quoting the command, or installing PHDK does not invoke it.
 
@@ -383,7 +383,8 @@ If the user's request is simply `PHDK capture`, complete the documentation captu
 
 ## Relationship to other PHDK commands
 
-- **Capture → PMO:** Capture defines the professional project baseline from which PMO detects and proposes workstreams.
+- **Capture → Plan:** Capture defines what the product must achieve; Plan converts that into solution/repository/UX architecture and an executable implementation plan.
+- **Capture → PMO:** PMO consumes Capture plus Plan to detect and coordinate workstreams.
 - **Capture → Auto:** Capture defines the professional product baseline; Auto implements an already-authorized single goal/workstream from that baseline.
 - **Capture → UAT:** UAT derives user stories and acceptance cases from `PROJECT_INTENT.md`, PRD/FEATURES, and traceability.
 - **Capture → Check:** Check uses Capture artifacts as the strongest project-specific applicability source when deciding which PHDK standards apply.

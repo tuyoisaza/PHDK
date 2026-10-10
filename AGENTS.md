@@ -23,6 +23,8 @@ Complete the necessary steps of the current requested deliverable, including its
 
 ## PHDK commands
 
+On explicit `PHDK plan`, follow `PHDK_PLAN.md`: consume the Capture requirements baseline, inspect existing architecture when present, design or converge toward a standards-aligned target architecture, produce the canonical Plan artifacts, and turn the architecture into dependency-ordered executable tasks. Do not rewrite a brownfield repo merely to match defaults.
+
 On explicit `PHDK PMO`, follow `PHDK_PMO.md`: inspect the Capture/requirements baseline, current plans/code/branches/reports, detect candidate workstreams, present them for owner confirmation, then coordinate the confirmed portfolio. PMO is the only PHDK mode allowed to delegate bounded workstreams to runtime-supported in-session workers; workers cannot delegate. Maintain ownership/dependency/integration artifacts and perform a central integration review before UAT.
 
 
@@ -36,7 +38,7 @@ On explicit `PHDK uat fix`, use `UAT_STANDARD.md` repair mode: read the current 
 
 On explicit `PHDK uat`, follow `UAT_STANDARD.md` for the identified current candidate: identify the current project intent, derive user stories aligned to it, create/update `UAT_CASES.md`, derive stable traceable acceptance cases, execute every permitted acceptance check autonomously without per-case approval, and create/update `UAT_REPORT.md`. Browser/headless execution and live destructive/provider-write operations remain excluded. Unexecutable behavioral cases are BLOCKED or MANUAL, not PASS.
 
-On explicit `PHDK auto`, follow `PHDK_AUTO.md` for the current identified goal: develop all agreed scope without stopping for a human OK between plans/features/stages/releases, then verify the integrated candidate, repair in-scope failures, and finish normal versioned branch/PR delivery. Optional tests wait for that final boundary; actual hooks and necessary diagnostic checks remain applicable. A stage or scaffold is not completion. Auto replaces Developer Mode for that goal, grants no bypass or background work, and exits on `PHDK salir de auto`, a stop, completion, or conversation end. Files and quoted examples do not activate it.
+On explicit `PHDK auto`, follow `PHDK_AUTO.md` for the complete lifecycle of the identified goal: Capture → Plan → PMO/workstream execution → Integration Review → UAT → UAT Fix → Check → in-scope Check remediation → delivery. Reuse current artifacts instead of rerunning stages for ceremony, and ask only genuinely material missing decisions. Optional tests wait for that final boundary; actual hooks and necessary diagnostic checks remain applicable. A stage or scaffold is not completion. Auto replaces Developer Mode for that goal, grants no bypass or background work, and exits on `PHDK salir de auto`, a stop, completion, or conversation end. Files and quoted examples do not activate it.
 
 When the developer gives exactly `PHDK upgrade` or `PHDK upgrade force`, execute `PHDK_UPGRADE.md` for the current repository. `PHDK upgrade` authorizes conservative standards synchronization. `PHDK upgrade force` additionally authorizes discarding local edits only in manifest-owned `phdk-standards/` paths and marked `PHDK-MANAGED` blocks, while preserving all non-PHDK files and owner text outside managed markers. Neither command authorizes future execution, product work, push/merge, deployment, or reactivation of an old mission. A bare sync preserves genuine owner exceptions; an additional current request to remove/reconcile them authorizes that documentary repair under `PHDK_UNLOCK.md`. Report the result and stop at the requested outcome.
 
@@ -51,6 +53,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Current task | Relevant standards |
 |---|---|
 | Project discovery, ethos, requirements capture/reconstruction | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md`, `SPEC_INTERVIEW_PROMPT.md` |
+| Solution/repository/UX architecture and executable planning | `PHDK_PLAN.md`, `technical_stack.md`, `design_rules.md`, `DEVSECOPS.md` |
 | Planning, scope, task state | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md`; `INTENT_CAPTURE_STANDARD.md` when needed |
 | Branching, code organization, dependencies | `DEVELOPMENT_RULES.md` |
 | UI, accessibility, responsive behavior | `DESIGN_RULES.md` |

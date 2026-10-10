@@ -117,7 +117,7 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 ## Audit procedure
 
 1. Pin the repository revision being audited.
-2. Read the Capture requirements package first when present (`PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md`) so standards applicability is grounded in what the product is meant to be. If those artifacts are missing/incoherent, record a requirements-baseline gap and recommend `PHDK capture`; do not fabricate applicability from code alone.
+2. Read the Capture requirements package and current Plan architecture artifacts first when present (`PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md`) so standards applicability is grounded in what the product is meant to be. If those artifacts are missing/incoherent, record a requirements-baseline gap and recommend `PHDK capture`; do not fabricate applicability from code alone.
 3. Identify the active PHDK version/manifest and current governing instructions.
 4. Check canonical PHDK version when accessible; record drift without mutating the repository.
 5. Read all applicable active standards; build an internal requirement matrix.
@@ -152,7 +152,8 @@ Do not fix DECISION REQUIRED or EXTERNAL / MANUAL items merely because they appe
 
 - **`PHDK PMO`** coordinates owner-confirmed workstreams and integrated delivery; Check is not a workstream detector or PMO replacement.
 - **`PHDK check`** audits standards compliance and asks before remediation.
-- **`PHDK auto`** continuously develops an already-authorized product goal; it does not automatically trigger a full standards compliance sweep.
+- **`PHDK plan`** defines/reconstructs target architecture and implementation planning; Check verifies whether the resulting repository conforms to applicable standards and recorded architecture.
+- **`PHDK auto`** runs the complete lifecycle and includes a final Check plus automatic remediation of in-scope AUTO-FIXABLE / FIXABLE WITH VALIDATION findings.
 - **`PHDK uat`** validates intent-aligned user acceptance behavior; it can provide evidence for check findings but does not replace the broader standards audit.
 - **`PHDK unlock`** reconciles PHDK-related blockers; it is not a general compliance audit.
 - **`PHDK upgrade`** synchronizes PHDK standards; it does not by itself remediate the repository to match them.

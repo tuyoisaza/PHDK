@@ -1,3 +1,28 @@
+## v2.43.0 — 2026-10-10
+
+### Added
+
+- Added `PHDK plan` and `PHDK_PLAN.md` as the architecture and implementation-planning stage between Capture and PMO.
+- Plan supports both greenfield target design and brownfield architecture reconstruction/convergence.
+- Added canonical Plan artifacts: `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, architecture decisions, and TASK integration.
+- Defined solution/system, repo topology, data/integration/security, AI, testing/observability, conceptual UX/information architecture, migration, dependency and workstream-planning requirements.
+- Brownfield Plan explicitly preserves valid existing architecture and produces Current State → Gap/Risk → Target State → Migration Step → Validation rather than imposing a clean-slate scaffold.
+
+### Changed
+
+- `PHDK auto` is now the end-to-end lifecycle orchestrator for one authorized goal: Capture → Plan → PMO/workstream execution → PMO Integration Review → UAT → UAT Fix → Check → in-scope Check remediation → delivery.
+- Auto reuses current/coherent Capture and Plan artifacts rather than rerunning stages for ceremony.
+- PMO workers no longer recursively invoke the `PHDK auto` command; they use bounded Auto execution semantics only for their assigned workstream.
+- PMO now consumes `IMPLEMENTATION_PLAN.md` and architecture ownership/dependency boundaries as primary workstream inputs.
+- Under Auto, in-scope AUTO-FIXABLE / FIXABLE WITH VALIDATION Check gaps are remediated without an extra approval round; material decisions/external/manual/out-of-scope findings remain explicit.
+- Updated README, execution scope, routing/native rules, onboarding, task tracking, delivery, Check, Capture, PMO, upgrade, operating model and summary guidance for the new lifecycle.
+
+### Lifecycle
+
+```text
+Capture → Plan → PMO/workstreams → Integration Review → UAT → UAT Fix → Check → remediation → delivery
+```
+
 ## v2.42.1 — 2026-10-10
 
 ### Changed
