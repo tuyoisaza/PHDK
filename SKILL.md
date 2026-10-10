@@ -3,7 +3,7 @@ name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, validate locally, deliver through GitHub, synchronize standards,
-  complete a whole development goal with PHDK auto, run autonomous acceptance validation with PHDK uat, audit and close standards gaps with PHDK check, repair PHDK blockers with
+  complete a whole development goal with PHDK auto, run autonomous acceptance validation with PHDK uat, audit and close standards gaps with PHDK check, capture or reconstruct professional requirements with PHDK capture, repair PHDK blockers with
   PHDK unlock, retrieve bounded read-only provider
   status/configuration metadata or logs, or activate/exit PHDK Developer Mode.
   One interactive assistant; no unattended work or delegated agents,
@@ -34,6 +34,12 @@ Confirm the resulting remote version and change before calling the delivery comp
 ## Conditional AI admin standard
 
 When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_ADMIN_STANDARD.md` together with `technical_stack.md` and `DEVSECOPS.md`. AI-bearing products require super-admin prompt management and consumption observability; non-AI projects do not receive these features. Detect applicability from source/configuration names and product intent without reading secret values.
+
+## PHDK capture
+
+For explicit `PHDK capture`, follow `PHDK_CAPTURE.md`. Investigate first: use existing product docs, intents, source, routes, schemas, tests, configuration, and decisions to understand the product without forcing the user to repeat known information. Build the canonical requirements package: `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`.
+
+When material information is missing, ask focused requirements questions until all blocking gaps are resolved and remaining assumptions/open questions are explicit. Capture may span multiple turns. Do not implement product code unless the current request separately includes development.
 
 ## PHDK check
 
