@@ -19,6 +19,12 @@ This boundary applies to bootstrap, development, upgrades, verification, inciden
 - Review the complete outgoing diff and apply `MAIN_DELIVERY_STANDARD.md` to approval evidence. Sensitive behavior or policy decisions need owner approval, which a well-defined current request can already supply. A clear "push to main", "merge", or "aprobado" for the identified current change is approval in the conversation; do not add a PHDK-only requirement to repeat it, attest to opening every diff line, or submit a GitHub review. Formal/named/independent review actually required by current owner instructions, hooks, repository rules, or server protections remains binding. Never fabricate human inspection, bypass a hook/protection, or publish with an unmet applicable control.
 - An explicit, still-active PHDK Developer Mode activation authorizes its separate direct-main flow for eligible small changes requested while active, as defined in `PHDK_DEVELOPER_MODE.md`; its immediate stop rules remain effective. Neither flow authorizes a release tag, unrelated work, or post-conversation execution merely from a completion checklist.
 
+## Universal PHDK preflight
+
+All PHDK lifecycle commands first follow `PHDK_PREFLIGHT.md`. Preflight may inspect canonical PHDK version, installed manifest/managed rules, and the active tool's installed/connected skills/capabilities. It may conservatively self-synchronize clean PHDK-owned standards when the installed version is stale. It must not silently force-overwrite dirty PHDK-owned changes or mutate unrelated/global tooling.
+
+Relevant already-installed capabilities may be used within this execution scope unless the user explicitly disabled them. Host-required plugin/connector installation or connection consent remains required.
+
 ## PHDK PMO
 
 The explicit command `PHDK PMO` activates `PHDK_PMO.md` for the current project/portfolio in the active conversation. PMO first discovers candidate workstreams and requires owner confirmation of the active portfolio before delegated execution.
