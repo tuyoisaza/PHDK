@@ -370,6 +370,8 @@ See `AGENTS.md` Required Routes (`/admin/ai`) and `QA_CHECKLIST.md` AI / LLM Con
 
 AI/LLM integration is not scaffolded unless the project explicitly requires it.
 
+When AI applies, `AI_ADMIN_STANDARD.md` is mandatory. Provider/API-key evidence plus actual AI feature usage requires the protected super-admin **Prompts** capability and AI consumption administration. The Prompts editor separates editable name, personality prompt, execution prompt, and output JSON schema, with revision/audit and usage attribution.
+
 These are product-code requirements. The PHDK agent verifies provider adapters, pricing, and usage handling with test doubles; it does not invoke a live model, operate the admin controls, or configure an external provider.
 
 ### AI Token & Cost Observability
