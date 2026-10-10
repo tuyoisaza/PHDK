@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.40.0**
+**Version: v2.41.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,18 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.41.0
+
+`PHDK uat` reports now include actionable repair guidance for every FAIL: observed vs expected behavior, likely root cause, affected requirement/story/case, affected component/files when identifiable, proposed repair, scope/risk, and exact retest.
+
+New command:
+
+```txt
+PHDK uat fix
+```
+
+It reads `UAT_REPORT.md` and `UAT_CASES.md`, turns FAILs into a defect backlog, repairs all clearly in-scope fixable failures autonomously, reruns affected UAT/regression checks, and updates the report with RESOLVED / STILL FAILING / BLOCKED evidence. Material decisions and excluded external/manual operations remain explicit blockers.
 
 ## What changed in v2.40.0
 
@@ -115,6 +127,16 @@ PHDK check
 The assistant reads the active applicable standards, project intent, source/configuration/tests/hooks/versioning, and—when reachable—canonical PHDK version drift. It creates or refreshes `PHDK_CHECK_REPORT.md` with stable gap IDs, severity, standards references, repository evidence, remediation type, proposed fix, validation, and dependencies.
 
 After presenting the gaps it asks exactly once whether you want the fixable ones executed. A yes authorizes the listed AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps; product decisions and external/manual operations remain separate. Full procedure: [PHDK_CHECK.md](PHDK_CHECK.md).
+
+## PHDK uat fix
+
+Repair the current UAT failure backlog:
+
+```txt
+PHDK uat fix
+```
+
+The assistant diagnoses every FAIL from `UAT_REPORT.md`/`UAT_CASES.md`, proposes and applies the in-scope repair, reruns the affected acceptance case and regression evidence, and updates the report. Under active `PHDK auto`, this repair loop is already automatic for in-scope UAT failures.
 
 ## PHDK uat
 
