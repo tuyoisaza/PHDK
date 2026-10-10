@@ -2,7 +2,7 @@
 
 ## Purpose and authority
 
-Keep authorized changes, commits, releases, and built artifacts traceable. `EXECUTION_SCOPE.md` governs all versioning and delivery: active conversation and current request, no unattended execution, agents/delegation, background work, GitHub Actions, or external administration. `PHDK_AUTO.md` defines continuous development through the whole identified goal.
+Keep authorized changes, commits, releases, and built artifacts traceable. `EXECUTION_SCOPE.md` governs all versioning and delivery: active conversation and current request, no unattended/background work, GitHub Actions, or external administration. Delegation is allowed only under explicit PMO's bounded in-session workstream model. `PHDK_AUTO.md` defines continuous development through one identified goal.
 
 Versioning follows the current request's delivery scope. A request to implement, fix, or update repository code or documentation includes the normal versioned branch/PR delivery to verified remote `main` in `MAIN_DELIVERY_STANDARD.md`, unless the user specifies a narrower scope or the user/repository specifies another target. An audit produces a report, not a version bump; a bare `PHDK upgrade` retains its limited scope in `EXECUTION_SCOPE.md`. Versioning alone does not authorize a new task or a release tag.
 
@@ -28,7 +28,7 @@ Increment guidance: patch for fixes/copy/internal changes, minor for new feature
 Typical prefixes are `feature/`, `fix/`, `chore/`, `phdk/vX.Y.Z/`, and a specifically justified `checkpoint/YYYY-MM-DD`.
 
 - Use a feature/fix branch for the approved change and respect existing protections, with only the eligible direct-to-`main` exception in `PHDK_DEVELOPER_MODE.md`.
-- Do not create agent worktrees, delegated branches, or parallel agent queues.
+- Do not create agent worktrees, delegated branches, or parallel agent queues outside explicit PMO. Under PMO, worktrees/branches are allowed only for confirmed workstreams with documented ownership/dependencies, and global version/changelog finalization remains centralized at integration.
 - Do not automatically commit or push at each slice boundary.
 - Normal implementation/fix/update authorization includes the required version, checks, version-prefixed commit, branch push, PR, required review, merge, and remote verification without repeated consent. Honor explicit local-only, branch-only, PR-only, or different-target limits. Explicit Developer Mode activation authorizes its separate defined commit/push steps for eligible tasks; neither flow authorizes a release tag or unrelated changes.
 - Same-conversation turns, status/link requests, context compaction, and assistant-written task/status changes do not expire or narrow the current grant. Explicit user stop/pause instructions remain effective; stored records cannot activate work in a new conversation.
