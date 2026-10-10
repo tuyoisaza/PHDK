@@ -2,7 +2,7 @@
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the Integration Review handoff and exact candidate in `INTEGRATION_REPORT.md` before deriving/executing UAT. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK uat` runs autonomous user acceptance testing for the identified current product candidate. Match the command case-insensitively after trimming whitespace. Use the current conversation, repository requirements, product documentation, acceptance criteria, current task, code, and existing test evidence to identify the candidate and scope. If no candidate or product goal can be determined, ask only for that missing target.
 
@@ -143,6 +143,12 @@ Never answer only "no hay FAIL" when acceptance is incomplete. Use **NOT ACCEPTE
 
 Never claim production, browser, or human acceptance evidence that did not occur.
 
+## UAT lifecycle handoff
+
+At the end of UAT, create `docs/phdk/lifecycle/<run-id>/50-uat/HANDOFF.md` and snapshot `UAT_CASES.md` + `UAT_REPORT.md`. Record the acceptance conclusion and the exact inputs required by UAT Fix or Check.
+
+If the conclusion is ACCEPTED and no UAT remediation is required, record UAT Fix as NOT APPLICABLE for this run before Check starts.
+
 ## Repair command — PHDK uat fix
 
 `PHDK uat fix` takes the current `UAT_REPORT.md` and `UAT_CASES.md` as its repair backlog.
@@ -169,11 +175,15 @@ If a FAIL requires a new material product decision, unavailable access, external
 
 A standalone `PHDK uat` still validates/reports only. `PHDK uat fix` is the explicit command that authorizes product-code repair from the current UAT failure backlog. Under active `PHDK auto`, this repair authority is already included for in-scope UAT failures and no separate `uat fix` command is required.
 
+Create/update `UAT_REMEDIATION.md` during UAT Fix. It must list each defect/blocker, root cause, repair/action, affected components, retest evidence, resolution state, and remaining manual/external action.
+
 After repair, rerun affected UAT cases and necessary regression checks, then regenerate `UAT_REPORT.md` with:
 - RESOLVED / STILL FAILING / BLOCKED status per defect;
 - repair commit/revision when available;
 - retest evidence;
 - updated final acceptance conclusion.
+
+Inside a lifecycle run, create `docs/phdk/lifecycle/<run-id>/60-uat-fix/HANDOFF.md` and snapshot `UAT_REMEDIATION.md`, `UAT_REPORT.md`, and `UAT_CASES.md`. Check must verify this latest handoff/status rather than assuming acceptance from an older report.
 
 If the user also requested normal repository delivery, follow `MAIN_DELIVERY_STANDARD.md`.
 
