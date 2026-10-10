@@ -2,11 +2,13 @@
 
 ## Command and lifetime
 
-Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant capabilities when later lifecycle stages need them. Do not repeat a noisy full preflight at every internal stage.
+Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant capabilities when later lifecycle stages need them. Auto also follows the stage input/output/handoff contracts in `PHDK_LIFECYCLE.md`. Do not repeat a noisy full preflight at every internal stage.
 
 `PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. If there is no single current delivery but the repository already exposes multiple parallel pillars/fronts through Capture, Plan, PMO artifacts, requirements, or current work, do not collapse them into a request for one arbitrary goal; enter PMO portfolio discovery instead. A request to add this command, quoted examples, installed files, and old task records do not activate it.
 
 Before substantive execution, explain the lifecycle visibly to the user.
+
+At Auto start, create/initialize the current lifecycle run defined by `PHDK_LIFECYCLE.md`: assign a run ID, create/update root `PHDK_LIFECYCLE.md`, and identify the historical run folder.
 
 The opening Auto message must include:
 - the identified goal or detected portfolio;
@@ -59,13 +61,17 @@ Skip a stage only when its output is already current/coherent or it is genuinely
 
 ## Lifecycle communication contract
 
-Whenever Auto transitions to another lifecycle stage, send a concise progress update that states:
+Before Auto enters a new stage, validate that stage's required upstream handoff/artifacts from `PHDK_LIFECYCLE.md`. If they are missing or stale, do not silently skip the contract: either repair/reopen the upstream stage or mark the transition BLOCKED with the exact missing deliverable.
 
-1. **Completed/reused stage** — what just closed and the strongest artifact/evidence.
-2. **Current stage** — what Auto is doing now.
-3. **Next stage** — what follows when the current stage closes.
-4. **Lifecycle status change** — only the statuses that changed; do not repeat a huge report every time.
-5. **Blockers** — only genuine blockers/decisions, with the exact affected stage.
+Whenever Auto transitions to another lifecycle stage, first finalize the outgoing stage `HANDOFF.md` and snapshots, then send a concise progress update that states:
+
+1. **Completed/reused stage** — what just closed and what that stage was responsible for.
+2. **Delivered artifacts** — canonical paths and historical snapshot folder.
+3. **Exit gate** — what conditions passed.
+4. **Current stage** — what Auto is doing now.
+5. **Entry validation** — what upstream artifacts the current stage verified.
+6. **Next stage** — what follows and what it will require.
+7. **Blockers** — only genuine blockers/decisions, with the exact affected stage.
 
 Examples:
 
@@ -81,12 +87,24 @@ Next: PMO / Workstreams.
 
 ```text
 Plan — COMPLETED
-Artifacts: SOLUTION_ARCHITECTURE.md, IMPLEMENTATION_PLAN.md.
+
+Delivered:
+- SOLUTION_ARCHITECTURE.md
+- REPOSITORY_ARCHITECTURE.md
+- UX_ARCHITECTURE.md
+- IMPLEMENTATION_PLAN.md
+Historical: docs/phdk/lifecycle/<run-id>/20-plan/
+
+Exit gate:
+- P0 requirements mapped
+- boundaries/dependencies explicit
+- workstream decomposition executable
 
 PMO / Workstreams — RUNNING
-Detected 3 workstreams; executing the confirmed portfolio.
+Entry validated: Plan handoff + IMPLEMENTATION_PLAN.md + architecture ownership/dependencies.
 
-Next: Integration Review.
+Next: Integration Review
+It will require completed workstream evidence + PMO ownership/dependency artifacts.
 ```
 
 ```text
@@ -220,7 +238,7 @@ A standalone explicit Auto invocation owns the complete lifecycle described abov
 
 ## Completion report
 
-The final report must close the lifecycle explicitly. Include a compact final board showing the terminal status of every applicable stage and links/paths to the principal artifacts/evidence.
+The final report must close the lifecycle explicitly. Include a compact final board showing the terminal status of every applicable stage, links/paths to principal canonical artifacts, and the historical run folder. Verify the run-level historical `LIFECYCLE.md` is complete before claiming lifecycle completion.
 
 Example:
 
