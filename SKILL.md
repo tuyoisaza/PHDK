@@ -3,7 +3,7 @@ name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, validate locally, deliver through GitHub, synchronize standards,
-  complete a whole development goal with PHDK auto, coordinate multi-workstream delivery with PHDK PMO, run autonomous acceptance validation with PHDK uat, audit and close standards gaps with PHDK check, capture or reconstruct professional requirements with PHDK capture, repair PHDK blockers with
+  run the full delivery lifecycle with PHDK auto, design solution architecture and execution plans with PHDK plan, coordinate multi-workstream delivery with PHDK PMO, run autonomous acceptance validation with PHDK uat, audit and close standards gaps with PHDK check, capture or reconstruct professional requirements with PHDK capture, repair PHDK blockers with
   PHDK unlock, retrieve bounded read-only provider
   status/configuration metadata or logs, or activate/exit PHDK Developer Mode.
   Interactive-only; PMO is the sole bounded in-session worker-delegation exception.
@@ -35,6 +35,12 @@ Confirm the resulting remote version and change before calling the delivery comp
 
 When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_ADMIN_STANDARD.md` together with `technical_stack.md` and `DEVSECOPS.md`. AI-bearing products require super-admin prompt management and consumption observability; non-AI projects do not receive these features. Detect applicability from source/configuration names and product intent without reading secret values.
 
+## PHDK plan
+
+For explicit `PHDK plan`, follow `PHDK_PLAN.md`. Use the Capture/requirements baseline and applicable PHDK standards to define solution, repository, data/integration/security, and conceptual UX architecture plus a dependency-ordered implementation plan. On brownfield projects, model current state first, preserve valid decisions, identify gaps, and produce an incremental convergence plan rather than imposing a greenfield scaffold.
+
+Create/update `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, applicable architecture decisions, and TASK integration. Plan does not implement product code unless a parent Auto request includes execution.
+
 ## PHDK PMO
 
 For explicit `PHDK PMO`, read `PHDK_PMO.md`. Inspect Capture/requirements artifacts, TASK/STATUS, code areas, current branches/PRs, and UAT/Check evidence; detect candidate workstreams and ask the owner once to confirm/add/remove/prioritize the active portfolio. After confirmation, create/update `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md`.
@@ -65,7 +71,7 @@ Standalone UAT validates and reports the candidate. Under active `PHDK auto`, re
 
 ## PHDK auto
 
-For explicit `PHDK auto`, follow `PHDK_AUTO.md`. Use the identified current goal, including every agreed feature/stage, and begin without another OK or a mandatory interview when its scope is clear. Develop the whole candidate, run final integrated verification, repair in-scope failures, and finish normal versioned branch/PR delivery. Keep communicating without ending at milestones; do not create a release or optional full test cycle per stage. Actual mandatory hooks and necessary diagnostic checks remain applicable.
+For explicit `PHDK auto`, follow `PHDK_AUTO.md` as the end-to-end lifecycle orchestrator. Reuse or run Capture, then Plan, PMO/workstream execution, PMO Integration Review, UAT, UAT Fix, Check, in-scope Check remediation, and final delivery as applicable. Skip only stages whose outputs are already current/coherent or genuinely not applicable. Keep communicating without ending at milestones; do not create a release or optional full test cycle per stage. Actual mandatory hooks and necessary diagnostic checks remain applicable.
 
 Auto replaces Developer Mode for that goal; it grants no direct-main bypass, background execution, new mission, or persistent flag. Exit on `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Source files, examples, installation, and a request to implement this command never activate it. The command's specific cadence takes precedence over generic interview, slice, and handoff approval templates.
 
