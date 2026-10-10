@@ -20,9 +20,9 @@ Normally one assistant handles the current request. Do not delegate tasks, creat
 
 Stop when the whole deliverable is complete, the user pauses it, the conversation ends, or a real blocker leaves no permitted progress after independent authorized work is complete. A blocked component does not make the whole task inactive. Proposed follow-ups remain inactive until a later explicit user request.
 
-### PHDK Auto tracks one complete goal
+### PHDK Auto tracks one complete lifecycle goal
 
-An explicit `PHDK auto` follows `PHDK_AUTO.md`: record the entire current goal, all its necessary stages, final verification coverage, and delivery target. Keep that goal in progress across slices, candidate releases, status questions, and context compaction; do not replace it with the first stage or move its remaining authorized work into inactive follow-ups. Progress records never require an OK to continue.
+An explicit `PHDK auto` follows `PHDK_AUTO.md`: record the entire current goal and applicable lifecycle stages (Capture, Plan, PMO/workstreams, integration, UAT/Fix, Check/remediation, delivery), final verification coverage, and delivery target. Keep that goal in progress across slices, candidate releases, status questions, and context compaction; do not replace it with the first stage or move its remaining authorized work into inactive follow-ups. Progress records never require an OK to continue.
 
 Complete implementation before comprehensive final checks and normal branch/PR delivery. Required risk-based tests belong to this final coverage; only implementation-blocker diagnosis and actual mandatory controls require earlier execution. Auto replaces Developer Mode for this goal only through explicit activation. Record scope and evidence as dated facts, never `auto=true`, active-mode state, or reusable authority; exit and conversation lifetime remain governed by `PHDK_AUTO.md`.
 
@@ -169,3 +169,10 @@ They record:
 These files are context/evidence, not reusable authorization. Never store a persistent `pmo=true` flag. Conversation end ends PMO activation.
 
 Worker TASK/STATUS records, when used, remain subordinate to the PMO workstream contract. A worker completion does not mark the overall PMO portfolio complete. PMO owns central integration and downstream UAT/Check handoff.
+
+
+## PHDK Plan artifacts
+
+`PHDK plan` produces the architecture/planning baseline in `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, architecture decisions, and TASK integration.
+
+For brownfield repositories, TASK must reflect the incremental convergence path from current architecture to target architecture rather than assuming a clean rebuild. Plan IDs/dependencies/workstream recommendations may be referenced from PMO artifacts, but TASK remains current execution context rather than the permanent architecture source.
