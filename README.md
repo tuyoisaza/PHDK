@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.37.0**
+**Version: v2.38.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,14 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.38.0
+
+PHDK now has a conditional AI-admin standard. When a project actually uses an LLM provider—detected from provider configuration/API-key names, `packages/ai`, provider SDK usage, or implemented AI workflows—the super-admin area must expose both AI consumption and a **Prompts** menu item.
+
+The Prompts page uses a left prompt/agent list and a main editor with editable Name, Personality prompt, Execution prompt, and Output JSON schema fields. Prompt definitions are persistent and auditable, runtime model output is validated against the configured JSON contract, and every AI call is attributable to the prompt/agent ID and revision when applicable.
+
+Projects without AI remain unaffected. An unused API-key placeholder alone does not force AI functionality; `PHDK check` reports applicability as UNKNOWN when actual AI use cannot be established.
 
 ## What changed in v2.37.0
 
@@ -190,6 +198,7 @@ An upstream standards update does not update every existing project automaticall
 | Intent and onboarding | `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |
 | Architecture and design | `technical_stack.md`, `design_rules.md` |
+| Conditional AI administration and prompts | `AI_ADMIN_STANDARD.md`, `technical_stack.md`, `DEVSECOPS.md` |
 | Security and diagnostics | `DEVSECOPS.md`, `DEBUG_DIAGNOSTICS_STANDARD.md` |
 | Verification | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md`, `qa_checklist.md` |
 | Versioning and upgrades | `VERSIONING.md`, `PHDK_UPGRADE.md`, `PHDK_MANIFEST.txt`, `VERSION` |
