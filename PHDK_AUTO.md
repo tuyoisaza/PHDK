@@ -2,11 +2,58 @@
 
 ## Command and lifetime
 
-`PHDK auto` explicitly starts continuous development of the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, or project goal supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. A request to add this command, quoted examples, installed files, and old task records do not activate it.
+`PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. A request to add this command, quoted examples, installed files, and old task records do not activate it.
 
-Briefly state the goal and execution contract, then work: implement the entire agreed scope, run the final integrated verification, repair in-scope failures, and complete the authorized delivery. Send concise progress updates without turning them into approval questions or ending the task at a milestone.
+Briefly state the goal and execution contract, then run the applicable lifecycle end-to-end:
+
+```text
+Capture → Plan → PMO/workstream execution → PMO Integration Review
+→ UAT → UAT Fix → Check → in-scope Check remediation → delivery
+```
+
+Skip a stage only when its output is already current/coherent or it is genuinely not applicable. Do not rerun Capture or Plan merely for ceremony. Send concise progress updates without turning them into approval questions or ending the task at a milestone.
 
 The mode lasts for this goal in the active conversation. Exit on `PHDK salir de auto`, a clear owner stop, completion of the whole requested outcome, or the conversation ending. A status/link question, context compaction, or assistant-written checkpoint does not end an unfinished goal. Keep task evidence across turns, but never save a reusable `auto=true` authority flag or resume from files alone in another conversation. This is an instruction to the assistant, not a daemon, scheduler, or shell executable.
+
+## Full lifecycle, one authorization
+
+Auto's identified goal is the authorization boundary for the whole lifecycle.
+
+### 1. Capture
+
+If the professional requirements baseline is missing/incoherent, run Capture semantics first. Ask only genuinely material missing requirements questions. If the baseline is already coherent and current, reuse it.
+
+### 2. Plan
+
+Run `PHDK plan` semantics against the captured requirements. For greenfield, define the target solution/repository/UX architecture and implementation plan. For brownfield, reconstruct current architecture first, preserve valid decisions, define target state, and create an incremental convergence plan.
+
+Ask only for architecture decisions that materially change product/security/infrastructure scope and cannot be resolved from standards/current decisions.
+
+### 3. PMO and workstream execution
+
+Use PMO semantics to derive workstreams from the authorized goal, `IMPLEMENTATION_PLAN.md`, requirements, architecture ownership boundaries, and current repo state.
+
+When the workstreams are unambiguously contained inside the already authorized Auto goal, do not ask the owner to reconfirm the same portfolio. Ask only when PMO proposes a front that would materially expand the authorized goal or when prioritization is genuinely ambiguous.
+
+When runtime-supported workers are available, the PMO orchestrator may delegate confirmed/in-scope workstreams under `PHDK_PMO.md`. Workers use **Auto execution semantics** inside one workstream but do not activate a nested `PHDK auto` lifecycle or recursively invoke Capture/Plan/PMO.
+
+### 4. Integration Review
+
+After workstream execution, perform the PMO Integration Review and produce one coherent candidate. Reconcile shared files, APIs, schemas, data contracts, navigation, translations, version/changelog, and cross-workstream assumptions.
+
+### 5. UAT and repair
+
+Run `PHDK uat` on the integrated candidate. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain.
+
+### 6. Check and remediation
+
+Run `PHDK check` against the integrated candidate. Under Auto, AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps that are within the authorized goal are automatically approved for remediation; repair them, rerun applicable validation, and rerun Check. DECISION REQUIRED / EXTERNAL-MANUAL / out-of-scope findings remain explicit.
+
+### 7. Delivery
+
+Complete final repository verification, version reconciliation, normal branch/PR delivery, merge, and remote verification under `MAIN_DELIVERY_STANDARD.md`.
+
+No separate approval is required between these lifecycle stages when they stay inside the identified Auto goal.
 
 ## One complete goal, no stage approvals
 
@@ -50,17 +97,19 @@ A permitted update to `main` may trigger the existing GitHub-connected autodeplo
 
 ## Relationship to PMO
 
-Auto remains a single-goal executor. It does not become a portfolio coordinator merely because several goals exist.
+Auto is now the end-to-end lifecycle orchestrator for one authorized project goal. PMO is the multi-workstream coordination stage inside that lifecycle and remains independently invocable with `PHDK PMO`.
 
-When Auto runs as a PMO worker:
-- its scope is exactly one owner-confirmed workstream contract;
+A PMO worker does **not** recursively activate Auto as a command. It uses Auto's bounded execution semantics only for its assigned workstream.
+
+When a PMO worker uses Auto execution semantics:
+- its scope is exactly one confirmed/in-scope workstream contract;
 - PMO supplies the intent/requirement links, ownership boundaries, dependencies, and branch/worktree;
-- Auto completes that workstream without per-stage approval;
+- the worker completes that workstream without per-stage approval, but does not run Capture/Plan/PMO/UAT/Check lifecycle stages independently;
 - Auto returns changed files/commits/checks/assumptions/blockers to PMO;
 - PMO, not the worker, owns shared/global version/changelog/schema/navigation integration and the combined candidate;
 - the worker does not select another workstream or delegate further.
 
-A standalone Auto goal keeps the ordinary non-delegated behavior in this file.
+A standalone explicit Auto invocation owns the complete lifecycle described above.
 
 ## Relationship to other PHDK commands
 
