@@ -1,3 +1,19 @@
+## v2.44.3 — 2026-10-10
+
+### Added
+
+- Added a mandatory Auto lifecycle communication contract.
+- At `PHDK auto` startup, the assistant must show the full lifecycle board: Preflight, Capture, Plan, PMO/Workstreams, Integration Review, UAT, UAT Fix, Check, Remediation, and Delivery.
+- Every stage is classified as PENDING, RUNNING, REUSED, COMPLETED, BLOCKED, or NOT APPLICABLE.
+- On every lifecycle transition, Auto must state what closed/reused, the strongest artifact/evidence, the current stage, and the next stage.
+- Status questions during Auto must answer with the lifecycle position first, rather than only implementation detail.
+- Final Auto reporting now closes the lifecycle explicitly with terminal status for every applicable stage.
+
+### Fixed
+
+- Prevented Auto from explaining only permissions/scope ("puedo revisar, probar, versionar y entregar") without telling the owner where the process is in Capture/Plan/PMO/Integration/UAT/Check/Delivery.
+- Lifecycle progress messages remain informational and must not become new approval gates.
+
 ## v2.44.2 — 2026-10-10
 
 ### Fixed
