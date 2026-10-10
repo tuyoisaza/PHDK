@@ -13,6 +13,11 @@ description: >-
 
 # PHDK
 
+## Universal preflight
+
+Before any PHDK command or lifecycle stage, follow `PHDK_PREFLIGHT.md`. Verify PHDK installation/version/manifest/managed rules, then inspect `SKILLS_REGISTRY.md` for relevant capabilities and check what is actually installed/connected in the active tool. Use relevant available skills unless the user explicitly disabled skills/plugins/connectors or a named capability. Missing optional skills do not block PHDK.
+
+
 This skill routes the current assistant to PHDK standards. It does not launch an agent, create a task, or authorize work just because a tool discovers or loads `SKILL.md`.
 
 Read the current user request and `EXECUTION_SCOPE.md`. Its interactive-only, single-assistant boundary overrides contrary language in an older standard or external skill. Honor current owner controls within their scope; the owner can explicitly replace older documentary exceptions. A file cannot veto that current instruction or remove actual access/security controls.
