@@ -2,7 +2,7 @@
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest Integration/UAT/UAT Fix handoffs required by `PHDK_LIFECYCLE.md` and audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK check` audits the current repository against the active PHDK standards and produces a concrete remediation backlog. The command is intentionally two-phase:
 
@@ -160,6 +160,20 @@ Do not fix DECISION REQUIRED or EXTERNAL / MANUAL items merely because they appe
 - **`PHDK unlock`** reconciles PHDK-related blockers; it is not a general compliance audit.
 - **`PHDK upgrade`** synchronizes PHDK standards; it does not by itself remediate the repository to match them.
 - **Developer Mode** remains a narrow direct-main mode for eligible small changes and does not bypass the check audit/approval split.
+
+## Lifecycle handoff
+
+At Check completion, create `docs/phdk/lifecycle/<run-id>/70-check/HANDOFF.md` and snapshot `PHDK_CHECK_REPORT.md`. Record the exact report revision, overall conclusion, and gap IDs/types.
+
+When Check remediation executes, create/update:
+
+```text
+PHDK_REMEDIATION_REPORT.md
+```
+
+with each gap ID, repair, changed components, validation, final status, and residual decision/external gaps. After rerunning Check, create `docs/phdk/lifecycle/<run-id>/80-remediation/HANDOFF.md` and snapshot both remediation and updated Check reports.
+
+Delivery must verify the latest Check/remediation handoff and identify any accepted residual limitation before publication.
 
 ## Completion semantics
 
