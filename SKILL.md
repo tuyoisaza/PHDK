@@ -79,9 +79,13 @@ High-risk authentication, authorization, secrets, data/migrations, payments, inf
 
 Follow `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics` for a current request such as "verifica Railway", a deployment/version check, or log/incident diagnosis. Read only relevant existing service/deployment/status/source/branch/non-secret configuration/watch metadata and logs through an authorized API/CLI/connector, with a resolved target, finite bounds, and redaction. No second authorization phrase, Developer Mode, or unlock is needed; an older task-specific exclusion does not cancel the newer read request. No browser, streams/polling, app probes, database access, secret values, new permissions, settings writes, or deployment. Report provider evidence separately from product-test or recovery claims.
 
-## Universal command — `PHDK upgrade`
+## Universal commands — `PHDK upgrade` / `PHDK upgrade force`
 
-For the exact command `PHDK upgrade` (case-insensitive after trimming whitespace):
+For exact `PHDK upgrade` or `PHDK upgrade force` (case-insensitive after trimming whitespace):
+
+- Bare `PHDK upgrade` preserves local edits/conflicts inside the PHDK-owned surface and stops rather than overwriting them.
+- `PHDK upgrade force` explicitly authorizes replacement of only the PHDK-owned surface from canonical upstream: manifest-owned `phdk-standards/` files plus exact `PHDK-MANAGED` blocks. It may discard dirty edits there and remove obsolete previously manifest-owned standards files.
+- Force must preserve all non-PHDK source/docs/config, owner instructions outside managed markers, hooks/settings, and unknown extra files.
 
 1. Fetch the current canonical PHDK `main` and read its `VERSION` and upgrade instructions.
 2. Follow `PHDK_UPGRADE.md` within the current request. Preserve dirty work and genuine owner overrides in a bare sync; apply any explicit current request to remove/reconcile local PHDK exceptions through `PHDK_UNLOCK.md`.
