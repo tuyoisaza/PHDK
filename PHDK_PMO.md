@@ -2,7 +2,7 @@
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the Plan handoff and implementation/architecture artifacts required by `PHDK_LIFECYCLE.md` before confirming workstreams. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK PMO` starts an interactive portfolio/program orchestration mode for one identified repository/project in the active conversation.
 
@@ -253,6 +253,16 @@ Do not ask the owner for approval after every worker step. Ask only when:
 - a material product/security/infrastructure decision is unresolved;
 - an actual external/repository control requires owner action.
 
+## PMO lifecycle handoff
+
+Before Integration Review starts, PMO must create the stage handoff required by `PHDK_LIFECYCLE.md`:
+
+- `docs/phdk/lifecycle/<run-id>/30-pmo/HANDOFF.md`;
+- snapshots of `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md`;
+- workstream completion summaries under `30-pmo/workstreams/` when material.
+
+The PMO exit gate must prove the portfolio, dependencies, ownership, worker results/residual blockers, and integration queue are explicit.
+
 ## Integration review
 
 After all confirmed workstreams are DONE or have explicit residual blockers, PMO performs a central integration review before UAT.
@@ -269,6 +279,8 @@ Integration review must:
 8. Produce one coherent integrated candidate.
 9. Finalize project version/changelog according to repository standards.
 10. Record integration evidence in `PMO_STATUS.md`.
+11. Create/update `INTEGRATION_REPORT.md` with the integrated candidate revision/worktree, workstreams included, shared changes/conflicts reconciled, cross-workstream contracts checked, integrated validation, version/changelog state, residual risks, and READY/NOT READY conclusion.
+12. Create `docs/phdk/lifecycle/<run-id>/40-integration/HANDOFF.md` and snapshot `INTEGRATION_REPORT.md`.
 
 A workstream's local success is not proof the integrated candidate is acceptable.
 
