@@ -8,7 +8,7 @@ Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant ca
 
 Before substantive execution, explain the lifecycle visibly to the user.
 
-At Auto start, create/initialize the current lifecycle run defined by `PHDK_LIFECYCLE.md`: assign a run ID, create/update root `PHDK_LIFECYCLE.md`, and identify the historical run folder.
+At Auto start, create/initialize the current lifecycle run defined by `PHDK_LIFECYCLE.md`: assign a run ID, create/update root `PHDK_LIFECYCLE_STATUS.md`, and identify the historical run folder.
 
 The opening Auto message must include:
 - the identified goal or detected portfolio;
