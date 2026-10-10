@@ -49,7 +49,7 @@ If the user answers yes to that report in the same conversation, treat the liste
 
 ## PHDK uat fix
 
-For explicit `PHDK uat fix`, read the current `UAT_REPORT.md` and `UAT_CASES.md`, convert every FAIL into an actionable defect, repair all clearly in-scope fixable failures autonomously, rerun affected UAT/regression checks, and update the report with repair/retest evidence. Do not fix items that require a new material decision or excluded external/manual operation.
+For explicit `PHDK uat fix`, read the current `UAT_REPORT.md` and `UAT_CASES.md`. Convert every FAIL into an actionable defect and every unresolved BLOCKED/MANUAL case into an explicit unblock/manual action plan. Repair all clearly in-scope fixable failures autonomously, rerun affected UAT/regression checks, and update the report with repair/retest evidence. When nothing is auto-fixable, do not stop at that observation: guide the owner step-by-step through the remaining prerequisites/manual validations and state exactly what to rerun afterward.
 
 ## PHDK uat
 
