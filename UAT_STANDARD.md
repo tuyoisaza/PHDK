@@ -15,7 +15,7 @@ Use explicit existing equivalents when the repository already defines them. Othe
 
 ## Intent-first user stories and case catalog
 
-Before deriving UAT cases, identify the project's current intent from the strongest available source in this order: `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, relevant `docs/intents/*-intent.md`, the current authorized request, and the current `TASK.md`. Use `INTENT_CAPTURE_STANDARD.md` when the why is not already durable.
+Before deriving UAT cases, identify the project's current intent from the strongest available source in this order: `PROJECT_INTENT.md`, `REQUIREMENTS_TRACEABILITY.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, relevant `docs/intents/*-intent.md`, the current authorized request, and the current `TASK.md`. Use `PHDK_CAPTURE.md` when the project-level why/requirements baseline is missing or incoherent; use `INTENT_CAPTURE_STANDARD.md` for later feature/change-level intent.
 
 Every UAT user story must align with that intent. Express each story in user-value form such as "As <actor>, I want <goal>, so that <intent-linked outcome>." The "so that" outcome must point to a stated project problem, desired outcome, business/user objective, or explicit constraint. Do not create stories merely because the code contains a route, component, API, database field, or implementation detail.
 
