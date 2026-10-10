@@ -1,3 +1,15 @@
+## v2.44.2 — 2026-10-10
+
+### Fixed
+
+- Corrected `PHDK auto` behavior when a repository has multiple parallel project fronts but no single next TASK delivery.
+- Generic Auto now inspects Capture, Plan, PMO artifacts, requirements, current work, UAT/Check findings and repository evidence for a coherent active portfolio.
+- When multiple credible fronts exist, Auto enters PMO portfolio discovery and asks once to confirm/add/remove/reprioritize the detected workstreams.
+- That confirmed portfolio becomes Auto's identified goal for the current conversation and the lifecycle continues.
+- Auto no longer asks the owner to invent one arbitrary "resultado concreto" merely because TASK.md contains several open items.
+- A missing-goal question is reserved for cases where neither a coherent single goal nor a coherent candidate portfolio can be derived.
+- Updated PMO, SKILL, AGENTS, native routing, README and change-management guidance to match this behavior.
+
 ## v2.44.1 — 2026-10-10
 
 ### Fixed
