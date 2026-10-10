@@ -9,7 +9,7 @@ It serves two cases:
 1. **Existing/advanced repository** — investigate the repository, existing product documentation, code, routes, data models, tests, configuration, intents, and historical decisions to reconstruct what the product currently appears to be, then professionalize that evidence into a coherent requirements baseline.
 2. **New or empty project** — interview the owner from first principles and build the same professional requirements baseline from zero.
 
-Capture does not implement product code. Its deliverable is a complete, professional, internally consistent requirements package that later governs planning, `PHDK auto`, `PHDK uat`, and `PHDK check`.
+Capture does not implement product code. Its deliverable is a complete, professional, internally consistent requirements package that later governs planning, `PHDK PMO`, `PHDK auto`, `PHDK uat`, and `PHDK check`.
 
 Match `PHDK capture` case-insensitively after trimming whitespace. Reading this file, quoting the command, or installing PHDK does not invoke it.
 
