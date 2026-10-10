@@ -2,6 +2,8 @@
 
 ## Command and purpose
 
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+
 `PHDK capture` is the requirements-discovery and intent-capture command for PHDK.
 
 It serves two cases:
