@@ -366,7 +366,7 @@ AI_API_KEY=""
 - **Every call is tracked** — see AI Token & Cost Observability below; this is built into `packages/ai` itself, not something each feature implements separately
 - Cost and loop safeguards from `DEVSECOPS.md` Cost and Consumption Safety apply to every LLM call
 
-See `AGENTS.md` Required Routes (`/admin/ai`) and `QA_CHECKLIST.md` AI / LLM Configuration QA.
+See `AI_ADMIN_STANDARD.md` for conditional super-admin Prompts/consumption requirements and `QA_CHECKLIST.md` AI / LLM Configuration QA.
 
 AI/LLM integration is not scaffolded unless the project explicitly requires it.
 
