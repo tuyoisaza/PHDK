@@ -4,7 +4,7 @@
 
 This is the entry point for an assistant working on a PHDK repository. It is an instruction document, not an executable agent, scheduler, or permission to start work.
 
-Read the current user request and `EXECUTION_SCOPE.md`, then the project's `TASK.md`/`STATUS.md`. The scope is interactive-only: one assistant completing the entire explicitly requested deliverable, which may include multiple features/stages. `PHDK auto` makes that development continuous under `PHDK_AUTO.md`. No legacy Mission Autopilot, subagents, delegated agents, agent teams, or background execution, including for work inside the current task.
+Read the current user request and `EXECUTION_SCOPE.md`, then the project's `TASK.md`/`STATUS.md`. The scope is interactive-only. Normally one assistant completes the requested deliverable; `PHDK auto` makes that development continuous under `PHDK_AUTO.md`. The sole delegation exception is explicit `PHDK PMO`, which may coordinate bounded in-session workers under `PHDK_PMO.md`. No background/post-conversation agent execution is allowed.
 
 Current owner pause/stop instructions remain effective within their scope. Re-read them before edits and git writes, and compare them with the owner's latest instructions. The owner can explicitly replace an older documentary exception; a file cannot veto that request. A specific intervention does not restart unrelated earlier work. Old tasks, alerts, failed checks, version mismatches, and skill installation never authorize work.
 
@@ -22,6 +22,9 @@ Complete the necessary steps of the current requested deliverable, including its
 - External skills are references for this assistant only. Do not use a plugin or skill to delegate work or evade these boundaries.
 
 ## PHDK commands
+
+On explicit `PHDK PMO`, follow `PHDK_PMO.md`: inspect the Capture/requirements baseline, current plans/code/branches/reports, detect candidate workstreams, present them for owner confirmation, then coordinate the confirmed portfolio. PMO is the only PHDK mode allowed to delegate bounded workstreams to runtime-supported in-session workers; workers cannot delegate. Maintain ownership/dependency/integration artifacts and perform a central integration review before UAT.
+
 
 On explicit `PHDK capture`, follow `PHDK_CAPTURE.md`: investigate the current repository and conversation first, reconstruct or elicit project intent/ethos and professional requirements, create/update the canonical requirements package, then ask only for material missing information until the baseline is coherent. Explicitly tell the user whether questions are needed; when none remain, say so and list/link the canonical Capture artifacts for review. Capture may ask requirements questions across turns but does not start product implementation.
 
@@ -56,6 +59,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Auth, secrets, security, privacy, cost controls | `DEVSECOPS.md` |
 | Versions, commits, changelog, approved merge | `VERSIONING.md` |
 | Completing an implementation in remote main, conflicts, or delivery state | `MAIN_DELIVERY_STANDARD.md` |
+| Multi-workstream portfolio/program coordination, bounded worker delegation, integration review | `PHDK_PMO.md` |
 | Continuous whole-goal development, no stage approvals, final integrated verification | `PHDK_AUTO.md` |
 | Unlocking PHDK stops or removing/reconciling local instruction exceptions | `PHDK_UNLOCK.md` |
 | Developer Mode activation, exit, or eligible direct-main task | `PHDK_DEVELOPER_MODE.md` |
