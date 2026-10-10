@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.44.1**
+**Version v2.44.2**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -554,7 +554,7 @@ For end-to-end execution, simply run:
 PHDK auto
 ```
 
-Auto will create/reuse the Capture baseline, create/reuse Plan, coordinate workstreams, integrate, validate, repair and check the final candidate.
+Auto will create/reuse the Capture baseline, create/reuse Plan, coordinate workstreams, integrate, validate, repair and check the final candidate. If you invoke Auto without naming one delivery and the repo already reveals several parallel fronts, Auto enters PMO discovery, shows you the detected portfolio and asks you to confirm/add/remove/reprioritize those workstreams instead of forcing you to choose one arbitrary task.
 
 ### Existing project
 

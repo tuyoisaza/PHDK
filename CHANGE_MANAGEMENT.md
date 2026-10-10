@@ -76,6 +76,7 @@ For exact release details, see `CHANGELOG.md`.
 
 High-level milestones include:
 
+- **v2.44.2** — generic Auto now falls into PMO portfolio discovery when multiple parallel fronts exist instead of demanding one arbitrary task.
 - **v2.44** — universal PHDK command preflight, version/install validation, and operational recommended-skills usage.
 - **v2.43** — `PHDK plan` solution architecture/convergence planning and full-lifecycle `PHDK auto` orchestration.
 - **v2.42** — PMO multi-workstream orchestration and bounded in-session workers.

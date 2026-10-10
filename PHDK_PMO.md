@@ -86,7 +86,7 @@ If no credible fronts are detected, ask which fronts the owner wants to advance 
 
 Do not activate proposed fronts without owner confirmation.
 
-The confirmation establishes the PMO portfolio for this active conversation. It does not authorize unrelated future fronts.
+The confirmation establishes the PMO portfolio for this active conversation. When PMO is running as the discovery stage of a generic `PHDK auto` invocation, that confirmed portfolio becomes Auto's identified goal for the remainder of the lifecycle. It does not authorize unrelated future fronts.
 
 ## PMO artifacts
 
