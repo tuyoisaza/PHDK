@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.41.0**
+**Version: v2.41.1**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,14 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.41.1
+
+UAT remediation is now action-oriented even when there are zero FAIL cases. Every unresolved FAIL, BLOCKED, or MANUAL case must explain what prevents acceptance, why it matters, who/what must act, where, how, when, the evidence required to close it, and the exact next retest/command.
+
+`PHDK uat fix` must also attempt to remove repository-local blockers. If a case is BLOCKED only because a permitted isolated fixture, fake adapter, auth stub, or in-process API/test harness is missing, it should build the smallest appropriate harness and rerun the case instead of responding only that there are no repairable defects.
+
+External/manual/browser-only blockers remain explicit, but the report must provide a concrete human/action checklist and next step.
 
 ## What changed in v2.41.0
 
