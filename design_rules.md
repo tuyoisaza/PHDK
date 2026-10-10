@@ -265,6 +265,15 @@ Minimum baseline for every page:
 
 ---
 
+# Conditional AI Admin Design
+
+When the project uses AI under `AI_ADMIN_STANDARD.md`, the super-admin navigation includes **Prompts**. Its page uses a two-column admin layout on desktop/tablet:
+
+- left column: prompt/agent list with visible selected state;
+- center/main column: editable Name field, Personality prompt textarea, Execution prompt textarea, and Output JSON schema code/JSON field, in that order.
+
+The form must expose loading, empty, validation, save-in-progress, success, permission-denied, and error states. Long prompt names must not break the left rail. On narrow screens the two-column layout may stack while preserving list selection and editor semantics.
+
 # Admin Design Rules
 
 Admin pages must be clear, dense, scannable, and auditable.
