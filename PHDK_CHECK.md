@@ -34,6 +34,7 @@ Examples:
 
 - A public marketing site is not missing RBAC merely because PHDK defines RBAC defaults for role-bearing apps.
 - A repository without AI features is not missing `packages/ai`.
+- A repository with actual AI provider usage must satisfy `AI_ADMIN_STANDARD.md`. Detect provider/config evidence without reading secret values. If only an unused key placeholder exists and no AI feature can be established, use UNKNOWN / DECISION NEEDED rather than inventing AI product scope.
 - A project with no schema change is not missing a migration.
 - A project whose intent explicitly excludes authentication is not noncompliant for lacking login.
 
@@ -121,11 +122,12 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 4. Check canonical PHDK version when accessible; record drift without mutating the repository.
 5. Read all applicable active standards; build an internal requirement matrix.
 6. Inspect repository source, configuration, scripts, tests, docs, versioning, hooks, and delivery metadata needed to evaluate each requirement.
-7. Distinguish implementation absence from verification absence.
-8. Deduplicate findings by root cause.
-9. Produce the report and a concise prioritized summary.
-10. Ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"**
-11. Stop. Do not begin remediation until the user answers.
+7. For AI-bearing repositories, evaluate `AI_ADMIN_STANDARD.md`: centralized provider access, token/cost tracking, super-admin consumption, Prompts navigation/route, prompt list/editor fields, output-schema validation, audit/revisions, and prompt/revision attribution.
+8. Distinguish implementation absence from verification absence.
+9. Deduplicate findings by root cause.
+10. Produce the report and a concise prioritized summary.
+11. Ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"**
+12. Stop. Do not begin remediation until the user answers.
 
 Do not manufacture exhaustive certainty when access is incomplete. Prefer UNKNOWN/UNVERIFIED over speculation.
 
