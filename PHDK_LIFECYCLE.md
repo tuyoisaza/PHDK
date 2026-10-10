@@ -37,7 +37,7 @@ Do not use random IDs when a deterministic timestamp + goal/branch identifier is
 Maintain a current lifecycle index:
 
 ```text
-PHDK_LIFECYCLE.md
+PHDK_LIFECYCLE_STATUS.md
 ```
 
 It must contain:
