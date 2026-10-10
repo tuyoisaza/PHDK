@@ -31,6 +31,10 @@ Review the complete diff and apply the approval rules in `MAIN_DELIVERY_STANDARD
 
 Confirm the resulting remote version and change before calling the delivery complete. A GitHub PR merge already updates `main`; do not invent a second version-only commit or push. Compare stale task records with the live user request and git/PR state. An existing provider GitHub autodeploy may follow the authorized merge; do not disable it or add dummy watch filters as PHDK enforcement. Report deployment evidence or a skipped/disabled deployment separately, without provider writes.
 
+## Conditional AI admin standard
+
+When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_ADMIN_STANDARD.md` together with `technical_stack.md` and `DEVSECOPS.md`. AI-bearing products require super-admin prompt management and consumption observability; non-AI projects do not receive these features. Detect applicability from source/configuration names and product intent without reading secret values.
+
 ## PHDK check
 
 For explicit `PHDK check`, follow `PHDK_CHECK.md`. First perform a read-only applicability/compliance audit across the repository's active PHDK standards and implementation, create or refresh `PHDK_CHECK_REPORT.md`, present the prioritized gaps, and ask once whether the user wants the AUTO-FIXABLE and FIXABLE WITH VALIDATION items executed. Do not begin remediation before that answer.
