@@ -117,7 +117,7 @@ PHDK stages do not communicate only through chat. Each stage must leave a durabl
 Current lifecycle state lives in:
 
 ```text
-PHDK_LIFECYCLE.md
+PHDK_LIFECYCLE_STATUS.md
 ```
 
 Every full run also gets an immutable historical folder:
