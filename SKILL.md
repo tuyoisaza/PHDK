@@ -39,7 +39,7 @@ When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_AD
 
 For explicit `PHDK capture`, follow `PHDK_CAPTURE.md`. Investigate first: use existing product docs, intents, source, routes, schemas, tests, configuration, and decisions to understand the product without forcing the user to repeat known information. Build the canonical requirements package: `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`.
 
-When material information is missing, ask focused requirements questions until all blocking gaps are resolved and remaining assumptions/open questions are explicit. Capture may span multiple turns. Do not implement product code unless the current request separately includes development.
+When material information is missing, say that questions are needed and ask focused requirements questions until all blocking gaps are resolved and remaining assumptions/open questions are explicit. If no Blocking/Material questions are needed after investigation, say so explicitly. At completion, tell the user that everything captured/formulated is stored in the canonical files and list/link PROJECT_INTENT.md, PROJECT_BRIEF.md, PRD.md, FEATURES.md, and REQUIREMENTS_TRACEABILITY.md for review. Capture may span multiple turns. Do not implement product code unless the current request separately includes development.
 
 ## PHDK check
 
