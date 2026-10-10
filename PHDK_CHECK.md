@@ -2,6 +2,8 @@
 
 ## Command and purpose
 
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+
 `PHDK check` audits the current repository against the active PHDK standards and produces a concrete remediation backlog. The command is intentionally two-phase:
 
 1. **Audit phase — read-only:** inspect PHDK and the repository, classify gaps, write or refresh `PHDK_CHECK_REPORT.md`, present the results, and ask once whether the user wants the listed remediation executed.

@@ -2,6 +2,8 @@
 
 ## Command and purpose
 
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+
 `PHDK PMO` starts an interactive portfolio/program orchestration mode for one identified repository/project in the active conversation.
 
 PMO is the multi-workstream coordination layer. It normally consumes the outputs of Capture and Plan, coordinates execution/integration, and hands the integrated candidate to UAT/UAT Fix/Check. It is independently invocable, and it is also the coordination stage used inside the full `PHDK auto` lifecycle.

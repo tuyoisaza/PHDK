@@ -2,6 +2,8 @@
 
 ## Command and purpose
 
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+
 `PHDK uat` runs autonomous user acceptance testing for the identified current product candidate. Match the command case-insensitively after trimming whitespace. Use the current conversation, repository requirements, product documentation, acceptance criteria, current task, code, and existing test evidence to identify the candidate and scope. If no candidate or product goal can be determined, ask only for that missing target.
 
 The command authorizes the assistant to create or refresh UAT artifacts, derive acceptance cases, execute every permitted acceptance check available for those cases, collect evidence, and write the final report without requesting approval between cases. It does not authorize unrelated product development, browser/headless testing, live destructive operations, provider writes, recurring work, or work after the conversation.

@@ -2,6 +2,8 @@
 
 ## Command and purpose
 
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+
 `PHDK plan` turns the captured product intent and requirements into a professional solution architecture and executable delivery plan.
 
 It runs after `PHDK capture` when a project needs architectural definition, architectural reconstruction, or a concrete implementation plan.

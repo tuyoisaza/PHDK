@@ -23,6 +23,9 @@ Complete the necessary steps of the current requested deliverable, including its
 
 ## PHDK commands
 
+Before every PHDK command/stage, run `PHDK_PREFLIGHT.md`: verify the active PHDK installation/version/manifest/managed rules and inspect the actual availability of stage-relevant recommendations in `SKILLS_REGISTRY.md`. Use relevant available skills/capabilities unless the user explicitly disabled them. Do not claim registry entries are installed without evidence.
+
+
 On explicit `PHDK plan`, follow `PHDK_PLAN.md`: consume the Capture requirements baseline, inspect existing architecture when present, design or converge toward a standards-aligned target architecture, produce the canonical Plan artifacts, and turn the architecture into dependency-ordered executable tasks. Do not rewrite a brownfield repo merely to match defaults.
 
 On explicit `PHDK PMO`, follow `PHDK_PMO.md`: inspect the Capture/requirements baseline, current plans/code/branches/reports, detect candidate workstreams, present them for owner confirmation, then coordinate the confirmed portfolio. PMO is the only PHDK mode allowed to delegate bounded workstreams to runtime-supported in-session workers; workers cannot delegate. Maintain ownership/dependency/integration artifacts and perform a central integration review before UAT.

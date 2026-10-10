@@ -2,6 +2,8 @@
 
 ## Command and lifetime
 
+Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant capabilities when later lifecycle stages need them. Do not repeat a noisy full preflight at every internal stage.
+
 `PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. A request to add this command, quoted examples, installed files, and old task records do not activate it.
 
 Briefly state the goal and execution contract, then run the applicable lifecycle end-to-end:
