@@ -1,275 +1,540 @@
-# PHDK Standards Repository
+# PHDK
 
-**Version: v2.42.0**
+**Project Handoff to Development Kit**  
+**Version v2.42.1**
 
-PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
+PHDK is an operating system for AI-assisted software delivery.
 
-## Execution model — interactive-only
+It turns a repository, an idea, or an unfinished product into a structured development process where AI can **understand intent, coordinate work, build autonomously, validate behavior, repair gaps, and check compliance** without losing human control.
 
-One assistant normally works on the user's explicit request in the current conversation. Explicit `PHDK auto` enables continuous development through one agreed goal. Explicit `PHDK PMO` is the sole bounded exception that may coordinate runtime-supported in-session worker agents across owner-confirmed workstreams. There is no legacy Mission Autopilot, background delegation, or automatic next mission.
+PHDK is designed for teams and builders who want more than “vibe coding”: they want AI development that is **traceable, repeatable, governable, and aligned with what the product is actually supposed to do**.
 
-- No subagents, agent teams, autonomous reviewers, or delegated code tasks outside explicit `PHDK PMO`. In PMO, only the orchestrator may delegate confirmed workstreams to in-session workers; workers cannot delegate.
-- No unattended, overnight, background, scheduled, or recurring work; no cron jobs, dependency bots, backup jobs, maintenance loops, or task-sync workflows.
-- No creation, enabling, dispatch, rerun, or scheduling of GitHub Actions or hosted CI. PHDK contains no Actions workflows and does not require them.
-- No browser/headless testing, screenshots, live endpoint/database probes, paid verification calls, or external administration.
-- Relevant local formatting, linting, typechecking, builds, and isolated non-browser tests remain allowed. They run synchronously for the current request and exit; they are not background tasks.
-- A current implementation/fix/update request includes scoped versioned branch/PR delivery through verified remote `main`, without a repeated merge order. Honor a narrower requested outcome and existing controls. Audits remain read-only; explicitly active Developer Mode supplies only its separate eligible direct-main exception.
-- A requested provider check/diagnosis may retrieve bounded existing status, deployment/source/branch/non-secret configuration metadata, and logs through an authorized API/CLI/connector. No browser, continuous monitoring, application probes, secret values, or provider writes are permitted.
+---
 
-The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
+## The problem PHDK solves
 
-**Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+AI coding tools are powerful, but real software projects break down when:
 
-## What changed in v2.42.0
+- requirements live only in chat history;
+- different sessions understand the product differently;
+- multiple fronts advance without coordination;
+- agents stop after partial milestones and wait for another “OK”;
+- tests prove code runs but not that the product satisfies its intent;
+- UAT reports problems without telling you how to close them;
+- standards drift from what the repository actually implements;
+- different agents change shared files, versions, schemas, or navigation without integration discipline;
+- nobody can answer: **What are we building, why, what is done, what is blocked, and what should happen next?**
 
-`PHDK PMO` adds portfolio/program orchestration for projects with multiple fronts. PMO reads the Capture baseline, requirements, current plans, code, branches/PRs and UAT/Check evidence; detects candidate workstreams; asks the owner to confirm the active portfolio; then coordinates those workstreams with explicit ownership, dependencies, risk and integration state.
+PHDK gives AI a shared operating model for answering those questions.
 
-PMO is the only PHDK context allowed to delegate to runtime-supported in-session worker/subagents. Each worker receives one confirmed workstream and uses Auto semantics inside it. Workers cannot recursively delegate, select new fronts, or independently finalize shared/global integration. The PMO orchestrator owns shared-file collisions, dependency order, version/changelog reconciliation and the integrated candidate.
+---
 
-The recommended multi-workstream lifecycle is **Capture → PMO → Auto/workers → PMO Integration Review → UAT → UAT Fix → Check → approved remediation → Done**. For a single workstream, PMO may recommend the simpler **Capture → Auto → UAT → UAT Fix → Check** path.
-
-## What changed in v2.41.1
-
-UAT remediation is now action-oriented even when there are zero FAIL cases. Every unresolved FAIL, BLOCKED, or MANUAL case must explain what prevents acceptance, why it matters, who/what must act, where, how, when, the evidence required to close it, and the exact next retest/command.
-
-`PHDK uat fix` must also attempt to remove repository-local blockers. If a case is BLOCKED only because a permitted isolated fixture, fake adapter, auth stub, or in-process API/test harness is missing, it should build the smallest appropriate harness and rerun the case instead of responding only that there are no repairable defects.
-
-External/manual/browser-only blockers remain explicit, but the report must provide a concrete human/action checklist and next step.
-
-## What changed in v2.41.0
-
-`PHDK uat` reports now include actionable repair guidance for every FAIL: observed vs expected behavior, likely root cause, affected requirement/story/case, affected component/files when identifiable, proposed repair, scope/risk, and exact retest.
-
-New command:
-
-```txt
-PHDK uat fix
-```
-
-It reads `UAT_REPORT.md` and `UAT_CASES.md`, turns FAILs into a defect backlog, repairs all clearly in-scope fixable failures autonomously, reruns affected UAT/regression checks, and updates the report with RESOLVED / STILL FAILING / BLOCKED evidence. Material decisions and excluded external/manual operations remain explicit blockers.
-
-## What changed in v2.40.0
-
-`PHDK upgrade force` adds an authoritative standards refresh for cases where the installed PHDK files themselves have local edits. It replaces only the PHDK-owned surface from canonical `main`: manifest-owned files under `phdk-standards/` plus exact `PHDK-MANAGED` instruction blocks.
-
-Force does not touch product code, project requirements/docs, TASK/STATUS, intents, ADRs, hooks, provider/repository settings, unknown extra files, or owner instructions outside managed markers. Obsolete files may be removed only when the previously installed manifest proves they were PHDK-owned.
-
-## What changed in v2.39.1
-
-`PHDK capture` now has an explicit user-facing completion contract. After investigating the repo, it tells the user whether material questions remain. If none are needed, it says so directly. If questions are needed, it asks them until the Blocking/Material gaps are resolved.
-
-When Capture finishes, it explicitly tells the user that everything discovered and formulated has been saved in the canonical requirements files and lists/links `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md` for review, including any remaining INFERRED or OPEN items.
-
-## What changed in v2.39.0
-
-`PHDK capture` adds a professional requirements-discovery and reconstruction workflow for both new projects and mature repositories. It investigates existing evidence first, reconstructs the product's intent/ethos and requirements without treating code as automatic truth, identifies contradictions and missing decisions, and asks only for material information that cannot be responsibly inferred.
-
-Capture produces the canonical requirements package: `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`. Requirements receive stable IDs, provenance, confidence/status, priorities, acceptance signals, and traceability from project intent through features and eventual UAT.
-
-## What changed in v2.38.0
-
-PHDK now has a conditional AI-admin standard. When a project actually uses an LLM provider—detected from provider configuration/API-key names, `packages/ai`, provider SDK usage, or implemented AI workflows—the super-admin area must expose both AI consumption and a **Prompts** menu item.
-
-The Prompts page uses a left prompt/agent list and a main editor with editable Name, Personality prompt, Execution prompt, and Output JSON schema fields. Prompt definitions are persistent and auditable, runtime model output is validated against the configured JSON contract, and every AI call is attributable to the prompt/agent ID and revision when applicable.
-
-Projects without AI remain unaffected. An unused API-key placeholder alone does not force AI functionality; `PHDK check` reports applicability as UNKNOWN when actual AI use cannot be established.
-
-## What changed in v2.37.0
-
-`PHDK check` adds a standards-compliance audit and remediation loop. The first command is read-only: it reads the active PHDK standards, determines applicability from project intent, compares the repository against them, generates a prioritized `PHDK_CHECK_REPORT.md`, and asks once whether the user wants the fixable gaps executed.
-
-The report distinguishes COMPLIANT, GAP, PARTIAL, NOT APPLICABLE, UNKNOWN / DECISION NEEDED, and UNVERIFIED findings, with severity, evidence, remediation type, validation, and execution order. A later explicit yes authorizes only the enumerated AUTO-FIXABLE and FIXABLE WITH VALIDATION items. PHDK then implements those gaps, verifies them, delivers through the normal controls, reruns the check, and reports residual alignment.
-
-## What changed in v2.36.1
-
-UAT user stories are now intent-first. Every story must trace to the project's current intent, and acceptance uses the chain **Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence**.
-
-Stories generated only from implementation details are invalid. Untraceable stories are marked `OUT OF INTENT` and excluded from acceptance counts. UAT cannot conclude ACCEPTED unless the intent-alignment gate passes and all applicable stories are covered.
-
-## What changed in v2.36.0
-
-`PHDK uat` adds autonomous, traceable user acceptance testing for the identified current candidate. It derives use/acceptance cases from roles, requirements, acceptance criteria, current code, and existing test evidence; writes `UAT_CASES.md`; executes every permitted acceptance check it can; and writes `UAT_REPORT.md` with PASS/FAIL/BLOCKED/MANUAL evidence and a final acceptance conclusion.
-
-UAT never converts code inspection into a behavioral PASS. Browser/headless execution, screenshots, live application probes, destructive/live data operations, paid calls, hosted CI dispatch, provider writes, recurring monitoring, and background work remain excluded. Cases that require unavailable or excluded evidence are reported honestly as BLOCKED or MANUAL.
-
-Under an active `PHDK auto` goal, applicable UAT is part of the final whole-goal acceptance boundary. In-scope failures are repaired and the affected cases rerun before final delivery. Standalone `PHDK uat` validates and reports the current candidate without silently expanding into unrelated product development.
-
-## What changed in v2.35.0
-
-`PHDK auto` carries the entire identified development goal through implementation, final integrated verification, in-scope repairs, and normal versioned branch/PR delivery. It does not stop for another human OK after a plan, feature, scaffold, stage, or release candidate. A whole-project request is not silently reduced to an MVP or first release.
-
-Auto writes needed test coverage during implementation and runs planned tests against the completed candidate. Checklists become final coverage, not per-stage acceptance gates. Necessary diagnostic checks and actual mandatory hooks remain applicable when they govern an operation; the complete verification still precedes publication. Source/QA/onboarding/bootstrap instructions now follow this same cadence.
-
-Current scoped owner approval remains sufficient without another PHDK-only human sign-off. Actual repository/security/access controls remain effective. Auto's continuous development is limited to the current goal and active conversation, with no background jobs, browser tests, live probes, provider writes, or persistent authorization flags.
-
-Task records no longer create a second authorization barrier: status/link questions, context compaction, or an assistant-written inactive flag cannot cancel an unfinished request in the same conversation. Real owner stops remain binding. Integration includes routine in-scope conflict/version reconciliation and avoids redundant post-merge bumps or pushes.
-
-Existing GitHub-connected provider autodeploy remains allowed. PHDK must not disable it or install dummy never-matching watch filters to enforce its limits on autonomous work. Observed deployment blockers/statuses are reported separately from integration in `main`; valid service-specific filters and intended skips for unaffected services are normal. Provider configuration writes remain outside a generic development request.
-
-`AGENTS.md` and `SKILL.md` are instruction files, not runnable agents. Loading them does not start a task. Existing local code-check hooks are not schedules and may not launch agents or generate pushes.
-
-## PHDK auto
-
-Activate for the current identified development goal:
-
-```txt
-PHDK auto
-```
-
-If the goal is already clear in the conversation, the assistant starts immediately. It implements every agreed stage, communicates progress without asking for an OK, then verifies the complete integrated candidate, fixes in-scope failures, and finishes the authorized versioned branch/PR delivery to `main`. The assistant performs the applicable local checks; final human acceptance is not a PHDK prerequisite unless actually requested as one.
-
-Exit with `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Auto replaces Developer Mode for that goal and uses normal branch/PR delivery; it does not inherit direct-main permissions. A real unavailable control/decision/access can block an operation, while independent authorized work continues. No files or examples activate the mode. Full contract: [PHDK_AUTO.md](PHDK_AUTO.md).
-
-## PHDK delivery lifecycle
+# One lifecycle from idea to aligned repository
 
 For a multi-workstream project:
 
-```txt
+```text
 PHDK capture
     ↓
 PHDK PMO
     ↓
 confirm workstreams
     ↓
-PHDK auto per workstream / PMO workers
+PHDK auto / PMO workers
     ↓
 PMO Integration Review
     ↓
-human integrated review when requested/required
+human integrated review when requested or required
     ↓
 PHDK uat
     ↓
-PHDK uat fix (when needed)
+PHDK uat fix
     ↓
 PHDK check
     ↓
-approved check remediation (when needed)
+approved remediation
     ↓
 Done
 ```
 
-The stages have different responsibilities: Capture defines intent/requirements; PMO coordinates fronts; Auto builds one goal/workstream; PMO Integration Review creates one coherent candidate; UAT validates intent-aligned behavior; UAT Fix closes failures/removable blockers; Check audits PHDK conformance.
+For a single focused workstream:
 
-For a single independent front, skip PMO unless its coordination overhead adds value.
-
-## PHDK PMO
-
-Coordinate multiple active project fronts:
-
-```txt
-PHDK PMO
+```text
+PHDK capture → PHDK auto → PHDK uat → PHDK uat fix → PHDK check
 ```
 
-PMO detects candidate workstreams from Capture/requirements, TASK/STATUS, code, git state and existing UAT/Check evidence. It asks you once to confirm/add/remove/prioritize the active fronts. If none are clearly active, it asks which fronts you want and may propose clearly labeled candidates.
+Each stage has one job.
 
-After confirmation it maintains `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md`. When the runtime supports subagents, PMO may delegate bounded workstreams; otherwise it says that parallel workers are unavailable and coordinates sequentially. Full procedure: [PHDK_PMO.md](PHDK_PMO.md).
+| Stage | Purpose |
+|---|---|
+| **Capture** | Understand the product, its intent, ethos, requirements, users, constraints and success criteria. |
+| **PMO** | Detect and coordinate multiple fronts, dependencies, ownership, workers and integration. |
+| **Auto** | Execute one complete authorized goal without stopping for repeated approval. |
+| **UAT** | Validate the integrated product against intent-aligned user stories and acceptance criteria. |
+| **UAT Fix** | Repair FAILs and removable blockers; guide the owner through manual/external blockers. |
+| **Check** | Compare the repository against the applicable PHDK standards and produce a remediation backlog. |
 
-## PHDK capture
+---
 
-Professionalize or create the project's requirements baseline:
+# Core commands
 
-```txt
-PHDK capture
+## `PHDK capture`
+
+Turn an idea or an existing repository into a professional product baseline.
+
+Capture investigates first and asks only what it still needs to know.
+
+On an existing project, it reads:
+
+- product documentation;
+- code and routes;
+- domain models and APIs;
+- tests;
+- configuration;
+- intents;
+- architecture decisions;
+- current task/status;
+- relevant product history.
+
+It separates:
+
+- **stated intent**;
+- **implemented behavior**;
+- **inferred requirements**;
+- **legacy or accidental behavior**;
+- **open decisions**.
+
+It produces:
+
+```text
+PROJECT_INTENT.md
+PROJECT_BRIEF.md
+PRD.md
+FEATURES.md
+REQUIREMENTS_TRACEABILITY.md
 ```
 
-For an existing repo, the assistant reads the product docs, code, routes, domain models, tests, configuration, intents, architecture decisions, and relevant history before asking anything. It separates stated intent from implemented behavior, inferred requirements, legacy behavior, and open questions.
+If Capture has no material questions, it says so. If information is missing, it asks focused questions until the requirements baseline is coherent.
 
-For a new project, it starts discovery from zero. In either case it builds `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`, then asks focused questions only for blocking/material gaps until the requirements are professionally complete enough to govern implementation. It explicitly says when no questions remain and finishes by listing/linking those files so you can review everything captured. Full procedure: [PHDK_CAPTURE.md](PHDK_CAPTURE.md).
+At completion it tells you exactly where everything was captured so you can review it.
 
-## PHDK check
+---
 
-Audit the current repository against PHDK:
+## `PHDK PMO`
 
-```txt
-PHDK check
+Coordinate multiple active fronts of the same project.
+
+PMO reads the Capture baseline, requirements, current plans, code, branches/PRs, UAT and Check evidence, then identifies candidate workstreams.
+
+Example:
+
+```text
+WS-001 — Product import reconciliation
+WS-002 — Opportunity Radar
+WS-003 — Commercial Email Copilot
+WS-004 — AI prompt administration
 ```
 
-The assistant reads the active applicable standards, project intent, source/configuration/tests/hooks/versioning, and—when reachable—canonical PHDK version drift. It creates or refreshes `PHDK_CHECK_REPORT.md` with stable gap IDs, severity, standards references, repository evidence, remediation type, proposed fix, validation, and dependencies.
+It asks you once to confirm, add, remove or reprioritize the active portfolio.
 
-After presenting the gaps it asks exactly once whether you want the fixable ones executed. A yes authorizes the listed AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps; product decisions and external/manual operations remain separate. Full procedure: [PHDK_CHECK.md](PHDK_CHECK.md).
+Then it manages:
 
-## PHDK uat fix
+- dependencies;
+- ownership;
+- shared files;
+- collision risk;
+- workstream status;
+- branches/worktrees;
+- integration readiness;
+- blockers;
+- cross-workstream decisions.
 
-Repair the current UAT failure backlog:
+PMO maintains:
 
-```txt
+```text
+PMO.md
+PMO_WORKSTREAMS.md
+PMO_DEPENDENCIES.md
+PMO_STATUS.md
+```
+
+When the runtime supports workers/subagents, **PMO is the only PHDK mode allowed to delegate workstreams**.
+
+Workers:
+
+- receive one confirmed workstream;
+- use Auto semantics inside that scope;
+- cannot recursively delegate;
+- cannot choose new work;
+- cannot independently finalize global integration.
+
+The PMO orchestrator owns shared integration and the final candidate.
+
+If the runtime does not support workers, PMO coordinates the workstreams sequentially and says so explicitly.
+
+---
+
+## `PHDK auto`
+
+Execute one complete authorized development goal.
+
+```text
+PHDK auto
+```
+
+Auto does not stop after every plan, feature, stage, scaffold, or candidate release.
+
+It continues through:
+
+- implementation;
+- necessary test source;
+- integration;
+- final verification;
+- in-scope repairs;
+- versioning;
+- branch/PR delivery;
+- merge to the requested target when permitted.
+
+Auto is intentionally different from PMO:
+
+- **PMO coordinates many workstreams.**
+- **Auto completes one workstream or goal.**
+
+---
+
+## `PHDK uat`
+
+Run intent-aligned user acceptance testing.
+
+UAT starts from the product’s captured intent and requirements.
+
+Its traceability chain is:
+
+```text
+Project Intent
+    ↓
+User Story
+    ↓
+Requirement / Acceptance Criterion
+    ↓
+UAT Case
+    ↓
+Evidence
+```
+
+It creates:
+
+```text
+UAT_CASES.md
+UAT_REPORT.md
+```
+
+Results are classified as:
+
+- **PASS**
+- **FAIL**
+- **BLOCKED**
+- **MANUAL**
+- **NOT APPLICABLE**
+
+The final conclusion is one of:
+
+- **ACCEPTED**
+- **NOT ACCEPTED**
+- **ACCEPTANCE INCOMPLETE**
+
+UAT never converts code inspection into a behavioral PASS.
+
+---
+
+## `PHDK uat fix`
+
+Turn an incomplete UAT report into an action plan and repair loop.
+
+```text
 PHDK uat fix
 ```
 
-The assistant diagnoses every FAIL from `UAT_REPORT.md`/`UAT_CASES.md`, proposes and applies the in-scope repair, reruns the affected acceptance case and regression evidence, and updates the report. Under active `PHDK auto`, this repair loop is already automatic for in-scope UAT failures.
+For every unresolved FAIL, BLOCKED or MANUAL case, PHDK explains:
 
-## PHDK uat
+- what prevents acceptance;
+- why it matters;
+- who or what must act;
+- where;
+- how;
+- in what order;
+- what evidence closes the case;
+- what to rerun next;
+- whether PHDK can solve it now.
 
-Run autonomous user acceptance testing for the identified current candidate:
+If a blocker is repository-local — for example a missing fixture, fake adapter, auth stub or in-process harness — PHDK should build the smallest permitted harness and rerun the case.
 
-```txt
-PHDK uat
+If a blocker genuinely requires a browser, external account, provider setting, secret, human review or other excluded action, PHDK gives the owner an explicit checklist instead of simply saying “BLOCKED”.
+
+---
+
+## `PHDK check`
+
+Measure the gap between the repository and the applicable PHDK standards.
+
+```text
+PHDK check
 ```
 
-The assistant first identifies the project's current intent, derives user stories aligned to that intent, then creates or refreshes `UAT_CASES.md`. Each case follows the traceability chain `Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence`, then executes every feasible acceptance check through permitted repository-local channels and writes `UAT_REPORT.md`.
+Check reads the standards and first determines **which ones actually apply** based on product intent.
 
-The report distinguishes PASS, FAIL, BLOCKED, MANUAL, and NOT APPLICABLE; records the tested revision/version, evidence, defects and coverage gaps; and concludes ACCEPTED, NOT ACCEPTED, or ACCEPTANCE INCOMPLETE. It does not claim browser, production, or human acceptance evidence that did not occur. Full contract: [UAT_STANDARD.md](UAT_STANDARD.md).
+It produces a compliance/remediation report with findings such as:
 
-## PHDK unlock
+- **COMPLIANT**
+- **GAP**
+- **PARTIAL**
+- **NOT APPLICABLE**
+- **UNKNOWN / DECISION NEEDED**
+- **UNVERIFIED**
 
-Use this command in the current project's conversation:
+It also classifies remediation as:
 
-```txt
-PHDK unlock
+- **AUTO-FIXABLE**
+- **FIXABLE WITH VALIDATION**
+- **DECISION REQUIRED**
+- **EXTERNAL / MANUAL**
+
+The first Check pass is an audit.
+
+After presenting the gap list, PHDK asks whether you want the fixable items executed.
+
+A yes authorizes only the enumerated remediation backlog.
+
+---
+
+# Standards that activate only when relevant
+
+PHDK is conditional, not bureaucratic.
+
+It does not add features simply because a standard exists.
+
+Examples:
+
+- no RBAC requirement for a product that genuinely has no roles;
+- no AI infrastructure for a project that does not use AI;
+- no migration requirement when there is no schema change;
+- no PMO overhead for a single simple workstream.
+
+The project’s **intent and requirements determine applicability**.
+
+---
+
+# AI-native project support
+
+When a project actually uses an LLM provider such as Anthropic, OpenAI, Gemini/Google or another configured model provider, PHDK activates additional AI standards.
+
+AI integrations are expected to have:
+
+- centralized provider access through `packages/ai` or equivalent;
+- configurable provider/model;
+- prompt injection defenses;
+- structured output validation;
+- token and cost observability;
+- usage attribution;
+- rate/cost safeguards;
+- kill switches;
+- admin-manageable prompts.
+
+For AI-bearing products, the super-admin area includes:
+
+### Prompts
+
+A dedicated Prompts interface with:
+
+- left-side prompt/agent list;
+- editable **Name**;
+- editable **Personality prompt**;
+- editable **Execution prompt**;
+- editable **Output JSON schema**;
+- revisions and audit history;
+- stable prompt/agent identity.
+
+### AI consumption
+
+Usage and cost evidence attributable to:
+
+- provider;
+- model;
+- feature/workflow;
+- prompt/agent;
+- prompt revision;
+- tokens;
+- cost;
+- latency;
+- error state.
+
+Projects without AI do not receive these requirements.
+
+---
+
+# Human control remains central
+
+PHDK is designed for autonomous execution **inside explicit human direction**.
+
+Humans remain responsible for:
+
+- product intent;
+- portfolio/workstream selection;
+- material product decisions;
+- sensitive policy choices;
+- formal approvals required by the repository or organization;
+- external/manual actions PHDK cannot perform.
+
+PHDK eliminates repetitive approval loops. It does not eliminate accountability.
+
+---
+
+# Safety and delivery boundaries
+
+PHDK keeps strong execution boundaries.
+
+By default:
+
+- no unattended or overnight execution;
+- no scheduled agent loops;
+- no recurring autonomous jobs;
+- no browser/headless verification;
+- no live database mutation;
+- no secret-value inspection;
+- no provider administration from ordinary development commands;
+- no bypass of hooks, protections or formal review requirements.
+
+PMO workers are allowed only inside an explicitly active PMO session and only for owner-confirmed workstreams.
+
+---
+
+# Keep PHDK synchronized
+
+## Conservative upgrade
+
+```text
+PHDK upgrade
 ```
 
-The assistant identifies each blocker's source and actual enforcement, reconciles the requested documentary rules across existing native files and copied PHDK sources, makes bounded in-scope repairs, and finishes the currently authorized delivery to `main`. With no identified current product task, it only repairs the PHDK rules; it does not choose old work or merge every open PR.
+Updates PHDK standards conservatively.
 
-Actual failed checks, unavailable access, required formal reviews, and material unresolved decisions remain explicit blockers. The command does not disable them, change provider settings, activate Developer Mode, or create a permanent unlocked state. Clear natural-language approvals and read requests already work without the command. Full procedure: [PHDK_UNLOCK.md](PHDK_UNLOCK.md).
+If PHDK-owned files have local edits, it reports the conflict instead of overwriting them.
 
-## Complete the requested delivery
+## Authoritative standards refresh
 
-Follow [MAIN_DELIVERY_STANDARD.md](MAIN_DELIVERY_STANDARD.md). For a normal implementation request, use the scoped feature/fix branch, applicable local checks, repository version standard, version-prefixed commits, PR, required review, and merge. Resolve clear integration conflicts while preserving other contributors' work, recheck the result, and verify the remote target and version before calling delivery complete.
-
-A pushed branch or open PR is an intermediate state for a request targeting `main`. Report a real unmet check, material conflict, required review, or access restriction as blocked delivery. A request limited to local work, a branch, or a PR retains that limit. A GitHub PR merge already updates remote `main`; it does not require a second bump or push just to finish.
-
-Preserve the same task's authorization across turns in the active conversation. Compare task/status snapshots with the actual user request and current git/PR state. Do not mistake an old unchecked delivery box for evidence that a merge is still pending or restart old work from a saved record.
-
-## PHDK Developer Mode
-
-Activate explicitly with either command:
-
-```txt
-PHDK modo developer
-PHDK Developer Mode
+```text
+PHDK upgrade force
 ```
 
-The assistant briefly explains the permissions. While the conversation remains active, small requested translations, copy, documentation, and simple visual changes may use the existing repository version standard, applicable local checks, a version-prefixed commit, and a fast-forward push directly to `main` when its controls permit it. The push may trigger the deployment already connected to `main`.
+Replaces only the PHDK-owned surface with canonical upstream:
 
-Authentication, authorization, secrets, data/migrations, payments, infrastructure, permission-policy changes, and other high-risk work retain normal review. A failed applicable check, rejected/non-fast-forward push, or unsatisfied control stops the direct-main flow. No bypasses, force-pushes, persistent flags, settings changes, provider deployment commands, or autonomous next tasks.
+- manifest-owned files under `phdk-standards/`;
+- exact `PHDK-MANAGED` blocks;
+- obsolete files proven to have been PHDK-owned by the previous manifest.
 
-Exit with:
+It does **not** overwrite product code, project requirements, intents, TASK/STATUS, ADRs, hooks, package files, provider settings or owner instructions outside managed markers.
 
-```txt
-PHDK salir de developer mode
+---
+
+# Other operational commands
+
+## `PHDK unlock`
+
+Diagnose and reconcile documentary PHDK blockers while preserving real hooks, protections, reviews, access and security controls.
+
+## `PHDK Developer Mode`
+
+A narrow temporary direct-main workflow for eligible small, low-risk tasks when explicitly activated.
+
+It is separate from Auto and PMO.
+
+---
+
+# How to start
+
+### New project
+
+```text
+PHDK capture
 ```
 
-The mode also ends when the user stops the work or the active conversation ends. Documentation, quoted commands, installation, and previous task records never activate or restore it. Full procedure: [PHDK_DEVELOPER_MODE.md](PHDK_DEVELOPER_MODE.md).
+Capture the intent and requirements first.
 
-## Requested provider diagnostics
+Then:
 
-For a current request to check Railway or another provider, inspect deployment/version information, or diagnose a specified incident, use an existing authorized API/CLI/connector. Read only relevant existing service/deployment/status/source/branch/non-secret configuration/watch metadata and logs for the identified target. Set finite query bounds, redact sensitive data, and report the evidence's limits. Do not stream, poll, create application traffic, read secret values, change settings, deploy, or grant new access.
+- one front → `PHDK auto`
+- several fronts → `PHDK PMO`
 
-The request itself supplies this read authorization, independently of Developer Mode or unlock; a previous task-specific exclusion does not cancel it. Provider evidence is separate from an executed application test or confirmed recovery. Details: [EXECUTION_SCOPE.md — Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics).
+### Existing project
 
-## Getting started
+Run:
 
-For a new project, explicitly request the desired brief/kit and, separately or in the same request, the implementation you want. PHDK does not infer a product-build mission from a documentation-only request.
+```text
+PHDK upgrade
+PHDK capture
+```
 
-The assistant reads `AGENTS.md`, `EXECUTION_SCOPE.md`, and the current project's `TASK.md`/`STATUS.md`, then loads only the task-relevant standards. If the product goal is unclear, use `SPEC_INTERVIEW_PROMPT.md`; generate a kit with `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`. Use the foundation prompt only for an explicitly requested build.
+Capture reconstructs what the project is supposed to be from the repository evidence and asks only for missing material decisions.
 
-## Install as a skill
+Then choose Auto or PMO.
 
-Installation is a user-requested file operation, not a background service. For the tool currently in use, clone PHDK directly into that tool's skill folder so `SKILL.md` is at its root. Keep the installed copy clean and update it only when requested; do not add schedules or startup/update jobs.
+### Existing project with unclear standards drift
 
-Existing installation locations documented by PHDK:
+Run:
 
-| Tool | Project-local folder |
+```text
+PHDK check
+```
+
+to understand the compliance gap.
+
+---
+
+# The PHDK philosophy
+
+PHDK is built around a few simple ideas:
+
+1. **Intent before implementation.**
+2. **Requirements should survive chat sessions.**
+3. **AI should finish authorized work instead of repeatedly asking to continue.**
+4. **Parallel work needs ownership, dependencies and integration discipline.**
+5. **Acceptance should test what users need, not merely what code exists.**
+6. **A failed or blocked UAT case should always have a next action.**
+7. **Standards should adapt to the product, not force irrelevant features.**
+8. **Autonomy should increase execution speed without reducing accountability.**
+9. **Every important result should be traceable to evidence.**
+10. **The repository should become the durable memory of the project.**
+
+---
+
+# Documentation map
+
+| Need | Read |
+|---|---|
+| Execution boundaries | [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) |
+| Professional requirements capture | [PHDK_CAPTURE.md](PHDK_CAPTURE.md) |
+| Multi-workstream orchestration | [PHDK_PMO.md](PHDK_PMO.md) |
+| Autonomous single-goal development | [PHDK_AUTO.md](PHDK_AUTO.md) |
+| UAT and UAT repair | [UAT_STANDARD.md](UAT_STANDARD.md) |
+| Standards compliance | [PHDK_CHECK.md](PHDK_CHECK.md) |
+| Normal delivery to main | [MAIN_DELIVERY_STANDARD.md](MAIN_DELIVERY_STANDARD.md) |
+| AI administration | [AI_ADMIN_STANDARD.md](AI_ADMIN_STANDARD.md) |
+| Testing | [TESTING_STANDARD.md](TESTING_STANDARD.md) |
+| Security | [DEVSECOPS.md](DEVSECOPS.md) |
+| Versioning | [VERSIONING.md](VERSIONING.md) |
+| Upgrade | [PHDK_UPGRADE.md](PHDK_UPGRADE.md) |
+| Change management & releases | [CHANGE_MANAGEMENT.md](CHANGE_MANAGEMENT.md) |
+| Technical release history | [CHANGELOG.md](CHANGELOG.md) |
+
+---
+
+# Installation
+
+PHDK can be vendored into an existing repository under `phdk-standards/` using the mappings in `PHDK_MANIFEST.txt`, with the appropriate `PHDK-MANAGED` block added to the active coding tool’s native instruction file.
+
+Common project-local locations include:
+
+| Tool | PHDK skill location |
 |---|---|
 | Claude Code | `.claude/skills/phdk` |
 | Cursor | `.cursor/skills/phdk` |
@@ -279,65 +544,17 @@ Existing installation locations documented by PHDK:
 | OpenCode | `.opencode/skills/phdk` |
 | Pi | `.pi/skills/phdk` |
 
-Example for a currently authorized Claude Code installation:
+Use the installation path for the tool you actually use. PHDK does not require background updaters, schedulers or CI agents.
 
-```sh
-git clone https://github.com/tuyoisaza/PHDK.git .claude/skills/phdk
-```
+---
 
-Use the corresponding folder for the tool in use. Do not install multiple tools or delegation plugins speculatively. Tool discovery may load the instructions, but execution still requires the current human request.
+# Project status
 
-## Universal upgrade commands
+PHDK is actively evolving.
 
-```txt
-PHDK upgrade
-PHDK upgrade force
-```
+The README intentionally describes **what PHDK is and how to use it**, not the release-by-release history.
 
-Use `PHDK upgrade` for conservative synchronization: dirty PHDK-owned paths are reported rather than overwritten.
+For release notes, migrations and historical changes, see:
 
-Use `PHDK upgrade force` when local edits inside PHDK itself should be discarded in favor of canonical upstream. Force overwrites only manifest-owned `phdk-standards/` files and marked `PHDK-MANAGED` blocks; all non-PHDK repository content remains untouched.
-
-The command fetches canonical `main`, reads `VERSION`, synchronizes the `PHDK_MANIFEST.txt` mappings into `phdk-standards/`, refreshes the current tool's marked `PHDK_NATIVE_RULES.md` block, verifies the copy, reports, and stops.
-
-The exact command authorizes synchronization now without duplicate confirmation. It does not authorize git delivery, product changes, automation changes, or a future session. Preserve dirty files and genuine owner controls in a bare sync. A current request to remove/reconcile local PHDK exceptions supplies that documentary scope under `PHDK_UNLOCK.md`; a current request to publish supplies its delivery scope. Full procedure: `PHDK_UPGRADE.md`.
-
-An upstream standards update does not update every existing project automatically. It also does not terminate an external process, revoke credentials, disable installed jobs, or change hosting/GitHub settings. Existing projects need their own explicitly requested standards sync; removing old automation is a separate scoped operation.
-
-## Included standards
-
-`PHDK_MANIFEST.txt` is the authoritative mapping of source filenames to their vendored names. Some root filenames are lowercase and become uppercase inside `phdk-standards/`.
-
-| Area | Source files |
-|---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_CHECK.md`, `PHDK_CAPTURE.md`, `PHDK_PMO.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
-| PMO / multi-workstream orchestration | `PHDK_PMO.md`, `TASK_TRACKING_STANDARD.md` |
-| Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
-| Intent and onboarding | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
-| Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |
-| Architecture and design | `technical_stack.md`, `design_rules.md` |
-| Conditional AI administration and prompts | `AI_ADMIN_STANDARD.md`, `technical_stack.md`, `DEVSECOPS.md` |
-| Security and diagnostics | `DEVSECOPS.md`, `DEBUG_DIAGNOSTICS_STANDARD.md` |
-| Verification | `VERIFICATION_LOOP.md`, `TESTING_STANDARD.md`, `qa_checklist.md` |
-| Versioning and upgrades | `VERSIONING.md`, `PHDK_UPGRADE.md`, `PHDK_MANIFEST.txt`, `VERSION` |
-| Bootstrap | `build_app_foundation_prompt.md`, `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` |
-| Optional reading references | `SKILLS_REGISTRY.md` |
-| History | `CHANGELOG.md`, `ORIGINALS/` |
-
-## Product-code defaults
-
-The execution change does not remove PHDK's implementation standards. Defaults remain pnpm/Turborepo, Next.js, NestJS/Fastify, Drizzle/PostgreSQL, custom Google OAuth, server-side authorization, i18n, safe diagnostics, structured logs, traceable version metadata, real-data states, and bounded cost controls.
-
-Product-specific choices belong in `ARCHITECTURE_DECISIONS.md`. They describe source requirements, not permission to provision infrastructure, operate a browser, run live migrations, or launch agents.
-
-## Delivery and verification
-
-An explicitly approved push/merge, including an eligible Developer Mode push, may use the project's existing hosting-provider GitHub connection. This is not permission to add or run a GitHub Actions workflow, create a deployment connection, alter triggers, re-enable autodeploy, or deploy through Railway/provider CLI/API/dashboard.
-
-Use feature/fix branches by default and respect existing review/access controls. Only explicitly active, low-risk Developer Mode permits its direct-main flow; high-risk changes use normal delivery and the approval rules in `MAIN_DELIVERY_STANDARD.md`. Keep assistant source review, owner approval, any actual formal review, and deployment evidence distinct. Never claim human source inspection or a production health check that did not happen.
-
-Instructions and local hooks do not enforce every external action. A standards commit is not evidence that a running agent stopped, a token was revoked, server-side branch protection was enabled, or costs fell.
-
-## History
-
-See `CHANGELOG.md` for the current release and its preserved historical archive. Historical autonomy instructions are not current operating rules.
+- [CHANGE_MANAGEMENT.md](CHANGE_MANAGEMENT.md)
+- [CHANGELOG.md](CHANGELOG.md)
