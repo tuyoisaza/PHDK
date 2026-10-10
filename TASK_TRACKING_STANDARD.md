@@ -132,3 +132,10 @@ Do not create or use a multiple-agent queue. If another human or independently a
 When `PHDK uat` runs, `UAT_CASES.md` and `UAT_REPORT.md` are the authoritative acceptance artifacts. Task/status files may record the candidate revision/version and summary counts but should not duplicate every UAT step.
 
 UAT evidence does not create or revoke authorization. PASS starts no new task. FAIL/BLOCKED/MANUAL does not make the current task inactive. Under active `PHDK auto`, an in-scope UAT failure remains part of the same whole goal until repaired or concretely blocked.
+
+
+## PHDK Check evidence
+
+`PHDK check` uses `PHDK_CHECK_REPORT.md` as the authoritative compliance artifact for the audited revision. TASK/STATUS may record the report revision, summary counts, and whether remediation was approved, but they must not convert audit findings into standing authorization.
+
+The initial check is read-only. A later explicit yes to the presented report authorizes only the enumerated AUTO-FIXABLE and FIXABLE WITH VALIDATION gap IDs in that report revision. Record the approved IDs and resulting delivery evidence. DECISION REQUIRED, EXTERNAL / MANUAL, UNKNOWN, and newly discovered material gaps remain outside that approval until separately resolved.
