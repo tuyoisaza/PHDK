@@ -2,7 +2,7 @@
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. When operating inside a lifecycle run, verify the Preflight handoff defined by `PHDK_LIFECYCLE.md` before Capture begins. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK capture` is the requirements-discovery and intent-capture command for PHDK.
 
@@ -310,6 +310,17 @@ Every substantive captured statement should be attributable to one of:
 Do not present inferred requirements as owner-confirmed.
 
 A repository reconstruction may produce a complete professional draft while still containing INFERRED items. Surface those clearly.
+
+## Lifecycle handoff
+
+When Capture completes or is reused inside a lifecycle run:
+
+- create/update the current run dashboard `PHDK_LIFECYCLE.md`;
+- create `docs/phdk/lifecycle/<run-id>/10-capture/HANDOFF.md`;
+- snapshot `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md` into that stage folder;
+- declare the Capture exit gate and the exact artifacts Plan must verify before starting.
+
+Plan must not assume Capture is valid merely because files with those names exist; it verifies coherence/currentness for the lifecycle goal.
 
 ## Completion gate
 

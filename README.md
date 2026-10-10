@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.44.3**
+**Version v2.45.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -107,6 +107,60 @@ When a relevant recommended skill is already available, PHDK should **actually u
 Missing optional skills do not block the lifecycle. Important missing capabilities are surfaced when they materially affect quality; installation/connection still follows the host tool's required consent flow.
 
 Full contract: [PHDK_PREFLIGHT.md](PHDK_PREFLIGHT.md). Recommended capability registry: [SKILLS_REGISTRY.md](SKILLS_REGISTRY.md).
+
+---
+
+# Lifecycle deliverables and historical handoffs
+
+PHDK stages do not communicate only through chat. Each stage must leave a durable handoff package in the repository, and the next stage must validate that package before it starts.
+
+Current lifecycle state lives in:
+
+```text
+PHDK_LIFECYCLE_STATUS.md
+```
+
+Every full run also gets an immutable historical folder:
+
+```text
+docs/phdk/lifecycle/<run-id>/
+```
+
+Typical structure:
+
+```text
+00-preflight/
+10-capture/
+20-plan/
+30-pmo/
+40-integration/
+50-uat/
+60-uat-fix/
+70-check/
+80-remediation/
+90-delivery/
+```
+
+Every stage folder contains a mandatory `HANDOFF.md` plus snapshots of the stage outputs that materially define that handoff.
+
+| Stage | Required canonical deliverables |
+|---|---|
+| **Preflight** | `PHDK_PREFLIGHT_REPORT.md` |
+| **Capture** | `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md` |
+| **Plan** | `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, architecture decisions, `TASK.md` integration |
+| **PMO / Workstreams** | `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, `PMO_STATUS.md` |
+| **Integration Review** | `INTEGRATION_REPORT.md` |
+| **UAT** | `UAT_CASES.md`, `UAT_REPORT.md` |
+| **UAT Fix** | `UAT_REMEDIATION.md` plus updated UAT artifacts |
+| **Check** | `PHDK_CHECK_REPORT.md` |
+| **Remediation** | `PHDK_REMEDIATION_REPORT.md` plus updated Check report |
+| **Delivery** | `DELIVERY_REPORT.md` |
+
+Before moving forward, each stage verifies that the upstream handoff exists, passed its exit gate, and still applies to the current goal/candidate.
+
+If a later stage discovers that an upstream artifact is wrong or stale, PHDK reopens that upstream stage and then revalidates every materially affected downstream stage.
+
+Full contract: [PHDK_LIFECYCLE.md](PHDK_LIFECYCLE.md).
 
 ---
 
@@ -622,6 +676,7 @@ PHDK is built around a few simple ideas:
 |---|---|
 | Execution boundaries | [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) |
 | Universal command preflight | [PHDK_PREFLIGHT.md](PHDK_PREFLIGHT.md) |
+| Lifecycle stage contracts & historical handoffs | [PHDK_LIFECYCLE.md](PHDK_LIFECYCLE.md) |
 | Recommended skills/capabilities | [SKILLS_REGISTRY.md](SKILLS_REGISTRY.md) |
 | Professional requirements capture | [PHDK_CAPTURE.md](PHDK_CAPTURE.md) |
 | Solution architecture & implementation planning | [PHDK_PLAN.md](PHDK_PLAN.md) |

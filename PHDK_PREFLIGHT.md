@@ -282,6 +282,20 @@ Do not repeat a full Preflight before every internal Auto stage.
 
 If Auto's internal Plan stage needs a design skill that Capture did not, inspect that capability then.
 
+## Required lifecycle artifact
+
+When Preflight is part of Capture/Plan/PMO/Auto/UAT/UAT Fix/Check or another lifecycle stage, create/update:
+
+```text
+PHDK_PREFLIGHT_REPORT.md
+```
+
+with the installed/canonical version, manifest/managed-rule state, relevant capability inventory, user-disabled capabilities, any conservative sync performed, and unresolved limitations.
+
+When a lifecycle run is active, snapshot it under the run's `00-preflight/` folder and create the Preflight `HANDOFF.md` required by `PHDK_LIFECYCLE.md`.
+
+Before the next stage starts, verify that this report exists for the current run and that no blocking installation defect remains.
+
 ## Completion evidence
 
 Final reports should mention capability limitations only when they materially affected the result.

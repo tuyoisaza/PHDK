@@ -69,6 +69,7 @@ Re-read owner controls before edits and git writes. A specific user instruction 
 | Requested product purpose | `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md` as relevant |
 | Project discovery / professional requirements / ethos | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md` |
 | Universal command preflight / recommended skills | `PHDK_PREFLIGHT.md`, `SKILLS_REGISTRY.md` |
+| Lifecycle stage inputs, outputs, exit gates, historical handoffs | `PHDK_LIFECYCLE.md` |
 | Architecture and implementation planning | `PHDK_PLAN.md`, `TECHNICAL_STACK.md`, `DESIGN_RULES.md`, `DEVSECOPS.md` |
 | PMO/workstream orchestration, dependencies, integration | `PHDK_PMO.md`, `TASK_TRACKING_STANDARD.md` |
 | Current task, plan, completion criteria | `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`, `AI_DEVELOPER_OPERATING_MODEL.md` |

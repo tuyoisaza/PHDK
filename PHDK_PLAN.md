@@ -2,7 +2,7 @@
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the Capture handoff and required Capture artifacts from `PHDK_LIFECYCLE.md` before making architecture decisions. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK plan` turns the captured product intent and requirements into a professional solution architecture and executable delivery plan.
 
@@ -302,6 +302,17 @@ Plan proposes workstream groupings but does not activate them. PMO owns portfoli
 Standalone `PHDK plan` produces architecture/planning artifacts and stops unless a parent request includes execution.
 
 Full `PHDK auto` uses Plan as an internal lifecycle stage after Capture and before PMO. Auto may proceed without a redundant Plan approval when the architecture choices are already within the authorized product goal and standards. It asks only for genuinely material unresolved architecture/product decisions.
+
+## Lifecycle handoff
+
+When Plan completes or is reused inside a lifecycle run:
+
+- create `docs/phdk/lifecycle/<run-id>/20-plan/HANDOFF.md`;
+- snapshot the material Plan outputs, including `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, relevant architecture decisions, and TASK integration;
+- record the architecture quality/exit gate;
+- declare what PMO must verify before it creates/confirms workstreams.
+
+PMO must validate `IMPLEMENTATION_PLAN.md`, ownership/dependency boundaries, and relevant ADRs before workstream execution.
 
 ## Completion response
 

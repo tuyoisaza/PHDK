@@ -15,7 +15,7 @@ description: >-
 
 ## Universal preflight
 
-Before any PHDK command or lifecycle stage, follow `PHDK_PREFLIGHT.md`. Verify PHDK installation/version/manifest/managed rules, then inspect `SKILLS_REGISTRY.md` for relevant capabilities and check what is actually installed/connected in the active tool. Use relevant available skills unless the user explicitly disabled skills/plugins/connectors or a named capability. Missing optional skills do not block PHDK.
+Before any PHDK command or lifecycle stage, follow `PHDK_PREFLIGHT.md` and the applicable entry/exit/handoff contract in `PHDK_LIFECYCLE.md`. A stage may start only after verifying its required upstream artifacts/handoff, and every completed/reused stage must leave durable canonical outputs plus the historical run snapshot. Verify PHDK installation/version/manifest/managed rules, then inspect `SKILLS_REGISTRY.md` for relevant capabilities and check what is actually installed/connected in the active tool. Use relevant available skills unless the user explicitly disabled skills/plugins/connectors or a named capability. Missing optional skills do not block PHDK.
 
 
 This skill routes the current assistant to PHDK standards. It does not launch an agent, create a task, or authorize work just because a tool discovers or loads `SKILL.md`.
