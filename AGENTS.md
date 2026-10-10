@@ -23,7 +23,7 @@ Complete the necessary steps of the current requested deliverable, including its
 
 ## PHDK commands
 
-Before every PHDK command/stage, run `PHDK_PREFLIGHT.md`: verify the active PHDK installation/version/manifest/managed rules and inspect the actual availability of stage-relevant recommendations in `SKILLS_REGISTRY.md`. Use relevant available skills/capabilities unless the user explicitly disabled them. Do not claim registry entries are installed without evidence.
+Before every PHDK command/stage, run `PHDK_PREFLIGHT.md` and enforce `PHDK_LIFECYCLE.md`: verify the active PHDK installation/version/manifest/managed rules and inspect the actual availability of stage-relevant recommendations in `SKILLS_REGISTRY.md`. Use relevant available skills/capabilities unless the user explicitly disabled them. Do not claim registry entries are installed without evidence. Before each lifecycle transition, verify the required upstream handoff/artifacts; after each stage, create its canonical deliverables and immutable historical handoff snapshot.
 
 
 On explicit `PHDK plan`, follow `PHDK_PLAN.md`: consume the Capture requirements baseline, inspect existing architecture when present, design or converge toward a standards-aligned target architecture, produce the canonical Plan artifacts, and turn the architecture into dependency-ordered executable tasks. Do not rewrite a brownfield repo merely to match defaults.
@@ -65,6 +65,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Auth, secrets, security, privacy, cost controls | `DEVSECOPS.md` |
 | Versions, commits, changelog, approved merge | `VERSIONING.md` |
 | Completing an implementation in remote main, conflicts, or delivery state | `MAIN_DELIVERY_STANDARD.md` |
+| Lifecycle stage contracts, deliverables, historical handoffs | `PHDK_LIFECYCLE.md` |
 | Multi-workstream portfolio/program coordination, bounded worker delegation, integration review | `PHDK_PMO.md` |
 | Continuous whole-goal development, no stage approvals, final integrated verification | `PHDK_AUTO.md` |
 | Unlocking PHDK stops or removing/reconciling local instruction exceptions | `PHDK_UNLOCK.md` |
