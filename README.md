@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.43.0**
+**Version v2.44.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -76,6 +76,29 @@ Each stage has one job.
 | **UAT** | Validate the integrated product against intent-aligned user stories and acceptance criteria. |
 | **UAT Fix** | Repair FAILs and removable blockers; guide the owner through manual/external blockers. |
 | **Check** | Compare the repository against the applicable PHDK standards and produce a remediation backlog. |
+
+---
+
+# Before every command: PHDK Preflight
+
+Every lifecycle command starts by checking its own operating environment.
+
+PHDK verifies:
+
+- that PHDK is actually installed for the current repo/tool;
+- installed vs canonical PHDK version;
+- manifest completeness and managed instruction block;
+- which recommended skills/capabilities are relevant to the stage;
+- which of those capabilities are actually installed or connected;
+- whether the user explicitly asked PHDK not to use skills/plugins/connectors.
+
+When PHDK is stale and its owned standards surface is clean, Preflight may synchronize the standards before continuing. It never silently force-overwrites dirty PHDK files.
+
+When a relevant recommended skill is already available, PHDK should **actually use it**. A URL in the registry is not treated as an installed skill.
+
+Missing optional skills do not block the lifecycle. Important missing capabilities are surfaced when they materially affect quality; installation/connection still follows the host tool's required consent flow.
+
+Full contract: [PHDK_PREFLIGHT.md](PHDK_PREFLIGHT.md). Recommended capability registry: [SKILLS_REGISTRY.md](SKILLS_REGISTRY.md).
 
 ---
 
@@ -573,6 +596,8 @@ PHDK is built around a few simple ideas:
 | Need | Read |
 |---|---|
 | Execution boundaries | [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) |
+| Universal command preflight | [PHDK_PREFLIGHT.md](PHDK_PREFLIGHT.md) |
+| Recommended skills/capabilities | [SKILLS_REGISTRY.md](SKILLS_REGISTRY.md) |
 | Professional requirements capture | [PHDK_CAPTURE.md](PHDK_CAPTURE.md) |
 | Solution architecture & implementation planning | [PHDK_PLAN.md](PHDK_PLAN.md) |
 | Multi-workstream orchestration | [PHDK_PMO.md](PHDK_PMO.md) |
