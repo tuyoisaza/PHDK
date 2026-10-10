@@ -31,7 +31,7 @@ If the runtime does not support subagents/workers, PMO may coordinate the same w
 
 ## PHDK Auto
 
-The explicit command `PHDK auto` activates `PHDK_AUTO.md` for the identified current goal; exit with `PHDK salir de auto`, a clear stop, completion, or the conversation ending. Complete all agreed development without PHDK-only approval pauses between plans, features, stages, or releases. Use existing requirements and reversible routine decisions; no repeated interview or OK is needed when the goal is already clear.
+The explicit command `PHDK auto` activates the complete lifecycle in `PHDK_AUTO.md` for the identified current goal; exit with `PHDK salir de auto`, a clear stop, completion, or the conversation ending. Auto may reuse/run Capture, Plan, PMO/workstream execution, Integration Review, UAT/UAT Fix, Check/remediation, and delivery without PHDK-only approval pauses between applicable lifecycle stages. Use existing requirements and reversible routine decisions; no repeated interview or OK is needed when the goal is already clear.
 
 Auto defers optional test execution and comprehensive QA to the completed integrated candidate, then runs all applicable local checks, repairs in-scope failures, and completes normal versioned branch/PR delivery. A necessary diagnostic check or actual mandatory hook still runs when required; final verification precedes publication. Auto does not borrow Developer Mode's direct-main permission or its automatic failure stop, and it does not remove actual controls. Its explicit cadence takes precedence over generic stage/interview/handoff rules. No background execution, old-task resumption from files, persistent mode flag, browser tests, or provider writes is added.
 
