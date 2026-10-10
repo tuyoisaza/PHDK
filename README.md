@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.39.1**
+**Version: v2.40.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,12 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.40.0
+
+`PHDK upgrade force` adds an authoritative standards refresh for cases where the installed PHDK files themselves have local edits. It replaces only the PHDK-owned surface from canonical `main`: manifest-owned files under `phdk-standards/` plus exact `PHDK-MANAGED` instruction blocks.
+
+Force does not touch product code, project requirements/docs, TASK/STATUS, intents, ADRs, hooks, provider/repository settings, unknown extra files, or owner instructions outside managed markers. Obsolete files may be removed only when the previously installed manifest proves they were PHDK-owned.
 
 ## What changed in v2.39.1
 
@@ -199,11 +205,16 @@ git clone https://github.com/tuyoisaza/PHDK.git .claude/skills/phdk
 
 Use the corresponding folder for the tool in use. Do not install multiple tools or delegation plugins speculatively. Tool discovery may load the instructions, but execution still requires the current human request.
 
-## Universal upgrade command
+## Universal upgrade commands
 
 ```txt
 PHDK upgrade
+PHDK upgrade force
 ```
+
+Use `PHDK upgrade` for conservative synchronization: dirty PHDK-owned paths are reported rather than overwritten.
+
+Use `PHDK upgrade force` when local edits inside PHDK itself should be discarded in favor of canonical upstream. Force overwrites only manifest-owned `phdk-standards/` files and marked `PHDK-MANAGED` blocks; all non-PHDK repository content remains untouched.
 
 The command fetches canonical `main`, reads `VERSION`, synchronizes the `PHDK_MANIFEST.txt` mappings into `phdk-standards/`, refreshes the current tool's marked `PHDK_NATIVE_RULES.md` block, verifies the copy, reports, and stops.
 
