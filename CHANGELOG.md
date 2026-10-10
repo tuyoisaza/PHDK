@@ -1,3 +1,20 @@
+## v2.37.0 — 2026-10-09
+
+### Added
+
+- Added `PHDK check` and `PHDK_CHECK.md` for repository-wide compliance auditing against active applicable PHDK standards.
+- The audit phase is read-only and produces `PHDK_CHECK_REPORT.md` with stable gap IDs, applicability, severity, standards references, repository evidence, remediation type, proposed fix, validation, dependencies, and execution order.
+- Added compliance statuses COMPLIANT, GAP, PARTIAL, NOT APPLICABLE, UNKNOWN / DECISION NEEDED, and UNVERIFIED.
+- Added remediation classes AUTO-FIXABLE, FIXABLE WITH VALIDATION, DECISION REQUIRED, and EXTERNAL / MANUAL.
+- After presenting the report, PHDK asks exactly once whether the user wants the listed fixable gaps executed. A clear yes authorizes only those enumerated fixable gaps in the current report revision.
+- Approved remediation runs autonomously under normal PHDK controls, then reruns `PHDK check` and reports the residual gap.
+
+### Boundaries
+
+- Conditional PHDK requirements are evaluated for applicability from project intent; absence of a non-applicable feature is not a gap.
+- The audit does not silently upgrade stale PHDK, change product code, modify provider settings, or answer product decisions.
+- DECISION REQUIRED and EXTERNAL / MANUAL findings remain outside a generic remediation yes.
+
 ## v2.36.1 — 2026-10-09
 
 ### Fixed
