@@ -47,6 +47,10 @@ For explicit `PHDK check`, follow `PHDK_CHECK.md`. First perform a read-only app
 
 If the user answers yes to that report in the same conversation, treat the listed fixable gap IDs as the authorized remediation scope. Implement them autonomously under normal PHDK controls, run applicable checks/UAT, deliver when requested by the remediation flow, rerun `PHDK check`, and report residual gaps. Do not auto-fix DECISION REQUIRED or EXTERNAL / MANUAL items.
 
+## PHDK uat fix
+
+For explicit `PHDK uat fix`, read the current `UAT_REPORT.md` and `UAT_CASES.md`, convert every FAIL into an actionable defect, repair all clearly in-scope fixable failures autonomously, rerun affected UAT/regression checks, and update the report with repair/retest evidence. Do not fix items that require a new material decision or excluded external/manual operation.
+
 ## PHDK uat
 
 For explicit `PHDK uat`, follow `UAT_STANDARD.md`. Identify the project's current intent first, derive user stories that explicitly align to that intent, then derive traceable acceptance cases for the current candidate and create/update `UAT_CASES.md`, execute all permitted acceptance evidence autonomously, and create/update `UAT_REPORT.md`. Do not ask for approval between cases. Never pass an unexecuted behavioral case by inspection; use BLOCKED or MANUAL when the required evidence is unavailable or excluded.

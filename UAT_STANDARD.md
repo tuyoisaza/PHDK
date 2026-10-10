@@ -103,12 +103,43 @@ A defect requiring a new material product decision, unavailable access, undisclo
 - every case ID, result, and evidence;
 - commands/tests/harnesses actually executed;
 - defects and retest status;
+- for every FAIL: observed failure, expected behavior, probable root cause, affected requirement/story/case, affected component/files when identifiable, proposed repair, repair risk/scope, and exact retest needed;
 - coverage gaps and excluded channels;
 - final conclusion: ACCEPTED, NOT ACCEPTED, or ACCEPTANCE INCOMPLETE.
 
 Use **ACCEPTED** only when the Intent Alignment Gate passes, all applicable stories are covered, all applicable cases PASS, and no required acceptance evidence is BLOCKED or MANUAL. Use **NOT ACCEPTED** when any applicable case FAILs. Use **ACCEPTANCE INCOMPLETE** when there are no FAIL cases but required cases remain BLOCKED or MANUAL.
 
 Never claim production, browser, or human acceptance evidence that did not occur.
+
+## Repair command — PHDK uat fix
+
+`PHDK uat fix` takes the current `UAT_REPORT.md` and `UAT_CASES.md` as its repair backlog.
+
+For every FAIL, first normalize it into an actionable defect with:
+
+- defect ID;
+- UAT case/story/requirement links;
+- observed vs expected behavior;
+- evidence;
+- likely root cause and confidence;
+- affected source/component;
+- proposed repair;
+- scope/risk classification;
+- retest command/case.
+
+Then execute all repairs that are clearly within the current product intent and do not require a new material product/security/infrastructure decision. Do not ask for approval per failure. Repair autonomously, run the affected tests/UAT cases, update the report, and continue until all fixable FAILs are resolved or only concrete blockers/decisions remain.
+
+If a FAIL requires a new material product decision, unavailable access, external/manual action, browser-only evidence, provider write, or out-of-scope behavior, do not guess. Leave it unresolved with the exact blocker and required decision.
+
+A standalone `PHDK uat` still validates/reports only. `PHDK uat fix` is the explicit command that authorizes product-code repair from the current UAT failure backlog. Under active `PHDK auto`, this repair authority is already included for in-scope UAT failures and no separate `uat fix` command is required.
+
+After repair, rerun affected UAT cases and necessary regression checks, then regenerate `UAT_REPORT.md` with:
+- RESOLVED / STILL FAILING / BLOCKED status per defect;
+- repair commit/revision when available;
+- retest evidence;
+- updated final acceptance conclusion.
+
+If the user also requested normal repository delivery, follow `MAIN_DELIVERY_STANDARD.md`.
 
 ## Relationship to Auto and delivery
 
@@ -118,4 +149,4 @@ A standalone UAT run normally leaves product behavior unchanged unless the user 
 
 ## Completion report
 
-Do not stop after generating cases. Execute every feasible case and produce the report in the same request. Report the conclusion, totals, candidate revision/version, artifact paths, failures/blocked/manual gaps, and strongest evidence used.
+Do not stop after generating cases. Execute every feasible case and produce the report in the same request. Report the conclusion, totals, candidate revision/version, artifact paths, failures/blocked/manual gaps, strongest evidence used, and—when any FAIL exists—the recommended next command `PHDK uat fix` plus a concise repair summary.

@@ -1,3 +1,18 @@
+## v2.41.0 — 2026-10-10
+
+### Added
+
+- Added `PHDK uat fix` as the explicit repair command for a completed UAT failure backlog.
+- UAT reports now require an actionable diagnosis for every FAIL: observed/expected behavior, probable root cause, requirement/story/case links, affected component/files when identifiable, proposed repair, scope/risk, and exact retest.
+- `PHDK uat fix` reads `UAT_REPORT.md` and `UAT_CASES.md`, repairs clearly in-scope fixable failures autonomously, reruns affected UAT/regression checks, and updates each defect to RESOLVED / STILL FAILING / BLOCKED.
+- Active `PHDK auto` already includes this repair authority for in-scope UAT failures, so no separate command is required there.
+
+### Boundaries
+
+- New material product/security/infrastructure decisions remain blockers.
+- Browser-only/manual/external/provider-write requirements are not silently executed.
+- A standalone `PHDK uat` still validates/reports; repair requires `PHDK uat fix` unless Auto is already active.
+
 ## v2.40.0 — 2026-10-10
 
 ### Added
