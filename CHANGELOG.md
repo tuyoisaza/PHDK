@@ -1,3 +1,22 @@
+## v2.39.0 — 2026-10-10
+
+### Added
+
+- Added `PHDK capture` and `PHDK_CAPTURE.md` as the professional project discovery, intent/ethos capture, and requirements-reconstruction command.
+- Supports both existing/advanced repositories and projects starting from zero.
+- Existing-repo Capture investigates docs, intents, code, routes, schemas, tests, configuration, decisions, and relevant history before asking questions; code is treated as evidence, not automatic product truth.
+- Added canonical project requirements artifacts: `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`.
+- Defined professional PRD domains, stable requirement/feature/intent IDs, provenance/confidence, acceptance signals, assumptions, open questions, and intent-to-UAT traceability.
+- Added gap-driven interviewing: investigate first, rank missing information as Blocking/Material/Refinement, and ask only unresolved high-value questions until a coherent baseline exists.
+- Integrated Capture as the strongest project-level requirements source for Auto, UAT, Check, onboarding, handoff, task tracking, and project-level intent.
+
+### Clarified
+
+- `PROJECT_INTENT.md` owns project-level ethos/purpose; `docs/intents/*-intent.md` continues to own later feature/bug/change intent.
+- Existing implementation that conflicts with stated intent is recorded as a contradiction rather than silently promoted into a requirement.
+- Capture produces requirements/documentation only unless the current request separately includes implementation or git delivery.
+- `SPEC_INTERVIEW_PROMPT.md` remains a narrower reference; `PHDK capture` is the preferred full discovery/reconstruction workflow.
+
 ## v2.38.0 — 2026-10-09
 
 ### Added
