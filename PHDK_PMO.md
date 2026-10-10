@@ -4,7 +4,7 @@
 
 `PHDK PMO` starts an interactive portfolio/program orchestration mode for one identified repository/project in the active conversation.
 
-PMO is not a replacement for Capture, Auto, UAT, UAT Fix, or Check. It sits above them and coordinates multiple confirmed workstreams against the same project intent and requirements baseline.
+PMO is the multi-workstream coordination layer. It normally consumes the outputs of Capture and Plan, coordinates execution/integration, and hands the integrated candidate to UAT/UAT Fix/Check. It is independently invocable, and it is also the coordination stage used inside the full `PHDK auto` lifecycle.
 
 Use PMO when the project has multiple independent or partially dependent fronts that benefit from coordinated execution. If only one meaningful workstream exists, explain that PMO adds little coordination value and recommend direct `PHDK auto` for that goal.
 
@@ -35,6 +35,7 @@ Before asking the owner to enumerate workstreams, inspect:
 - `PRD.md`;
 - `FEATURES.md`;
 - `REQUIREMENTS_TRACEABILITY.md`;
+- `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, and `IMPLEMENTATION_PLAN.md` when present;
 - relevant `docs/intents/`;
 - `TASK.md` / `STATUS.md`;
 - open/current branches and PRs when available;
@@ -42,11 +43,11 @@ Before asking the owner to enumerate workstreams, inspect:
 - UAT/Check reports when present;
 - architecture decisions and known blockers.
 
-If the Capture baseline is missing or materially incoherent, recommend `PHDK capture` before activating a broad PMO portfolio. PMO may still coordinate a narrowly explicit owner-provided set of fronts.
+If the Capture baseline is missing or materially incoherent, recommend `PHDK capture` before activating a broad PMO portfolio. If the architecture/implementation plan is missing for a substantial multi-workstream build, recommend `PHDK plan`. PMO may still coordinate a narrowly explicit owner-provided set of fronts.
 
 ### 2. Detect workstreams
 
-Infer candidate workstreams from requirements, current plans, active changes, unresolved defects/gaps, and clearly related code areas.
+Infer candidate workstreams primarily from `IMPLEMENTATION_PLAN.md`, requirements/features, architecture ownership boundaries, current plans, active changes, unresolved defects/gaps, and clearly related code areas.
 
 A workstream is a bounded outcome, not merely a folder or ticket.
 
@@ -185,7 +186,7 @@ Each delegated worker receives exactly one workstream contract:
 - required tests/evidence;
 - completion payload back to PMO.
 
-A worker uses `PHDK auto` semantics inside its confirmed workstream: implement the whole assigned outcome, run final workstream-level verification, repair in-scope failures, and return evidence.
+A worker uses **Auto execution semantics** inside its confirmed workstream: implement the whole assigned outcome, run final workstream-level verification, repair in-scope failures, and return evidence. It does not invoke the `PHDK auto` command recursively and does not run Capture/Plan/PMO/UAT/Check lifecycle stages on its own.
 
 A worker does **not**:
 - merge the integrated portfolio to `main` independently unless PMO explicitly assigns that bounded integration step;
@@ -276,11 +277,13 @@ Default lifecycle for a multi-workstream project:
 ```txt
 PHDK capture
     ↓
+PHDK plan
+    ↓
 PHDK PMO
     ↓
 owner confirms workstreams
     ↓
-workers / PHDK auto per workstream
+workers using Auto execution semantics
     ↓
 PMO Integration Review
     ↓
@@ -295,11 +298,7 @@ approved check remediation (when needed)
 Done
 ```
 
-For a single workstream, PMO may recommend:
-
-```txt
-PHDK capture → PHDK auto → PHDK uat → PHDK uat fix → PHDK check
-```
+For a single workstream, PMO may recommend leaving standalone PMO and using the full `PHDK auto` lifecycle instead. Explicit Auto will reuse current Capture/Plan outputs and tailor PMO down to one sequential workstream.
 
 Capture may already be complete; do not force rerunning it when the requirements baseline is coherent.
 
