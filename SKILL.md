@@ -3,7 +3,7 @@ name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, validate locally, deliver through GitHub, synchronize standards,
-  complete a whole development goal with PHDK auto, run autonomous acceptance validation with PHDK uat, repair PHDK blockers with
+  complete a whole development goal with PHDK auto, run autonomous acceptance validation with PHDK uat, audit and close standards gaps with PHDK check, repair PHDK blockers with
   PHDK unlock, retrieve bounded read-only provider
   status/configuration metadata or logs, or activate/exit PHDK Developer Mode.
   One interactive assistant; no unattended work or delegated agents,
@@ -30,6 +30,12 @@ Read `MAIN_DELIVERY_STANDARD.md` for a current request to implement, fix, or upd
 Review the complete diff and apply the approval rules in `MAIN_DELIVERY_STANDARD.md`. Sensitive behavior/policy decisions need owner approval; a well-defined current request or "push to main", "merge", or "aprobado" for the identified change may already supply it in the conversation. Do not invent a GitHub review event or proof-of-opening-the-diff requirement. Preserve formal/named/independent reviews actually required by current owner instructions, hooks, or server rules, and never invent human inspection. Resolve clear in-scope conflicts, reconcile versions, and recheck. Respect hooks/protections; explain an actual unmet control or decision without changing transports to evade it.
 
 Confirm the resulting remote version and change before calling the delivery complete. A GitHub PR merge already updates `main`; do not invent a second version-only commit or push. Compare stale task records with the live user request and git/PR state. An existing provider GitHub autodeploy may follow the authorized merge; do not disable it or add dummy watch filters as PHDK enforcement. Report deployment evidence or a skipped/disabled deployment separately, without provider writes.
+
+## PHDK check
+
+For explicit `PHDK check`, follow `PHDK_CHECK.md`. First perform a read-only applicability/compliance audit across the repository's active PHDK standards and implementation, create or refresh `PHDK_CHECK_REPORT.md`, present the prioritized gaps, and ask once whether the user wants the AUTO-FIXABLE and FIXABLE WITH VALIDATION items executed. Do not begin remediation before that answer.
+
+If the user answers yes to that report in the same conversation, treat the listed fixable gap IDs as the authorized remediation scope. Implement them autonomously under normal PHDK controls, run applicable checks/UAT, deliver when requested by the remediation flow, rerun `PHDK check`, and report residual gaps. Do not auto-fix DECISION REQUIRED or EXTERNAL / MANUAL items.
 
 ## PHDK uat
 
