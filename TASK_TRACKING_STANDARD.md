@@ -180,7 +180,7 @@ For brownfield repositories, TASK must reflect the incremental convergence path 
 
 ## Lifecycle run records
 
-Full PHDK lifecycle executions maintain root `PHDK_LIFECYCLE.md` plus immutable run history under `docs/phdk/lifecycle/<run-id>/` according to `PHDK_LIFECYCLE.md`.
+Full PHDK lifecycle executions maintain root `PHDK_LIFECYCLE_STATUS.md` plus immutable run history under `docs/phdk/lifecycle/<run-id>/` according to `PHDK_LIFECYCLE.md`.
 
 TASK may reference the current run ID/stage, but it must not duplicate or replace lifecycle handoff artifacts.
 
