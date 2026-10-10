@@ -2,7 +2,7 @@
 
 ## Purpose and execution boundary
 
-Development principles, code organization, and git safety for PHDK. `EXECUTION_SCOPE.md` governs every action. Work stays in the active conversation with the current assistant; `PHDK_AUTO.md` permits continuous development of the identified goal. No unattended execution, subagents, delegated work, agent queues, or background execution.
+Development principles, code organization, and git safety for PHDK. `EXECUTION_SCOPE.md` governs every action. Work stays in the active conversation; `PHDK_AUTO.md` permits continuous development of one identified goal. Explicit `PHDK PMO` may coordinate bounded in-session workers for owner-confirmed workstreams under `PHDK_PMO.md`. No unattended/background execution or delegation outside PMO.
 
 Product requirements below describe repository code, not permission to provision services, run live checks, create automation, or start work from a stored task.
 
@@ -14,7 +14,7 @@ Prioritize correctness, security, maintainability, observability, user experienc
 
 Use `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`, or `phdk/vX.Y.Z/short-slice-name` when relevant to an authorized git operation.
 
-- Use a feature/fix branch for the current requested change, except for an eligible direct-to-`main` task under explicitly active `PHDK_DEVELOPER_MODE.md`. Do not launch concurrent agents or subagents on separate branches.
+- Use a feature/fix branch for the current requested change, except for an eligible direct-to-`main` task under explicitly active `PHDK_DEVELOPER_MODE.md`. Concurrent worker branches/worktrees are allowed only under explicit PMO with ownership/dependency coordination; otherwise do not launch agents/subagents on separate branches.
 - Respect existing GitHub protection and review controls without administering or bypassing them.
 - A current request to implement, fix, or update repository code or documentation includes normal delivery: a scoped branch, the repository's version bump, relevant local checks, a version-prefixed commit, branch push, PR, required review, merge into remote `main`, and verification of the resulting version and change there. Follow `MAIN_DELIVERY_STANDARD.md` without asking the user to repeat those steps.
 - Respect an explicit local-only, branch-only, or PR-only instruction and a different target specified by the user or repository. A read/audit request remains read-only; a bare `PHDK upgrade` retains its limited scope under `EXECUTION_SCOPE.md`. Release tags require a request for them.
@@ -152,6 +152,6 @@ The contract does not authorize scheduling imports or running them against live 
 - Applicable file-size and code-quality rules are satisfied.
 - For the normal `main` target, the scoped change is merged and its result and version are verified on remote `main` under `MAIN_DELIVERY_STANDARD.md`. A local commit, pushed branch, or open PR is an intermediate state. An explicitly narrower target is complete only when that target is satisfied.
 - Owner approval, assistant source/diff review, any actual required formal review, git/merge state, and deployment evidence are reported accurately and separately.
-- No agents, delegation, Actions, schedules, background work, external setup, or live verification was introduced.
+- No delegation outside explicit PMO, Actions, schedules, background work, external setup, or live verification was introduced.
 - Task/status context is accurate; follow-ups are inactive.
 - Report completion only when the whole requested scope and target are satisfied. If no permitted progress remains, report the exact blocker and unfinished scope after completing independent work. Stop after that report, without selecting another mission.
