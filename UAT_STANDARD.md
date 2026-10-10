@@ -157,7 +157,11 @@ For every FAIL, first normalize it into an actionable defect with:
 - scope/risk classification;
 - retest command/case.
 
-Then execute all repairs that are clearly within the current product intent and do not require a new material product/security/infrastructure decision. Do not ask for approval per failure. Repair autonomously, run the affected tests/UAT cases, update the report, and continue until all fixable FAILs are resolved or only concrete blockers/decisions remain.
+Then execute all repairs that are clearly within the current product intent and do not require a new material product/security/infrastructure decision.
+
+Treat a BLOCKED case as potentially repairable when the blocker is itself repository-local and permitted to fix. Examples include a missing isolated fixture, test adapter, in-process API harness, deterministic auth stub, fake persistence adapter, or other local verification plumbing. In those cases, `PHDK uat fix` should create/repair the smallest appropriate harness, rerun the blocked case, and update the evidence instead of merely repeating that no FAIL exists.
+
+A BLOCKED case is non-removable only when the missing prerequisite is genuinely external or excluded, such as a browser-only interaction, provider/account access, real secret, live environment, manual approval, or external system state. Do not ask for approval per failure. Repair autonomously, run the affected tests/UAT cases, update the report, and continue until all fixable FAILs are resolved or only concrete blockers/decisions remain.
 
 If a FAIL requires a new material product decision, unavailable access, external/manual action, browser-only evidence, provider write, or out-of-scope behavior, do not guess. Leave it unresolved with the exact blocker and required decision.
 
