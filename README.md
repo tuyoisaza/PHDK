@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.39.0**
+**Version: v2.39.1**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,12 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.39.1
+
+`PHDK capture` now has an explicit user-facing completion contract. After investigating the repo, it tells the user whether material questions remain. If none are needed, it says so directly. If questions are needed, it asks them until the Blocking/Material gaps are resolved.
+
+When Capture finishes, it explicitly tells the user that everything discovered and formulated has been saved in the canonical requirements files and lists/links `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md` for review, including any remaining INFERRED or OPEN items.
 
 ## What changed in v2.39.0
 
@@ -90,7 +96,7 @@ PHDK capture
 
 For an existing repo, the assistant reads the product docs, code, routes, domain models, tests, configuration, intents, architecture decisions, and relevant history before asking anything. It separates stated intent from implemented behavior, inferred requirements, legacy behavior, and open questions.
 
-For a new project, it starts discovery from zero. In either case it builds `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`, then asks focused questions only for blocking/material gaps until the requirements are professionally complete enough to govern implementation. Full procedure: [PHDK_CAPTURE.md](PHDK_CAPTURE.md).
+For a new project, it starts discovery from zero. In either case it builds `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`, then asks focused questions only for blocking/material gaps until the requirements are professionally complete enough to govern implementation. It explicitly says when no questions remain and finishes by listing/linking those files so you can review everything captured. Full procedure: [PHDK_CAPTURE.md](PHDK_CAPTURE.md).
 
 ## PHDK check
 
