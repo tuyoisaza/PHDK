@@ -17,7 +17,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - No cron jobs, dependency bots, recurring backups, maintenance workflows, task-sync services, monitoring loops, or preview deployments.
 - No browser operation, headless tests, screenshots, live probes, database operations, metered verification calls, or external administration.
 - `PHDK plan` turns Capture into solution/repository/UX architecture and a dependency-ordered implementation plan; brownfield projects converge from current state rather than being reset.
-- Every PHDK command runs `PHDK_PREFLIGHT.md`: verify installed/current PHDK, manifest/managed rules, and stage-relevant skills/capabilities from `SKILLS_REGISTRY.md`. Use relevant AVAILABLE skills unless the user explicitly disabled them. A registry entry is not proof of installation. Agent orchestration remains allowed only through explicit PMO's bounded worker contract.
+- Every PHDK command runs `PHDK_PREFLIGHT.md` and lifecycle stages follow `PHDK_LIFECYCLE.md`: verify installed/current PHDK, manifest/managed rules, and stage-relevant skills/capabilities from `SKILLS_REGISTRY.md`. Use relevant AVAILABLE skills unless the user explicitly disabled them. A registry entry is not proof of installation. Agent orchestration remains allowed only through explicit PMO's bounded worker contract. Each stage verifies its required upstream handoff before starting and snapshots its outputs under `docs/phdk/lifecycle/<run-id>/` before transitioning.
 - Full rules: `EXECUTION_SCOPE.md`, `AI_DEVELOPER_OPERATING_MODEL.md`.
 
 ## Database
