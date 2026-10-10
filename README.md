@@ -1,14 +1,14 @@
 # PHDK Standards Repository
 
-**Version: v2.41.1**
+**Version: v2.42.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
 ## Execution model — interactive-only
 
-One assistant works on the user's explicit request in the current conversation. Explicit `PHDK auto` enables continuous development through the entire agreed goal and final integrated verification. There is no legacy Mission Autopilot, delegated-agent allowance, or automatic next mission.
+One assistant normally works on the user's explicit request in the current conversation. Explicit `PHDK auto` enables continuous development through one agreed goal. Explicit `PHDK PMO` is the sole bounded exception that may coordinate runtime-supported in-session worker agents across owner-confirmed workstreams. There is no legacy Mission Autopilot, background delegation, or automatic next mission.
 
-- No subagents, agent teams, autonomous reviewers, or delegated code tasks, even within the active session.
+- No subagents, agent teams, autonomous reviewers, or delegated code tasks outside explicit `PHDK PMO`. In PMO, only the orchestrator may delegate confirmed workstreams to in-session workers; workers cannot delegate.
 - No unattended, overnight, background, scheduled, or recurring work; no cron jobs, dependency bots, backup jobs, maintenance loops, or task-sync workflows.
 - No creation, enabling, dispatch, rerun, or scheduling of GitHub Actions or hosted CI. PHDK contains no Actions workflows and does not require them.
 - No browser/headless testing, screenshots, live endpoint/database probes, paid verification calls, or external administration.
@@ -19,6 +19,14 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.42.0
+
+`PHDK PMO` adds portfolio/program orchestration for projects with multiple fronts. PMO reads the Capture baseline, requirements, current plans, code, branches/PRs and UAT/Check evidence; detects candidate workstreams; asks the owner to confirm the active portfolio; then coordinates those workstreams with explicit ownership, dependencies, risk and integration state.
+
+PMO is the only PHDK context allowed to delegate to runtime-supported in-session worker/subagents. Each worker receives one confirmed workstream and uses Auto semantics inside it. Workers cannot recursively delegate, select new fronts, or independently finalize shared/global integration. The PMO orchestrator owns shared-file collisions, dependency order, version/changelog reconciliation and the integrated candidate.
+
+The recommended multi-workstream lifecycle is **Capture → PMO → Auto/workers → PMO Integration Review → UAT → UAT Fix → Check → approved remediation → Done**. For a single workstream, PMO may recommend the simpler **Capture → Auto → UAT → UAT Fix → Check** path.
 
 ## What changed in v2.41.1
 
@@ -111,6 +119,50 @@ PHDK auto
 If the goal is already clear in the conversation, the assistant starts immediately. It implements every agreed stage, communicates progress without asking for an OK, then verifies the complete integrated candidate, fixes in-scope failures, and finishes the authorized versioned branch/PR delivery to `main`. The assistant performs the applicable local checks; final human acceptance is not a PHDK prerequisite unless actually requested as one.
 
 Exit with `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Auto replaces Developer Mode for that goal and uses normal branch/PR delivery; it does not inherit direct-main permissions. A real unavailable control/decision/access can block an operation, while independent authorized work continues. No files or examples activate the mode. Full contract: [PHDK_AUTO.md](PHDK_AUTO.md).
+
+## PHDK delivery lifecycle
+
+For a multi-workstream project:
+
+```txt
+PHDK capture
+    ↓
+PHDK PMO
+    ↓
+confirm workstreams
+    ↓
+PHDK auto per workstream / PMO workers
+    ↓
+PMO Integration Review
+    ↓
+human integrated review when requested/required
+    ↓
+PHDK uat
+    ↓
+PHDK uat fix (when needed)
+    ↓
+PHDK check
+    ↓
+approved check remediation (when needed)
+    ↓
+Done
+```
+
+The stages have different responsibilities: Capture defines intent/requirements; PMO coordinates fronts; Auto builds one goal/workstream; PMO Integration Review creates one coherent candidate; UAT validates intent-aligned behavior; UAT Fix closes failures/removable blockers; Check audits PHDK conformance.
+
+For a single independent front, skip PMO unless its coordination overhead adds value.
+
+## PHDK PMO
+
+Coordinate multiple active project fronts:
+
+```txt
+PHDK PMO
+```
+
+PMO detects candidate workstreams from Capture/requirements, TASK/STATUS, code, git state and existing UAT/Check evidence. It asks you once to confirm/add/remove/prioritize the active fronts. If none are clearly active, it asks which fronts you want and may propose clearly labeled candidates.
+
+After confirmation it maintains `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md`. When the runtime supports subagents, PMO may delegate bounded workstreams; otherwise it says that parallel workers are unavailable and coordinates sequentially. Full procedure: [PHDK_PMO.md](PHDK_PMO.md).
 
 ## PHDK capture
 
@@ -258,7 +310,8 @@ An upstream standards update does not update every existing project automaticall
 
 | Area | Source files |
 |---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_CHECK.md`, `PHDK_CAPTURE.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_CHECK.md`, `PHDK_CAPTURE.md`, `PHDK_PMO.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| PMO / multi-workstream orchestration | `PHDK_PMO.md`, `TASK_TRACKING_STANDARD.md` |
 | Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
 | Intent and onboarding | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |

@@ -6,7 +6,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 ## Interactive-only execution
 
-- One assistant responds to the current explicit user request; no Mission Autopilot, subagents, delegation, agent teams, or agent queues.
+- One assistant normally responds to the current explicit user request. No Mission Autopilot/background queues. Explicit `PHDK PMO` is the sole bounded exception for supported in-session worker delegation across owner-confirmed workstreams; workers cannot delegate.
 - An installed skill, opened repository, old task, alert, failed check, or version mismatch never starts or resumes work.
 - Complete every necessary step of the whole requested deliverable, report, and stop; an Auto slice, scaffold, or first release is not completion. Do not select a new backlog goal.
 - Re-read owner pause/stop instructions before edits and git writes; a specifically approved intervention does not reactivate earlier work.
@@ -16,7 +16,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - No creation, enabling, dispatch, rerun, or scheduling of GitHub Actions or hosted CI.
 - No cron jobs, dependency bots, recurring backups, maintenance workflows, task-sync services, monitoring loops, or preview deployments.
 - No browser operation, headless tests, screenshots, live probes, database operations, metered verification calls, or external administration.
-- Read available skills as references for the same assistant, never as permission to orchestrate agents.
+- Read available skills as references. Agent orchestration is allowed only through explicit PMO's bounded worker contract, not through a skill's broader/background behavior.
 - Full rules: `EXECUTION_SCOPE.md`, `AI_DEVELOPER_OPERATING_MODEL.md`.
 
 ## Database
@@ -99,7 +99,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 - Record only the current requested deliverable as active in this conversation.
 - Archive coherent completed work when useful; keep remaining ideas paused or proposed.
 - Task/status files never store Auto or Developer Mode as active or carry delivery authorization into another conversation; assistant-written snapshots do not pause remaining steps of the current request.
-- No multiple-agent claim markers or delegated task queues.
+- No persistent multiple-agent claim markers or delegated task queues; PMO records active-session workstream assignments only.
 - Full rules: `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`.
 
 ## Code, data, and design

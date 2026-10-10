@@ -4,7 +4,7 @@
 
 PHDK supports careful, human-directed software development: understand the requested outcome and delivery target, implement it, verify the source and relevant local behavior, deliver through the required review flow, report evidence, and preserve context.
 
-`EXECUTION_SCOPE.md` is the authority for every step. `PHDK_AUTO.md` permits continuous development of the identified current goal in the active conversation. It grants no unattended execution or delegated agents/subagents.
+`EXECUTION_SCOPE.md` is the authority for every step. `PHDK_AUTO.md` permits continuous development of one identified current goal in the active conversation. Auto itself grants no delegation. Explicit `PHDK PMO` is the sole bounded exception for coordinating owner-confirmed workstreams through supported in-session workers under `PHDK_PMO.md`; no unattended execution is permitted.
 
 ## Principles
 
@@ -16,12 +16,12 @@ Authorization for the same current request survives later turns, status/link req
 
 ## Interactive-only execution
 
-One assistant works in direct response to the user's current request. It may plan and complete the necessary steps of that request without asking for permission at every routine command. It must not convert that freedom into an unbounded improvement loop.
+One assistant normally works in direct response to the user's current request. Under explicit PMO, one orchestrator may coordinate bounded workers for confirmed workstreams. It may plan and complete the necessary steps of that request without asking for permission at every routine command. It must not convert that freedom into an unbounded improvement loop.
 
 - Identify the requested deliverable, scope, constraints, and completion criteria.
 - Read owner stop/pause controls before changing files and before git writes. A specifically authorized repair of a pause control is not permission to restart the old mission.
 - Use only the code/documentation work, local checks, GitHub operations, and separately requested bounded provider reads authorized for this task.
-- Do not launch, coordinate, or hand work to subagents, other coding agents, agent teams, or parallel queues. Read relevant skills yourself as references instead.
+- Outside explicit PMO, do not launch, coordinate, or hand work to subagents, other coding agents, agent teams, or parallel queues. Inside PMO, follow the workstream/ownership/dependency rules in `PHDK_PMO.md`; workers cannot delegate.
 - Do not select the next backlog item after delivering the requested outcome.
 - Stop when the whole requested outcome is complete, the user stops the work, the conversation ends, or a concrete decision/control/access blocker leaves no permitted progress. Complete independent authorized work before reporting a blocker.
 - Save unfinished work as inactive context when the conversation ends or the owner stops it, not at an internal stage of an active goal. No scheduled resume, follow-up job, background reviewer, overnight maintenance, or future trigger.
@@ -62,7 +62,7 @@ Use slices when helpful to organize the current request. Do not require a commit
 1. Read the current user request and owner controls.
 2. Record its scope, delivery target, and objective completion criteria as context.
 3. Plan only the necessary steps of that request.
-4. Implement with the current assistant; do not delegate.
+4. Implement with the current assistant; delegate only when explicit PMO is active and the workstream contract permits it.
 5. Review the diff and run applicable synchronous local checks; in Auto, do comprehensive verification after all in-scope parts are implemented and integrated, while preserving actual mandatory controls.
 6. In the normal review flow, repair relevant defects and routine integration conflicts within scope using bounded attempts; preserve others' work, reconcile the version with current main, and review/check the changed result. A Developer Mode direct-flow failure stops that flow instead.
 7. Complete the normal branch/commit/push/PR delivery and required review under MAIN_DELIVERY_STANDARD.md, or an eligible Developer Mode fast-forward push when all existing controls allow it.

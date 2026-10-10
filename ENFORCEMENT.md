@@ -146,7 +146,7 @@ For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptio
 
 ### Session context
 
-Use the tool-native instruction file and the minimum context in `AGENTS.md`. Do not install session-start agents, external hooks, schedulers, or background tasks to load the standards. Persistent text supplies rules and historical context only; it never restores Developer Mode or Auto or authorizes a later task. Do not store active-mode state or an enabling flag, or launch delegated agents.
+Use the tool-native instruction file and the minimum context in `AGENTS.md`. Do not install session-start agents, external hooks, schedulers, or background tasks to load the standards. Persistent text supplies rules and historical context only; it never restores Developer Mode, Auto, or PMO or authorizes a later task. Do not store active-mode state or an enabling flag. Delegated workers may be launched only by an explicitly active PMO orchestrator under `PHDK_PMO.md` and only for the current conversation.
 
 Within the same conversation, later turns, status/link requests, and context compaction do not end the current delivery grant. Task documents record it; assistant-written updates cannot revoke it. Reconcile stale records with the live user request and observed GitHub state, while honoring explicit user stops/pauses. A new conversation does not automatically resume old work.
 

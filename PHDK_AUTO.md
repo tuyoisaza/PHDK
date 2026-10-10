@@ -48,12 +48,26 @@ Finish the scoped branch push, PR, actual required controls, merge, and remote c
 
 A permitted update to `main` may trigger the existing GitHub-connected autodeploy. Do not disable it, create Actions/workflows, deploy through Railway/provider CLI/API/dashboard, or change provider/repository settings. Report code integration and any observed deployment state separately; neither a local test nor a merge proves production health.
 
+## Relationship to PMO
+
+Auto remains a single-goal executor. It does not become a portfolio coordinator merely because several goals exist.
+
+When Auto runs as a PMO worker:
+- its scope is exactly one owner-confirmed workstream contract;
+- PMO supplies the intent/requirement links, ownership boundaries, dependencies, and branch/worktree;
+- Auto completes that workstream without per-stage approval;
+- Auto returns changed files/commits/checks/assumptions/blockers to PMO;
+- PMO, not the worker, owns shared/global version/changelog/schema/navigation integration and the combined candidate;
+- the worker does not select another workstream or delegate further.
+
+A standalone Auto goal keeps the ordinary non-delegated behavior in this file.
+
 ## Relationship to other PHDK commands
 
 - Auto uses the normal branch/PR delivery route. An explicit `PHDK auto` for the identified goal replaces Developer Mode for that goal, including a currently identified task whose direct push stopped. Diagnose and satisfy the failed control before the permitted normal delivery; this is a new owner instruction, not a retry/bypass of the stopped direct push. A later explicit Developer Mode activation replaces Auto for its eligible requested task; neither mode silently inherits the other's permissions.
 - Unlock repairs documentary blockers; Auto also carries the whole authorized development goal through final verification and delivery. A scoped rule repair does not start unrelated product work or cancel the rest of the current Auto goal.
 - A bare `PHDK upgrade` keeps its synchronization-only contract. Include synchronization in Auto delivery only when the owner includes it in the identified goal. Installing/updating command definitions activates no mode.
-- Auto changes PHDK's development cadence and eliminates PHDK-only approval pauses for the current goal. Its specific cadence takes precedence over generic per-slice verification, interview, stop-and-ask, or handoff templates. It grants no unattended/background/post-conversation execution, delegated agents, recurring work, expanded credentials, or removal of actual security/access/repository controls.
+- Auto changes PHDK's development cadence and eliminates PHDK-only approval pauses for the current goal. Its specific cadence takes precedence over generic per-slice verification, interview, stop-and-ask, or handoff templates. Standalone Auto grants no delegated agents; when invoked as a PMO worker, delegation authority belongs only to the PMO orchestrator and the worker itself may not delegate. Auto never grants unattended/background/post-conversation execution, recurring work, expanded credentials, or removal of actual security/access/repository controls.
 
 ## Completion report
 

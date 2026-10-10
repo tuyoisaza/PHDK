@@ -8,7 +8,7 @@ Break the user's current deliverable into coherent, reviewable code changes with
 
 A slice connects a concrete product outcome to source changes and relevant local evidence. A passing build or infrastructure scaffold alone does not prove that outcome works in production.
 
-Slices organize the current explicit request. They do not authorize a new request, a commit/push per checkpoint, delegated agents, or execution beyond the current conversation.
+Slices organize the current explicit request. They do not authorize a new request, a commit/push per checkpoint, or execution beyond the current conversation. Delegation remains prohibited except when an explicit PMO worker contract assigns this slice/workstream under `PHDK_PMO.md`.
 
 A request to implement, fix, or update repository code or documentation includes normal delivery to verified remote `main` under `MAIN_DELIVERY_STANDARD.md`, unless the user specifies a narrower scope or the user/repository specifies another target. Organizing that work into slices does not reduce its completion target to local edits, a branch push, or an open PR. Read/audit requests and bare `PHDK upgrade` requests retain their narrower scope in `EXECUTION_SCOPE.md`.
 
@@ -34,7 +34,7 @@ For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptio
 
 ### 3. Implement the necessary steps
 
-Work with the current assistant only. Do not create subagents, delegated coding/review tasks, agent teams, coordination queues, or background workers. Relevant skills may be read as references; they do not supply additional execution permissions.
+Work with the current assistant unless explicit PMO has assigned this slice/workstream to a bounded in-session worker. Outside PMO, do not create subagents, delegated coding/review tasks, agent teams, or coordination queues. PMO workers cannot delegate. Background workers remain prohibited.
 
 Make routine decisions within the approved change. Complete its necessary steps, but do not select another backlog goal or launch follow-up work. In Auto, proceed through all authorized features and stages before moving to the final verification boundary; an explicitly selected multi-feature goal is not limited to its first useful slice.
 
@@ -101,7 +101,7 @@ Inactive follow-ups: ...
 
 ## Foundation work
 
-For an explicitly requested app foundation, read the current standards and `BUILD_APP_FOUNDATION_PROMPT.md`. Implement only the authorized code and document relevant existing prerequisites. If the current Auto goal includes the complete app, a finished foundation is an internal step: continue its remaining authorized features without a new handoff or approval. Do not provision services, install bots, create CI, schedule jobs, delegate implementation, or begin features outside the request.
+For an explicitly requested app foundation, read the current standards and `BUILD_APP_FOUNDATION_PROMPT.md`. Implement only the authorized code and document relevant existing prerequisites. If the current Auto goal includes the complete app, a finished foundation is an internal step: continue its remaining authorized features without a new handoff or approval. Do not provision services, install bots, create CI, schedule jobs, or begin features outside the request. Delegation is allowed only through an explicit PMO workstream contract.
 
 ## Backlog management
 

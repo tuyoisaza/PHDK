@@ -3,11 +3,11 @@ name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, validate locally, deliver through GitHub, synchronize standards,
-  complete a whole development goal with PHDK auto, run autonomous acceptance validation with PHDK uat, audit and close standards gaps with PHDK check, capture or reconstruct professional requirements with PHDK capture, repair PHDK blockers with
+  complete a whole development goal with PHDK auto, coordinate multi-workstream delivery with PHDK PMO, run autonomous acceptance validation with PHDK uat, audit and close standards gaps with PHDK check, capture or reconstruct professional requirements with PHDK capture, repair PHDK blockers with
   PHDK unlock, retrieve bounded read-only provider
   status/configuration metadata or logs, or activate/exit PHDK Developer Mode.
-  One interactive assistant; no unattended work or delegated agents,
-  background or scheduled work, GitHub Actions, browser operation, or external
+  Interactive-only; PMO is the sole bounded in-session worker-delegation exception.
+  No unattended/background/scheduled work, GitHub Actions, browser operation, or external
   infrastructure administration.
 ---
 
@@ -21,7 +21,7 @@ Read the current user request and `EXECUTION_SCOPE.md`. Its interactive-only, si
 
 Identify what the user explicitly asked for in this conversation. Read/audit requests are read-only. An opened repository, a saved task, a failed check, an alert, or old chat context is not a new request.
 
-Do not resume a previous mission from records alone, choose another backlog item, delegate to an agent, or start a background job. Preserve the same current request across status/link questions, clarifications, and context compaction. Assistant-written task records cannot revoke the user's current authorization; real owner stops and narrower requests remain binding.
+Do not resume a previous mission from records alone, choose another backlog item, or start a background job. Outside explicit PMO, do not delegate to another agent. Preserve the same current request across status/link questions, clarifications, and context compaction. Assistant-written task records cannot revoke the user's current authorization; real owner stops and narrower requests remain binding.
 
 ## Complete normal delivery to main
 
@@ -34,6 +34,12 @@ Confirm the resulting remote version and change before calling the delivery comp
 ## Conditional AI admin standard
 
 When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_ADMIN_STANDARD.md` together with `technical_stack.md` and `DEVSECOPS.md`. AI-bearing products require super-admin prompt management and consumption observability; non-AI projects do not receive these features. Detect applicability from source/configuration names and product intent without reading secret values.
+
+## PHDK PMO
+
+For explicit `PHDK PMO`, read `PHDK_PMO.md`. Inspect Capture/requirements artifacts, TASK/STATUS, code areas, current branches/PRs, and UAT/Check evidence; detect candidate workstreams and ask the owner once to confirm/add/remove/prioritize the active portfolio. After confirmation, create/update `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md`.
+
+PMO is the only PHDK context allowed to delegate bounded workstreams to runtime-supported in-session workers. Each worker gets one workstream contract and uses Auto semantics inside that scope; workers may not delegate or independently finalize shared/global integration. The PMO orchestrator owns shared-file conflicts, dependency order, version collisions, integration review, and the handoff to UAT/UAT Fix/Check. If the runtime lacks subagent support, say so and coordinate sequentially without pretending workers were launched.
 
 ## PHDK capture
 
@@ -107,7 +113,7 @@ Do not register auto-update hooks, scheduled refreshes, background pulls, or ses
 ## New project
 
 1. If the current request is for a new project and its purpose is unclear, use `SPEC_INTERVIEW_PROMPT.md` to clarify the necessary decision.
-2. Generate the requested kit through `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, without adding bots, schedules, backup jobs, CI, external provisioning, or delegated agents.
+2. Generate the requested kit through `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, without adding bots, schedules, backup jobs, CI, or external provisioning. Worker delegation is unavailable unless the user explicitly activates PMO later.
 3. When the request includes PHDK installation, read `PHDK_MANIFEST.txt` and vendor exactly its mappings under `phdk-standards/`.
 4. Include the exact `PHDK_NATIVE_RULES.md` managed block in the current tool's instruction file per `ENFORCEMENT.md`. Preserve existing owner instructions and the managed markers; do not generate files for unused tools.
 5. Build product code only when the current request includes it. Use `BUILD_APP_FOUNDATION_PROMPT.md` for that authorized scope. In Auto, a foundation is one part of the whole goal; continue the remaining agreed development and final verification/delivery under `PHDK_AUTO.md` rather than stopping at the scaffold.
@@ -119,7 +125,7 @@ A request for a kit or standards update is not permission to start implementatio
 1. Read the project's owner controls and `phdk-standards/AGENTS.md`/`EXECUTION_SCOPE.md` (or the installed standards when no vendored copy exists).
 2. Read `TASK.md` and `STATUS.md` as context, not standing authorization.
 3. Load only the detailed standards needed for the current request.
-4. Implement and verify the necessary steps with this assistant. Explicit Auto follows `PHDK_AUTO.md` through all agreed development and final integrated verification. Do not use unattended execution, subagents, delegated reviewers, parallel queues, or future execution.
+4. Implement and verify the necessary steps with this assistant. Explicit Auto follows `PHDK_AUTO.md` through all agreed development and final integrated verification. Explicit PMO may coordinate bounded in-session workers under `PHDK_PMO.md`; otherwise do not use subagents/delegated reviewers/parallel queues. Never use unattended or future execution.
 5. Complete the current request's normal delivery under `MAIN_DELIVERY_STANDARD.md`, including verified remote `main` unless the user set a narrower outcome. An active Developer Mode supplies only its separate bounded direct-main exception for eligible requested tasks; its hard stops and high-risk exclusions remain effective. No extra releases or unrelated work.
 6. Read relevant entries in `SKILLS_REGISTRY.md` yourself; do not execute their orchestration, delegation, or background behaviors.
 7. Report and stop when the whole requested goal and delivery are complete, not at an Auto stage; preserve unrelated ideas as inactive context.
@@ -129,7 +135,7 @@ A request for a kit or standards update is not permission to start implementatio
 - Regenerate existing project kit files as if the project were new.
 - Replace a genuine current owner restriction with upstream defaults without the owner's scoped instruction; remove actual checks, access rights, or security controls as documentary cleanup.
 - Treat `TASK.md`, `STATUS.md`, a skill trigger, or an old approval as a new request.
-- Launch another agent, delegate code/review work, create a schedule, or continue after the session.
+- Launch/delegate another agent outside explicit PMO; allow a PMO worker to recursively delegate; create a schedule; or continue after the session.
 - Create, enable, dispatch, rerun, or schedule GitHub Actions or hosted CI.
 - Operate browsers, probe live applications, connect to databases, or administer live services, provider settings, secrets, or repositories. Requested existing provider metadata/log reads use only the bounded read-only diagnostic rule.
 - Claim a standards upgrade disabled external automation or stopped a running process.

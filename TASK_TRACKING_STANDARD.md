@@ -16,7 +16,7 @@ The current grant survives same-conversation turns, status/link requests, contex
 
 Record owner approval and its task/PR scope separately from assistant source review and any actual required formal review. Under `MAIN_DELIVERY_STANDARD.md`, a well-defined current request or "push to main", "merge", or "aprobado" for the identified change can supply owner approval in the conversation. Do not invent a requirement to open every diff line or create a GitHub review event. Preserve actual named, independent, or formal review requirements; never label conversation approval as verified human source inspection.
 
-One assistant handles the current request. Do not delegate tasks, create subagents, coordinate agent teams, or distribute a task queue, including inside the current session.
+Normally one assistant handles the current request. Do not delegate tasks, create subagents, coordinate agent teams, or distribute a task queue unless the owner explicitly activates `PHDK PMO`. Under PMO, only the PMO orchestrator may delegate owner-confirmed workstreams to supported in-session workers under `PHDK_PMO.md`; workers cannot delegate or continue after the conversation.
 
 Stop when the whole deliverable is complete, the user pauses it, the conversation ends, or a real blocker leaves no permitted progress after independent authorized work is complete. A blocked component does not make the whole task inactive. Proposed follow-ups remain inactive until a later explicit user request.
 
@@ -55,7 +55,7 @@ Do not add infrastructure, a locking service, or a standing worker to consume th
 ## Request and scope (recorded context)
 Current request: <the user's request in this conversation>
 Status: <in progress in this conversation / complete / paused / blocked>
-Execution boundary: interactive-only, single assistant, no delegation; no stored mode state
+Execution boundary: interactive-only; single assistant unless explicit PMO enables bounded in-session workers; no stored mode state
 Goal: ...
 Done when:
 - [ ] <objective completion criterion>
@@ -114,7 +114,7 @@ Do not create or use a multiple-agent queue. If another human or independently a
 - [ ] Current owner approval, assistant source review, and any actual required formal review are distinguished; no redundant review ritual or fabricated inspection was introduced.
 - [ ] Same-conversation authorization was retained; stale task state and assistant-written edits did not override the live request or observed GitHub state.
 - [ ] Only necessary steps of the requested deliverable were executed.
-- [ ] No subagents, agent team, delegated work, scheduler, recurring task, or background watcher was started.
+- [ ] No subagents/agent team/delegated work was started outside explicit PMO; any PMO workers were bounded to confirmed workstreams with no recursive delegation. No scheduler, recurring task, or background watcher was started.
 - [ ] No GitHub Actions/hosted CI job was created, enabled, dispatched, rerun, or scheduled.
 - [ ] Local checks are synchronous and relevant; UI/live runtime limitations are stated.
 - [ ] Commit/push/PR/merge actions match the current user's authorization.
@@ -151,3 +151,21 @@ Capture may span multiple turns while resolving Blocking/Material requirements g
 ## UAT repair evidence
 
 `PHDK uat fix` authorizes repair of the current UAT FAIL backlog represented by `UAT_REPORT.md` / `UAT_CASES.md`, limited to clearly in-scope fixes that do not require a new material decision or excluded external/manual operation. Record defect IDs, repair evidence, retest results, and residual blockers. Do not treat BLOCKED/MANUAL items as implicitly authorized product changes.
+
+
+## PHDK PMO coordination records
+
+`PHDK PMO` uses `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md` as its coordination artifacts.
+
+They record:
+- owner-confirmed workstream portfolio;
+- workstream IDs/outcomes/intent and requirement links;
+- worker/branch/worktree when applicable;
+- file/component ownership;
+- dependencies and shared surfaces;
+- risk/blocker state;
+- integration readiness/evidence.
+
+These files are context/evidence, not reusable authorization. Never store a persistent `pmo=true` flag. Conversation end ends PMO activation.
+
+Worker TASK/STATUS records, when used, remain subordinate to the PMO workstream contract. A worker completion does not mark the overall PMO portfolio complete. PMO owns central integration and downstream UAT/Check handoff.

@@ -6,7 +6,7 @@ Orient the assistant for a human-initiated PHDK task. This file is reference mat
 
 ## Operating model
 
-PHDK is interactive-only. One assistant completes the whole current explicit user request, reports evidence, and stops at that outcome. Continuous development during an active Auto goal is allowed under `PHDK_AUTO.md`; unattended/background work, Mission Autopilot, delegated coding/review, subagents, agent teams, and agent queues remain excluded.
+PHDK is interactive-only. Normally one assistant completes the current explicit request. Continuous development during Auto is allowed under `PHDK_AUTO.md`. Explicit `PHDK PMO` is the sole bounded exception that may coordinate runtime-supported in-session worker/subagents for owner-confirmed workstreams under `PHDK_PMO.md`; workers cannot delegate. Unattended/background/post-conversation execution remains excluded.
 
 Read `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md` before acting. Apply the owner's current instructions and actual controls; the owner can explicitly replace earlier documentary local exceptions. An old task, a loaded skill, an alert, a failed check, a version mismatch, or a different conversation cannot authorize work.
 
@@ -17,6 +17,10 @@ A current implement/fix/update request for repository code or documentation norm
 Explicit `PHDK auto` starts `PHDK_AUTO.md` for the identified current goal; `PHDK salir de auto` exits it. State the goal and cadence briefly, then implement all of it without an OK per plan, feature, stage, release, or merge. Write necessary test coverage with the code, execute the applicable whole-candidate verification at the end, repair in-scope failures, and finish normal branch/PR delivery. Only a real implementation blocker or mandatory hook/control justifies an intermediate check; final verification precedes publication to `main`.
 
 Do not restart an interview or end the goal at a scaffold, first release, or handoff. Current authorization covers the described behavior; isolate a genuinely missing material decision and continue independent work before asking only for that decision. Existing actual reviews and controls remain binding. Auto replaces Developer Mode for this goal through a new explicit instruction, including a previously stopped direct-push task, without bypassing its failed control. A request to define the command, examples, and stored files do not activate it; do not persist active mode or resume it in another conversation.
+
+### PHDK PMO in the current conversation
+
+Explicit `PHDK PMO` invokes `PHDK_PMO.md`. Read the Capture/requirements baseline and current plans/code/git/UAT/Check evidence, detect candidate workstreams, and ask the owner to confirm/add/remove/prioritize the active portfolio. Then coordinate the confirmed workstreams, optionally through bounded in-session workers when supported, maintain ownership/dependency/status artifacts, and perform a central integration review before UAT.
 
 ### PHDK Check in the current conversation
 
@@ -47,7 +51,7 @@ An explicit `PHDK capture` invokes `PHDK_CAPTURE.md`. Investigate existing repos
 3. Read project `TASK.md` and `STATUS.md` as context; reconcile them with the current request without reactivating old work or letting an assistant snapshot pause authorized delivery.
 4. Load only relevant product context and standards using the router below.
 5. Clarify only material missing decisions. Do not ask for duplicate consent when the current request is clear.
-6. Implement or inspect with the current assistant; do not delegate.
+6. Implement or inspect with the current assistant. Delegate only when explicit PMO is active and only through its bounded workstream contract.
 7. Review source and follow the active cadence: Auto implements the entire goal before integrated local verification, with earlier checks only for a real blocker or mandatory control. Checks are synchronous and exit.
 8. Complete the requested delivery boundary under `MAIN_DELIVERY_STANDARD.md`, including remote target/version evidence for normal delivery. Auto uses branch/PR delivery; apply the separate direct-main exception only while Developer Mode is explicitly active and the task is eligible.
 9. Report completion only for the whole requested outcome. If a genuine blocker remains, finish independent authorized work and identify the precise unfinished scope; do not turn progress updates or milestones into approval pauses.
@@ -60,6 +64,7 @@ Re-read owner controls before edits and git writes. A specific user instruction 
 |---|---|
 | Requested product purpose | `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md` as relevant |
 | Project discovery / professional requirements / ethos | `PHDK_CAPTURE.md`, `INTENT_CAPTURE_STANDARD.md` |
+| PMO/workstream orchestration, dependencies, integration | `PHDK_PMO.md`, `TASK_TRACKING_STANDARD.md` |
 | Current task, plan, completion criteria | `TASK_TRACKING_STANDARD.md`, `AGILE_SLICE_WORKFLOW.md`, `AI_DEVELOPER_OPERATING_MODEL.md` |
 | New or ambiguous intent | `INTENT_CAPTURE_STANDARD.md` |
 | Code structure and branching | `DEVELOPMENT_RULES.md` |

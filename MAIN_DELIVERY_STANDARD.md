@@ -33,6 +33,12 @@ Honor an actual requirement for a named reviewer, independent review, or a forma
 
 When a real required review or sensitive decision remains missing, prepare all otherwise permitted work, show the exact PR/diff and the source of that requirement, and request only the missing decision. Once it is satisfied, complete the already-authorized merge. Do not use a newly edited instruction file as authority for unrelated actions; authority comes from the current user request and applicable controls.
 
+## PMO integration delivery
+
+When explicit PMO coordinates multiple workstreams, individual workers should not independently finalize the same project release on `main`. Each worker returns its verified workstream result to PMO. The PMO orchestrator performs the central integration review defined in `PHDK_PMO.md`, reconciles shared files/version/changelog/contracts, reruns affected integrated checks, and then uses the normal branch-to-main procedure below for the coherent integrated candidate.
+
+A worker may use a branch/worktree and PR as an intermediate handoff when the repository/tooling benefits from it, but an open/merged worker PR is not by itself portfolio completion. Preserve actual repository protections/review rules.
+
 ## Normal branch-to-main procedure
 
 For an explicitly active `PHDK auto` goal, use `PHDK_AUTO.md` for cadence and `UAT_STANDARD.md` for applicable final user-acceptance evidence: finish all agreed development, then the integrated final verification/repair and delivery. Do not request human OKs or produce releases after each stage. Treat the entire goal as the deliverable in this procedure. An explicit Auto command switches that goal to this normal branch route from Developer Mode; repair real failures within scope while preserving every applicable control.
