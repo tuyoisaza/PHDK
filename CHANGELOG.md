@@ -1,3 +1,27 @@
+## v2.45.0 — 2026-10-10
+
+### Added
+
+- Added `PHDK_LIFECYCLE.md` as the formal stage input/output/exit-gate/handoff standard.
+- Added root `PHDK_LIFECYCLE.md` current-run dashboard and immutable historical run folders under `docs/phdk/lifecycle/<run-id>/`.
+- Every lifecycle stage now produces a mandatory `HANDOFF.md` and snapshots material deliverables before the next stage starts.
+- Defined canonical deliverables for Preflight, Capture, Plan, PMO/Workstreams, Integration Review, UAT, UAT Fix, Check, Remediation, and Delivery.
+- Added new canonical artifacts:
+  - `PHDK_PREFLIGHT_REPORT.md`
+  - `INTEGRATION_REPORT.md`
+  - `UAT_REMEDIATION.md`
+  - `PHDK_REMEDIATION_REPORT.md`
+  - `DELIVERY_REPORT.md`
+- Added explicit downstream entry validation: each stage must verify the previous handoff/artifacts and exact candidate/revision before starting.
+- Added upstream invalidation/reopen semantics when a later stage discovers stale/incorrect earlier artifacts.
+- Auto transition messages now declare what the previous stage did, what it delivered, historical snapshot location, exit gate, what the next stage will do, and what inputs it must verify.
+- Added final lifecycle historical closure so future humans/agents can reconstruct what Capture understood, Plan decided, PMO executed, Integration combined, UAT accepted/blocked, Check found, remediation changed, and Delivery shipped.
+
+### Changed
+
+- Wired lifecycle handoffs into Preflight, Capture, Plan, PMO, Integration Review, UAT/UAT Fix, Check/remediation, Delivery, Auto, task tracking, routing/native rules, onboarding, README, and summary guidance.
+- Increased the vendoring manifest to include the lifecycle standard.
+
 ## v2.44.3 — 2026-10-10
 
 ### Added
