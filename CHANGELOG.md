@@ -3,7 +3,7 @@
 ### Added
 
 - Added `PHDK_LIFECYCLE.md` as the formal stage input/output/exit-gate/handoff standard.
-- Added root `PHDK_LIFECYCLE.md` current-run dashboard and immutable historical run folders under `docs/phdk/lifecycle/<run-id>/`.
+- Added root `PHDK_LIFECYCLE_STATUS.md` current-run dashboard and immutable historical run folders under `docs/phdk/lifecycle/<run-id>/`.
 - Every lifecycle stage now produces a mandatory `HANDOFF.md` and snapshots material deliverables before the next stage starts.
 - Defined canonical deliverables for Preflight, Capture, Plan, PMO/Workstreams, Integration Review, UAT, UAT Fix, Check, Remediation, and Delivery.
 - Added new canonical artifacts:
