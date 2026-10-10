@@ -146,3 +146,8 @@ The initial check is read-only. A later explicit yes to the presented report aut
 `PHDK capture` produces the project-level requirements baseline in `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`. TASK/STATUS may reference these artifacts but must not replace them or treat incomplete task notes as the project's canonical intent.
 
 Capture may span multiple turns while resolving Blocking/Material requirements gaps. This is an explicit interactive requirements task, not a persistent mode or background job. Capture completion does not authorize implementation unless the current request separately includes development.
+
+
+## UAT repair evidence
+
+`PHDK uat fix` authorizes repair of the current UAT FAIL backlog represented by `UAT_REPORT.md` / `UAT_CASES.md`, limited to clearly in-scope fixes that do not require a new material decision or excluded external/manual operation. Record defect IDs, repair evidence, retest results, and residual blockers. Do not treat BLOCKED/MANUAL items as implicitly authorized product changes.
