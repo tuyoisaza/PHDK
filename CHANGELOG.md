@@ -1,3 +1,20 @@
+## v2.38.0 — 2026-10-09
+
+### Added
+
+- Added `AI_ADMIN_STANDARD.md` as a conditional standard for projects that actually use an LLM/AI provider.
+- Defined applicability signals from provider API-key/config names, provider/model configuration, `packages/ai`, provider SDK references, and implemented AI workflows, without reading secret values.
+- Required super-admin **Prompts** and AI consumption capabilities when AI applies.
+- Defined the Prompts UI: left prompt/agent list and main editable Name, Personality prompt, Execution prompt, and Output JSON schema fields.
+- Added persistent prompt/agent identity, revisions/audit, runtime schema validation, and usage attribution by prompt/agent ID and revision.
+- Integrated the standard with `PHDK check`, design rules, technical stack, QA, routing, and the vendoring manifest.
+
+### Conditional behavior
+
+- Projects without AI do not receive these capabilities.
+- A lone unused API-key placeholder with no established AI feature is UNKNOWN / DECISION NEEDED, not automatic product scope.
+- Provider secrets are never stored in prompt records or exposed by the admin UI.
+
 ## v2.37.0 — 2026-10-09
 
 ### Added

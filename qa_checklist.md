@@ -466,6 +466,21 @@ Review components, styles, markup, and handlers in source. Do not launch a brows
 
 # AI / LLM Configuration QA
 
+Apply this section only when repository evidence establishes actual AI/LLM use under `AI_ADMIN_STANDARD.md`. Provider API-key/config variable names, provider/model configuration, `packages/ai`, provider SDK references, or implemented AI workflows are applicability evidence; never read secret values for QA. If only an unused key placeholder exists and no AI workflow can be established, mark applicability UNKNOWN rather than scaffolding features.
+
+- [ ] `AI_ADMIN_STANDARD.md` applicability was evaluated from source/configuration and product intent.
+- [ ] Super-admin navigation contains a clear **Prompts** item when AI applies.
+- [ ] The Prompts route is protected server-side for `super_admin` (or an explicitly documented equivalent admin role).
+- [ ] Prompts UI has a left prompt/agent list with stable IDs, visible selected state, and loading/empty/error/permission states.
+- [ ] Selected prompt/agent editor exposes editable **Name**, **Personality prompt**, **Execution prompt**, and **Output JSON schema** fields in that order.
+- [ ] Display-name edits do not silently change the stable prompt/agent ID.
+- [ ] Personality/system instructions, execution/task instructions, and user/domain input remain structurally separate.
+- [ ] Output JSON schema parses/validates before save and runtime model output is validated against it before application use.
+- [ ] Prompt/agent definitions are persistent/admin-manageable rather than hardcoded runtime prompt strings.
+- [ ] Prompt changes create revision/audit evidence with actor, timestamp, prompt ID, revision, and safe diff.
+- [ ] AI usage/consumption records attribute calls to prompt/agent ID and revision where applicable.
+- [ ] Super-admin AI consumption capability exposes the token/cost/model/provider evidence required by the AI observability standard.
+
 - [ ] `/admin/ai` exists and is protected when the project uses any LLM-powered feature.
 - [ ] Prompt template is visible and editable by an authorized admin without a code deploy.
 - [ ] Expected output schema/format is visible and editable by an authorized admin.

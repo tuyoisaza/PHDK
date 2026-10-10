@@ -366,9 +366,11 @@ AI_API_KEY=""
 - **Every call is tracked** — see AI Token & Cost Observability below; this is built into `packages/ai` itself, not something each feature implements separately
 - Cost and loop safeguards from `DEVSECOPS.md` Cost and Consumption Safety apply to every LLM call
 
-See `AGENTS.md` Required Routes (`/admin/ai`) and `QA_CHECKLIST.md` AI / LLM Configuration QA.
+See `AI_ADMIN_STANDARD.md` for conditional super-admin Prompts/consumption requirements and `QA_CHECKLIST.md` AI / LLM Configuration QA.
 
 AI/LLM integration is not scaffolded unless the project explicitly requires it.
+
+When AI applies, `AI_ADMIN_STANDARD.md` is mandatory. Provider/API-key evidence plus actual AI feature usage requires the protected super-admin **Prompts** capability and AI consumption administration. The Prompts editor separates editable name, personality prompt, execution prompt, and output JSON schema, with revision/audit and usage attribution.
 
 These are product-code requirements. The PHDK agent verifies provider adapters, pricing, and usage handling with test doubles; it does not invoke a live model, operate the admin controls, or configure an external provider.
 

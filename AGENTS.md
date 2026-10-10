@@ -46,6 +46,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Branching, code organization, dependencies | `DEVELOPMENT_RULES.md` |
 | UI, accessibility, responsive behavior | `DESIGN_RULES.md` |
 | Stack, architecture, data, deployment code | `TECHNICAL_STACK.md` |
+| AI provider integration, prompts, super-admin AI management, consumption | `AI_ADMIN_STANDARD.md`, `TECHNICAL_STACK.md`, `DEVSECOPS.md` |
 | Auth, secrets, security, privacy, cost controls | `DEVSECOPS.md` |
 | Versions, commits, changelog, approved merge | `VERSIONING.md` |
 | Completing an implementation in remote main, conflicts, or delivery state | `MAIN_DELIVERY_STANDARD.md` |
