@@ -37,7 +37,7 @@ If the project name is unknown, use:
 Project identified: ⚠️ GAP: Project name not clearly identified from the conversation.
 ```
 
-Use existing answers and the current brief. Ask only for a genuinely missing material decision after completing independent work; do not require a new setup interview merely because this template lists questions.
+Use existing answers and the current Capture/brief artifacts. When `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, or `REQUIREMENTS_TRACEABILITY.md` were produced by `PHDK capture`, treat them as the primary project requirements input. Ask only for a genuinely missing material decision after completing independent work; do not require a new setup interview merely because this template lists questions.
 
 No exact phrase, confirmation reply, or additional `go` is required when generation is already authorized.
 
