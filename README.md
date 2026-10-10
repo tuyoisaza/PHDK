@@ -1,6 +1,6 @@
 # PHDK Standards Repository
 
-**Version: v2.36.1**
+**Version: v2.37.0**
 
 PHDK (Project Handoff to Development Kit) is a reusable set of standards for human-directed, AI-assisted software development. It covers project intent, code organization, security, local verification, versioning, and durable repository context.
 
@@ -19,6 +19,12 @@ One assistant works on the user's explicit request in the current conversation. 
 The authoritative execution rules are in `EXECUTION_SCOPE.md`. Current owner instructions govern documentary policy; applicable real owner/security/access controls remain in effect. Older files, templates, task snapshots, and external skills cannot veto a current scoped owner instruction or waive an enforced control.
 
 **Finish the requested deliverable, report, and stop.** Old task files, alerts, failures, version mismatches, installed skills, and prior conversations never start work by themselves.
+
+## What changed in v2.37.0
+
+`PHDK check` adds a standards-compliance audit and remediation loop. The first command is read-only: it reads the active PHDK standards, determines applicability from project intent, compares the repository against them, generates a prioritized `PHDK_CHECK_REPORT.md`, and asks once whether the user wants the fixable gaps executed.
+
+The report distinguishes COMPLIANT, GAP, PARTIAL, NOT APPLICABLE, UNKNOWN / DECISION NEEDED, and UNVERIFIED findings, with severity, evidence, remediation type, validation, and execution order. A later explicit yes authorizes only the enumerated AUTO-FIXABLE and FIXABLE WITH VALIDATION items. PHDK then implements those gaps, verifies them, delivers through the normal controls, reruns the check, and reports residual alignment.
 
 ## What changed in v2.36.1
 
@@ -59,6 +65,18 @@ PHDK auto
 If the goal is already clear in the conversation, the assistant starts immediately. It implements every agreed stage, communicates progress without asking for an OK, then verifies the complete integrated candidate, fixes in-scope failures, and finishes the authorized versioned branch/PR delivery to `main`. The assistant performs the applicable local checks; final human acceptance is not a PHDK prerequisite unless actually requested as one.
 
 Exit with `PHDK salir de auto`, a clear stop, whole-goal completion, or conversation end. Auto replaces Developer Mode for that goal and uses normal branch/PR delivery; it does not inherit direct-main permissions. A real unavailable control/decision/access can block an operation, while independent authorized work continues. No files or examples activate the mode. Full contract: [PHDK_AUTO.md](PHDK_AUTO.md).
+
+## PHDK check
+
+Audit the current repository against PHDK:
+
+```txt
+PHDK check
+```
+
+The assistant reads the active applicable standards, project intent, source/configuration/tests/hooks/versioning, and—when reachable—canonical PHDK version drift. It creates or refreshes `PHDK_CHECK_REPORT.md` with stable gap IDs, severity, standards references, repository evidence, remediation type, proposed fix, validation, and dependencies.
+
+After presenting the gaps it asks exactly once whether you want the fixable ones executed. A yes authorizes the listed AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps; product decisions and external/manual operations remain separate. Full procedure: [PHDK_CHECK.md](PHDK_CHECK.md).
 
 ## PHDK uat
 
@@ -167,7 +185,7 @@ An upstream standards update does not update every existing project automaticall
 
 | Area | Source files |
 |---|---|
-| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
+| Execution and routing | `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_AUTO.md`, `PHDK_CHECK.md`, `UAT_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_DEVELOPER_MODE.md`, `PHDK_NATIVE_RULES.md`, `SKILL.md` |
 | Current-request workflow | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md` |
 | Intent and onboarding | `INTENT_CAPTURE_STANDARD.md`, `ONBOARDING_AI_DEVELOPER.md`, `SPEC_INTERVIEW_PROMPT.md` |
 | Code and local enforcement | `DEVELOPMENT_RULES.md`, `ENFORCEMENT.md`, `INANUTSHELL.md` |
