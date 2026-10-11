@@ -1,12 +1,20 @@
 # PHDK UAT Standard
 
+## Scoped browser exception for UAT and UAT Fix
+
+**Only** during explicit `PHDK uat`, `PHDK uat fix`, or the UAT/UAT Fix phases of an authorized `PHDK auto` run, a connected/available browser, browser MCP, Playwright, Cypress or equivalent may be used to exercise real user journeys, UI behavior, responsiveness and accessibility and capture timestamped screenshots/evidence. This narrow exception overrides general browser bans **for these phases only**; it does not activate browser work during Capture, Plan, implementation, generic verification, Check or Delivery. PMO workers do not inherit a standalone browser permission outside their authorized UAT phase.
+
+Use a local or dedicated staging/test environment and non-production test accounts/fixtures by default. Production browsing or production account interactions require separate explicit owner authorization, a read-only/non-destructive test plan, and confirmation of target and risks. Never perform real purchases, send real emails, mutate production data, bypass authentication, extract secrets, expose personal data, modify provider/repository settings, or call paid services without separate authorization. No persistent sessions, unattended monitoring or background jobs. Do not open a browser merely to diagnose deployment status.
+
+For each test record the candidate revision, target environment, case ID, steps, expected/actual result and redacted screenshot or trace reference. Stop or mark BLOCKED when browser access, a safe environment or valid test credentials are unavailable; **never** infer PASS from code inspection or claim browser evidence not collected. Close browser sessions after the active UAT execution. UAT Fix may rerun the impacted browser cases after permitted code repairs.
+
 ## Command and purpose
 
 Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the Integration Review handoff and exact candidate in `INTEGRATION_REPORT.md` before deriving/executing UAT. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK uat` runs autonomous user acceptance testing for the identified current product candidate. Match the command case-insensitively after trimming whitespace. Use the current conversation, repository requirements, product documentation, acceptance criteria, current task, code, and existing test evidence to identify the candidate and scope. If no candidate or product goal can be determined, ask only for that missing target.
 
-The command authorizes the assistant to create or refresh UAT artifacts, derive acceptance cases, execute every permitted acceptance check available for those cases, collect evidence, and write the final report without requesting approval between cases. It does not authorize unrelated product development, browser/headless testing, live destructive operations, provider writes, recurring work, or work after the conversation.
+The command authorizes the assistant to create or refresh UAT artifacts, derive acceptance cases, execute every permitted acceptance check available for those cases, collect evidence, and write the final report without requesting approval between cases. It does not authorize unrelated product development, browser testing outside the narrowly scoped UAT exception, live destructive operations, provider writes, recurring work, or work after the conversation.
 
 ## Required artifacts
 
@@ -70,14 +78,14 @@ Preferred evidence:
 
 Code inspection may establish traceability or explain a blocked case, but it does not make an unexecuted behavioral case PASS.
 
-Do not use browser/headless automation, screenshots, manual UI clicking, production/live app probes, live database writes, destructive migrations, paid calls, provider configuration writes, hosted CI dispatch, recurring monitoring, or background jobs.
+Use browser/headless automation, screenshots and UI clicking only within the scoped UAT exception above. Do not perform unauthorized production/live app probes, live database writes, destructive migrations, paid calls, provider configuration writes, hosted CI dispatch, recurring monitoring, or background jobs.
 
 ## Status semantics
 
 - **PASS** — expected behavior was actually exercised through an appropriate permitted channel and matched.
 - **FAIL** — behavior was exercised and did not meet the expected outcome.
 - **BLOCKED** — required access, environment, dependency, or permitted tooling was unavailable.
-- **MANUAL** — acceptance requires an excluded human/browser/physical/external interaction with no permitted automated equivalent.
+- **MANUAL** — acceptance requires an unavailable or excluded human/physical/external interaction with no permitted automated equivalent.
 - **NOT APPLICABLE** — the traced requirement does not apply to this candidate, with reason.
 - **NOT RUN** — temporary state only; final reports resolve it to another status.
 
@@ -134,7 +142,7 @@ Then add a top-level **Recommended next actions** section ordered by dependency 
 
 Examples:
 
-- If a case is BLOCKED because a browser/manual flow is excluded, say exactly which flow a human must exercise, what result to record, and what command/report to rerun afterward.
+- If a case is BLOCKED because a safe browser environment or manual flow is unavailable, say exactly which flow a human must exercise, what result to record, and what command/report to rerun afterward.
 - If a case is BLOCKED because an external secret/access/provider setting is missing, identify the missing prerequisite without exposing secrets, identify where it must be configured, and state what evidence should be supplied back.
 - If a case is MANUAL because visual/UX acceptance is required, provide a human review checklist and expected acceptance evidence.
 - If no FAIL exists but BLOCKED/MANUAL cases remain, explicitly say: **"No hay defectos de código reparables automáticamente; la aceptación está incompleta por estos prerequisitos/validaciones pendientes."**
@@ -169,9 +177,9 @@ Then execute all repairs that are clearly within the current product intent and 
 
 Treat a BLOCKED case as potentially repairable when the blocker is itself repository-local and permitted to fix. Examples include a missing isolated fixture, test adapter, in-process API harness, deterministic auth stub, fake persistence adapter, or other local verification plumbing. In those cases, `PHDK uat fix` should create/repair the smallest appropriate harness, rerun the blocked case, and update the evidence instead of merely repeating that no FAIL exists.
 
-A BLOCKED case is non-removable only when the missing prerequisite is genuinely external or excluded, such as a browser-only interaction, provider/account access, real secret, live environment, manual approval, or external system state. Do not ask for approval per failure. Repair autonomously, run the affected tests/UAT cases, update the report, and continue until all fixable FAILs are resolved or only concrete blockers/decisions remain.
+A BLOCKED case is non-removable only when the missing prerequisite is genuinely external or excluded, such as a unavailable/unauthorized browser environment, provider/account access, real secret, live environment, manual approval, or external system state. Do not ask for approval per failure. Repair autonomously, run the affected tests/UAT cases, update the report, and continue until all fixable FAILs are resolved or only concrete blockers/decisions remain.
 
-If a FAIL requires a new material product decision, unavailable access, external/manual action, browser-only evidence, provider write, or out-of-scope behavior, do not guess. Leave it unresolved with the exact blocker and required decision.
+If a FAIL requires a new material product decision, unavailable access, external/manual action, unavailable/unsafe browser evidence, provider write, or out-of-scope behavior, do not guess. Leave it unresolved with the exact blocker and required decision.
 
 A standalone `PHDK uat` still validates/reports only. `PHDK uat fix` is the explicit command that authorizes product-code repair from the current UAT failure backlog. Under active `PHDK auto`, this repair authority is already included for in-scope UAT failures and no separate `uat fix` command is required.
 

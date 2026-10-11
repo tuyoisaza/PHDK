@@ -10,6 +10,14 @@ The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only provider
 
 ---
 
+## Scoped browser exception for UAT and UAT Fix
+
+**Only** during explicit `PHDK uat`, `PHDK uat fix`, or the UAT/UAT Fix phases of an authorized `PHDK auto` run, a connected/available browser, browser MCP, Playwright, Cypress or equivalent may be used to exercise real user journeys, UI behavior, responsiveness and accessibility and capture timestamped screenshots/evidence. This narrow exception overrides general browser bans **for these phases only**; it does not activate browser work during Capture, Plan, implementation, generic verification, Check or Delivery. PMO workers do not inherit a standalone browser permission outside their authorized UAT phase.
+
+Use a local or dedicated staging/test environment and non-production test accounts/fixtures by default. Production browsing or production account interactions require separate explicit owner authorization, a read-only/non-destructive test plan, and confirmation of target and risks. Never perform real purchases, send real emails, mutate production data, bypass authentication, extract secrets, expose personal data, modify provider/repository settings, or call paid services without separate authorization. No persistent sessions, unattended monitoring or background jobs. Do not open a browser merely to diagnose deployment status.
+
+For each test record the candidate revision, target environment, case ID, steps, expected/actual result and redacted screenshot or trace reference. Stop or mark BLOCKED when browser access, a safe environment or valid test credentials are unavailable; **never** infer PASS from code inspection or claim browser evidence not collected. Close browser sessions after the active UAT execution. UAT Fix may rerun the impacted browser cases after permitted code repairs.
+
 ## Core Rule — Tests by Risk, Within Code Scope
 
 Do not write a test merely because code was added. Ask:
@@ -26,7 +34,7 @@ Passing local verification alone does not finish a normal development request. C
 
 When `PHDK auto` is explicitly active, follow `PHDK_AUTO.md`: implement the entire identified goal and write necessary coverage with its code, then execute the applicable integrated verification at the end. Slice checklists collect coverage for that boundary; they do not require intermediate test suites, human acceptance, or a release per feature. Run an intermediate check only to resolve an actual implementation blocker or satisfy a mandatory hook/control at the operation it governs.
 
-At the final boundary, review the whole candidate, run all applicable local gates and risk-triggered tests, repair in-scope failures, and rerun affected checks before normal branch/PR delivery. Do not require another PHDK-only approval or assign routine local testing to the owner. Final verification happens before publication to `main`; Auto neither skips required checks nor authorizes browser/live-service tests.
+At the final boundary, review the whole candidate, run all applicable local gates and risk-triggered tests, repair in-scope failures, and rerun affected checks before normal branch/PR delivery. Do not require another PHDK-only approval or assign routine local testing to the owner. Final verification happens before publication to `main`; Auto neither skips required checks nor authorizes browser/live-service tests outside the UAT/UAT Fix exception.
 
 ---
 
@@ -54,7 +62,7 @@ Target the risky code rather than creating a broad suite around unrelated behavi
 - documentation, formatting, or other reversible low-impact changes
 - third-party library internals
 
-Do not manufacture tests to satisfy a percentage or checklist count. PHDK has no coverage-percentage target. Visual snapshots and browser-based tests are outside scope regardless of risk.
+Do not manufacture tests to satisfy a percentage or checklist count. PHDK has no coverage-percentage target. Visual snapshots and browser-based tests are outside ordinary development verification; UAT/UAT Fix may use the scoped browser exception.
 
 ---
 
@@ -69,11 +77,11 @@ Vitest in a Node environment is the default when a project needs a runner. Prefe
 
 In-memory test doubles belong in test code. They must never become a silent production fallback for a missing database or external dependency.
 
-### Browser and external test execution are prohibited
+### Browser tests prohibited outside UAT/UAT Fix
 
-Do not create or run browser-based E2E, headed/headless browser tests, visual snapshots, screenshot comparisons, or browser-mode test runners. This includes Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, UI interaction through another skill, and delegation to another agent. Renaming a browser check as a smoke test, accessibility scan, preview, or manual confirmation does not make it permitted.
+Outside the scoped UAT/UAT Fix exception, do not create or run browser-based E2E, headed/headless browser tests, visual snapshots, screenshot comparisons, or browser-mode test runners. This includes Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, UI interaction through another skill, and delegation to another agent. Renaming a browser check as a smoke test, accessibility scan, preview, or manual confirmation does not make it permitted.
 
-Do not call an application health/probe endpoint, start a preview server, connect to local or cloud databases, use customer accounts, complete OAuth sign-in, call paid providers, or provision services to make tests pass. Existing test scripts must be inspected for these behaviors before execution. An existing browser suite may remain in a repository, but the PHDK agent must neither run nor expand it.
+Do not call an application health/probe endpoint, start a preview server, connect to local or cloud databases, use customer accounts, complete OAuth sign-in, call paid providers, or provision services to make tests pass. Existing test scripts must be inspected for these behaviors before execution. An existing browser suite may remain in a repository, but the PHDK agent must neither run nor expand it outside authorized UAT/UAT Fix.
 
 A human may independently test the product. That is not a mandatory PHDK completion gate and must not be reported as an agent-performed check or assigned to the human merely to close a checklist.
 
@@ -135,7 +143,7 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 ## Never
 
 - Never create tests solely to make a checklist green.
-- Never execute product tests through a browser or external service; permitted read-only provider diagnostics remain separate evidence under `EXECUTION_SCOPE.md`.
+- Never execute product tests through a browser outside authorized UAT/UAT Fix or through an unauthorized external service; permitted read-only provider diagnostics remain separate evidence under `EXECUTION_SCOPE.md`.
 - Never weaken security or alter production behavior merely to make local tests pass.
 - Never delete or skip a failing risk-required local test just to merge.
 - Never claim a local test establishes live health, visual correctness, or a successful real provider integration.
@@ -164,6 +172,6 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 - Exercise behavior through the strongest permitted channel available: existing automated acceptance/integration tests, in-process API/service/domain flows, isolated fixtures, or focused test sources added to exercise acceptance behavior.
 - Build/type/static evidence counts only when it genuinely establishes the acceptance condition.
 - Code inspection alone cannot make an unexecuted behavioral case PASS.
-- Browser/headless UI execution, screenshots, live app/database probes, destructive writes, paid calls, provider administration, hosted CI dispatch, and background monitoring remain excluded.
+- Browser/headless UI execution and screenshots outside authorized UAT/UAT Fix, live app/database probes, destructive writes, paid calls, provider administration, hosted CI dispatch, and background monitoring remain excluded.
 - Cases requiring unavailable/excluded evidence are BLOCKED or MANUAL with the missing evidence stated explicitly.
 - Store the catalog in `UAT_CASES.md` and the current run in `UAT_REPORT.md`, unless the repository already defines equivalent canonical paths.

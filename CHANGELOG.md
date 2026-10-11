@@ -1,3 +1,13 @@
+## v2.46.1 — 2026-10-11
+
+### Fixed
+- Permit browser-driven functional and visual acceptance tests during explicit UAT/UAT Fix and those phases of Auto; all other stages remain browser-restricted.
+- Default to non-destructive local/staging tests. Production browser interactions require separate explicit owner authorization and a safe test plan.
+- Align UAT, execution scope, test standards, agent instructions, Auto and vendored native rules; record real browser evidence or BLOCKED rather than claiming unexecuted tests passed.
+
+### Adoption
+- Existing installations adopt the updated vendored standards through an explicit `PHDK upgrade`. No background automation or live provider writes were added.
+
 ## v2.46.0 — 2026-10-11
 
 ### Added
