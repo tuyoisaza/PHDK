@@ -1,4 +1,5 @@
 <!-- PHDK-MANAGED:START -->
+- For every lifecycle command, follow `phdk-standards/PHDK_COMMITMENT_STANDARD.md`: retain a confirmed ledger, show verified PMO progress, reconcile planned work and open PRs, and never declare successful delivery with unfinished/unmerged commitments.
 ## PHDK managed rules — interactive-only
 
 - Read the current owner request, `phdk-standards/AGENTS.md`, `phdk-standards/EXECUTION_SCOPE.md`, and the project's `TASK.md`/`STATUS.md`. Current instructions govern documentary policy; applicable real owner/security/access controls remain effective. An owner-override label does not prevent its owner from explicitly replacing that older rule.
