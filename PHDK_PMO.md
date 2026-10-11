@@ -1,5 +1,9 @@
 # PHDK PMO Standard
 
+## Mandatory PMO control center and portfolio expansion
+
+Follow `PHDK_COMMITMENT_STANDARD.md`. On PMO entry, show all detected workstreams and ask explicitly if there are additional desired features, failures, commitments or changed priorities, unless the owner already confirmed the exact current portfolio. Assign new ledger IDs and update Plan coverage and workstreams before dispatch. Maintain `PMO_STATUS.md` as a verified per-workstream dashboard and `PMO_PROGRESS_REPORT.md` as a milestone/decision history; show owner-visible updates at entry, significant progress, state changes, blockers, decisions, integration and closure. Report owner, objective, verified done/total and denominator, current activity, next step, dependencies, evidence and each PR state. PMO may not declare a workstream or portfolio DONE merely because workers stopped or PRs were opened. At integration reconcile every ledger ID, task, worker and PR; report material residuals and next actions. Do not invent percent complete.
+
 ## Command and purpose
 
 Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the Plan handoff and implementation/architecture artifacts required by `PHDK_LIFECYCLE.md` before confirming workstreams. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
