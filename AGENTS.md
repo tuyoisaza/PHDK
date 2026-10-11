@@ -21,6 +21,10 @@ Complete the necessary steps of the current requested deliverable, including its
 - Local checks and existing git hooks may run synchronously for the current task and must exit. They do not authorize self-generated commits, pushes, agents, watchers, or later work.
 - External skills are references for this assistant only. Do not use a plugin or skill to delegate work or evade these boundaries.
 
+## Mandatory commitment accounting
+
+At lifecycle invocation read `PHDK_COMMITMENT_STANDARD.md`. Capture inventories all commitments and asks whether discovery is complete; Plan maps every confirmed ID; PMO confirms possible additional work and reports verified progress and PR states at significant milestones; Auto audits initial planned items and in-scope PRs before claiming completion. `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `PMO_PROGRESS_REPORT.md` and `PHDK_COMPLETION_AUDIT.md` are required as applicable. Never call an open in-scope PR or undone planned item DONE. Preserve owner-confirmed scope and no-background-execution limits.
+
 ## PHDK commands
 
 Before every PHDK command/stage, run `PHDK_PREFLIGHT.md` and enforce `PHDK_LIFECYCLE.md`: verify the active PHDK installation/version/manifest/managed rules and inspect the actual availability of stage-relevant recommendations in `SKILLS_REGISTRY.md`. Use relevant available skills/capabilities unless the user explicitly disabled them. Do not claim registry entries are installed without evidence. Before each lifecycle transition, verify the required upstream handoff/artifacts; after each stage, create its canonical deliverables and immutable historical handoff snapshot.

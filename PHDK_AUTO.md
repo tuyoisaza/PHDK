@@ -1,5 +1,9 @@
 # PHDK Auto
 
+## Commitment reconciliation and prohibition on false completion
+
+Always apply `PHDK_COMMITMENT_STANDARD.md` through Capture, Plan, PMO, UAT and Delivery. Show the owner a PMO portfolio confirmation opportunity including additional defects/features if not already confirmed, then continuous milestone/status boards. Track each confirmed `PHDK_COMMITMENTS.md` ID through `PHDK_COMMITMENT_COVERAGE.md`, workstream, UAT, version, PR and verified remote target. Before a success statement, create `PHDK_COMPLETION_AUDIT.md`, reconcile the original plan and ALL in-scope open PRs, and fail closed if any confirmed commitment is missing, blocked, unverified or unmerged. Open PRs are unfinished delivery, even when code or tests passed. If a real merge/review/access blocker remains, report **PARTIALLY DELIVERED** or **BLOCKED** and itemized next actions, never `COMPLETED` or 100%. Only explicit owner decisions may defer/remove a commitment; preserve history. Include final commitment and PR reconciliation in the user-facing terminal board.
+
 ## Command and lifetime
 
 Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant capabilities when later lifecycle stages need them. Auto also follows the stage input/output/handoff contracts in `PHDK_LIFECYCLE.md`. Do not repeat a noisy full preflight at every internal stage.

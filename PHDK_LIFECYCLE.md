@@ -1,5 +1,9 @@
 # PHDK Lifecycle Handoff Standard
 
+## Mandatory commitment tracking at every gate
+
+`PHDK_COMMITMENT_STANDARD.md` is a required downstream vendored contract. Capture must create `PHDK_COMMITMENTS.md`; Plan must produce `PHDK_COMMITMENT_COVERAGE.md`; PMO must keep `PMO_PROGRESS_REPORT.md` and verified `PMO_STATUS.md`; Delivery must produce `PHDK_COMPLETION_AUDIT.md`. Every relevant stage HANDOFF snapshots the ledger and coverage it consumed/produced. No stage may silently omit a confirmed ID. Delivery exit gate cannot pass with open/unmerged in-scope PRs, undelivered confirmed items, missing verification, or an unverified remote target. Report blocked/partially delivered rather than claiming success.
+
 ## Purpose
 
 PHDK lifecycle stages must hand off durable, reviewable artifacts to the next stage.

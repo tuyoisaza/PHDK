@@ -76,6 +76,7 @@ For exact release details, see `CHANGELOG.md`.
 
 High-level milestones include:
 
+- **v2.46** — owner-confirmed commitment ledger, PMO milestone reporting and fail-closed delivery audit.
 - **v2.45** — formal lifecycle handoff contracts, stage deliverables, downstream entry validation, and immutable historical run artifacts.
 - **v2.44.3** — Auto lifecycle visibility: mandatory stage board at startup, stage-transition updates, and final lifecycle closure.
 - **v2.44.2** — generic Auto now falls into PMO portfolio discovery when multiple parallel fronts exist instead of demanding one arbitrary task.

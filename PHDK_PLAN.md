@@ -1,5 +1,9 @@
 # PHDK Plan Standard
 
+## Mandatory full-inventory Plan coverage
+
+Follow `PHDK_COMMITMENT_STANDARD.md`. Consume `PHDK_COMMITMENTS.md`, and generate `PHDK_COMMITMENT_COVERAGE.md` mapping **every confirmed ID** to requirements, design decisions, implementation tasks/workstreams, dependencies and acceptance evidence. The Plan exit gate fails if any confirmed ID is unowned or omitted without a documented blocker. New discoveries return to Capture for owner scope confirmation; preserve the original plan and ledger historical snapshots.
+
 ## Command and purpose
 
 Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the Capture handoff and required Capture artifacts from `PHDK_LIFECYCLE.md` before making architecture decisions. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
