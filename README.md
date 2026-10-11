@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.46.0**
+**Version v2.46.1**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -407,7 +407,7 @@ For every unresolved FAIL, BLOCKED or MANUAL case, PHDK explains:
 
 If a blocker is repository-local — for example a missing fixture, fake adapter, auth stub or in-process harness — PHDK should build the smallest permitted harness and rerun the case.
 
-If a blocker genuinely requires a browser, external account, provider setting, secret, human review or other excluded action, PHDK gives the owner an explicit checklist instead of simply saying “BLOCKED”.
+If a blocker genuinely requires an unavailable browser environment, external account, provider setting, secret, human review or other excluded action, PHDK gives the owner an explicit checklist instead of simply saying “BLOCKED”.
 
 ---
 
@@ -536,7 +536,7 @@ By default:
 - no unattended or overnight execution;
 - no scheduled agent loops;
 - no recurring autonomous jobs;
-- no browser/headless verification;
+- no browser/headless verification outside scoped UAT/UAT Fix in local/staging environments by default;
 - no live database mutation;
 - no secret-value inspection;
 - no provider administration from ordinary development commands;
