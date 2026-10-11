@@ -1,3 +1,14 @@
+## v2.46.0 — 2026-10-11
+
+### Added
+- Vendored `PHDK_COMMITMENT_STANDARD.md` in canonical manifest; stable commitment IDs with source, scope decision, acceptance criteria, Plan/workstream/UAT/PR/merge evidence and historical handoffs.
+- Capture completeness question and final inventory accounting; Plan complete coverage mapping; PMO control-center dashboard, dated progress journal and owner-visible significant milestone reporting.
+- `PHDK_COMPLETION_AUDIT.md` fail-closed audit: no success with unfinished original-plan commitments, open/unmerged in-scope PRs or missing target verification. Truthful BLOCKED / PARTIALLY DELIVERED outcomes.
+- Six normative regression scenarios including forgotten features, open PRs and midstream owner additions.
+
+### Migration
+- Existing projects must explicitly run `PHDK upgrade` to vendor v2.46.0. No downstream repositories are modified by publication.
+
 ## v2.45.0 — 2026-10-10
 
 ### Added
