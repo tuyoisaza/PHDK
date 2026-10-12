@@ -2,7 +2,7 @@
 
 ## Authority and applicability
 
-This standard governs Capture, Plan, PMO, Auto, Integration, UAT and Delivery for every PHDK lifecycle. It is a governance and evidence contract, **not** authorization to work beyond the owner-confirmed scope, bypass review, run agents in the background, or perform provider writes. All work remains in-session under `EXECUTION_SCOPE.md`.
+This standard governs Capture, Plan, PMO, Auto, Integration, UAT, SEO, AEO/GEO and Delivery for every PHDK lifecycle. It is a governance and evidence contract, **not** authorization to work beyond the owner-confirmed scope, bypass review, run agents in the background, or perform provider writes. All work remains in-session under `EXECUTION_SCOPE.md`.
 
 ## Canonical record: PHDK_COMMITMENTS.md
 
@@ -42,7 +42,7 @@ Publish a compact, user-visible PMO board (not just files) at entry, portfolio c
 
 ## No-silent-drop reconciliation
 
-At every handoff, reconcile ledger IDs against the initial confirmed baseline, Plan tasks, PMO workstreams, implementation/evidence, UAT and target-branch delivery. Newly discovered gaps get new IDs and owner scope decisions. Missing IDs, unowned confirmed work, stale statuses or inconsistent PR states fail the next-stage entry gate until resolved. Snapshots of ledger and coverage are included with Capture, Plan, PMO and Delivery historical HANDOFFs; preserve superseded state in history.
+At every handoff, reconcile ledger IDs against the initial confirmed baseline, Plan tasks, PMO workstreams, implementation/evidence, UAT, SEO, AEO/GEO and target-branch delivery. Newly discovered gaps get new IDs and owner scope decisions. Missing IDs, unowned confirmed work, stale statuses or inconsistent PR states fail the next-stage entry gate until resolved. Snapshots of ledger and coverage are included with Capture, Plan, PMO and Delivery historical HANDOFFs; preserve superseded state in history.
 
 ## Terminal gate: fail closed
 
