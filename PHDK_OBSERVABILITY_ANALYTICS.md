@@ -7,16 +7,17 @@ Status: Proposed standard. Applies to greenfield and brownfield repositories. Ow
 2. During Capture, inspect existing telemetry, monitoring, analytics, consent mechanisms, hosting, and superadmin capabilities before recommending duplication.
 3. During Plan, recommend all applicable capabilities and record adoption choices: ENABLED, PLANNED, DECLINED, EXISTING, NOT_APPLICABLE, or BLOCKED_EXTERNAL. Never infer approval from running `PHDK auto`.
 4. If an existing monitoring server/platform is available, ask for provider, endpoint, environment, allowed protocols, auth method, retention requirements, and who manages it. Do not request passwords in chat or commit secrets.
-5. If none exists, propose a self-hosted OpenTelemetry-compatible destination first (initial recommendation: self-hosted Grafana OSS + Prometheus + Loki + Tempo with OpenTelemetry Collector or Grafana Alloy, after checking infrastructure, capacity, maintenance, TLS, backups, updates, access controls and retention; Grafana Cloud and other managed vendors are secondary alternatives, never default). Explain operating cost, privacy/data residency, retention, and maintenance. Wait for affirmative choice before account creation, vendor connection, provisioning or any billable change.
+5. If none exists, ask whether observability should use a shared multi-project self-hosted server or a dedicated server per project; then propose a self-hosted OpenTelemetry-compatible destination first (initial recommendation: self-hosted Grafana OSS + Prometheus + Loki + Tempo with OpenTelemetry Collector or Grafana Alloy, after checking infrastructure, capacity, maintenance, TLS, backups, updates, access controls and retention; Grafana Cloud and other managed vendors are secondary alternatives, never default). Explain operating cost, privacy/data residency, retention, and maintenance. Wait for affirmative choice before account creation, vendor connection, provisioning or any billable change.
 6. All configurations must be per environment; development/test telemetry must not contaminate production analytics. No service silently enabled merely because an identifier exists.
 7. In applications with Superadmin, expose integrations as a standard configuration module. If none exists, document a configuration owner/flow rather than adding a full Superadmin solely for analytics.
 
 ## Discovery questions — ask one at a time if not already answered
 1. Is an observability/monitoring server or SaaS already in use?
 2. If yes, what provider and connectivity/protocol are available? If no, shall we use the recommended self-hosted stack, choose a managed service, or defer?
-3. Should GA4 be enabled? If yes, what is the web data stream Measurement ID (`G-...`)?
-4. Should Clarity be enabled? If yes, what is its Project ID?
-5. Which consent/CMP, geography, data classification, retention and roles apply? Discover from the project first.
+3. If provisioning or connecting self-hosted observability, should the deployment be shared across multiple projects or dedicated to this project? Do not assume an answer. For a shared server define tenant/project separation via service and environment labels, access controls, dashboards, retention and alerts, and verify capacity and isolation before onboarding.
+4. Should GA4 be enabled? If yes, what is the web data stream Measurement ID (`G-...`)?
+5. Should Clarity be enabled? If yes, what is its Project ID?
+6. Which consent/CMP, geography, data classification, retention and roles apply? Discover from the project first.
 
 ## Technical observability implementation contract
 - Instrument server/API/background jobs with OpenTelemetry where supported: traces, metrics, structured logs (or log correlation), service.name, deployment.environment, version, request/correlation/trace IDs, error outcomes and endpoint latency. Avoid high-cardinality or personally identifying attributes.
@@ -72,6 +73,7 @@ Settings → Integrations → Monitoring & Analytics
 
 ## Default provider decision (owner approved 2026-10-12)
 - Prefer reuse of an already deployed compatible observability stack.
+- Ask explicitly whether the owner prefers **one shared observability server for multiple projects** or **one dedicated server per project**. A shared server is an option, not an automatic deployment decision; enforce project isolation, least-privilege access, per-project dashboards/alerts, retention and capacity controls.
 - Otherwise recommend **self-hosted Grafana OSS + Prometheus + Loki + Tempo**, instrumented through OpenTelemetry Collector or Grafana Alloy, as the first option.
 - Evaluate CPU/RAM/storage, expected telemetry volume, retention, TLS, access, backups, alert routing, ongoing operations, and estimated infrastructure costs before offering deployment.
 - If self-hosting is unsuitable, offer managed alternatives such as Grafana Cloud; require explicit acceptance before provisioning.
