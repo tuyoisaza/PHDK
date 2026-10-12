@@ -322,3 +322,7 @@ Checkpoint: PHDK_LIFECYCLE_STATUS.md
 History: docs/phdk/lifecycle/<run-id>/
 ```
 Use `COMPLETED` only after the final completion audit, required checks, all scoped PR integration, and verified delivery. `INTERRUPTED` must never be presented as success or as an automatic background task. When no owner action is required, do not tell the user to rerun at each stage; continue now. When the active session is genuinely over, the next invocation must recover from persisted evidence rather than demand repeated stage commands.
+
+## Mandatory terminal delivery gate
+
+At the delivery stage, run the five-field proof gate in `MAIN_DELIVERY_STANDARD.md`. Auto must attempt the required version bump, version-prefixed source commits, remote branch push, PR and authorized merge, then independently read back remote `main`. Preserve a single version reconciliation for the integrated goal rather than bumping every stage. Include each field's evidence in `DELIVERY_REPORT.md`, the historical `90-delivery/HANDOFF.md`, and the terminal lifecycle board. No success wording while any field is not PASS; never interpret an open PR as complete. Existing checks, hooks and enforced reviews remain binding.
