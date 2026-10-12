@@ -278,3 +278,47 @@ Delivery ............. COMPLETED
 ```
 
 Report once the entire requested outcome and permitted delivery are complete: implemented scope, final verification and repairs, version/commit/PR/remote target, and remaining evidence limits. During work, keep communicating without surrendering the task at an intermediate stage. If a real blocker prevents full completion, identify its source and affected operation, finish everything independent, and report the unfinished scope explicitly. Never call a partial release the completed goal.
+
+
+## Mandatory forward progress, resumability, and truthful closing
+
+**A lifecycle stage is a checkpoint, not an execution endpoint.** In a single active invocation, after every successfully closed stage, validate its exit handoff, persist status, and immediately begin the next eligible stage. Do not return a terminal assistant answer merely because Preflight, Capture, Plan, PMO, Integration, UAT, SEO, AEO/GEO, or Check produced its deliverables. Progress messages must be nonterminal. A required question is a stop only when the answer changes an actual material decision and there is no independent in-scope work left to execute.
+
+**Deterministic restart from repository evidence.** On each new explicit `PHDK auto` invocation:
+1. Read the current owner goal, `PHDK_LIFECYCLE_STATUS.md`, run-level historical `LIFECYCLE.md`, `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `IMPLEMENTATION_PLAN.md`, handoffs, and current git/PR facts.
+2. Reconcile evidence with the authorized goal. Treat stored state as a checkpoint, never as authorization to launch unattended work. Do not assume a stage passed because its folder exists: verify its exit criteria, freshness, and missing commitments.
+3. Reuse verified stages, repair incomplete/stale handoffs, and resume at the earliest stage whose required exit gate is not satisfied. Never reset to Preflight/Capture/Plan for ceremony. Preflight still performs its short invocation-level safety/version check.
+4. Preserve the same goal/run history when appropriate; record an explicit continuation entry with timestamp, previous checkpoint, and recovered next stage. If an earlier prerequisite changes, reopen it and invalidate the affected downstream gates.
+5. Inspect in-scope open PRs and incomplete delivery artifacts before declaring the goal complete. A partial merge, open PR, or undone planned task remains unfinished.
+
+**Mandatory progress loop (conceptual, not an unattended scheduler):**
+```text
+while authorized goal not complete:
+    validate current stage prerequisites
+    execute or reuse current stage
+    write canonical artifacts + historical HANDOFF.md + checkpoint
+    if material external/owner/security blocker:
+        continue independent permitted work
+        if no independent work remains: stop BLOCKED with precise resumption steps
+    else:
+        advance immediately to the next eligible stage in this same invocation
+verify all commitments + in-scope PRs + final delivery gates
+only then report COMPLETED
+```
+No generic response-length, task-count, stage-count, or conversational milestone limit authorizes stopping at a successful stage. Respect real host/tool execution limits: when work cannot continue in this invocation, checkpoint accurately and say `INTERRUPTED — NOT COMPLETE`, without pretending to schedule a background continuation.
+
+**Every exit response must include actionable next-step guidance**, even when the task is interrupted:
+```text
+PHDK Auto — <COMPLETED | BLOCKED | INTERRUPTED — NOT COMPLETE>
+Goal: <goal>
+Last verified stage: <stage>
+Next pending stage: <stage / NONE>
+Unfinished commitments: <IDs or NONE>
+In-scope open PRs: <numbers or NONE>
+Why execution stopped: <completed delivery / exact blocker / host execution boundary>
+Next action: <automatic continuation in this invocation, exact owner action for blocker,
+or "Run PHDK auto again to resume from <stage>">
+Checkpoint: PHDK_LIFECYCLE_STATUS.md
+History: docs/phdk/lifecycle/<run-id>/
+```
+Use `COMPLETED` only after the final completion audit, required checks, all scoped PR integration, and verified delivery. `INTERRUPTED` must never be presented as success or as an automatic background task. When no owner action is required, do not tell the user to rerun at each stage; continue now. When the active session is genuinely over, the next invocation must recover from persisted evidence rather than demand repeated stage commands.
