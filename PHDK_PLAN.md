@@ -5,6 +5,10 @@
 For every user-facing interface, implement `PHDK_UX_UI.md` in greenfield or brownfield mode. Plan must produce `UX_RESEARCH_BASELINE.md`, `UX_JOURNEYS.md`, `UI_DESIGN_SYSTEM.md`, and `UX_UI_DECISIONS.md` alongside `UX_ARCHITECTURE.md`, link critical journeys to requirements and implementation tasks, and preserve valid existing workflows in redesigns. Do not declare Plan exit passed with these missing, unless the project has no UI and has documented N/A.
 
 
+## Mandatory resource CRUD architecture
+
+For applicable apps, apply `CRUD_STANDARD.md`: inventory managed entities, role and public exposure, document `CRUD_MATRIX.md` per resource × role × surface, resolve admin detail access and appropriate C/R/U/D policies with backend authorization, and plan exceptions and test coverage. Include the matrix in Plan handoffs. Do not assume all roles get full CRUD.
+
 ## Mandatory full-inventory Plan coverage
 
 Follow `PHDK_COMMITMENT_STANDARD.md`. Consume `PHDK_COMMITMENTS.md`, and generate `PHDK_COMMITMENT_COVERAGE.md` mapping **every confirmed ID** to requirements, design decisions, implementation tasks/workstreams, dependencies and acceptance evidence. The Plan exit gate fails if any confirmed ID is unowned or omitted without a documented blocker. New discoveries return to Capture for owner scope confirmation; preserve the original plan and ledger historical snapshots.
