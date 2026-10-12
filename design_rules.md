@@ -39,7 +39,7 @@ Required app shell structure:
 
 ```txt
 Top-left:     logo + project name
-Near logo:    always show the canonical inline version → clipboard → trash widget (no extra visible text)
+Near logo:    always show `vX.Y.Z` → clipboard → trash (12px text, 28×28px visible buttons, 14px icons, 4px spacing; no SHA/date/parentheses, no captions). The 44px accessibility hit area, when feasible, must not enlarge the visible controls.
 Main nav:     route-based feature navigation
 Main area:    page content
 Footer:       optional, project-specific
@@ -463,7 +463,7 @@ The interface must always communicate which state it is in.
 Before marking UI code complete, verify the implementation in source and applicable local code checks. This checklist does not authorize rendered UI, browser, or device testing:
 
 - [ ] Project name/logo placement is respected.
-- [ ] Exactly one reusable version → clipboard → trash icon-only widget is visible on public home/login/app/admin, including anonymous users and debug OFF; icon success feedback is green check then automatic revert, without visible captions/toasts.
+- [ ] Exactly one compact reusable `vX.Y.Z` → clipboard → trash widget with fixed 28px buttons and 14px icons (never enlarged or truncated) is visible on public home/login/app/admin, including anonymous users and debug OFF; icon success feedback is green check then automatic revert, without visible captions/toasts.
 - [ ] Route-based navigation is used for primary features.
 - [ ] Responsive code covers mobile widths from 320px.
 - [ ] Responsive code covers tablet widths from 768px.
