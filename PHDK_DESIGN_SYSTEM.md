@@ -44,6 +44,10 @@ Upon explicit `PHDK designer mode` invocation, complete normal PHDK preflight, t
 6. Only after readiness evaluation and bounded preparation, produce `DESIGNER_BASELINE.md`, `DESIGNER_DIRECTION.md`, implement aesthetic and UX improvements using shared components, and create `DESIGNER_CHANGELOG.md`/`DESIGNER_REVIEW.md`. Browser/screenshots only in scoped UAT/UAT Fix.
 7. Acceptance: no undisclosed incompatible primitive mixes, duplicate theme systems or unsupported dependency changes; automated lint/typecheck/build and focused accessible behavior tests where feasible; evidence-based remaining blockers. No fabricated render observations.
 
+## Designer delivery gate
+
+Apply mandatory closure and tooling failure recovery from `PHDK_DESIGNER_MODE.md` and `MAIN_DELIVERY_STANDARD.md`; readiness evidence cannot substitute for delivered changes.
+
 ## Design-system change policy
 Require architecture decision for changing primitive engine, framework, adding a second design system or introducing incompatible theme architecture. Preserve documented exceptions, security restrictions, i18n and the always-visible debug/version widget required by `DEBUG_DIAGNOSTICS_STANDARD.md`. Use existing PHDK version/commit/PR/merge-to-main controls.
 
