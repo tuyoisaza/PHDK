@@ -29,6 +29,10 @@ Before reporting any scoped change as completed on `main`, enforce all five deli
 
 At lifecycle invocation read `PHDK_COMMITMENT_STANDARD.md`. Capture inventories all commitments and asks whether discovery is complete; Plan maps every confirmed ID; PMO confirms possible additional work and reports verified progress and PR states at significant milestones; Auto audits initial planned items and in-scope PRs before claiming completion. `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `PMO_PROGRESS_REPORT.md` and `PHDK_COMPLETION_AUDIT.md` are required as applicable. Never call an open in-scope PR or undone planned item DONE. Preserve owner-confirmed scope and no-background-execution limits.
 
+## Mandatory CRUD governance gate
+
+For app projects with managed records, apply `CRUD_STANDARD.md` across Superadmin, admin, authenticated and public surfaces. Inventory entities and enforce a per-resource × role × surface CRUD matrix. Require actionable record details for administrative lists and server-side permission tests; accept documented immutable/read-only exceptions rather than inventing unsafe delete buttons. Capture, Plan, UAT and Check must reconcile `CRUD_MATRIX.md` with evidence and handoffs.
+
 ## Mandatory debug widget gate
 
 For applicable app-style products, follow `DEBUG_DIAGNOSTICS_STANDARD.md` literally: one reusable always-visible version → clipboard → trash icon-only row on public home, login, app and admin even for anonymous visitors and debug OFF, with only `vX.Y.Z` visible (no SHA/date), exactly 28×28px visible buttons, 14px icons, 12px version text and 4px gap, and with no visible helper/success text; successful copy and cache clearing individually show a temporary green check and revert. Copy verbose sanitized diagnostics; clear only permitted caches/session state. During `PHDK auto`, inspect implementation and focused tests, repair omissions in scope, and reconcile findings in Check. Do not claim visual/runtime verification without allowed evidence.
