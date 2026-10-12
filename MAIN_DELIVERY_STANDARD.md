@@ -1,5 +1,10 @@
 # Main Delivery Standard
 
+## Machine-verifiable completion proof
+
+For implementation tasks targeting remote `main`, enforce `PHDK_COMPLETION_GATE.md` after PR merge. Produce the evidence record from actual observations, run `phdk-standards/scripts/phdk_completion_gate.py` where supported, and independently verify PR merge/review plus remaining commitments. The evidence file containing the final merge SHA is a post-merge local/runtime delivery artifact, not a file that must be committed before the merge (which would create a circular SHA dependency). A failed or unavailable gate forbids a COMPLETED claim; report the exact blocker.
+
+
 ## Purpose and authority
 
 Finish the user's current implementation request with the requested change integrated into remote `main`. `EXECUTION_SCOPE.md` governs authorization and exclusions; current owner instructions, existing hooks, review requirements, and access controls remain binding. This standard defines the normal branch/PR flow, independently of Developer Mode's narrow direct-main exception.
