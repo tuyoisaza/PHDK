@@ -2,6 +2,10 @@
 
 For explicit `PHDK auto`, `PHDK_AUTO.md` governs the whole goal's cadence: implement all agreed features and cross-package wiring before final integrated verification and versioned branch/PR delivery. Stack and build contracts below remain applicable; they do not impose a QA/release/approval cycle after each internal stage. Preserve actual mandatory controls and the provider/browser boundaries in `EXECUTION_SCOPE.md`.
 
+## UI implementation baseline
+
+For React/Next.js UI use `PHDK_DESIGN_SYSTEM.md` as the normative component-layer contract: local shadcn-compatible components with explicitly selected Radix primitives for overlays, Tailwind semantic design tokens, Motion where justified, lucide-react icons, centralized shared light/dark/corporate themes, and applicable next-intl `en`/`es`/`pt` catalogs. Check installed versions before adding packages; do not duplicate the design system.
+
 ## Purpose
 
 This file defines the canonical technical stack for all products built on this standard.
