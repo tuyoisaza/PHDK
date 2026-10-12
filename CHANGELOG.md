@@ -1,3 +1,13 @@
+## v2.50.0 — 2026-10-12
+
+### Added
+- Canonical vendored `CRUD_STANDARD.md`: evaluate create, read-list, read-detail, update and delete per resource, role and public/admin surface, with least-privilege and justified exceptions.
+- Mandatory `CRUD_MATRIX.md` and lifecycle Capture/Plan/Implementation/UAT/Check acceptance gates; superadmin lists require functional detail access where applicable.
+- Backend authorization, tenant isolation, destructive-action policy and negative permission regression cases; no blanket hard-delete or public mutation requirement.
+
+### Adoption
+- Existing installations require explicit `PHDK upgrade` to receive the revised canonical standard. No downstream projects were modified.
+
 ## v2.47.0 — 2026-10-11
 
 ### Added
