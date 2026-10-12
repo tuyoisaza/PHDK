@@ -612,3 +612,11 @@ Review local enforcement when foundation work or the current change touches it. 
 Unresolved actual required checks, reviews, or access blockers prevent claiming delivery completion. In Auto, complete all independent work, repair in-scope final-verification failures, and satisfy applicable gates before publishing the whole candidate to `main`; no additional PHDK-only human sign-off is required. A genuinely new material decision follows `PHDK_AUTO.md`. Developer Mode hard stops apply only while that mode remains active. Browser/live tests stay excluded; requested provider diagnostics remain separate evidence.
 
 The final response states what source was reviewed, actual check results, remote target/version evidence or the precise delivery blocker/narrower scope, and what remains `visual/runtime unverified`.
+
+## Debug UI contract (app-style products only)
+
+- [ ] When debug OFF or user unauthorized, version/actions widget is fully hidden.
+- [ ] One reused component shows exactly version → clipboard → trash icons in one row and no visible subordinate copy/status/toast.
+- [ ] Both successful actions show a green check icon and revert; failures never show success; accessible nonvisual status exists.
+- [ ] Clipboard copies complete sanitized verbose diagnostics; cache action clears permitted state safely without deleting business data.
+- [ ] Applicable unit/component tests and source mount points verified; browser/runtime evidence is not invented.
