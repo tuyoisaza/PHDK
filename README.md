@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.48.0**
+**Version v2.49.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -214,6 +214,10 @@ If Capture has no material questions, it says so. If information is missing, it 
 At completion it tells you exactly where everything was captured so you can review it.
 
 ---
+
+## `PHDK designer mode`
+
+This explicit mode audits an existing interface, selects a visual direction and implements a redesign, verifying the result through scoped UAT where permitted. See `PHDK_DESIGNER_MODE.md`.
 
 ## `PHDK plan`
 

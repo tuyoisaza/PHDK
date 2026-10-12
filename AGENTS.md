@@ -33,6 +33,10 @@ For applicable app-style products, follow `DEBUG_DIAGNOSTICS_STANDARD.md` litera
 
 For every user-facing product, follow `PHDK_UX_UI.md` for new designs and existing-interface redesigns: derive UX journeys and a coherent UI design system before building, then audit and remediate evidenced UX/UI issues during UAT. Apply P0/P1 blockers; preserve correct brownfield workflows; never claim browser proof outside scoped UAT/UAT Fix.
 
+## Designer Mode command
+
+When the owner explicitly invokes `PHDK designer mode` or `PHDK modo designer`, follow `PHDK_DESIGNER_MODE.md`: inspect the existing interface, establish baseline, choose product-specific visual direction, implement visual/UX improvements and verify within scoped UAT. Deliver actual code changes, not just review. Preserve functionality, debug widget and normal delivery constraints. This mode is not automatic or persistent.
+
 ## SEO and AEO/GEO lifecycle gates
 
 After UAT/UAT Fix and before Check, execute `PHDK_SEO.md` then `PHDK_AEO_GEO.md` for applicable public discoverability. Preserve separate historical handoffs, audit/checklist/remediation reports, verified fixes, UAT regressions, and explicit NOT APPLICABLE for private-only routes. Neither stage broadens browser/production authorization or permits invented rankings or citations.
