@@ -32,7 +32,7 @@ Do not create recurring diagnostics, monitoring jobs, or scheduled agents. Exist
 
 ## Mandatory debug version-and-actions widget (canonical UI contract)
 
-This is a **required, reusable component**, not a design suggestion. For every applicable app-style product, implement and mount one shared version/debug-actions component; do not independently redraw or reinterpret it per page. The same component is used in the app shell, login page (only when authorized), floating debug panel and admin debug view as applicable. **The entire version-and-actions row is rendered only while effective debug mode is ON and the viewer is an authorized developer/admin**. Do not expose the row to ordinary users, even when non-production defaults debug ON. Debug-off means neither the version label nor these two controls from this debug widget is rendered; any separate ordinary release metadata is outside this widget.
+This is a **required, reusable component**, not a design suggestion. For every applicable app-style product, implement and mount one shared version/debug-actions component; do not independently redraw or reinterpret it per page. The same component is used on **every user-facing surface**, including public home/landing pages, the unauthenticated login page, authenticated app shell and admin pages. **The version → clipboard → trash row is ALWAYS visible, regardless of authentication, user role or debug-mode setting**. Do not hide or disable the widget solely because debug is OFF. The expanded floating debug panel, detailed server diagnostics and privileged endpoint probes remain independently controlled by debug mode and server-side authorization.
 
 Exact inline visual order, left to right:
 
@@ -45,11 +45,11 @@ vX.Y.Z (shortSHA · UTC build timestamp)  [clipboard]  [trash]
 - Clipboard click: build a **verbose, comprehensive, sanitized** diagnostics report from available bounded frontend buffers and safe server-provided diagnostic summaries following the report/redaction contract below; copy the entire report as plain text with the Clipboard API (permitted fallback where appropriate). **Only after confirmed clipboard success**, temporarily replace *that* clipboard icon with a **green checkmark**, then restore the original clipboard icon automatically (suggested 1.5 seconds). No extra user-facing text. On failure, retain clipboard icon and provide an accessible nonvisual failure status; never display a false success.
 - Trash click: clear only the application's permitted client caches, service worker caches, debug log buffers and accessible session state; invalidate application auth/logout when relevant, without deleting business data. **Only after confirmed permitted clearing**, temporarily replace *that* trash icon with a **green checkmark**, then restore trash icon automatically (suggested 1.5 seconds). If logout/reload is required, arrange the reset so the success indicator is perceivable before navigation; avoid timers/state updates after unmount. On partial failure, do not report full success; expose an accessible nonvisual failure reason and log the limitation safely. Do not claim the browser's global HTTP cache/cookies inaccessible to app code were cleared.
 - Actions must be independent; disable repeat presses while each respective action is running; do not let an older timer reset a newer success state. Green must never be the only confirmation mechanism: icon semantics and screen-reader live status also communicate success. Keep statuses hidden visually.
-- In non-production environments debug may default ON, but this **does not** bypass admin/developer authorization to view diagnostics. Production debug defaults OFF. A developer-accessible login page with no established session must not expose sensitive diagnostic content.
+- **Public-safe by default:** every unauthenticated visitor can copy a sanitized client-side report and clear only their own application-accessible client state. No privileged logs, user identifiers, internal URLs, secret flags, backend diagnostic details or account-specific history may be exposed to anonymous/unauthorized callers. Additional safe server-provided diagnostics must remain permission-checked server-side. Production debug logging still defaults OFF; this does NOT hide the always-visible version/actions row.
 - Do not duplicate the widget within the same visual region, introduce independent variant layouts, or display copy/cache actions separately from the version.
-- Source and unit/component tests must establish: debug OFF hides the complete widget; unauthorized viewer hides it; exact icon order and no visible subordinate text; complete sanitized report copying; copy-success green-check-and-revert; cache-success green-check-and-revert; failure leaves original icon; no destructive data deletion; cache/logout/reload ordering; reusable component mounted in each applicable surface. During explicit UAT/UAT Fix, permitted browser tests may supplement these checks under `EXECUTION_SCOPE.md`; otherwise label visual/runtime behavior UNVERIFIED. Missing source, missing tests, or unavailable evidence is **not PASS**.
+- Source and unit/component tests must establish: widget remains visible for anonymous users and with debug OFF, including login and public home; exact icon order and no visible subordinate text; complete sanitized report copying; copy-success green-check-and-revert; cache-success green-check-and-revert; failure leaves original icon; no destructive data deletion; cache/logout/reload ordering; reusable component mounted in each applicable surface. During explicit UAT/UAT Fix, permitted browser tests may supplement these checks under `EXECUTION_SCOPE.md`; otherwise label visual/runtime behavior UNVERIFIED. Missing source, missing tests, or unavailable evidence is **not PASS**.
 
-This contract takes precedence over older text elsewhere that suggests version or actions are always visible or that admin panels show the controls when debug mode is OFF. Preserve product brand/logo visibility independently of the debug-only widget.
+This contract overrides older gating instructions: only privileged diagnostics content and the floating debug panel are gated, **never** the version/actions row. The widget must expose the current build version everywhere, including before login.
 
 ## Required UI Controls
 
@@ -64,10 +64,11 @@ The clear cache button must sit immediately next to the copy diagnostics button,
 
 These controls must be visible in:
 
-- App shell when debug mode is active
-- Admin debug panel only when effective debug mode is active and the viewer is authorized
+- Public home/landing pages and login page, before authentication
+- App shell and admin pages at all times, including debug OFF
+- Inside an expanded admin debug panel when applicable, without duplicating the row within one visual region
 
-These controls must never appear in the customer-facing experience unless the user is an admin or developer.
+These two public-safe controls appear for all users. Privileged diagnostic details and debug-only panels remain restricted.
 
 ---
 
@@ -336,7 +337,7 @@ Unsafe, destructive, private, or metered operations must be `manual_only`, `vali
 
 The version badge must:
 
-- Mount the reusable component in applicable app shell, login page, and admin panel surfaces, with actual rendering restricted to authorized debug mode
+- Mount the reusable component on public home, login, app shell and admin surfaces; render it regardless of login, role or debug mode
 - Show format: `vX.Y.Z (shortSHA · UTC timestamp)`
 - Include copy diagnostics button with clipboard icon, and the clear cache button with trash icon immediately next to it — always paired, never separated elsewhere in the UI
 - Be positioned consistently — top area of the shell or admin panel
@@ -348,15 +349,15 @@ The version badge must:
 
 Before claiming the requested delivery complete, record source references and applicable permitted local checks for these requirements. During Auto, collect this evidence in the whole goal's final integrated verification, repair in-scope failures, and continue authorized delivery without another PHDK-only approval. A checked item confirms implementation evidence only; it does not claim the UI was rendered or a live action succeeded.
 
-- [ ] Source mounts one reusable debug-only, authorization-gated version/actions component in each applicable shell/login/admin surface.
-- [ ] Source and component tests enforce the exact version → clipboard → trash icon-only row, independent green-check confirmation/revert, zero visible helper/success text, and debug OFF/unauthorized hidden states.
+- [ ] Source mounts one always-visible shared version/actions component on public home, login, shell and admin; anonymous users and debug OFF still see it.
+- [ ] Source and component tests enforce the exact version → clipboard → trash icon-only row, independent green-check confirmation/revert, zero visible helper/success text, and visible anonymous/debug-OFF states.
 - [ ] Clipboard handler and report formatting are wired; any local test stubs the clipboard API.
 - [ ] Report schema includes all required fields and handles unavailable data honestly.
 - [ ] Redaction excludes passwords, tokens, cookies, secrets, private data, and sensitive URLs.
 - [ ] Auth diagnostics map the required safe fields when login exists.
 - [ ] Metered diagnostics map counts, failures, retry bounds, cap/kill-switch state, and correlation IDs without payloads, keys, or provider account identifiers.
 - [ ] Clear-cache handler implements authorized cache/session reset and reload, reports unsupported clearing, and cannot delete durable data.
-- [ ] Floating-panel visibility depends on debug mode and the authorized role.
+- [ ] Only the expanded debug panel and privileged diagnostic content depend on debug mode/authorization; version/actions row does not.
 - [ ] Code defaults debug mode to ON in non-production and OFF in production; risky default-selection changes have a local test.
 - [ ] Production runtime state is not claimed from source/configuration review.
 - [ ] Important execution boundaries emit structured correlated diagnostics without blanket logging on trivial helpers.
