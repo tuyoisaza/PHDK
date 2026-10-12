@@ -1,3 +1,7 @@
+## CRUD acceptance gate
+
+For applicable projects, use `CRUD_STANDARD.md` and `CRUD_MATRIX.md` to exercise permitted Create, Read-list/detail, Update, and Delete/archive in real flows and negative tests for forbidden actions, direct API access, cross-tenant IDs, validation, failure states and persistence. A listed admin record without a working appropriate detail view is FAIL. Record evidence or BLOCKED/MANUAL; never infer PASS from buttons alone.
+
 # PHDK UAT Standard
 
 ## Mandatory UX/UI acceptance

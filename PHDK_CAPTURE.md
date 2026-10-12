@@ -4,6 +4,10 @@
 
 Follow `PHDK_COMMITMENT_STANDARD.md`. Before declaring Capture complete, build `PHDK_COMMITMENTS.md` from requirements, unresolved existing tasks, defects and open PRs. Present detected items and ask the owner whether the portfolio is complete or additional defects/features must be included, unless this exact scope was already confirmed. Preserve stable IDs, owner decisions, exclusions and acceptance criteria. Report included, excluded, unknown and downstream Plan coverage requirements. Snapshot the ledger with Capture's historical handoff. A list inferred without owner confirmation is not a confirmed baseline.
 
+## CRUD discovery
+
+Where persisted manageable resources or admin/public listings exist, inventory resources, audience roles and intended C/R-list/R-detail/U/D operations using `CRUD_STANDARD.md`. Capture actual behavior separately from product intent; document gaps and open policy questions for Plan's `CRUD_MATRIX.md`. Do not infer public write access or unsafe deletion by default.
+
 ## Command and purpose
 
 Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. When operating inside a lifecycle run, verify the Preflight handoff defined by `PHDK_LIFECYCLE.md` before Capture begins. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
