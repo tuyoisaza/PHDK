@@ -15,6 +15,10 @@ Preflight verifies that:
 
 Preflight is not a separate user command requirement. It is an automatic first step of PHDK commands.
 
+## Designer-specific preflight
+
+`PHDK designer mode` must also run the detailed compatibility/readiness gate in `PHDK_DESIGN_SYSTEM.md` and produce `DESIGN_SYSTEM_READINESS.md` before recommendations or visual modifications. Universal preflight is not a substitute for checking the actual UI implementation.
+
 ## Commands covered
 
 Run Preflight before:
