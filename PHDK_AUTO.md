@@ -1,5 +1,10 @@
 # PHDK Auto
 
+## UX/UI in the autonomous lifecycle
+
+When the goal includes UI or an existing interface, apply `PHDK_UX_UI.md` from Capture/Plan through Integration and UAT: architecture and design deliverables precede implementation; brownfield designs begin with existing-interface evidence and preserve correct flows; UAT examines real journeys, accessibility and visual consistency, repairs in-scope P0/P1 findings and retests. Stage handoffs and completion audit account for these deliverables. Browser use remains limited to UAT/UAT Fix. Do not claim success with unresolved P0/P1 UI findings.
+
+
 ## Commitment reconciliation and prohibition on false completion
 
 Always apply `PHDK_COMMITMENT_STANDARD.md` through Capture, Plan, PMO, UAT and Delivery. Show the owner a PMO portfolio confirmation opportunity including additional defects/features if not already confirmed, then continuous milestone/status boards. Track each confirmed `PHDK_COMMITMENTS.md` ID through `PHDK_COMMITMENT_COVERAGE.md`, workstream, UAT, version, PR and verified remote target. Before a success statement, create `PHDK_COMPLETION_AUDIT.md`, reconcile the original plan and ALL in-scope open PRs, and fail closed if any confirmed commitment is missing, blocked, unverified or unmerged. Open PRs are unfinished delivery, even when code or tests passed. If a real merge/review/access blocker remains, report **PARTIALLY DELIVERED** or **BLOCKED** and itemized next actions, never `COMPLETED` or 100%. Only explicit owner decisions may defer/remove a commitment; preserve history. Include final commitment and PR reconciliation in the user-facing terminal board.
