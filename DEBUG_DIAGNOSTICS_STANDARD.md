@@ -76,16 +76,17 @@ These two public-safe controls appear for all users. Privileged diagnostic detai
 
 ### When debug mode is off (default)
 
+- Always-visible version → clipboard → trash row remains available, including anonymous home/login
 - No floating panel
 - No verbose console logs
 - Normal production behavior
 
 ### When debug mode is on
 
+- Always-visible version/actions row remains unchanged; privileged floating debug panel is separate
 - Important execution boundaries report high-signal status through the shared debug-log helper; trivial helpers are not blanket-instrumented — see `High-Signal Status Logging` below
 - A floating panel appears in the top-left corner
-- The panel shows the current version number
-- The panel shows the copy diagnostics button with the clear cache button immediately next to it
+- The canonical shared version/actions row remains available in the normal shell; the floating panel may display it using that same component without duplication
 - Auth failures emit structured logs with safe redaction
 - API failures include correlation IDs
 - Frontend captures recent console, error, and network history
