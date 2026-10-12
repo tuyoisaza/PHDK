@@ -163,7 +163,7 @@ Review existing local code-intelligence setup when relevant — see `TECHNICAL_S
 
 - [ ] **Project identity:** source places the project name and logo/icon in the top-left app shell.
 - [ ] **Version placement:** source mounts the version in the app shell, login page, and admin panel.
-- [ ] **Version format:** version format is correct: `vMAJOR.MINOR.PATCH (shortSHA · UTC timestamp)`.
+- [ ] **Visible version format:** `vMAJOR.MINOR.PATCH` ONLY. No commit, date, timestamp, ellipsis or parentheses beside the visible version. Preserve SHA/build time as separate copied-diagnostics fields.
 - [ ] **Debug copy:** button, clipboard handler, and safe report formatter are wired in source.
 - [ ] **Debug metadata:** debug report includes all required metadata.
 - [ ] **Redaction:** debug report redacts all sensitive values.
@@ -616,7 +616,7 @@ The final response states what source was reviewed, actual check results, remote
 ## Debug UI contract (app-style products only)
 
 - [ ] Version/actions widget stays visible for anonymous users and debug OFF on public home/login/app/admin, while privileged diagnostics remain protected.
-- [ ] One reused component shows exactly version → clipboard → trash icons in one row and no visible subordinate copy/status/toast.
+- [ ] One reused compact component shows exactly `vX.Y.Z` → clipboard → trash in one row and no visible subordinate copy/status/toast; verify 12px text, 28×28px visible buttons, 14×14px glyphs, 4px spacing, no wrap or enlarged tiles.
 - [ ] Both successful actions show a green check icon and revert; failures never show success; accessible nonvisual status exists.
 - [ ] Clipboard copies complete sanitized verbose diagnostics; cache action clears permitted state safely without deleting business data.
 - [ ] Applicable unit/component tests and source mount points verified; browser/runtime evidence is not invented.
