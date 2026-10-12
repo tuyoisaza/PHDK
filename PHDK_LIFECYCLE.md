@@ -284,6 +284,10 @@ Plan verifies all five Capture artifacts exist and that the requirements baselin
 
 ---
 
+## Mandatory UX/UI quality overlay
+
+For every UI-applicable lifecycle, apply `PHDK_UX_UI.md` to Plan, Implementation, Integration, UAT/UAT Fix and Check. Plan's UX baseline, journeys, design system and design decisions are required upstream handoff inputs. UAT must perform a user-facing UX/UI audit with evidenced P0/P1 quality gate on the exact candidate, including brownfield before/after regression checks. Required outputs and historical snapshots live in the existing Plan/UAT/UAT Fix stage folders. API-only projects provide an evidence-based NOT APPLICABLE record. No browser activity outside the existing UAT/UAT Fix exception.
+
 ## 20 — Plan
 
 ### Purpose
@@ -302,6 +306,10 @@ Translate captured requirements into solution/repository/UX architecture and an 
 SOLUTION_ARCHITECTURE.md
 REPOSITORY_ARCHITECTURE.md
 UX_ARCHITECTURE.md
+UX_RESEARCH_BASELINE.md
+UX_JOURNEYS.md
+UI_DESIGN_SYSTEM.md
+UX_UI_DECISIONS.md
 IMPLEMENTATION_PLAN.md
 ARCHITECTURE_DECISIONS.md   # when material decisions exist
 TASK.md                     # execution-plan integration
@@ -448,6 +456,7 @@ Validate intent-aligned user acceptance on the integrated candidate.
 ```text
 UAT_CASES.md
 UAT_REPORT.md
+UX_UI_AUDIT_REPORT.md  # when UI applies
 ```
 
 ### Historical outputs
@@ -488,6 +497,7 @@ Create/update:
 
 ```text
 UAT_REMEDIATION.md
+UX_UI_REMEDIATION_REPORT.md  # when UX/UI defects exist
 UAT_REPORT.md
 UAT_CASES.md
 ```

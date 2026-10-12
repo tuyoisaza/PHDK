@@ -1,5 +1,10 @@
 # PHDK Check Standard
 
+## Mandatory UX/UI audit checks
+
+For a UI-applicable project, apply `PHDK_UX_UI.md`: verify Plan design artifacts and historical snapshots, trace critical user journeys to requirements/tasks/UAT, inspect the current `UX_UI_AUDIT_REPORT.md`, confirm P0/P1 findings resolved or BLOCKED, and check `UX_UI_REMEDIATION_REPORT.md` and retests where applicable. Do not assume an attractive screenshot proves usability. Audit phase remains read-only except permitted report artifact.
+
+
 ## Command and purpose
 
 Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest Integration/UAT/UAT Fix/SEO/AEO-GEO handoffs (or justified N/A records) required by `PHDK_LIFECYCLE.md` and audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.

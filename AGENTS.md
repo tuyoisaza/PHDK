@@ -29,6 +29,10 @@ At lifecycle invocation read `PHDK_COMMITMENT_STANDARD.md`. Capture inventories 
 
 For applicable app-style products, follow `DEBUG_DIAGNOSTICS_STANDARD.md` literally: one reusable always-visible version → clipboard → trash icon-only row on public home, login, app and admin even for anonymous visitors and debug OFF, with no visible helper/success text; successful copy and cache clearing individually show a temporary green check and revert. Copy verbose sanitized diagnostics; clear only permitted caches/session state. During `PHDK auto`, inspect implementation and focused tests, repair omissions in scope, and reconcile findings in Check. Do not claim visual/runtime verification without allowed evidence.
 
+## Mandatory UX/UI product-design gate
+
+For every user-facing product, follow `PHDK_UX_UI.md` for new designs and existing-interface redesigns: derive UX journeys and a coherent UI design system before building, then audit and remediate evidenced UX/UI issues during UAT. Apply P0/P1 blockers; preserve correct brownfield workflows; never claim browser proof outside scoped UAT/UAT Fix.
+
 ## SEO and AEO/GEO lifecycle gates
 
 After UAT/UAT Fix and before Check, execute `PHDK_SEO.md` then `PHDK_AEO_GEO.md` for applicable public discoverability. Preserve separate historical handoffs, audit/checklist/remediation reports, verified fixes, UAT regressions, and explicit NOT APPLICABLE for private-only routes. Neither stage broadens browser/production authorization or permits invented rankings or citations.
@@ -71,7 +75,7 @@ Load only the standards needed for the current request. Re-read `INANUTSHELL.md`
 | Solution/repository/UX architecture and executable planning | `PHDK_PLAN.md`, `technical_stack.md`, `design_rules.md`, `DEVSECOPS.md` |
 | Planning, scope, task state | `AI_DEVELOPER_OPERATING_MODEL.md`, `AGILE_SLICE_WORKFLOW.md`, `TASK_TRACKING_STANDARD.md`; `INTENT_CAPTURE_STANDARD.md` when needed |
 | Branching, code organization, dependencies | `DEVELOPMENT_RULES.md` |
-| UI, accessibility, responsive behavior | `DESIGN_RULES.md` |
+| UI, accessibility, responsive behavior | `DESIGN_RULES.md`, `PHDK_UX_UI.md` |
 | Stack, architecture, data, deployment code | `TECHNICAL_STACK.md` |
 | AI provider integration, prompts, super-admin AI management, consumption | `AI_ADMIN_STANDARD.md`, `TECHNICAL_STACK.md`, `DEVSECOPS.md` |
 | Auth, secrets, security, privacy, cost controls | `DEVSECOPS.md` |

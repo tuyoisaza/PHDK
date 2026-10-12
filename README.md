@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.47.2**
+**Version v2.48.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -81,6 +81,7 @@ Each stage has one job.
 | **Plan** | Design or reconstruct the solution/repository/UX architecture and turn it into an executable implementation plan. |
 | **PMO** | Detect and coordinate multiple fronts, dependencies, ownership, workers and integration. |
 | **Auto** | Orchestrate the complete lifecycle from Capture through final Check/remediation and delivery. |
+| **UX/UI** | Plan usable journeys and coherent interfaces for new projects or redesigns; audit real usage and fix critical friction before UAT acceptance. |
 | **UAT** | Validate the integrated product against intent-aligned user stories and acceptance criteria. |
 | **UAT Fix** | Repair FAILs and removable blockers; guide the owner through manual/external blockers. |
 | **SEO** | After UAT, audit and improve public crawlability, metadata, content, structure and performance with 25 evidence-classified controls. |
@@ -151,11 +152,11 @@ Every stage folder contains a mandatory `HANDOFF.md` plus snapshots of the stage
 |---|---|
 | **Preflight** | `PHDK_PREFLIGHT_REPORT.md` |
 | **Capture** | `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md` |
-| **Plan** | `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, architecture decisions, `TASK.md` integration |
+| **Plan** | `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `UX_RESEARCH_BASELINE.md`, `UX_JOURNEYS.md`, `UI_DESIGN_SYSTEM.md`, `UX_UI_DECISIONS.md`, `IMPLEMENTATION_PLAN.md`, architecture decisions, `TASK.md` integration |
 | **PMO / Workstreams** | `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, `PMO_STATUS.md` |
 | **Integration Review** | `INTEGRATION_REPORT.md` |
-| **UAT** | `UAT_CASES.md`, `UAT_REPORT.md` |
-| **UAT Fix** | `UAT_REMEDIATION.md` plus updated UAT artifacts |
+| **UAT** | `UAT_CASES.md`, `UAT_REPORT.md`, `UX_UI_AUDIT_REPORT.md` (UI projects) |
+| **UAT Fix** | `UAT_REMEDIATION.md`, `UX_UI_REMEDIATION_REPORT.md` (when applicable), plus updated UAT artifacts |
 | **SEO** | `SEO_AUDIT_REPORT.md`, `SEO_CHECKLIST.md`, `SEO_REMEDIATION_REPORT.md` (or justified N/A) |
 | **AEO/GEO** | `AEO_GEO_AUDIT_REPORT.md`, `AEO_GEO_CHECKLIST.md`, `AEO_GEO_REMEDIATION_REPORT.md` (or justified N/A) |
 | **Check** | `PHDK_CHECK_REPORT.md` |
