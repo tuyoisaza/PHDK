@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.50.2**
+**Version v2.50.3**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -219,6 +219,10 @@ At completion it tells you exactly where everything was captured so you can revi
 ## Canonical PHDK Design System
 
 `PHDK_DESIGN_SYSTEM.md` mandates shared shadcn-compatible components, Radix overlay primitives, semantic Tailwind tokens, Motion transitions, consistent Lucide icons, light/dark/corporate color themes and applicable en/es/pt translation catalogs. On entering Designer Mode, inspect the actual stack and document `DESIGN_SYSTEM_READINESS.md`, prepare missing safe prerequisites, then recommend and implement redesigns. The source of truth is vendored to downstream projects.
+
+## Verified completion gate
+
+After a remote-main delivery, `PHDK_COMPLETION_GATE.md` defines truthful machine-readable QA and remote SHA/version evidence. The vendored `scripts/phdk_completion_gate.py` rejects unsupported completion claims; PR state and task scope remain separately audited.
 
 ## `PHDK designer mode`
 
