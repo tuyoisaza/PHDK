@@ -19,6 +19,10 @@ Before creative directions, screen recommendations, or UI edits, execute the com
 5. **Visual QA / UAT:** enter the explicitly scoped UAT/UAT Fix verification step for browser use. Inspect actual pages at representative desktop, tablet and mobile viewports if a permitted browser/environment exists; inspect focused keyboard/focus, text scaling, contrast and interaction states. Compare before/after when evidence is available, iterate to resolve visible problems, rerun affected flows. If browser unavailable mark limitations BLOCKED/MANUAL and do not claim seen screenshots.
 6. **Complete and deliver:** review diff, perform available appropriate local tests, version/commit/PR/merge/verify main per normal delivery rules unless owner specified narrower scope. Do not declare success if only plans, screenshots or an open PR remain when the owner requested implementation delivered to main.
 
+## Executable delivery proof
+
+After the merge use `PHDK_COMPLETION_GATE.md` and its verifier to prove remote target SHA/version from git; review real PR merge and task acceptance separately. A locally modified design system or formatter pass is not completion.
+
 ## Mandatory closure gate and blocker recovery
 
 Designer Mode is NOT complete because readiness reports, local edits, formatting or a version bump exist. To report COMPLETED require actual user-facing design improvements, appropriate lint/typecheck/build and focused tests, attempted authorized scoped browser UAT with real evidence (mark visual checks BLOCKED/MANUAL if unavailable), versioned commit, push, PR, merge and independent readback of the intended remote main revision. Explicit narrower user scope remains authoritative. No successful delivery claim for uncommitted changes, open PRs or missing mandatory checks. Use PARTIALLY DELIVERED or BLOCKED and enumerate residual items.
