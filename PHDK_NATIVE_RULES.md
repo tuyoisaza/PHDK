@@ -2,6 +2,8 @@
 - For every lifecycle command, follow `phdk-standards/PHDK_COMMITMENT_STANDARD.md`: retain a confirmed ledger, show verified PMO progress, reconcile planned work and open PRs, and never declare successful delivery with unfinished/unmerged commitments.
 ## PHDK managed rules — interactive-only
 
+- Designer Mode requires implemented UI improvements, applicable validation and actual remote delivery proof before COMPLETED. Diagnose recoverable pnpm non-TTY hook failures and retry safe alternatives without bypassing hooks. Report unresolved work as PARTIALLY DELIVERED/BLOCKED.
+
 - For applicable React/Next.js interfaces, use `phdk-standards/PHDK_DESIGN_SYSTEM.md` as the canonical shared component, token, theme, motion, icon and i18n contract. On Designer Mode entry inspect and prepare actual design-system readiness before visual recommendations; record `DESIGN_SYSTEM_READINESS.md`. Do not invent dependency availability or duplicate design components.
 
 - After UAT/UAT Fix, run applicable SEO under `phdk-standards/PHDK_SEO.md`, followed by AEO/GEO under `phdk-standards/PHDK_AEO_GEO.md` before Check. Record separate evidence-backed historical handoffs and private-only NOT APPLICABLE decisions; no fabricated metrics or additional browser/provider permissions.
