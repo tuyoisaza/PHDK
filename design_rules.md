@@ -18,14 +18,15 @@ Every product UI must show:
 
 - project name
 - logo or icon
-- debug-only version/actions widget when effective debug is ON and viewer is authorized, strictly per `DEBUG_DIAGNOSTICS_STANDARD.md`; normal branding stays visible independently
+- always-visible version/actions widget for every visitor, including public home, login and debug OFF, per `DEBUG_DIAGNOSTICS_STANDARD.md`
 
 ## Required Locations
 
-Brand must appear in (the debug-only version/actions widget is mounted here when applicable, but hidden unless authorized debug mode is ON):
+Brand and the always-visible version/actions widget must appear in:
 
 - top-left corner of the primary app shell
 - login page
+- public home/landing page
 - admin panel
 
 The project name and logo must be visually consistent across public, authenticated, and admin areas.
@@ -38,7 +39,7 @@ Required app shell structure:
 
 ```txt
 Top-left:     logo + project name
-Near logo:    when authorized debug ON, the canonical inline version → clipboard → trash widget (no extra visible text)
+Near logo:    always show the canonical inline version → clipboard → trash widget (no extra visible text)
 Main nav:     route-based feature navigation
 Main area:    page content
 Footer:       optional, project-specific
@@ -462,7 +463,7 @@ The interface must always communicate which state it is in.
 Before marking UI code complete, verify the implementation in source and applicable local code checks. This checklist does not authorize rendered UI, browser, or device testing:
 
 - [ ] Project name/logo placement is respected.
-- [ ] Exactly one reusable version → clipboard → trash icon-only widget is mounted where applicable, only visible to authorized users while debug ON; icon success feedback is green check then automatic revert, without visible captions/toasts.
+- [ ] Exactly one reusable version → clipboard → trash icon-only widget is visible on public home/login/app/admin, including anonymous users and debug OFF; icon success feedback is green check then automatic revert, without visible captions/toasts.
 - [ ] Route-based navigation is used for primary features.
 - [ ] Responsive code covers mobile widths from 320px.
 - [ ] Responsive code covers tablet widths from 768px.
