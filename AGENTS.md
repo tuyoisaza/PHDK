@@ -41,9 +41,13 @@ For applicable app-style products, follow `DEBUG_DIAGNOSTICS_STANDARD.md` litera
 
 For every user-facing product, follow `PHDK_UX_UI.md` for new designs and existing-interface redesigns: derive UX journeys and a coherent UI design system before building, then audit and remediate evidenced UX/UI issues during UAT. Apply P0/P1 blockers; preserve correct brownfield workflows; never claim browser proof outside scoped UAT/UAT Fix.
 
+## Design system source of truth
+
+For UI-applicable React/Next.js work follow `PHDK_DESIGN_SYSTEM.md`: shared shadcn-compatible components, Radix primitives for composite interactions, centralized Tailwind semantic tokens, Motion presets, Lucide icons and coherent light/dark/corporate palettes. Use documented en/es/pt defaults and project exceptions. No page-specific duplicate widgets/themes. Verify actual versions before choosing a dependency; preserve existing product behavior.
+
 ## Designer Mode command
 
-When the owner explicitly invokes `PHDK designer mode` or `PHDK modo designer`, follow `PHDK_DESIGNER_MODE.md`: inspect the existing interface, establish baseline, choose product-specific visual direction, implement visual/UX improvements and verify within scoped UAT. Deliver actual code changes, not just review. Preserve functionality, debug widget and normal delivery constraints. This mode is not automatic or persistent.
+When the owner explicitly invokes `PHDK designer mode` or `PHDK modo designer`, run `PHDK_DESIGN_SYSTEM.md` readiness first, produce `DESIGN_SYSTEM_READINESS.md`, then follow `PHDK_DESIGNER_MODE.md`: inspect the existing interface, establish baseline, choose product-specific visual direction, implement visual/UX improvements and verify within scoped UAT. Deliver actual code changes, not just review. Preserve functionality, debug widget and normal delivery constraints. This mode is not automatic or persistent.
 
 ## SEO and AEO/GEO lifecycle gates
 
