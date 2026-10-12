@@ -1,5 +1,9 @@
 # DESIGN_RULES.md
 
+## Canonical design-system implementation contract
+
+Use `PHDK_DESIGN_SYSTEM.md` for shadcn-compatible component reuse, Radix dialog/popover/menu primitives, Motion presets, Lucide icon registry, centralized Tailwind semantic styles and matching light/dark/corporate theme structures. Designer Mode must pass source-evidenced readiness before recommending redesigns. Project-approved exceptions are permitted; maintain compatible accessibility and locale support.
+
 ## Purpose
 
 This file defines the design standards, UI rules, and UX expectations for every product built on this stack.

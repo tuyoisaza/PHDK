@@ -8,6 +8,10 @@
 
 Preflight may inspect already-installed skills/plugins/connectors and may offer installation/connection when materially useful. Any host-required user consent remains required. Never claim an integration was installed when it was not.
 
+## Canonical design-system capability
+
+For user-facing React/Next.js projects, `PHDK_DESIGN_SYSTEM.md` defines the approved shadcn-compatible/Radix/Tailwind/Motion/Lucide stack, centralized themes, and locale requirements. Designer Mode checks package versions, source compatibility and design-system readiness before recommendations. References are not proof of installed packages.
+
 ## Recommended capabilities
 
 | Capability | Recommended stages | Priority | Purpose |
