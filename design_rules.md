@@ -18,12 +18,11 @@ Every product UI must show:
 
 - project name
 - logo or icon
-- version number
-- copy-debug-report button and clear-cache button, paired, next to the version
+- debug-only version/actions widget when effective debug is ON and viewer is authorized, strictly per `DEBUG_DIAGNOSTICS_STANDARD.md`; normal branding stays visible independently
 
 ## Required Locations
 
-Brand and version must appear in:
+Brand must appear in (the debug-only version/actions widget is mounted here when applicable, but hidden unless authorized debug mode is ON):
 
 - top-left corner of the primary app shell
 - login page
@@ -39,7 +38,7 @@ Required app shell structure:
 
 ```txt
 Top-left:     logo + project name
-Near logo:    version number, then copy-debug-report button + clear-cache button (paired, side by side)
+Near logo:    when authorized debug ON, the canonical inline version → clipboard → trash widget (no extra visible text)
 Main nav:     route-based feature navigation
 Main area:    page content
 Footer:       optional, project-specific
@@ -463,7 +462,7 @@ The interface must always communicate which state it is in.
 Before marking UI code complete, verify the implementation in source and applicable local code checks. This checklist does not authorize rendered UI, browser, or device testing:
 
 - [ ] Project name/logo placement is respected.
-- [ ] Version, copy-debug-report button, and clear-cache button are present where required.
+- [ ] Exactly one reusable version → clipboard → trash icon-only widget is mounted where applicable, only visible to authorized users while debug ON; icon success feedback is green check then automatic revert, without visible captions/toasts.
 - [ ] Route-based navigation is used for primary features.
 - [ ] Responsive code covers mobile widths from 320px.
 - [ ] Responsive code covers tablet widths from 768px.
