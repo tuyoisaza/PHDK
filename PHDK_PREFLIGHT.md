@@ -20,6 +20,7 @@ Preflight is not a separate user command requirement. It is an automatic first s
 Run Preflight before:
 
 - `PHDK capture`
+- `PHDK designer mode`
 - `PHDK plan`
 - `PHDK PMO`
 - PMO Integration Review / any explicit integration stage
