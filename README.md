@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.49.2**
+**Version v2.50.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -86,6 +86,7 @@ Each stage has one job.
 | **UAT Fix** | Repair FAILs and removable blockers; guide the owner through manual/external blockers. |
 | **SEO** | After UAT, audit and improve public crawlability, metadata, content, structure and performance with 25 evidence-classified controls. |
 | **AEO/GEO** | After SEO, improve factual answer visibility, entity clarity and source credibility without promising AI placement. |
+| **CRUD governance** | Inventory mutable resources and enforce role-specific create, list/detail, update and delete capabilities, with justified restrictions and authorization tests. |
 | **Check** | Compare the repository against the applicable PHDK standards and produce a remediation backlog. |
 
 ---
