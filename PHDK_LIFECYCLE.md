@@ -1,3 +1,7 @@
+## UAT journey handoff extension
+
+`UAT_JOURNEY_STANDARD.md` is mandatory. Stage 50-uat must snapshot `UAT_ROLE_MATRIX.md`, `UAT_ACCESS_REPORT.md`, `UAT_STORIES.md`, `UAT_CASES.md`, `UAT_JOURNEY_MAP.md`, and `UAT_REPORT.md` (plus UX/UI audit when applicable). Stage 60-uat-fix must snapshot `UAT_REMEDIATION.md`, `UAT_RETEST_REPORT.md`, updated UAT_CASES/UAT_REPORT/UAT_JOURNEY_MAP, and relevant UX/UI remediation. Exit gates evaluate every applicable role, safe authenticated switching, step-level evidence and final regression. Every stage transition explicitly ends in `SIGUIENTE PASO` with the immediately actionable owner command or PHDK's next automatic work. Historical initial failures must remain reconstructable.
+
 # PHDK Lifecycle Handoff Standard
 
 ## Mandatory commitment tracking at every gate

@@ -1,3 +1,7 @@
+## Mandatory UAT journey and next-action gate
+
+Apply `UAT_JOURNEY_STANDARD.md` for `PHDK uat`, `PHDK uat fix`, Re-UAT and Auto's UAT phases. Require role inventory, access verification, synthetic test identities when safe, audited Superadmin profile switching, intent-traceable stories by persona, executable real-user journeys, UX/CRUD and permission evidence, then defect repair and retest. Every user-facing stage or blocker response must end with concise `SIGUIENTE PASO`: what was completed, the exact action PHDK is taking or the single action the owner must perform, and the precise resume cue. Continue autonomously when possible; never request MFA secrets in chat or falsely claim testing against an unverified deployment.
+
 # AGENTS.md
 
 ## Purpose and execution boundary
