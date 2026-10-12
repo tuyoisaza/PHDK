@@ -31,7 +31,7 @@ At lifecycle invocation read `PHDK_COMMITMENT_STANDARD.md`. Capture inventories 
 
 ## Mandatory debug widget gate
 
-For applicable app-style products, follow `DEBUG_DIAGNOSTICS_STANDARD.md` literally: one reusable always-visible version → clipboard → trash icon-only row on public home, login, app and admin even for anonymous visitors and debug OFF, with no visible helper/success text; successful copy and cache clearing individually show a temporary green check and revert. Copy verbose sanitized diagnostics; clear only permitted caches/session state. During `PHDK auto`, inspect implementation and focused tests, repair omissions in scope, and reconcile findings in Check. Do not claim visual/runtime verification without allowed evidence.
+For applicable app-style products, follow `DEBUG_DIAGNOSTICS_STANDARD.md` literally: one reusable always-visible version → clipboard → trash icon-only row on public home, login, app and admin even for anonymous visitors and debug OFF, with only `vX.Y.Z` visible (no SHA/date), exactly 28×28px visible buttons, 14px icons, 12px version text and 4px gap, and with no visible helper/success text; successful copy and cache clearing individually show a temporary green check and revert. Copy verbose sanitized diagnostics; clear only permitted caches/session state. During `PHDK auto`, inspect implementation and focused tests, repair omissions in scope, and reconcile findings in Check. Do not claim visual/runtime verification without allowed evidence.
 
 ## Mandatory UX/UI product-design gate
 

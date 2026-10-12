@@ -12,13 +12,15 @@ With explicit `PHDK auto`, build the entire goal into one cohesive candidate, ru
 
 ## Version source and metadata
 
-Use the project's existing version source, normally root `package.json`; this standards repository uses `VERSION`. Keep applicable code metadata consistent in changelog/status, app shell, login/admin/debug surfaces, and health response implementations.
+Use the project's existing version source, normally root `package.json`; this standards repository uses `VERSION`. Keep the source version consistent across changelog/status, app shell, login/admin and health-response metadata. Commit SHA and build timestamp stay in diagnostic metadata and responses, never in the visible version/action widget. Exact widget sizing is defined in `DEBUG_DIAGNOSTICS_STANDARD.md`.
 
 These are source-code requirements. Do not open a browser or invoke live endpoints to verify them.
 
 ```txt
-vMAJOR.MINOR.PATCH (shortSHA · UTC build timestamp)
-Example: v0.4.12 (a1b2c3d · 2026-03-23 18:22 UTC)
+VISIBLE UI (all public/login/app/admin surfaces): `vMAJOR.MINOR.PATCH` ONLY
+Example visible: `v0.4.12`
+
+DIAGNOSTICS REPORT (copied text, not visible beside the version): version, short Git SHA and UTC build timestamp as separate fields. Never display SHA or build date in the version widget.
 ```
 
 Increment guidance: patch for fixes/copy/internal changes, minor for new features, major for breaking changes. Follow explicit project release decisions. The current request can already approve a described breaking change; ask only about a new material breaking decision it does not cover, without blocking independent authorized work.
