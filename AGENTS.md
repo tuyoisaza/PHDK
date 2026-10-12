@@ -49,6 +49,10 @@ For UI-applicable React/Next.js work follow `PHDK_DESIGN_SYSTEM.md`: shared shad
 
 When the owner explicitly invokes `PHDK designer mode` or `PHDK modo designer`, run `PHDK_DESIGN_SYSTEM.md` readiness first, produce `DESIGN_SYSTEM_READINESS.md`, then follow `PHDK_DESIGNER_MODE.md`: inspect the existing interface, establish baseline, choose product-specific visual direction, implement visual/UX improvements and verify within scoped UAT. Deliver actual code changes, not just review. Preserve functionality, debug widget and normal delivery constraints. This mode is not automatic or persistent.
 
+## Designer Mode delivery gate
+
+Never report Designer Mode COMPLETE for local-only edits, formatting-only validation, or an undelivered branch. Follow `PHDK_DESIGNER_MODE.md` closure proof, repair safe in-scope pnpm/hook problems before marking BLOCKED, preserve hooks and independently verify the merged remote target.
+
 ## SEO and AEO/GEO lifecycle gates
 
 After UAT/UAT Fix and before Check, execute `PHDK_SEO.md` then `PHDK_AEO_GEO.md` for applicable public discoverability. Preserve separate historical handoffs, audit/checklist/remediation reports, verified fixes, UAT regressions, and explicit NOT APPLICABLE for private-only routes. Neither stage broadens browser/production authorization or permits invented rankings or citations.
