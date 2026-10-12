@@ -1,7 +1,10 @@
 # PHDK
 
+**UAT profile journeys (v2.50.4):** `UAT_JOURNEY_STANDARD.md` requires code-backed role inventory, safe test users, auditable Superadmin role switching, intent-aligned stories per profile, executable step-by-step journeys, CRUD/UX/auth evidence, UAT Fix + Re-UAT and a concise copy-paste-ready `SIGUIENTE PASO` in every stage/blocker response.
+
+
 **Project Handoff to Development Kit**  
-**Version v2.50.3**
+**Version v2.50.4**
 
 PHDK is an operating system for AI-assisted software delivery.
 
