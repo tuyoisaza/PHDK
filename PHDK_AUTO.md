@@ -163,6 +163,10 @@ When runtime-supported workers are available, the PMO orchestrator may delegate 
 
 After workstream execution, perform the PMO Integration Review and produce one coherent candidate. Reconcile shared files, APIs, schemas, data contracts, navigation, translations, version/changelog, and cross-workstream assumptions.
 
+### Mandatory debug-widget verification
+
+For every applicable app-style product, Auto must inspect `DEBUG_DIAGNOSTICS_STANDARD.md` as a separate required acceptance gate, alongside available skills and capability checks. Discover the *actual source implementation* and its usage sites: do not assume a version label or an old checklist establishes compliance. If absent, implement a single shared debug-only version → clipboard → trash icon-only component, exact handlers, green checkmark success/revert, sanitized verbose report, cache reset and safe access gates. Add focused component/unit tests. Trace evidence to source files, test results and the final Check report; mark unresolved items BLOCKED/FAIL rather than silently skipping. For projects to which the standard does not apply, record an evidence-backed NOT APPLICABLE. Do not misrepresent code review as browser/runtime verification.
+
 ### 5. UAT and repair
 
 Run `PHDK uat` on the integrated candidate. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain.
