@@ -12,7 +12,9 @@ Preflight may inspect already-installed skills/plugins/connectors and may offer 
 
 | Capability | Recommended stages | Priority | Purpose |
 |---|---|---|---|
-| Frontend / UX design skill | Plan, Auto, Integration Review, Check | Important when UI applies | Information architecture, component/layout/UX guidance |
+| UX architecture / journey-design skill | Capture, Plan, Auto | Important when UI applies | User journeys, IA, task success, UX baseline; greenfield and brownfield per PHDK_UX_UI.md |
+| UI art direction / design-system skill | Plan, Implementation, Integration Review | Important when UI applies | Distinctive art direction, tokens, typography, components, states, responsive consistency |
+| UX/UI review + accessibility skill | UAT, UAT Fix, Check | Important when UI applies | Heuristics, WCAG 2.2 AA, viewport and task-flow evidence; browser limited to UAT |
 | Security review/guidance | Plan, Auto, Integration Review, Check | Important for sensitive boundaries | Threat/security boundary review |
 | Code review / quality skill | Integration Review, Check, Auto final review | Important | Structured source/diff/code-quality review |
 | Current framework/docs capability | Plan, Auto, Check | Important when APIs may have changed | Current primary documentation |
@@ -24,6 +26,9 @@ Preflight may inspect already-installed skills/plugins/connectors and may offer 
 
 | Reference | Location | Permitted purpose |
 |---|---|---|
+| UI UX Pro Max | https://github.com/nextlevelbuilder/ui-ux-pro-max-skill | UI design-system inspiration; external reference unless available |
+| Nielsen Norman Group Heuristics | https://www.nngroup.com/articles/ten-usability-heuristics/ | UX usability-review rubric |
+| W3C WCAG 2.2 | https://www.w3.org/TR/WCAG22/ | Accessibility acceptance standards |
 | Anthropic Frontend Design | https://github.com/anthropics/skills/tree/main/skills/frontend-design | UI hierarchy/layout guidance; no browser requirement |
 | Anthropic Security Guidance | https://github.com/anthropics/claude-code/tree/main/plugins/security-guidance | Security review patterns; plugin hooks do not override PHDK |
 | Skill Creator | https://github.com/anthropics/skills/tree/main/skills/skill-creator | Explicit skill-documentation work |
