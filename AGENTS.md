@@ -21,6 +21,10 @@ Complete the necessary steps of the current requested deliverable, including its
 - Local checks and existing git hooks may run synchronously for the current task and must exit. They do not authorize self-generated commits, pushes, agents, watchers, or later work.
 - External skills are references for this assistant only. Do not use a plugin or skill to delegate work or evade these boundaries.
 
+## Mandatory release-completion gate
+
+Before reporting any scoped change as completed on `main`, enforce all five delivery proofs from `MAIN_DELIVERY_STANDARD.md`: fresh canonical version, version-prefixed source commits, remote push and PR, authorized merge, and independent remote-main content/version/SHA readback plus scope/check reconciliation. Record the proof in `DELIVERY_REPORT.md`. A branch push or open PR is unfinished; retry or repair routine in-scope delivery work without asking for repeated permission, but respect actual hooks, server protections and independent review rules.
+
 ## Mandatory commitment accounting
 
 At lifecycle invocation read `PHDK_COMMITMENT_STANDARD.md`. Capture inventories all commitments and asks whether discovery is complete; Plan maps every confirmed ID; PMO confirms possible additional work and reports verified progress and PR states at significant milestones; Auto audits initial planned items and in-scope PRs before claiming completion. `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `PMO_PROGRESS_REPORT.md` and `PHDK_COMPLETION_AUDIT.md` are required as applicable. Never call an open in-scope PR or undone planned item DONE. Preserve owner-confirmed scope and no-background-execution limits.
