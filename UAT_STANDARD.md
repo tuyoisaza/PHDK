@@ -1,3 +1,7 @@
+## Mandatory persona journeys, test identities and next action
+
+Before executing UAT, obey `UAT_JOURNEY_STANDARD.md` fully: inspect actual profiles and source-backed permissions, verify deployed development access, create safe synthetic role accounts when absent, verify Superadmin audited role switching, plan stories by persona, execute observable browser/API journeys, retain per-step evidence and retest repaired failures. Generate the role/access/stories/journey map and retest artifacts listed there. End every UAT/UAT Fix response with an exact `SIGUIENTE PASO` instruction; do not wait unnecessarily when autonomous work remains. Production URLs do not imply permission to affect real production data or bypass authentication.
+
 ## CRUD acceptance gate
 
 For applicable projects, use `CRUD_STANDARD.md` and `CRUD_MATRIX.md` to exercise permitted Create, Read-list/detail, Update, and Delete/archive in real flows and negative tests for forbidden actions, direct API access, cross-tenant IDs, validation, failure states and persistence. A listed admin record without a working appropriate detail view is FAIL. Record evidence or BLOCKED/MANUAL; never infer PASS from buttons alone.
