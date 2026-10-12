@@ -25,6 +25,10 @@ Complete the necessary steps of the current requested deliverable, including its
 
 At lifecycle invocation read `PHDK_COMMITMENT_STANDARD.md`. Capture inventories all commitments and asks whether discovery is complete; Plan maps every confirmed ID; PMO confirms possible additional work and reports verified progress and PR states at significant milestones; Auto audits initial planned items and in-scope PRs before claiming completion. `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `PMO_PROGRESS_REPORT.md` and `PHDK_COMPLETION_AUDIT.md` are required as applicable. Never call an open in-scope PR or undone planned item DONE. Preserve owner-confirmed scope and no-background-execution limits.
 
+## Mandatory debug widget gate
+
+For applicable app-style products, follow `DEBUG_DIAGNOSTICS_STANDARD.md` literally: one reusable debug-only authorized version → clipboard → trash icon-only row, with no visible helper/success text; successful copy and cache clearing individually show a temporary green check and revert. Copy verbose sanitized diagnostics; clear only permitted caches/session state. During `PHDK auto`, inspect implementation and focused tests, repair omissions in scope, and reconcile findings in Check. Do not claim visual/runtime verification without allowed evidence.
+
 ## SEO and AEO/GEO lifecycle gates
 
 After UAT/UAT Fix and before Check, execute `PHDK_SEO.md` then `PHDK_AEO_GEO.md` for applicable public discoverability. Preserve separate historical handoffs, audit/checklist/remediation reports, verified fixes, UAT regressions, and explicit NOT APPLICABLE for private-only routes. Neither stage broadens browser/production authorization or permits invented rankings or citations.

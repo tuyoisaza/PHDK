@@ -124,12 +124,13 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 4. Check canonical PHDK version when accessible; record drift without mutating the repository.
 5. Read all applicable active standards; build an internal requirement matrix.
 6. Inspect repository source, configuration, scripts, tests, docs, versioning, hooks, and delivery metadata needed to evaluate each requirement.
-7. For AI-bearing repositories, evaluate `AI_ADMIN_STANDARD.md`: centralized provider access, token/cost tracking, super-admin consumption, Prompts navigation/route, prompt list/editor fields, output-schema validation, audit/revisions, and prompt/revision attribution.
-8. Distinguish implementation absence from verification absence.
-9. Deduplicate findings by root cause.
-10. Produce the report and a concise prioritized summary.
-11. Ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"**
-12. Stop. Do not begin remediation until the user answers.
+7. For every applicable app-style repository, inspect `DEBUG_DIAGNOSTICS_STANDARD.md` and the concrete mounted component/handlers/tests, not just a version string. Verify the canonical inline row (version → clipboard → trash), debug/role gating, verbose sanitized copy, green success checkmark and timed revert for both actions, cache safety, and absence of extra visible text/toasts. Record each missing or unverified requirement as GAP/PARTIAL/UNVERIFIED, with source/test evidence; NOT APPLICABLE only for non-app projects with rationale.
+8. For AI-bearing repositories, evaluate `AI_ADMIN_STANDARD.md`: centralized provider access, token/cost tracking, super-admin consumption, Prompts navigation/route, prompt list/editor fields, output-schema validation, audit/revisions, and prompt/revision attribution.
+9. Distinguish implementation absence from verification absence.
+10. Deduplicate findings by root cause.
+11. Produce the report and a concise prioritized summary.
+12. Ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"**
+13. Stop. Do not begin remediation until the user answers.
 
 Do not manufacture exhaustive certainty when access is incomplete. Prefer UNKNOWN/UNVERIFIED over speculation.
 
