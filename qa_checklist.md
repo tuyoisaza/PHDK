@@ -615,7 +615,7 @@ The final response states what source was reviewed, actual check results, remote
 
 ## Debug UI contract (app-style products only)
 
-- [ ] When debug OFF or user unauthorized, version/actions widget is fully hidden.
+- [ ] Version/actions widget stays visible for anonymous users and debug OFF on public home/login/app/admin, while privileged diagnostics remain protected.
 - [ ] One reused component shows exactly version → clipboard → trash icons in one row and no visible subordinate copy/status/toast.
 - [ ] Both successful actions show a green check icon and revert; failures never show success; accessible nonvisual status exists.
 - [ ] Clipboard copies complete sanitized verbose diagnostics; cache action clears permitted state safely without deleting business data.
