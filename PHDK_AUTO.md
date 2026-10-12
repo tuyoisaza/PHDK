@@ -1,5 +1,10 @@
 # PHDK Auto
 
+## Verified delivery
+
+Before final success for a remote-main goal, comply with `PHDK_COMPLETION_GATE.md`, create evidence after merge, run the mechanical verifier where available, and independently reconcile PR merge, required checks and confirmed commitments. Without these proofs report PARTIALLY DELIVERED/BLOCKED, not COMPLETED.
+
+
 ## UX/UI in the autonomous lifecycle
 
 When the goal includes UI or an existing interface, apply `PHDK_UX_UI.md` from Capture/Plan through Integration and UAT: architecture and design deliverables precede implementation; brownfield designs begin with existing-interface evidence and preserve correct flows; UAT examines real journeys, accessibility and visual consistency, repairs in-scope P0/P1 findings and retests. Stage handoffs and completion audit account for these deliverables. Browser use remains limited to UAT/UAT Fix. Do not claim success with unresolved P0/P1 UI findings.
