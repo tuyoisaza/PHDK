@@ -7,6 +7,10 @@ Activate only when the owner explicitly invokes `PHDK designer mode`, `PHDK modo
 
 PHDK Designer Mode is an interactive work mode, not a standing background agent. It follows `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UX_UI.md` and `DEBUG_DIAGNOSTICS_STANDARD.md`. It does not activate PHDK Auto, PMO or Developer Mode. It can do normal scoped repository editing and delivery authorized by the current invocation; browser/headless/screenshots are only permitted within the scoped UAT/UAT Fix exception. Never describe a code-only review as browser-tested.
 
+## Mandatory prerequisite: Design System Readiness
+
+Before creative directions, screen recommendations, or UI edits, execute the complete readiness and bounded preparation gate in `PHDK_DESIGN_SYSTEM.md`. Inspect actual dependency versions, component library, Tailwind, Radix/Base UI compatibility, Motion, icons, shared styles, light/dark/corporate tokens, next-intl en/es/pt coverage, accessibility and duplication. Write `DESIGN_SYSTEM_READINESS.md`, state READY/MISSING/CONFLICT/BLOCKED with evidence, repair safe in-scope prerequisites, and never claim dependencies are installed without verification. Only then enter the design workflow. Do not block useful source-level improvements merely because a test browser is unavailable; report visual limitations honestly.
+
 ## Workflow — do the work, not just recommendations
 1. **Discover and inventory:** inspect repository, actual routes/pages/components/styles, existing design tokens, target users/tasks, constraints, branding, responsive breakpoints and current UX documents. Include public/anonymous, login, user and admin routes where present. Do not fabricate screenshots, telemetry or interviews.
 2. **Baseline:** identify the critical screens and high-impact friction: generic card grids, gratuitous gradients, poor density/hierarchy, uneven spacing, amateur typography, confusing affordances, incoherent navigation, empty/error/loading states, form clarity and mobile shortcomings. Record what should be preserved. Use screenshot evidence if already available, or defer browser screenshots to the scoped UAT verification step.
