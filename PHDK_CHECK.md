@@ -2,7 +2,7 @@
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest Integration/UAT/UAT Fix handoffs required by `PHDK_LIFECYCLE.md` and audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest Integration/UAT/UAT Fix/SEO/AEO-GEO handoffs (or justified N/A records) required by `PHDK_LIFECYCLE.md` and audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK check` audits the current repository against the active PHDK standards and produces a concrete remediation backlog. The command is intentionally two-phase:
 

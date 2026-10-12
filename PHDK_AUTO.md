@@ -44,6 +44,8 @@ PMO / Workstreams .... PENDING
 Integration Review ... PENDING
 UAT .................. PENDING
 UAT Fix .............. PENDING
+SEO .................. PENDING
+AEO/GEO .............. PENDING
 Check ................ PENDING
 Remediation .......... PENDING
 Delivery ............. PENDING
@@ -58,7 +60,7 @@ Then run the applicable lifecycle end-to-end:
 
 ```text
 Capture → Plan → PMO/workstream execution → PMO Integration Review
-→ UAT → UAT Fix → Check → in-scope Check remediation → delivery
+→ UAT → UAT Fix → SEO → AEO/GEO → Check → in-scope Check remediation → delivery
 ```
 
 Skip a stage only when its output is already current/coherent or it is genuinely not applicable. Do not rerun Capture or Plan merely for ceremony.
@@ -165,11 +167,15 @@ After workstream execution, perform the PMO Integration Review and produce one c
 
 Run `PHDK uat` on the integrated candidate. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain.
 
-### 6. Check and remediation
+### 6. SEO and AEO/GEO
+
+After UAT and UAT Fix, run `PHDK_SEO.md` on public indexable pages and then `PHDK_AEO_GEO.md` on applicable public answer/discovery content. Show separate status-board rows and transitions, preserve `65-seo/` and `67-aeo-geo/` handoffs, execute safe in-scope source fixes and revalidate impacted UAT. Mark either NOT APPLICABLE only with evidence when a product has no relevant public discovery goal. Neither stage silently authorizes browser, live probes, paid calls, production changes or fabricated AI visibility. Do not proceed to Check without verifying both gates/explicit N/A records. Reconcile resulting tasks with the commitment ledger.
+
+### 7. Check and remediation
 
 Run `PHDK check` against the integrated candidate. Under Auto, AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps that are within the authorized goal are automatically approved for remediation; repair them, rerun applicable validation, and rerun Check. DECISION REQUIRED / EXTERNAL-MANUAL / out-of-scope findings remain explicit.
 
-### 7. Delivery
+### 8. Delivery
 
 Complete final repository verification, version reconciliation, normal branch/PR delivery, merge, and remote verification under `MAIN_DELIVERY_STANDARD.md`.
 
@@ -255,6 +261,8 @@ PMO / Workstreams .... COMPLETED
 Integration Review ... COMPLETED
 UAT .................. COMPLETED — ACCEPTED
 UAT Fix .............. NOT APPLICABLE
+SEO .................. COMPLETED / NOT APPLICABLE
+AEO/GEO .............. COMPLETED / NOT APPLICABLE
 Check ................ COMPLETED — ALIGNED
 Remediation .......... NOT APPLICABLE
 Delivery ............. COMPLETED

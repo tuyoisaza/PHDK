@@ -1,3 +1,15 @@
+## v2.47.0 — 2026-10-11
+
+### Added
+- Post-UAT SEO stage (65-seo) with 25 evidenced controls, repository-safe corrections, before/after evidence and handoff.
+- Post-SEO AEO/GEO stage (67-aeo-geo) with 15 answer quality/discoverability controls and separate historical reports.
+- Auto, lifecycle, Check, ledger and vendored native agent rules updated for UAT → UAT Fix → SEO → AEO/GEO → Check.
+- Both standards added to canonical vendoring manifest; private-only apps receive justified NOT APPLICABLE outcomes.
+
+### Verification and adoption
+- Documentation/source reference review, no browser, production audit or Lighthouse test of a live product performed.
+- Existing sites explicitly use `PHDK upgrade` to adopt this version; no automatic downstream update.
+
 ## v2.46.1 — 2026-10-11
 
 ### Fixed

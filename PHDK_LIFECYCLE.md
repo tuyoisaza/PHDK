@@ -83,6 +83,8 @@ and one folder per executed/reused stage:
 40-integration/
 50-uat/
 60-uat-fix/
+65-seo/
+67-aeo-geo/
 70-check/
 80-remediation/
 90-delivery/
@@ -517,6 +519,50 @@ Check verifies the latest UAT status and does not assume ACCEPTED when acceptanc
 
 ---
 
+## 65 — SEO
+
+### Purpose
+After UAT/UAT Fix, improve applicable public-site technical SEO and content discoverability on the validated candidate.
+
+### Required inputs
+- UAT/UAT Fix handoff (or documented NOT APPLICABLE), verified candidate, Capture audience/intent, current route map and `PHDK_SEO.md`.
+
+### Required canonical outputs
+- `SEO_AUDIT_REPORT.md`, `SEO_CHECKLIST.md`, `SEO_REMEDIATION_REPORT.md` (or evidence-based NOT APPLICABLE record).
+
+### Historical outputs
+- `65-seo/HANDOFF.md` and snapshots of applicable reports, changes and regression evidence.
+
+### Exit gate
+- 25 controls classified with evidence or applicability justified; in-scope fixes and retests recorded; critical indexability blockers unresolved only with BLOCKED status; affected UAT evidence revalidated.
+
+### Next stage must verify
+- AEO/GEO consumes SEO handoff, public-route indexability baseline and current UAT candidate.
+
+---
+
+## 67 — AEO/GEO
+
+### Purpose
+After SEO, improve credible public answers and citation-readiness for answer/generative search, without promises of model placement.
+
+### Required inputs
+- SEO handoff/applicability, current candidate, Capture intent and `PHDK_AEO_GEO.md`.
+
+### Required canonical outputs
+- `AEO_GEO_AUDIT_REPORT.md`, `AEO_GEO_CHECKLIST.md`, `AEO_GEO_REMEDIATION_REPORT.md` (or evidence-based NOT APPLICABLE record).
+
+### Historical outputs
+- `67-aeo-geo/HANDOFF.md` and material snapshots.
+
+### Exit gate
+- 15 controls evidenced/classified; supported corrections retested; blocked external measurements not mislabeled PASS; affected UAT revalidated.
+
+### Next stage must verify
+- Check validates SEO and AEO/GEO exit gates, or their documented NOT APPLICABLE reasons.
+
+---
+
 ## 70 — Check
 
 ### Purpose
@@ -526,7 +572,7 @@ Audit the resulting repository against all applicable PHDK standards.
 ### Required inputs
 
 - latest integrated/remediated candidate;
-- Capture + Plan + PMO + Integration + UAT handoffs;
+- Capture + Plan + PMO + Integration + UAT + SEO + AEO/GEO handoffs or grounded NOT APPLICABLE records;
 - active PHDK standards.
 
 ### Required canonical outputs
@@ -692,6 +738,8 @@ PHDK should preserve enough history that a future assistant/human can answer:
 - What exactly was integrated?
 - What did UAT accept/fail/block?
 - What did UAT Fix repair?
+- What did SEO audit, improve and validate?
+- What did AEO/GEO verify and improve without fabricating AI visibility?
 - What standards gaps did Check find?
 - What remediation happened?
 - What version/commit/PR was finally delivered?

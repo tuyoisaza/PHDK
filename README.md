@@ -1,7 +1,7 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.46.1**
+**Version v2.47.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -62,7 +62,7 @@ Done
 For a single focused workstream, either run the stages explicitly:
 
 ```text
-PHDK capture → PHDK plan → implementation/integration → PHDK uat → PHDK uat fix → PHDK check
+PHDK capture → PHDK plan → implementation/integration → PHDK uat → PHDK uat fix → SEO → AEO/GEO → PHDK check
 ```
 
 or simply run:
@@ -83,6 +83,8 @@ Each stage has one job.
 | **Auto** | Orchestrate the complete lifecycle from Capture through final Check/remediation and delivery. |
 | **UAT** | Validate the integrated product against intent-aligned user stories and acceptance criteria. |
 | **UAT Fix** | Repair FAILs and removable blockers; guide the owner through manual/external blockers. |
+| **SEO** | After UAT, audit and improve public crawlability, metadata, content, structure and performance with 25 evidence-classified controls. |
+| **AEO/GEO** | After SEO, improve factual answer visibility, entity clarity and source credibility without promising AI placement. |
 | **Check** | Compare the repository against the applicable PHDK standards and produce a remediation backlog. |
 
 ---
@@ -136,6 +138,8 @@ Typical structure:
 40-integration/
 50-uat/
 60-uat-fix/
+65-seo/
+67-aeo-geo/
 70-check/
 80-remediation/
 90-delivery/
@@ -152,6 +156,8 @@ Every stage folder contains a mandatory `HANDOFF.md` plus snapshots of the stage
 | **Integration Review** | `INTEGRATION_REPORT.md` |
 | **UAT** | `UAT_CASES.md`, `UAT_REPORT.md` |
 | **UAT Fix** | `UAT_REMEDIATION.md` plus updated UAT artifacts |
+| **SEO** | `SEO_AUDIT_REPORT.md`, `SEO_CHECKLIST.md`, `SEO_REMEDIATION_REPORT.md` (or justified N/A) |
+| **AEO/GEO** | `AEO_GEO_AUDIT_REPORT.md`, `AEO_GEO_CHECKLIST.md`, `AEO_GEO_REMEDIATION_REPORT.md` (or justified N/A) |
 | **Check** | `PHDK_CHECK_REPORT.md` |
 | **Remediation** | `PHDK_REMEDIATION_REPORT.md` plus updated Check report |
 | **Delivery** | `DELIVERY_REPORT.md` |
@@ -411,6 +417,12 @@ If a blocker genuinely requires an unavailable browser environment, external acc
 
 ---
 
+## SEO and AEO/GEO — after UAT
+
+On relevant public sites, Auto executes `PHDK_SEO.md` to audit and implement safe SEO corrections, then `PHDK_AEO_GEO.md` to improve factual answer clarity and citation-readiness. Both stages record evidence and historical handoffs; entirely private projects are marked NOT APPLICABLE with justification. Neither stage grants unapproved production/browser/provider access or guarantees rankings or AI citations.
+
+---
+
 ## `PHDK check`
 
 Measure the gap between the repository and the applicable PHDK standards.
@@ -620,6 +632,8 @@ PMO / Workstreams
 Integration Review
 UAT
 UAT Fix
+SEO
+AEO/GEO
 Check
 Remediation
 Delivery
