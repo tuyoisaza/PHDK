@@ -1,3 +1,9 @@
+## v2.50.10 — 2026-10-13
+
+### Downstream coherence inputs
+- Include README.md and CHANGELOG.md in the vendoring manifest so the installed coherence checker can validate release consistency.
+- Make the static checker enforce that release metadata sources remain vendored, preventing recurrence of the missing-input defect.
+
 ## v2.50.9 — 2026-10-13
 
 ### Verified completion gate

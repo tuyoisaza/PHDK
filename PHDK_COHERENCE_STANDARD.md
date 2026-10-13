@@ -7,7 +7,7 @@ Before publishing PHDK, inventory applicable standards, manifest files, scripts,
 Run universal Preflight ONCE at each PHDK command entry. For stages inside Auto/PMO, validate upstream handoffs and check newly relevant capabilities without repeating full Preflight. Repeat the universal audit only if installation, VERSION, manifest, or managed instructions have changed or failed integrity checks.
 
 ## Release gates
-- VERSION, README and newest CHANGELOG release must match.
+- VERSION, README and newest CHANGELOG release must match and all three files must be included in the vendoring manifest so downstream coherence checks receive the same release inputs.
 - Every vendoring manifest source must exist, with unique safe source/destination paths.
 - Run the static coherence checker and applicable existing repository checks when an execution environment is available. A static pass does not certify semantic coherence or behavior.
 - Review full outgoing diff for conflicting instructions and non-vendored new dependencies.

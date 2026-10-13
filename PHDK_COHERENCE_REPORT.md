@@ -1,19 +1,19 @@
-# PHDK coherence report — v2.50.9 candidate
+# PHDK coherence report — v2.50.10 candidate
 
-Baseline: `b7a14623fdaef0db6f0becd856f812c6652efcc3` (`origin/main`, v2.50.8).
-Scope: completion-gate version-source behavior, its standard, manifest and release metadata. Review timestamp: 2026-10-13.
+Baseline: `f012f0cf7ac7c749dee269285d4ef5bd2218f7eb` (`origin/main`, v2.50.9).
+Scope: vendored release metadata inputs and the downstream coherence check. Review timestamp: 2026-10-13.
 
 ## Findings
 
 | Class | Severity | Evidence | Owner | Remediation / next action |
 |---|---|---|---|---|
-| VERIFIED | — | `scripts/phdk_completion_gate.py` reads plain-text versions and an explicit JSON property; six regression tests pass, including a temporary bare remote whose `main` ref and commit version are checked. | PHDK | Preserve fail-closed path/property validation and verify vendored KELEDON evidence after installation. |
-| VERIFIED | — | `PHDK_COMPLETION_GATE.md` documents evidence and CLI forms; `VERSION`, README and newest changelog agree at v2.50.9. | PHDK | Run release coherence and delivery checks before merge. |
-| VERIFIED | — | `scripts/phdk_coherence_check.py` passes for 50 manifest mappings. Baseline v2.50.8 includes README and CHANGELOG in the manifest, resolving the previously observed installed-input mismatch after synchronization. | PHDK | Downstream projects must sync the published manifest through the current PHDK Auto delivery. |
-| RISK | Low | Completion evidence can name arbitrary version paths/properties. The verifier now rejects absolute/traversal paths and malformed property paths; actual lookup is confined to the selected Git commit tree. | PHDK | Retain rejection tests and report the selected source in delivery evidence. |
-| UNVERIFIED | — | The updated checker has not yet been run from KELEDON's vendored installation because v2.50.9 is not published. | KELEDON delivery | Install after the PHDK merge, rerun KELEDON's actual evidence gate, and record its result. |
-| N/A | — | No runtime dependency, provider call, database, browser, hosted CI, or external service is required by this parser change. | PHDK | None. |
+| GAP | Medium | The v2.50.8/v2.50.9 manifest omitted README.md and CHANGELOG.md, although the vendored coherence checker requires both in its root. A KELEDON manifest comparison confirmed those inputs were missing. | PHDK | Add both release metadata files to the manifest and enforce their presence in the coherence checker. |
+| VERIFIED | — | Six completion-gate tests pass, covering text and JSON versions, nested/missing/unsafe properties, CLI override, exact remote SHA verification, and fail-closed mismatch behavior. | PHDK | Preserve the regression coverage in future releases. |
+| VERIFIED | — | Candidate coherence checker now requires VERSION, README.md and CHANGELOG.md to be both valid release metadata and vendored inputs. It passes against all 52 manifest mappings. | PHDK | Install the candidate in KELEDON, verify byte-for-byte mappings, and run its vendored coherence checker. |
+| VERIFIED | — | `PHDK_COHERENCE_STANDARD.md` now states the same distribution invariant as the checker. The completion-gate standard documents text and JSON version sources. | PHDK | Keep standard, implementation and manifest aligned. |
+| N/A | — | No runtime dependency, provider call, database, browser, hosted CI, or external service is needed for these deterministic static checks. | PHDK | None. |
+| UNVERIFIED | — | KELEDON's installed standards have not yet been synchronized to v2.50.10; the merged downstream coherence run is pending. | KELEDON delivery | After merge, sync the full manifest and run the actual installed checker plus remote completion gate. |
 
 ## Release decision
 
-The baseline checker compared the entire remote version file with the expected semantic version. That conflicts with the completion standard's support for a project's canonical version source when it is a JSON package manifest. The smallest correction adds an explicit JSON property selector, optional CLI overrides, input validation, and regression coverage while preserving plain-text `VERSION` support. Release remains pending normal branch/PR review, local checks, and independent remote-main readback.
+The upstream pull fixed the completion verifier's JSON-version handling but did not distribute the coherence checker's README/CHANGELOG inputs. This release closes the full downstream path: manifest inclusion, a static guard against omission, and an explicit standard. Publication remains pending normal PR review, release checks and independent remote-main readback.
