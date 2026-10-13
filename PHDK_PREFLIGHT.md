@@ -13,7 +13,7 @@ Preflight verifies that:
 5. Relevant recommended skills/capabilities for the requested command are available.
 6. The user has not explicitly disabled use of recommended skills.
 
-Preflight is not a separate user command requirement. It is an automatic first step of PHDK commands.
+Preflight is not a separate user command requirement. It is an automatic first step of PHDK commands. Run universal Preflight ONCE per command entry. Internal Auto/PMO stages validate handoffs and newly relevant capabilities; repeat universal Preflight only for a detected installation/version/manifest/managed-rule change or integrity failure. See `PHDK_COHERENCE_STANDARD.md`.
 
 ## Designer-specific preflight
 
