@@ -2,6 +2,9 @@
 
 Version: 1.0. Applicable to PHDK uat, uat fix, re-UAT and Auto UAT phases.
 
+## Mandatory Company Co fixture gate
+For UAT/JWT (when JWT is used colloquially to mean user acceptance testing), read `USE_COMPANY_CO_INFO_FOR_DEMOS.md` before creating test data. It defines 200 synthetic employees in 17 departments, 17 leaders, B2B/B2C buyers, customers, suppliers, project states and transactional fixtures. Map the subset relevant to the actual product domain and privileges; seed idempotently; verify row counts, identities, access, test role switching and evidence. Never send bulk email to `@tujuisasa.com` automatically; verify delivery routing and explicit authorization first. If the term JWT instead means JSON Web Token, never use demo fixture profiles to bypass token authentication/security. This fixture is vendored by `PHDK_MANIFEST.txt`.
+
 ## Mandatory execution sequence
 1. Inspect project intent, requirements, existing code, routes, APIs, role policies, auth providers, CRUD matrix, fixtures, browser capability and actual reachable deployment. Reconcile implementation with intent; do not invent stories solely from routes.
 2. Inventory roles and personas (including public/anonymous), permissions, navigation entrypoints and reachable features in `UAT_ROLE_MATRIX.md`. Mark roles actually verified separately from inferred roles.
