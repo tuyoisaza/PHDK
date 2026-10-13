@@ -306,3 +306,8 @@ Before the next stage starts, verify that this report exists for the current run
 Final reports should mention capability limitations only when they materially affected the result.
 
 Do not pad every completion report with the full skill inventory.
+
+
+## Mandatory app widget discovery at Auto entry
+
+In addition to installed skills, the preflight for `PHDK auto` must inspect the actual app source to locate the shared version/clipboard/trash widget and capture a bounded **DEBUG_WIDGET_READINESS.md** report before implementation. Record each applicable public/login/app/admin mount, exact position under the brand at top-left, visible semver-only format and compact dimensions, real clipboard handler and diagnostic instrumentation, real cache/cookie/session clearing implementation, and existing test evidence. Do not infer PASS from the presence of an icon, CSS class, button click handler or checkmark animation. Mark evidence-based PASS / FAIL / UNVERIFIED / NOT APPLICABLE. A failure enters the Auto implementation/remediation backlog and cannot be waived by syncing standards. This is an inspection/recording gate, **not permission** for a bare upgrade command to modify product source.

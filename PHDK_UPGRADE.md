@@ -163,3 +163,8 @@ Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI to 
 Report the command used, old/new versions, upstream SHA, vendored-file count, native-block state, branch/commit/merge state where applicable, checks, conflicts, and limitations. For force mode, explicitly list the PHDK-owned dirty paths that were overwritten/removed and state that non-PHDK repository files were preserved. Then stop.
 
 An upgrade does not activate Developer Mode, remove installed application automation, terminate a process, revoke a credential, disable an external scheduler, or change GitHub/hosting settings. Removing existing automation files is a separate explicit repository-code request; external administration remains outside PHDK. Never report those operations as completed merely because standards were updated.
+
+
+## Post-force standards acceptance note
+
+After `PHDK upgrade force`, explicitly state the two separate outcomes: **standards synchronization** is verified against the manifest, whereas **product debug-widget implementation is NOT validated or repaired by upgrade alone**. Print the immediate next command `PHDK auto` for authorized remediation, which begins with the mandatory `DEBUG_WIDGET_READINESS.md` audit and then implements/tests outstanding defects within its authorized delivery goal. Never report force-upgrade as proof that app copy/clear actions work. If this upgrade is already inside an explicitly authorized Auto goal, the Auto entry and final functional gates still apply.
