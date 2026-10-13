@@ -16,7 +16,7 @@ Always apply `PHDK_COMMITMENT_STANDARD.md` through Capture, Plan, PMO, UAT and D
 
 ## Command and lifetime
 
-Run `PHDK_PREFLIGHT.md` once at Auto entry, then re-check only newly relevant capabilities when later lifecycle stages need them. Auto also follows the stage input/output/handoff contracts in `PHDK_LIFECYCLE.md`. Do not repeat a noisy full preflight at every internal stage.
+Run `PHDK_PREFLIGHT.md` once at Auto entry, then validate handoffs and re-check only newly relevant capabilities when later lifecycle stages need them. Repeat full Preflight only if installation or manifest integrity has changed. See `PHDK_COHERENCE_STANDARD.md`. Auto also follows the stage input/output/handoff contracts in `PHDK_LIFECYCLE.md`. Do not repeat a noisy full preflight at every internal stage.
 
 `PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. If there is no single current delivery but the repository already exposes multiple parallel pillars/fronts through Capture, Plan, PMO artifacts, requirements, or current work, do not collapse them into a request for one arbitrary goal; enter PMO portfolio discovery instead. A request to add this command, quoted examples, installed files, and old task records do not activate it.
 
