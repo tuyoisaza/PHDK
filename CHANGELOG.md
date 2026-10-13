@@ -1,3 +1,11 @@
+## v2.50.5 — 2026-10-12
+
+### Company Co synthetic UAT fixtures — vendored
+- Include `USE_COMPANY_CO_INFO_FOR_DEMOS.md` with 200 employee accounts in 17 departments, B2B/B2C counterparties, leadership profiles, financial and UAT transaction scenarios.
+- Include `UAT_JOURNEY_STANDARD.md` in the vendoring manifest (previously omitted), and link Company Co fixture from UAT and AGENTS guidance.
+- Mandate domain-specific adaptation, safe and auditable test user provisioning and Superadmin role switching. Explicit consent required before sending emails to the live `@tujuisasa.com` domain.
+- Increment PHDK to 2.50.5. Existing installations must run `PHDK upgrade` to receive vendored files; no downstream repository was modified by this release.
+
 ## v2.50.0 — 2026-10-12
 
 ### Added
