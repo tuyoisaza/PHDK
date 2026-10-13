@@ -331,3 +331,8 @@ Use `COMPLETED` only after the final completion audit, required checks, all scop
 ## Mandatory terminal delivery gate
 
 At the delivery stage, run the five-field proof gate in `MAIN_DELIVERY_STANDARD.md`. Auto must attempt the required version bump, version-prefixed source commits, remote branch push, PR and authorized merge, then independently read back remote `main`. Preserve a single version reconciliation for the integrated goal rather than bumping every stage. Include each field's evidence in `DELIVERY_REPORT.md`, the historical `90-delivery/HANDOFF.md`, and the terminal lifecycle board. No success wording while any field is not PASS; never interpret an open PR as complete. Existing checks, hooks and enforced reviews remain binding.
+
+
+## Initial debug-widget implementation gate
+
+**Immediately after Preflight and before treating Capture/Plan artifacts as reusable**, read `DEBUG_WIDGET_READINESS.md` for the current candidate and verify every applicable surface against `DEBUG_DIAGNOSTICS_STANDARD.md`. Missing or stale evidence must be repaired by inspection, not silently marked passed. Put functional failures into the authorized workstream implementation plan: wrong placement, visible commit/date, oversized buttons, absent diagnostic event collection, fake clipboard/checkmark, fake cache clear, missing logout/cookie invalidation, missing tests. Implement and regression-test these defects within the authorized goal before UAT/Check; recheck them after integration because later UI work can regress shared mounts. Preserve safe authorization/redaction and avoid browser-wide cache claims. If a defect is out of scope of the specifically authorized goal, report it explicitly as an unresolved gate; never call the app fully PHDK-compliant.
