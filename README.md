@@ -1,13 +1,13 @@
 # PHDK
 
-**Company Co demo/UAT fixture:** Before UAT that needs employees, area leaders, role test accounts, customers, buyers, suppliers, products or workflows, read [`USE_COMPANY_CO_INFO_FOR_DEMOS.md`](USE_COMPANY_CO_INFO_FOR_DEMOS.md). Adapt its synthetic 200-person / 17-department company to the real application model, seed idempotently, verify created accounts, and test role-scoped user journeys including auditable Superadmin profile switching. Never perform automatic bulk email to `@tujuisasa.com`; obtain authorization and verify routing first. Record evidence and the next executable action.
+**Company Co demo/UAT fixture (vendored since v2.50.5):** Before UAT that needs employees, area leaders, role test accounts, customers, buyers, suppliers, products or workflows, read [`USE_COMPANY_CO_INFO_FOR_DEMOS.md`](USE_COMPANY_CO_INFO_FOR_DEMOS.md). Adapt its synthetic 200-person / 17-department company to the real application model, seed idempotently, verify created accounts, and test role-scoped user journeys including auditable Superadmin profile switching. Never perform automatic bulk email to `@tujuisasa.com`; obtain authorization and verify routing first. Record evidence and the next executable action.
 
 
-**UAT profile journeys (v2.50.4):** `UAT_JOURNEY_STANDARD.md` requires code-backed role inventory, safe test users, auditable Superadmin role switching, intent-aligned stories per profile, executable step-by-step journeys, CRUD/UX/auth evidence, UAT Fix + Re-UAT and a concise copy-paste-ready `SIGUIENTE PASO` in every stage/blocker response.
+**UAT profile journeys (v2.50.5):** `UAT_JOURNEY_STANDARD.md` requires code-backed role inventory, safe test users, auditable Superadmin role switching, intent-aligned stories per profile, executable step-by-step journeys, CRUD/UX/auth evidence, UAT Fix + Re-UAT and a concise copy-paste-ready `SIGUIENTE PASO` in every stage/blocker response.
 
 
 **Project Handoff to Development Kit**  
-**Version v2.50.4**
+**Version v2.50.5**
 
 PHDK is an operating system for AI-assisted software delivery.
 
