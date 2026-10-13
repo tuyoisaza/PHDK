@@ -1,3 +1,6 @@
+## Company Co standard fixture (mandatory evaluation)
+Before preparing UAT datasets, read `USE_COMPANY_CO_INFO_FOR_DEMOS.md` and `UAT_JOURNEY_STANDARD.md`. Use synthetic Company Co staff, 17 leaders/departments, buyer/customer and supplier profiles when applicable. Map the records to the actual schema, seed idempotently, provision scoped test accounts, prove Superadmin test-profile switching, and document all resulting UAT actions/evidence. Do not send bulk emails or use live financial transactions as fixture side effects.
+
 ## Mandatory persona journeys, test identities and next action
 
 Before executing UAT, obey `UAT_JOURNEY_STANDARD.md` fully: inspect actual profiles and source-backed permissions, verify deployed development access, create safe synthetic role accounts when absent, verify Superadmin audited role switching, plan stories by persona, execute observable browser/API journeys, retain per-step evidence and retest repaired failures. Generate the role/access/stories/journey map and retest artifacts listed there. End every UAT/UAT Fix response with an exact `SIGUIENTE PASO` instruction; do not wait unnecessarily when autonomous work remains. Production URLs do not imply permission to affect real production data or bypass authentication.
