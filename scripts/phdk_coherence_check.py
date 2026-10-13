@@ -35,7 +35,7 @@ for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8")
     destinations.add(dst)
     if not (root / src).is_file():
         errors.append(f"manifest line {n}: missing {src}")
-for mandatory in ["VERSION", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "scripts/phdk_coherence_check.py"]:
+for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "scripts/phdk_coherence_check.py"]:
     if mandatory not in sources:
         errors.append(f"manifest lacks {mandatory}")
 if errors:
