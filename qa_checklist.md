@@ -620,3 +620,11 @@ The final response states what source was reviewed, actual check results, remote
 - [ ] Both successful actions show a green check icon and revert; failures never show success; accessible nonvisual status exists.
 - [ ] Clipboard copies complete sanitized verbose diagnostics; cache action clears permitted state safely without deleting business data.
 - [ ] Applicable unit/component tests and source mount points verified; browser/runtime evidence is not invented.
+
+## Mandatory functional version/actions QA
+
+- [ ] Widget sits directly below product name at top-left of public home, login, shell, admin.
+- [ ] Visible version only `vX.Y.Z`, no SHA/build time or parentheses; compact paired controls.
+- [ ] Tests inspect actual copied clipboard text containing current version, route history, errors, safe logs and proper redaction; no icon-only fake pass.
+- [ ] Tests verify actual deletion of supported app-scoped cache/storage/cookies, proper session invalidation and failure modes; only post-success green check.
+- [ ] `DEBUG_WIDGET_READINESS.md` exists and linked evidence is current; absent functionality blocks compliance.
