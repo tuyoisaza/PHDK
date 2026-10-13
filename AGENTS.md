@@ -159,3 +159,7 @@ No browser operation, headless testing or screenshots outside scoped UAT/UAT Fix
 Before reporting completion, confirm the requested outcome, applicable checks, owner controls, and verified delivery target. For a request targeting `main`, verify the remote change and version; do not trust a stale task checkbox instead of git/PR evidence or create a redundant post-merge bump/push. Report deployment evidence separately. Do not claim external agents were terminated, credentials revoked, billing corrected, or server-side protection enabled merely because documentation or local hooks changed.
 
 Record proposed follow-ups as inactive context. After the requested outcome and authorized delivery are complete, stop.
+
+## Widget functionality gate
+
+At Auto entry, inspect actual app source and create `DEBUG_WIDGET_READINESS.md` before trusting visual controls. The widget must be top-left below product name; clipboard must copy a real sanitized events/errors/routes/version report; trash must actually clear supported origin-scoped caches, app storage, app cookies and logout/session via server when needed. An animated green check without awaited successful effects is FAIL. Preserve public-safe reporting and report unsupported browser controls accurately.
