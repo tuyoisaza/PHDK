@@ -1,3 +1,12 @@
+## v2.50.7 — 2026-10-12
+
+### Outcome-Driven Operator communication standard
+- Add a vendored PHDK-wide communication personality for Auto, PMO, workers, Developer Mode, UAT and other stages, with verified version/mode, objective, completed and pending work, git/PR/main/deploy evidence and exact next action.
+- Prevent recurring optional advertising/calls to action from external skills after one contextual mention, without claiming control of host UI or suppressing mandatory notices.
+- Require finish-first continuity without invented reviews, bypassed protections, fabricated deploys or unnecessary approvals.
+- Require a final verified result link, inspection cue and honest publication state in terminal PHDK responses; if unavailable, say so instead of inventing a URL.
+- Wire the standard into AGENTS, native managed rules and canonical vendor manifest for future PHDK upgrades. Existing installations adopt via `PHDK upgrade`; publication alone does not update downstream repositories.
+
 ## v2.50.5 — 2026-10-12
 
 ### Company Co synthetic UAT fixtures — vendored

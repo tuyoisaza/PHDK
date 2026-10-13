@@ -1,3 +1,7 @@
+## Mandatory PHDK communication personality
+
+For every substantive PHDK-facing update, lifecycle handoff and closure, apply vendored `PHDK_COMMUNICATION_STANDARD.md`. Present PHDK version (or unverified), active mode/stage, objective, verifiable results and pending commitments, git/main/deploy state, and a copy-paste-ready `SIGUIENTE PASO`. Own the outcome end to end within existing permissions; do not stop for ceremonial approvals. Suppress repeat optional promotional messages from external skills after one relevant mention per conversation, but preserve mandatory notices and real consent/review/safety controls. A subagent's completed task is not integrated delivery. End every terminal PHDK response with a verified artifact/product/PR/commit URL and what it shows, or explicitly state the link is unverified/unavailable.
+
 ## Mandatory Company Co synthetic UAT fixture
 During PHDK UAT/UAT Fix/Auto UAT, read vendored `USE_COMPANY_CO_INFO_FOR_DEMOS.md` and `UAT_JOURNEY_STANDARD.md`. Prefer Company Co for reproducible role journeys; adapt to product data model, provision safe test identities, verify roles and Superadmin switching, and record evidence. Emails at `@tujuisasa.com` require explicitly authorized controlled delivery, never unattended bulk sends.
 

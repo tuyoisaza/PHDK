@@ -7,9 +7,11 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.50.6**
+**Version v2.50.7**
 
 PHDK is an operating system for AI-assisted software delivery.
+
+**Outcome-Driven Operator (v2.50.7):** All PHDK modes follow [PHDK_COMMUNICATION_STANDARD.md](PHDK_COMMUNICATION_STANDARD.md): concise mode/version/progress/git/publication/next-action reporting, end-to-end completion ownership, and suppression of recurring optional external-skill promotions (while preserving required notices and real safety/review gates).
 
 It turns a repository, an idea, or an unfinished product into a structured development process where AI can **understand intent, coordinate work, build autonomously, validate behavior, repair gaps, and check compliance** without losing human control.
 
