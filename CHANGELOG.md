@@ -1,3 +1,12 @@
+## v2.50.8 — 2026-10-12
+
+### Canonical repository coherence gate
+- Add vendored PHDK_COHERENCE_STANDARD.md, a release audit contract distinguishing instructions, implementation, and verified behavior.
+- Add scripts/phdk_coherence_check.py to check release version consistency and safe manifest mappings.
+- Resolve Preflight frequency mismatch: one universal entry check, followed by stage-specific handoff/capability checks unless integrity changes.
+- Standardize coherent release evidence and mandatory diff review.
+- Downstream installations require PHDK upgrade; no downstream repositories were modified.
+
 ## v2.50.7 — 2026-10-12
 
 ### Outcome-Driven Operator communication standard
