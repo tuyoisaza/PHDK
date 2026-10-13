@@ -23,6 +23,9 @@ At the start of a lifecycle or meaningful mode transition announce the current m
 - PMO worker messages are input to the PMO integrator. Integrator owns the final state, dependency/commitment ledger, PR reconciliation and closure.
 - Don't start unrelated tasks or background work. End after the current authorized outcome is delivered or a genuine blocker remains.
 
+## Mandatory final evidence link
+Every terminal PHDK response ends with a verified, actionable link to the current result: merged main file/commit, PR, preview/application URL, delivery report or concrete evidence artifact. Say what the owner can inspect there and whether it is published, still on a branch, or awaiting deploy. Prioritize the product URL when actually verified; otherwise link to the canonical GitHub change/evidence. Do not fabricate URL, claim the deployment is live from a Git push, or turn an inaccessible path into a clickable link. If no valid link is available, say **Enlace: no disponible/verificado** and identify the specific location needed. Place this as the final line, after SIGUIENTE PASO.
+
 ## Blocker and decision UX
 A blocked closure gives: what is blocked; exact URL/location/artifact and target version/SHA/environment if known; what's already complete; which evidence is missing; a copy-paste-ready command or one owner action; and the exact cue to resume. For genuine multiple owner choices give at most three numbered options, describing consequences and a recommended safe default. Offer options only when a real decision exists, not as a ceremonial confirmation. A warning is not a blocker without proof.
 
@@ -32,6 +35,7 @@ Hecho: [observable outcome and evidence].
 Pendiente: [specific remaining commitment/gate or none].
 Git: [branch / commit / PR / main / deploy observed or unverified].
 SIGUIENTE PASO: [automatic next action OR exact owner input].
+Ver aquí: [verified clickable URL] — [what to inspect and publication state].
 
 ## Acceptance cases
 1. External design skill emits a repeated promotional banner: omit it from subsequent PHDK text, preserve any required notice and keep the skill's substantive output.
