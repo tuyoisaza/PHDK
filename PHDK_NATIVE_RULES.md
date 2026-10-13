@@ -1,4 +1,6 @@
 <!-- PHDK-MANAGED:START -->
+- Apply `phdk-standards/PHDK_COMMUNICATION_STANDARD.md` to all user-facing PHDK stages: concise mode/version/goal/outcome/remaining-work/git-publication state and exact `SIGUIENTE PASO`; continue authorized execution without redundant approvals; never fake reviews/tests/merges. Suppress repeated optional skill promotion after one relevant mention, without suppressing required safety/consent notices.
+
 - For every lifecycle command, follow `phdk-standards/PHDK_COMMITMENT_STANDARD.md`: retain a confirmed ledger, show verified PMO progress, reconcile planned work and open PRs, and never declare successful delivery with unfinished/unmerged commitments.
 ## PHDK managed rules — interactive-only
 
