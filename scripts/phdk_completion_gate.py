@@ -5,7 +5,7 @@ import json
 import re
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 def git(*args):
     p = subprocess.run(["git", *args], capture_output=True, text=True, timeout=25, check=False)
@@ -13,10 +13,30 @@ def git(*args):
         raise RuntimeError(f"git {' '.join(args)} failed: {p.stderr.strip()}")
     return p.stdout.strip()
 
+def extract_version(content, property_path=None):
+    """Read a plain-text version or an explicitly selected JSON property."""
+    if property_path is None:
+        return content.strip()
+    if not isinstance(property_path, str) or not re.fullmatch(
+        r"[A-Za-z_][A-Za-z0-9_-]*(?:\.[A-Za-z_][A-Za-z0-9_-]*)*",
+        property_path,
+    ):
+        raise ValueError("unsafe version_property")
+    value = json.loads(content)
+    for key in property_path.split("."):
+        if not isinstance(value, dict) or key not in value:
+            raise ValueError(f"JSON version property {property_path!r} not found")
+        value = value[key]
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"JSON version property {property_path!r} must be a non-empty string")
+    return value.strip()
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", default="PHDK_DELIVERY_EVIDENCE.json")
     ap.add_argument("--remote", default="origin")
+    ap.add_argument("--version-file", help="Override the evidence version_file")
+    ap.add_argument("--version-property", help="Dot-separated JSON property in version_file")
     args = ap.parse_args()
     errors = []
     try:
@@ -53,9 +73,29 @@ def main():
             errors.append("at least one actual PASS check required")
 
     branch = data.get("target_branch", "main")
-    version_file = data.get("version_file", "VERSION")
-    if not isinstance(version_file, str) or version_file.startswith("/") or ".." in Path(version_file).parts:
+    version_file = args.version_file or data.get("version_file", "VERSION")
+    version_property = (
+        args.version_property
+        if args.version_property is not None
+        else data.get("version_property")
+    )
+    version_file_path = Path(version_file) if isinstance(version_file, str) else None
+    if (
+        version_file_path is None
+        or version_file_path.is_absolute()
+        or PureWindowsPath(version_file).is_absolute()
+        or ".." in version_file.replace("\\", "/").split("/")
+        or not re.fullmatch(r"[A-Za-z0-9._/-]+", version_file)
+    ):
         errors.append("unsafe version_file")
+    if version_property is not None and (
+        not isinstance(version_property, str)
+        or not re.fullmatch(
+            r"[A-Za-z_][A-Za-z0-9_-]*(?:\.[A-Za-z_][A-Za-z0-9_-]*)*",
+            version_property,
+        )
+    ):
+        errors.append("unsafe version_property")
     if not re.fullmatch(r"[A-Za-z0-9._/-]+", branch):
         errors.append("unsafe branch")
     if not errors:
@@ -72,9 +112,10 @@ def main():
                     git("cat-file", "-e", sha + "^{commit}")
                 except RuntimeError:
                     git("fetch", "--no-tags", args.remote, branch)
-                observed_version = git("show", sha + ":" + version_file).strip()
+                source = git("show", sha + ":" + version_file)
+                observed_version = extract_version(source, version_property)
                 if observed_version.lstrip("v") != data.get("expected_version", "").lstrip("v"):
-                    errors.append(f"remote VERSION {observed_version!r} != expected {data.get('expected_version')!r}")
+                    errors.append(f"remote version source {observed_version!r} != expected {data.get('expected_version')!r}")
         except Exception as exc:
             errors.append(f"remote verification unavailable: {exc}")
     if errors:

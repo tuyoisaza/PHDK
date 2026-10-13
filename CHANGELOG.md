@@ -1,3 +1,10 @@
+## v2.50.9 — 2026-10-13
+
+### Verified completion gate
+- Support plain-text and explicitly selected JSON version sources, including `package.json` version properties.
+- Add safe CLI overrides and regression coverage for JSON extraction and remote-main verification.
+- Preserve fail-closed behavior for invalid paths, missing properties and version mismatches.
+
 ## v2.50.8 — 2026-10-12
 
 ### Canonical repository coherence gate
