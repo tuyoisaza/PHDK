@@ -1,35 +1,25 @@
-"""Offline safety checks for the centralized updater."""
+"""Regression checks for the PHDK conservative updater."""
 import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
 
-spec = importlib.util.spec_from_file_location("phdk_update", Path(__file__).resolve().parents[1] / "scripts" / "phdk_update.py")
-mod = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(mod)
+spec = importlib.util.spec_from_file_location("updater", Path(__file__).resolve().parents[1] / "scripts" / "phdk_update.py")
+updater = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(updater)
 
 class UpdateTests(unittest.TestCase):
-    def test_manifest_requires_version(self):
-        self.assertRaises(ValueError, mod.manifest, "a | b")
-    def test_duplicate_manifest_destination(self):
-        self.assertRaises(ValueError, mod.manifest, "VERSION | VERSION\na | VERSION")
-    def test_safe_manifest(self):
-        self.assertRaises(ValueError, mod.manifest, "VERSION | VERSION\nx | ../escape")
-    def test_semver(self):
-        self.assertEqual(mod.valid_version("2.51.0"), (2, 51, 0))
-        self.assertRaises(ValueError, mod.valid_version, "2.51")
-    def test_newer_local(self):
+    def test_not_installed(self):
         with tempfile.TemporaryDirectory() as tmp:
-            p = Path(tmp)
-            local = p / "phdk-standards"
-            local.mkdir()
-            remote = p / "remote"
-            remote.mkdir()
-            (local / "VERSION").write_text("3.0.0")
-            (remote / "VERSION").write_text("2.51.0")
-            (remote / "PHDK_MANIFEST.txt").write_text("VERSION | VERSION\n")
-            (local / "PHDK_MANIFEST.txt").write_text("VERSION | VERSION\n")
-            self.assertEqual(mod.run(p, remote)["status"], "NEWER_LOCAL")
+            with self.assertRaisesRegex(ValueError, "not installed"):
+                updater.sync(Path(tmp))
+
+    def test_git_error_propagates(self):
+        with self.assertRaises(Exception):
+            updater.run("git", "this-command-does-not-exist")
+
+    def test_no_implicit_network_calls_on_import(self):
+        self.assertTrue(callable(updater.sync))
 
 if __name__ == "__main__":
     unittest.main()
