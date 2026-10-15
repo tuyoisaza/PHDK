@@ -1,3 +1,8 @@
+
+## Mandatory delivery-autonomy and personality bootstrap
+
+On each explicit PHDK entry, use the vendored `PHDK_COMMUNICATION_STANDARD.md` as the canonical response/personality contract and check the active tool-native managed entrypoint. Do not infer that a different already-open session has reloaded after a version update. For scoped implementation deliverables, continue normal versioned branch/PR/merge and remote verification without a universal human sign-off; keep actual independent/server reviews, safety decisions, hooks and current owner restrictions. Never confuse source merge, GitHub release and verified production deployment. See `MAIN_DELIVERY_STANDARD.md`.
+
 ## Mandatory PHDK communication personality
 
 For every substantive PHDK-facing update, lifecycle handoff and closure, apply vendored `PHDK_COMMUNICATION_STANDARD.md`. Present PHDK version (or unverified), active mode/stage, objective, verifiable results and pending commitments, git/main/deploy state, and a copy-paste-ready `SIGUIENTE PASO`. Own the outcome end to end within existing permissions; do not stop for ceremonial approvals. Suppress repeat optional promotional messages from external skills after one relevant mention per conversation, but preserve mandatory notices and real consent/review/safety controls. A subagent's completed task is not integrated delivery. End every terminal PHDK response with a verified artifact/product/PR/commit URL and what it shows, or explicitly state the link is unverified/unavailable.
