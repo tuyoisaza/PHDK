@@ -1,5 +1,10 @@
 # PHDK Preflight Standard
 
+## Centralized updater
+
+At authorized PHDK command entry, after installation detection, invoke the vendored `scripts/phdk_update.py` once to refresh manifest-owned standards from canonical main when safe. Re-read updated instructions before continuing. Report connectivity, version or local edit conflicts without force-overwriting. This foreground action does not run on dormant repositories or activate old work.
+
+
 ## Purpose
 
 Every PHDK command must begin with a fast, bounded preflight before doing substantive work.
