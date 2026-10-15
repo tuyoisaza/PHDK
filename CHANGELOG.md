@@ -1,3 +1,10 @@
+## v2.51.0 — 2026-10-15
+
+### Centralized PHDK updates
+- Introduce a vendored foreground standards updater at authorized PHDK preflight entry.
+- Preserve local modifications, validate safe manifest paths, prevent downgrades and report verification.
+- No scheduled agents, provider changes or automatic upgrades of inactive repositories.
+
 ## v2.50.11 — 2026-10-15
 
 ### Autonomous PR delivery and personality bootstrap

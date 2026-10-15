@@ -56,3 +56,5 @@ USE_COMPANY_CO_INFO_FOR_DEMOS.md | USE_COMPANY_CO_INFO_FOR_DEMOS.md
 PHDK_COMMUNICATION_STANDARD.md | PHDK_COMMUNICATION_STANDARD.md
 PHDK_COHERENCE_STANDARD.md | PHDK_COHERENCE_STANDARD.md
 scripts/phdk_coherence_check.py | scripts/phdk_coherence_check.py
+PHDK_CENTRAL_UPDATE.md | PHDK_CENTRAL_UPDATE.md
+scripts/phdk_update.py | scripts/phdk_update.py

@@ -7,7 +7,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.50.10**
+**Version v2.51.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -112,7 +112,7 @@ PHDK verifies:
 - which of those capabilities are actually installed or connected;
 - whether the user explicitly asked PHDK not to use skills/plugins/connectors.
 
-When PHDK is stale and its owned standards surface is clean, Preflight may synchronize the standards before continuing. It never silently force-overwrites dirty PHDK files.
+When PHDK is stale and its owned standards surface is clean, Preflight automatically synchronizes clean standards from canonical main before continuing. It never silently force-overwrites dirty PHDK files.
 
 When a relevant recommended skill is already available, PHDK should **actually use it**. A URL in the registry is not treated as an installed skill.
 
