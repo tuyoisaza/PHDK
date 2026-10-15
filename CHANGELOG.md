@@ -1,3 +1,10 @@
+## v2.50.11 — 2026-10-15
+
+### Autonomous PR delivery and personality bootstrap
+- Clarify routine owner sign-off is not a universal gate: preserve PRs, real reviewer/security requirements and versioned remote-main evidence.
+- Separate remote main, optional GitHub releases and observed production deployments; prohibit unsupported deployment claims.
+- Verify canonical communication-personality loading at PHDK entry and preflight; do not claim other sessions reload automatically.
+
 ## v2.50.10 — 2026-10-13
 
 ### Downstream coherence inputs

@@ -5,6 +5,13 @@
 For implementation tasks targeting remote `main`, enforce `PHDK_COMPLETION_GATE.md` after PR merge. Produce the evidence record from actual observations, run `phdk-standards/scripts/phdk_completion_gate.py` where supported, and independently verify PR merge/review plus remaining commitments. The evidence file containing the final merge SHA is a post-merge local/runtime delivery artifact, not a file that must be committed before the merge (which would create a circular SHA dependency). A failed or unavailable gate forbids a COMPLETED claim; report the exact blocker.
 
 
+
+## Default autonomous delivery: no ceremonial human sign-off
+
+For a current scoped implementation authorization, the default is to complete branch → checks → assistant diff/security review → version-prefixed commit → pushed PR → permitted merge → independently verified remote target, without stopping to demand a routine human click, diff inspection, or repeated approval. Preserve PR traceability and actual repository-enforced formal/independent reviewers. Do not manufacture approval events or bypass a required control. Owner involvement is reserved for previously unapproved material high-risk decisions (for example destructive live data changes, new sensitive access, or new unapproved spending) and real external access/protection blockers. A clear current instruction already resolves the decisions it explicitly describes.
+
+Distinguish three independently verifiable outcomes: (1) merged source on remote main; (2) GitHub release/tag if explicitly requested or part of the project's established release contract, with actual release URL; and (3) deployed production application health. Normal development does not silently authorize creating release tags or changing provider settings. With an existing GitHub-connected autodeploy, verify observed deployment status through currently authorized read-only diagnostics; an actual live product/UAT verification needs separately applicable scoped permission. Never call code merge a live deployment or imply an unverified public release. When checks or publication fail, diagnose permitted in-scope blockers and report precise evidence and remaining action instead of claiming DONE.
+
 ## Purpose and authority
 
 Finish the user's current implementation request with the requested change integrated into remote `main`. `EXECUTION_SCOPE.md` governs authorization and exclusions; current owner instructions, existing hooks, review requirements, and access controls remain binding. This standard defines the normal branch/PR flow, independently of Developer Mode's narrow direct-main exception.
