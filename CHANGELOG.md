@@ -1,3 +1,14 @@
+## v2.51.6 — 2026-10-17
+
+### Browser readiness and no-unplanned-spend UAT gate
+- Vendor `UAT_BROWSER_READINESS_STANDARD.md` and require a real browser connection check at Auto, UAT/UAT Fix and Designer UAT transitions; distinguish phase permission from connected runtime capability.
+- Require timestamped access proof/blocked cases/safe-target and cost disposition in UAT access and acceptance reports.
+- Prevent improvised paid browser APIs, test-service subscriptions and arbitrary spending caps as substitutes for missing browser access; preserve host consent and data/production constraints.
+- Continue independently runnable acceptance cases; never infer browser PASS or stall the entire lifecycle for a hypothetical budget.
+
+### Verification scope
+- Standards and manifest consistency only; no actual downstream product browsers or paid services exercised.
+
 ## v2.51.5 — 2026-10-16
 
 ### Mandatory automation and cost hygiene in Check and Auto

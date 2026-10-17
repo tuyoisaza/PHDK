@@ -15,6 +15,9 @@ For every substantive PHDK-facing update, lifecycle handoff and closure, apply v
 ## Mandatory Company Co synthetic UAT fixture
 During PHDK UAT/UAT Fix/Auto UAT, read vendored `USE_COMPANY_CO_INFO_FOR_DEMOS.md` and `UAT_JOURNEY_STANDARD.md`. Prefer Company Co for reproducible role journeys; adapt to product data model, provision safe test identities, verify roles and Superadmin switching, and record evidence. Emails at `@tujuisasa.com` require explicitly authorized controlled delivery, never unattended bulk sends.
 
+## Mandatory browser readiness gate
+At UAT, UAT Fix and Auto/Designer UAT transitions follow `UAT_BROWSER_READINESS_STANDARD.md`. Confirm the phase exception and actual connected browser separately with scoped evidence. Record cost disposition in UAT reports; never improvise a budget or paid API/service to fix unavailable access, and run independent permitted UAT cases while connection is blocked.
+
 ## Mandatory UAT journey and next-action gate
 
 Apply `UAT_JOURNEY_STANDARD.md` for `PHDK uat`, `PHDK uat fix`, Re-UAT and Auto's UAT phases. Require role inventory, access verification, synthetic test identities when safe, audited Superadmin profile switching, intent-traceable stories by persona, executable real-user journeys, UX/CRUD and permission evidence, then defect repair and retest. Every user-facing stage or blocker response must end with concise `SIGUIENTE PASO`: what was completed, the exact action PHDK is taking or the single action the owner must perform, and the precise resume cue. Continue autonomously when possible; never request MFA secrets in chat or falsely claim testing against an unverified deployment.
