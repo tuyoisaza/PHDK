@@ -1,5 +1,10 @@
 # PHDK Auto
 
+## Mandatory automation cleanup during final Check
+
+Run the `PHDK_AUTOMATION_HYGIENE.md` gate as part of Auto's final `PHDK check`: inspect repository files **and** GitHub/Railway remote metadata when authorized read-only access exists. Reconcile active workflows, PHDK legacy agents/schedules, CI/deployment dependencies, Railway Wait for CI, cron/restart/redeploy loops and potential charges. Automatically repair clearly obsolete PHDK-generated source/configuration within the current goal and validate preserved GitHub-connected autodeploy, but **never** disable GitHub Actions, alter Railway settings or remove required security checks through provider writes. Report inaccessible external settings as UNVERIFIED / EXTERNAL and do not claim full alignment without evidence.
+
+
 ## Verified delivery
 
 Before final success for a remote-main goal, comply with `PHDK_COMPLETION_GATE.md`, create evidence after merge, run the mechanical verifier where available, and independently reconcile PR merge, required checks and confirmed commitments. Without these proofs report PARTIALLY DELIVERED/BLOCKED, not COMPLETED.

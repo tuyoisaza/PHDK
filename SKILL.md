@@ -63,6 +63,8 @@ PHDK_THEME_STANDARD.md applies to new and existing UI products: centralized sema
 
 ## PHDK check
 
+Apply `PHDK_AUTOMATION_HYGIENE.md` on every Check and inside Auto's final Check. Inspect checked-in workflows/agents/watchers and remotely active GitHub Actions plus Railway Wait for CI, cron, restarts and usage when read-only access is available; log cost/blocker risks. Preserve necessary CI and GitHub-connected autodeploy; provider-side disable/reconfigure is not an automatic fix.
+
 For explicit `PHDK check`, follow `PHDK_CHECK.md`. First perform a read-only applicability/compliance audit across the repository's active PHDK standards and implementation, create or refresh `PHDK_CHECK_REPORT.md`, present the prioritized gaps, and ask once whether the user wants the AUTO-FIXABLE and FIXABLE WITH VALIDATION items executed. Do not begin remediation before that answer.
 
 If the user answers yes to that report in the same conversation, treat the listed fixable gap IDs as the authorized remediation scope. Implement them autonomously under normal PHDK controls, run applicable checks/UAT, deliver when requested by the remediation flow, rerun `PHDK check`, and report residual gaps. Do not auto-fix DECISION REQUIRED or EXTERNAL / MANUAL items.

@@ -290,6 +290,8 @@ Required:
 
 ## Deployment Safety Rules
 
+`PHDK_AUTOMATION_HYGIENE.md` is the required Check/Auto verification gate for leftover GitHub Actions, scheduled bots/agents, production reload loops and Railway repeat-deploy/restart cost. Never infer remote enabled state from a workflow file, never disable intended GitHub-connected Railway autodeploy, and never remove security/ruleset checks in the name of cleanup.
+
 - Deploy only through an authorized GitHub push/merge to the existing connected pipeline and established release branch, per `EXECUTION_SCOPE.md`
 - Do not create services, pipelines, CI/task workflows, scheduled deployments, or preview environments
 - Do not use a provider dashboard, provider deployment/administration API or CLI commands, local artifact upload, or manual provider redeploy/rollback. Provider metadata/log reads are governed separately by `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**
