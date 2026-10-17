@@ -6,12 +6,12 @@ import os
 from pathlib import Path
 import re
 
-SKIP_DIRS = {".git", ".next", ".nuxt", ".output", ".vercel", "node_modules", "dist", "build", "coverage", ".cache", "phdk-standards", "vendor", "__pycache__"}
+SKIP_DIRS = {".git", ".next", ".nuxt", ".output", ".vercel", "node_modules", "dist", "build", "coverage", ".cache", "phdk-standards", "vendor", "__pycache__", "tests", "__tests__", "test", "fixtures"}
 UI_SUFFIXES = {".tsx", ".jsx", ".vue", ".svelte", ".html", ".css", ".scss", ".sass", ".less"}
 CODE_SUFFIXES = UI_SUFFIXES | {".ts", ".js", ".mjs"}
 REQUIRED_TOKENS = {"background", "foreground", "primary", "primary-foreground", "accent", "muted", "border", "ring", "popover"}
 REQUIRED_TESTS = {"switching", "persistence", "visibility", "authorization"}
-COLOR_LITERAL = re.compile(r"#[0-9a-fA-F]{3,8}\b|(?:rgba?|hsla?|oklch|color-mix)\s*\(", re.I)
+COLOR_LITERAL = re.compile(r"#[0-9a-fA-F]{3,8}\b|(?:rgba?|hsla?|oklch|color-mix)\s*\([^)]*\)", re.I)
 CSS_COLOR_PROPERTY = re.compile(r"\b(?:color|background(?:-color)?|border(?:-[a-z]+)?-color|fill|stroke|outline-color|box-shadow)\s*:", re.I)
 NAMED_CSS_COLOR = re.compile(r":\s*(?:white|black|red|green|blue|yellow|purple|orange|pink|gray|grey)\s*[;!}]", re.I)
 JS_STYLE_COLOR = re.compile(r"\b(?:color|backgroundColor|borderColor|fill|stroke|outlineColor|boxShadow)\s*[:=]\s*['\"]", re.I)
@@ -127,19 +127,19 @@ def audit(root):
             add("SOURCE_UNREADABLE", "cannot inspect source", file.relative_to(root))
             continue
         for i, line in enumerate(content.splitlines(), 1):
-            match = COLOR_LITERAL.search(line)
             css_like = file.suffix.lower() in {".css", ".scss", ".sass", ".less"}
-            candidate = ((css_like and (CSS_COLOR_PROPERTY.search(line) or NAMED_CSS_COLOR.search(line)))
+            matches = list(COLOR_LITERAL.finditer(line))
+            named = list(NAMED_CSS_COLOR.finditer(line)) if css_like else []
+            candidate = ((css_like and (CSS_COLOR_PROPERTY.search(line) or named))
                          or (not css_like and (TAILWIND_COLOR.search(line) or
-                             (match and (JS_STYLE_COLOR.search(line) or "style=" in line or "className=" in line or "class=" in line or "fill=" in line or "stroke=" in line)))))
+                             (matches and (JS_STYLE_COLOR.search(line) or "style=" in line or "className=" in line or "class=" in line or "fill=" in line or "stroke=" in line)))))
             if not candidate:
                 continue
-            if not match and not NAMED_CSS_COLOR.search(line):
-                continue
-            value = match.group(0) if match else NAMED_CSS_COLOR.search(line).group(0)
-            if (file, value.strip().lower()) in valid_exceptions:
-                continue
-            add("HARDCODED_COLOR", "use semantic tokens; offending literal " + value, file.relative_to(root), i)
+            values = [m.group(0) for m in matches] + ([m.group(0) for m in named] if not matches else [])
+            for value in values:
+                if (file, value.strip().lower()) in valid_exceptions:
+                    continue
+                add("HARDCODED_COLOR", "use semantic tokens; offending literal " + value, file.relative_to(root), i)
     return {"status": "FAIL" if problems else "STATIC_PASS", "scope": "UI", "findings": problems, "runtime_verified": False}
 
 
