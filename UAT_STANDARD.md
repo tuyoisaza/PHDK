@@ -20,6 +20,10 @@ For applicable projects, use `CRUD_STANDARD.md` and `CRUD_MATRIX.md` to exercise
 On UI-applicable projects, follow `PHDK_UX_UI.md` and deliver `UX_UI_AUDIT_REPORT.md` in the UAT handoff. Exercise critical user journeys and relevant state, responsive, keyboard/focus, contrast and interaction checks in the authorized UAT browser scope when available; classify untested browser evidence BLOCKED/MANUAL. P0/P1 confirmed usability/accessibility failures prevent ACCEPTED. Document in-scope repairs in `UX_UI_REMEDIATION_REPORT.md` and retest affected flows. Brownfield redesigns compare baseline vs target and verify preserved behavior. No browser actions outside permitted UAT/UAT Fix environments.
 
 ## Scoped browser exception for UAT and UAT Fix
+### Mandatory browser entry and no-new-spend gate
+
+Before browser-dependent cases, follow `UAT_BROWSER_READINESS_STANDARD.md`: explicitly distinguish scoped phase permission from actual tool availability; verify one harmless browser operation against the authorized candidate; log proof/error, safe target and spend disposition in `UAT_ACCESS_REPORT.md` and `UAT_REPORT.md`. No invented budget ceilings, paid browser/API purchases or approval pauses just for an unavailable browser. Continue independent safe UAT cases; BLOCKED/MANUAL is not PASS. Require only genuine host connection/production authorization.
+
 
 **Only** during explicit `PHDK uat`, `PHDK uat fix`, or the UAT/UAT Fix phases of an authorized `PHDK auto` run, a connected/available browser, browser MCP, Playwright, Cypress or equivalent may be used to exercise real user journeys, UI behavior, responsiveness and accessibility and capture timestamped screenshots/evidence. This narrow exception overrides general browser bans **for these phases only**; it does not activate browser work during Capture, Plan, implementation, generic verification, Check or Delivery. PMO workers do not inherit a standalone browser permission outside their authorized UAT phase.
 

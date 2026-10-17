@@ -14,10 +14,13 @@ For every substantive PHDK-facing update, lifecycle handoff and closure, apply v
 
 ## Mandatory synthetic UAT authentication and JWT boundary
 
-For all authenticated UAT/Auto UAT/UAT Fix and relevant Check, read vendored `JWT_STANDARD.md` alongside `UAT_JOURNEY_STANDARD.md`. Discover the real auth provider and active tenant/role model; seed permitted Company Co identities; bootstrap real synthetic-role sessions via supported non-production auth/test adapter without human passwords/bearer secrets. JWT means JSON Web Token, not UAT; do not require it for cookie/OAuth apps. Never forge production credentials or expose test auth in production. Test elevated-actor access, audited Test as, direct-login roles, negative authorization and tenant boundaries; record redacted evidence, expiry/revocation and cleanup or a precise BLOCKED gap.
+For all authenticated UAT/Auto UAT/UAT Fix and relevant Check, read vendored `JWT_STANDARD.md` alongside `UAT_JOURNEY_STANDARD.md` and `UAT_BROWSER_READINESS_STANDARD.md`. Discover the real auth provider and active tenant/role model; seed permitted Company Co identities; bootstrap real synthetic-role sessions via supported non-production auth/test adapter without human passwords/bearer secrets. JWT means JSON Web Token, not UAT; do not require it for cookie/OAuth apps. Never forge production credentials or expose test auth in production. Test elevated-actor access, audited Test as, direct-login roles, negative authorization and tenant boundaries; record redacted evidence, expiry/revocation and cleanup or a precise BLOCKED gap.
 
 ## Mandatory Company Co synthetic UAT fixture
 During PHDK UAT/UAT Fix/Auto UAT, read vendored `USE_COMPANY_CO_INFO_FOR_DEMOS.md` and `UAT_JOURNEY_STANDARD.md`. Prefer Company Co for reproducible role journeys; adapt to product data model, provision safe test identities, verify roles and Superadmin switching, and record evidence. Emails at `@tujuisasa.com` require explicitly authorized controlled delivery, never unattended bulk sends.
+
+## Mandatory browser readiness gate
+At UAT, UAT Fix and Auto/Designer UAT transitions follow `UAT_BROWSER_READINESS_STANDARD.md`. Confirm the phase exception and actual connected browser separately with scoped evidence. Record cost disposition in UAT reports; never improvise a budget or paid API/service to fix unavailable access, and run independent permitted UAT cases while connection is blocked.
 
 ## Mandatory UAT journey and next-action gate
 

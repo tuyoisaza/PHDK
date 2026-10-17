@@ -447,6 +447,8 @@ UAT verifies `INTEGRATION_REPORT.md` says the candidate is ready for acceptance 
 ---
 
 ## 50 — UAT
+**Entry gate:** Run `UAT_BROWSER_READINESS_STANDARD.md` after Integration Review and before the first browser-dependent case, verifying scoped phase authorization and technical browser availability independently. Save evidence/safety/no-new-spend disposition in `UAT_ACCESS_REPORT.md`, summarize in `UAT_REPORT.md`, and retain exact BLOCKED cases if not connected. Missing access does not justify paid API/budget approval or a stop of independent safe acceptance checks.
+
 
 ### Purpose
 
