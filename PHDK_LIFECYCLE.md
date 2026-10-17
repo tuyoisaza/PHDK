@@ -288,6 +288,10 @@ Plan verifies all five Capture artifacts exist and that the requirements baselin
 
 ---
 
+## Mandatory administration-console lifecycle overlay
+
+For every applicable administered application, apply `ADMIN_CONSOLE_STANDARD.md` from Capture to delivery. Capture inventories tenancy and admin roles; Plan produces `ADMIN_ARCHITECTURE.md`, `ADMIN_CAPABILITY_MATRIX.md`, `ADMIN_SETTINGS_REGISTRY.md` and (AI only) `AI_WORKFLOW_CATALOG.md`. Include these in material 20-plan and 50-uat/70-check handoff evidence. Implementation must deliver real UI/API/DB enforcement, not only files. UAT tests role-profile switching, tenant isolation and CRUD/configuration/agent flows. Check reports every applicable missing/partial/unverified ability; approved --fix/Auto remediates in scope, with material tenancy/security/production decisions excluded. API-only projects with real admin configuration still require secure administrative capability (API/CLI equivalent) and explicit UI applicability decision; static/no-admin projects may justify N/A.
+
 ## Mandatory UX/UI quality overlay
 
 For every UI-applicable lifecycle, apply `PHDK_UX_UI.md` to Plan, Implementation, Integration, UAT/UAT Fix and Check. Plan's UX baseline, journeys, design system and design decisions are required upstream handoff inputs. UAT must perform a user-facing UX/UI audit with evidenced P0/P1 quality gate on the exact candidate, including brownfield before/after regression checks. Required outputs and historical snapshots live in the existing Plan/UAT/UAT Fix stage folders. API-only projects provide an evidence-based NOT APPLICABLE record. No browser activity outside the existing UAT/UAT Fix exception.
