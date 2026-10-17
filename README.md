@@ -3,11 +3,13 @@
 **Company Co demo/UAT fixture (vendored since v2.50.5):** Before UAT that needs employees, area leaders, role test accounts, customers, buyers, suppliers, products or workflows, read [`USE_COMPANY_CO_INFO_FOR_DEMOS.md`](USE_COMPANY_CO_INFO_FOR_DEMOS.md). Adapt its synthetic 200-person / 17-department company to the real application model, seed idempotently, verify created accounts, and test role-scoped user journeys including auditable Superadmin profile switching. Never perform automatic bulk email to `@tujuisasa.com`; obtain authorization and verify routing first. Record evidence and the next executable action.
 
 
+**UAT browser readiness (v2.51.6):** The [UAT Browser Readiness and Cost Guard](UAT_BROWSER_READINESS_STANDARD.md) verifies both phase-scoped permission and actual connected browser on every UAT/UAT Fix entry, without inventing paid workarounds or budget requests. Browser-dependent cases remain BLOCKED until real evidence exists; independent acceptance proceeds.
+
 **UAT profile journeys (v2.50.5):** `UAT_JOURNEY_STANDARD.md` requires code-backed role inventory, safe test users, auditable Superadmin role switching, intent-aligned stories per profile, executable step-by-step journeys, CRUD/UX/auth evidence, UAT Fix + Re-UAT and a concise copy-paste-ready `SIGUIENTE PASO` in every stage/blocker response.
 
 
 **Project Handoff to Development Kit**  
-**Version v2.51.5**
+**Version v2.51.6**
 
 PHDK is an operating system for AI-assisted software delivery.
 

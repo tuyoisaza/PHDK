@@ -48,6 +48,8 @@ The current command `PHDK unlock` invokes `PHDK_UNLOCK.md` to inspect and repair
 The command grants no bypass of checks, hooks, formal review requirements, access permissions, application security, or provider-write boundaries. It does not activate Developer Mode, select old product work, merge unrelated PRs, or create persistent/background authority. Natural-language instructions already count: unlock is not a mandatory password for an otherwise authorized action.
 
 ## Scoped browser exception for UAT and UAT Fix
+**Entry verification required:** Follow `UAT_BROWSER_READINESS_STANDARD.md` in each bounded UAT phase (including Designer). The active phase exception is permission to use **already available** browser tooling, not proof of a real connection or a grant to override host consent. No unapproved paid browser APIs, billed test services, arbitrary budget ceilings, hosted Actions, or provider writes to overcome missing access. Record unavailable access and continue independent acceptance cases.
+
 
 **Only** during explicit `PHDK uat`, `PHDK uat fix`, the UAT/UAT Fix phases of an authorized `PHDK auto` run, or the per-unit/final UAT/UAT Fix subphases of an explicitly authorized `PHDK designer mode` run, a connected/available browser, browser MCP, Playwright, Cypress or equivalent may be used to exercise real user journeys, UI behavior, responsiveness and accessibility and capture timestamped screenshots/evidence. This narrow exception overrides general browser bans **for these phases only**; it does not activate browser work during Capture, Plan, implementation, generic verification, Check or Delivery. PMO workers do not inherit a standalone browser permission outside their authorized UAT phase.
 
