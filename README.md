@@ -7,7 +7,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.51.3****Version v2.51.2**
+**Version v2.51.4****Version v2.51.2**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -223,6 +223,12 @@ If Capture has no material questions, it says so. If information is missing, it 
 At completion it tells you exactly where everything was captured so you can review it.
 
 ---
+
+## Universal administration console (v2.51.4)
+
+`ADMIN_CONSOLE_STANDARD.md` requires an actual, protected **Configuración / Settings** console for every applicable administered portal. First establish `single_tenant` (one elevated admin) vs `multi_tenant` (platform super_admin and tenant-scoped admins), recommending multi-tenancy when justified without silently migrating existing data. Verify and build real user/invitation/role/permission administration, tenant lifecycle where applicable, native locale, safe debug/integrations/secrets-status, backups/audit/security/observability, shared theme templates and auditable administrator role testing. In AI products, **Prompts** must show each agent's business purpose, callsite, approved DB/API inputs, versioned prompts, JSON output schema and destination/next-agent workflow graph. Check demands UI + API + persistence + negative-permission tests, not placeholder tabs.
+
+`PHDK check` remains an evidence-backed read-only audit plus one remediation question. To request a complete authorized audit **and safe implementation in one command**, use `PHDK check --fix`. The authorized `PHDK auto` also repairs applicable in-scope gaps; unknown tenancy, sensitive permissions, live destructive operations and external credentials require their own decision/authorization.
 
 ## Canonical PHDK Design System
 
