@@ -69,6 +69,10 @@ For explicit `PHDK check`, follow `PHDK_CHECK.md`. First perform a read-only app
 
 If the user answers yes to that report in the same conversation, treat the listed fixable gap IDs as the authorized remediation scope. Implement them autonomously under normal PHDK controls, run applicable checks/UAT, deliver when requested by the remediation flow, rerun `PHDK check`, and report residual gaps. Do not auto-fix DECISION REQUIRED or EXTERNAL / MANUAL items.
 
+## Mandatory UAT role authentication
+
+Before authenticated `PHDK uat`, `PHDK uat fix` or Auto UAT, apply `JWT_STANDARD.md` with `UAT_JOURNEY_STANDARD.md` and the Company Co fixture. Provision test-only identities and supported server/provider-issued sessions per role, then verify elevated role switching and negative permissions in real permitted UAT browser/API journeys. Do not ask for passwords or bearer secrets in chat; do not mint JWTs outside the trusted non-production issuer. A missing safely repairable test bootstrap is a UAT Fix issue, not a permanent ceremonial approval stop. Check must evaluate this gate when authentication is applicable.
+
 ## PHDK uat fix
 
 For explicit `PHDK uat fix`, read the current `UAT_REPORT.md` and `UAT_CASES.md`. Convert every FAIL into an actionable defect and every unresolved BLOCKED/MANUAL case into an explicit unblock/manual action plan. Repair all clearly in-scope fixable failures autonomously, rerun affected UAT/regression checks, and update the report with repair/retest evidence. When nothing is auto-fixable, do not stop at that observation: guide the owner step-by-step through the remaining prerequisites/manual validations and state exactly what to rerun afterward.

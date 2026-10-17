@@ -188,7 +188,7 @@ For every applicable app-style product, Auto must inspect `DEBUG_DIAGNOSTICS_STA
 
 ### 5. UAT and repair
 
-Run `PHDK uat` on the integrated candidate. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain.
+Run `PHDK uat` on the integrated candidate. For authenticated products first apply `JWT_STANDARD.md`: provision isolated synthetic personas, bootstrap legitimate test-only sessions for elevated and ordinary roles without requesting human passwords/bearer tokens, and prove real login, server-enforced role/tenant boundaries and audited Test as using the scoped UAT browser/API exception. If a safe bootstrap is absent and in scope, implement/retest it under UAT Fix rather than declaring UAT blocked only because credentials were never handed to the agent. Never create a production test-auth backdoor or infer browser access when disconnected. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain.
 
 ### 6. SEO and AEO/GEO
 

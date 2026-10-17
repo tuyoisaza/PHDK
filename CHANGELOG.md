@@ -1,3 +1,10 @@
+## v2.52.0 — 2026-10-17
+
+### Synthetic identities, authorized JWT UAT and role-complete testing
+- Introduce vendored `JWT_STANDARD.md`: test-only identity bootstrap via existing auth provider/session, controlled synthetic Company Co profiles, short-lived validated JWT **only where JWT is used**, and real Playwright/browser sessions per role without asking for human passwords or bearer secrets.
+- Separate JWT (JSON Web Token) from UAT (User Acceptance Testing); define authenticated super_admin (multi-tenant) versus admin (single-tenant), audited Test as, tenant-negative testing, production prohibitions, cleanup and concrete evidence gates.
+- Integrate bootstrap/negative tests with UAT, Auto, Check, DEVSECOPS, testing, admin console, Company Co, skill entry points and vendoring. Documentation/policy change only; no downstream deployment, new login endpoint, token issuance or live application UAT performed.
+
 ## v2.51.5 — 2026-10-16
 
 ### Mandatory automation and cost hygiene in Check and Auto
