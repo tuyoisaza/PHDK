@@ -7,7 +7,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.51.2**
+**Version v2.51.3****Version v2.51.2**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -227,6 +227,10 @@ At completion it tells you exactly where everything was captured so you can revi
 ## Canonical PHDK Design System
 
 `PHDK_DESIGN_SYSTEM.md` mandates shared shadcn-compatible components, Radix overlay primitives, semantic Tailwind tokens, Motion transitions, consistent Lucide icons, light/dark/corporate color themes and applicable en/es/pt translation catalogs. On entering Designer Mode, inspect the actual stack and document `DESIGN_SYSTEM_READINESS.md`, prepare missing safe prerequisites, then recommend and implement redesigns. The source of truth is vendored to downstream projects.
+
+## Theme tokens and Superadmin template editing
+
+[PHDK_THEME_STANDARD.md](PHDK_THEME_STANDARD.md) requires one canonical semantic CSS token stylesheet for light/dark/corporate, no hardcoded palette colors in UI components, and **Superadmin → Configuración → Edición de templates** with persisted editing, previews and a corporate show/hide switch. [scripts/phdk_theme_audit.py](scripts/phdk_theme_audit.py) supplies a vendorable static check for Designer Mode and PHDK Check; source, permission, persistence and theme-switching tests still supply functional evidence.
 
 ## Verified completion gate
 

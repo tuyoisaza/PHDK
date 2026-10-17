@@ -65,6 +65,9 @@ For every user-facing product, follow `PHDK_UX_UI.md` for new designs and existi
 
 For UI-applicable React/Next.js work follow `PHDK_DESIGN_SYSTEM.md`: shared shadcn-compatible components, Radix primitives for composite interactions, centralized Tailwind semantic tokens, Motion presets, Lucide icons and coherent light/dark/corporate palettes. Use documented en/es/pt defaults and project exceptions. No page-specific duplicate widgets/themes. Verify actual versions before choosing a dependency; preserve existing product behavior.
 
+## Mandatory theme token and template editor gate
+For UI-applicable products read PHDK_THEME_STANDARD.md in addition to PHDK_DESIGN_SYSTEM.md. Require a single semantic CSS palette source, light/dark/corporate parity, an actual Superadmin Configuración → Edición de templates section, persisted edits and corporate visibility switch. Designer Mode detects and repairs hardcoded palette values; Check records file:line findings and functional evidence. Use vendored scripts/phdk_theme_audit.py to catch static violations, but do not claim runtime compliance without the real editor, permissions and tests. Preserve role/tenancy security and the Check audit/remediation split.
+
 ## Designer Mode command
 
 When the owner explicitly invokes `PHDK designer mode` or `PHDK modo designer`, run `PHDK_DESIGN_SYSTEM.md` readiness first, produce `DESIGN_SYSTEM_READINESS.md`, then follow `PHDK_DESIGNER_MODE.md`: inspect the existing interface, establish baseline, choose product-specific visual direction, implement visual/UX improvements and verify within scoped UAT. Deliver actual code changes, not just review. Preserve functionality, debug widget and normal delivery constraints. This mode is not automatic or persistent.

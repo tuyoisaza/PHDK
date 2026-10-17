@@ -24,6 +24,10 @@ apps/web/messages/{en,es,pt}.json
 ```
 Use semantic properties `--background`, `--foreground`, `--primary`, `--primary-foreground`, `--accent`, `--muted`, `--border`, `--ring`, `--popover`, and role-specific status colors. Base tokens define spacing, radius, typography, elevation, density, icon sizes, motion durations and easing. The same components consume tokens in every theme; no copy-pasted CSS by theme. Product-specific accent palettes can be rich and colorful while preserving usable contrast. Avoid inline hardcoded brand hex values and ad hoc arbitrary Tailwind values in screens.
 
+
+## Mandatory theme governance (all UI products)
+The detailed, vendor-shipped contract in PHDK_THEME_STANDARD.md is normative: one central CSS palette token stylesheet, parity across light/dark/corporate, no hardcoded component palette colors, and a persisted Superadmin Configuración → Edición de templates editor with a separate corporate visibility setting. Run scripts/phdk_theme_audit.py for static evidence, then test the actual editor, security, propagation and persistence. Static-pass is never runtime compliance; existing CSS frameworks may retain equivalent selectors by declaring them in phdk-theme.config.json. Designer Mode and PHDK Check must enforce this contract.
+
 ## Component contracts
 - Shared `Button`: primary/secondary/outline/ghost/destructive/link variants and sm/default/lg/icon sizes; loading, disabled, focus, pointer/keyboard states. All icon-only actions have accessible names. No page-local replacement when shared variants exist.
 - Shared Radix-based `Dialog`, `Popover`, `DropdownMenu`, `Tooltip`, `Select`: focus placement/restoration, escape, portals/z-index, trigger behavior and positioning all verified. Do not hand-roll interactions already covered by primitives.

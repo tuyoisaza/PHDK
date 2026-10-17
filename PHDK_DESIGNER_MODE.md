@@ -16,6 +16,9 @@ Before creative directions, screen recommendations, or UI edits, execute the rea
 
 Do not block useful source-level improvements merely because a browser is unavailable. Keep visual verification explicitly unresolved rather than calling the appearance validated.
 
+## Mandatory theme-source repair gate
+Before redesign recommendations and during the unit-by-unit loop, read PHDK_THEME_STANDARD.md and inspect theme token sources, provider/import graph, Superadmin Configuración → Edición de templates and corporate visibility behavior. Run the vendored scripts/phdk_theme_audit.py against the product, record specific file:line hardcoded-color findings, repair shared root causes, then reopen every affected unit when shared tokens change. Add review units for light/dark/corporate, template save/preview/reset, ordinary selector show/hide, session fallback, permissions and reload persistence. Source inspection or a static scan cannot mark runtime behavior VERIFIED; exercise the corresponding tests and permitted UAT before closing applicable units.
+
 ## Mandatory review unit and coverage ledger
 
 Before implementation, create `DESIGNER_COVERAGE.md`. The ledger is an executable work queue, not a retrospective checklist filled out after editing.
