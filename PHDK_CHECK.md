@@ -19,7 +19,7 @@ For a UI-applicable project, apply `PHDK_UX_UI.md`: verify Plan design artifacts
 
 
 ## Mandatory three-theme governance audit
-For UI-applicable projects, inspect PHDK_THEME_STANDARD.md and run the vendored scripts/phdk_theme_audit.py from the audited project root when available. In PHDK_CHECK_REPORT.md record the actual CSS token file/import graph, light/dark/corporate token parity, duplicate palette sources, hardcoded component colors (with file:line), real platform-administrator Configuración → Edición de templates implementation (super_admin multi / admin single), editable/persisted values, corporate-theme show/hide flag and fallback, server-side authorization/validation, route coverage and executable test evidence. Missing phdk-theme.config.json, missing editor/flag, or hardcoded palette literals are GAP/PARTIAL, not COMPLIANT; a self-declared config or static scan pass is insufficient proof. For missing test execution/browser access use UNVERIFIED; distinguish API-only NOT APPLICABLE and projects without an authorized administrative surface (DECISION REQUIRED). The Check audit stays read-only until the existing remediation authorization question is answered.
+For UI-applicable projects, inspect PHDK_THEME_STANDARD.md and run the vendored scripts/phdk_theme_audit.py from the audited project root when available. In PHDK_CHECK_REPORT.md record the actual CSS token file/import graph, light/dark/corporate token parity, duplicate palette sources, hardcoded component colors (with file:line), real platform-administrator Configuración → Edición de templates implementation (super_admin multi / admin single), editable/persisted values, corporate-theme show/hide flag and fallback, server-side authorization/validation, route coverage and executable test evidence. Missing phdk-theme.config.json, missing editor/flag, or hardcoded palette literals are GAP/PARTIAL, not COMPLIANT; a self-declared config or static scan pass is insufficient proof. For missing test execution/browser access use UNVERIFIED; distinguish API-only NOT APPLICABLE and projects without an authorized administrative surface (DECISION REQUIRED). Standalone bare Check stays read-only until remediation is authorized; explicit check --fix and in-scope Auto remediation continue under their existing authorization.
 
 ## Mandatory CRUD completeness audit
 
@@ -63,10 +63,12 @@ PHDK contains conditional standards. Do not mark a repository noncompliant merel
 
 For every requirement, classify applicability first using project intent, PRD/features, architecture decisions, current product type, and code reality.
 
+Required behavior remains applicable before its code exists. A readable empty/scaffold-only project with confirmed product requirements has implementation GAPs; a partially implemented requirement is PARTIAL. Unavailable source/evidence is UNVERIFIED, not proof that the repository is empty. Never classify implementation or acceptance NOT APPLICABLE solely because it has not been developed. Under Auto, implement these already-in-scope gaps and reconcile affected upstream handoffs; a plan alone cannot close them.
+
 Examples:
 
 - A public marketing site is not missing RBAC merely because PHDK defines RBAC defaults for role-bearing apps.
-- A repository without AI features is not missing `packages/ai`.
+- A project whose confirmed intent does not require AI features is not missing `packages/ai`; an authorized AI feature that has not been built is an implementation gap.
 - A repository with actual AI provider usage must satisfy `AI_ADMIN_STANDARD.md`. Detect provider/config evidence without reading secret values. If only an unused key placeholder exists and no AI feature can be established, use UNKNOWN / DECISION NEEDED rather than inventing AI product scope.
 - A project with no schema change is not missing a migration.
 - A project whose intent explicitly excludes authentication is not noncompliant for lacking login.
@@ -150,7 +152,7 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 ## Audit procedure
 
 1. Pin the repository revision being audited.
-2. Read the Capture requirements package and current Plan architecture artifacts first when present (`PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md`) so standards applicability is grounded in what the product is meant to be. If those artifacts are missing/incoherent, record a requirements-baseline gap and recommend `PHDK capture`; do not fabricate applicability from code alone.
+2. Read the Capture requirements package and current Plan architecture artifacts first when present (`PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md`) so standards applicability is grounded in what the product is meant to be. If those artifacts are missing/incoherent, record a requirements-baseline gap and recommend `PHDK capture` for standalone Check; inside Auto, reopen/repair the upstream baseline and continue authorized execution. Do not fabricate applicability from code alone.
 3. Identify the active PHDK version/manifest and current governing instructions.
 4. Check canonical PHDK version when accessible; record drift without mutating the repository.
 5. Read all applicable active standards; build an internal requirement matrix.
@@ -160,14 +162,14 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 9. Distinguish implementation absence from verification absence.
 10. Deduplicate findings by root cause.
 11. Produce the report and a concise prioritized summary.
-12. Unless the current command already explicitly includes `--fix` / `fix` or is Auto's approved remediation phase, ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"**
-13. Stop for bare Check; for the explicit same-command fix variant continue directly with the enumerated fixable remediation under the limits above. Never auto-decide DECISION REQUIRED items.
+12. For standalone bare Check, ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"** An explicit `--fix` / `fix` skips this question. Inside Auto, enumerate and execute only the already-authorized in-scope gap IDs; record out-of-scope findings separately without activating them or requesting generic approval for the whole mixed report. Ask only for a genuinely necessary unresolved material decision after independent permitted work.
+13. Stop for standalone bare Check; for the explicit same-command fix variant or authorized in-scope Auto findings, continue directly with the enumerated fixable remediation under the limits above. Never auto-decide DECISION REQUIRED items.
 
 Do not manufacture exhaustive certainty when access is incomplete. Prefer UNKNOWN/UNVERIFIED over speculation.
 
 ## Remediation after yes
 
-After explicit approval in the same conversation:
+After explicit approval in the same conversation, an explicit fix variant, or for enumerated gaps already within the authorized Auto goal:
 
 1. Freeze the approved gap IDs and report revision so scope is clear.
 2. If PHDK itself is stale and that gap is approved, run the standards synchronization first, then regenerate the gap report before product remediation. Explain any new/removed gaps caused by the standards update; do not silently expand to newly discovered material decisions.
@@ -209,7 +211,7 @@ Delivery must verify the latest Check/remediation handoff and identify any accep
 
 ## Completion semantics
 
-The audit phase is complete only when the report exists (when persistence was requested or expected by the repository workflow), the prioritized gap list is presented, and the user has been asked whether to execute the fixable gaps.
+The audit phase is complete only when the report exists (when persistence was requested or expected by the repository workflow) and the prioritized gap list is presented. Standalone bare Check then asks whether to execute fixable gaps. An explicit `check --fix` / `check fix` or an authorized Auto goal already supplies in-scope remediation approval: record the enumerated gap IDs and continue without asking again.
 
 The remediation phase is complete only after approved fixable gaps are implemented, verified, delivered to the requested target, and the check is rerun. Report residual DECISION REQUIRED, EXTERNAL / MANUAL, UNKNOWN, or UNVERIFIED items explicitly. Never call the repository fully aligned while unresolved applicable gaps remain.
 

@@ -30,11 +30,13 @@ Before closing Capture, discover requirements from owner input, prior plans, cod
 
 ## Plan accounting
 
-Plan maps every CONFIRMED commitment to at least one actionable task/workstream and acceptance criteria. Produce `PHDK_COMMITMENT_COVERAGE.md` with one row per ledger ID, architecture decision, task, workstream, dependency, acceptance case and gap. Fail the Plan exit gate when a confirmed commitment lacks execution ownership or an explicit blocker. Do not quietly drop an item because it is inconvenient or already partly implemented.
+Plan maps every CONFIRMED commitment within the current authorized goal to at least one actionable task/workstream and acceptance criteria. Produce `PHDK_COMMITMENT_COVERAGE.md` retaining every ledger ID and its relationship to this run, with architecture decision, task, workstream, dependency, acceptance case and gap for in-scope items. Keep other confirmed commitments visible as outside this run's scope without executing, cancelling or silently deferring them. Execution gates, active ownership and run-completion denominators apply to the current authorized goal; a whole-project goal includes all its confirmed requirements. Fail the Plan exit gate when a confirmed in-scope commitment lacks execution ownership or an explicit blocker. Do not quietly drop an in-scope item because it is inconvenient or already partly implemented.
+
+Record the inspected implementation state, source/evidence and exact missing behavior for each confirmed in-scope requirement. Plan completion establishes execution readiness, not IMPLEMENTED or DONE status. Inside Auto, immediately execute the plan and update those rows as actual implementation and validation evidence become available.
 
 ## PMO portfolio confirmation and visibility
 
-Before activating workstreams, PMO shows the complete detected portfolio AND asks: “Is this the complete portfolio, or should I add other features, failures or priorities?” Accept additions and update ledger, Plan coverage, owners, dependencies and workstreams before execution. Skip repeat questioning when the owner already confirmed exactly this portfolio. No new commitment becomes active from inference alone.
+Before activating workstreams, PMO shows the complete detected portfolio AND asks: “Is this the complete portfolio, or should I add other features, failures or priorities?” Accept additions and update ledger, Plan coverage, owners, dependencies and workstreams before execution. Skip repeat questioning when the portfolio is already confirmed or its workstreams are unambiguously contained in the explicit current Auto goal. Decomposing that goal does not add new scope; genuinely new commitments outside it do not become active from inference alone.
 
 Maintain `PMO_STATUS.md` as a current control-center dashboard plus `PMO_PROGRESS_REPORT.md` as a dated append-only milestone/decision journal. Show overall confirmed/done/active/blocked/deferred counts, computed completion fraction, then per workstream: objective, accountable owner/worker, status, verified done/total commitments, evidence and last milestone, current activity, next action, blockers/dependencies, PR state and owner decision needed. Never fabricate a 30% estimate; label any non-verifiable percentage as an estimate and give method.
 
@@ -42,7 +44,7 @@ Publish a compact, user-visible PMO board (not just files) at entry, portfolio c
 
 ## No-silent-drop reconciliation
 
-At every handoff, reconcile ledger IDs against the initial confirmed baseline, Plan tasks, PMO workstreams, implementation/evidence, UAT, SEO, AEO/GEO and target-branch delivery. Newly discovered gaps get new IDs and owner scope decisions. Missing IDs, unowned confirmed work, stale statuses or inconsistent PR states fail the next-stage entry gate until resolved. Snapshots of ledger and coverage are included with Capture, Plan, PMO and Delivery historical HANDOFFs; preserve superseded state in history.
+At every handoff, reconcile ledger IDs against the initial confirmed baseline, Plan tasks, PMO workstreams, implementation/evidence, UAT, SEO, AEO/GEO and target-branch delivery. A newly discovered implementation gap in an already confirmed requirement is work within that requirement: link it to its existing commitment and execute it inside authorized Auto without another scope approval. Genuinely new outcomes outside the confirmed scope get new proposed IDs and owner scope decisions. Missing IDs, unowned confirmed work, stale statuses or inconsistent PR states fail the next-stage entry gate until resolved. Snapshots of ledger and coverage are included with Capture, Plan, PMO and Delivery historical HANDOFFs; preserve superseded state in history.
 
 ## Terminal gate: fail closed
 

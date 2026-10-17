@@ -21,7 +21,9 @@ Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`
 It serves two cases:
 
 1. **Existing/advanced repository** — investigate the repository, existing product documentation, code, routes, data models, tests, configuration, intents, and historical decisions to reconstruct what the product currently appears to be, then professionalize that evidence into a coherent requirements baseline.
-2. **New or empty project** — interview the owner from first principles and build the same professional requirements baseline from zero.
+2. **New or unimplemented project** — reconstruct intent from the supplied brief, requirements and conversation first; interview only for material missing information and build the same professional requirements baseline. Absence of code does not imply absence of requirements.
+
+A repository containing only documentation, PHDK files or scaffolding is greenfield for required product implementation. Verify that source is actually absent; inaccessible or incompletely inspected code is UNVERIFIED. Reuse known intent and decisions rather than restarting discovery. Explicitly documentary projects retain their documentary scope. Inside Auto, this classification leads to Plan and actual development under `PHDK_AUTO.md`.
 
 Capture does not implement product code. Its deliverable is a complete, professional, internally consistent requirements package that later governs `PHDK plan`, PMO, Auto, UAT, and Check.
 
@@ -235,7 +237,7 @@ Capture should simplify duplicate or contradictory requirement language into one
 
 ## New-project discovery
 
-When the repository has no meaningful product evidence, begin from zero.
+Begin discovery from first principles only when neither repository artifacts nor the current brief/conversation provide meaningful intent evidence. Missing product code alone does not restart an interview.
 
 Capture the minimum professional discovery domains:
 
@@ -410,7 +412,7 @@ If the user's request is simply `PHDK capture`, complete the documentation captu
 
 - **Capture → Plan:** Capture defines what the product must achieve; Plan converts that into solution/repository/UX architecture and an executable implementation plan.
 - **Capture → PMO:** PMO consumes Capture plus Plan to detect and coordinate workstreams.
-- **Capture → Auto:** Capture defines the professional product baseline; Auto implements an already-authorized single goal/workstream from that baseline.
+- **Capture → Auto:** Capture defines the professional product baseline; Auto implements the authorized goal or confirmed portfolio, including every required implementation workstream, and continues through validation and delivery. Missing code activates development within that scope.
 - **Capture → UAT:** UAT derives user stories and acceptance cases from `PROJECT_INTENT.md`, PRD/FEATURES, and traceability.
 - **Capture → Check:** Check uses Capture artifacts as the strongest project-specific applicability source when deciding which PHDK standards apply.
 - **Capture vs SPEC Interview:** `SPEC_INTERVIEW_PROMPT.md` is a legacy/narrow interview reference. `PHDK capture` is the preferred command for full professional discovery/reconstruction.

@@ -155,9 +155,28 @@ The mode lasts for this goal in the active conversation. Exit on `PHDK salir de 
 
 Auto's identified goal is the authorization boundary for the whole lifecycle.
 
+### Mandatory intent-to-implementation reconciliation
+
+On every explicit Auto invocation, reread the complete current intent and requirements baseline, including confirmed commitments, non-goals and acceptance criteria, and compare it with actual product source and current evidence. Review the whole baseline even when existing Capture/Plan artifacts look complete. Reuse them only after verifying freshness, coverage and consistency with the current request; record the reconciliation in `IMPLEMENTATION_PLAN.md` and `PHDK_COMMITMENT_COVERAGE.md`. Reviewing from the beginning does not mean recreating valid documents or rewriting working code. A narrower current goal still limits what may be implemented; record unrelated gaps without activating them.
+
+Classify implementation from inspected product behavior and source, not from the existence of a repository, README, package manifest, PHDK installation or old stage folders:
+
+| Observed state | Required action inside Auto |
+|---|---|
+| Readable repository with no meaningful product implementation, including requirements-only or scaffold-only projects | Treat required product development as greenfield: finish/reuse the architecture plan, then create and implement the complete authorized product. |
+| Partially implemented product | Preserve valid code and complete every missing or incomplete in-scope requirement and its integration. |
+| Implementation appears complete | Reconcile every in-scope requirement with current source and validation evidence; repair gaps and reuse verified work. |
+| Source cannot be read or the inventory is incomplete | Record UNVERIFIED/access evidence, diagnose the actual blocker and continue independent permitted work; never infer an empty or complete project. |
+
+For each confirmed in-scope requirement, record existing source/evidence, missing behavior, implementation task/owner, and acceptance evidence or its precise pending blocker. Missing code for an already confirmed requirement is authorized implementation work, not a new feature requiring another scope approval. Explicitly documentary or planning-only requests keep their stated deliverable.
+
+**Plan completion must immediately lead to implementation in the same active invocation.** Execute dependency-ordered workstreams, creating the required application structure, domain logic, data/persistence, APIs, UI, permissions, integration wiring and test source only where the intent calls for them. Keep developing until the entire authorized scope is implemented and integrated; then continue through UAT Prep, UAT/repair, Check/remediation and delivery as applicable. A foundation, first feature or MVP does not replace a requested complete product. Missing external access may block dependent operations, but does not excuse stopping all development at a plan.
+
+Do not mark required implementation, Integration or acceptance NOT APPLICABLE because the application has not been built yet. Plans, TODOs, placeholder tabs, disabled actions and fixture-only behavior do not establish implementation or acceptance. Update coverage with concrete source and executed validation evidence before marking commitments verified; unresolved required behavior remains unfinished.
+
 ### 1. Capture
 
-If the professional requirements baseline is missing/incoherent, run Capture semantics first. Ask only genuinely material missing requirements questions. If the baseline is already coherent and current, reuse it.
+After the full baseline reconciliation above, run Capture semantics if the professional requirements baseline is missing/incoherent. Ask only genuinely material missing requirements questions. If the baseline is already coherent and current, reuse it without restarting the interview merely because product code is absent.
 
 ### 2. Plan
 
@@ -165,11 +184,15 @@ Run `PHDK plan` semantics against the captured requirements. For greenfield, def
 
 Ask only for architecture decisions that materially change product/security/infrastructure scope and cannot be resolved from standards/current decisions.
 
+After Plan's exit gate passes, immediately start the next eligible implementation task through stage 3. Do not end with a plan, ask whether to start coding, or require a separate Developer Mode/PMO command for already-authorized development.
+
 ### 3. PMO and workstream execution
 
 Use PMO semantics to derive workstreams from the authorized goal, `IMPLEMENTATION_PLAN.md`, requirements, architecture ownership boundaries, and current repo state. When Auto was invoked without a narrower textual goal and the project evidence identifies several parallel fronts, treat the Auto command as authorization to discover and present the candidate portfolio, not as authorization to silently select only one front.
 
 When the workstreams are unambiguously contained inside an already explicit Auto goal, do not ask the owner to reconfirm the same portfolio.
+
+Actually execute those workstreams. For a single straightforward stream, the current assistant implements it directly; the absence of parallel workers or PMO overhead never makes implementation optional. A PMO coordination document or worker assignment is not a completed workstream.
 
 When Auto was invoked generically and no single delivery goal exists, but multiple credible active fronts can be reconstructed, present the detected portfolio and ask the PMO confirmation question once. That portfolio confirmation becomes the Auto goal for the current conversation.
 
@@ -307,7 +330,7 @@ Report once the entire requested outcome and permitted delivery are complete: im
 **A lifecycle stage is a checkpoint, not an execution endpoint.** In a single active invocation, after every successfully closed stage, validate its exit handoff, persist status, and immediately begin the next eligible stage. Do not return a terminal assistant answer merely because Preflight, Capture, Plan, PMO, Integration, UAT, SEO, AEO/GEO, or Check produced its deliverables. Progress messages must be nonterminal. A required question is a stop only when the answer changes an actual material decision and there is no independent in-scope work left to execute.
 
 **Deterministic restart from repository evidence.** On each new explicit `PHDK auto` invocation:
-1. Read the current owner goal, `PHDK_LIFECYCLE_STATUS.md`, run-level historical `LIFECYCLE.md`, `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `IMPLEMENTATION_PLAN.md`, handoffs, and current git/PR facts.
+1. Reread the complete current intent/requirements baseline and actual source under the mandatory intent-to-implementation reconciliation above, then read the current owner goal, `PHDK_LIFECYCLE_STATUS.md`, run-level historical `LIFECYCLE.md`, `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `IMPLEMENTATION_PLAN.md`, handoffs, and current git/PR facts.
 2. Reconcile evidence with the authorized goal. Treat stored state as a checkpoint, never as authorization to launch unattended work. Do not assume a stage passed because its folder exists: verify its exit criteria, freshness, and missing commitments.
 3. Reuse verified stages, repair incomplete/stale handoffs, and resume at the earliest stage whose required exit gate is not satisfied. Never reset to Preflight/Capture/Plan for ceremony. Preflight still performs its short invocation-level safety/version check.
 4. Preserve the same goal/run history when appropriate; record an explicit continuation entry with timestamp, previous checkpoint, and recovered next stage. If an earlier prerequisite changes, reopen it and invalidate the affected downstream gates.

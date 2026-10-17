@@ -2,7 +2,7 @@
 
 ## Mandatory PMO control center and portfolio expansion
 
-Follow `PHDK_COMMITMENT_STANDARD.md`. On PMO entry, show all detected workstreams and ask explicitly if there are additional desired features, failures, commitments or changed priorities, unless the owner already confirmed the exact current portfolio. Assign new ledger IDs and update Plan coverage and workstreams before dispatch. Maintain `PMO_STATUS.md` as a verified per-workstream dashboard and `PMO_PROGRESS_REPORT.md` as a milestone/decision history; show owner-visible updates at entry, significant progress, state changes, blockers, decisions, integration and closure. Report owner, objective, verified done/total and denominator, current activity, next step, dependencies, evidence and each PR state. PMO may not declare a workstream or portfolio DONE merely because workers stopped or PRs were opened. At integration reconcile every ledger ID, task, worker and PR; report material residuals and next actions. Do not invent percent complete.
+Follow `PHDK_COMMITMENT_STANDARD.md`. On PMO entry, show all detected workstreams and ask explicitly if there are additional desired features, failures, commitments or changed priorities, unless the portfolio is already confirmed or the workstreams are unambiguously contained in the explicit current Auto goal. Assign new ledger IDs and update Plan coverage and workstreams before dispatch. Maintain `PMO_STATUS.md` as a verified per-workstream dashboard and `PMO_PROGRESS_REPORT.md` as a milestone/decision history; show owner-visible updates at entry, significant progress, state changes, blockers, decisions, integration and closure. Report owner, objective, verified done/total and denominator, current activity, next step, dependencies, evidence and each PR state. PMO may not declare a workstream or portfolio DONE merely because workers stopped or PRs were opened. At integration reconcile every ledger ID, task, worker and PR; report material residuals and next actions. Do not invent percent complete.
 
 ## Command and purpose
 
@@ -51,6 +51,8 @@ Before asking the owner to enumerate workstreams, inspect:
 
 If the Capture baseline is missing or materially incoherent, recommend `PHDK capture` before activating a broad PMO portfolio. If the architecture/implementation plan is missing for a substantial multi-workstream build, recommend `PHDK plan`. PMO may still coordinate a narrowly explicit owner-provided set of fronts.
 
+Inside an authorized Auto run, execute/reopen those missing Capture/Plan stages and continue automatically; do not end by recommending another command for work already authorized. Inspect actual source: a requirements-only or scaffold-only repository still needs product implementation, and unavailable source is UNVERIFIED rather than confirmed absence.
+
 ### 2. Detect workstreams
 
 Infer candidate workstreams primarily from `IMPLEMENTATION_PLAN.md`, requirements/features, architecture ownership boundaries, current plans, active changes, unresolved defects/gaps, and clearly related code areas.
@@ -82,13 +84,15 @@ Classify each detected front:
 
 ### 3. Confirm the portfolio with the owner
 
-Present the detected fronts and ask one portfolio question:
+When the portfolio is not already confirmed or unambiguously contained in the explicit Auto goal, present the detected fronts and ask one portfolio question:
 
 > "Estos son los frentes que detecté para avanzar. ¿Son todos los frentes activos que quieres que coordine en PMO? Puedes agregar, quitar o cambiar prioridad."
 
 If no credible fronts are detected, ask which fronts the owner wants to advance and optionally propose clearly labeled candidates based on intent/requirements/gaps.
 
 Do not activate proposed fronts without owner confirmation.
+
+Decomposing an already-authorized product goal into implementation workstreams requires no repeat approval. Complete missing code for its confirmed requirements in the same invocation, using sequential implementation when parallel workers are unnecessary or unavailable. Reserve confirmation for genuine new scope or a materially ambiguous portfolio.
 
 The confirmation establishes the PMO portfolio for this active conversation. When PMO is running as the discovery stage of a generic `PHDK auto` invocation, that confirmed portfolio becomes Auto's identified goal for the remainder of the lifecycle. It does not authorize unrelated future fronts.
 
@@ -305,6 +309,8 @@ workers using Auto execution semantics
     ↓
 PMO Integration Review
     ↓
+PHDK uat prep
+    ↓
 PHDK uat
     ↓
 PHDK uat fix (when needed)
@@ -318,7 +324,7 @@ Done
 
 For a single workstream, PMO may recommend leaving standalone PMO and using the full `PHDK auto` lifecycle instead. Explicit Auto will reuse current Capture/Plan outputs and tailor PMO down to one sequential workstream.
 
-Capture may already be complete; do not force rerunning it when the requirements baseline is coherent.
+Every Auto invocation rereads the complete current intent/requirements baseline and reconciles it with actual implementation. Reuse coherent Capture/Plan artifacts after that review; do not regenerate valid documents or rewrite working code for ceremony.
 
 ## UAT and Check handoff
 
@@ -369,4 +375,4 @@ PMO completes when:
 - residual blockers/decisions are explicit;
 - no worker remains active.
 
-Then exit PMO and stop. Do not automatically invent the next portfolio.
+For standalone PMO, exit and stop after the requested portfolio outcome, reporting any unfinished work accurately. Inside Auto, return the integrated candidate and immediately continue the remaining authorized lifecycle stages, including UAT Prep before UAT. Do not treat PMO coordination or Plan completion as completed product development, and do not invent a new portfolio.

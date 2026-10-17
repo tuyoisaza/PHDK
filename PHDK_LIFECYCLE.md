@@ -341,6 +341,8 @@ Snapshot all material Plan outputs plus `HANDOFF.md`.
 
 PMO verifies `IMPLEMENTATION_PLAN.md`, architecture boundaries, dependencies, and any relevant ADRs before creating/confirming workstreams.
 
+Inside Auto, a passing Plan handoff immediately starts the next eligible implementation task through stage 30. Missing product code activates required greenfield development; it never turns the Plan handoff into a terminal response or a request for another development command.
+
 ---
 
 ## 30 — PMO / Workstreams
@@ -382,6 +384,7 @@ When workers produce significant workstream-specific summaries, archive them und
 - dependencies explicit;
 - file/component ownership explicit;
 - workers completed or residual blockers/deferred state explicit;
+- each in-scope commitment has concrete implementation/source evidence or an explicit unfinished blocker; coordination artifacts, assignments and scaffolds alone never prove workstream completion;
 - integration queue ready.
 
 ### Next stage must verify
@@ -435,6 +438,7 @@ Snapshot additional architecture/API/schema evidence only when materially useful
 ### Exit gate
 
 - one coherent candidate identified;
+- all required product behavior in the authorized scope is implemented and integrated, or the candidate is explicitly NOT READY with the missing commitment IDs;
 - shared-file conflicts resolved or explicitly blocked;
 - cross-workstream contracts coherent;
 - candidate version/revision identifiable;
@@ -748,12 +752,15 @@ The run-level `LIFECYCLE.md` must then be finalized.
 
 # Reuse of existing stage artifacts
 
+At every explicit Auto invocation, reread the complete current intent/requirements baseline and reconcile it with actual product source under `PHDK_AUTO.md`. Reuse is the result of this review, not a reason to omit it. Preserve valid code/documents and honor the current authorized scope. Missing required product implementation is pending work, never grounds to mark implementation, Integration or UAT NOT APPLICABLE; only intent/scope-based irrelevance justifies N/A.
+
 A stage may be marked REUSED only when the next stage verifies:
 
 - required canonical artifacts exist;
 - they are coherent with current intent/goal;
 - no material upstream change invalidated them;
 - historical origin/revision is identifiable.
+- claimed implementation and validation have current evidence; a plan or old completion label alone cannot satisfy an implementation/acceptance gate.
 
 When reusing a stage in a new lifecycle run:
 
