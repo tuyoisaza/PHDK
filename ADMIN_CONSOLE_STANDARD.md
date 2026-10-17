@@ -44,6 +44,8 @@ On multi-tenant apps a `super_admin` may enter an explicit, limited **Ver como /
 
 Follow `UAT_JOURNEY_STANDARD.md` and the optional Company Co fixture for safe test personas.
 
+For UAT, `JWT_STANDARD.md` defines how the synthetic elevated actor and per-role sessions **first authenticate** through the existing provider or a safely isolated test adapter. This bootstrapping is not the product-facing **Ver como** feature and is never enabled in production. Verify both actual sign-in/identity and subsequent scoped impersonation; role labels or unsigned client JWT edits prove neither.
+
 ## 4. Isolation, access policy and data lifecycle
 
 - Authorize every operation server-side at resource/action/record/tenant scope. Tenant context comes from verified identity + current membership, not caller-controlled `tenant_id`. Apply isolation consistently to queries, RLS or equivalent database boundary, storage/blobs, cache keys, search, jobs/queues, exports, backups, prompts and telemetry. Deny cross-tenant access and test IDOR/privilege escalation.

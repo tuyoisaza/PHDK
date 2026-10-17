@@ -1,3 +1,21 @@
+## v2.52.2 — 2026-10-17
+
+### Reconcile JWT authenticated UAT with UAT browser readiness
+- Preserve v2.51.6 UAT browser permission/connection/cost gates while adding a separate real synthetic role-authentication gate, rather than treating browser access or fixture data as logged-in identities.
+- Reconcile manifest, UAT, Auto and AGENTS standards, test-evidence obligations, and version metadata without dropping concurrent changes.
+
+## v2.52.1 — 2026-10-17
+
+### Standards clarification
+- Clarify Company Co as the fixture authority, correct DEVSECOPS heading order and reconcile documentation version metadata after the synthetic JWT/UAT release.
+
+## v2.52.0 — 2026-10-17
+
+### Synthetic identities, authorized JWT UAT and role-complete testing
+- Introduce vendored `JWT_STANDARD.md`: test-only identity bootstrap via existing auth provider/session, controlled synthetic Company Co profiles, short-lived validated JWT **only where JWT is used**, and real Playwright/browser sessions per role without asking for human passwords or bearer secrets.
+- Separate JWT (JSON Web Token) from UAT (User Acceptance Testing); define authenticated super_admin (multi-tenant) versus admin (single-tenant), audited Test as, tenant-negative testing, production prohibitions, cleanup and concrete evidence gates.
+- Integrate bootstrap/negative tests with UAT, Auto, Check, DEVSECOPS, testing, admin console, Company Co, skill entry points and vendoring. Documentation/policy change only; no downstream deployment, new login endpoint, token issuance or live application UAT performed.
+
 ## v2.51.6 — 2026-10-17
 
 ### Browser readiness and no-unplanned-spend UAT gate
