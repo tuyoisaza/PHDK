@@ -61,6 +61,7 @@ Capture .............. REUSED
 Plan ................. RUNNING
 PMO / Workstreams .... PENDING
 Integration Review ... PENDING
+UAT Prep ............. PENDING
 UAT .................. PENDING
 UAT Fix .............. PENDING
 SEO .................. PENDING
@@ -79,7 +80,7 @@ Then run the applicable lifecycle end-to-end:
 
 ```text
 Capture → Plan → PMO/workstream execution → PMO Integration Review
-→ UAT → UAT Fix → SEO → AEO/GEO → Check → in-scope Check remediation → delivery
+→ UAT Prep → UAT → UAT Fix → SEO → AEO/GEO → Check → in-scope Check remediation → delivery
 ```
 
 Skip a stage only when its output is already current/coherent or it is genuinely not applicable. Do not rerun Capture or Plan merely for ceremony.
@@ -186,21 +187,25 @@ After workstream execution, perform the PMO Integration Review and produce one c
 
 For every applicable app-style product, Auto must inspect `DEBUG_DIAGNOSTICS_STANDARD.md` as a separate required acceptance gate, alongside available skills and capability checks. Discover the *actual source implementation* and its usage sites: do not assume a version label or an old checklist establishes compliance. If absent, implement a single shared always-visible version → clipboard → trash icon-only component on public home, login, shell and admin, including unauthenticated visitors and debug OFF, compact fixed visual metrics (only `vX.Y.Z`, 12px text, 28×28px visible buttons, 14×14px icons, 4px gap; never SHA/date or oversized tiles), exact handlers, green checkmark success/revert, sanitized verbose report, cache reset and safe access gates. Add focused component/unit tests. Trace evidence to source files, test results and the final Check report; mark unresolved items BLOCKED/FAIL rather than silently skipping. For projects to which the standard does not apply, record an evidence-backed NOT APPLICABLE. Do not misrepresent code review as browser/runtime verification.
 
-### 5. UAT and repair
-**Auto UAT Browser Gate:** At the Integration Review → UAT boundary run `UAT_BROWSER_READINESS_STANDARD.md` as a required phase transition, confirm **Navegador UAT: permiso de fase ACTIVO; acceso real VERIFICADO / NO DISPONIBLE / REQUIERE CONEXIÓN**, and log actual evidence in UAT Access/Report. Recheck on UAT Fix or re-entry as needed. Do not ask for budget caps, paid testing/browser APIs or discretionary owner approval of already permitted browser use. Continue independent cases and isolate the actual host connection/target blocker without fabricating a PASS or broadening production/provider permissions.
+### 5. UAT Prep — mandatory implementation before acceptance
+
+After Integration Review, execute `PHDK uat prep` under `PHDK_UAT_PREP.md`. **Build, seed and verify** missing Company Co synthetic users, secure provider-backed/test-only non-production session bootstrap, real role/tenant policies and in-process checks; implement safe required Test as functionality where in scope. Write `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` plus `45-uat-prep/HANDOFF.md`. If Prep edits product code, reconcile the integration revision and rerun impacted non-browser checks before entering UAT. Do not defer routine account development to UAT Fix. Browser access is not granted during Prep. Treat external provider authorization/production/paid blockers individually, not as a reason to skip all Prep.
+
+### 6. UAT and repair
+**Auto UAT Browser Gate:** At the UAT Prep → UAT boundary run `UAT_BROWSER_READINESS_STANDARD.md` as a required phase transition, confirm **Navegador UAT: permiso de fase ACTIVO; acceso real VERIFICADO / NO DISPONIBLE / REQUIERE CONEXIÓN**, and log actual evidence in UAT Access/Report. Recheck on UAT Fix or re-entry as needed. Do not ask for budget caps, paid testing/browser APIs or discretionary owner approval of already permitted browser use. Continue independent cases and isolate the actual host connection/target blocker without fabricating a PASS or broadening production/provider permissions.
 
 
-Run `PHDK uat` on the integrated candidate. For authenticated products first apply `JWT_STANDARD.md`: provision isolated synthetic personas, bootstrap legitimate test-only sessions for elevated and ordinary roles without requesting human passwords/bearer tokens, and prove real login, server-enforced role/tenant boundaries and audited Test as using the scoped UAT browser/API exception. If a safe bootstrap is absent and in scope, implement/retest it under UAT Fix rather than declaring UAT blocked only because credentials were never handed to the agent. Never create a production test-auth backdoor or infer browser access when disconnected. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain.
+Run `PHDK uat` **after verifying the current Prep handoff** against the reconciled integrated candidate. Reuse legitimate synthetic sessions and test real authenticated browser/API roles and tenant isolation in UAT. Newly broken Prep items are repaired in UAT Fix, followed by impacted Prep-check reruns; routine account provisioning belongs to stage 45. Never create a production test-auth backdoor or infer browser access when disconnected. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain.
 
-### 6. SEO and AEO/GEO
+### 7. SEO and AEO/GEO
 
 After UAT and UAT Fix, run `PHDK_SEO.md` on public indexable pages and then `PHDK_AEO_GEO.md` on applicable public answer/discovery content. Show separate status-board rows and transitions, preserve `65-seo/` and `67-aeo-geo/` handoffs, execute safe in-scope source fixes and revalidate impacted UAT. Mark either NOT APPLICABLE only with evidence when a product has no relevant public discovery goal. Neither stage silently authorizes browser, live probes, paid calls, production changes or fabricated AI visibility. Do not proceed to Check without verifying both gates/explicit N/A records. Reconcile resulting tasks with the commitment ledger.
 
-### 7. Check and remediation
+### 8. Check and remediation
 
 Run `PHDK check` against the integrated candidate. Under Auto, AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps that are within the authorized goal are automatically approved for remediation; repair them, rerun applicable validation, and rerun Check. DECISION REQUIRED / EXTERNAL-MANUAL / out-of-scope findings remain explicit.
 
-### 8. Delivery
+### 9. Delivery
 
 Complete final repository verification, version reconciliation, normal branch/PR delivery, merge, and remote verification under `MAIN_DELIVERY_STANDARD.md`.
 
@@ -232,7 +237,7 @@ Do the full development first. Write necessary test coverage with the implementa
 
 Use an intermediate local check only when it is necessary to diagnose an implementation blocker or an actual mandatory hook/control requires it. Do not run full install/build/test cycles after each stage. Preserve mandatory controls at the operation they govern: delaying final QA never permits skipping a hook, publishing unverified code, or postponing a required pre-push check until after `main` is updated. Avoid unnecessary checkpoint commits that would create early validation cycles; any necessary checkpoint still obeys repository rules and is not a release.
 
-After every in-scope part is implemented and integrated, run `PHDK uat` under `UAT_STANDARD.md` when the goal includes end-user behavior or acceptance criteria, then review the entire outgoing diff and run all applicable local verification for the whole goal: repository-required format/lint/typecheck/build gates, meaningful unit/in-process integration tests, and cross-feature regression checks justified by the changed behavior. Use existing isolated fixtures/doubles. Documentation-only goals use complete source/reference and policy-scenario review where relevant; do not invent an application build for a standards repository.
+After every in-scope part is implemented and integrated, run `PHDK uat prep` then `PHDK uat` under `UAT_STANDARD.md` when the goal includes end-user behavior or acceptance criteria, then review the entire outgoing diff and run all applicable local verification for the whole goal: repository-required format/lint/typecheck/build gates, meaningful unit/in-process integration tests, and cross-feature regression checks justified by the changed behavior. Use existing isolated fixtures/doubles. Documentation-only goals use complete source/reference and policy-scenario review where relevant; do not invent an application build for a standards repository.
 
 Fix in-scope failures, including UAT FAIL cases attributable to this goal, and rerun the affected UAT cases/checks until the candidate meets the completion criteria or a concrete unsatisfied control/access/decision blocks it. Expand verification only to address remaining risk or a required gate. Do not delete meaningful failing tests, weaken a check, label a failure passed, or declare all tests passed when any required check did not run. The assistant performs the permitted checks; do not hand routine local verification to the owner.
 
@@ -284,6 +289,7 @@ Capture .............. REUSED
 Plan ................. COMPLETED
 PMO / Workstreams .... COMPLETED
 Integration Review ... COMPLETED
+UAT Prep ............. COMPLETED / REUSED / BLOCKED
 UAT .................. COMPLETED — ACCEPTED
 UAT Fix .............. NOT APPLICABLE
 SEO .................. COMPLETED / NOT APPLICABLE

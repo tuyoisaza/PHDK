@@ -1,5 +1,9 @@
 # PHDK Check Standard
 
+## Mandatory UAT Prep implementation/evidence gate
+
+For each authenticated application, apply vendored `PHDK_UAT_PREP.md` and verify actual idempotent synthetic identity provisioning (Company Co subset), role/tenant matrix, safe provider/test-only session issuance, negative in-process authorization, logout/revocation/cleanup, and proof that the bootstrap cannot run in production. Require current `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` and, within Auto, `45-uat-prep/HANDOFF.md`. A document-only plan or fictional fixture names do not prove READY; missing implementation is GAP, missing runtime/provisioning verification is UNVERIFIED, excluded production/provider permissions are precise EXTERNAL/DECISION REQUIRED. Keep bare Check read-only. Do not conflate Prep readiness with the separate UAT browser evidence gate.
+
 ## Mandatory synthetic UAT authentication and JWT gate
 
 For each authenticated app, apply vendored `JWT_STANDARD.md`. Inspect the actual auth provider/session issuance, safe non-production test identity bootstrap, Company Co persona coverage, `UAT_AUTH_PLAN.md`, `UAT_ACCESS_REPORT.md`, and redacted runtime auth/authorization evidence. Verify appropriate elevated admin versus multi-tenant super_admin, scoped Test as, role/tenant isolation, expired/revoked token or session rejection, temporary state cleanup and proof that test-only auth cannot run in production. JWT-specific signature/issuer/audience/expiry/key checks apply only to apps using JWT; OAuth/cookie apps must not be forced to adopt JWT. Missing functioning bootstrap or product role-switch functionality is GAP; absent permitted runtime evidence is UNVERIFIED. Bare Check stays read-only.
