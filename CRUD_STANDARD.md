@@ -15,6 +15,10 @@ Default recommendations:
 - Anonymous/public: usually read-only public fields; suggest create/update/delete only when an explicit public workflow (submission, self-service, community content) is justified, with abuse protection and moderation.
 Do not expose secret credentials, protected personal information or system internals merely because a role can list an entity.
 
+## Configuración and tenant-scoped administration CRUD
+
+Apply `ADMIN_CONSOLE_STANDARD.md` for every app with administrator-managed state. Treat users, invitations, custom roles, permission templates, tenant/membership records (multi-tenant), managed nonsecret settings, provider connection metadata, themes and prompt/agent definitions (AI only) as explicit managed resources. Add their C/R-list/R-detail/U/D or justified limited-action rows to `CRUD_MATRIX.md` and `ADMIN_CAPABILITY_MATRIX.md`. Immutable built-in roles, external secret values, historical audit records, backups and irreversible tenant deletion require action-specific protected controls; never fabricate dangerous generic delete or read-secret operations. Require server-side role/record/tenant scope and authorization-negative tests. Platform super_admin exists only in multi-tenant; in single-tenant use the corresponding elevated admin.
+
 ## Behavioral acceptance requirements
 For each authorized operation, ensure end-to-end implementation: discoverable navigation; list/search/filter/pagination as suitable; opening an individual record; usable create/edit form with defaults and validation; clear save/error/loading/empty states; deletion or archive with confirmation, impact explanation and recovery where feasible; consistent data refresh; API endpoint and persistent storage; audit event for consequential administrative mutations. Access checks MUST run on the server for resource and record/tenant scope; hidden buttons are not authorization. Use least privilege, CSRF protection where applicable, anti-enumeration defenses, safe error handling, concurrency protection where applicable, and hard/soft delete/retention decisions. Forbidden operations must fail at the API too.
 
