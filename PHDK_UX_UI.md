@@ -3,6 +3,9 @@
 ## Applicability and authority
 Mandatory for projects with a user-facing interface, whether greenfield or brownfield. Does not invent new features, override user decisions, bypass security, expand browser permissions, or require external paid services. Public, anonymous, login, application and admin surfaces are included wherever present. API-only projects record an evidence-based NOT APPLICABLE.
 
+## Theme editing and governance
+UI design specifications and UAT quality audits must include the single-source light/dark/corporate semantic color contract and the Superadmin template editor, toggle and propagation tests defined in PHDK_THEME_STANDARD.md. Review all three themes where selectable; when corporate is hidden from ordinary users, still test its editability to Superadmin and fallback behavior. Do not award a design-system PASS from nominal palette names without current implementation, persistence, access and contrast evidence.
+
 ## Design operating modes
 - GREENFIELD: derive users, tasks, journeys and information architecture from Capture before designing screens. Define a product visual direction, design system and prototypes/specifications before coding.
 - BROWNFIELD: inventory existing routes and UX patterns; inspect existing app, screenshots, tests and feedback; establish a baseline; identify friction, inconsistent patterns and visual debt; preserve correct functionality, permissions and brand where applicable. Prioritize incremental improvements, not indiscriminate rewrites. Baseline and target must be comparable.

@@ -58,6 +58,9 @@ For explicit `PHDK capture`, follow `PHDK_CAPTURE.md`. Investigate first: use ex
 
 When material information is missing, say that questions are needed and ask focused requirements questions until all blocking gaps are resolved and remaining assumptions/open questions are explicit. If no Blocking/Material questions are needed after investigation, say so explicitly. At completion, tell the user that everything captured/formulated is stored in the canonical files and list/link PROJECT_INTENT.md, PROJECT_BRIEF.md, PRD.md, FEATURES.md, and REQUIREMENTS_TRACEABILITY.md for review. Capture may span multiple turns. Do not implement product code unless the current request separately includes development.
 
+## Theme governance for UI projects
+PHDK_THEME_STANDARD.md applies to new and existing UI products: centralized semantic CSS tokens, all three presets, real Superadmin template editing and corporate-theme visibility. In Designer Mode and PHDK Check invoke scripts/phdk_theme_audit.py and inspect application tests; its STATIC_PASS is not behavioral or visual verification.
+
 ## PHDK check
 
 For explicit `PHDK check`, follow `PHDK_CHECK.md`. First perform a read-only applicability/compliance audit across the repository's active PHDK standards and implementation, create or refresh `PHDK_CHECK_REPORT.md`, present the prioritized gaps, and ask once whether the user wants the AUTO-FIXABLE and FIXABLE WITH VALIDATION items executed. Do not begin remediation before that answer.
