@@ -1,5 +1,9 @@
 # PHDK AI Admin Standard
 
+## Administrative authority and cross-standard contract
+
+Apply `ADMIN_CONSOLE_STANDARD.md` for the overarching Configuración console. In a **multi-tenant** app the AI platform owner is `super_admin`; in **single-tenant**, it is the elevated `admin` (no artificial super_admin account). The term platform-admin in this standard denotes that appropriately authorized authority, not an additional hardcoded role. Tenant admin access to a subset of tenant-owned prompt metadata is optional and never permits cross-tenant/global provider or secrets access.
+
 ## Conditional activation
 
 This standard applies only when the project actually uses an LLM/AI provider.
@@ -16,22 +20,26 @@ Inspect variable names, source/configuration, and requirements. Never read or ex
 
 If none of this evidence exists and the project intent does not call for AI, mark this standard NOT APPLICABLE. Do not scaffold AI, prompts, consumption, or provider administration preemptively.
 
-## Required super-admin capabilities
+## Required platform-admin capabilities
 
-When AI is applicable, the protected super-admin area must expose AI administration. At minimum it includes:
+When AI is applicable, the protected platform-admin area must expose AI administration. At minimum it includes:
 
 1. **Prompts** — manage the named AI prompt/agent definitions used by the product.
 2. **AI consumption** — inspect token/cost usage, model/provider attribution, and pricing metadata required by `technical_stack.md`.
 
-These capabilities are visible only to `super_admin` unless the project explicitly grants another administrative role. Hiding UI is not authorization; all reads/writes require server-side authorization.
+These capabilities are visible only to `platform_admin` unless the project explicitly grants another administrative role. Hiding UI is not authorization; all reads/writes require server-side authorization.
 
 ## Prompts menu item and route
 
-The super-admin navigation must contain a clear menu item labeled **Prompts**.
+The platform-admin navigation must contain a clear menu item labeled **Prompts**.
 
 Use a dedicated route, preferably `/admin/prompts`, unless the existing admin routing convention requires a nested equivalent such as `/admin/ai/prompts`. The label remains **Prompts** even when nested under an AI section.
 
 The page is not a generic key/value editor. It manages one prompt/agent definition at a time.
+
+## Mandatory workflow catalog and graph when AI applies
+
+The Prompts page must also expose **why and where each agent runs**: stable ID, purpose/business outcome, owning feature/page/callsite, enabled status, provider/model and revision; every named input with schema, approved DB/API/user/event source, mapping, transformation and sensitivity; and every expected output JSON Schema and destination. Represent next hops as validated references to other registered agent IDs or to an authorized product/persistence destination, with field mappings, branch conditions, termination/budget/cycle guards, and a readable workflow DAG/graph. Include synthetic input testing, redacted trace/replay evidence, error and schema-invalid handling, publish/rollback history, cost/token trace and tenant-scoped execution. Never expose real secrets/PII, permit arbitrary SQL/tool access or run a modified draft prompt without explicit publish semantics. A flat prompt editor without source-to-output-to-next-agent lineage is a GAP; see `ADMIN_CONSOLE_STANDARD.md` §5.
 
 ## Required Prompts page layout
 
@@ -87,6 +95,13 @@ created_at
 updated_at
 updated_by
 version/revision
+purpose
+owning_feature
+callsite
+input_schema_and_source_mappings
+output_destination_and_next_hops
+provider_model_reference
+publish_status
 ```
 
 A project may add provider/model overrides or feature metadata when its intent requires them, but provider secrets never belong in prompt records.
@@ -139,13 +154,13 @@ Every tracked AI call must be attributable, when applicable, to:
 - requested/response model;
 - token/cost/latency/error metrics already required by `technical_stack.md`.
 
-The super-admin consumption view and the Prompts view use the same stable prompt/agent identity so an administrator can understand which prompt definitions drive consumption.
+The platform-admin consumption view and the Prompts view use the same stable prompt/agent identity so an administrator can understand which prompt definitions drive consumption.
 
 ## Validation requirements
 
 When AI applies, source/local verification must establish:
 
-- protected super-admin Prompts route and navigation item exist;
+- protected platform-admin Prompts route and navigation item exist;
 - only authorized admin roles can read/update definitions;
 - left-side prompt/agent list and selected-state behavior are implemented;
 - editable name/personality/execution/output-schema fields exist;
@@ -158,6 +173,10 @@ When AI applies, source/local verification must establish:
 
 Browser/rendered appearance remains unverified unless separately supported by the execution scope. Verify source, authorization, form/data contracts, and permitted isolated tests.
 
+## Graph and source mapping validation
+
+Check source/field mappings exist in approved data surfaces, are typed and tenant-authorized, and don't expose sensitive data through preview, logs or downstream hops. Validate input contracts, referenced downstream IDs and output mapping compatibility before publishing; runtime enforcement must reject unauthorized sources, unbounded loops, invalid outputs and unsupported destinations. Test traceability from product event → prompt revision → provider call → schema validation → permitted destination/next agent. Persist only safe metadata about secret configuration.
+
 ## PHDK Check integration
 
 `PHDK check` must detect the conditional AI trigger from repository evidence.
@@ -166,8 +185,8 @@ If AI is present, absence of any required capability in this standard is a GAP/P
 
 - AI provider integration centralized through `packages/ai` or equivalent;
 - token/cost observability;
-- super-admin AI consumption capability;
-- super-admin **Prompts** menu item/route;
+- platform-admin AI consumption capability;
+- platform-admin **Prompts** menu item/route;
 - managed prompt list/editor;
 - separate editable name, personality prompt, execution prompt, and output JSON schema;
 - authorization, validation, revisions/audit, and consumption attribution.
