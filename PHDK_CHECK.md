@@ -19,12 +19,12 @@ For every applicable stateful/administered portal, apply `ADMIN_CONSOLE_STANDARD
 
 Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest Integration/UAT/UAT Fix/SEO/AEO-GEO handoffs (or justified N/A records) required by `PHDK_LIFECYCLE.md` and audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
-`PHDK check` audits the current repository against the active PHDK standards and produces a concrete remediation backlog. The command is intentionally two-phase:
+`PHDK check` audits the current repository against the active PHDK standards and produces a concrete remediation backlog. The bare command is intentionally two-phase (unless explicitly invoked as one-command `PHDK check --fix`):
 
 1. **Audit phase — read-only:** inspect PHDK and the repository, classify gaps, write or refresh `PHDK_CHECK_REPORT.md`, present the results, and ask once whether the user wants the listed remediation executed.
 2. **Remediation phase — only after explicit yes:** execute the approved, enumerated gaps through the normal PHDK development and delivery rules, then rerun the check and report the residual gap.
 
-The first `PHDK check` command does not authorize product-code changes, version bumps, commits, pushes, merges, provider writes, or settings changes in the audited project. It authorizes the audit artifact itself when the user asked to persist the report; otherwise report in chat and keep the repository unchanged. A later clear `yes`, `sí`, `ejecuta`, `hazlo`, or equivalent answer to the presented remediation question authorizes the enumerated remediation scope in the same conversation.
+The first **bare** `PHDK check` command does not authorize product-code changes, version bumps, commits, pushes, merges, provider writes, or settings changes in the audited project. It authorizes the audit artifact itself when the user asked to persist the report; otherwise report in chat and keep the repository unchanged. A later clear `yes`, `sí`, `ejecuta`, `hazlo`, or equivalent answer to the presented remediation question authorizes the enumerated remediation scope in the same conversation.
 
 ## What PHDK to read
 
