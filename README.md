@@ -13,7 +13,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.53.0**
+**Version v2.53.1**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -62,6 +62,8 @@ PMO Integration Review
     ↓
 human integrated review when requested or required
     ↓
+PHDK uat prep
+    ↓
 PHDK uat
     ↓
 PHDK uat fix
@@ -76,7 +78,7 @@ Done
 For a single focused workstream, either run the stages explicitly:
 
 ```text
-PHDK capture → PHDK plan → implementation/integration → PHDK uat → PHDK uat fix → SEO → AEO/GEO → PHDK check
+PHDK capture → PHDK plan → implementation/integration → PHDK uat prep → PHDK uat → PHDK uat fix → SEO → AEO/GEO → PHDK check
 ```
 
 or simply run:
@@ -85,7 +87,7 @@ or simply run:
 PHDK auto
 ```
 
-Auto will orchestrate the complete applicable lifecycle and reuse current Capture/Plan artifacts.
+Every Auto invocation revalidates the complete intent/requirements baseline against actual code, then executes the complete authorized lifecycle. It reuses Capture/Plan artifacts only after verifying their currency and coverage, builds missing product code, and completes partial implementations.
 
 Each stage has one job.
 
@@ -94,8 +96,9 @@ Each stage has one job.
 | **Capture** | Understand the product, its intent, ethos, requirements, users, constraints and success criteria. |
 | **Plan** | Design or reconstruct the solution/repository/UX architecture and turn it into an executable implementation plan. |
 | **PMO** | Detect and coordinate multiple fronts, dependencies, ownership, workers and integration. |
-| **Auto** | Orchestrate the complete lifecycle from Capture through final Check/remediation and delivery. |
+| **Auto** | Revalidate intent against code, execute the entire authorized development scope, then validate, repair and deliver. |
 | **UX/UI** | Plan usable journeys and coherent interfaces for new projects or redesigns; audit real usage and fix critical friction before UAT acceptance. |
+| **UAT Prep** | Build and verify the permitted synthetic accounts, fixtures and authentication bootstrap needed for UAT. |
 | **UAT** | Validate the integrated product against intent-aligned user stories and acceptance criteria. |
 | **UAT Fix** | Repair FAILs and removable blockers; guide the owner through manual/external blockers. |
 | **SEO** | After UAT, audit and improve public crawlability, metadata, content, structure and performance with 25 evidence-classified controls. |
@@ -368,16 +371,21 @@ Capture
 → Plan
 → PMO/workstream execution
 → PMO Integration Review
+→ UAT Prep
 → UAT
 → UAT Fix
+→ SEO
+→ AEO/GEO
 → Check
 → in-scope Check remediation
 → delivery
 ```
 
-If Capture or Plan is already current, Auto reuses it rather than repeating work.
+On every invocation, Auto rereads the complete intent and requirements baseline and compares it with actual product code. It reuses Capture/Plan artifacts only after verifying that they are current and cover the authorized goal.
 
-If the repo already exists, Auto's Plan stage operates in brownfield mode: it understands the current architecture before proposing or executing convergence.
+If no product code exists, Auto builds the product. If code is partial, it completes the missing requirements while preserving valid implementation and architecture. Documentation or a scaffold alone does not establish a completed application; unavailable repository access is recorded as UNVERIFIED, never treated as an empty project.
+
+**Plan continues directly into implementation in the same Auto invocation.** Auto executes the entire authorized scope without another development command, a ceremonial approval, or a silent reduction to an MVP. Real blockers remain explicit, and independent authorized work continues. Updating or installing PHDK does not activate Auto.
 
 PMO still has a distinct role:
 
@@ -662,7 +670,7 @@ For end-to-end execution, simply run:
 PHDK auto
 ```
 
-Auto will create/reuse the Capture baseline, create/reuse Plan, coordinate workstreams, integrate, validate, repair and check the final candidate.
+Auto will revalidate the complete intent/requirements baseline against code, create or reuse verified Capture/Plan outputs, execute the required development, coordinate workstreams, integrate, prepare synthetic UAT access, validate, repair and deliver the final candidate.
 
 Auto also tells you **where it is in the lifecycle**. At startup it shows a status board for:
 
@@ -672,6 +680,7 @@ Capture
 Plan
 PMO / Workstreams
 Integration Review
+UAT Prep
 UAT
 UAT Fix
 SEO
@@ -695,7 +704,7 @@ PHDK plan
 
 Capture reconstructs what the product is supposed to be. Plan reconstructs how it is currently built, then defines the target architecture and an incremental convergence path.
 
-Or run `PHDK auto` and let it orchestrate those stages automatically when they are missing/outdated.
+Or run `PHDK auto`: it revalidates the complete baseline on every invocation, refreshes missing/outdated artifacts, and continues through all authorized implementation and delivery.
 
 ### Existing project with unclear standards drift
 

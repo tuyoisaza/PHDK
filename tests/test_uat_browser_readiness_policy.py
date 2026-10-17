@@ -1,4 +1,5 @@
 """Static regression checks for UAT scoped-browser readiness policy."""
+import re
 import unittest
 from pathlib import Path
 
@@ -26,9 +27,13 @@ class UATBrowserReadinessTests(unittest.TestCase):
             self.assertIn(x, p)
 
     def test_release_version(self):
-        self.assertEqual(self.load("VERSION").strip(), "2.51.6")
-        self.assertIn("**Version v2.51.6**", self.load("README.md"))
-        self.assertTrue(self.load("CHANGELOG.md").startswith("## v2.51.6"))
+        version = self.load("VERSION").strip()
+        self.assertRegex(version, r"^\d+\.\d+\.\d+$")
+        self.assertGreaterEqual(tuple(map(int, version.split("."))), (2, 51, 6))
+        self.assertIn(f"**Version v{version}**", self.load("README.md"))
+        newest_release = re.search(r"^## v(\d+\.\d+\.\d+)\b", self.load("CHANGELOG.md"), re.M)
+        self.assertIsNotNone(newest_release)
+        self.assertEqual(newest_release.group(1), version)
 
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@ For applicable apps, apply `CRUD_STANDARD.md`: inventory managed entities, role 
 
 ## Mandatory full-inventory Plan coverage
 
-Follow `PHDK_COMMITMENT_STANDARD.md`. Consume `PHDK_COMMITMENTS.md`, and generate `PHDK_COMMITMENT_COVERAGE.md` mapping **every confirmed ID** to requirements, design decisions, implementation tasks/workstreams, dependencies and acceptance evidence. The Plan exit gate fails if any confirmed ID is unowned or omitted without a documented blocker. New discoveries return to Capture for owner scope confirmation; preserve the original plan and ledger historical snapshots.
+Follow `PHDK_COMMITMENT_STANDARD.md`. Consume `PHDK_COMMITMENTS.md`, and generate `PHDK_COMMITMENT_COVERAGE.md` retaining visibility of every confirmed ID. Map **every confirmed ID in the current authorized goal** to requirements, design decisions, implementation tasks/workstreams, dependencies and acceptance evidence; fail the Plan exit gate if any such ID is unowned or omitted without a documented blocker. Mark other commitments outside this run's scope without executing, cancelling or silently deferring them. Missing implementation of a confirmed in-scope requirement stays linked to that commitment and is executed by Auto. Return genuinely new outcomes outside the goal or unresolved material decisions to Capture for owner scope confirmation; preserve original plan and ledger history.
 
 ## Command and purpose
 
@@ -31,6 +31,8 @@ Plan has two operating modes:
 2. **Brownfield** — inspect the architecture that already exists, preserve valid decisions, identify gaps/debt/inconsistencies, define a target architecture, and create an incremental convergence plan from the current state.
 
 Plan does not blindly scaffold or rewrite an existing repository. Existing code and architecture are first-class evidence.
+
+Choose the mode from actual product implementation. A readable repository containing only requirements, PHDK files or a scaffold is greenfield for the required product development, even though the repository already exists. Reuse its established intent and decisions. An unreadable/incompletely inspected source tree is UNVERIFIED, not evidence of absence. For a partial product, preserve working parts and plan the missing behavior.
 
 ## Inputs
 
@@ -90,7 +92,7 @@ A different architecture is valid when product requirements, constraints, scale,
 
 ## Brownfield: architecture reconstruction and convergence
 
-When the repo already exists, Plan must first document **Current State** before proposing change.
+When meaningful product implementation already exists, Plan must first document **Current State** before proposing change.
 
 Inspect:
 
@@ -203,6 +205,7 @@ Every step must contain:
 
 - stable Plan ID, e.g. `PLAN-001`;
 - intent/requirement/feature links;
+- inspected implementation state, existing source/evidence, and the exact missing behavior;
 - outcome;
 - prerequisites/dependencies;
 - exact components/files/packages likely affected;
@@ -318,7 +321,7 @@ Plan proposes workstream groupings but does not activate them. PMO owns portfoli
 
 Standalone `PHDK plan` produces architecture/planning artifacts and stops unless a parent request includes execution.
 
-Full `PHDK auto` uses Plan as an internal lifecycle stage after Capture and before PMO. Auto may proceed without a redundant Plan approval when the architecture choices are already within the authorized product goal and standards. It asks only for genuinely material unresolved architecture/product decisions.
+Full `PHDK auto` uses Plan as an internal lifecycle stage after Capture and before PMO/workstream execution. After the Plan exit gate passes, Auto must immediately execute the next eligible implementation task and continue the complete authorized development in the same invocation, including greenfield construction when code is absent. It must not ask whether to start development or require another mode command. Ask only for genuinely material unresolved architecture/product decisions and continue independent permitted work. A completed plan proves readiness to execute; it does not prove implemented or accepted behavior.
 
 ## Lifecycle handoff
 
