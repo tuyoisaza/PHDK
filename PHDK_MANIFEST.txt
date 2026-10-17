@@ -16,6 +16,8 @@ PHDK_DESIGNER_MODE.md | PHDK_DESIGNER_MODE.md
 PHDK_DESIGN_SYSTEM.md | PHDK_DESIGN_SYSTEM.md
 PHDK_THEME_STANDARD.md | PHDK_THEME_STANDARD.md
 scripts/phdk_theme_audit.py | scripts/phdk_theme_audit.py
+PHDK_AUTOMATION_HYGIENE.md | PHDK_AUTOMATION_HYGIENE.md
+scripts/phdk_automation_audit.py | scripts/phdk_automation_audit.py
 PHDK_SEO.md | PHDK_SEO.md
 PHDK_AEO_GEO.md | PHDK_AEO_GEO.md
 PHDK_COMMITMENT_STANDARD.md | PHDK_COMMITMENT_STANDARD.md

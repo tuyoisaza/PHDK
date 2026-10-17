@@ -1,3 +1,13 @@
+## v2.51.5 — 2026-10-16
+
+### Mandatory automation and cost hygiene in Check and Auto
+- Add `PHDK_AUTOMATION_HYGIENE.md` and a vendored read-only static scanner for residual GitHub Actions, recurring agents/bots, production watchers, Railway cron and restart-loop risks; add unit regressions.
+- Make Check and Auto verify **live** GitHub Actions state/runs/checks and Railway Wait for CI, deployment triggers, cron/restarts and usage when provider metadata is available. Unverified remote state blocks an unsupported ALIGNED claim.
+- Preserve justified security checks and GitHub-connected Railway autodeploy; automatic cleanup applies only to provably obsolete PHDK-owned source. No implicit provider setting changes.
+
+### Verification scope
+- PHDK policy/source/static checks only. This release does not inspect or modify downstream GitHub Actions or Railway accounts.
+
 ## v2.51.4 — 2026-10-16
 
 ### Universal tenancy-aware administration console

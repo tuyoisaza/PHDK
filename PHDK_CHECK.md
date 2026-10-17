@@ -1,5 +1,10 @@
 # PHDK Check Standard
 
+## Mandatory automation and provider-cost hygiene gate
+
+For **every** project, apply `PHDK_AUTOMATION_HYGIENE.md` before marking Check aligned. Inventory locally checked-in GitHub Actions, scheduled agents/bots, repository watchers, Railway cron/restart/redeploy configuration, and also verify **live enabled workflow/runs and GitHub checks plus Railway Wait for CI, deployment triggers, restarts and usage** through authorized read-only provider metadata. Use vendored `scripts/phdk_automation_audit.py` as static evidence when available; its clean result never proves remote compliance. Preserve justified security CI, branch rules and GitHub-connected Railway autodeploy. Put findings in a dedicated **Automation and Cost Hygiene** section of `PHDK_CHECK_REPORT.md`, including owner/provenance, active state, dependency, cost/blockage risk, severity, remediation type and provider access gaps. For bare Check no mutations; within `check --fix` or Auto remove unambiguous obsolete PHDK-owned repository triggers only, never change provider settings or disable required checks. Unverifiable live state remains UNVERIFIED, not COMPLIANT.
+
+
 ## Mandatory UX/UI audit checks
 
 For a UI-applicable project, apply `PHDK_UX_UI.md`: verify Plan design artifacts and historical snapshots, trace critical user journeys to requirements/tasks/UAT, inspect the current `UX_UI_AUDIT_REPORT.md`, confirm P0/P1 findings resolved or BLOCKED, and check `UX_UI_REMEDIATION_REPORT.md` and retests where applicable. Do not assume an attractive screenshot proves usability. Audit phase remains read-only except permitted report artifact.
