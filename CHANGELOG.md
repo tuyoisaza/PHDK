@@ -1,3 +1,11 @@
+## v2.53.0 — 2026-10-17
+
+### PHDK uat prep: implement synthetic test identities before acceptance
+- Introduce standalone `PHDK uat prep` and mandatory Auto stage `45-uat-prep` after Integration Review, before browser UAT. Prep explicitly builds/reuses idempotent Company Co synthetic user seeders, supported isolated auth/session bootstrap and role/tenant test support; validates allowed non-browser cases and documents actual account provisioning and cleanup.
+- Add vendored `PHDK_UAT_PREP.md`, required `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md`, stage snapshots, fresh-candidate reconciliation and Prep-ready/blocked role gates.
+- Integrate lifecycle, Auto, standalone UAT, Check, agent/native routing, JWT, Company Co, testing, execution scope and manifest. Preserve UAT-only browser permission and independent connection/no-new-spend verification at stage 50.
+- Standards-only release: this repository does not create accounts in downstream applications, deploy staging resources, run browsers or alter authentication providers.
+
 ## v2.52.2 — 2026-10-17
 
 ### Reconcile JWT authenticated UAT with UAT browser readiness

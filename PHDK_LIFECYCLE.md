@@ -85,6 +85,7 @@ and one folder per executed/reused stage:
 20-plan/
 30-pmo/
 40-integration/
+45-uat-prep/
 50-uat/
 60-uat-fix/
 65-seo/
@@ -442,7 +443,31 @@ Snapshot additional architecture/API/schema evidence only when materially useful
 
 ### Next stage must verify
 
-UAT verifies `INTEGRATION_REPORT.md` says the candidate is ready for acceptance and uses the exact candidate revision/worktree described there.
+UAT Prep verifies `INTEGRATION_REPORT.md` and its candidate. If Prep modifies code/schema, it refreshes the current integration candidate and reruns affected integration checks, preserving prior historical evidence. UAT later verifies this revised candidate and the Prep handoff.
+
+---
+
+## 45 — UAT Prep
+
+### Purpose
+
+Build and verify synthetic test identities, secure role sessions and test-only provider/fixture readiness **before** browser UAT. Follow `PHDK_UAT_PREP.md`.
+
+### Inputs
+
+Current integration handoff/candidate, source-backed auth/RBAC/tenancy, Company Co fixture, `JWT_STANDARD.md`, safe isolated target.
+
+### Canonical outputs
+
+`UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` and applicable source/test implementation.
+
+### Historical outputs
+
+`45-uat-prep/HANDOFF.md` plus sanitized snapshots of canonical outputs; never tokens, passwords or browser storage state.
+
+### Exit and next-stage gate
+
+Evidence of per-role provisioned test-only identities or exact blockers; valid test bootstrap, local/in-process allow/deny and tenant checks; isolation, expiry and cleanup controls; revision reconciled with Integration after Prep code changes. UAT checks the same candidate plus the Prep handoff and carries precise blockers forward. The browser readiness check begins **only at 50 — UAT**.
 
 ---
 
@@ -457,7 +482,8 @@ Validate intent-aligned user acceptance on the integrated candidate.
 ### Required inputs
 
 - completed Integration Review handoff;
-- exact candidate revision/worktree;
+- verified `45-uat-prep` handoff/role fixtures or documented source-backed N/A, with outstanding per-role blockers;
+- exact candidate revision/worktree reconciled after Prep changes;
 - Capture/Plan traceability;
 - UAT standard.
 

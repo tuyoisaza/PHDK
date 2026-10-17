@@ -1,3 +1,7 @@
+## Mandatory UAT Prep handoff
+
+Before standalone UAT or Auto UAT on an authenticated product, inspect `PHDK_UAT_PREP.md` and the **current** `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` for the exact candidate, real seeded/provider-backed synthetic identity, role/tenant local checks and cleanup. Under Auto, `45-uat-prep/HANDOFF.md` must exist or the Prep stage must run and close with truthful per-role blockers. If standalone UAT lacks initial synthetic accounts/bootstrap, record impacted cases BLOCKED and recommend explicit `PHDK uat prep`; standalone `PHDK uat` does not silently develop an entire new authentication module. UAT Fix repairs newly discovered defects. Do not mark Prep's non-browser evidence as acceptance/browser PASS. At stage 50 run `UAT_BROWSER_READINESS_STANDARD.md` independently; Prep does not grant browser access.
+
 ## JWT and synthetic authentication gate
 
 Before authenticated UAT/UAT Fix, read `JWT_STANDARD.md` and prepare `UAT_AUTH_PLAN.md`: map Company Co's fiction-only fixture users to **real provider/server-issued test sessions** for each actual application role, elevated admin/super_admin (tenancy-appropriate) included. Do not request passwords or raw bearer tokens from the owner, forge JWTs, add production backdoors or mistake a seed record for a logged-in identity. Use a dedicated non-production issuer/adapter only when existing app/provider mechanisms do not suffice; repair in UAT Fix/authorized Auto scope and test positive/negative API and browser journeys. Redact state, revoke grants and report evidence or precise remaining blockers.
@@ -33,7 +37,7 @@ For each test record the candidate revision, target environment, case ID, steps,
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the Integration Review handoff and exact candidate in `INTEGRATION_REPORT.md` before deriving/executing UAT. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify Integration Review and the later `45-uat-prep` handoff with matching candidate, real synthetic role/access readiness or explicit per-role blockers before deriving/executing UAT. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK uat` runs autonomous user acceptance testing for the identified current product candidate. Match the command case-insensitively after trimming whitespace. Use the current conversation, repository requirements, product documentation, acceptance criteria, current task, code, and existing test evidence to identify the candidate and scope. If no candidate or product goal can be determined, ask only for that missing target.
 

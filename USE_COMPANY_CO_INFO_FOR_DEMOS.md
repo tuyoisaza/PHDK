@@ -304,6 +304,10 @@ A B2B customer may have separate buyer, approver, shipping and billing contacts.
 - Purchase orders: PO-001 draft, PO-002 approved, PO-003 partially received, PO-004 disputed.
 - Invoices: INV-001 paid, INV-002 overdue 31 days, INV-003 partial payment, INV-004 disputed.
 - Tickets: TCK-001 new, TCK-002 SLA at risk, TCK-003 resolved, TCK-004 reopened.
+## PHDK UAT Prep fixture provisioning
+
+At `PHDK uat prep` (standalone or Auto stage 45) follow `PHDK_UAT_PREP.md` to select a representative Company Co subset and **implement/execute permitted isolated account provisioning**, not merely seed employee rows. Map real application roles/tenant policy to provider identities, record actual nonsecret subject IDs and account states in `UAT_FIXTURE_MANIFEST.md`, test repeatable seeding and cleanup, and leave full browser sign-in/role journeys to UAT. Never email fixture addresses or create a production privileged test user.
+
 ## Synthetic user authentication contract
 
 This file contains **fictional records and role labels, not credentials**. For actual authenticated UAT, apply `JWT_STANDARD.md` and `UAT_JOURNEY_STANDARD.md`: create only the needed subset of these synthetic identities using the application's safe non-production identity provider/seed mechanism; verify provider subject, backend role/tenant membership and issuance of a legitimate short-lived test session for each role. For multi-tenant, `EMP-001` may represent a synthetic platform super_admin **only if the application's own server-authorized mapping grants that privilege**; for single-tenant use the real admin role. Test audited `Ver como` separately and remove temporary session state after evidence capture. Never issue email or use hard-coded passwords, forged JWT claims or production logins.

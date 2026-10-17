@@ -14,6 +14,10 @@ The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only provider
 
 In the scoped UAT/UAT Fix phase, use `JWT_STANDARD.md` to obtain authorized test-only sessions for actual roles through the app's existing identity provider or a safe staging-only test harness; do not request people's passwords or paste bearer tokens. For browser cases, isolate a separate secure temporary authenticated browser state per role/tenant and clean it up; source-only fixtures cannot prove login or permissions. JWT-specific negative verification is required only when the application uses JWT. `UAT_STANDARD.md` governs browser access, safety and evidence.
 
+## UAT Prep — implementation-only verification
+
+`PHDK uat prep` is a dedicated pre-acceptance development phase under `PHDK_UAT_PREP.md`. It may build fixture seeders/session harnesses and run **synchronous non-browser** unit/in-process role and tenant authorization/cleanup checks. Its results are readiness evidence, not UAT acceptance PASS. Browser/Playwright/headless runs and screenshots are still prohibited in Prep and become allowed only upon entering scoped UAT/UAT Fix. Do not use paid services or production accounts for Prep.
+
 ## Scoped browser exception for UAT and UAT Fix
 
 **Only** during explicit `PHDK uat`, `PHDK uat fix`, or the UAT/UAT Fix phases of an authorized `PHDK auto` run, a connected/available browser, browser MCP, Playwright, Cypress or equivalent may be used to exercise real user journeys, UI behavior, responsiveness and accessibility and capture timestamped screenshots/evidence. This narrow exception overrides general browser bans **for these phases only**; it does not activate browser work during Capture, Plan, implementation, generic verification, Check or Delivery. PMO workers do not inherit a standalone browser permission outside their authorized UAT phase.

@@ -37,9 +37,13 @@ If the runtime does not support subagents/workers, PMO may coordinate the same w
 
 ## PHDK Auto
 
-The explicit command `PHDK auto` activates the complete lifecycle in `PHDK_AUTO.md` for the identified current goal; exit with `PHDK salir de auto`, a clear stop, completion, or the conversation ending. Auto may reuse/run Capture, Plan, PMO/workstream execution, Integration Review, UAT/UAT Fix, Check/remediation, and delivery without PHDK-only approval pauses between applicable lifecycle stages. Use existing requirements and reversible routine decisions; no repeated interview or OK is needed when the goal is already clear.
+The explicit command `PHDK auto` activates the complete lifecycle in `PHDK_AUTO.md` for the identified current goal; exit with `PHDK salir de auto`, a clear stop, completion, or the conversation ending. Auto may reuse/run Capture, Plan, PMO/workstream execution, Integration Review, UAT Prep, UAT/UAT Fix, Check/remediation, and delivery without PHDK-only approval pauses between applicable lifecycle stages. Use existing requirements and reversible routine decisions; no repeated interview or OK is needed when the goal is already clear.
 
 Auto defers optional test execution and comprehensive QA to the completed integrated candidate, then runs all applicable local checks, repairs in-scope failures, and completes normal versioned branch/PR delivery. A necessary diagnostic check or actual mandatory hook still runs when required; final verification precedes publication. Auto does not borrow Developer Mode's direct-main permission or its automatic failure stop, and it does not remove actual controls. Its explicit cadence takes precedence over generic stage/interview/handoff rules. No background execution, old-task resumption from files, persistent mode flag, browser testing outside the UAT exception, or provider writes is added.
+
+## PHDK UAT Prep — source development only
+
+An explicit `PHDK uat prep` invocation authorizes **scoped app/test source edits**, local isolated identity fixture creation and synchronous non-browser verification, plus normal versioned delivery as defined by `PHDK_UAT_PREP.md`. In Auto it is stage 45 between Integration and UAT. It does **not** authorize browser/headless tests, screenshots, actual UAT acceptance, real-user impersonation, production accounts, human credential requests, identity-provider settings writes, newly billed services or background operations. Browser use remains restricted to the existing UAT/UAT Fix exception.
 
 ## PHDK Unlock
 

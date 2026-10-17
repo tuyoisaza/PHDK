@@ -1,5 +1,7 @@
 # PHDK
 
+**New `PHDK uat prep` (v2.53.0):** [`PHDK_UAT_PREP.md`](PHDK_UAT_PREP.md) defines a standalone implementation command and required stage 45 in Auto. It **builds/repairs and provisions permitted non-production synthetic Company Co role accounts**, repeatable seeders, trusted server/provider-issued test sessions and local role/tenant verification; produces fixture/role/auth/prep evidence before UAT. Prep is **not** browser testing or permission for production privileged logins; stage 50 still independently verifies browser access.
+
 **Synthetic UAT identity and JWT policy (v2.52.2):** Read [`JWT_STANDARD.md`](JWT_STANDARD.md) before authenticated UAT, UAT Fix, Auto UAT or Check. Authenticate fictional Company Co roles through a supported **non-production** provider/session/bootstrap; signed, scoped short-lived JWTs are used only by products that actually use JWT. Never ask for people's passwords/bearer tokens, forge production admin access or equate a synthetic role label with authentication. Prove all role and tenant boundaries in actual permitted browser/API journeys, and revoke temporary test sessions.
 
 **Company Co demo/UAT fixture (vendored since v2.50.5):** Before UAT that needs employees, area leaders, role test accounts, customers, buyers, suppliers, products or workflows, read [`USE_COMPANY_CO_INFO_FOR_DEMOS.md`](USE_COMPANY_CO_INFO_FOR_DEMOS.md). Adapt its synthetic 200-person / 17-department company to the real application model, seed idempotently, verify created accounts, and test role-scoped user journeys including auditable Superadmin profile switching. Never perform automatic bulk email to `@tujuisasa.com`; obtain authorization and verify routing first. Record evidence and the next executable action.
@@ -11,7 +13,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.52.2**
+**Version v2.53.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
