@@ -5,6 +5,8 @@
 - Apply `phdk-standards/PHDK_COMMUNICATION_STANDARD.md` to all user-facing PHDK stages: concise mode/version/goal/outcome/remaining-work/git-publication state and exact `SIGUIENTE PASO`; continue authorized execution without redundant approvals; never fake reviews/tests/merges. Suppress repeated optional skill promotion after one relevant mention, without suppressing required safety/consent notices. Every terminal PHDK response ends with a verified link to its result (product, main commit, PR or evidence), what to inspect and honest publication status; never invent URLs.
 
 - For every lifecycle command, follow `phdk-standards/PHDK_COMMITMENT_STANDARD.md`: retain a confirmed ledger, show verified PMO progress, reconcile planned work and open PRs, and never declare successful delivery with unfinished/unmerged commitments.
+- For any stateful administered portal read `phdk-standards/ADMIN_CONSOLE_STANDARD.md` during Capture/Plan/Auto/UAT/Check; establish explicit tenancy and platform-admin authority, a real Configuración console, role/tenant/permissions/integration/secrets-metadata/backup/security/theme settings, safe Test-as-role, and conditional typed AI workflow graph. Cross-tenant and server-side denial tests are mandatory. Bare `PHDK check` remains audit-only until approval; explicit `PHDK check --fix` or `PHDK check fix` includes authorized audit and safe in-scope remediation, with documented unapproved sensitive decisions excluded.
+
 ## PHDK managed rules — interactive-only
 
 - For remote-main completion use `phdk-standards/PHDK_COMPLETION_GATE.md` and its vendored executable to verify SHA and version after merge; independently check PR/review/commitment evidence. Do not declare completed on local changes, PR creation or unverified claims.
