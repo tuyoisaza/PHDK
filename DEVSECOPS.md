@@ -1,10 +1,9 @@
+# DEVSECOPS.md
+
 ## UAT JWT and synthetic identity security boundary
 
 `JWT_STANDARD.md` is normative for authenticated UAT and JWT-consuming apps: only trusted non-production auth issuers/test harnesses may create synthetic sessions, production must reject test keys/issuers/adapters, and token validation includes fixed allowed algorithms, issuer/audience/type/expiry plus server-side roles and tenant policy. Default to existing OAuth/OIDC/server session instead of mandating JWT, keep temporary state and secrets outside source/reports/logs, and revoke/clean up after UAT. A synthetic super_admin label is never proof of authority. Test wrong tenant, stale/suspended identities and unauthenticated/expired/revoked sessions. Do not introduce public admin-login test routes.
 
-# 
-
-# DEVSECOPS.md
 
 ## Purpose
 

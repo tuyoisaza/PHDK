@@ -1,3 +1,8 @@
+## v2.52.1 — 2026-10-17
+
+### Standards clarification
+- Clarify Company Co as the fixture authority, correct DEVSECOPS heading order and reconcile documentation version metadata after the synthetic JWT/UAT release.
+
 ## v2.52.0 — 2026-10-17
 
 ### Synthetic identities, authorized JWT UAT and role-complete testing
