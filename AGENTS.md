@@ -1,3 +1,8 @@
+## Mandatory unified administration console gate
+
+For every administered product apply vendored `ADMIN_CONSOLE_STANDARD.md` in Capture, Plan, Auto, UAT and Check. Determine single vs multi tenancy (recommended only where justified): multi has protected platform super_admin + tenant admins; single has full-scope admin without fictitious super_admin. Demand a real Configuración console and authorized backend for users, roles, tenant lifecycle when applicable, native locale, system/debug/integrations with protected secrets, backups, audit, centrally tokenized themes and conditional Prompts/agent workflow graph. Require auditable safe Test-as-role, explicit negative authorization tests, and actual UI/API/persistence evidence. Bare `PHDK check` audits and requests remediation approval; `PHDK check --fix` explicitly authorizes audit and immediately fixable gaps with delivery, not unapproved tenancy conversion, credentials or live destructive changes. See `PHDK_CHECK.md`.
+
+
 
 ## Mandatory delivery-autonomy and personality bootstrap
 
