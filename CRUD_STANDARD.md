@@ -15,6 +15,10 @@ Default recommendations:
 - Anonymous/public: usually read-only public fields; suggest create/update/delete only when an explicit public workflow (submission, self-service, community content) is justified, with abuse protection and moderation.
 Do not expose secret credentials, protected personal information or system internals merely because a role can list an entity.
 
+## Configuración coverage
+
+Apply ADMIN_CONSOLE_STANDARD.md to user, invitation, role and permission management and, in multi-tenant applications, tenant and membership administration. Require role/tenant-scoped API checks, justified delete restrictions and evidence in CRUD_MATRIX.md and ADMIN_CAPABILITY_MATRIX.md. Single-tenant uses the elevated admin rather than an invented superadmin role.
+
 ## Behavioral acceptance requirements
 For each authorized operation, ensure end-to-end implementation: discoverable navigation; list/search/filter/pagination as suitable; opening an individual record; usable create/edit form with defaults and validation; clear save/error/loading/empty states; deletion or archive with confirmation, impact explanation and recovery where feasible; consistent data refresh; API endpoint and persistent storage; audit event for consequential administrative mutations. Access checks MUST run on the server for resource and record/tenant scope; hidden buttons are not authorization. Use least privilege, CSRF protection where applicable, anti-enumeration defenses, safe error handling, concurrency protection where applicable, and hard/soft delete/retention decisions. Forbidden operations must fail at the API too.
 
