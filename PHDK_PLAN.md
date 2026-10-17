@@ -5,6 +5,10 @@
 For every user-facing interface, implement `PHDK_UX_UI.md` in greenfield or brownfield mode. Plan must produce `UX_RESEARCH_BASELINE.md`, `UX_JOURNEYS.md`, `UI_DESIGN_SYSTEM.md`, and `UX_UI_DECISIONS.md` alongside `UX_ARCHITECTURE.md`, link critical journeys to requirements and implementation tasks, and preserve valid existing workflows in redesigns. Do not declare Plan exit passed with these missing, unless the project has no UI and has documented N/A.
 
 
+## Mandatory administration architecture
+
+Apply `ADMIN_CONSOLE_STANDARD.md` to every applicable portal. Define `ADMIN_ARCHITECTURE.md`, `ADMIN_CAPABILITY_MATRIX.md`, `ADMIN_SETTINGS_REGISTRY.md`, and `AI_WORKFLOW_CATALOG.md` (only if AI applies) as required Plan/evolving implementation outputs. Fix the authorized tenancy decision, platform vs tenant admin ownership, server-side permissions, isolation boundaries, protected secret storage, UAT profile-switch mechanism, navigable Configuración tabs, localization/themes, backup and audit flow, integration/AI graph input/output contracts, migrations and rollback, and explicit source/API/test traceability. Break missing functions into actual UI+API+DB+test work, never just documentation scaffolding. Document unknown sensitive decisions rather than silently promoting single-tenant to multi-tenant.
+
 ## Mandatory resource CRUD architecture
 
 For applicable apps, apply `CRUD_STANDARD.md`: inventory managed entities, role and public exposure, document `CRUD_MATRIX.md` per resource × role × surface, resolve admin detail access and appropriate C/R/U/D policies with backend authorization, and plan exceptions and test coverage. Include the matrix in Plan handoffs. Do not assume all roles get full CRUD.
