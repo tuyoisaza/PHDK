@@ -1,3 +1,14 @@
+## v2.51.3 — 2026-10-16
+
+### Universal tenancy-aware administration console
+- Introduce vendored `ADMIN_CONSOLE_STANDARD.md`: deliberate single/multi tenancy, appropriate elevated admin vs platform super_admin/tenant admins, tenant/role/user/invite administration, native language, safe system/integration/secret metadata, protected backups/security/audit/operations, semantic light/dark/corporate theme editing and scoped role testing.
+- Extend the conditional AI Admin Standard from prompt text editor to an auditable agent/workflow catalog: input-source mappings, typed JSON output schemas, next-hop graph, validation, publishing, costs and runtime/tenant scope.
+- Integrate administration requirements into Capture, Plan, Lifecycle, Auto, UAT, CRUD, Check, the vendored manifest and native/agent instructions; demand actual implementation and negative authorization evidence.
+- Add explicit `PHDK check --fix` / `PHDK check fix` as a single user-authorized audit-and-remediate invocation. Bare Check remains nonmutating; never auto-convert tenancy or perform unapproved live destructive/security/provider changes.
+
+### Verification limits
+- Standards-source and manifest integration verified through the GitHub connector; no downstream product code, application browser/UAT or production deployment is implied.
+
 ## v2.51.2 — 2026-10-15
 
 ### Designer Mode: exhaustive internal-content review
