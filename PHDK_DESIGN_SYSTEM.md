@@ -13,6 +13,10 @@ Normative for React/Next.js user-facing PHDK apps, new interfaces and Designer M
 - `light`, `dark`, `corporate` palette contracts with identical component DOM, geometry and tokens except semantic COLOR values by default. User-facing theme choices remain configurable.
 - WCAG 2.2 AA applicable checks and accessible keyboard/focus behavior. Library provenance is not evidence of accessibility.
 
+## Administrable theme settings
+
+Where an administration console applies, `ADMIN_CONSOLE_STANDARD.md` requires **Configuración → Edición de templates / Visual templates** with preview, persist/rollback and selection of claro (light), oscuro (dark) and corporativo (corporate). Keep corporate visibility togglable. All shared components and screens must derive colors from the single centralized semantic token source; scan for hardcoded per-element/page hex/RGB/arbitrary color values that break switching and report/fix them in Designer readiness and `PHDK check`. A toggle that does not update actual rendered components is a GAP, not a functioning theme.
+
 ## Single source of truth
 Recommended arrangement, adaptable to existing equivalent structures:
 ```text
