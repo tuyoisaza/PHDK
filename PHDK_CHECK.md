@@ -9,6 +9,12 @@ For a UI-applicable project, apply `PHDK_UX_UI.md`: verify Plan design artifacts
 
 For applications with managed records, apply `CRUD_STANDARD.md`. Verify every listed administration record has an appropriate detail path; audit Create/Read-list/Read-detail/Update/Delete capabilities against the authorized per-role and public matrix, API enforcement, tenancy and UAT tests. Missing operations are GAP unless a documented legitimate exception applies. Missing evidence is BLOCKED; do not demand unsafe public mutations or deletion of immutable records.
 
+## Mandatory administration-console contract
+
+For every applicable stateful/administered portal, apply `ADMIN_CONSOLE_STANDARD.md` to the **actual code and authorization behavior**, regardless of vertical (CRM/ERP/LMS etc.). First detect/document single_tenant vs multi_tenant; recommend multi-tenancy when justified, but report an unresolved conversion as DECISION REQUIRED rather than silently applying schema/security changes. Verify the platform Settings navigation and working tabs, correct super_admin (multi) vs admin (single), tenant admin scope, tenant/member/role/permission CRUD, invitations, default locale, default tenant and user permissions, feature flags/debug/integrations, masked secret status, audited security, backups/recovery, role-test sessions, semantic theme templates, AI agent graph/catalog if AI is present, and role- and tenant-negative tests. Pin paths to UI, API, DB and test evidence in `ADMIN_CAPABILITY_MATRIX.md`, `ADMIN_ARCHITECTURE.md` and `ADMIN_SETTINGS_REGISTRY.md`. Absent functioning UI/API or insufficient behavioral evidence is GAP/PARTIAL/UNVERIFIED, never COMPLIANT based on documentation alone. An authenticated administrative app cannot classify the whole console NOT APPLICABLE solely for industry or complexity.
+
+**One-command authorized repair:** An explicit `PHDK check --fix` or `PHDK check fix` invocation authorizes audit plus *enumerated* unambiguous AUTO-FIXABLE/FIXABLE WITH VALIDATION remediation in the same run. The assistant records the frozen gap IDs in the report, implements stack-specific UI/API/auth/migrations/tests, reruns validation and Check, and follows version/PR/merge/remote verification; it must still pause on material multi-tenant conversion, unapproved permissions/policies, live destructive actions, provider writes or external credentials. This is not the behavior of a bare `PHDK check`, which remains read-only until the user approves remediation. Under an authorized `PHDK auto`, already-in-scope fixes require no second permission.
+
 ## Command and purpose
 
 Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest Integration/UAT/UAT Fix/SEO/AEO-GEO handoffs (or justified N/A records) required by `PHDK_LIFECYCLE.md` and audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
@@ -138,8 +144,8 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 9. Distinguish implementation absence from verification absence.
 10. Deduplicate findings by root cause.
 11. Produce the report and a concise prioritized summary.
-12. Ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"**
-13. Stop. Do not begin remediation until the user answers.
+12. Unless the current command already explicitly includes `--fix` / `fix` or is Auto's approved remediation phase, ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"**
+13. Stop for bare Check; for the explicit same-command fix variant continue directly with the enumerated fixable remediation under the limits above. Never auto-decide DECISION REQUIRED items.
 
 Do not manufacture exhaustive certainty when access is incomplete. Prefer UNKNOWN/UNVERIFIED over speculation.
 
