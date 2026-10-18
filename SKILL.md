@@ -164,9 +164,9 @@ A request for a kit or standards update is not permission to start implementatio
 1. Read the project's owner controls and `phdk-standards/AGENTS.md`/`EXECUTION_SCOPE.md` (or the installed standards when no vendored copy exists).
 2. Read `TASK.md` and `STATUS.md` as context, not standing authorization.
 3. Load only the detailed standards needed for the current request.
-4. Implement and verify the necessary steps with this assistant. Explicit Auto follows `PHDK_AUTO.md` through all agreed development and final integrated verification. Explicit PMO may coordinate bounded in-session workers under `PHDK_PMO.md`; otherwise do not use subagents/delegated reviewers/parallel queues. Never use unattended or future execution.
+4. Implement and verify the necessary steps with this assistant. Explicit Auto follows `PHDK_AUTO.md` through all agreed development and final integrated verification. Explicit PMO coordinates portfolio workers under `PHDK_PMO.md`; any mode may use bounded in-session task workers under `PHDK_INTELLIGENT_EXECUTION.md`. Never use unattended or future execution.
 5. Complete the current request's normal delivery under `MAIN_DELIVERY_STANDARD.md`, including verified remote `main` unless the user set a narrower outcome. An active Developer Mode supplies only its separate bounded direct-main exception for eligible requested tasks; its hard stops and high-risk exclusions remain effective. No extra releases or unrelated work.
-6. Read relevant entries in `SKILLS_REGISTRY.md` yourself; do not execute their orchestration, delegation, or background behaviors.
+6. Read relevant entries in `SKILLS_REGISTRY.md` yourself; use runtime-supported bounded in-session delegation only under `PHDK_INTELLIGENT_EXECUTION.md`, never external background orchestration.
 7. Report and stop when the whole requested goal and delivery are complete, not at an Auto stage; preserve unrelated ideas as inactive context.
 
 ## Never
