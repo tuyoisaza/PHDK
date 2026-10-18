@@ -4,7 +4,7 @@
 
 PHDK supports careful, human-directed software development: understand the requested outcome and delivery target, implement it, verify the source and relevant local behavior, deliver through the required review flow, report evidence, and preserve context.
 
-`EXECUTION_SCOPE.md` is the authority for every step. `PHDK_AUTO.md` permits end-to-end lifecycle execution of one identified current goal in the active conversation, including Capture/Plan/PMO/integration/UAT/Check stages as applicable. Auto may delegate bounded in-session tasks following `PHDK_INTELLIGENT_EXECUTION.md`. Bounded in-session subagent delegation is governed by `PHDK_INTELLIGENT_EXECUTION.md`, available in any mode when host-supported and beneficial. PMO alone governs portfolio-level worker orchestration.; no unattended execution is permitted.
+`EXECUTION_SCOPE.md` is the authority for every step. `PHDK_AUTO.md` permits end-to-end lifecycle execution of one identified current goal in the active conversation, including Capture/Plan/PMO/integration/UAT/Check stages as applicable. Auto and other modes may delegate bounded in-session tasks following `PHDK_INTELLIGENT_EXECUTION.md`; PMO owns portfolio-level worker orchestration, and no unattended execution is permitted.
 
 ## Principles
 
