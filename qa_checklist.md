@@ -191,7 +191,7 @@ Review existing local code-intelligence setup when relevant — see `TECHNICAL_S
 - [ ] Login, Google redirect, callback success/failure, logout, and session-refresh handlers are wired in source.
 - [ ] Auth provider is custom Google OAuth 2.0, or an explicitly approved alternative in `ARCHITECTURE_DECISIONS.md`.
 - [ ] Exactly one primary auth provider is implemented unless migration/comparison is explicitly in scope.
-- [ ] Required OAuth variable names and redirect-URI expectations are documented in `.env.example`/setup docs without real credentials.
+- [ ] Required OAuth variable names and redirect-URI expectations are documented in `.env.example`/setup docs without real credentials; when owner-supplied values are needed, the owner receives the required Railway Variables handoff from `TECHNICAL_STACK.md`: one copyable `KEY=value` block per consuming service/environment, exact code-consumed keys and public callback/origin, known non-secret URLs filled, all missing required values explained, optional keys distinguished, and secret placeholders entered directly in the provider.
 - [ ] Redirect construction uses validated configuration; actual provider registration is an external prerequisite, not an agent check.
 - [ ] OAuth state is generated and validated; invalid state and callback failures have safe errors and correlation IDs.
 - [ ] User create/update and session creation logic handles successful callbacks securely.

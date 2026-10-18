@@ -1,3 +1,10 @@
+## v2.54.2 — 2026-10-18
+
+### Google OAuth: explicit Railway Variables handoff
+- Require a copyable `KEY=value` block for owner-supplied OAuth deployment values, with the consuming Railway service/environment, exact application variable names, full public callback/origin and known non-secret URLs.
+- Preserve each project's actual environment contract, identify all missing required values and optional keys, explain their source, and request secret entry directly in the provider.
+- Reinforce the handoff in the agent entrypoint and authentication QA checklist. Continue independent implementation while runtime configuration is pending; a setup block does not prove live login.
+
 ## v2.54.1 — 2026-10-17
 
 ### Auto Force: remember, propose and execute

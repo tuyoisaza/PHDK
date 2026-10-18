@@ -274,6 +274,25 @@ GOOGLE_OAUTH_ALLOWED_DOMAIN=""
 AUTH_SESSION_SECRET=""
 ```
 
+### Required Railway Variables handoff
+
+Whenever Google OAuth needs owner-supplied deployment values, explicitly ask the owner to add them in **Railway → the identified project/environment/service → Variables**, with one copy-paste-ready `env` block per consuming service. A generic "configure OAuth credentials" request is insufficient. Use the equivalent variables screen for another existing host.
+
+- Read the application's environment schema, auth handler and routing/proxy configuration. Use the exact variable names the code consumes; include the complete externally reachable callback, including any proxy prefix, and fill known non-secret URL/origin values. State which public URL is still unknown instead of inventing it.
+- Include every required missing key, including a session secret when the application requires one; distinguish optional keys outside the block. Briefly explain where to obtain each unknown value. Do not request values already known to be configured; report uninspected runtime configuration as unverified.
+- Use placeholders for secrets and tell the owner to enter them directly in Railway. Never request secret values in chat or include them in reports/committed source; never put a client secret in a public frontend variable.
+
+Example format, only for applications using these exact keys:
+
+```env
+GOOGLE_CLIENT_ID=tu-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=tu-client-secret
+WEB_ORIGIN=tu-url
+GOOGLE_LOGIN_REDIRECT_URI=tu-url/api/backend/auth/google/callback
+```
+
+Adapt the example to the actual project; keep `GOOGLE_OAUTH_*` names when those are what its code reads. Continue independent implementation/local verification while external values are pending. This handoff does not authorize provider writes or prove a working live login.
+
 ---
 
 ## Authorization
