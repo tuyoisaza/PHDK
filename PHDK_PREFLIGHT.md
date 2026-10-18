@@ -193,7 +193,7 @@ Examples:
 - Security-sensitive Plan/Auto/Check work should use an available security-review skill/guidance.
 - Code review/Check should use an available code-review skill.
 - Framework/library work may use an available current documentation capability.
-- PMO may use supported worker/subagent capability only under `PHDK_PMO.md`.
+- Any mode may use supported bounded in-session worker capability under `PHDK_INTELLIGENT_EXECUTION.md`; PMO portfolio workers also follow `PHDK_PMO.md`.
 
 A registry entry that is never checked or used has no operational value.
 
