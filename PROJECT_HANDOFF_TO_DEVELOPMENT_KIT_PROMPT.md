@@ -685,7 +685,7 @@ No provider, secret, repository-setting, environment, or new workflow setup is i
 - Infrastructure/provider/database administration, credentials, repository settings, and live-service probes
 - Recurring agents, scheduled Actions/cron jobs, backups, dependency bots, automatic updates, and preview environments
 - Creating a new CI/deployment pipeline or modifying automation triggers
-- Unattended/background work, delegation outside explicit PMO, recursive PMO-worker delegation, resuming unnamed old tasks, or persisting active PMO/Auto/Developer Mode and delivery authority into another conversation
+- Unattended/background work, delegation outside `PHDK_INTELLIGENT_EXECUTION.md`, recursive worker delegation, resuming unnamed old tasks, or persisting active PMO/Auto/Developer Mode and delivery authority into another conversation
 
 ## Plan
 
