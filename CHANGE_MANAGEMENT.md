@@ -11,6 +11,7 @@ Use this document and `CHANGELOG.md` to understand how PHDK evolves.
 ## Sources of truth
 
 - `VERSION` — current published PHDK version.
+- `PHDK_EVOLUTION_STANDARD.md` — canonical maintainer session-entry, naming and workspace discipline, and coherent publication checklist.
 - `CHANGELOG.md` — detailed technical release history.
 - GitHub pull requests — reviewable source changes and merge evidence.
 - `PHDK_MANIFEST.txt` — standards distributed into downstream projects.
@@ -102,4 +103,5 @@ If you want to:
 - **understand PHDK** → read `README.md`;
 - **see exactly what changed** → read `CHANGELOG.md`;
 - **understand release/adoption policy** → read this file;
+- **start a new PHDK maintenance session or evolve this repository** → read `PHDK_EVOLUTION_STANDARD.md`;
 - **upgrade a project** → read `PHDK_UPGRADE.md`.
