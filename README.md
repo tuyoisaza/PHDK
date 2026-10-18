@@ -353,7 +353,7 @@ PMO_DEPENDENCIES.md
 PMO_STATUS.md
 ```
 
-When the runtime supports workers/subagents, **PMO is the only PHDK mode allowed to delegate workstreams**.
+When the runtime supports workers/subagents, **any PHDK mode may delegate bounded in-session tasks under `PHDK_INTELLIGENT_EXECUTION.md`**. PMO remains responsible for portfolio workstreams and their integration.
 
 Workers:
 
