@@ -1,3 +1,10 @@
+## v2.57.1 — 2026-10-18
+
+### Delegation policy coherence
+- Remove residual PMO-only delegation prohibitions from development, task tracking, versioning, onboarding, skills, upgrade, app foundation, generated guidance and README while retaining PMO's portfolio/workstream integration authority.
+- Extend the static coherence check to identify deprecated PMO-only delegation instructions and require the common intelligent-execution standard.
+- Document-only policy reconciliation and static guard; runtime worker usage, context reduction and speed gains remain unverified.
+
 ## v2.57.0 — 2026-10-18
 
 ### Intelligent execution and progressive context

@@ -20,7 +20,7 @@ Record owner approval and its task/PR scope separately from assistant source rev
 
 In explicit `PHDK auto force`, PHDK-only human/manual/formal and security-signoff reviews are `NON_BLOCKING_BY_MODE`. Record that disposition without a preventive review/protection investigation, searching approvers or asking for another approval. Technical diff/security review and mandatory checks remain work to execute. A generic "review pending" or "owner decision required" record cannot itself stop delivery. Genuine current owner restrictions and known actual controls remain binding; actual GitHub/hook/tool rejections start the repair-and-retry cycle below without bypass.
 
-Normally one assistant handles the current request. Do not delegate tasks, create subagents, coordinate agent teams, or distribute a task queue unless the owner explicitly activates `PHDK PMO`. Under PMO, only the PMO orchestrator may delegate owner-confirmed workstreams to supported in-session workers under `PHDK_PMO.md`; workers cannot delegate or continue after the conversation.
+Normally one assistant handles the current request. Bounded in-session delegation is permitted in any mode only under `PHDK_INTELLIGENT_EXECUTION.md` when runtime-supported and beneficial. PMO coordinates its confirmed portfolio workstreams under `PHDK_PMO.md`. Workers cannot recursively delegate or continue after the conversation.
 
 Stop when the whole deliverable is complete, the user pauses it, the conversation ends, or a real blocker leaves no permitted progress after independent authorized work is complete. A blocked component does not make the whole task inactive. Proposed follow-ups remain inactive until a later explicit user request.
 
@@ -60,7 +60,7 @@ Do not add infrastructure, a locking service, or a standing worker to consume th
 ## Request and scope (recorded context)
 Current request: <the user's request in this conversation>
 Status: <in progress in this conversation / complete / paused / blocked>
-Execution boundary: interactive-only; single assistant unless explicit PMO enables bounded in-session workers; factual mandate is not reusable authority
+Execution boundary: interactive-only; bounded in-session worker delegation under `PHDK_INTELLIGENT_EXECUTION.md`; factual mandate is not reusable authority
 Goal: ...
 Done when:
 - [ ] <objective completion criterion>
@@ -124,7 +124,7 @@ Do not create or use a multiple-agent queue. If another human or independently a
 - [ ] Current owner approval, assistant source review, and any actual required formal review are distinguished; no redundant review ritual or fabricated inspection was introduced.
 - [ ] Same-conversation authorization was retained; stale task state and assistant-written edits did not override the live request or observed GitHub state.
 - [ ] Only necessary steps of the requested deliverable were executed.
-- [ ] No subagents/agent team/delegated work was started outside explicit PMO; any PMO workers were bounded to confirmed workstreams with no recursive delegation. No scheduler, recurring task, or background watcher was started.
+- [ ] Any in-session delegation followed `PHDK_INTELLIGENT_EXECUTION.md`; PMO workers stayed within confirmed workstreams, no worker recursively delegated, and no scheduler, recurring task, or background watcher was started.
 - [ ] No GitHub Actions/hosted CI job was created, enabled, dispatched, rerun, or scheduled.
 - [ ] Local checks are synchronous and relevant; UI/live runtime limitations are stated.
 - [ ] Commit/push/PR/merge actions match the current user's authorization.

@@ -1,6 +1,6 @@
 # PHDK
 
-**Intelligent execution (v2.57.0):** [PHDK_INTELLIGENT_EXECUTION.md](PHDK_INTELLIGENT_EXECUTION.md) permits bounded in-session delegation in any mode when host-supported, keeps PMO for portfolio governance, and routes context progressively by mode, stage, task and specialist. Worker handoffs do not replace primary-agent integration and delivery.
+**Intelligent execution (since v2.57.0):** [PHDK_INTELLIGENT_EXECUTION.md](PHDK_INTELLIGENT_EXECUTION.md) permits bounded in-session delegation in any mode when host-supported, keeps PMO for portfolio governance, and routes context progressively by mode, stage, task and specialist. Worker handoffs do not replace primary-agent integration and delivery.
 
 **Milestone delivery model (v2.56.0):** `PHDK plan` now creates `MILESTONE_PLAN.md`; PMO executes workstreams inside value milestones; Auto/Auto Force version and merge each completed milestone to verified `main` before continuing; final UAT creates milestone-to-user-story acceptance traceability. See [`PHDK_PROJECT_MANAGEMENT_STANDARD.md`](PHDK_PROJECT_MANAGEMENT_STANDARD.md).
 
@@ -21,7 +21,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.57.0**
+**Version v2.57.1**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -353,7 +353,7 @@ PMO_DEPENDENCIES.md
 PMO_STATUS.md
 ```
 
-When the runtime supports workers/subagents, **PMO is the only PHDK mode allowed to delegate workstreams**.
+When the runtime supports workers/subagents, **any PHDK mode may delegate bounded in-session tasks under `PHDK_INTELLIGENT_EXECUTION.md`**. PMO remains responsible for portfolio workstreams and their integration.
 
 Workers:
 
@@ -635,7 +635,7 @@ By default:
 - no provider administration from ordinary development commands;
 - no bypass of hooks, protections or actual current-owner/host review requirements; AUTO FORCE skips only PHDK-imposed human gates.
 
-PMO workers are allowed only inside an explicitly active PMO session and only for owner-confirmed workstreams.
+PMO portfolio workers operate only in an active PMO session on confirmed workstreams. Other PHDK modes may use bounded in-session task workers under `PHDK_INTELLIGENT_EXECUTION.md` without activating PMO.
 
 ---
 
