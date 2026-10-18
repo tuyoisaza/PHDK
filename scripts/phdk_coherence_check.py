@@ -44,6 +44,26 @@ for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MAN
         continue  # SKILL.md is canonical-tool-only, not in the vendoring manifest.
     if not file.is_file() or "PHDK_EVOLUTION_STANDARD.md" not in file.read_text(encoding="utf-8"):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
+
+# Guard against reintroducing the deprecated PMO-only task-delegation prohibition.
+# Scan active Markdown instructions only; archival CHANGELOG/ORIGINALS are historical.
+legacy_delegation_patterns = [
+    re.compile(r"delegation (?:is )?(?:allowed|permitted) only (?:under|inside|during|in) (?:explicit )?PMO", re.I),
+    re.compile(r"(?:outside|unless) (?:explicit )?(?:`PHDK `)?PMO[^\\n]{0,110}(?:do not |no |prohibit)(?:use |launch |create |delegate )?(?:subagents|delegat|workers|agent teams)", re.I),
+    re.compile(r"PMO is the only PHDK (?:mode|context) (?:allowed|that may) to delegate", re.I),
+    re.compile(r"(?:sole|only) (?:bounded |controlled )?delegation exception[^\\n]*PMO", re.I),
+    re.compile(r"(?:delegation outside|no delegation outside) (?:explicit )?PMO", re.I),
+]
+for path in root.rglob("*.md"):
+    if "ORIGINALS" in path.parts or path.name.startswith("CHANGELOG") or path.name == "PHDK_COHERENCE_REPORT.md":
+        continue
+    body = path.read_text(encoding="utf-8")
+    for lineno, line in enumerate(body.splitlines(), 1):
+        if any(pattern.search(line) for pattern in legacy_delegation_patterns):
+            errors.append(f"{path.relative_to(root)}:{lineno}: deprecated PMO-only delegation rule")
+if not (root / "PHDK_INTELLIGENT_EXECUTION.md").is_file():
+    errors.append("missing universal intelligent execution contract")
+
 if errors:
     print("\n".join("FAIL: " + x for x in errors), file=sys.stderr)
     sys.exit(1)
