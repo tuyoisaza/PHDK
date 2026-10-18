@@ -49,9 +49,9 @@ for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MAN
 # Scan active Markdown instructions only; archival CHANGELOG/ORIGINALS are historical.
 legacy_delegation_patterns = [
     re.compile(r"delegation (?:is )?(?:allowed|permitted) only (?:under|inside|during|in) (?:explicit )?PMO", re.I),
-    re.compile(r"(?:outside|unless) (?:explicit )?(?:`PHDK `)?PMO[^\\n]{0,110}(?:do not |no |prohibit)(?:use |launch |create |delegate )?(?:subagents|delegat|workers|agent teams)", re.I),
+    re.compile(r"(?:outside|unless) (?:explicit )?(?:`PHDK `)?PMO.{0,110}(?:do not |no |prohibit)(?:use |launch |create |delegate )?(?:subagents|delegat|workers|agent teams)", re.I),
     re.compile(r"PMO is the only PHDK (?:mode|context) (?:allowed|that may) to delegate", re.I),
-    re.compile(r"(?:sole|only) (?:bounded |controlled )?delegation exception[^\\n]*PMO", re.I),
+    re.compile(r"(?:sole|only) (?:bounded |controlled )?delegation exception.*PMO", re.I),
     re.compile(r"(?:delegation outside|no delegation outside) (?:explicit )?PMO", re.I),
 ]
 for path in root.rglob("*.md"):
