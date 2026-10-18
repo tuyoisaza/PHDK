@@ -4,7 +4,7 @@
 
 PHDK supports careful, human-directed software development: understand the requested outcome and delivery target, implement it, verify the source and relevant local behavior, deliver through the required review flow, report evidence, and preserve context.
 
-Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
+`EXECUTION_SCOPE.md` is the authority for every step. `PHDK_AUTO.md` permits end-to-end lifecycle execution of one identified current goal in the active conversation, including Capture/Plan/PMO/integration/UAT/Check stages as applicable. Auto may delegate bounded in-session tasks following `PHDK_INTELLIGENT_EXECUTION.md`. Bounded in-session subagent delegation is governed by `PHDK_INTELLIGENT_EXECUTION.md`, available in any mode when host-supported and beneficial. PMO alone governs portfolio-level worker orchestration.; no unattended execution is permitted.
 
 ## Principles
 
@@ -21,7 +21,7 @@ One assistant normally works in direct response to the user's current request. U
 - Identify the requested deliverable, scope, constraints, and completion criteria.
 - Read owner stop/pause controls before changing files and before git writes. A specifically authorized repair of a pause control is not permission to restart the old mission.
 - Use only the code/documentation work, local checks, GitHub operations, and separately requested bounded provider reads authorized for this task.
-Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
+- Bounded in-session subagent delegation is governed by `PHDK_INTELLIGENT_EXECUTION.md`, available in any mode when host-supported and beneficial. PMO alone governs portfolio-level worker orchestration. PMO workers remain subject to `PHDK_PMO.md`; workers cannot delegate.
 - Do not select the next backlog item after delivering the requested outcome.
 - Stop when the whole requested outcome is complete, the user stops the work, the conversation ends, or a concrete decision/control/access blocker leaves no permitted progress. Complete independent authorized work before reporting a blocker.
 - Save unfinished work as inactive context when the conversation ends or the owner stops it, not at an internal stage of an active goal. No scheduled resume, follow-up job, background reviewer, overnight maintenance, or future trigger.
@@ -62,7 +62,7 @@ Use slices when helpful to organize the current request. Do not require a commit
 1. Read the current user request and owner controls.
 2. Record its scope, delivery target, and objective completion criteria as context.
 3. Plan only the necessary steps of that request.
-4. Implement with the current assistant; delegate only when explicit PMO is active and the workstream contract permits it.
+4. Implement with the current assistant; delegate bounded in-session tasks only when `PHDK_INTELLIGENT_EXECUTION.md` and the runtime permit it.
 5. Review the diff and run applicable synchronous local checks; in Auto, do comprehensive verification after all in-scope parts are implemented and integrated, while preserving actual mandatory controls.
 6. In the normal review flow, repair relevant defects and routine integration conflicts within scope using bounded attempts; preserve others' work, reconcile the version with current main, and review/check the changed result. A Developer Mode direct-flow failure stops that flow instead.
 7. Complete the normal branch/commit/push/PR delivery and required review under MAIN_DELIVERY_STANDARD.md, or an eligible Developer Mode fast-forward push when all existing controls allow it.
