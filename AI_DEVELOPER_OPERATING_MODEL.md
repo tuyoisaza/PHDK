@@ -4,7 +4,7 @@
 
 PHDK supports careful, human-directed software development: understand the requested outcome and delivery target, implement it, verify the source and relevant local behavior, deliver through the required review flow, report evidence, and preserve context.
 
-`EXECUTION_SCOPE.md` is the authority for every step. `PHDK_AUTO.md` permits end-to-end lifecycle execution of one identified current goal in the active conversation, including Capture/Plan/PMO/integration/UAT/Check stages as applicable. Auto itself grants no delegation. Explicit `PHDK PMO` is the sole bounded exception for coordinating owner-confirmed workstreams through supported in-session workers under `PHDK_PMO.md`; no unattended execution is permitted.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 
 ## Principles
 
@@ -21,7 +21,7 @@ One assistant normally works in direct response to the user's current request. U
 - Identify the requested deliverable, scope, constraints, and completion criteria.
 - Read owner stop/pause controls before changing files and before git writes. A specifically authorized repair of a pause control is not permission to restart the old mission.
 - Use only the code/documentation work, local checks, GitHub operations, and separately requested bounded provider reads authorized for this task.
-- Outside explicit PMO, do not launch, coordinate, or hand work to subagents, other coding agents, agent teams, or parallel queues. Inside PMO, follow the workstream/ownership/dependency rules in `PHDK_PMO.md`; workers cannot delegate.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 - Do not select the next backlog item after delivering the requested outcome.
 - Stop when the whole requested outcome is complete, the user stops the work, the conversation ends, or a concrete decision/control/access blocker leaves no permitted progress. Complete independent authorized work before reporting a blocker.
 - Save unfinished work as inactive context when the conversation ends or the owner stops it, not at an internal stage of an active goal. No scheduled resume, follow-up job, background reviewer, overnight maintenance, or future trigger.
