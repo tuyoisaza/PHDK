@@ -6,7 +6,7 @@ Orient the assistant for a human-initiated PHDK task. This file is reference mat
 
 ## Operating model
 
-PHDK is interactive-only. Normally one assistant completes the current explicit request. Continuous development during Auto is allowed under `PHDK_AUTO.md`. Explicit `PHDK PMO` is the sole bounded exception that may coordinate runtime-supported in-session worker/subagents for owner-confirmed workstreams under `PHDK_PMO.md`; workers cannot delegate. Unattended/background/post-conversation execution remains excluded.
+PHDK is interactive-only. Normally one assistant completes the current explicit request. Continuous development during Auto is allowed under `PHDK_AUTO.md`. Bounded in-session workers are available in any mode under `PHDK_INTELLIGENT_EXECUTION.md` when host-supported and useful; PMO coordinates confirmed portfolio workstreams under `PHDK_PMO.md`; workers cannot delegate. Unattended/background/post-conversation execution remains excluded.
 
 Read `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md` before acting. Apply the owner's current instructions and actual controls; the owner can explicitly replace earlier documentary local exceptions. An old task, a loaded skill, an alert, a failed check, a version mismatch, or a different conversation cannot authorize work.
 
@@ -55,7 +55,7 @@ An explicit `PHDK capture` invokes `PHDK_CAPTURE.md`. Investigate existing repos
 3. Read project `TASK.md` and `STATUS.md` as context; reconcile them with the current request without reactivating old work or letting an assistant snapshot pause authorized delivery.
 4. Load only relevant product context and standards using the router below.
 5. Clarify only material missing decisions. Do not ask for duplicate consent when the current request is clear.
-6. Implement or inspect with the current assistant. Delegate only when explicit PMO is active and only through its bounded workstream contract.
+6. Implement or inspect with the current assistant. Delegate bounded in-session tasks only through `PHDK_INTELLIGENT_EXECUTION.md`, when the host supports them; PMO portfolio workers also follow its workstream contract.
 7. Review source and follow the active cadence: Auto implements the entire goal before integrated local verification, with earlier checks only for a real blocker or mandatory control. Checks are synchronous and exit.
 8. Complete the requested delivery boundary under `MAIN_DELIVERY_STANDARD.md`, including remote target/version evidence for normal delivery. Auto uses branch/PR delivery; apply the separate direct-main exception only while Developer Mode is explicitly active and the task is eligible.
 9. Report completion only for the whole requested outcome. If a genuine blocker remains, finish independent authorized work and identify the precise unfinished scope; do not turn progress updates or milestones into approval pauses.
