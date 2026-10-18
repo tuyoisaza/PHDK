@@ -6,7 +6,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 ## Interactive-only execution
 
-- One assistant normally responds to the current explicit user request. `PHDK auto` may orchestrate the full Capture → Plan → PMO → Integration → UAT/Fix → Check/remediation → delivery lifecycle for one authorized goal. No Mission Autopilot/background queues. Explicit PMO is the sole bounded exception for supported in-session worker delegation; workers cannot delegate.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 - An installed skill, opened repository, old task, alert, failed check, or version mismatch never starts or resumes work.
 - Complete every necessary step of the whole requested deliverable, report, and stop; an Auto slice, scaffold, or first release is not completion. Do not select a new backlog goal.
 - Re-read owner pause/stop instructions before edits and git writes; a specifically approved intervention does not reactivate earlier work.
