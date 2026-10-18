@@ -176,7 +176,7 @@ These artifacts record coordination state. They do not independently authorize w
 
 ## Delegation model
 
-Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
+Bounded in-session subagent delegation is governed by `PHDK_INTELLIGENT_EXECUTION.md`, available in any mode when host-supported and beneficial. PMO alone governs portfolio-level worker orchestration.
 
 The PMO orchestrator remains the only coordinator.
 
