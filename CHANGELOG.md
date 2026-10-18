@@ -1,3 +1,12 @@
+## v2.54.1 — 2026-10-17
+
+### Auto Force: remember, propose and execute
+- Require a visible operative reminder at start/resume, in substantive progress, after partial delivery and before proposed questions/blockers: reload current relevant rules, reconcile inherited blockers, find solutions, propose what is missing and execute the next authorized action. The user does not need an additional continuation or proposal command.
+- For each ordinary definition missing from an authorized capability, propose the behavior, justified default, explicit assumptions, meaningful configuration and implementation/acceptance action. Resolve supported reversible choices and continue; do not ask the owner to design everything or recommend excluding confirmed gaps to close the run.
+- Align Check, Plan and commitment classification: ordinary missing detail is development work; a genuinely new indispensable decision includes a concrete recommendation and impact while independent work continues.
+- Specify supported routine browser recovery in an already-authorized phase, preferring isolation when shared session/cache state could be affected. A blocked test does not stop independent implementation or preparation.
+- Keep the change in the operating instructions and native entrypoints. No new executor, hook, state schema or advisor behavior is introduced; downstream session behavior remains subject to actual adoption and execution.
+
 ## v2.54.0 — 2026-10-17
 
 ### Auto Force and continuous delivery

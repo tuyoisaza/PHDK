@@ -23,13 +23,15 @@ At the start of a lifecycle or meaningful mode transition announce the current m
 
 ## Auto mandate and action capsule
 
-Apply `PHDK_AUTO_CONTINUITY.md` to both Auto variants. Every Auto-facing response ends its status text with the actual mandate and next-action capsule, before the final evidence link when applicable. While an authorized action is executable, use the active mode and real scope:
+Apply `PHDK_AUTO_CONTINUITY.md` to both Auto variants. Every Auto-facing response ends its status text with the actual mandate and next-action capsule, before the final evidence link when applicable. AUTO FORCE makes its operating reminder visible at start/resume, in every substantive progress update, after a partial delivery and before a proposed question/blocker. While an authorized action is executable, use the real scope:
 
 ```text
-AUTO FORCE activo · autorización vigente para [objetivo/alcance] · SIGUIENTE PASO: [acción concreta]. Continúo.
+AUTO FORCE activo · autorización vigente para [objetivo/alcance].
+RECORDATORIO: recargar las reglas vigentes, reconciliar bloqueos heredados, buscar soluciones y proponer lo que falte.
+SIGUIENTE PASO: [acción concreta]. Continúo con el trabajo autorizado.
 ```
 
-Use `AUTO` for normal Auto. This wording records existing user authorization; it never creates approval or hides current restrictions. Execute the stated eligible action in the same turn. A terminal answer saying “continúo” while waiting for another user message is a continuity failure. Restore the mandate from current conversation evidence plus `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` after context compaction; repair missing/malformed records internally without a permission question.
+Normal Auto retains `AUTO activo · autorización vigente para [alcance] · SIGUIENTE PASO: [acción]. Continúo.` The FORCE reminder is an operative instruction, not a claim that rereading, repair or implementation already occurred. Apply the short rule refresh and proposal-first behavior in `PHDK_AUTO_CONTINUITY.md`; it does not require a full preflight at every update. This wording records existing authorization without creating approval or hiding current restrictions. Execute the stated eligible action in the same turn. A terminal answer saying “continúo” while waiting for another user message is a continuity failure. Restore the mandate from current conversation evidence plus `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` after context compaction; repair missing/malformed records internally without a permission question.
 
 On a real rejection, report the failed operation and evidence, then state the immediate diagnostic/repair action and continue. Under AUTO FORCE, do not ask whether PHDK-only human reviews block or seek reviewers; they are `NON_BLOCKING_BY_MODE`. Diagnose the actual rejection, repair in scope, revalidate and retry delivery. Preserve real user/host controls. If no permitted action remains after that process, say `AUTO FORCE bloqueado en [acción] · autorización vigente para [alcance] · SIGUIENTE PASO: [único desbloqueo real]`; do not claim ongoing execution. On verified completion say `AUTO FORCE finalizado · objetivo entregado · SIGUIENTE PASO: ninguno`. On user stop, acknowledge the stopped state. A completed/stopped state must not carry an “activo/continúo” footer.
 
@@ -45,6 +47,8 @@ Every terminal PHDK response ends with a verified, actionable link to the curren
 
 ## Blocker and decision UX
 A blocked closure gives: what is blocked; exact URL/location/artifact and target version/SHA/environment if known; what's already complete; actual rejection/control evidence, diagnostic/repair/revalidation/retry results when applicable; the remaining unavailable action; and the exact cue to resume. For genuine multiple owner choices give at most three numbered options, describing consequences and a recommended safe default. Offer options only when a real decision exists, not as a ceremonial confirmation. A warning, PHDK-only review label or missing continuity record is not a blocker without real evidence. Keep the user's mandate distinct from technical ability to execute it.
+
+Under AUTO FORCE, a missing ordinary definition calls for a proposal per gap: behavior, justified default, explicit assumptions, meaningful configuration and next implementation/acceptance action. Resolve inferable reversible choices within the current mandate and continue. Do not ask the owner to design every missing capability or recommend excluding confirmed gaps merely to finish. A genuinely indispensable new decision must come with a concrete recommendation and its impact, after completing independent work. Before asking or stopping, apply the operative reminder and check whether the impediment affects only a test/operation while authorized implementation, repair or preparation remains. Use the genuine blocked/completed wording above when that is the actual outcome; never attach an active continuation claim to a stopped run.
 
 ## Suggested compact wording
 PHDK vX.Y.Z (verificada/no verificada) · Modo: AUTO · Etapa: UAT
@@ -65,3 +69,7 @@ Ver aquí: [verified clickable URL] — [what to inspect and publication state].
 8. GitHub rejects delivery: report the rejection, diagnose the real cause, repair within scope, revalidate and retry. A remaining enforced review/access requirement is reported accurately; never fabricate review or bypass controls.
 9. Context compaction or malformed `AUTO_STATE.json`: reconstruct current mandate internally and execute the next eligible action; do not ask the user to grant it again.
 10. Progress ends with “Continúo” but no next action executes: fail the continuity contract; continue working instead of yielding a terminal response.
+11. AUTO FORCE is active across updates: each substantive progress update includes the rule-refresh/solution/proposal reminder and executes the stated next action; no additional user cue is needed.
+12. Check lists missing behavior for already-authorized admin/CRUD/role/locale/audit/AI capabilities: propose a coherent default and relevant configuration per gap, identify assumptions and implement ordinary in-scope choices; do not recommend leaving the gaps out or return a blank specification question.
+13. An authorized UAT tab has a recoverable environment problem: attempt a supported harmless refresh/fresh tab/isolated context, protect shared session state and continue independent work when that particular test remains unavailable.
+14. A partial delivery succeeds while in-scope work remains: update progress, include the operative reminder and execute the next eligible task instead of closing the goal.

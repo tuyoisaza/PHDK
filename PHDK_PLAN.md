@@ -15,7 +15,11 @@ For applicable apps, apply `CRUD_STANDARD.md`: inventory managed entities, role 
 
 ## Mandatory full-inventory Plan coverage
 
-Follow `PHDK_COMMITMENT_STANDARD.md`. Consume `PHDK_COMMITMENTS.md`, and generate `PHDK_COMMITMENT_COVERAGE.md` retaining visibility of every confirmed ID. Map **every confirmed ID in the current authorized goal** to requirements, design decisions, implementation tasks/workstreams, dependencies and acceptance evidence; fail the Plan exit gate if any such ID is unowned or omitted without a documented blocker. Mark other commitments outside this run's scope without executing, cancelling or silently deferring them. Missing implementation of a confirmed in-scope requirement stays linked to that commitment and is executed by Auto. Return genuinely new outcomes outside the goal or unresolved material decisions to Capture for owner scope confirmation; preserve original plan and ledger history.
+Follow `PHDK_COMMITMENT_STANDARD.md`. Consume `PHDK_COMMITMENTS.md`, and generate `PHDK_COMMITMENT_COVERAGE.md` retaining visibility of every confirmed ID. Map **every confirmed ID in the current authorized goal** to requirements, design decisions, implementation tasks/workstreams, dependencies and acceptance evidence; fail the Plan exit gate if any such ID is unowned or omitted without a documented blocker. Mark other commitments outside this run's scope without executing, cancelling or silently deferring them. Missing implementation of a confirmed in-scope requirement stays linked to that commitment and is executed by Auto. Return genuinely new outcomes outside the goal or indispensable material decisions unresolved by current rules/decisions to Capture for owner scope confirmation; preserve original plan and ledger history.
+
+Under active AUTO FORCE, [Propose missing definitions and solutions](PHDK_AUTO_CONTINUITY.md#propose-missing-definitions-and-solutions) takes precedence over generic requests for missing specifications. The assistant supplies concrete behavior and acceptance criteria for gaps already implied by the authorized outcome: recover relevant current standards and product decisions, choose reasonable safe reversible defaults, identify useful configuration, and record assumptions and rationale in the existing Plan/decision artifacts. Then implement the inferable authorized work; do not ask the owner to design every detail or recommend dropping required capabilities to finish.
+
+For a genuinely new indispensable material decision that cannot be resolved within that mandate, present the recommended definition and its impact, ask only for the specific remaining choice, and continue independent work. Existing user decisions and non-goals remain binding. Standalone Plan and audit-only requests retain their planning/read-only boundaries; this rule does not activate implementation outside an authorized parent goal.
 
 ## Command and purpose
 
@@ -205,7 +209,7 @@ Every step must contain:
 
 - stable Plan ID, e.g. `PLAN-001`;
 - intent/requirement/feature links;
-- inspected implementation state, existing source/evidence, and the exact missing behavior;
+- inspected implementation state, existing source/evidence, and the exact missing behavior, with routine definitions supplied by the assistant under the FORCE rule above when applicable;
 - outcome;
 - prerequisites/dependencies;
 - exact components/files/packages likely affected;
