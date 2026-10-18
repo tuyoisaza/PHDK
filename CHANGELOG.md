@@ -1,3 +1,10 @@
+## v2.57.0 — 2026-10-18
+
+### Intelligent execution and progressive context
+- Add `PHDK_INTELLIGENT_EXECUTION.md`: bounded in-session worker delegation is available across PHDK modes where the host supports it; PMO retains portfolio governance and the primary agent owns integrated delivery.
+- Define L0–L4 progressive context routing, compact state recovery, worker task contracts and evidence-based performance measurement.
+- Reconcile instruction entrypoints and vendor the new standard. No background agents, recursive worker delegation, provider writes or new spend authorization; downstream updates and speed gains remain unverified.
+
 ## v2.56.0 — 2026-10-18
 
 ### Milestone planning, PMO execution and incremental Auto delivery
