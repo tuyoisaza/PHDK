@@ -17,7 +17,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.55.0**
+**Version v2.55.1**
 
 PHDK is an operating system for AI-assisted software delivery.
 

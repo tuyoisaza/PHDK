@@ -38,9 +38,11 @@ for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8")
 for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "PHDK_EVOLUTION_STANDARD.md", "CHANGE_MANAGEMENT.md", "scripts/phdk_coherence_check.py", "PHDK_AUTO_CONTINUITY.md", "scripts/phdk_auto_gate.py"]:
     if mandatory not in sources:
         errors.append(f"manifest lacks {mandatory}")
-for entrypoint in ["README.md", "AGENTS.md", "SKILL.md", "PHDK_NATIVE_RULES.md", "CHANGE_MANAGEMENT.md"]:
-    text = (root / entrypoint).read_text(encoding="utf-8")
-    if "PHDK_EVOLUTION_STANDARD.md" not in text:
+for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MANAGEMENT.md", "SKILL.md"]:
+    file = root / entrypoint
+    if not file.exists() and entrypoint == "SKILL.md":
+        continue  # SKILL.md is canonical-tool-only, not in the vendoring manifest.
+    if not file.is_file() or "PHDK_EVOLUTION_STANDARD.md" not in file.read_text(encoding="utf-8"):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
 if errors:
     print("\n".join("FAIL: " + x for x in errors), file=sys.stderr)
