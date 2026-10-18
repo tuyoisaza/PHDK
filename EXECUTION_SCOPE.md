@@ -2,11 +2,11 @@
 
 ## Rule — interactive-only
 
-PHDK is interactive-only and normally uses one assistant for the user's explicitly requested task. `PHDK auto` permits continuous development of the entire identified goal under `PHDK_AUTO.md`; interactive does not mean asking for approval after every step. There is no legacy Mission Autopilot or unattended mode. The only delegation exception is an explicitly active `PHDK PMO` session under `PHDK_PMO.md`, where the PMO orchestrator may coordinate supported in-session worker/subagents for owner-confirmed workstreams. Workers may not delegate further, and no PMO work may continue in background or after the conversation.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 
 The assistant may complete the necessary steps of the current request without asking permission for every routine command. That is not permission to select another task, work through an unapproved backlog, push every slice automatically, or continue after the request or conversation ends.
 
-This boundary applies to bootstrap, development, upgrades, verification, incident fixes, Developer Mode, PMO, git hooks, installed skills, and every other PHDK workflow. `PHDK_PMO.md` is the sole controlled delegation exception; older wording in another file cannot widen it.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 
 ## Authorization and stopping
 
@@ -30,7 +30,7 @@ Relevant already-installed capabilities may be used within this execution scope 
 
 The explicit command `PHDK PMO` activates `PHDK_PMO.md` for the current project/portfolio in the active conversation. PMO first discovers candidate workstreams and requires owner confirmation of the active portfolio before delegated execution.
 
-PMO is the only PHDK context that may coordinate runtime-supported in-session worker/subagents. The PMO orchestrator remains the only coordinator; each worker is bounded to one confirmed workstream, may not recursively delegate, may not choose new work, and may not continue after the conversation. No worker/background daemon/schedule survives PMO exit.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 
 PMO delegation does not widen browser/live-service/provider-write/security/repository permissions. All workers inherit this execution scope and the controls applicable to their workstream.
 
@@ -72,7 +72,7 @@ For each test record the candidate revision, target environment, case ID, steps,
 - Run synchronous local formatting, linting, typechecking, builds, composition checks, and relevant non-browser unit or in-process integration tests. A complete isolated suite required by an existing hook or repository gate, including `pnpm test`/Vitest, is within current delivery authorization and needs no second approval. Use isolated test doubles; do not invoke production services or real customer data. Do not leave watchers or background checks running.
 - Use git and GitHub for the currently authorized branches, commits, pushes, pull requests, and releases. Respect existing access controls; never bypass them.
 - Deliver the current authorized change through the project's existing hosting-provider GitHub connection; its existing autodeploy may run after the update to `main`. Read its GitHub deployment status when available. PHDK does not require disabling this connection, setting dummy never-matching watch paths, or turning an autonomy restriction into a ban on GitHub-connected deployment. This grants no GitHub Actions workflow, new connection, or provider/trigger configuration changes; report observed deployment blockers/statuses separately from code delivery. Valid service-specific filters and intended skips for unaffected services are not failures.
-- Read an available skill or technical reference as guidance. Outside explicit PMO, do not execute its agent orchestration or delegation behavior. Inside PMO, delegation is allowed only through the bounded worker contract in `PHDK_PMO.md`, never through an external skill's broader/background orchestration semantics.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 - Perform bounded, read-only retrieval of existing provider deployment/service status, non-secret configuration metadata, and relevant logs for a current requested check or diagnosis under the rule below. This permission is independent of Developer Mode and unlock.
 
 ## Bounded read-only provider diagnostics
@@ -109,7 +109,7 @@ Do not persist active-mode authority in files, flags, hooks, credentials, schedu
 
 ## Excluded work
 
-- No unattended, background, overnight, scheduled, or recurring coding agents. Continuous in-conversation work on the current Auto goal is permitted under `PHDK_AUTO.md`. Outside explicit `PHDK PMO`, do not use subagents, agent teams, coordinator/worker agents, parallel agent queues, or delegated code/review work. Inside PMO, only the PMO orchestrator may delegate owner-confirmed workstreams to runtime-supported in-session workers under `PHDK_PMO.md`; workers cannot delegate, persist, schedule, or continue after the conversation.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 - Do not create, enable, dispatch, rerun, or schedule GitHub Actions or other hosted CI jobs. Do not add workflow files, CI templates, task/status sync workflows, or required Actions checks. Existing workflow definitions may be inspected; behavior changes or removal require a separately explicit code request. `PHDK_AUTO.md` narrowly permits necessary mechanical formatting of an existing file for an applicable failing gate when semantic equivalence is established; it permits no workflow execution, changed controls, or new automation.
 - Do not create, configure, enable, or run cron jobs, recurring tasks, dependency-update bots such as Dependabot/Renovate, backup jobs, monitoring loops, session-start jobs, post-session jobs, or unattended maintenance.
 - Outside the scoped UAT/UAT Fix exception above, do not open, drive, or test in a browser. This includes screenshots, browser MCP/devtools, headed or headless browsers, Playwright, Puppeteer, Cypress, Selenium, and browser-mode test runners.
