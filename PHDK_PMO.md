@@ -176,7 +176,7 @@ These artifacts record coordination state. They do not independently authorize w
 
 ## Delegation model
 
-PMO is the only PHDK mode that may delegate coding/review tasks to subagents/worker agents, and only when the current runtime/tool explicitly supports such agents.
+Delegation is available for bounded, in-session tasks in any PHDK mode when the actual runtime supports workers and delegation benefits the current authorized task; see `PHDK_INTELLIGENT_EXECUTION.md`. PMO separately governs multi-workstream portfolio coordination. No background work, recursive delegation, or independent worker integration/delivery.
 
 The PMO orchestrator remains the only coordinator.
 
