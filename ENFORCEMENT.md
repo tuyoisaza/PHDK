@@ -59,6 +59,8 @@ Hooks run on the `git` command itself. They fire the same way whether a human ty
 
 ### PHDK Auto cadence and actual controls
 
+`PHDK auto force` applies `PHDK_AUTO_CONTINUITY.md`: treat PHDK-only human/manual/formal review gates as `NON_BLOCKING_BY_MODE` immediately, without investigating reviews/protections or searching approvers. Perform the technical diff review and existing mandatory isolated checks, including full test/composition suites when required, then push the branch, open its PR, merge to the target and verify remote `main`. A real rejection starts report → diagnose → repair → revalidate → retry, without renewed delivery permission. This variant takes precedence over generic PHDK review language here; preserve actual enforcement and genuine user restrictions without bypass.
+
 `PHDK_AUTO.md` permits continuous implementation of the entire identified goal with no PHDK-only approval per plan, stage, feature, or merge. Keep generic slice/foundation checklists as final coverage, not intermediate acceptance gates. Write needed tests during implementation and run the complete applicable verification after integration; earlier checks are limited to implementation-blocker diagnosis or a real mandatory control. Avoid unnecessary checkpoint commits or releases that create early validation cycles.
 
 Preserve each actual hook/check/review at its governed operation; final QA cannot occur after publishing unverified code. Diagnose and repair an in-scope failure, continue independent work if one operation is blocked, and report the exact unmet control when no permitted progress remains. Explicit Auto activation replaces Developer Mode for the identified goal and uses normal branch/PR delivery, including after a stopped direct flow, without bypassing the failed control or weakening enforcement.
@@ -146,7 +148,7 @@ For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptio
 
 ### Session context
 
-Use the tool-native instruction file and the minimum context in `AGENTS.md`. Do not install session-start agents, external hooks, schedulers, or background tasks to load the standards. Persistent text supplies rules and historical context only; it never restores Developer Mode, Auto, or PMO or authorizes a later task. Do not store active-mode state or an enabling flag. Delegated workers may be launched only by an explicitly active PMO orchestrator under `PHDK_PMO.md` and only for the current conversation.
+Use the tool-native instruction file and the minimum context in `AGENTS.md`. Do not install session-start agents, external hooks, schedulers, or background tasks to load the standards. Persistent text supplies rules and historical context only; it never activates Developer Mode, Auto, or PMO or authorizes a later task by itself. Do not store an enabling permission flag. The factual Auto mandate/checkpoint in `AUTO_STATE.json` is permitted under `PHDK_AUTO_CONTINUITY.md`; reconstruct it internally when needed. Delegated workers may be launched only by an explicitly active PMO orchestrator under `PHDK_PMO.md` and only for the current conversation.
 
 Within the same conversation, later turns, status/link requests, and context compaction do not end the current delivery grant. Task documents record it; assistant-written updates cannot revoke it. Reconcile stale records with the live user request and observed GitHub state, while honoring explicit user stops/pauses. A new conversation does not automatically resume old work.
 

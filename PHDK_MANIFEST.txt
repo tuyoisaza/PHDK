@@ -31,6 +31,8 @@ MAIN_DELIVERY_STANDARD.md | MAIN_DELIVERY_STANDARD.md
 PHDK_COMPLETION_GATE.md | PHDK_COMPLETION_GATE.md
 scripts/phdk_completion_gate.py | scripts/phdk_completion_gate.py
 PHDK_AUTO.md | PHDK_AUTO.md
+PHDK_AUTO_CONTINUITY.md | PHDK_AUTO_CONTINUITY.md
+scripts/phdk_auto_gate.py | scripts/phdk_auto_gate.py
 PHDK_CHECK.md | PHDK_CHECK.md
 PHDK_CAPTURE.md | PHDK_CAPTURE.md
 PHDK_PLAN.md | PHDK_PLAN.md

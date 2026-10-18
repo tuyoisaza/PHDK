@@ -4,6 +4,9 @@
 An assistant may not equate effort, local edits, a passing formatter, an unmerged PR, or an optimistic status summary with successful delivery. For any current task whose target is remote `main`, COMPLETED requires independently verified delivery and relevant validation. This extends `MAIN_DELIVERY_STANDARD.md`, `PHDK_COMMITMENT_STANDARD.md` and `PHDK_DESIGNER_MODE.md`; it does not authorize background activity, bypass permissions, or silently start another task.
 
 ## Mandatory evidence contract
+
+In `PHDK auto force`, apply `PHDK_AUTO_CONTINUITY.md`: PHDK-only human/manual/formal review waits are `NON_BLOCKING_BY_MODE` without preventive review/protection research. Completion still needs technical diff review, actual required checks, merge and remote readback; record assistant review honestly. Generic references to reviews or human judgment below do not create a FORCE human gate.
+
 Before declaring COMPLETED, create or update `PHDK_DELIVERY_EVIDENCE.json` in the target project (or another documented, stable project-local evidence path). Use the JSON schema below, with evidence based on actual results, not invented PASS statuses. This is a machine-checkable release record, not a substitute for human judgment.
 
 ```json
@@ -35,7 +38,7 @@ Run `python phdk-standards/scripts/phdk_completion_gate.py --evidence PHDK_DELIV
 If tooling or network prevents the gate from executing, record BLOCKED and preserve concrete commands/output; do not declare COMPLETED. A script PASS verifies stated mechanical conditions, not visual quality, user acceptance, hosting deployment, PR review protections, or every scope commitment. The agent must still inspect the PR state, required approvals, task ledger, UAT evidence and actual diff under the existing standards.
 
 ## Recovery policy
-A recoverable tool failure triggers investigation and bounded alternatives. In particular pnpm non-TTY workspace reconciliation is a packaging/tool invocation problem to diagnose, not automatically a terminal git blocker. Check lockfile/tool versions, repo-local bin and hooks, repair compatible in-scope invocation and retry. Preserve unrelated work and hooks. Do not force-push, use --no-verify, weaken approvals, or endlessly repeat the same failed command. STOP/BLOCKED is correct for genuine access, security, irreparable test or independent-review conditions.
+A recoverable tool failure triggers report → investigate the observed cause → repair → revalidate → retry push/PR/merge → verify `main`, under `PHDK_AUTO_CONTINUITY.md` for Auto/Force. A first rejection never revokes the goal's authorization. In particular pnpm non-TTY workspace reconciliation is a packaging/tool invocation problem to diagnose, not automatically a terminal git blocker. Check lockfile/tool versions, repo-local bin and hooks, repair compatible in-scope invocation and retry. Preserve unrelated work and hooks. Do not force-push, use --no-verify, weaken actual enforcement, or endlessly repeat the same failed command. Isolate a genuinely unresolved operation only after permitted repairs and independent work are exhausted. PHDK-only human reviews never justify BLOCKED in FORCE.
 
 ## Final state
 Always report: COMPLETE, PARTIALLY DELIVERED or BLOCKED; scope commitments; applicable check results; remote target SHA/version; PR URL and merge status; unresolved blockers. Never write COMPLETE when the mechanical gate fails or any required scope item remains unmerged.

@@ -22,9 +22,17 @@ Every stage has:
 
 A later stage may reuse prior work only after verifying the required upstream artifacts exist and are coherent for the current project/revision.
 
+## Auto continuity and human-gate policy
+
+Both `PHDK auto` and `PHDK auto force` use `PHDK_AUTO_CONTINUITY.md`. Stage transitions are execution handoffs inside the same authorized goal. Reload the user mandate and next executable action after context compaction and before a terminal response; missing/malformed state is reconstructed internally, never a new approval gate.
+
+In AUTO FORCE, human reviews/sign-offs imposed only by PHDK are `NON_BLOCKING_BY_MODE` from entry. Do not investigate whether they block or seek reviewers/approvals; do not query review/protection configuration preventively. Integration Review remains the assistant's technical diff/source/contract review. Perform applicable mandatory checks and normal versioned branch push → PR → merge → remote-main verification. A mandatory local suite or hook requires no repeated permission within the scoped implementation request.
+
+An actual tool/hook/GitHub rejection is reported, diagnosed, repaired in scope, revalidated and retried while the mandate remains active. Preserve real owner restrictions, security/access controls, hooks and provider boundaries; no evasion or ungrounded repeated writes. A real unresolved blocker affects only dependent work. A non-blocking PHDK human gate must never be copied into the next handoff as a prerequisite or marked as a review that actually occurred.
+
 ## Lifecycle run identity
 
-Each explicit full lifecycle execution (especially `PHDK auto`) should create a stable run ID.
+Each explicit full lifecycle execution (especially `PHDK auto` or `PHDK auto force`) should create a stable run ID.
 
 Recommended format:
 
@@ -62,6 +70,8 @@ It must contain:
 - next stage.
 
 This file is current state, not reusable authority.
+
+For Auto variants also maintain `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` using the schema in `PHDK_AUTO_CONTINUITY.md`: original user-mandate provenance, mode, goal/scope/target, restrictions, current stage, completed/pending actions, blockers and next action. This run-level file is mutable current evidence; stage snapshots remain immutable. Reconcile it with the current conversation and remote facts. It cannot grant authority, resume another conversation, or override a user stop. `scripts/phdk_auto_gate.py` is a supported continuation aid, not an independent permission requirement.
 
 ## Historical run archive
 
@@ -192,7 +202,7 @@ Next: PMO / Workstreams
 PMO will verify the Plan package exists and use IMPLEMENTATION_PLAN.md + architecture ownership boundaries to create/confirm workstreams.
 ```
 
-This declaration is informational, not an approval gate.
+This declaration is informational, not an approval gate. During Auto/AUTO FORCE, append the truthful active-mandate/next-action capsule from `PHDK_COMMUNICATION_STANDARD.md` and execute that next eligible action in the same turn. Do not issue a terminal response just because a stage or handoff completed.
 
 # Stage contracts
 
@@ -730,6 +740,8 @@ It records:
 - merge method;
 - remote target SHA;
 - checks/reviews;
+- Auto mode and mandate evidence; under AUTO FORCE, PHDK-only human gates recorded as `NON_BLOCKING_BY_MODE`, never fabricated human approval;
+- real delivery rejections and their diagnosis, scoped repair, revalidation and retry outcomes when applicable;
 - deployment evidence if actually observed;
 - residual blockers/limitations;
 - links to all lifecycle handoff folders.
@@ -748,7 +760,8 @@ The run-level `LIFECYCLE.md` must then be finalized.
 - requested delivery target satisfied or exact blocker recorded;
 - resulting version/revision verified;
 - lifecycle artifact index complete;
-- no stage falsely marked completed.
+- no stage falsely marked completed;
+- for Auto/AUTO FORCE, no remaining executable in-scope action is hidden behind a terminal response; finalize actual completed/stopped/blocked state in `AUTO_STATE.json` under the continuity contract.
 
 # Reuse of existing stage artifacts
 

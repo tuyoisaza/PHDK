@@ -7,7 +7,7 @@ Run the `PHDK_AUTOMATION_HYGIENE.md` gate as part of Auto's final `PHDK check`: 
 
 ## Verified delivery
 
-Before final success for a remote-main goal, comply with `PHDK_COMPLETION_GATE.md`, create evidence after merge, run the mechanical verifier where available, and independently reconcile PR merge, required checks and confirmed commitments. Without these proofs report PARTIALLY DELIVERED/BLOCKED, not COMPLETED.
+Before final success for a remote-main goal, comply with `PHDK_COMPLETION_GATE.md`, create evidence after merge, run the mechanical verifier where available, and independently reconcile PR merge, required checks and confirmed commitments. Without these proofs do not report COMPLETED. Apply `PHDK_AUTO_CONTINUITY.md` before a terminal blocker report; missing evidence is work to obtain when a permitted path remains, not an automatic reason to stop.
 
 
 ## Mandatory administration implementation and remediation
@@ -28,6 +28,32 @@ Always apply `PHDK_COMMITMENT_STANDARD.md` through Capture, Plan, PMO, UAT and D
 Run `PHDK_PREFLIGHT.md` once at Auto entry, then validate handoffs and re-check only newly relevant capabilities when later lifecycle stages need them. Repeat full Preflight only if installation or manifest integrity has changed. See `PHDK_COHERENCE_STANDARD.md`. Auto also follows the stage input/output/handoff contracts in `PHDK_LIFECYCLE.md`. Do not repeat a noisy full preflight at every internal stage.
 
 `PHDK auto` explicitly starts the complete PHDK delivery lifecycle for the identified current goal. Match case-insensitively after trimming whitespace; an accompanying brief, task, project goal, or coherent Capture baseline supplies the scope. If the current conversation already identifies that goal, start without another confirmation or a mandatory interview. If there is no single current delivery but the repository already exposes multiple parallel pillars/fronts through Capture, Plan, PMO artifacts, requirements, or current work, do not collapse them into a request for one arbitrary goal; enter PMO portfolio discovery instead. A request to add this command, quoted examples, installed files, and old task records do not activate it.
+
+### AUTO FORCE — continue without PHDK review waits
+
+`PHDK auto force` is the explicit FORCE variant of Auto for the identified current goal. It uses the same lifecycle, normal branch/PR delivery, completion evidence and conversation lifetime. The current invocation authorizes restoring that goal's factual mandate and continuing its scoped implementation, technical diff review, mandatory checks, branch push, PR, merge into `main` and remote verification without another approval. It is not Developer Mode, a force-push command or permission for unrelated work.
+
+In FORCE, human, manual, formal, owner-diff-approval and security-signoff checkpoints imposed **only by PHDK** are **nonblocking by definition** (`NON_BLOCKING_BY_MODE`). Do not perform a preventive review/protection investigation, fetch those rules to decide whether to attempt delivery, search for approvers or wait for human approval before continuing. An inherited "review pending", missing review event or generic owner-decision label does not establish a blocker. Perform the technical source/diff/security review and mandatory permitted checks, then execute the authorized delivery operations. Scope, candidate/head/target and remote-result verification still apply.
+
+FORCE does not fabricate a review, skip a hook, override a protection, change credentials/settings or erase a genuine current owner stop. Honor already-known applicable controls. An actual GitHub, hook or tool rejection is evidence for repair, **not an automatic execution endpoint**. Production access, destructive operations, new spending and provider writes retain their existing boundaries.
+
+After an actual delivery rejection, follow the repair-and-retry cycle in `PHDK_AUTO_CONTINUITY.md`:
+
+1. Report the observed rejection briefly in a nonterminal progress update.
+2. Investigate its actual cause using relevant error, check, hook, candidate and target evidence. This is diagnosis after a real failure, not a preventive search for review requirements.
+3. Repair the in-scope technical/check/conflict/state defect under the existing mandate.
+4. Revalidate the affected result and retry the authorized branch push, PR or merge that updates `main`.
+5. Independently verify the resulting remote `main`, or continue this cycle while another permitted repair or new evidence can produce progress.
+
+Never end at the first rejection or ask again for the same delivery permission. Do not repeat an unchanged rejected write, weaken a gate, use an admin override/alternate credential or force-push to evade a control. Only an unresolved real boundary after permitted repairs and independent work can require an external action; preserve the mandate and state exactly what remains.
+
+### Mandate and continuity for both variants
+
+Follow `PHDK_AUTO_CONTINUITY.md` on entry, after context recovery, at checkpoints and before any terminal interruption/blocker report. Maintain `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` as factual evidence of the current request, mandate, decisions, restrictions, progress and next action; use the canonical contract rather than inventing another schema. This record does not independently activate a mode or grant reusable authority. The same unfinished current request survives status questions and context compaction. In a later conversation, a new explicit Auto/Force invocation supplies the current request to resume the identified goal; files alone never start execution.
+
+FORCE resumes recoverable authorized work immediately. Its continuity check must not become a review/protection investigation or a new permission questionnaire. Normal Auto also retains existing authorization and completes independent work without ceremonial approval.
+
+The continuity helper is advisory evidence, not an approval service or new execution veto. Missing/malformed `AUTO_STATE.json` means `REPAIR_STATE`: rebuild the factual record from available current-request evidence and continue internally, without requesting permission to repair bookkeeping. Use the canonical contract's dispositions for continuing, repair/retry, external waiting, delivery verification and an actual owner stop.
 
 Before substantive execution, explain the lifecycle visibly to the user.
 
@@ -143,13 +169,15 @@ Next: Check.
 
 Progress updates are informational, not approval gates. Continue automatically unless a real decision/control blocks the affected stage.
 
+Every substantive Auto/Force progress update includes a concise factual reminder, for example `AUTO FORCE activo · autorización vigente para <objetivo> · siguiente: <acción>. Continúo.` Execute that action in the same invocation; the sentence is not a substitute for execution or a promise of background work. If a real restriction blocks an action, name that action truthfully instead of claiming unlimited permission. Follow `PHDK_AUTO_CONTINUITY.md` for terminal status.
+
 Do not narrate every command/file operation. Communicate lifecycle movement and material evidence.
 
 At any user status question such as "¿qué estás haciendo?", "status", or "dónde vas", answer with the current lifecycle board/stage first, then relevant execution detail.
 
 Send concise progress updates without turning them into approval questions or ending the task at a milestone.
 
-The mode lasts for this goal in the active conversation. Exit on `PHDK salir de auto`, a clear owner stop, completion of the whole requested outcome, or the conversation ending. A status/link question, context compaction, or assistant-written checkpoint does not end an unfinished goal. Keep task evidence across turns, but never save a reusable `auto=true` authority flag or resume from files alone in another conversation. This is an instruction to the assistant, not a daemon, scheduler, or shell executable.
+Both variants last for this goal in the active conversation. Exit on `PHDK salir de auto`, a clear owner stop, completion of the whole requested outcome, or the conversation ending. A status/link question, context compaction, or assistant-written checkpoint does not end an unfinished goal. Keep the factual mandate and task evidence across turns under `PHDK_AUTO_CONTINUITY.md`, but never save a reusable `auto=true` authority flag or resume from files alone in another conversation. This is an instruction to the assistant, not a daemon, scheduler, or shell executable.
 
 ## Full lifecycle, one authorization
 
@@ -252,13 +280,15 @@ Current authorization covers the sensitive behavior actually described in the go
 2. Use a suitable existing task branch or create one from a known target. Preserve unrelated edits and other contributors' work. Keep one cohesive candidate for the whole goal; do not create a release, push to `main`, or require acceptance after every stage.
 3. Implement the complete agreed behavior and necessary tests, documentation, states, permissions, and integration wiring. A TODO, disabled path, scaffold, fabricated data, or claimed future stage does not satisfy a requested working feature. Do not silently shrink the goal to report completion.
 4. Maintain concise factual task/progress records. Complete the next necessary step within the same goal without requesting permission to continue. New issues may be repaired when they prevent the requested behavior or its verification; unrelated enhancements remain outside scope.
-5. When a component is blocked, diagnose and make bounded in-scope repairs, use an already permitted route, or continue independent parts. A dependency or actual control may block one operation without blocking all development. Do not repeat an unchanged failing command or wait in a polling loop. When no permitted progress remains, report the precise blocker and completed work instead of claiming success or asking for a generic OK.
+5. When a component is blocked, make bounded in-scope repairs, use an already permitted route, or continue independent parts. Apply `PHDK_AUTO_CONTINUITY.md`: pending assistant work and stale state are not external blockers; in FORCE, PHDK-only reviews are nonblocking without investigation. After an actual rejection, report, diagnose, repair, revalidate and retry the affected authorized delivery operation; continue while permitted progress remains. A dependency, current owner restriction or actual control may block one operation without blocking all development. Do not repeat an unchanged failing command or wait in a polling loop. Only when no permitted progress remains may a terminal report identify the exact affected operation, observed reason, unfinished work and precise resumption action instead of asking for a generic OK.
 
 ## Verify the whole candidate at the end
 
 Do the full development first. Write necessary test coverage with the implementation, but execute planned tests and comprehensive QA on the completed integrated candidate. This includes risk-triggered coverage required for final acceptance; its being required does not itself mean running it after each slice. PHDK slice checklists, stage reviews, and foundation checks describe coverage to collect at this final boundary; they are not intermediate permission or acceptance gates in Auto.
 
 Use an intermediate local check only when it is necessary to diagnose an implementation blocker or an actual mandatory hook/control requires it. Do not run full install/build/test cycles after each stage. Preserve mandatory controls at the operation they govern: delaying final QA never permits skipping a hook, publishing unverified code, or postponing a required pre-push check until after `main` is updated. Avoid unnecessary checkpoint commits that would create early validation cycles; any necessary checkpoint still obeys repository rules and is not a release.
+
+Both Auto and FORCE preauthorize the existing synchronous isolated checks required to deliver this goal, including a complete `pnpm test`/Vitest suite, lint, typecheck, format, build and composition when the repository requires them. Inspect their actual scripts for scope and side effects, then run them without asking again because they are tests, a full suite or a pre-push requirement. Avoiding optional tests does not prohibit mandatory checks. Preserve an explicit current owner ban on the actual operation and excluded browser/live/paid/provider effects; isolate that concrete conflict, not a hypothetical need for approval. Do not bypass a hook to avoid a required suite.
 
 After every in-scope part is implemented and integrated, run `PHDK uat prep` then `PHDK uat` under `UAT_STANDARD.md` when the goal includes end-user behavior or acceptance criteria, then review the entire outgoing diff and run all applicable local verification for the whole goal: repository-required format/lint/typecheck/build gates, meaningful unit/in-process integration tests, and cross-feature regression checks justified by the changed behavior. Use existing isolated fixtures/doubles. Documentation-only goals use complete source/reference and policy-scenario review where relevant; do not invent an application build for a standards repository.
 
@@ -272,7 +302,7 @@ The final test boundary covers everything applicable to this complete goal, not 
 
 Reconcile the final version and changelog against fresh remote `main` using the repository standard. Bump for the complete delivery, not each internal stage. Ensure the source-changing commit subjects start with the resulting version; if integration changes version metadata or behavior, refresh the affected final checks. Follow existing commit rules without unnecessary checkpoint releases.
 
-Finish the scoped branch push, PR, actual required controls, merge, and remote content/version verification. Current owner approval is already present for the identified outcome; no additional PHDK-only human sign-off is required at the end. A server-required or current explicitly required named/independent/formal review remains a real control: finish all otherwise permitted work and report that exact requirement if it prevents integration. Never use an admin override, force-push, skipped hook, alternate credential, or fabricated review to evade it.
+Finish the scoped branch push, PR, actual required controls, merge, and remote content/version verification. Current owner approval is already present for the identified outcome; no additional PHDK-only human sign-off is required at the end. FORCE treats PHDK-only human/manual/formal reviews as nonblocking without investigating them and proceeds with technical diff review, mandatory checks and permitted delivery. Honor already-known actual controls and use real rejection evidence for the report/diagnose/repair/revalidate/retry cycle above; do not turn it into a preventive FORCE review/protection lookup or stop at the first rejection. Finish permitted repairs and independent work before reporting an operation genuinely prevented by a current owner restriction or actual control. Never use an admin override, force-push, skipped hook, alternate credential, or fabricated review to evade it.
 
 A permitted update to `main` may trigger the existing GitHub-connected autodeploy. Do not disable it, create Actions/workflows, deploy through Railway/provider CLI/API/dashboard, or change provider/repository settings. Report code integration and any observed deployment state separately; neither a local test nor a merge proves production health.
 
@@ -294,7 +324,7 @@ A standalone explicit Auto invocation owns the complete lifecycle described abov
 
 ## Relationship to other PHDK commands
 
-- Auto uses the normal branch/PR delivery route. An explicit `PHDK auto` for the identified goal replaces Developer Mode for that goal, including a currently identified task whose direct push stopped. Diagnose and satisfy the failed control before the permitted normal delivery; this is a new owner instruction, not a retry/bypass of the stopped direct push. A later explicit Developer Mode activation replaces Auto for its eligible requested task; neither mode silently inherits the other's permissions.
+- Auto and `PHDK auto force` use the normal branch/PR delivery route. Either explicit invocation for the identified goal replaces Developer Mode for that goal, including a currently identified task whose direct push stopped. Satisfy the actual failed control before the permitted normal delivery; this is a new owner instruction, not a retry/bypass of the stopped direct push. FORCE adds no investigation of PHDK-only reviews. A later explicit Developer Mode activation replaces Auto for its eligible requested task; neither mode silently inherits the other's permissions.
 - Unlock repairs documentary blockers; Auto also carries the whole authorized development goal through final verification and delivery. A scoped rule repair does not start unrelated product work or cancel the rest of the current Auto goal.
 - A bare `PHDK upgrade` keeps its synchronization-only contract. Include synchronization in Auto delivery only when the owner includes it in the identified goal. Installing/updating command definitions activates no mode.
 - Auto changes PHDK's development cadence and eliminates PHDK-only approval pauses for the current goal. Its specific cadence takes precedence over generic per-slice verification, interview, stop-and-ask, or handoff templates. Standalone Auto grants no delegated agents; when invoked as a PMO worker, delegation authority belongs only to the PMO orchestrator and the worker itself may not delegate. Auto never grants unattended/background/post-conversation execution, recurring work, expanded credentials, or removal of actual security/access/repository controls.
@@ -329,9 +359,9 @@ Report once the entire requested outcome and permitted delivery are complete: im
 
 **A lifecycle stage is a checkpoint, not an execution endpoint.** In a single active invocation, after every successfully closed stage, validate its exit handoff, persist status, and immediately begin the next eligible stage. Do not return a terminal assistant answer merely because Preflight, Capture, Plan, PMO, Integration, UAT, SEO, AEO/GEO, or Check produced its deliverables. Progress messages must be nonterminal. A required question is a stop only when the answer changes an actual material decision and there is no independent in-scope work left to execute.
 
-**Deterministic restart from repository evidence.** On each new explicit `PHDK auto` invocation:
+**Deterministic restart from repository evidence.** On each new explicit `PHDK auto` or `PHDK auto force` invocation:
 1. Reread the complete current intent/requirements baseline and actual source under the mandatory intent-to-implementation reconciliation above, then read the current owner goal, `PHDK_LIFECYCLE_STATUS.md`, run-level historical `LIFECYCLE.md`, `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `IMPLEMENTATION_PLAN.md`, handoffs, and current git/PR facts.
-2. Reconcile evidence with the authorized goal. Treat stored state as a checkpoint, never as authorization to launch unattended work. Do not assume a stage passed because its folder exists: verify its exit criteria, freshness, and missing commitments.
+2. Recover the factual mandate and checkpoint from `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` under `PHDK_AUTO_CONTINUITY.md`, and reconcile evidence with the current authorized goal. Treat stored state as context, never as authorization to launch unattended work. Do not assume a stage passed because its folder exists: verify its technical exit criteria, freshness, and missing commitments. In FORCE, PHDK-only reviews are nonblocking without review/protection investigation.
 3. Reuse verified stages, repair incomplete/stale handoffs, and resume at the earliest stage whose required exit gate is not satisfied. Never reset to Preflight/Capture/Plan for ceremony. Preflight still performs its short invocation-level safety/version check.
 4. Preserve the same goal/run history when appropriate; record an explicit continuation entry with timestamp, previous checkpoint, and recovered next stage. If an earlier prerequisite changes, reopen it and invalidate the affected downstream gates.
 5. Inspect in-scope open PRs and incomplete delivery artifacts before declaring the goal complete. A partial merge, open PR, or undone planned task remains unfinished.
@@ -342,9 +372,15 @@ while authorized goal not complete:
     validate current stage prerequisites
     execute or reuse current stage
     write canonical artifacts + historical HANDOFF.md + checkpoint
-    if material external/owner/security blocker:
-        continue independent permitted work
-        if no independent work remains: stop BLOCKED with precise resumption steps
+    apply PHDK_AUTO_CONTINUITY.md; update factual AUTO_STATE.json
+    treat pending assistant work, stale state and FORCE PHDK-only reviews as nonblocking
+    if actual operation rejection:
+        report briefly, diagnose actual cause, repair within scope, revalidate
+        retry authorized delivery when repair or new evidence changes the result
+        verify remote main after success; keep going while permitted progress remains
+    if unresolved actual control, current owner restriction or material dependency:
+        execute independent authorized work
+        if no permitted progress remains: report precise BLOCKED evidence and resumption action
     else:
         advance immediately to the next eligible stage in this same invocation
 verify all commitments + in-scope PRs + final delivery gates
