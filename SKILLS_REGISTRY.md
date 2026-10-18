@@ -16,6 +16,9 @@ For user-facing React/Next.js projects, `PHDK_DESIGN_SYSTEM.md` defines the appr
 
 | Capability | Recommended stages | Priority | Purpose |
 |---|---|---|---|
+| Planning and task breakdown skill | Plan, Auto | Important for multi-step development | Convert requirements into dependency-ordered, vertically sliced, verifiable tasks with acceptance criteria; PHDK groups them into value milestones |
+| Detailed implementation-plan skill | Plan | Optional/Important for complex milestones | File/interface/test-level implementation planning; PHDK artifact locations and milestone rules override skill defaults |
+| Incremental implementation skill | PMO/workstreams, Auto | Important for multi-file implementation | Thin verifiable slices inside a milestone; slice commits/checkpoints never override PHDK milestone version/publication boundaries |
 | UX architecture / journey-design skill | Capture, Plan, Auto | Important when UI applies | User journeys, IA, task success, UX baseline; greenfield and brownfield per PHDK_UX_UI.md |
 | UI art direction / design-system skill | Plan, Implementation, Integration Review | Important when UI applies | Distinctive art direction, tokens, typography, components, states, responsive consistency |
 | UX/UI review + accessibility skill | UAT, UAT Fix, Check | Important when UI applies | Heuristics, WCAG 2.2 AA, viewport and task-flow evidence; browser limited to UAT |
@@ -39,6 +42,9 @@ For user-facing React/Next.js projects, `PHDK_DESIGN_SYSTEM.md` defines the appr
 | Superpowers | https://github.com/obra/superpowers | Code/debugging guidance; no broad orchestration authority |
 | Context7 | https://github.com/upstash/context7 | Current technical documentation through an already permitted reader |
 | Addy Osmani Agent Skills | https://github.com/addyosmani/agent-skills | Source-level review patterns |
+| Addy Osmani Planning and Task Breakdown | https://github.com/addyosmani/agent-skills/blob/main/skills/planning-and-task-breakdown/SKILL.md | Preferred planning decomposition reference: dependency graph, vertical slices, explicit acceptance criteria |
+| Addy Osmani Incremental Implementation | https://github.com/addyosmani/agent-skills/blob/main/skills/incremental-implementation/SKILL.md | Milestone-internal thin-slice implementation discipline; PHDK controls versioning/delivery |
+| Superpowers Writing Plans | https://github.com/obra/superpowers/blob/main/skills/writing-plans/SKILL.md | Detailed implementation-plan reference for complex milestones; PHDK controls artifact paths, approvals and commits |
 | Code Review Skill | https://github.com/addyosmani/agent-skills/blob/main/skills/code-review-and-quality/SKILL.md | Structured code review |
 | MCP Servers | https://github.com/modelcontextprotocol/servers | Documentation for an existing reader or explicitly scoped integration |
 | TypeScript MCP SDK | https://github.com/modelcontextprotocol/typescript-sdk | Reference for explicitly scoped MCP code |
@@ -54,10 +60,10 @@ Design references may also include Vercel web-design-guidelines, AccessLint guid
 Prefer repository/document readers and requirements/discovery guidance.
 
 ### Plan
-Prefer frontend/UX design guidance when UI exists, security guidance when security boundaries exist, and current framework/docs capability for architecture decisions.
+Prefer an available planning/task-breakdown capability for multi-step development, supplemented by detailed implementation-plan guidance when a complex milestone needs file/interface/test-level decomposition. Also prefer frontend/UX design guidance when UI exists, security guidance when security boundaries exist, and current framework/docs capability for architecture decisions. External skill output must be normalized into `MILESTONE_PLAN.md` + `IMPLEMENTATION_PLAN.md`; do not adopt its default file paths, human checkpoints or commit cadence when they conflict with PHDK.
 
 ### PMO
-Prefer repository/GitHub readers and runtime worker/subagent capability when supported. Worker capability is optional; PMO can run sequentially.
+Prefer repository/GitHub readers, incremental-implementation guidance for work inside a milestone, and runtime worker/subagent capability when supported. Worker capability is optional; PMO can run sequentially. PMO owns milestone integration/version delivery; workers do not.
 
 ### Auto
 Use relevant implementation/framework/domain skills. Re-check security/design/docs capabilities only when the implementation scope needs them.

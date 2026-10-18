@@ -1,3 +1,20 @@
+## v2.56.0 — 2026-10-18
+
+### Milestone planning, PMO execution and incremental Auto delivery
+- Add `PHDK_PROJECT_MANAGEMENT_STANDARD.md`, adapting the owner-provided PMI/PMBOK 8 operating model into proportional PHDK governance across value, quality, accountability, seven PMO control domains, five operating focus areas, risk/change discipline and AI-specific controls.
+- Require `PHDK plan` to create `MILESTONE_PLAN.md`: coherent value increments mapped to commitments, requirements, workstreams, dependencies, risks, acceptance evidence, expected SemVer impact and UAT intent.
+- Change Auto/Auto Force delivery cadence from one terminal version to milestone publication: after a milestone is integrated and technically verified, reconcile SemVer, create version-prefixed commit(s), use the normal PR/merge route to verified remote `main`, then continue from the refreshed main. Lifecycle stages/tasks/slices still do not independently trigger releases.
+- Make PMO execute and monitor the milestone roadmap rather than treating workstreams as release boundaries; final cross-milestone Integration Review still precedes UAT.
+
+### Milestone-aware UAT and planning skills
+- Require final UAT to read `MILESTONE_PLAN.md`, create `UAT_MILESTONE_MATRIX.md`, and derive at least one intent-linked user-value story for every delivered milestone, with additional role/cross-milestone cases where acceptance needs them.
+- Recommend Addy Osmani's Planning and Task Breakdown and Incremental Implementation skills plus Superpowers Writing Plans; external skill file paths, commit cadence and approval conventions never override PHDK artifacts, milestone delivery or execution controls.
+- Update lifecycle, agent/native routing, QA, README, manifest, versioning and delivery standards coherently for the new model.
+
+### Source and limits
+- The project-management standard operationalizes the owner-supplied knowledge base, which itself states that it is an interpretation based on public PMI material rather than a transcription or PMI certification claim.
+- This PHDK release changes standards only; it does not activate Auto/PMO, execute downstream project milestones, run UAT, or deploy applications.
+
 ## v2.55.1 — 2026-10-18
 
 ### Canonical PHDK evolution and session contract

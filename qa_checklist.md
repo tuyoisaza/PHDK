@@ -4,9 +4,12 @@
 
 This file defines code quality gates for task completion, merging, and GitHub delivery. `EXECUTION_SCOPE.md` controls execution; `MAIN_DELIVERY_STANDARD.md` defines normal delivery through verified remote `main` integration and explicit narrower scopes.
 
-Choose the QA scope for the whole requested outcome. With explicit `PHDK auto`, `PHDK_AUTO.md` makes the sections below coverage for final integrated verification after all development, not intermediate stage tests, releases, or human-approval gates. Record source references and actual results; mark unrelated items `N/A` with a reason. Documentation-only work needs source/diff consistency and applicable formatting checks, not an app build.
+Choose the QA scope for the whole requested outcome. With explicit `PHDK auto`, `PHDK_AUTO.md` uses focused technical verification at each completed value milestone before its versioned publication, then applies the sections below comprehensively to the final cross-milestone candidate. Lifecycle stages/tasks/slices do not trigger releases or human-approval gates. Record source references and actual results; mark unrelated items `N/A` with a reason. Documentation-only work needs source/diff consistency and applicable formatting checks, not an app build.
 
 ## Evidence Boundary
+
+
+For milestone-driven Auto, verify `MILESTONE_PLAN.md` traceability and actual milestone delivery evidence: acceptance criteria satisfied for the published increment, version/commit/PR/main SHA recorded, and subsequent work based on refreshed `main`. Final UAT must include `UAT_MILESTONE_MATRIX.md` when milestones exist and no delivered milestone may be absent from user-value acceptance coverage.
 
 The product requirements below are checked through source/diff review, static checks, local builds, and risk-triggered local unit/in-process integration tests with deterministic doubles. A checked UI, auth, database, or diagnostics item confirms implementation evidence, not an exercised user flow. Requested status, non-secret configuration metadata, and existing logs follow **Bounded read-only provider diagnostics** in `EXECUTION_SCOPE.md`, independently of Developer Mode or unlock; they are separate diagnostic evidence, never an executed product test.
 

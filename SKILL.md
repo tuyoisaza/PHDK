@@ -49,13 +49,13 @@ When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_AD
 
 For explicit `PHDK plan`, follow `PHDK_PLAN.md`. Use the Capture/requirements baseline and applicable PHDK standards to define solution, repository, data/integration/security, and conceptual UX architecture plus a dependency-ordered implementation plan. On brownfield projects, model current state first, preserve valid decisions, identify gaps, and produce an incremental convergence plan rather than imposing a greenfield scaffold.
 
-Create/update `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, applicable architecture decisions, and TASK integration. Plan does not implement product code unless a parent Auto request includes execution.
+Create/update `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `MILESTONE_PLAN.md`, `IMPLEMENTATION_PLAN.md`, applicable architecture decisions, and TASK integration. Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md`: every in-scope task/workstream maps to a value milestone with acceptance evidence and expected SemVer impact. Plan does not implement product code unless a parent Auto request includes execution.
 
 ## PHDK PMO
 
 For explicit `PHDK PMO`, read `PHDK_PMO.md`. Inspect Capture/requirements artifacts, TASK/STATUS, code areas, current branches/PRs, and UAT/Check evidence; detect candidate workstreams and ask the owner once to confirm/add/remove/prioritize the active portfolio. After confirmation, create/update `PMO.md`, `PMO_WORKSTREAMS.md`, `PMO_DEPENDENCIES.md`, and `PMO_STATUS.md`.
 
-PMO is the only PHDK context allowed to delegate bounded workstreams to runtime-supported in-session workers. Each worker gets one workstream contract and uses Auto semantics inside that scope; workers may not delegate or independently finalize shared/global integration. The PMO orchestrator owns shared-file conflicts, dependency order, version collisions, integration review, and the handoff to UAT/UAT Fix/Check. If the runtime lacks subagent support, say so and coordinate sequentially without pretending workers were launched.
+PMO is the only PHDK context allowed to delegate bounded workstreams to runtime-supported in-session workers. Each worker gets one workstream contract and uses Auto semantics inside that scope; workers may not delegate or independently finalize shared/global integration. The PMO orchestrator owns shared-file conflicts, dependency order, milestone integration/version delivery, version collisions, final cross-milestone review, and the handoff to UAT/UAT Fix/Check. UAT reads `MILESTONE_PLAN.md`, creates `UAT_MILESTONE_MATRIX.md`, and gives every delivered milestone at least one intent-linked user-value story. If the runtime lacks subagent support, say so and coordinate sequentially without pretending workers were launched.
 
 ## PHDK capture
 

@@ -1,5 +1,7 @@
 # PHDK
 
+**Milestone delivery model (v2.56.0):** `PHDK plan` now creates `MILESTONE_PLAN.md`; PMO executes workstreams inside value milestones; Auto/Auto Force version and merge each completed milestone to verified `main` before continuing; final UAT creates milestone-to-user-story acceptance traceability. See [`PHDK_PROJECT_MANAGEMENT_STANDARD.md`](PHDK_PROJECT_MANAGEMENT_STANDARD.md).
+
 **Evolution and maintainer session standard:** [PHDK_EVOLUTION_STANDARD.md](PHDK_EVOLUTION_STANDARD.md) defines consistent PHDK naming, per-session repository refresh, workspace/branch ownership, SemVer, release coherence and verifiable publication. This is a guide for maintaining PHDK itself; it does not activate Auto or authorize unattended changes.
 
 **`PHDK auto force` and durable Auto continuity:** [PHDK_AUTO_CONTINUITY.md](PHDK_AUTO_CONTINUITY.md) makes PHDK-only human reviews non-blocking immediately, without preventive review/protection investigation. Auto keeps the scoped user mandate through context compaction, runs mandatory checks without repeated permission, and repairs/retries actual delivery failures before reporting a remaining blocker.
@@ -17,7 +19,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.55.1**
+**Version v2.56.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -296,6 +298,7 @@ It creates or updates:
 SOLUTION_ARCHITECTURE.md
 REPOSITORY_ARCHITECTURE.md
 UX_ARCHITECTURE.md
+MILESTONE_PLAN.md
 IMPLEMENTATION_PLAN.md
 ARCHITECTURE_DECISIONS.md
 TASK.md
@@ -304,6 +307,9 @@ TASK.md
 On an existing repo, Plan **does not reset the project to a default scaffold**. It starts from current reality and recommends the smallest coherent path from current state to target state.
 
 Full procedure: [PHDK_PLAN.md](PHDK_PLAN.md).
+
+
+Plan now creates a value-based milestone roadmap under [PHDK_PROJECT_MANAGEMENT_STANDARD.md](PHDK_PROJECT_MANAGEMENT_STANDARD.md). In Auto/Auto Force, a completed milestone is technically verified, versioned, committed with the version prefix, merged through the normal PR route to `main`, remotely verified, and then execution continues from that new main. Lifecycle stage boundaries and internal slices do not trigger releases. Final UAT reads those milestones and builds milestone → user story → acceptance-case evidence.
 
 ---
 

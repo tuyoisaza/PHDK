@@ -1,8 +1,20 @@
 ## UAT journey handoff extension
 
-`UAT_JOURNEY_STANDARD.md` is mandatory. Stage 50-uat must snapshot `UAT_ROLE_MATRIX.md`, `UAT_ACCESS_REPORT.md`, `UAT_STORIES.md`, `UAT_CASES.md`, `UAT_JOURNEY_MAP.md`, and `UAT_REPORT.md` (plus UX/UI audit when applicable). Stage 60-uat-fix must snapshot `UAT_REMEDIATION.md`, `UAT_RETEST_REPORT.md`, updated UAT_CASES/UAT_REPORT/UAT_JOURNEY_MAP, and relevant UX/UI remediation. Exit gates evaluate every applicable role, safe authenticated switching, step-level evidence and final regression. Every stage transition explicitly ends in `SIGUIENTE PASO` with the immediately actionable owner command or PHDK's next automatic work. Historical initial failures must remain reconstructable.
+`UAT_JOURNEY_STANDARD.md` is mandatory. Stage 50-uat must snapshot `UAT_ROLE_MATRIX.md`, `UAT_ACCESS_REPORT.md`, `UAT_MILESTONE_MATRIX.md` when a milestone plan exists, `UAT_STORIES.md`, `UAT_CASES.md`, `UAT_JOURNEY_MAP.md`, and `UAT_REPORT.md` (plus UX/UI audit when applicable). Stage 60-uat-fix must snapshot `UAT_REMEDIATION.md`, `UAT_RETEST_REPORT.md`, updated UAT_CASES/UAT_REPORT/UAT_JOURNEY_MAP, and relevant UX/UI remediation. Exit gates evaluate every applicable role, safe authenticated switching, step-level evidence and final regression. Every stage transition explicitly ends in `SIGUIENTE PASO` with the immediately actionable owner command or PHDK's next automatic work. Historical initial failures must remain reconstructable.
 
 # PHDK Lifecycle Handoff Standard
+
+
+## Milestone roadmap and acceptance traceability
+
+Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` across Plan, PMO/implementation, Integration and UAT.
+
+- Plan must create/snapshot `MILESTONE_PLAN.md` with every in-scope commitment/task/workstream mapped to a value milestone.
+- PMO tracks milestone execution and records actual version/PR/main evidence after each completed Auto/Auto Force milestone publication.
+- A milestone delivery does not close the lifecycle run; Auto continues from verified `main`.
+- Final UAT must create/snapshot `UAT_MILESTONE_MATRIX.md` and cover every delivered milestone with at least one intent-linked user-value story plus additional role/cross-milestone cases where required.
+- Lifecycle stage transitions themselves do not imply version bumps.
+
 
 ## Mandatory commitment tracking at every gate
 
