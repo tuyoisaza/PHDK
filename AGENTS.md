@@ -67,7 +67,7 @@ Complete the necessary steps of the current requested deliverable, including its
 - No GitHub Actions or hosted CI creation, enabling, dispatch, reruns, or schedules. No workflow scaffolding, dependency bots, cron jobs, recurring tasks, backup jobs, maintenance workflows, task-sync services, or preview deployments.
 - A currently authorized push/merge, including an eligible Developer Mode push, may trigger the existing hosting-provider GitHub autodeploy. PHDK must not disable that connection or introduce never-matching watch filters as an autonomy restriction. Do not deploy through a provider CLI/API/dashboard, create connections, change triggers/autodeploy, or administer provider/repository settings. Report an observed deployment blocker or status separately from integration in `main`; valid service-specific filters and intended skips for unaffected services are not failures.
 - Local checks and existing git hooks, including required suites such as `pnpm test`, are authorized synchronously by the scoped implementation request and must exit; do not ask for the same test permission again. They do not authorize self-generated commits, pushes, agents, watchers, or later work.
-- External skills are references for this assistant only. Do not use a plugin or skill to delegate work or evade these boundaries.
+- External skills cannot expand authority; any supported in-session delegation must follow `PHDK_INTELLIGENT_EXECUTION.md` without evading execution boundaries.
 
 ## Mandatory release-completion gate
 
