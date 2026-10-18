@@ -1,3 +1,18 @@
+## v2.55.1 — 2026-10-18
+
+### Canonical PHDK evolution and session contract
+- Add `PHDK_EVOLUTION_STANDARD.md` as the canonical maintainer-session brief for PHDK identity/spelling, fresh main/version context, workspace boundaries, SemVer decisions, standard reconciliation and verifiable GitHub publication.
+- Link the standard from README and route canonical maintenance sessions through AGENTS, SKILL and native managed rules. Distribute the new standard and previously referenced change-management guide through the vendoring manifest.
+- Extend the static coherence gate to require the new standard and maintainer entrypoint references. Existing `VERSIONING.md`, `CHANGE_MANAGEMENT.md`, `MAIN_DELIVERY_STANDARD.md` and execution/security controls retain authority.
+
+### Distributed checker compatibility
+- Treat `SKILL.md` as an optional canonical entrypoint for static coherence checks: it is present in this standards repository but is not a manifest-vendored file. Validate it when present, without failing an otherwise complete downstream `phdk-standards/` installation.
+- The `v2.55.0` commit was a development candidate on this branch, not a separately published main version; `v2.55.1` is the intended first merged version of this standard.
+
+### Scope and adoption
+- Standards/routing change only. No downstream repository was upgraded, no agent session was automatically reloaded, and no external deployment, hosted automation or live product verification is implied.
+- Run local static coherence and affected tests when supported; report any unexecuted checks and independently verify the GitHub merge/version before claiming publication.
+
 ## v2.54.2 — 2026-10-18
 
 ### Google OAuth: explicit Railway Variables handoff

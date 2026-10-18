@@ -14,6 +14,10 @@ description: >-
 
 # PHDK
 
+## Canonical PHDK maintenance
+
+If the current request changes the canonical PHDK standards repository (as distinct from a product using PHDK), load `PHDK_EVOLUTION_STANDARD.md` before editing. Resolve live main/version/README/changelog/PR state; keep the defined spelling, workspace, SemVer, manifest, entrypoint and GitHub publication rules aligned with `VERSIONING.md`, `CHANGE_MANAGEMENT.md` and `MAIN_DELIVERY_STANDARD.md`. This is no new execution authorization or command; the current request and existing controls still govern.
+
 ## Universal preflight
 
 Before any PHDK command or lifecycle stage, follow `PHDK_PREFLIGHT.md` and the applicable entry/exit/handoff contract in `PHDK_LIFECYCLE.md`. A stage may start only after verifying its required upstream artifacts/handoff, and every completed/reused stage must leave durable canonical outputs plus the historical run snapshot. Verify PHDK installation/version/manifest/managed rules, then inspect `SKILLS_REGISTRY.md` for relevant capabilities and check what is actually installed/connected in the active tool. Use relevant available skills unless the user explicitly disabled skills/plugins/connectors or a named capability. Missing optional skills do not block PHDK.
