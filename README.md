@@ -635,7 +635,7 @@ By default:
 - no provider administration from ordinary development commands;
 - no bypass of hooks, protections or actual current-owner/host review requirements; AUTO FORCE skips only PHDK-imposed human gates.
 
-PMO workers are allowed only inside an explicitly active PMO session and only for owner-confirmed workstreams.
+PMO portfolio workers operate only in an active PMO session on confirmed workstreams. Other PHDK modes may use bounded in-session task workers under `PHDK_INTELLIGENT_EXECUTION.md` without activating PMO.
 
 ---
 
