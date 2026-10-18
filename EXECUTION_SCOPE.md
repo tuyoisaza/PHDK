@@ -30,7 +30,7 @@ Relevant already-installed capabilities may be used within this execution scope 
 
 The explicit command `PHDK PMO` activates `PHDK_PMO.md` for the current project/portfolio in the active conversation. PMO first discovers candidate workstreams and requires owner confirmation of the active portfolio before delegated execution.
 
-Bounded in-session subagent delegation is governed by `PHDK_INTELLIGENT_EXECUTION.md`, available in any mode when host-supported and beneficial. PMO alone governs portfolio-level worker orchestration. The PMO orchestrator remains the only coordinator; each worker is bounded to one confirmed workstream, may not recursively delegate, may not choose new work, and may not continue after the conversation. No worker/background daemon/schedule survives PMO exit.
+Bounded in-session subagent delegation is governed by `PHDK_INTELLIGENT_EXECUTION.md`, available in any mode when host-supported and beneficial. PMO alone governs portfolio-level worker orchestration. Within PMO, the PMO orchestrator remains the portfolio coordinator; its workers are bounded to confirmed workstreams, may not recursively delegate, may not choose new work, and may not continue after the conversation. No worker/background daemon/schedule survives PMO exit.
 
 PMO delegation does not widen browser/live-service/provider-write/security/repository permissions. All workers inherit this execution scope and the controls applicable to their workstream.
 
