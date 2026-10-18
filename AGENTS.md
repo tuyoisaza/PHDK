@@ -187,7 +187,7 @@ Public marketing/content sites do not acquire login, dashboards, user management
 
 The standard monorepo is `apps/web` (Next.js), `apps/api` (NestJS + Fastify), optional `apps/mobile`, and shared `packages/*`. Existing web/API service builds target the repository root; this describes source configuration, not permission to reconfigure Railway.
 
-Authentication defaults to custom Google OAuth 2.0. Managed auth-provider exceptions require a documented project decision. When roles exist, the minimum set is `super_admin`, `admin`, `team_leader`, and `member`, enforced server-side.
+Authentication defaults to custom Google OAuth 2.0. Managed auth-provider exceptions require a documented project decision. When owner-supplied OAuth variables are needed, follow `TECHNICAL_STACK.md` — **Required Railway Variables handoff**: name the service/environment and provide exact code-consumed `KEY=value` blocks with the real public callback/origin and safe placeholders; request secret entry directly in the provider, never in chat. When roles exist, the minimum set is `super_admin`, `admin`, `team_leader`, and `member`, enforced server-side.
 
 App-style products implement the specified navigation, version display, real authentication, authorized administration, debug/diagnostic contracts, safe logging, and i18n. Required routes are defined by the product and the relevant technical standards; do not invent app features for a public-only site.
 
