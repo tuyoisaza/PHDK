@@ -1,3 +1,17 @@
+## v2.54.0 — 2026-10-17
+
+### Auto Force and continuous delivery
+- Add `PHDK auto force`: PHDK-imposed human/manual/formal reviews are nonblocking immediately, without investigating approval queues or searching for reviewers. Perform substantive technical diff review, required checks, versioned branch push/PR/merge and remote-main verification.
+- An actual rejected operation starts report → investigate its cause → repair → revalidate → retry delivery. Preserve the current authorization through this cycle and continue independent work when one operation remains unavailable.
+- Both Auto variants record the factual user mandate and progress in run-local `AUTO_STATE.json`, recover it after context loss and continue without another grant. A missing or malformed record is repaired internally; it is neither a permission token nor a new delivery gate.
+- Explicitly preauthorize existing mandatory finite isolated suites, including `pnpm test`/Vitest and composition when required. Avoiding optional tests does not prohibit a required hook.
+- Align native entrypoints, lifecycle, task tracking, communication, enforcement and delivery rules. The continuation cue reports the current goal/next action and is followed by actual work in the same invocation.
+
+### Verification and adoption
+- Add an offline state advisor and behavioral regressions for nonblocking reviews, required checks, real rejection/repair/retry, context recovery, independent work, stop preservation and delivery targets. See `PHDK_COHERENCE_REPORT.md` for executed verification and its limits.
+- Distribute the continuity contract and advisor through the managed manifest. Downstream projects adopt v2.54.0 through the existing authorized upgrade/preflight; publishing this source does not imply every active session or installed project has reloaded.
+- FORCE changes PHDK's review policy; it does not weaken actual hooks/platform enforcement, erase genuine user restrictions, force-push, administer providers or create background execution.
+
 ## v2.53.1 — 2026-10-17
 
 ### Auto executes missing implementation after planning

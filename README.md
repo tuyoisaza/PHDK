@@ -1,5 +1,7 @@
 # PHDK
 
+**`PHDK auto force` and durable Auto continuity:** [PHDK_AUTO_CONTINUITY.md](PHDK_AUTO_CONTINUITY.md) makes PHDK-only human reviews non-blocking immediately, without preventive review/protection investigation. Auto keeps the scoped user mandate through context compaction, runs mandatory checks without repeated permission, and repairs/retries actual delivery failures before reporting a remaining blocker.
+
 **New `PHDK uat prep` (v2.53.0):** [`PHDK_UAT_PREP.md`](PHDK_UAT_PREP.md) defines a standalone implementation command and required stage 45 in Auto. It **builds/repairs and provisions permitted non-production synthetic Company Co role accounts**, repeatable seeders, trusted server/provider-issued test sessions and local role/tenant verification; produces fixture/role/auth/prep evidence before UAT. Prep is **not** browser testing or permission for production privileged logins; stage 50 still independently verifies browser access.
 
 **Synthetic UAT identity and JWT policy (v2.52.2):** Read [`JWT_STANDARD.md`](JWT_STANDARD.md) before authenticated UAT, UAT Fix, Auto UAT or Check. Authenticate fictional Company Co roles through a supported **non-production** provider/session/bootstrap; signed, scoped short-lived JWTs are used only by products that actually use JWT. Never ask for people's passwords/bearer tokens, forge production admin access or equate a synthetic role label with authentication. Prove all role and tenant boundaries in actual permitted browser/API journeys, and revoke temporary test sessions.
@@ -13,7 +15,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.53.1**
+**Version v2.54.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 
@@ -60,7 +62,7 @@ PMO workers using Auto execution semantics
     ↓
 PMO Integration Review
     ↓
-human integrated review when requested or required
+assistant integrated diff review; actual owner/host controls
     ↓
 PHDK uat prep
     ↓
@@ -97,6 +99,7 @@ Each stage has one job.
 | **Plan** | Design or reconstruct the solution/repository/UX architecture and turn it into an executable implementation plan. |
 | **PMO** | Detect and coordinate multiple fronts, dependencies, ownership, workers and integration. |
 | **Auto** | Revalidate intent against code, execute the entire authorized development scope, then validate, repair and deliver. |
+| **Auto Force** | Execute Auto with PHDK-only human reviews non-blocking from entry; retain the mandate and repair/retry actual delivery failures. |
 | **UX/UI** | Plan usable journeys and coherent interfaces for new projects or redesigns; audit real usage and fix critical friction before UAT acceptance. |
 | **UAT Prep** | Build and verify the permitted synthetic accounts, fixtures and authentication bootstrap needed for UAT. |
 | **UAT** | Validate the integrated product against intent-aligned user stories and acceptance criteria. |
@@ -394,6 +397,22 @@ PMO still has a distinct role:
 
 PMO workers use Auto-style execution semantics for their assigned workstream, but they do not recursively activate the full Auto lifecycle.
 
+## `PHDK auto force`
+
+Use the same complete lifecycle while explicitly removing human-review stops imposed only by PHDK:
+
+```text
+PHDK auto force
+```
+
+PHDK records those gates as `NON_BLOCKING_BY_MODE` immediately. It does not investigate whether they block, query review/protection requirements preventively, or seek reviewers/approvals. It reviews the diff itself, runs the applicable mandatory checks, pushes the branch, opens/updates the PR, merges and reads back remote `main`. Mandatory local suites such as `pnpm test` required by a pre-push hook are included in the scoped implementation authorization.
+
+When a real hook/tool/GitHub operation rejects delivery, PHDK reports the rejection, investigates that concrete cause, repairs it within scope, revalidates and retries the affected push/PR/merge. It keeps the mandate and completes independent work. It does not repeat unchanged rejected writes or evade controls with force-pushes, disabled hooks, alternate credentials/transports or provider-setting changes. Real current owner/host restrictions remain effective.
+
+Both Auto variants preserve mandate provenance, scope/target/restrictions, progress and next action in `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json`. Context recovery reloads that evidence with the current user instructions; missing/malformed state is reconstructed internally. The file is no new permission and does not activate another conversation. Every Auto update states the true mandate and next action, then executes the eligible action in the same turn. Completion, a user stop or a real remaining blocker is reported as its actual state.
+
+The canonical contract and supported continuation aid are [PHDK_AUTO_CONTINUITY.md](PHDK_AUTO_CONTINUITY.md) and [scripts/phdk_auto_gate.py](scripts/phdk_auto_gate.py). Updating or discussing these standards does not activate Auto or AUTO FORCE.
+
 ---
 
 ## `PHDK uat`
@@ -463,7 +482,7 @@ For every unresolved FAIL, BLOCKED or MANUAL case, PHDK explains:
 
 If a blocker is repository-local — for example a missing fixture, fake adapter, auth stub or in-process harness — PHDK should build the smallest permitted harness and rerun the case.
 
-If a blocker genuinely requires an unavailable browser environment, external account, provider setting, secret, human review or other excluded action, PHDK gives the owner an explicit checklist instead of simply saying “BLOCKED”.
+If a blocker genuinely requires an unavailable browser environment, external account, provider setting, secret, actual current-owner/host review or other excluded action, PHDK gives the owner an explicit checklist instead of simply saying “BLOCKED”.
 
 ---
 
@@ -582,10 +601,12 @@ Humans remain responsible for:
 - portfolio/workstream selection;
 - material product decisions;
 - sensitive policy choices;
-- formal approvals required by the repository or organization;
+- actual current-owner/host formal approval requirements;
 - external/manual actions PHDK cannot perform.
 
 PHDK eliminates repetitive approval loops. It does not eliminate accountability.
+
+In AUTO FORCE, PHDK-only human-review requirements are non-blocking from entry; no preventive review/protection investigation is added. The assistant still reviews its diff and performs required checks, handles actual delivery rejections and reports verified results.
 
 ---
 
@@ -602,7 +623,7 @@ By default:
 - no live database mutation;
 - no secret-value inspection;
 - no provider administration from ordinary development commands;
-- no bypass of hooks, protections or formal review requirements.
+- no bypass of hooks, protections or actual current-owner/host review requirements; AUTO FORCE skips only PHDK-imposed human gates.
 
 PMO workers are allowed only inside an explicitly active PMO session and only for owner-confirmed workstreams.
 
@@ -747,6 +768,7 @@ PHDK is built around a few simple ideas:
 | Solution architecture & implementation planning | [PHDK_PLAN.md](PHDK_PLAN.md) |
 | Multi-workstream orchestration | [PHDK_PMO.md](PHDK_PMO.md) |
 | Autonomous single-goal development | [PHDK_AUTO.md](PHDK_AUTO.md) |
+| Auto Force, mandate continuity and delivery repair/retry | [PHDK_AUTO_CONTINUITY.md](PHDK_AUTO_CONTINUITY.md) |
 | UAT and UAT repair | [UAT_STANDARD.md](UAT_STANDARD.md) |
 | Standards compliance | [PHDK_CHECK.md](PHDK_CHECK.md) |
 | Normal delivery to main | [MAIN_DELIVERY_STANDARD.md](MAIN_DELIVERY_STANDARD.md) |

@@ -4,6 +4,8 @@
 
 PHDK uses automated tests to control concrete regression risks. Tests are not a default deliverable for every code change.
 
+Creating new tests and executing an existing mandatory suite are separate decisions. Existing repository or hook requirements still apply when no new-test risk trigger exists, including for documentation changes. Auto and FORCE already authorize their required synchronous isolated checks within the current goal; see `PHDK_AUTO_CONTINUITY.md`.
+
 `EXECUTION_SCOPE.md` is authoritative. Permitted code checks consist of source/diff review, static checks, local builds, and local unit or in-process integration tests with external dependencies replaced by deterministic test doubles. See `VERIFICATION_LOOP.md` for evidence and reporting requirements and `MAIN_DELIVERY_STANDARD.md` for normal delivery completion.
 
 The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics** — allows requested finite reads of service/deployment status, non-secret source/branch/configuration/watch metadata, and existing logs independently of Developer Mode or unlock. Those observations are diagnostic evidence, not an executed product test.
@@ -34,7 +36,7 @@ Do not write a test merely because code was added. Ask:
 2. Would a regression be dangerous, expensive, destructive, security-sensitive, or difficult to diagnose?
 3. Can a small deterministic local test catch that risk without a browser, network service, or database?
 
-If no risk trigger applies, source review and the applicable static/build gate are sufficient for code completion. If a risk trigger applies, add the smallest useful permitted test. A remaining runtime uncertainty must be reported; it never authorizes broader execution by itself.
+If no risk trigger applies, source review and applicable existing repository gates are sufficient for code verification; no new test is needed. Existing mandatory tests still run. If a risk trigger applies, add the smallest useful permitted test. A remaining runtime uncertainty must be reported; it never authorizes broader execution by itself.
 
 Passing local verification alone does not finish a normal development request. Continue its authorized branch/PR delivery through review, integration, and fresh verification of the remote target and version under `MAIN_DELIVERY_STANDARD.md`, unless the user explicitly narrowed the scope. Review the complete actual diff; owner approval of sensitive decisions may already be present in the current request. Preserve actual named, independent, or formal review requirements without adding a universal human-diff or GitHub-review-event gate. Classify the changed behavior: restoring login through a packaging fix does not itself change authentication policy.
 
@@ -43,6 +45,14 @@ Passing local verification alone does not finish a normal development request. C
 When `PHDK auto` is explicitly active, follow `PHDK_AUTO.md`: implement the entire identified goal and write necessary coverage with its code, then execute the applicable integrated verification at the end. Slice checklists collect coverage for that boundary; they do not require intermediate test suites, human acceptance, or a release per feature. Run an intermediate check only to resolve an actual implementation blocker or satisfy a mandatory hook/control at the operation it governs.
 
 At the final boundary, review the whole candidate, run all applicable local gates and risk-triggered tests, repair in-scope failures, and rerun affected checks before normal branch/PR delivery. Do not require another PHDK-only approval or assign routine local testing to the owner. Final verification happens before publication to `main`; Auto neither skips required checks nor authorizes browser/live-service tests outside the UAT/UAT Fix exception.
+
+### Required suites are already authorized
+
+For both `PHDK auto` and `PHDK auto force`, inspect the actual scripts and execute all existing required permitted checks: `pnpm test`/Vitest, lint, typecheck, format, build and composition when the repository requires them. A full isolated suite can be the mandatory minimum; its size, duration, command name or pre-push placement does not require another owner approval. Use the runner's finite mode required by the existing gate; do not leave a watcher running or weaken the gate.
+
+"Avoid optional tests" means avoid unnecessary verification; it does not prohibit required tests. A current explicit owner ban on the actual operation or a script that would exercise excluded live/browser/paid/provider effects remains a concrete conflict. Use an existing permitted isolated configuration if it satisfies the same gate; otherwise record the exact missing permission or capability and continue independent work. Never bypass the hook, silently omit required tests or ask a ceremonial suite-approval question.
+
+FORCE also makes PHDK-only human/manual/formal review waits nonblocking without a preventive review/protection investigation. Perform technical source/diff/security review and mandatory checks, then continue the permitted delivery. An actual hook/tool/GitHub rejection starts a repair-and-retry cycle under `PHDK_AUTO_CONTINUITY.md`: report, diagnose the observed cause, repair within scope, revalidate affected checks, retry delivery and verify `main`. A first rejection is not a terminal condition. Preserve genuine current owner restrictions, keep the mandate, and continue while permitted progress remains without bypass or identical rejected retries.
 
 ---
 
@@ -61,7 +71,7 @@ Target the risky code rather than creating a broad suite around unrelated behavi
 
 ---
 
-## Tests Are Not Required by Default For
+## New Tests Are Not Required by Default For
 
 - simple CRUD without a specific regression risk
 - every service method or API-boundary Zod schema
@@ -70,7 +80,7 @@ Target the risky code rather than creating a broad suite around unrelated behavi
 - documentation, formatting, or other reversible low-impact changes
 - third-party library internals
 
-Do not manufacture tests to satisfy a percentage or checklist count. PHDK has no coverage-percentage target. Visual snapshots and browser-based tests are outside ordinary development verification; UAT/UAT Fix may use the scoped browser exception.
+Do not manufacture tests to satisfy a percentage or checklist count. PHDK has no coverage-percentage target. This list does not waive an existing mandatory test suite. Visual snapshots and browser-based tests are outside ordinary development verification; UAT/UAT Fix may use the scoped browser exception.
 
 ---
 
@@ -125,13 +135,15 @@ Do not repeatedly run full test/build loops while iterating on a narrow issue. O
 Report the relevant risk coverage for the requested deliverable. During Auto implementation, record pending final checks factually and continue; do not emit a completion report or mark checks passed at each slice. At the final integrated boundary, report one of:
 
 ```txt
-Automated tests: not required — no risk trigger; source review and applicable static/build checks completed
+New tests: not required — no risk trigger
+Existing required tests: <command/result, or none required by the applicable repository gate>
+Source review and applicable static/build checks: <actual results>
 ```
 
 or:
 
 ```txt
-Automated tests: required — <risk trigger>
+Automated tests: required — <risk trigger and/or existing repository/hook requirement>
 Local tests run: <command/result>
 Coverage limit: <external/runtime behavior not exercised, if relevant>
 ```
@@ -164,6 +176,7 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 
 - [ ] The entire requested goal was assessed against the mandatory risk triggers; Auto coverage includes all implemented features and their relevant interactions.
 - [ ] Source review and applicable static/build checks have actual recorded results.
+- [ ] Existing required isolated suites ran without redundant authorization; no optional-test rule was used to skip a hook or demand another approval.
 - [ ] If a trigger applies, the smallest useful local test exists and passes or its failure/gap is reported.
 - [ ] Test scripts and dependencies do not launch browsers or access services/databases.
 - [ ] No speculative harness or unnecessary runner was added.

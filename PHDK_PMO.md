@@ -358,6 +358,8 @@ The owner remains accountable for portfolio selection and material decisions.
 
 PMO does not require manual approval after every workstream. A human review checkpoint after the integrated candidate is reasonable and may be requested by the owner, but it is not automatically a PHDK merge prerequisite unless the owner/repository requires it.
 
+Inside `PHDK auto force`, all PHDK-imposed human-review checkpoints are `NON_BLOCKING_BY_MODE` under `PHDK_AUTO_CONTINUITY.md`, without researching approvals or looking for reviewers. Perform the integrated technical diff review and required checks, then continue normal delivery. A real rejection enters report/diagnose/repair/revalidate/retry; it is not a reason to hand routine integration back to the owner.
+
 PMO must present a readable integrated summary before UAT:
 - what each workstream changed;
 - what shared changes were reconciled;

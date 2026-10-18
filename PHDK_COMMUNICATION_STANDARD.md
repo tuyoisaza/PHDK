@@ -14,17 +14,29 @@ PHDK-managed instructions govern PHDK-facing status and closure formats, subject
 ## State always visible
 Every substantive PHDK progress, handoff, blocked, status-request or completion response includes a concise, scannable state capsule:
 - **PHDK:** installed/canonical version if verified; otherwise "sin verificar" (never guess).
-- **Modo / etapa:** Auto, PMO, Capture, Plan, Developer, UAT, UAT Fix, SEO, AEO/GEO, Check or relevant stage. State which worker/subagent owns the result, and distinguish worker completion from integration.
+- **Modo / etapa:** Auto, AUTO FORCE, PMO, Capture, Plan, Developer, UAT, UAT Fix, SEO, AEO/GEO, Check or relevant stage. State which worker/subagent owns the result, and distinguish worker completion from integration.
 - **Objetivo y progreso:** scoped goal; what concretely changed, passed and is still outstanding. Preserve planned commitments, open PRs and outstanding gates; do not claim percentage without an evidence-grounded denominator.
 - **Git / publicación:** precise local/branch/commit/PR/main/production status as observed, with version and link/SHA if verified. Distinguish merged from deployed. Never imply a commit, push, merge or deployment from intent alone.
 - **SIGUIENTE PASO:** exactly the next action PHDK will execute now or the one action the owner needs to take to unblock it; if no work remains say "Ninguno: objetivo verificado y entregado." Do not leave the owner guessing.
 
 At the start of a lifecycle or meaningful mode transition announce the current mode, scope, planned stage and next immediate action. At each meaningful milestone say what just closed, evidence, where the lifecycle now is, and what runs next. Keep updates succinct and avoid repeating a giant board when unchanged; Auto's mandatory lifecycle board still applies at entry, transitions and closure.
 
+## Auto mandate and action capsule
+
+Apply `PHDK_AUTO_CONTINUITY.md` to both Auto variants. Every Auto-facing response ends its status text with the actual mandate and next-action capsule, before the final evidence link when applicable. While an authorized action is executable, use the active mode and real scope:
+
+```text
+AUTO FORCE activo · autorización vigente para [objetivo/alcance] · SIGUIENTE PASO: [acción concreta]. Continúo.
+```
+
+Use `AUTO` for normal Auto. This wording records existing user authorization; it never creates approval or hides current restrictions. Execute the stated eligible action in the same turn. A terminal answer saying “continúo” while waiting for another user message is a continuity failure. Restore the mandate from current conversation evidence plus `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` after context compaction; repair missing/malformed records internally without a permission question.
+
+On a real rejection, report the failed operation and evidence, then state the immediate diagnostic/repair action and continue. Under AUTO FORCE, do not ask whether PHDK-only human reviews block or seek reviewers; they are `NON_BLOCKING_BY_MODE`. Diagnose the actual rejection, repair in scope, revalidate and retry delivery. Preserve real user/host controls. If no permitted action remains after that process, say `AUTO FORCE bloqueado en [acción] · autorización vigente para [alcance] · SIGUIENTE PASO: [único desbloqueo real]`; do not claim ongoing execution. On verified completion say `AUTO FORCE finalizado · objetivo entregado · SIGUIENTE PASO: ninguno`. On user stop, acknowledge the stopped state. A completed/stopped state must not carry an “activo/continúo” footer.
+
 ## Finish-first execution
 - Keep executing independent, in-scope and permitted steps after reporting progress. Status updates are not a request to stop.
-- Never ask for redundant approval that current instructions already provide. In Developer Mode, eligible bounded direct-main delivery may proceed without repeat approval; normal mode follows branch/PR delivery and actual risk/review gates. Do not treat a test, review or inaccessible service as approved or passed merely to maintain momentum.
-- If a human signoff is genuinely mandatory, state exactly what requires it and why, complete other independent safe actions, then report BLOCKED/PARTIALLY DELIVERED with the precise restart cue. Do not impersonate a reviewer, forge consent, bypass branch protection, skip tests, or override higher-priority instructions.
+- Never ask for redundant approval that current instructions already provide, including mandatory local checks/tests/hooks within the scoped implementation mandate. In Developer Mode, eligible bounded direct-main delivery may proceed without repeat approval; normal mode follows branch/PR delivery and actual risk/review gates. Do not treat a test, review or inaccessible service as approved or passed merely to maintain momentum.
+- A PHDK-only human signoff is non-blocking in AUTO FORCE without preventive review/protection investigation. A real current-owner/host restriction remains effective; report actual rejected actions, diagnose and repair within scope, revalidate and retry before declaring a remaining blocker. Complete independent permitted actions, then report BLOCKED/PARTIALLY DELIVERED only if no executable work remains. Do not impersonate a reviewer, forge consent, bypass branch protection, skip required tests, or override higher-priority instructions.
 - PMO worker messages are input to the PMO integrator. Integrator owns the final state, dependency/commitment ledger, PR reconciliation and closure.
 - Don't start unrelated tasks or background work. End after the current authorized outcome is delivered or a genuine blocker remains.
 
@@ -32,20 +44,24 @@ At the start of a lifecycle or meaningful mode transition announce the current m
 Every terminal PHDK response ends with a verified, actionable link to the current result: merged main file/commit, PR, preview/application URL, delivery report or concrete evidence artifact. Say what the owner can inspect there and whether it is published, still on a branch, or awaiting deploy. Prioritize the product URL when actually verified; otherwise link to the canonical GitHub change/evidence. Do not fabricate URL, claim the deployment is live from a Git push, or turn an inaccessible path into a clickable link. If no valid link is available, say **Enlace: no disponible/verificado** and identify the specific location needed. Place this as the final line, after SIGUIENTE PASO.
 
 ## Blocker and decision UX
-A blocked closure gives: what is blocked; exact URL/location/artifact and target version/SHA/environment if known; what's already complete; which evidence is missing; a copy-paste-ready command or one owner action; and the exact cue to resume. For genuine multiple owner choices give at most three numbered options, describing consequences and a recommended safe default. Offer options only when a real decision exists, not as a ceremonial confirmation. A warning is not a blocker without proof.
+A blocked closure gives: what is blocked; exact URL/location/artifact and target version/SHA/environment if known; what's already complete; actual rejection/control evidence, diagnostic/repair/revalidation/retry results when applicable; the remaining unavailable action; and the exact cue to resume. For genuine multiple owner choices give at most three numbered options, describing consequences and a recommended safe default. Offer options only when a real decision exists, not as a ceremonial confirmation. A warning, PHDK-only review label or missing continuity record is not a blocker without real evidence. Keep the user's mandate distinct from technical ability to execute it.
 
 ## Suggested compact wording
 PHDK vX.Y.Z (verificada/no verificada) · Modo: AUTO · Etapa: UAT
 Hecho: [observable outcome and evidence].
 Pendiente: [specific remaining commitment/gate or none].
 Git: [branch / commit / PR / main / deploy observed or unverified].
-SIGUIENTE PASO: [automatic next action OR exact owner input].
+AUTO activo · autorización vigente para [real scope] · SIGUIENTE PASO: [automatic next action]. Continúo.
 Ver aquí: [verified clickable URL] — [what to inspect and publication state].
 
 ## Acceptance cases
 1. External design skill emits a repeated promotional banner: omit it from subsequent PHDK text, preserve any required notice and keep the skill's substantive output.
-2. Auto finishes a coding step but leaves an open PR: report PARTIALLY DELIVERED and keep integration as pending.
+2. Auto finishes a coding step but leaves an open PR: report integration as pending and continue the authorized delivery in the same turn; an open PR is not completion.
 3. PMO worker says DONE: mark only that worker complete until PMO integration verifies it.
 4. Developer Mode eligible change has existing approval: proceed through allowed commit/push/checks, no redundant owner question.
-5. Mandatory independent review blocks merge: explicitly surface BLOCKED, no fabricated approval, actionable resume instructions.
+5. AUTO FORCE encounters a PHDK-only pending human/security review: record `NON_BLOCKING_BY_MODE`, review the diff itself, run required checks and continue delivery without reviewer/protection investigation.
 6. Version or deploy not verified: mark unverified, never invent publication.
+7. Pre-push requires `pnpm test`: run the scoped mandatory suite under existing authorization; repair failures and retry without another approval question.
+8. GitHub rejects delivery: report the rejection, diagnose the real cause, repair within scope, revalidate and retry. A remaining enforced review/access requirement is reported accurately; never fabricate review or bypass controls.
+9. Context compaction or malformed `AUTO_STATE.json`: reconstruct current mandate internally and execute the next eligible action; do not ask the user to grant it again.
+10. Progress ends with “Continúo” but no next action executes: fail the continuity contract; continue working instead of yielding a terminal response.

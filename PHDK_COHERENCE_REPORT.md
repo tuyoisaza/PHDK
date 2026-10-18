@@ -1,44 +1,48 @@
-# PHDK coherence report — v2.53.1
+# PHDK coherence report — v2.54.0
 
-Baseline: `09b2c100d9c3846ed84afa82fe63e4d7d7bccbb6` (canonical `main`, v2.53.0).
-Review: 2026-10-17 14:35 UTC. Scope: Auto intent-to-implementation execution and directly related routing, stage, commitment and completion contracts. This is a scoped release review, not an exhaustive audit of every PHDK standard or downstream project.
+Baseline: `94f583635d295ae0f227726718904d952cadb8ab` (canonical `main`, v2.53.1).
+Review: 2026-10-18 03:44 UTC. Scope: explicit AUTO FORCE, continuity of the current user mandate, PHDK human-review disposition, required checks and recovery from actual delivery failures. This is a scoped source release review, not an exhaustive audit of every standard or downstream installation.
 
 ## Findings and resolution
 
 | Class | Severity | Evidence | Resolution / next action |
 |---|---|---|---|
-| GAP — resolved | High | Auto already promised full execution, but Plan used optional continuation wording and repository presence could imply brownfield implementation. | Require a fresh full intent/source reconciliation and immediate Plan-to-implementation continuation; explicitly build requirements-only/scaffold-only products and complete partial products. |
-| CONFLICT — resolved | High | PMO closure said to stop; Check closure required a remediation question even under Auto; new-gap wording could reauthorize confirmed requirements. | Preserve standalone command boundaries while continuing the active Auto goal, separating in-scope gaps from proposed new outcomes. |
-| RISK — resolved | High | Reviewing the full baseline could be mistaken for authority to execute every unrelated commitment in a narrower request. | Retain inventory visibility while limiting execution, active ownership and run closure to the current authorized goal. |
-| GAP — resolved | Medium | Existing UAT policy test pinned VERSION/README/CHANGELOG to 2.51.6, already incompatible with baseline 2.53.0. | Preserve the 2.51.6 minimum and validate current release agreement; retain all browser-permission tests. |
-| VERIFIED | — | AGENTS, SKILL, native managed rules, README and canonical Auto/Plan/Capture/PMO/Check/lifecycle/commitment/completion changes reviewed together. | Reuse verified documents/code, never infer no-code from unavailable access, and never satisfy product implementation with a plan or false N/A. |
-| VERIFIED | — | Independent semantic review approved the scoped changes, including mixed in-scope/out-of-scope Check findings and the repaired version test. | Preserve material-decision, access, standalone-command, UAT and delivery boundaries. |
-| UNVERIFIED | — | Downstream installations, production applications and runtime behavior of other agents were not inspected. | Adoption requires the project's authorized PHDK synchronization/preflight; do not infer that an already-open session reloaded. |
+| GAP — resolved | High | A pending PHDK human review could become a terminal Auto blocker even when the user had authorized full delivery. | Explicit `PHDK auto force` classifies PHDK-only human reviews as `NON_BLOCKING_BY_MODE` immediately. No preventive reviewer/protection investigation is required. The assistant performs its technical diff review and applicable checks, then delivers normally. |
+| GAP — resolved | High | A first hook, push or merge rejection could end the run with a request for renewed permission. | Report the observed failure, diagnose its actual cause, repair within the current mandate, revalidate and retry delivery. Continue while an available corrective action can advance the goal. |
+| GAP — resolved | High | Authorization and the next action could be lost across stage handoffs or context compaction. | Record the actual current mandate and progress in a run-local `AUTO_STATE.json`; reconcile it with live user instructions. Missing or malformed bookkeeping requires internal repair, not another approval gate. |
+| CONFLICT — resolved | High | Avoiding unnecessary tests could be interpreted as withholding permission for an existing mandatory pre-push suite. | A scoped implementation mandate includes finite, isolated mandatory checks and existing hooks, including Vitest/composition when configured. Optional tests remain scoped to concrete verification needs. |
+| DEFECT — resolved | Medium | The initial continuity advisor could accept completed check evidence behind unfinished upstream work. | Validate prerequisite consistency and require internal state repair/revalidation; add a regression for the exact stale-evidence chain. |
+| DEFECT — resolved | Medium | Incomplete metadata could obscure an actual recorded user stop; retry guidance could hardcode `main`. | Preserve the recorded stop while repairing bookkeeping, and use the explicit target branch in retry guidance. Add both regressions. |
+| VERIFIED | — | Canonical Auto/continuity, scope, delivery, testing, task tracking, lifecycle, communication and native entrypoints were reconciled together. | Preserve the current goal, actual owner restrictions and observed platform enforcement. The local advisor neither executes operations nor grants permissions. |
+| UNVERIFIED | — | Downstream installations and other running sessions were not updated or exercised. | Adoption requires the project's normal PHDK synchronization/preflight. Do not infer that an already-open session reloaded the new source. |
 
 ## Executed verification
 
-- `python scripts/phdk_coherence_check.py`: PASS, v2.53.1 and 64 manifest mappings.
-- `python -m unittest discover -s tests -v`: 31 tests passed after repairing the obsolete version pin. The initial failure and baseline pin were inspected; no browser-permission requirement was removed.
+- `python -m unittest discover -s tests -v`: PASS, 57 tests, including 26 new continuity regressions and the 31 existing tests.
+- `python scripts/phdk_coherence_check.py`: PASS, v2.54.0 and 66 manifest mappings; static verification only.
 - Skill creator `quick_validate.py .`: PASS.
-- Existing `.husky/pre-commit` and `.husky/prepare-commit-msg` scripts executed locally: canonical version advanced 2.53.0 → 2.53.1 and the source message received the correct prefix.
-- Source/diff review and `git diff --check`: PASS for the policy/test changes.
+- Source/diff review and `git diff --check`: PASS for the outgoing source changes.
+- Independent offline scenario review identified three specific advisor defects; all three were repaired and covered by regression tests. A targeted readback confirmed the fixes.
+
+No downstream application suite, browser UAT, production execution, hosted CI dispatch or provider setting change is claimed by these checks. The PHDK source repository uses the Python tests above; examples of `pnpm test` describe downstream project policy.
 
 ## Policy scenarios reviewed
 
 | Scenario | Required result |
 |---|---|
-| Confirmed product brief and readable repository without product code | Reconcile intent, plan, implement the whole authorized product and continue applicable acceptance/delivery in the same Auto invocation. |
-| Partial implementation or placeholder-only behavior | Preserve valid work, implement missing behavior and require actual evidence before completion. |
-| Current Plan but missing implementation | Reuse verified planning outputs, then execute; Plan completion is not product completion. |
-| Existing work outside a narrower current goal | Read its context without executing, cancelling or silently deferring those commitments. |
-| Source access unavailable | UNVERIFIED with the actual access blocker; never classify the project as empty or complete. |
-| Mixed in-scope and new Check gaps | Execute already-authorized fixes; retain proposed work and material decisions separately. |
-| Standalone Capture/Plan/bare Check or documentary-only request | Keep the explicit limited deliverable; do not activate product development from a skill update. |
+| Existing PHDK human PR/security-review task under explicit AUTO FORCE | Mark it non-blocking by mode without investigating reviewers; perform the assistant's substantive technical review and continue delivery. |
+| Existing mandatory Vitest, lint, typecheck, formatting, build or composition hook | Execute the applicable configured checks within the current mandate without a repeated permission question. |
+| Actual push/merge/check rejection | Report → diagnose → repair → revalidate → retry → verify the remote target. A first rejection is not a terminal task state. |
+| Missing or stale continuity record | Reconstruct it from the current instructions and observed progress, then continue; never require a new grant for bookkeeping. |
+| Real owner pause, revoked mandate or already-completed historical run | Preserve the actual restriction and reconcile with the live conversation; a file cannot activate old work. |
+| Documented external dependency after attempted resolution | Continue independent eligible work and identify only the genuinely unavailable action. |
+| Explicit target other than main | Preserve that target throughout repair, retry and remote verification. |
+| Every local step marked done | Require actual remote content/version/SHA evidence before claiming delivery complete. |
 
-These are semantic scenario reviews, not a claim that each scenario was executed against an application.
+These are source-policy and synthetic-state scenarios, not a claim that each was executed against an external application.
 
 ## Publication and external evidence
 
-This report records pre-merge evidence. Complete the normal versioned branch/PR merge, independently read back remote main content/version/SHA, and run the completion gate before claiming delivery complete. Do not add a second release merely to restamp this pre-merge report.
+This report records pre-merge evidence. Complete the normal versioned branch/PR merge and independently read back remote target content/version/SHA before claiming delivery complete. Record the actual delivery proof after merge; do not add another release merely to restamp this pre-merge report.
 
-Read-only GitHub observations at the baseline: main reports no enabled branch protection; repository rulesets returned an empty collection; workflow-run history returned zero runs. The connector did not support the workflow-settings collection, so disabled workflow configuration is not asserted. No workflow/provider configuration was changed. Existing unrelated PR #36 is outside this delivery scope.
+The fresh canonical `main` reference still matched the baseline during publication preparation. No preventive human-review, branch-protection or ruleset investigation was used to decide whether to proceed. Actual publication responses determine whether recovery is needed.

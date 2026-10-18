@@ -18,6 +18,7 @@ Preflight verifies that:
 5. Relevant recommended skills/capabilities for the requested command are available.
 6. The user has not explicitly disabled use of recommended skills.
 7. The current tool-native managed block resolves the vendored PHDK communication personality and autonomous PR delivery policy; report absent/stale entrypoints and do not claim to have refreshed other sessions.
+8. For Auto/AUTO FORCE, the active mandate and command policy resolve through `PHDK_AUTO_CONTINUITY.md`; any continuity record reflects the current user's actual request.
 
 Preflight is not a separate user command requirement. It is an automatic first step of PHDK commands. Run universal Preflight ONCE per command entry. Internal Auto/PMO stages validate handoffs and newly relevant capabilities; repeat universal Preflight only for a detected installation/version/manifest/managed-rule change or integrity failure. See `PHDK_COHERENCE_STANDARD.md`.
 
@@ -35,6 +36,7 @@ Run Preflight before:
 - `PHDK PMO`
 - PMO Integration Review / any explicit integration stage
 - `PHDK auto`
+- `PHDK auto force`
 - `PHDK uat`
 - `PHDK uat fix`
 - `PHDK check`
@@ -62,6 +64,14 @@ In that case:
 - use core PHDK standards and available built-in capabilities.
 
 A generic request for a PHDK command is otherwise permission to use already-installed, relevant, read/execute-safe skills within existing PHDK execution boundaries.
+
+## Auto mandate and Force entry
+
+For explicit `PHDK auto` or `PHDK auto force`, read `PHDK_AUTO_CONTINUITY.md` and record/recover the current user mandate in `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json`. Keep the source of authorization, scope, target, restrictions and next action; reconcile against the current user instructions after compaction. A missing or malformed record is repaired internally from available conversation evidence. Neither its absence nor its schema is a new human-approval gate, and the record never activates work in another conversation.
+
+AUTO FORCE sets PHDK-only human reviews/sign-offs to `NON_BLOCKING_BY_MODE` immediately. Preflight must not query reviews, reviewer availability or branch/ruleset protection configuration to discover whether those human gates block. Proceed with the assistant's diff review, applicable scoped checks and the normal authorized delivery attempt; real current owner/host restrictions still apply. Missing optional review skills are non-blocking.
+
+Mandatory local suites/hooks are included in the scoped implementation authorization, including `pnpm test` when required. A real tool/hook/GitHub rejection is reported, diagnosed, repaired in scope, revalidated and retried under the continuity contract. Only then investigate the concrete rejected action as needed; do not stop merely because a first attempt failed. Keep independent work moving without changing controls, transports or credentials to evade rejection.
 
 ## Step 1 — Verify PHDK installation
 
@@ -287,7 +297,7 @@ Never claim that a plugin, connector, MCP server, or external credential was ins
 
 ## Relationship to Auto
 
-`PHDK auto` runs Preflight once at the beginning of the lifecycle and rechecks capabilities only when a later stage needs a materially different capability.
+`PHDK auto` and `PHDK auto force` run Preflight once at the beginning of the lifecycle and recheck capabilities only when a later stage needs a materially different capability. Context recovery reloads the current mandate and continuity contract; it does not repeat an approval interview, preventive review investigation or the whole Preflight.
 
 Do not repeat a full Preflight before every internal Auto stage.
 
@@ -301,7 +311,7 @@ When Preflight is part of Capture/Plan/PMO/Auto/UAT/UAT Fix/Check or another lif
 PHDK_PREFLIGHT_REPORT.md
 ```
 
-with the installed/canonical version, manifest/managed-rule state, relevant capability inventory, user-disabled capabilities, any conservative sync performed, and unresolved limitations.
+with the installed/canonical version, manifest/managed-rule state, relevant capability inventory, user-disabled capabilities, any conservative sync performed, and unresolved limitations. For Auto variants, link the run's `AUTO_STATE.json` and identify the actual mode; the report records authorization provenance without granting permission itself.
 
 When a lifecycle run is active, snapshot it under the run's `00-preflight/` folder and create the Preflight `HANDOFF.md` required by `PHDK_LIFECYCLE.md`.
 
