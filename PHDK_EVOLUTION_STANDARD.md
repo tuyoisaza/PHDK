@@ -44,7 +44,7 @@ The authoritative version is the root `VERSION` file, **never a hard-coded versi
 | New command, mode, standard, workflow or substantial compatible capability | **MINOR** |
 | Compatible fix, correction, clarification, copy or internal refinement | **PATCH** |
 
-- For an authorized source-changing commit, determine the **next unused version from fresh `main`**; do not reuse a spent number or bump separately for every Auto/PMO substage.
+- For an authorized source-changing commit, determine the **next unused version from fresh `main`**; do not reuse a spent number or bump separately for every Auto/PMO lifecycle substage. Under the milestone-delivery model, a completed value milestone is an intentional delivery boundary rather than a substage and follows `PHDK_PROJECT_MANAGEMENT_STANDARD.md`.
 - Change `VERSION`, README's `**Version vX.Y.Z**` marker and the top dated `CHANGELOG.md` release **together** in the release candidate. Preserve linked historical changelog archives.
 - Commit subjects start with that version and a descriptive Conventional Commit, e.g. `vX.Y.Z docs(evolution): establish session standards`. A normal merge of the already-versioned candidate requires no second version bump or post-merge version-only commit.
 - A GitHub PR/merge is not a GitHub release or tag. Never create a release/tag unless explicitly requested or independently required by an existing release contract.

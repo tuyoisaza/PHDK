@@ -1,5 +1,16 @@
 # PHDK Plan Standard
 
+
+## Mandatory milestone planning and project-management model
+
+Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` during Plan. Classify the delivery approach as predictive, adaptive or hybrid from actual requirement stability/uncertainty, then create or refresh `MILESTONE_PLAN.md`.
+
+Milestones are value/acceptance boundaries, not PHDK lifecycle stages. Every in-scope commitment and implementation task/workstream must map to a milestone. Each milestone needs a stable `MS-###` ID, value outcome, linked requirements, included workstreams/tasks, dependencies, material risks/domain impacts, acceptance criteria/evidence, expected SemVer impact, and UAT user-goal intent. Prefer vertical, independently coherent increments; do not reserve an exact version number during planning because current `main` may advance before delivery.
+
+Inside Auto/Auto Force, completing a milestone triggers the milestone publication gate: relevant verification → version reconciliation/bump → version-prefixed commit → scoped PR → merge to `main` → remote SHA/version readback → continue from refreshed `main`. Ending Capture, Plan, PMO, UAT or another lifecycle stage by itself never triggers a version.
+
+When available, prefer the planning/task-breakdown and detailed implementation-plan capabilities registered in `SKILLS_REGISTRY.md`; PHDK's milestone, authorization and delivery rules override any external skill's checkpoint/commit/approval conventions.
+
 ## Mandatory product UX/UI planning
 
 For every user-facing interface, implement `PHDK_UX_UI.md` in greenfield or brownfield mode. Plan must produce `UX_RESEARCH_BASELINE.md`, `UX_JOURNEYS.md`, `UI_DESIGN_SYSTEM.md`, and `UX_UI_DECISIONS.md` alongside `UX_ARCHITECTURE.md`, link critical journeys to requirements and implementation tasks, and preserve valid existing workflows in redesigns. Do not declare Plan exit passed with these missing, unless the project has no UI and has documented N/A.
@@ -201,7 +212,11 @@ Include:
 
 Do not invent branding or visual art direction unsupported by intent. Detailed graphical design may be produced only when the request includes it.
 
-### 4. IMPLEMENTATION_PLAN.md
+### 4. MILESTONE_PLAN.md
+
+Define the ordered value-delivery roadmap required by `PHDK_PROJECT_MANAGEMENT_STANDARD.md`. Map milestones to commitments, requirements, workstreams/tasks, dependencies, risks, acceptance evidence, expected SemVer impact and UAT user-goal intent. Record actual version/PR/main evidence only after execution.
+
+### 5. IMPLEMENTATION_PLAN.md
 
 The executable delivery plan.
 
@@ -224,7 +239,7 @@ Every step must contain:
 
 Order the plan by dependencies, not by document order.
 
-### 5. ARCHITECTURE_DECISIONS.md
+### 6. ARCHITECTURE_DECISIONS.md
 
 Create or update the project architecture-decision ledger when material decisions exist.
 

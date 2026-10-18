@@ -408,7 +408,17 @@ Use `COMPLETED` only after the final completion audit, required checks, all scop
 
 ## Mandatory terminal delivery gate
 
-At the delivery stage, run the five-field proof gate in `MAIN_DELIVERY_STANDARD.md`. Auto must attempt the required version bump, version-prefixed source commits, remote branch push, PR and authorized merge, then independently read back remote `main`. Preserve a single version reconciliation for the integrated goal rather than bumping every stage. Include each field's evidence in `DELIVERY_REPORT.md`, the historical `90-delivery/HANDOFF.md`, and the terminal lifecycle board. No success wording while any field is not PASS; never interpret an open PR as complete. Existing checks, hooks and enforced reviews remain binding.
+
+### Milestone publication loop before final UAT
+
+Plan's `MILESTONE_PLAN.md` is executable delivery structure. During PMO/workstream execution, Auto completes milestones in dependency order. A milestone is not a lifecycle stage and must not be created merely to force a commit.
+
+When a milestone's included workstreams are integrated and its declared non-browser technical acceptance evidence is satisfied, apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` and `MAIN_DELIVERY_STANDARD.md` to publish that milestone: refresh `main`, reconcile the actual SemVer increment, update version/changelog metadata, create version-prefixed commit(s), push the scoped branch, open/update the PR, satisfy applicable controls, merge to `main`, and independently read back the new main SHA/version. Record the actual delivery evidence against the milestone, refresh subsequent work from that verified `main`, and continue immediately.
+
+Do **not** run the complete UAT/Check lifecycle or stop for acceptance after each milestone. After all planned milestones are implemented and delivered, run the final cross-milestone Integration Review, UAT Prep and UAT. UAT consumes the milestone plan and creates milestone-to-user-story acceptance coverage. If later UAT/Fix/Check remediation changes source, that change receives its own normal versioned delivery; no version-only final bump is created when the last milestone already represents the final source state.
+
+
+At the delivery stage, run the five-field proof gate in `MAIN_DELIVERY_STANDARD.md`. Auto must attempt the required version bump, version-prefixed source commits, remote branch push, PR and authorized merge, then independently read back remote `main`. Preserve milestone-based version reconciliation: one delivery version per completed value milestone, never one per lifecycle stage/task/slice. The terminal delivery gate verifies the final goal state and does not add a version-only bump when the latest verified milestone/main already contains the final source. Include each field's evidence in `DELIVERY_REPORT.md`, the historical `90-delivery/HANDOFF.md`, and the terminal lifecycle board. No success wording while any field is not PASS; never interpret an open PR as complete. Existing checks, hooks and enforced reviews remain binding.
 
 
 ## Initial debug-widget implementation gate

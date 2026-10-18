@@ -1,5 +1,14 @@
 # PHDK PMO Standard
 
+
+## Mandatory milestone execution and proportional project control
+
+PMO applies `PHDK_PROJECT_MANAGEMENT_STANDARD.md` and executes the `MILESTONE_PLAN.md` produced by Plan. A workstream is an execution unit; a milestone is the integration/value/publication boundary that may contain one or more workstreams.
+
+For each active milestone, maintain material status across governance, scope, schedule, finance, stakeholders, resources and risk, using proportional detail. PMO coordinates initiation/planning adjustments, execution, monitoring/control and closure as overlapping focus areas rather than rigid ceremony. Do not invent dates, budgets, owners, probabilities or approvals.
+
+Inside Auto/Auto Force, after all workstreams included in one milestone meet their definition of done and the milestone's acceptance criteria are technically verifiable, PMO integrates that milestone and runs the milestone publication gate from `PHDK_PROJECT_MANAGEMENT_STANDARD.md`: relevant checks, current-main reconciliation, SemVer bump, version-prefixed commit, PR/merge to `main`, remote version/SHA verification, evidence update, then immediate execution of the next milestone. Full UAT remains after the planned milestones are implemented; a milestone merge is not final acceptance.
+
 ## Mandatory PMO control center and portfolio expansion
 
 Follow `PHDK_COMMITMENT_STANDARD.md`. On PMO entry, show all detected workstreams and ask explicitly if there are additional desired features, failures, commitments or changed priorities, unless the portfolio is already confirmed or the workstreams are unambiguously contained in the explicit current Auto goal. Assign new ledger IDs and update Plan coverage and workstreams before dispatch. Maintain `PMO_STATUS.md` as a verified per-workstream dashboard and `PMO_PROGRESS_REPORT.md` as a milestone/decision history; show owner-visible updates at entry, significant progress, state changes, blockers, decisions, integration and closure. Report owner, objective, verified done/total and denominator, current activity, next step, dependencies, evidence and each PR state. PMO may not declare a workstream or portfolio DONE merely because workers stopped or PRs were opened. At integration reconcile every ledger ID, task, worker and PR; report material residuals and next actions. Do not invent percent complete.
@@ -110,7 +119,9 @@ Program/portfolio charter:
 - shared constraints;
 - global definition of done;
 - final lifecycle stage;
-- current PMO session evidence.
+- current PMO session evidence;
+- active milestone and milestone-ordering model;
+- material seven-domain controls/risks and change decisions.
 
 ### PMO_WORKSTREAMS.md
 
@@ -132,7 +143,8 @@ One record per workstream:
 - branch/worktree;
 - shared-file claims;
 - blockers;
-- integration state.
+- integration state;
+- milestone ID and milestone acceptance contribution.
 
 ### PMO_DEPENDENCIES.md
 
@@ -273,6 +285,9 @@ The PMO exit gate must prove the portfolio, dependencies, ownership, worker resu
 
 ## Integration review
 
+Milestone integration is iterative. When a milestone boundary is reached, perform the integration checks below for the workstreams included in that milestone and, under Auto/Auto Force, publish the verified milestone to `main` before continuing. After all planned milestones are complete, perform the final cross-milestone integration review before UAT. Do not create another version merely because this final review stage ends if no source behavior changed after the last milestone delivery.
+
+
 After all confirmed workstreams are DONE or have explicit residual blockers, PMO performs a central integration review before UAT.
 
 Integration review must:
@@ -330,7 +345,7 @@ Every Auto invocation rereads the complete current intent/requirements baseline 
 
 PMO owns the integrated candidate handed to UAT.
 
-UAT validates the integrated candidate against intent-aligned user stories and requirements, not each worker in isolation.
+UAT validates the final integrated candidate against intent-aligned user stories, requirements and the complete milestone roadmap, not each worker in isolation. UAT must create milestone traceability and derive at least one user-value story for every delivered milestone, adding additional role/cross-milestone stories when acceptance criteria require them.
 
 If UAT finds fixable failures/removable blockers, `PHDK uat fix` repairs the integrated candidate. PMO should update affected workstream/integration evidence but need not reactivate unrelated workers.
 

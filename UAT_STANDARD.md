@@ -47,6 +47,7 @@ The command authorizes the assistant to create or refresh UAT artifacts, derive 
 
 Use explicit existing equivalents when the repository already defines them. Otherwise create:
 
+- `UAT_MILESTONE_MATRIX.md` — milestone → user story → requirement/criterion → UAT case → evidence traceability for projects with a milestone plan.
 - `UAT_CASES.md` — durable catalog of acceptance/use cases.
 - `UAT_REPORT.md` — evidence and conclusion for the current candidate/run.
 
@@ -56,15 +57,18 @@ Before deriving UAT cases, identify the project's current intent from the strong
 
 Every UAT user story must align with that intent. Express each story in user-value form such as "As <actor>, I want <goal>, so that <intent-linked outcome>." The "so that" outcome must point to a stated project problem, desired outcome, business/user objective, or explicit constraint. Do not create stories merely because the code contains a route, component, API, database field, or implementation detail.
 
+
+When `MILESTONE_PLAN.md` exists, read it before authoring stories and create/update `UAT_MILESTONE_MATRIX.md`. Every delivered milestone must have **at least one user-value story** that validates why that milestone exists; a milestone with multiple actors or materially independent acceptance outcomes requires multiple stories/cases. UAT executes against the final integrated candidate, so also add cross-milestone stories where value depends on several increments. A technical/enabling milestone still needs an observable consumer/operator outcome or explicit acceptance story; do not fabricate a persona that has no real stake.
+
 Maintain an explicit traceability chain:
 
-**Project Intent → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence**
+**Project Intent → Milestone → User Story → Requirement / Acceptance Criterion → UAT Case → Evidence**
 
 A user story is invalid for UAT when its value cannot be traced to the current project intent. Mark it **OUT OF INTENT** and exclude it from acceptance counts rather than silently expanding project scope. If an apparently necessary story contradicts the recorded intent, report the conflict as a product-scope decision; do not rewrite project intent from implementation evidence.
 
 Derive cases from the actual product and changed behavior. Cover applicable primary actors and goals, happy paths, authorization boundaries, invalid input, important empty/error/retry states, state transitions, cross-feature flows, business rules, accessibility/i18n requirements, and regressions materially affected by the candidate.
 
-Every user story must contain a stable story ID such as `US-001`, actor, user goal, intent-linked outcome, and source intent reference.
+Every user story must contain a stable story ID such as `US-001`, actor, user goal, intent-linked outcome, source intent reference, and linked milestone ID(s) when a milestone plan exists.
 
 Every case must contain:
 

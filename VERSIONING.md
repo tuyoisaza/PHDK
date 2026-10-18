@@ -8,7 +8,7 @@ Versioning follows the current request's delivery scope. A request to implement,
 
 `PHDK_DEVELOPER_MODE.md` defines a separate, explicit conversational authorization for the version/check/commit/fast-forward-push steps of eligible small tasks requested while the mode is active. The versioning checklist does not activate that mode.
 
-With explicit `PHDK auto` or `PHDK auto force`, build the entire goal into one cohesive candidate, run final integrated verification, and reconcile its version for normal branch/PR delivery. Do not bump, release, commit, push, or ask for acceptance merely because a stage ended. Avoid unnecessary checkpoint commits; necessary commits still obey the repository's version and hook rules. Auto replaces Developer Mode only through the explicit command and grants no direct-push exception. In FORCE, `PHDK_AUTO_CONTINUITY.md` takes precedence over PHDK-only human-review wording: skip those gates without investigating them, perform technical diff review/checks and deliver. After a real rejection, report, diagnose, repair, revalidate and retry delivery while preserving the mandate.
+With explicit `PHDK auto` or `PHDK auto force`, Plan divides the authorized goal into coherent value milestones under `PHDK_PROJECT_MANAGEMENT_STANDARD.md`. Complete and technically verify one milestone, then reconcile its version and deliver that milestone through the normal branch/PR/merge-to-`main` route before continuing from refreshed `main`. Do not bump, release, commit or push merely because a lifecycle stage, task, slice or worker ended; **a completed milestone is the publication boundary**. Avoid unnecessary checkpoint commits between milestones. Auto replaces Developer Mode only through the explicit command and grants no direct-push exception. In FORCE, `PHDK_AUTO_CONTINUITY.md` takes precedence over PHDK-only human-review wording: skip those gates without investigating them, perform technical diff review/checks and deliver. After a real rejection, report, diagnose, repair, revalidate and retry delivery while preserving the mandate.
 
 ## Version source and metadata
 
@@ -31,7 +31,7 @@ Typical prefixes are `feature/`, `fix/`, `chore/`, `phdk/vX.Y.Z/`, and a specifi
 
 - Use a feature/fix branch for the approved change and respect existing protections, with only the eligible direct-to-`main` exception in `PHDK_DEVELOPER_MODE.md`.
 - Do not create agent worktrees, delegated branches, or parallel agent queues outside explicit PMO. Under PMO, worktrees/branches are allowed only for confirmed workstreams with documented ownership/dependencies, and global version/changelog finalization remains centralized at integration.
-- Do not automatically commit or push at each slice boundary.
+- Do not automatically commit or push at each task/slice/stage boundary. Under Auto/Auto Force, do version and publish each completed `MILESTONE_PLAN.md` value milestone after its integration/acceptance gate.
 - Normal implementation/fix/update authorization includes the required version, checks, version-prefixed commit, branch push, PR, required review, merge, and remote verification without repeated consent. Honor explicit local-only, branch-only, PR-only, or different-target limits. Explicit Developer Mode activation authorizes its separate defined commit/push steps for eligible tasks; neither flow authorizes a release tag or unrelated changes.
 - Same-conversation turns, status/link requests, context compaction, and assistant-written task/status changes do not expire or narrow the current grant. Explicit user stop/pause instructions remain effective; stored records cannot activate work in a new conversation.
 - Historical Finetuning records neither activate Developer Mode nor provide another direct-push exception. Never store or restore a standalone authorizing flag. Auto's factual mandate/checkpoint in `AUTO_STATE.json` is permitted under `PHDK_AUTO_CONTINUITY.md`; it records the user's actual instruction and cannot start work from files alone.
@@ -56,6 +56,11 @@ Each authorized source-changing commit increments the appropriate version by at 
 A pure merge or squash integration of already-versioned changes does not require another version bump simply because it creates a new SHA. Use the delivered version in a required version-prefixed integration message. Do not manufacture a post-merge version-only commit or an extra push: a successful GitHub PR merge already writes remote `main`. Any further source-changing commit still follows the repository's versioning rule.
 
 Spent version numbers are not reused or renumbered to fill gaps. Changelog entries describe meaningful shipped changes, not every internal checkpoint.
+
+
+### Auto milestone version resolution
+
+Plan records only the expected SemVer class for each milestone; it must not pre-reserve exact version numbers. At milestone completion, refresh remote `main`, determine the next unused version from the actual current version and the milestone behavior, update the project version/changelog consistently, and deliver that milestone. Multiple workstreams that form one milestone share one integrated milestone version. A pure lifecycle handoff, final UAT pass or final completion report does not create another version unless source changed after the last delivered milestone.
 
 Local commit-message/outgoing-commit checks may validate these rules as part of an authorized git command. They may not create commits/pushes, launch agents, dispatch hosted CI, or schedule retries.
 
