@@ -53,6 +53,8 @@ Follow `PHDK_AUTO_CONTINUITY.md` on entry, after context recovery, at checkpoint
 
 FORCE resumes recoverable authorized work immediately. Its continuity check must not become a review/protection investigation or a new permission questionnaire. Normal Auto also retains existing authorization and completes independent work without ceremonial approval.
 
+AUTO FORCE also applies the operative reminder and proposal contract in `PHDK_AUTO_CONTINUITY.md` and `PHDK_COMMUNICATION_STANDARD.md`: recover current relevant rules, discard stale agent interpretations, find solutions and propose missing behavior/defaults/configuration per in-scope gap. Resolve ordinary inferable details and execute without asking the owner to design everything or recommending that confirmed gaps be excluded. Keep this reminder in every substantive progress update, after partial deliveries and before proposed questions/blockers; a short context refresh does not rerun full Preflight. A truly new indispensable decision is presented with a concrete recommendation and impact after independent work is exhausted.
+
 The continuity helper is advisory evidence, not an approval service or new execution veto. Missing/malformed `AUTO_STATE.json` means `REPAIR_STATE`: rebuild the factual record from available current-request evidence and continue internally, without requesting permission to repair bookkeeping. Use the canonical contract's dispositions for continuing, repair/retry, external waiting, delivery verification and an actual owner stop.
 
 Before substantive execution, explain the lifecycle visibly to the user.
@@ -169,7 +171,7 @@ Next: Check.
 
 Progress updates are informational, not approval gates. Continue automatically unless a real decision/control blocks the affected stage.
 
-Every substantive Auto/Force progress update includes a concise factual reminder, for example `AUTO FORCE activo · autorización vigente para <objetivo> · siguiente: <acción>. Continúo.` Execute that action in the same invocation; the sentence is not a substitute for execution or a promise of background work. If a real restriction blocks an action, name that action truthfully instead of claiming unlimited permission. Follow `PHDK_AUTO_CONTINUITY.md` for terminal status.
+Every substantive Auto/Force progress update includes the mandate and next-action capsule in `PHDK_COMMUNICATION_STANDARD.md`. FORCE additionally carries the mandatory reminder to reload current rules, reconcile inherited blockers, find solutions and propose what is missing. Execute the next action in the same invocation; the reminder is not a substitute for execution or a promise of background work. If a real restriction blocks an action, name that action truthfully. Follow `PHDK_AUTO_CONTINUITY.md` for terminal status.
 
 Do not narrate every command/file operation. Communicate lifecycle movement and material evidence.
 

@@ -75,6 +75,10 @@ Examples:
 
 When applicability is ambiguous, classify the item **UNKNOWN / DECISION NEEDED** rather than inventing scope.
 
+In active AUTO FORCE, apply [Propose missing definitions and solutions](PHDK_AUTO_CONTINUITY.md#propose-missing-definitions-and-solutions) before treating missing detail as UNKNOWN or DECISION REQUIRED. For a capability already within the authorized goal, recover the relevant current rules and existing product decisions, define the missing behavior with reasonable safe reversible defaults, identify configuration that is useful and consistent with those rules, and record the rationale and acceptance criteria. Implement the inferable authorized result as AUTO-FIXABLE or FIXABLE WITH VALIDATION; do not ask the owner to define the entire behavior or recommend excluding the capability to close the report.
+
+Only a genuinely new indispensable material decision that those rules and the current mandate cannot resolve needs owner input. Present a concrete recommendation and its impact, ask only for that specific decision, and continue independent authorized gaps. Respect actual user decisions and exclusions. This precedence does not authorize remediation for standalone bare Check or an audit-only request.
+
 ## Compliance model
 
 Every evaluated requirement receives one status:
@@ -99,9 +103,9 @@ For each GAP/PARTIAL item, assign:
 
 Also classify the remediation:
 
-- **AUTO-FIXABLE** — requirements and desired end state are unambiguous; the assistant can implement it under current standards.
+- **AUTO-FIXABLE** — the required outcome is established by the authorized scope and current standards, including routine definitions the assistant can resolve under the FORCE rule above.
 - **FIXABLE WITH VALIDATION** — implementable, but requires tests/checks to prove the result.
-- **DECISION REQUIRED** — fixing it would choose new product behavior, architecture, security policy, data policy, paid service, or infrastructure not already established by project intent.
+- **DECISION REQUIRED** — fixing it requires a genuinely new material product, architecture, security, data, paid-service or infrastructure decision outside what the current intent/rules/mandate resolve; missing routine implementation detail alone does not establish this category.
 - **EXTERNAL / MANUAL** — requires an external provider setting, secret, access grant, browser/manual process, live migration, or other excluded operation.
 
 The user's later `yes` authorizes AUTO-FIXABLE and FIXABLE WITH VALIDATION gaps in the published report, plus ordinary supporting changes necessary to implement them. It does not answer DECISION REQUIRED items or authorize EXTERNAL / MANUAL operations.
@@ -163,7 +167,7 @@ Order fixable gaps by dependency and risk. Combine duplicate root causes instead
 10. Deduplicate findings by root cause.
 11. Produce the report and a concise prioritized summary.
 12. For standalone bare Check, ask exactly one execution question: **"¿Quieres que ejecute los gaps AUTO-FIXABLE y FIXABLE WITH VALIDATION de este reporte?"** An explicit `--fix` / `fix` skips this question. Inside Auto, enumerate and execute only the already-authorized in-scope gap IDs; record out-of-scope findings separately without activating them or requesting generic approval for the whole mixed report. Ask only for a genuinely necessary unresolved material decision after independent permitted work.
-13. Stop for standalone bare Check; for the explicit same-command fix variant or authorized in-scope Auto findings, continue directly with the enumerated fixable remediation under the limits above. Never auto-decide DECISION REQUIRED items.
+13. Stop for standalone bare Check; for the explicit same-command fix variant or authorized in-scope Auto findings, continue directly with the enumerated fixable remediation under the limits above. Apply the FORCE missing-definition rule before preserving an initial DECISION REQUIRED label; do not auto-decide a genuinely unresolved material decision.
 
 Do not manufacture exhaustive certainty when access is incomplete. Prefer UNKNOWN/UNVERIFIED over speculation.
 
@@ -182,7 +186,7 @@ After explicit approval in the same conversation, an explicit fix variant, or fo
 9. Rerun `PHDK check` against the resulting candidate/main.
 10. Update `PHDK_CHECK_REPORT.md` with resolved gap IDs, residual gaps, evidence, and final alignment status.
 
-Do not fix DECISION REQUIRED or EXTERNAL / MANUAL items merely because they appeared in the same report. Ask only for the specific decision or external action when it is the remaining blocker.
+Do not fix genuine DECISION REQUIRED or EXTERNAL / MANUAL items merely because they appeared in the same report. In FORCE, first resolve routine missing definitions under the rule above; for a remaining indispensable decision, present the concrete recommendation and impact rather than a blank request to define behavior, after continuing independent work.
 
 ## Relationship to other commands
 

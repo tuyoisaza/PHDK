@@ -4,6 +4,8 @@
 
 - Command and review policy
 - Persistent mandate and current authority
+- Operative reminder and rule refresh
+- Propose missing definitions and solutions
 - Continue, repair and retry
 - Required checks
 - State record and local advisor
@@ -30,6 +32,24 @@ Record the user's actual instruction and its reference, goal, repository, target
 The record is evidence, not an authorization token. It cannot grant, expire, broaden or revoke the user's permission. On context recovery, compare it with the live conversation and current source/target facts. A missing, stale or malformed record calls for internal reconstruction; it is not a reason to request permission or stop implementation. In a new conversation an explicit current Auto/Auto Force request may resume an identified goal; files alone never activate it. Real user stops remain effective until the user actually replaces them.
 
 Mode lifetime remains the active interactive goal. There is no background worker, scheduler, self-trigger, reusable `auto=true` grant, execution after conversation end or automatic selection of unrelated backlog work.
+
+## Operative reminder and rule refresh
+
+AUTO FORCE carries its operating instructions into the active context through the mandatory reminder in `PHDK_COMMUNICATION_STANDARD.md`. Apply it at start/resume, in every substantive progress update, after a partial delivery and before a question or blocker report. The reminder covers the current mandate, reloading the relevant rules, reconciling inherited blockers, finding solutions, proposing what is missing and executing the next authorized action. The user does not need to append "keep going", "refresh the rules" or "propose it" to the command.
+
+At entry/recovery and before treating a gap as a reason to ask or stop, reread the current Auto Force/communication contract and the relevant domain rule, reconcile with the latest user instruction, and discard obsolete interpretations or restrictions invented by the agent. This short refresh does not rerun the full preflight or rescan every standard at each message. In progress updates keep the operative reminder visible; use newly relevant source when needed. A rule refresh preserves actual user restrictions and host controls. PHDK-only human reviews remain nonblocking immediately, without investigating their approval history or protections.
+
+Before a proposed interruption ask internally: **Does this impediment affect the entire goal or only particular operations? What can I implement, repair, define or prepare now within the current mandate?** Execute an eligible action when one exists. A partial delivery updates progress and is followed by the next in-scope task; writing its report does not close the goal.
+
+## Propose missing definitions and solutions
+
+When a required capability, definition or tool appears to be missing, produce a concrete solution proposal as part of AUTO FORCE. Use the current goal, existing decisions, relevant PHDK rules and actual implementation to define the next step. Missing ordinary implementation detail is work for the agent to resolve, not automatically a new owner decision.
+
+For each in-scope functional gap, state the proposed behavior, the reasonable default and its rationale, assumptions still being made, meaningful configuration through the existing authorized settings model, and the implementation/acceptance action. Preserve role/tenant boundaries and required invariants when choosing what is configurable. Do not present an assumption as an explicit user decision. For reversible ordinary choices supported by the current mandate, explain the adopted proposal in progress and implement it without a new approval question.
+
+For example, when the agreed administration console still lacks tenant/user lifecycle, session revocation, locale/timezone, audit/export, CRUD or an applicable AI graph, propose the behavior and relevant settings for each gap, then implement the authorized definitions. Do not offer "keep these gaps out for now" as the recommended shortcut to closing the run, or ask the owner to supply all exact specifications. Retain the confirmed commitments. If a genuinely new indispensable decision cannot be resolved within the mandate, present the recommended concrete option, its consequence and the precise decision needed; continue all independent work. The proposal itself does not expand scope or authorize its unapproved effects.
+
+For an environment problem, propose and execute an already permitted repair or isolated alternative before escalating what remains. In an authorized browser phase this includes a harmless reload, a fresh tab or a disposable context when the available tool supports it. If clearing shared cache/session state would affect other work, prefer an isolated alternative and continue independent tasks. Missing actual access may still prevent that operation; it does not remove the duty to propose a useful next action or finish work that does not depend on it.
 
 ## Continue, repair and retry
 
@@ -116,10 +136,14 @@ Use `scripts/phdk_auto_gate.py` directly in the PHDK source repository. Supply t
 
 ## Progress and closure
 
-In substantive progress updates include the factual continuation cue:
+In every substantive AUTO FORCE progress update include the operative continuation cue from `PHDK_COMMUNICATION_STANDARD.md`:
 
-`AUTO FORCE activo · autorización vigente para [objetivo/alcance] · SIGUIENTE PASO: [acción]. Continúo.`
+```text
+AUTO FORCE activo · autorización vigente para [objetivo/alcance].
+RECORDATORIO: recargar las reglas vigentes, reconciliar bloqueos heredados, buscar soluciones y proponer lo que falte.
+SIGUIENTE PASO: [acción concreta]. Continúo con el trabajo autorizado.
+```
 
-Use `AUTO` for the normal variant. Then execute that action in the same invocation. Do not end the turn with a promise to continue while a permitted next action is ready. On a rejection the next action is diagnosis/repair/retry, not a generic approval request.
+The reminder is an instruction to apply, not a claim that a reread, repair or proposal already happened. Report completed actions only with their actual evidence. Normal Auto retains its mandate/next-action cue. Execute the stated action in the same invocation; do not end the turn with a promise to continue while a permitted action is ready. On a rejection the next action is diagnosis/repair/retry. When a definition is missing, propose and resolve what can be decided inside the current mandate before asking about a remaining indispensable decision.
 
 At actual completion report the verified result and target link, and mark the goal complete; do not claim an active mandate to start unrelated work. On a genuine user stop or exhausted external dependency, report the factual limitation and one precise resume action. Preserve the existing PHDK version, lifecycle and final-link contract without repeating long permission prose.

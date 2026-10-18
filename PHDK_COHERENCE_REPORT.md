@@ -1,48 +1,39 @@
-# PHDK coherence report — v2.54.0
+# PHDK coherence report — v2.54.1
 
-Baseline: `94f583635d295ae0f227726718904d952cadb8ab` (canonical `main`, v2.53.1).
-Review: 2026-10-18 03:44 UTC. Scope: explicit AUTO FORCE, continuity of the current user mandate, PHDK human-review disposition, required checks and recovery from actual delivery failures. This is a scoped source release review, not an exhaustive audit of every standard or downstream installation.
+Baseline: `63e8cd28bbb4d412954abda6fb7fe9b79568ba9d` (canonical `main`, v2.54.0).
+Review: 2026-10-18 05:12 UTC. Scope: the visible AUTO FORCE operating reminder and concrete proposals for ordinary missing definitions. This is a focused standards update, not an audit of downstream applications.
 
 ## Findings and resolution
 
-| Class | Severity | Evidence | Resolution / next action |
-|---|---|---|---|
-| GAP — resolved | High | A pending PHDK human review could become a terminal Auto blocker even when the user had authorized full delivery. | Explicit `PHDK auto force` classifies PHDK-only human reviews as `NON_BLOCKING_BY_MODE` immediately. No preventive reviewer/protection investigation is required. The assistant performs its technical diff review and applicable checks, then delivers normally. |
-| GAP — resolved | High | A first hook, push or merge rejection could end the run with a request for renewed permission. | Report the observed failure, diagnose its actual cause, repair within the current mandate, revalidate and retry delivery. Continue while an available corrective action can advance the goal. |
-| GAP — resolved | High | Authorization and the next action could be lost across stage handoffs or context compaction. | Record the actual current mandate and progress in a run-local `AUTO_STATE.json`; reconcile it with live user instructions. Missing or malformed bookkeeping requires internal repair, not another approval gate. |
-| CONFLICT — resolved | High | Avoiding unnecessary tests could be interpreted as withholding permission for an existing mandatory pre-push suite. | A scoped implementation mandate includes finite, isolated mandatory checks and existing hooks, including Vitest/composition when configured. Optional tests remain scoped to concrete verification needs. |
-| DEFECT — resolved | Medium | The initial continuity advisor could accept completed check evidence behind unfinished upstream work. | Validate prerequisite consistency and require internal state repair/revalidation; add a regression for the exact stale-evidence chain. |
-| DEFECT — resolved | Medium | Incomplete metadata could obscure an actual recorded user stop; retry guidance could hardcode `main`. | Preserve the recorded stop while repairing bookkeeping, and use the explicit target branch in retry guidance. Add both regressions. |
-| VERIFIED | — | Canonical Auto/continuity, scope, delivery, testing, task tracking, lifecycle, communication and native entrypoints were reconciled together. | Preserve the current goal, actual owner restrictions and observed platform enforcement. The local advisor neither executes operations nor grants permissions. |
-| UNVERIFIED | — | Downstream installations and other running sessions were not updated or exercised. | Adoption requires the project's normal PHDK synchronization/preflight. Do not infer that an already-open session reloaded the new source. |
+| Finding | Resolution |
+|---|---|
+| The existing footer retained authorization and next action but did not repeat rule refresh, solution seeking or proposing what was missing. | Make those instructions visible at start/resume, in substantive progress, after partial delivery and before proposed questions/blockers. Keep one canonical wording in the communication standard. |
+| Check/Plan could classify missing ordinary behavior as a decision for the owner and offer exclusion instead of proposing the implementation. | For an authorized capability, define behavior, justified defaults, assumptions, meaningful configuration and acceptance criteria; implement inferable reversible choices. Retain confirmed commitments. |
+| A genuine new decision could still be presented as a blank request for the owner to define the feature. | Prepare a concrete recommendation with impact and the precise remaining choice, while continuing independent work. |
+| Routine browser recovery was only implicit in the general repair rule. | Name supported harmless reload/fresh-tab/disposable-context recovery in an already-authorized phase, preferring isolation over shared cache/session disruption. |
+| Repeating the reminder could be mistaken for proof of an executed reread or a requirement to rerun every standard check at each message. | State that the reminder is an operating instruction. Refresh relevant rules at entry/recovery and before escalation, use newly relevant source as needed, and do not repeat full Preflight per update. |
 
 ## Executed verification
 
-- `python -m unittest discover -s tests -v`: PASS, 57 tests, including 26 new continuity regressions and the 31 existing tests.
-- `python scripts/phdk_coherence_check.py`: PASS, v2.54.0 and 66 manifest mappings; static verification only.
+- Existing Python regression suite: `python -m unittest discover -s tests -v`, PASS, 57 tests. No new tests were added for this textual change.
+- Static coherence: `python scripts/phdk_coherence_check.py`, PASS, v2.54.1 and 66 mappings.
 - Skill creator `quick_validate.py .`: PASS.
-- Source/diff review and `git diff --check`: PASS for the outgoing source changes.
-- Independent offline scenario review identified three specific advisor defects; all three were repaired and covered by regression tests. A targeted readback confirmed the fixes.
-
-No downstream application suite, browser UAT, production execution, hosted CI dispatch or provider setting change is claimed by these checks. The PHDK source repository uses the Python tests above; examples of `pnpm test` describe downstream project policy.
+- Source/diff review and `git diff --check`: PASS.
+- Existing pre-commit version helper executed: 2.54.0 → 2.54.1. VERSION, README and newest changelog agree.
 
 ## Policy scenarios reviewed
 
-| Scenario | Required result |
+| Scenario | Required behavior |
 |---|---|
-| Existing PHDK human PR/security-review task under explicit AUTO FORCE | Mark it non-blocking by mode without investigating reviewers; perform the assistant's substantive technical review and continue delivery. |
-| Existing mandatory Vitest, lint, typecheck, formatting, build or composition hook | Execute the applicable configured checks within the current mandate without a repeated permission question. |
-| Actual push/merge/check rejection | Report → diagnose → repair → revalidate → retry → verify the remote target. A first rejection is not a terminal task state. |
-| Missing or stale continuity record | Reconstruct it from the current instructions and observed progress, then continue; never require a new grant for bookkeeping. |
-| Real owner pause, revoked mandate or already-completed historical run | Preserve the actual restriction and reconcile with the live conversation; a file cannot activate old work. |
-| Documented external dependency after attempted resolution | Continue independent eligible work and identify only the genuinely unavailable action. |
-| Explicit target other than main | Preserve that target throughout repair, retry and remote verification. |
-| Every local step marked done | Require actual remote content/version/SHA evidence before claiming delivery complete. |
+| Missing detail for an already-authorized administration feature | Propose its behavior/defaults/configuration, label assumptions and implement the inferable in-scope definition. |
+| Truly new indispensable decision outside what current intent and rules resolve | Present a concrete recommendation and impact; ask only for the remaining choice after independent work. |
+| Progress or partial delivery with more executable work | Include the operative reminder and execute the next eligible action; do not close the goal at the report. |
+| Inherited PHDK human-review note | Nonblocking immediately under FORCE; the rule refresh never adds preventive reviewer/protection research. |
+| Recoverable browser problem in an authorized UAT phase | Use supported bounded recovery or an isolated alternative and continue independent tasks. |
+| Standalone Plan, bare Check or audit-only request | Keep the explicitly limited scope; the proposal rule does not silently activate development. |
 
-These are source-policy and synthetic-state scenarios, not a claim that each was executed against an external application.
+## Evidence limits and publication
 
-## Publication and external evidence
+These checks verify source consistency and existing local regressions. They do not demonstrate that an external agent has loaded this version, that a live browser was recovered, or that a downstream application was implemented. No advisor code, runtime executor, hook, state schema, provider configuration or downstream repository was changed.
 
-This report records pre-merge evidence. Complete the normal versioned branch/PR merge and independently read back remote target content/version/SHA before claiming delivery complete. Record the actual delivery proof after merge; do not add another release merely to restamp this pre-merge report.
-
-The fresh canonical `main` reference still matched the baseline during publication preparation. No preventive human-review, branch-protection or ruleset investigation was used to decide whether to proceed. Actual publication responses determine whether recovery is needed.
+This is the pre-merge report. Publish the versioned source branch, merge its PR and verify the actual remote main SHA/tree/version with the original completion verifier. Record that final evidence as post-merge runtime artifacts without another release to restamp this report.

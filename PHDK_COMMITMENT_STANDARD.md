@@ -46,6 +46,10 @@ Publish a compact, user-visible PMO board (not just files) at entry, portfolio c
 
 At every handoff, reconcile ledger IDs against the initial confirmed baseline, Plan tasks, PMO workstreams, implementation/evidence, UAT, SEO, AEO/GEO and target-branch delivery. A newly discovered implementation gap in an already confirmed requirement is work within that requirement: link it to its existing commitment and execute it inside authorized Auto without another scope approval. Genuinely new outcomes outside the confirmed scope get new proposed IDs and owner scope decisions. Missing IDs, unowned confirmed work, stale statuses or inconsistent PR states fail the next-stage entry gate until resolved. Snapshots of ledger and coverage are included with Capture, Plan, PMO and Delivery historical HANDOFFs; preserve superseded state in history.
 
+In active AUTO FORCE, follow [Propose missing definitions and solutions](PHDK_AUTO_CONTINUITY.md#propose-missing-definitions-and-solutions) for each gap in an authorized commitment. Retain its ID, recover relevant current rules and decisions, define the missing behavior with reasonable safe reversible defaults and useful configuration, record rationale/acceptance criteria, and implement what is inferable within that scope. Missing routine details or implementation complexity do not create a new commitment or justify recommending "exclude/defer for now" to close the goal. A real owner-requested scope reduction remains valid and must retain its decision history.
+
+A genuinely new outcome or indispensable material decision outside what the mandate resolves remains proposed or specifically unresolved. Present a concrete recommendation with its impact instead of asking the owner to define everything, and continue independent authorized commitments. This rule does not confirm new scope through silence, override a true user decision or activate implementation for standalone Capture/Plan, bare Check or audit-only work.
+
 ## Terminal gate: fail closed
 
 Before saying Auto or Delivery is COMPLETED, generate `PHDK_COMPLETION_AUDIT.md`:
