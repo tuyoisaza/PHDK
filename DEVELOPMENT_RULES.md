@@ -155,3 +155,8 @@ The contract does not authorize scheduling imports or running them against live 
 - No delegation outside `PHDK_INTELLIGENT_EXECUTION.md`, Actions, schedules, background work, external setup, or unauthorized live verification was introduced.
 - Task/status context is accurate; follow-ups are inactive.
 - Report completion only when the whole requested scope and target are satisfied. If no permitted progress remains, report the exact blocker and unfinished scope after completing independent work. Stop after that report, without selecting another mission.
+
+
+## Production-first verification override (v2.58.0)
+
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.
