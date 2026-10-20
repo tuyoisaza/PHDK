@@ -210,3 +210,8 @@ Record proposed follow-ups as inactive context. After the requested outcome and 
 ## Widget functionality gate
 
 At Auto entry, inspect actual app source and create `DEBUG_WIDGET_READINESS.md` before trusting visual controls. The widget must be top-left below product name; clipboard must copy a real sanitized events/errors/routes/version report; trash must actually clear supported origin-scoped caches, app storage, app cookies and logout/session via server when needed. An animated green check without awaited successful effects is FAIL. Preserve public-safe reporting and report unsupported browser controls accurately.
+
+
+## Production-first verification override (v2.58.0)
+
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.
