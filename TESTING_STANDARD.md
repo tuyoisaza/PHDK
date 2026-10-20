@@ -196,3 +196,8 @@ Missing coverage of an applicable risky rule is a gap. A prohibited browser or e
 - Browser/headless UI execution and screenshots outside authorized UAT/UAT Fix, live app/database probes, destructive writes, paid calls, provider administration, hosted CI dispatch, and background monitoring remain excluded.
 - Cases requiring unavailable/excluded evidence are BLOCKED or MANUAL with the missing evidence stated explicitly.
 - Store the catalog in `UAT_CASES.md` and the current run in `UAT_REPORT.md`, unless the repository already defines equivalent canonical paths.
+
+
+## Production-first verification override (v2.58.0)
+
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.
