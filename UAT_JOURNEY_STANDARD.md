@@ -54,3 +54,8 @@ Each response and stage transition ends with a short, conspicuous **SIGUIENTE PA
 - If external permissions/protection prevent progress: include the specific location/control and exact resume instruction; do not claim that blocked work ran.
 - If done: say `COMPLETADO: <acceptance and verified delivery status>. SIGUIENTE: <next lifecycle stage or none>`; distinguish PR from verified main.
 The final instruction is mandatory even when defects are zero and even when the process cannot advance. Maintain concise owner-visible checkpoint summaries: done, remaining, current blocker, next action.
+
+
+## Production-first verification override (v2.58.0)
+
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.
