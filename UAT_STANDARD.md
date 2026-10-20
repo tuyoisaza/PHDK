@@ -235,3 +235,8 @@ When PMO is active, UAT runs against the PMO-integrated candidate after central 
 ## Completion report
 
 Do not stop after generating cases. Execute every feasible case and produce the report in the same request. Report the conclusion, totals, candidate revision/version, artifact paths, failures/blocked/manual gaps, strongest evidence used, and a prioritized next-action plan whenever the conclusion is not ACCEPTED. When FAILs exist, include the recommended next command `PHDK uat fix`. When only BLOCKED/MANUAL items remain, explain exactly how to unblock/perform them and what to rerun afterward.
+
+
+## Production-first verification override (v2.58.0)
+
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.
