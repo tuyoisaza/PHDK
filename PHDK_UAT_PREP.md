@@ -40,3 +40,8 @@ When Prep alters application code/schema after the prior Integration Review, rer
 **Never** provision production privileged test identities, write to live identity-provider/hosting settings, access real customer data, send unsolicited invitations, purchase services, request arbitrary spending caps or ask humans to paste secrets. If such an action is genuinely required, name one specific legitimate external authorization/action and mark dependent work BLOCKED. Do not claim success for unrun tests or accounts not actually created.
 
 **Final status contract:** `COMPLETADO: Prep READY/PARTIAL/BLOCKED/N/A, version and verified files/test paths, outstanding role blockers. SIGUIENTE PASO: PHDK uat` (or the single required safe owner action). Auto proceeds to applicable UAT without requesting a ceremonial approval.
+
+
+## Production-first verification override (v2.58.0)
+
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.

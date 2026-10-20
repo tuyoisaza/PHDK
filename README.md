@@ -1,3 +1,5 @@
+**Production-first verification (v2.58.0):** [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md) governs all modes: local static checks/builds only; no local behavioral tests, Docker, new staging/databases; versioned UAT with uniquely run-owned synthetic fixtures on existing production and verified cleanup.
+
 # PHDK
 
 **Intelligent execution (since v2.57.0):** [PHDK_INTELLIGENT_EXECUTION.md](PHDK_INTELLIGENT_EXECUTION.md) permits bounded in-session delegation in any mode when host-supported, keeps PMO for portfolio governance, and routes context progressively by mode, stage, task and specialist. Worker handoffs do not replace primary-agent integration and delivery.

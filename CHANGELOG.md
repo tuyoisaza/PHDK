@@ -1,3 +1,11 @@
+## v2.58.0 — 2026-10-19
+
+### Production-first verification and automatic UAT teardown
+- Introduce mandatory `PHDK_PRODUCTION_VERIFICATION.md`: permit only local static checks/lint/typecheck/build; prohibit local behavioral/in-process testing, Docker and extra staging/databases.
+- Use only existing GitHub-connected production deployment and existing production database for versioned UAT; authorize narrowly scoped, uniquely tagged synthetic CRUD and role fixtures without altering real data, provider settings or actual security gates.
+- Require automatic, idempotent, audited cleanup and revocation on success, failure, interruption or cancellation; block completion on unverified residual fixtures.
+- Reconcile agent, Auto, UAT Prep, UAT, execution, testing and development instructions by explicit policy precedence; do not claim production runtime was tested or downstream projects upgraded.
+
 ## v2.57.1 — 2026-10-18
 
 ### Delegation policy coherence

@@ -76,3 +76,5 @@ scripts/phdk_update.py | scripts/phdk_update.py
 # Linked release history (historical records, not active instructions)
 CHANGELOG-through-v2.51.0.md | CHANGELOG-through-v2.51.0.md
 ORIGINALS/CHANGELOG-through-v2.31.0.md | ORIGINALS/CHANGELOG-through-v2.31.0.md
+
+PHDK_PRODUCTION_VERIFICATION.md | PHDK_PRODUCTION_VERIFICATION.md

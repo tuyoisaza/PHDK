@@ -30,3 +30,8 @@ Create/update a **Browser Readiness** section of `UAT_ACCESS_REPORT.md` and mirr
 - executed cases, BLOCKED/MANUAL cases, independent work performed, specific one-step owner action and exact retest cue.
 
 After verification say **Navegador UAT: permiso de fase ACTIVO; acceso real VERIFICADO / NO DISPONIBLE / REQUIERE CONEXIÓN.** Never call UAT ACCEPTED with outstanding required browser evidence. The next-action contract of `UAT_JOURNEY_STANDARD.md` applies. This rule does not authorize browser use in any other phase or bypass host connection requirements.
+
+
+## Production-first verification override (v2.58.0)
+
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.
