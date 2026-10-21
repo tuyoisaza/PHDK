@@ -1,5 +1,10 @@
 # DEVSECOPS.md
 
+## Multi-tenant risk and cryptography governance
+
+Read `PHDK_TENANT_RISK_STANDARD.md` for every multi-tenant security decision. Mandatory baseline: verified tenant-scoped authorization across all data paths, TLS, appropriate at-rest encryption, protected keys and secrets, audit, backups and denial evidence. Additional per-tenant databases, KMS key boundaries and field-level encryption are consultative recommendations based on exposure, sensitivity and residual risk; document the owner's decision in `TENANT_RISK_ASSESSMENT.md`. Do not incur new costs or mutate providers without authorization. `PHDK_PRODUCTION_VERIFICATION.md` controls permitted runtime verification.
+
+
 ## UAT JWT and synthetic identity security boundary
 
 `JWT_STANDARD.md` is normative for authenticated UAT and JWT-consuming apps: only trusted non-production auth issuers/test harnesses may create synthetic sessions, production must reject test keys/issuers/adapters, and token validation includes fixed allowed algorithms, issuer/audience/type/expiry plus server-side roles and tenant policy. Default to existing OAuth/OIDC/server session instead of mandating JWT, keep temporary state and secrets outside source/reports/logs, and revoke/clean up after UAT. A synthetic super_admin label is never proof of authority. Test wrong tenant, stale/suspended identities and unauthenticated/expired/revoked sessions. Do not introduce public admin-login test routes.
