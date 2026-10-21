@@ -1,5 +1,8 @@
 # PHDK
 
+**Hook compatibility (v2.61.0):** [`PHDK_HOOK_COMPATIBILITY.md`](PHDK_HOOK_COMPATIBILITY.md) requires Check/Auto to detect local runtime-test hooks, automatically reconcile only proven PHDK-owned legacy hooks without weakening independent security controls, and preserve/block on owner or external gates.
+
+
 **Project Handoff to Development Kit**  
 **Version v2.60.1**
 
