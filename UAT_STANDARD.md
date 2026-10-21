@@ -1,3 +1,7 @@
+## Risk-based tenant isolation acceptance
+
+For multi-tenant UAT, use `TENANT_RISK_ASSESSMENT.md` and `PHDK_TENANT_RISK_STANDARD.md` to select authorization, data separation, storage/cache/search, files/exports, background/AI, backup and cryptographic controls that require evidence. Verify allow/deny journeys only with tagged, uniquely owned synthetic tenant records on the authorized deployed candidate following `PHDK_PRODUCTION_VERIFICATION.md`—never real customer data, local behavioral tests, Docker or new test databases. Cross-tenant leakage is Critical/High; unavailable proof is BLOCKED/UNVERIFIED and requires safe automated fixture cleanup.
+
 ## Mandatory UAT Prep handoff
 
 Before standalone UAT or Auto UAT on an authenticated product, inspect `PHDK_UAT_PREP.md` and the **current** `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` for the exact candidate, real seeded/provider-backed synthetic identity, role/tenant local checks and cleanup. Under Auto, `45-uat-prep/HANDOFF.md` must exist or the Prep stage must run and close with truthful per-role blockers. If standalone UAT lacks initial synthetic accounts/bootstrap, record impacted cases BLOCKED and recommend explicit `PHDK uat prep`; standalone `PHDK uat` does not silently develop an entire new authentication module. UAT Fix repairs newly discovered defects. Do not mark Prep's non-browser evidence as acceptance/browser PASS. At stage 50 run `UAT_BROWSER_READINESS_STANDARD.md` independently; Prep does not grant browser access.
