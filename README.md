@@ -1,7 +1,9 @@
 # PHDK
 
 **Project Handoff to Development Kit**  
-**Version v2.60.0**
+**Version v2.60.1**
+
+**Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
 
 PHDK is an operating system for AI-assisted software delivery. It turns a repository, an idea or an unfinished product into a structured process where AI can understand intent, define a visible design, coordinate work, implement, validate, repair and deliver without losing human control.
 
