@@ -1,3 +1,11 @@
+## v2.59.0 — 2026-10-20
+
+### Consultative multi-tenant risk management and encryption
+- Add `PHDK_TENANT_RISK_STANDARD.md`: evidence-first tenant exposure/threat/impact consultation, one unanswered material question at a time, four provisional inherent/residual risk levels, documented owner decision and `TENANT_RISK_ASSESSMENT.md`.
+- Require tenant-scoped default-deny access across DB/API/files/cache/search/AI/queues/exports/backups, TLS, encryption of sensitive stored data, protected keys/secrets, audit and real negative-access evidence. Recommend dedicated DB, per-tenant KMS, field encryption or infrastructure only when assessed exposure, sensitivity, law and risk justify them.
+- Integrate the standard into Capture, Plan, PMO/Auto, UAT Prep/UAT, Check, DevSecOps, admin console and agent entrypoints. Retain production-first restrictions: no local behavioral testing, Docker, extra staging/database provisioning or unsanctioned provider spend; use synthetic production UAT with automated cleanup when authorized.
+- Version and manifest synchronized; README v2.58.0 marker drift corrected to v2.59.0. Source-only verification, no claim of runtime security proof, no automatic downstream adoption.
+
 ## v2.58.0 — 2026-10-19
 
 ### Production-first verification and automatic UAT teardown
