@@ -1,5 +1,10 @@
 # PHDK Plan Standard
 
+## Risk-proportionate tenant isolation and encryption
+
+For multi-tenant plans, apply `PHDK_TENANT_RISK_STANDARD.md` and consume `TENANT_RISK_ASSESSMENT.md`. Compare justified shared RLS versus dedicated database/infrastructure architectures and baseline versus additional field-level/per-tenant-key encryption, along with risk reduction, cost and operations. Record risk tier, owner-approved choice or DECISION REQUIRED in `ADMIN_ARCHITECTURE.md`; map selected controls, migration/rollback and UAT verification to `MILESTONE_PLAN.md`. Never silently provision infrastructure or convert live data.
+
+
 
 ## Mandatory milestone planning and project-management model
 
