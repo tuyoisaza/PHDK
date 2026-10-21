@@ -2,7 +2,11 @@
 
 **Applies to:** every stateful portal/application with authenticated administrative operations, regardless of industry (CRM, ERP, LMS, HR, operations, commerce, etc.). A genuinely static/no-backend/no-administration product may document NOT APPLICABLE with evidence; an authenticated app may not opt out merely because its vertical differs.
 
-## 1. Tenancy decision before architecture and UI
+## 1. Tenancy decision before architecture and UI## Mandatory consultative tenant-risk decision
+
+For an existing or proposed multi-tenant product, apply `PHDK_TENANT_RISK_STANDARD.md` before fixing the data isolation or encryption architecture. Assess exposure, sensitivity, cross-tenant blast radius, impact, legal/contractual constraints, existing controls and operating cost. Ask **one** unresolved material question at a time; record inherent/residual risk, tier, options, owner decision and exceptions in `TENANT_RISK_ASSESSMENT.md` / `ADMIN_ARCHITECTURE.md`. Baseline tenant isolation, authorization and protection of sensitive data are required, while database-per-tenant, per-tenant KMS and dedicated infrastructure are proportional recommendations, not universal mandates. Superadmin privilege is not automatic access to customer content. Follow current `PHDK_PRODUCTION_VERIFICATION.md` verification/provider restrictions.
+
+
 
 In Capture and on the first PHDK Preflight/Check for an existing app, discover or explicitly resolve the tenancy model in `ADMIN_ARCHITECTURE.md`:
 
