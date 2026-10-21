@@ -4,6 +4,11 @@
 
 # PHDK Lifecycle Handoff Standard
 
+## Tenant-risk handoff
+
+For multi-tenant scope, apply `PHDK_TENANT_RISK_STANDARD.md` from Capture to Check. Capture creates a provisional `TENANT_RISK_ASSESSMENT.md`; Plan confirms or escalates the owner decision; Integration records implemented controls; UAT Prep/UAT use safe synthetic tenant identities and Check records evidence, gaps and residual risk. Reference or snapshot the sanitized assessment in relevant HANDOFF records; reopen on changed exposure, sensitive data, contract, incident or blast radius. No new stage or approval ceremony is implied. `PHDK_PRODUCTION_VERIFICATION.md` remains authoritative for where and how behavioral verification may occur.
+
+
 
 ## Milestone roadmap and acceptance traceability
 

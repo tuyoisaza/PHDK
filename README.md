@@ -2,6 +2,9 @@
 
 # PHDK
 
+**Risk-based multi-tenant security (v2.59.0):** [PHDK_TENANT_RISK_STANDARD.md](PHDK_TENANT_RISK_STANDARD.md) requires consultative exposure/impact assessment before choosing a tenant security architecture. Capture/Plan ask only unresolved material questions one at a time; baseline isolation and sensitive-data encryption are mandatory, while per-tenant databases, field-level encryption, managed keys and dedicated infrastructure scale with assessed and owner-approved risk. UAT/Check demand permitted synthetic negative-boundary evidence; this does not authorize infrastructure changes or local behavioral tests.
+
+
 **Intelligent execution (since v2.57.0):** [PHDK_INTELLIGENT_EXECUTION.md](PHDK_INTELLIGENT_EXECUTION.md) permits bounded in-session delegation in any mode when host-supported, keeps PMO for portfolio governance, and routes context progressively by mode, stage, task and specialist. Worker handoffs do not replace primary-agent integration and delivery.
 
 **Milestone delivery model (v2.56.0):** `PHDK plan` now creates `MILESTONE_PLAN.md`; PMO executes workstreams inside value milestones; Auto/Auto Force version and merge each completed milestone to verified `main` before continuing; final UAT creates milestone-to-user-story acceptance traceability. See [`PHDK_PROJECT_MANAGEMENT_STANDARD.md`](PHDK_PROJECT_MANAGEMENT_STANDARD.md).
@@ -23,7 +26,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.57.1**
+**Version v2.59.0**
 
 PHDK is an operating system for AI-assisted software delivery.
 

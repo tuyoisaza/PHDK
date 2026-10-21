@@ -1,3 +1,7 @@
+## Risk-specific multi-tenant UAT preparation
+
+For multi-tenant products read `PHDK_TENANT_RISK_STANDARD.md` and the project's `TENANT_RISK_ASSESSMENT.md`. Plan separately owned synthetic tenant fixtures and safely scoped denial cases that match the accepted tier. The newer `PHDK_PRODUCTION_VERIFICATION.md` supersedes older local/non-production testing directions: no local behavioral/in-process tests, Docker, extra staging or databases. Use only permitted synthetic records on the already-deployed candidate with automatic audited cleanup; do not probe actual customer records or buy/provision infrastructure. Record unverifiable runtime controls as BLOCKED/UNVERIFIED.
+
 # PHDK UAT Prep — Synthetic Identity Readiness
 
 ## Command, position and authority

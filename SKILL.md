@@ -45,6 +45,10 @@ Confirm the resulting remote version and change before calling the delivery comp
 
 When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_ADMIN_STANDARD.md` together with `technical_stack.md` and `DEVSECOPS.md`. AI-bearing products require super-admin prompt management and consumption observability; non-AI projects do not receive these features. Detect applicability from source/configuration names and product intent without reading secret values.
 
+## Consultative multi-tenant security
+
+When a product is or may become multi-tenant, read `PHDK_TENANT_RISK_STANDARD.md` at Capture/Plan and recheck at UAT/Check. Evaluate source-backed exposure, confidentiality/impact and blast radius before asking one unanswered material question at a time. Produce `TENANT_RISK_ASSESSMENT.md` with justified risk tier, recommended baseline/advanced isolation and encryption controls, tradeoffs, owner decision and residual risk. Do not require per-tenant databases or KMS by default, incur external costs or violate `PHDK_PRODUCTION_VERIFICATION.md`.
+
 ## PHDK plan
 
 For explicit `PHDK plan`, follow `PHDK_PLAN.md`. Use the Capture/requirements baseline and applicable PHDK standards to define solution, repository, data/integration/security, and conceptual UX architecture plus a dependency-ordered implementation plan. On brownfield projects, model current state first, preserve valid decisions, identify gaps, and produce an incremental convergence plan rather than imposing a greenfield scaffold.

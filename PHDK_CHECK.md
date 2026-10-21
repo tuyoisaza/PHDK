@@ -1,3 +1,7 @@
+## Tenant-risk assessment and isolation compliance gate
+
+Apply `PHDK_TENANT_RISK_STANDARD.md` to actual/proposed multi-tenant projects. Check `TENANT_RISK_ASSESSMENT.md`, owner-approved inherent/residual tier, baseline authorization/isolation across database/storage/cache/search/AI/jobs/exports/backups, TLS and at-rest encryption, risk-proportional key/field encryption, evidence-backed negative tenant access and safe UAT cleanup. Do not require a dedicated database for all tenants if the approved risk can be controlled with demonstrably enforced shared isolation. Missing decision is DECISION REQUIRED, missing baseline is GAP, leakage/bypass is Critical/High, and missing permitted execution evidence is UNVERIFIED. Bare Check stays read-only; `check --fix` does not authorize infrastructure or risk acceptance. Obey `PHDK_PRODUCTION_VERIFICATION.md`.
+
 # PHDK Check Standard
 
 ## Mandatory UAT Prep implementation/evidence gate

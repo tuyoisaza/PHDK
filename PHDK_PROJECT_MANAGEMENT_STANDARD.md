@@ -1,5 +1,10 @@
 # PHDK Project Management Standard
 
+## Tenant-risk register input
+
+For multi-tenant initiatives, `PHDK_TENANT_RISK_STANDARD.md` and `TENANT_RISK_ASSESSMENT.md` supply a concise risk register input: inherent/residual score and tier, evidence, risk owner, controls, cost/operability, pending material decisions and review triggers. Map approved mitigations into milestones. Assessment is not authorization to purchase, provision or migrate infrastructure; preserve `PHDK_PRODUCTION_VERIFICATION.md` limits.
+
+
 ## Purpose and authority
 
 This standard defines the project-management operating model used by PHDK Plan, PMO, Auto and UAT. It adapts the owner's PMI/PMBOK 8 knowledge base into a software-delivery contract focused on value, risk, acceptance evidence and proportional governance.

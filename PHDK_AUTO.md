@@ -1,3 +1,7 @@
+## Auto tenant-risk consultation
+
+When the active product goal has multi-tenancy, load `PHDK_TENANT_RISK_STANDARD.md` at the relevant security/data stage, reuse or create `TENANT_RISK_ASSESSMENT.md`, and ask one unresolved material exposure/impact question at a time. Carry approved baseline and tier-specific controls through Plan, code, UAT and Check. An unapproved material database/KMS or dedicated infrastructure choice stays DECISION REQUIRED; continue safe independent work. No new services, local behavioral tests or Docker contrary to `PHDK_PRODUCTION_VERIFICATION.md`.
+
 # PHDK Auto
 
 ## Mandatory automation cleanup during final Check

@@ -1,5 +1,10 @@
 # PHDK Capture Standard
 
+## Consultative tenant-risk discovery
+
+For a multi-tenant or plausible SaaS product, consult `PHDK_TENANT_RISK_STANDARD.md`. Examine existing facts first; determine exposure, data sensitivity, likely threats, blast radius and constraints. Ask one unresolved material question at a time, then record provisional `TENANT_RISK_ASSESSMENT.md`, inherent risk, evidence, decision needs and relevant security requirements. Do not impose dedicated databases or per-tenant keys without a risk/owner decision.
+
+
 ## Commitment inventory and Capture closing gate
 
 Follow `PHDK_COMMITMENT_STANDARD.md`. Before declaring Capture complete, build `PHDK_COMMITMENTS.md` from requirements, unresolved existing tasks, defects and open PRs. Present detected items and ask the owner whether the portfolio is complete or additional defects/features must be included, unless this exact scope was already confirmed. Preserve stable IDs, owner decisions, exclusions and acceptance criteria. Report included, excluded, unknown and downstream Plan coverage requirements. Snapshot the ledger with Capture's historical handoff. A list inferred without owner confirmation is not a confirmed baseline.
