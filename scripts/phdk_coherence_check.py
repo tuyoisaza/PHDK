@@ -35,7 +35,7 @@ for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8")
     destinations.add(dst)
     if not (root / src).is_file():
         errors.append(f"manifest line {n}: missing {src}")
-for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "PHDK_EVOLUTION_STANDARD.md", "CHANGE_MANAGEMENT.md", "scripts/phdk_coherence_check.py", "PHDK_AUTO_CONTINUITY.md", "scripts/phdk_auto_gate.py"]:
+for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "PHDK_EVOLUTION_STANDARD.md", "CHANGE_MANAGEMENT.md", "scripts/phdk_coherence_check.py", "PHDK_AUTO_CONTINUITY.md", "scripts/phdk_auto_gate.py", "PHDK_DESIGN.md"]:
     if mandatory not in sources:
         errors.append(f"manifest lacks {mandatory}")
 for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MANAGEMENT.md", "SKILL.md"]:
@@ -44,6 +44,38 @@ for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MAN
         continue  # SKILL.md is canonical-tool-only, not in the vendoring manifest.
     if not file.is_file() or "PHDK_EVOLUTION_STANDARD.md" not in file.read_text(encoding="utf-8"):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
+
+# Design routing guards are source-level signals, never evidence of an owner
+# decision, rendered preview, actual execution, or downstream adoption.
+for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "SKILL.md",
+                   "PHDK_PLAN.md", "PHDK_LIFECYCLE.md", "PHDK_AUTO.md",
+                   "PHDK_AUTO_CONTINUITY.md", "PHDK_UX_UI.md"]:
+    file = root / entrypoint
+    if entrypoint == "SKILL.md" and not file.exists():
+        continue
+    if not file.is_file() or "PHDK_DESIGN.md" not in file.read_text(encoding="utf-8"):
+        errors.append(f"{entrypoint} missing Design stage routing")
+required_design_markers = {
+    "PHDK_DESIGN.md": ["25-design", "AGENT_SELECTED_AUTO_FORCE", "OWNER_APPROVED",
+                       "OWNER_ACCEPTED_SPEC_ONLY", "DESIGN_AWAITING_OWNER",
+                       "UI_DESIGN_SYSTEM.md", "UX_UI_DECISIONS.md", "docs/design/",
+                       "PHDK_PRODUCTION_VERIFICATION.md"],
+    "PHDK_LIFECYCLE.md": ["## 25", "25-design/", "DESIGN_AWAITING_OWNER"],
+    "PHDK_AUTO_CONTINUITY.md": ["design_choice", "AGENT_SELECTED_AUTO_FORCE", "DESIGN_AWAITING_OWNER"],
+    "scripts/phdk_auto_gate.py": ["design_choice", "AGENT_SELECTED_AUTO_FORCE", "DESIGN_AWAITING_OWNER"],
+}
+for filename, markers in required_design_markers.items():
+    file = root / filename
+    if not file.is_file():
+        errors.append(f"missing Design contract file {filename}")
+        continue
+    body = file.read_text(encoding="utf-8")
+    for marker in markers:
+        if marker not in body:
+            errors.append(f"{filename} missing Design marker {marker}")
+ux_file = root / "PHDK_UX_UI.md"
+if ux_file.is_file() and "No new independent stage is required" in ux_file.read_text(encoding="utf-8"):
+    errors.append("PHDK_UX_UI.md retains obsolete no-independent-Design-stage wording")
 
 # Guard against reintroducing the deprecated PMO-only task-delegation prohibition.
 # Scan active Markdown instructions only; archival CHANGELOG/ORIGINALS are historical.
