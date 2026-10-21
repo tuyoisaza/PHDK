@@ -202,3 +202,8 @@ A request for a kit, standalone design package or standards update is not permis
 ## Production-first verification override (v2.58.0)
 
 **Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT uses existing versioned production deployment and database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass security hooks; a conflicting gate is BLOCKED. Design adds no preview-server or browser-test exception.
+
+
+## Hook compatibility (v2.61.0)
+
+Apply [PHDK_HOOK_COMPATIBILITY.md](PHDK_HOOK_COMPATIBILITY.md). Inspect effective Git hooks and nested package scripts before push; a local behavioral test required by a legacy PHDK hook is an AUTO-FIXABLE policy violation, not a reason to request a local-testing exception. Within authorized Auto/Auto Force/Check Fix, replace **only proven PHDK-owned** prohibited test invocations with permitted static checks while preserving security/version/branch/commit gates. Owner-owned, external, or unknown hooks remain unchanged absent explicit authorization; report BLOCKED if they prevent push. Never execute prohibited tests or use --no-verify.

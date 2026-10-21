@@ -227,3 +227,8 @@ The remediation phase is complete only after approved fixable gaps are implement
 ## Functional debug widget evidence gate
 
 For applicable interactive apps, explicitly read `DEBUG_WIDGET_READINESS.md` and inspect the actual implementation. Require top-left placement directly below app name; only version with no parenthesized SHA/date; compact pair of actions. Insist on **verified clipboard text**, event/history/error collection, and **verified cache/session/cookie clearing** through origin-scoped adapters and app logout. A green check animation with no awaited successful operation MUST be a HIGH severity GAP. A static report with no captured events, or a trash button that only changes state/reloads, is a GAP. No PASS without evidence from focused executable tests exercising the handlers and observing real adapter calls/effects. Link the source paths, test names/results and remaining unsupported capabilities in Check; if evidence cannot be executed, mark UNVERIFIED, not PASS.
+
+
+## Hook compatibility (v2.61.0)
+
+Apply [PHDK_HOOK_COMPATIBILITY.md](PHDK_HOOK_COMPATIBILITY.md). Inspect effective Git hooks and nested package scripts before push; a local behavioral test required by a legacy PHDK hook is an AUTO-FIXABLE policy violation, not a reason to request a local-testing exception. Within authorized Auto/Auto Force/Check Fix, replace **only proven PHDK-owned** prohibited test invocations with permitted static checks while preserving security/version/branch/commit gates. Owner-owned, external, or unknown hooks remain unchanged absent explicit authorization; report BLOCKED if they prevent push. Never execute prohibited tests or use --no-verify.

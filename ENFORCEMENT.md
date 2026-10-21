@@ -197,3 +197,8 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 - [ ] Requested documentary exception repairs cover existing active instruction copies without weakening hooks, checks, access rights, or server protections or storing an unlock flag
 - [ ] Permanent instruction headers contain no transient task state, and task records did not revoke same-conversation authorization or outrank observed GitHub state
 - [ ] Changed hook behavior has local evidence; untouched hooks are not repeatedly tested just to close a checklist
+
+
+## Hook compatibility (v2.61.0)
+
+Apply [PHDK_HOOK_COMPATIBILITY.md](PHDK_HOOK_COMPATIBILITY.md). Inspect effective Git hooks and nested package scripts before push; a local behavioral test required by a legacy PHDK hook is an AUTO-FIXABLE policy violation, not a reason to request a local-testing exception. Within authorized Auto/Auto Force/Check Fix, replace **only proven PHDK-owned** prohibited test invocations with permitted static checks while preserving security/version/branch/commit gates. Owner-owned, external, or unknown hooks remain unchanged absent explicit authorization; report BLOCKED if they prevent push. Never execute prohibited tests or use --no-verify.
