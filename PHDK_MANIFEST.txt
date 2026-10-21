@@ -12,6 +12,7 @@ CHANGE_MANAGEMENT.md | CHANGE_MANAGEMENT.md
 PHDK_UPGRADE.md | PHDK_UPGRADE.md
 PHDK_PREFLIGHT.md | PHDK_PREFLIGHT.md
 PHDK_LIFECYCLE.md | PHDK_LIFECYCLE.md
+PHDK_DESIGN.md | PHDK_DESIGN.md
 PHDK_UX_UI.md | PHDK_UX_UI.md
 CRUD_STANDARD.md | CRUD_STANDARD.md
 ADMIN_CONSOLE_STANDARD.md | ADMIN_CONSOLE_STANDARD.md
@@ -74,8 +75,10 @@ scripts/phdk_coherence_check.py | scripts/phdk_coherence_check.py
 PHDK_CENTRAL_UPDATE.md | PHDK_CENTRAL_UPDATE.md
 scripts/phdk_update.py | scripts/phdk_update.py
 
-# Linked release history (historical records, not active instructions)
+# Linked release history and evidence (not active instructions)
+CHANGELOG-through-v2.59.0.md | CHANGELOG-through-v2.59.0.md
 CHANGELOG-through-v2.51.0.md | CHANGELOG-through-v2.51.0.md
 ORIGINALS/CHANGELOG-through-v2.31.0.md | ORIGINALS/CHANGELOG-through-v2.31.0.md
+docs/verification/v2.60.0-design.md | docs/verification/v2.60.0-design.md
 
 PHDK_PRODUCTION_VERIFICATION.md | PHDK_PRODUCTION_VERIFICATION.md

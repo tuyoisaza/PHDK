@@ -4,22 +4,24 @@
 
 # PHDK Lifecycle Handoff Standard
 
+## Design before UI implementation
+
+For applicable UI scope, `PHDK_DESIGN.md` adds **25-design** after technical/content Plan and before dependent UI implementation. The sequence is Capture → Plan → Design → PMO/implementation → Integration → UAT Prep → UAT/Fix → applicable SEO/AEO → Check → Delivery. **Auto asks one unresolved visual question at a time and waits for the owner; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK visual-approval pause.** Actual owner restrictions remain binding. Reuse current owner-approved baselines; no forced redesign for non-visual changes or immutable historical runs.
+
 ## Tenant-risk handoff
 
-For multi-tenant scope, apply `PHDK_TENANT_RISK_STANDARD.md` from Capture to Check. Capture creates a provisional `TENANT_RISK_ASSESSMENT.md`; Plan confirms or escalates the owner decision; Integration records implemented controls; UAT Prep/UAT use safe synthetic tenant identities and Check records evidence, gaps and residual risk. Reference or snapshot the sanitized assessment in relevant HANDOFF records; reopen on changed exposure, sensitive data, contract, incident or blast radius. No new stage or approval ceremony is implied. `PHDK_PRODUCTION_VERIFICATION.md` remains authoritative for where and how behavioral verification may occur.
-
-
+For multi-tenant scope, apply `PHDK_TENANT_RISK_STANDARD.md` from Capture to Check. Capture creates a provisional `TENANT_RISK_ASSESSMENT.md`; Plan confirms or escalates the owner decision; Integration records implemented controls; UAT Prep/UAT use safe synthetic tenant identities and Check records evidence, gaps and residual risk. Reference or snapshot the sanitized assessment in relevant HANDOFF records; reopen on changed exposure, sensitive data, contract, incident or blast radius. No new tenant-risk stage or approval ceremony is implied. `PHDK_PRODUCTION_VERIFICATION.md` remains authoritative for where and how behavioral verification may occur throughout this lifecycle: local static checks only, no local runtime tests/Docker/new staging, and bounded production UAT with safe synthetic ownership and cleanup.
 
 ## Milestone roadmap and acceptance traceability
 
-Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` across Plan, PMO/implementation, Integration and UAT.
+Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` across Plan, Design, PMO/implementation, Integration and UAT.
 
 - Plan must create/snapshot `MILESTONE_PLAN.md` with every in-scope commitment/task/workstream mapped to a value milestone.
+- Design updates only affected tasks/acceptance criteria and links the selected baseline; its exit is not an automatic release milestone.
 - PMO tracks milestone execution and records actual version/PR/main evidence after each completed Auto/Auto Force milestone publication.
 - A milestone delivery does not close the lifecycle run; Auto continues from verified `main`.
 - Final UAT must create/snapshot `UAT_MILESTONE_MATRIX.md` and cover every delivered milestone with at least one intent-linked user-value story plus additional role/cross-milestone cases where required.
 - Lifecycle stage transitions themselves do not imply version bumps.
-
 
 ## Mandatory commitment tracking at every gate
 
@@ -43,7 +45,9 @@ A later stage may reuse prior work only after verifying the required upstream ar
 
 Both `PHDK auto` and `PHDK auto force` use `PHDK_AUTO_CONTINUITY.md`. Stage transitions are execution handoffs inside the same authorized goal. Reload the user mandate and next executable action after context compaction and before a terminal response; missing/malformed state is reconstructed internally, never a new approval gate.
 
-In AUTO FORCE, human reviews/sign-offs imposed only by PHDK are `NON_BLOCKING_BY_MODE` from entry. Do not investigate whether they block or seek reviewers/approvals; do not query review/protection configuration preventively. Integration Review remains the assistant's technical diff/source/contract review. Perform applicable mandatory checks and normal versioned branch push → PR → merge → remote-main verification. A mandatory local suite or hook requires no repeated permission within the scoped implementation request.
+Normal Auto's Design selection/preview approval is the specific product-input exception in `PHDK_DESIGN.md`, not a ceremonial delivery review. While waiting, record stage 25 as BLOCKED with reason `DESIGN_AWAITING_OWNER`, retain the exact unanswered question and existing mandate, and continue genuinely independent authorized work. Resume from the answer without repeating already resolved choices or asking for another development command.
+
+In AUTO FORCE, human reviews/sign-offs imposed only by PHDK are `NON_BLOCKING_BY_MODE` from entry, including Design's owner-selection wait. Complete the Design work, select and record the baseline, then continue. Do not investigate whether PHDK reviews block or seek reviewers/approvals; do not query review/protection configuration preventively. Integration Review remains the assistant's technical diff/source/contract review. Perform applicable permitted checks and normal versioned branch push → PR → merge → remote-main verification. Preserve the production-first local boundary and never bypass an incompatible required hook.
 
 An actual tool/hook/GitHub rejection is reported, diagnosed, repaired in scope, revalidated and retried while the mandate remains active. Preserve real owner restrictions, security/access controls, hooks and provider boundaries; no evasion or ungrounded repeated writes. A real unresolved blocker affects only dependent work. A non-blocking PHDK human gate must never be copied into the next handoff as a prerequisite or marked as a review that actually occurred.
 
@@ -80,7 +84,7 @@ It must contain:
 - current branch/revision;
 - current lifecycle goal / confirmed portfolio;
 - current stage;
-- stage statuses;
+- stage statuses, including Design between Plan and UI implementation;
 - canonical artifact paths;
 - historical run folder;
 - blockers/decisions;
@@ -88,7 +92,7 @@ It must contain:
 
 This file is current state, not reusable authority.
 
-For Auto variants also maintain `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` using the schema in `PHDK_AUTO_CONTINUITY.md`: original user-mandate provenance, mode, goal/scope/target, restrictions, current stage, completed/pending actions, blockers and next action. This run-level file is mutable current evidence; stage snapshots remain immutable. Reconcile it with the current conversation and remote facts. It cannot grant authority, resume another conversation, or override a user stop. `scripts/phdk_auto_gate.py` is a supported continuation aid, not an independent permission requirement.
+For Auto variants also maintain `docs/phdk/lifecycle/<run-id>/AUTO_STATE.json` using the schema in `PHDK_AUTO_CONTINUITY.md`: original user-mandate provenance, mode, goal/scope/target, restrictions, current stage, completed/pending actions, blockers and next action. This run-level file is mutable current evidence; stage snapshots remain immutable. Reconcile it with the current conversation and remote facts. It cannot grant authority, resume another conversation, or override a user stop. `scripts/phdk_auto_gate.py` is a supported continuation aid, not an independent permission requirement. A generic continuation suggestion never overrides the explicit mode-specific Design decision rule.
 
 ## Historical run archive
 
@@ -110,6 +114,7 @@ and one folder per executed/reused stage:
 00-preflight/
 10-capture/
 20-plan/
+25-design/
 30-pmo/
 40-integration/
 45-uat-prep/
@@ -129,7 +134,7 @@ Each stage folder contains:
 
 Historical stage folders are immutable after the next stage starts, except for correcting a factual archival error while preserving the original evidence/history.
 
-Do not make downstream stages depend on mutable links alone. If a canonical artifact will be edited later, snapshot the relevant stage output into the historical folder.
+Do not make downstream stages depend on mutable links alone. If a canonical artifact will be edited later, snapshot the relevant stage output into the historical folder. New Design handoffs do not require retroactively rewriting completed pre-Design runs.
 
 ## HANDOFF.md schema
 
@@ -198,12 +203,14 @@ Plan — COMPLETED
 What Plan did:
 - reconstructed current architecture;
 - defined target solution/repository/UX architecture;
-- produced the dependency-ordered implementation plan.
+- produced the dependency-ordered implementation plan and draft design constraints.
 
 Delivered:
 - SOLUTION_ARCHITECTURE.md
 - REPOSITORY_ARCHITECTURE.md
 - UX_ARCHITECTURE.md
+- UI_DESIGN_SYSTEM.md
+- UX_UI_DECISIONS.md
 - IMPLEMENTATION_PLAN.md
 - ARCHITECTURE_DECISIONS.md
 
@@ -214,12 +221,14 @@ Exit gate:
 - P0 requirements mapped to architecture
 - data/security boundaries explicit
 - workstream decomposition dependency-safe
+- Design inputs ready
 
-Next: PMO / Workstreams
-PMO will verify the Plan package exists and use IMPLEMENTATION_PLAN.md + architecture ownership boundaries to create/confirm workstreams.
+Next: Design
+Design verifies the technical/content baseline and prepares the selected visual style guide and previews.
+Auto asks for the unresolved visual choice; Auto Force selects and continues.
 ```
 
-This declaration is informational, not an approval gate. During Auto/AUTO FORCE, append the truthful active-mandate/next-action capsule from `PHDK_COMMUNICATION_STANDARD.md` and execute that next eligible action in the same turn. Do not issue a terminal response just because a stage or handoff completed.
+The transition declaration itself is informational, not an approval gate. The actual ordinary Auto Design choice is governed separately by `PHDK_DESIGN.md`. During Auto/AUTO FORCE, append the truthful active-mandate/next-action capsule from `PHDK_COMMUNICATION_STANDARD.md` and execute the next eligible action in the same turn. Do not issue a terminal response merely because a stage/handoff completed; when a genuine ordinary Auto design answer is needed and independent work is exhausted, ask that one question and preserve the mandate.
 
 # Stage contracts
 
@@ -322,7 +331,7 @@ For every applicable administered application, apply `ADMIN_CONSOLE_STANDARD.md`
 
 ## Mandatory UX/UI quality overlay
 
-For every UI-applicable lifecycle, apply `PHDK_UX_UI.md` to Plan, Implementation, Integration, UAT/UAT Fix and Check. Plan's UX baseline, journeys, design system and design decisions are required upstream handoff inputs. UAT must perform a user-facing UX/UI audit with evidenced P0/P1 quality gate on the exact candidate, including brownfield before/after regression checks. Required outputs and historical snapshots live in the existing Plan/UAT/UAT Fix stage folders. API-only projects provide an evidence-based NOT APPLICABLE record. No browser activity outside the existing UAT/UAT Fix exception.
+For every UI-applicable lifecycle, apply `PHDK_UX_UI.md` and `PHDK_DESIGN.md` to Plan, Design, Implementation, Integration, UAT/UAT Fix and Check. Plan's UX baseline, journeys and draft design constraints are Design inputs; the selected Design style guide/previews/decision record are required before dependent UI implementation. UAT performs an evidenced UX/UI and selected-baseline fidelity audit on the exact deployed candidate, including brownfield regression checks and the P0/P1 quality gate. Snapshot material outputs in 20-plan/25-design/50-uat/60-uat-fix as applicable. Non-visual scope provides evidence-based NOT APPLICABLE. Static concept creation does not grant browser activity outside scoped UAT/UAT Fix.
 
 ## 20 — Plan
 
@@ -344,11 +353,12 @@ REPOSITORY_ARCHITECTURE.md
 UX_ARCHITECTURE.md
 UX_RESEARCH_BASELINE.md
 UX_JOURNEYS.md
-UI_DESIGN_SYSTEM.md
-UX_UI_DECISIONS.md
+UI_DESIGN_SYSTEM.md         # draft constraints; finalized in Design
+UX_UI_DECISIONS.md          # known choices and pending visual decisions
+MILESTONE_PLAN.md
 IMPLEMENTATION_PLAN.md
 ARCHITECTURE_DECISIONS.md   # when material decisions exist
-TASK.md                     # execution-plan integration
+TASK.md                    # execution-plan integration
 ```
 
 ### Historical outputs
@@ -362,13 +372,55 @@ Snapshot all material Plan outputs plus `HANDOFF.md`.
 - migration/convergence steps exist where needed;
 - component/data/security/integration boundaries explicit;
 - workstream grouping and dependencies are executable;
-- unresolved material architecture decisions explicit.
+- unresolved material architecture decisions explicit;
+- applicable Design inputs are ready, without pretending a pending visual choice is approved.
 
 ### Next stage must verify
 
-PMO verifies `IMPLEMENTATION_PLAN.md`, architecture boundaries, dependencies, and any relevant ADRs before creating/confirming workstreams.
+Design verifies selected technical stack, content/navigation architecture, audience/tasks, existing brand decisions and draft shared-component/theme constraints. If Design is NOT APPLICABLE, record the reason and proceed to eligible implementation.
 
-Inside Auto, a passing Plan handoff immediately starts the next eligible implementation task through stage 30. Missing product code activates required greenfield development; it never turns the Plan handoff into a terminal response or a request for another development command.
+Inside Auto, a passing Plan handoff immediately starts/reuses Design for affected UI scope. Normal Auto asks its unresolved visual choices; FORCE selects and continues to stage 30. Missing product code remains required greenfield development, not a reason to stop after planning or request another development command.
+
+---
+
+## 25 — Design
+
+### Purpose
+
+Establish a visible, durable visual style guide and selected interface baseline before affected UI implementation. Follow `PHDK_DESIGN.md`; this is not Designer Mode or UAT.
+
+### Required inputs
+
+- completed/reused Plan handoff and current scope/applicability;
+- technical stack, content/navigation architecture, audience/roles and primary journeys;
+- existing/draft `UI_DESIGN_SYSTEM.md` and `UX_UI_DECISIONS.md`;
+- supplied references, actual existing assets/components and constraints where available.
+
+### Required canonical outputs
+
+- refined `UI_DESIGN_SYSTEM.md` and `UX_UI_DECISIONS.md`, not duplicate design truth documents;
+- actual permitted references, concepts and representative previews/editable sources under `docs/design/`;
+- mode-correct design gate record with baseline/revision, alternatives, chosen direction, decision provenance, asset paths and visual limitations;
+- affected `IMPLEMENTATION_PLAN.md` / `MILESTONE_PLAN.md` and traceability updates.
+
+### Historical outputs
+
+`25-design/HANDOFF.md` plus snapshots of the selected style guide, decisions and material assets or immutable commit-addressed artifact references. Historic completed runs remain untouched. A mutable external preview link alone is insufficient.
+
+### Exit gate
+
+- identity, composition, graphic system and in-context experience have relevant recorded decisions;
+- representative screens/critical flow, responsive composition and key states are covered proportionately;
+- Auto/standalone Design has actual owner approval or a disclosed owner-accepted specification-only decision;
+- Auto Force has `AGENT_SELECTED_AUTO_FORCE` and rationale, with no PHDK owner-approval wait;
+- reused authority and exact baseline are current and traceable;
+- shared component/token mappings preserve the single palette source and theme contract;
+- actual preview visibility/limitations are truthful; concepts are not app/runtime PASS evidence;
+- material planning consequences are reconciled; actual owner restrictions remain effective.
+
+### Next stage must verify
+
+PMO/implementation checks the selected baseline, mode-correct decision, applicable assets/components/tokens and linked tasks before affected UI coding. In normal Auto, `DESIGN_AWAITING_OWNER` holds only dependent work; FORCE resolves that PHDK-only wait by choosing and recording. Backend/non-visual work may continue only when genuinely independent and already authorized. Missing visual tooling follows PHDK_DESIGN.md's disclosed specification-only policy, never a fabricated screenshot or approval.
 
 ---
 
@@ -381,6 +433,7 @@ Turn the implementation plan into an owner-confirmed workstream portfolio and co
 ### Required inputs
 
 - completed/reused Plan handoff;
+- applicable Design handoff/selected baseline, or evidence-based NOT APPLICABLE;
 - implementation plan;
 - architecture ownership/dependency model;
 - current git/worktree state.
@@ -408,7 +461,7 @@ When workers produce significant workstream-specific summaries, archive them und
 
 - active portfolio confirmed or already contained in explicit Auto scope;
 - every active workstream has stable ID/outcome/scope;
-- dependencies explicit;
+- dependencies explicit, including selected Design baseline for UI work;
 - file/component ownership explicit;
 - workers completed or residual blockers/deferred state explicit;
 - each in-scope commitment has concrete implementation/source evidence or an explicit unfinished blocker; coordination artifacts, assignments and scaffolds alone never prove workstream completion;
@@ -416,7 +469,7 @@ When workers produce significant workstream-specific summaries, archive them und
 
 ### Next stage must verify
 
-Integration Review verifies all expected workstreams have completion evidence and shared/collision surfaces are enumerated.
+Integration Review verifies all expected workstreams have completion evidence and shared/collision surfaces are enumerated. Workers receive only the relevant selected Design slices, not the entire rejected-concept history.
 
 ---
 
@@ -431,7 +484,8 @@ Turn completed workstreams into one coherent candidate.
 - completed PMO handoff;
 - workstream completion evidence;
 - current branches/commits/worktree;
-- shared ownership/dependency map.
+- shared ownership/dependency map;
+- applicable selected Design baseline and shared-component/token mappings.
 
 ### Required canonical outputs
 
@@ -448,6 +502,7 @@ It must include:
 - changed/shared components;
 - conflicts reconciled;
 - API/schema/data/navigation contract checks;
+- selected Design baseline source-fidelity review and explicit deviations, without invented render evidence;
 - version/changelog reconciliation;
 - integrated checks executed;
 - unresolved integration risks;
@@ -469,12 +524,12 @@ Snapshot additional architecture/API/schema evidence only when materially useful
 - shared-file conflicts resolved or explicitly blocked;
 - cross-workstream contracts coherent;
 - candidate version/revision identifiable;
-- applicable integrated local checks completed;
-- no hidden unresolved integration collision.
+- applicable permitted static checks completed; runtime verification remains on the authorized deployed candidate;
+- no hidden unresolved integration collision or unrecorded material design drift.
 
 ### Next stage must verify
 
-UAT Prep verifies `INTEGRATION_REPORT.md` and its candidate. If Prep modifies code/schema, it refreshes the current integration candidate and reruns affected integration checks, preserving prior historical evidence. UAT later verifies this revised candidate and the Prep handoff.
+UAT Prep verifies `INTEGRATION_REPORT.md` and its candidate. If Prep modifies code/schema, it refreshes the current integration candidate and reruns affected permitted integration checks, preserving prior historical evidence. UAT later verifies this revised deployed candidate and the Prep handoff under `PHDK_PRODUCTION_VERIFICATION.md`.
 
 ---
 
@@ -482,11 +537,11 @@ UAT Prep verifies `INTEGRATION_REPORT.md` and its candidate. If Prep modifies co
 
 ### Purpose
 
-Build and verify synthetic test identities, secure role sessions and test-only provider/fixture readiness **before** browser UAT. Follow `PHDK_UAT_PREP.md`.
+Build and verify synthetic test identities, secure role sessions and fixture readiness **before** browser UAT. Follow `PHDK_UAT_PREP.md` and the governing `PHDK_PRODUCTION_VERIFICATION.md`.
 
 ### Inputs
 
-Current integration handoff/candidate, source-backed auth/RBAC/tenancy, Company Co fixture, `JWT_STANDARD.md`, safe isolated target.
+Current integration handoff/candidate, source-backed auth/RBAC/tenancy, Company Co fixture, `JWT_STANDARD.md`, and the existing authorized production target with safe run-owned synthetic isolation.
 
 ### Canonical outputs
 
@@ -498,25 +553,24 @@ Current integration handoff/candidate, source-backed auth/RBAC/tenancy, Company 
 
 ### Exit and next-stage gate
 
-Evidence of per-role provisioned test-only identities or exact blockers; valid test bootstrap, local/in-process allow/deny and tenant checks; isolation, expiry and cleanup controls; revision reconciled with Integration after Prep code changes. UAT checks the same candidate plus the Prep handoff and carries precise blockers forward. The browser readiness check begins **only at 50 — UAT**.
+Evidence of per-role provisioned synthetic identities or exact blockers; legitimate authentication, allow/deny and tenant-boundary verification only in the permitted deployed environment; isolation, expiry and cleanup controls; revision reconciled with Integration after Prep code changes. No local/in-process runtime tests or new environment. UAT checks the same candidate plus the Prep handoff and carries precise blockers forward. The browser readiness check begins **only at 50 — UAT**.
 
 ---
 
 ## 50 — UAT
 **Entry gate:** Run `UAT_BROWSER_READINESS_STANDARD.md` after Integration Review and before the first browser-dependent case, verifying scoped phase authorization and technical browser availability independently. Save evidence/safety/no-new-spend disposition in `UAT_ACCESS_REPORT.md`, summarize in `UAT_REPORT.md`, and retain exact BLOCKED cases if not connected. Missing access does not justify paid API/budget approval or a stop of independent safe acceptance checks.
 
-
 ### Purpose
 
-Validate intent-aligned user acceptance on the integrated candidate.
+Validate intent-aligned user acceptance and applicable selected-design fidelity on the integrated deployed candidate.
 
 ### Required inputs
 
 - completed Integration Review handoff;
 - verified `45-uat-prep` handoff/role fixtures or documented source-backed N/A, with outstanding per-role blockers;
-- exact candidate revision/worktree reconciled after Prep changes;
-- Capture/Plan traceability;
-- UAT standard.
+- exact deployed candidate revision reconciled after Prep changes;
+- Capture/Plan/Design traceability and selected previews or disclosed specification-only limitations;
+- UAT standard and production-first verification/cleanup controls.
 
 ### Required canonical outputs
 
@@ -528,7 +582,7 @@ UX_UI_AUDIT_REPORT.md  # when UI applies
 
 ### Historical outputs
 
-Snapshot both plus `HANDOFF.md`.
+Snapshot all applicable outputs plus `HANDOFF.md`.
 
 ### Exit gate
 
@@ -538,11 +592,11 @@ One of:
 - NOT ACCEPTED with actionable FAILs;
 - ACCEPTANCE INCOMPLETE with actionable BLOCKED/MANUAL plan.
 
-No unresolved NOT RUN final cases.
+No unresolved NOT RUN final cases. A generated concept, owner design approval or agent selection is not evidence of actual rendered behavior, accessibility or successful production cleanup.
 
 ### Next stage must verify
 
-UAT Fix verifies the exact UAT report/cases for the same candidate. If UAT is ACCEPTED with no remediation needed, UAT Fix may be NOT APPLICABLE and Check can proceed.
+UAT Fix verifies the exact UAT report/cases for the same candidate. If UAT is ACCEPTED with no remediation needed, UAT Fix may be NOT APPLICABLE and the next applicable SEO/AEO/Check stage can proceed.
 
 ---
 
@@ -556,7 +610,8 @@ Repair UAT failures/removable blockers and provide explicit closure actions for 
 
 - completed UAT handoff;
 - UAT report/cases;
-- exact candidate/worktree.
+- exact candidate/worktree;
+- affected selected Design baseline when repairing visual fidelity.
 
 ### Required canonical outputs
 
@@ -586,13 +641,13 @@ Snapshot all remediation outputs plus `HANDOFF.md`.
 ### Exit gate
 
 - every fixable in-scope FAIL/removable blocker was attempted;
-- retests executed;
+- permitted deployed retests executed;
 - remaining blockers/manual actions are explicit;
 - current UAT conclusion is known.
 
 ### Next stage must verify
 
-Check verifies the latest UAT status and does not assume ACCEPTED when acceptance remains incomplete.
+The next applicable SEO/AEO/Check stage verifies the latest UAT status and does not assume ACCEPTED when acceptance remains incomplete. Material new visual direction reopens only affected Design decisions under the current mode; routine fixes to match the selected baseline do not trigger another style interview.
 
 ---
 
@@ -649,7 +704,7 @@ Audit the resulting repository against all applicable PHDK standards.
 ### Required inputs
 
 - latest integrated/remediated candidate;
-- Capture + Plan + PMO + Integration + UAT + SEO + AEO/GEO handoffs or grounded NOT APPLICABLE records;
+- Capture + Plan + Design + PMO + Integration + UAT + SEO + AEO/GEO handoffs or grounded NOT APPLICABLE records;
 - active PHDK standards.
 
 ### Required canonical outputs
@@ -669,6 +724,7 @@ PHDK_CHECK_REPORT.md
 
 - applicability evaluated;
 - all material standards evaluated;
+- applicable Design decision provenance, asset availability, implementation fidelity and current visual evidence distinguished;
 - gaps classified;
 - remediation categories assigned;
 - overall ALIGNED / GAPS FOUND / ALIGNMENT INCOMPLETE conclusion explicit.
@@ -758,6 +814,7 @@ It records:
 - remote target SHA;
 - checks/reviews;
 - Auto mode and mandate evidence; under AUTO FORCE, PHDK-only human gates recorded as `NON_BLOCKING_BY_MODE`, never fabricated human approval;
+- applicable selected Design baseline, decision provenance and residual visual limitations;
 - real delivery rejections and their diagnosis, scoped repair, revalidation and retry outcomes when applicable;
 - deployment evidence if actually observed;
 - residual blockers/limitations;
@@ -789,8 +846,9 @@ A stage may be marked REUSED only when the next stage verifies:
 - required canonical artifacts exist;
 - they are coherent with current intent/goal;
 - no material upstream change invalidated them;
-- historical origin/revision is identifiable.
-- claimed implementation and validation have current evidence; a plan or old completion label alone cannot satisfy an implementation/acceptance gate.
+- historical origin/revision is identifiable;
+- claimed implementation and validation have current evidence; a plan or old completion label alone cannot satisfy an implementation/acceptance gate;
+- for Design, original decision authority is known and valid for the current mode: normal Auto does not silently treat an agent-only selection as owner approval.
 
 When reusing a stage in a new lifecycle run:
 
@@ -809,7 +867,7 @@ If a later stage discovers that an upstream artifact is materially wrong/outdate
 4. create a new revision/snapshot;
 5. re-run every downstream exit gate materially affected by the change.
 
-Do not silently patch architecture during UAT or silently rewrite requirements during Check without restoring lifecycle traceability.
+Do not silently patch architecture during UAT, replace the selected visual direction during implementation, or rewrite requirements during Check without restoring lifecycle traceability. Apply the current mode's Design decision policy to material visual changes, not a repeated approval for routine fidelity repairs.
 
 # Minimum historical principle
 
@@ -817,6 +875,7 @@ PHDK should preserve enough history that a future assistant/human can answer:
 
 - What did Capture understand at that time?
 - What architecture did Plan choose?
+- What visual direction did Design select, from which previews, and who actually decided?
 - Which workstreams did PMO execute?
 - What exactly was integrated?
 - What did UAT accept/fail/block?

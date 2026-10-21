@@ -13,7 +13,7 @@ from pathlib import Path
 MODES = {"auto", "auto_force"}
 KINDS = {"work", "review_diff", "required_check", "delivery", "verify_delivery"}
 STATES = {"pending", "running", "blocked", "done"}
-BLOCKERS = {"phdk_human_review", "real_failure", "external_dependency", "owner_decision", "owner_stop"}
+BLOCKERS = {"phdk_human_review", "design_choice", "real_failure", "external_dependency", "owner_decision", "owner_stop"}
 
 
 def nonempty(value):
@@ -97,7 +97,8 @@ def validate(state, mode):
             for key in ("source_ref", "next_action"):
                 if not nonempty(item.get(key)):
                     errors.append(f"{bid}: missing {key}")
-            if not string_list(item.get("resolution_attempts"), required=True):
+            # A Design choice is intentional product input, not a failed repair.
+            if item.get("kind") != "design_choice" and not string_list(item.get("resolution_attempts"), required=True):
                 errors.append(f"{bid}: record attempted resolution before waiting")
     for item in steps:
         if not isinstance(item, dict) or not nonempty(item.get("id")):
@@ -119,6 +120,7 @@ def validate(state, mode):
     if errors:
         return errors
     graph = {}
+    unresolved_design_ids = {b["id"] for b in blockers if b["kind"] == "design_choice"}
     done = {item["id"] for item in steps if item["status"] == "done"}
     for item in steps:
         sid = item["id"]
@@ -130,6 +132,8 @@ def validate(state, mode):
                 errors.append(f"{sid}: unknown blocker {bid}")
         if sid in done and any(dep not in done for dep in item["depends_on"]):
             errors.append(f"{sid}: completed evidence has an unfinished prerequisite; reconcile and revalidate")
+        if sid in done and unresolved_design_ids.intersection(item["blocked_by"]):
+            errors.append(f"{sid}: completed step retains an unresolved design_choice; record the decision and resolve its blocker")
         graph[sid] = set(item["depends_on"])
     # A dependency-cycle is bookkeeping to repair, not a request for approval.
     while graph:
@@ -181,6 +185,18 @@ def evaluate(state, mode):
                 repairs.append({"step_id": item["id"], "blocker_id": b["id"], "action": repair,
                                 "then": f"Revalidate affected checks, retry the failed delivery operation, and verify remote {state['target_branch']}."})
             continue
+        designs = [b for b in real if b["kind"] == "design_choice"]
+        if designs:
+            if mode == "auto":
+                # Present only the current unresolved choice, never a questionnaire.
+                b = designs[0]
+                waiting.append({"step_id": item["id"], "blocker_id": b["id"],
+                                "reason": "DESIGN_AWAITING_OWNER", "action": b["next_action"]})
+            else:
+                # FORCE must select first; it must not skip straight to dependent UI.
+                ready.append({"step_id": item["id"], "design_blockers": [b["id"] for b in designs],
+                              "action": "Compare the available design alternatives, select and record AGENT_SELECTED_AUTO_FORCE with rationale and visual evidence limits, resolve the design_choice blockers, then continue dependent implementation. Do not wait for PHDK visual approval."})
+            continue
         reviews = [b for b in real if b["kind"] == "phdk_human_review"]
         action = item["action"] if not reviews else "Perform the pending PHDK technical diff review within current permissions, then continue delivery."
         ready.append({"step_id": item["id"], "action": action})
@@ -189,6 +205,8 @@ def evaluate(state, mode):
     if ready:
         return result("CONTINUE", ready, waiting=waiting, **notes)
     if waiting:
+        if all(item.get("reason") == "DESIGN_AWAITING_OWNER" for item in waiting):
+            return result("WAITING_EXTERNAL", waiting[:1], pending_design_choices=len(waiting), **notes)
         return result("WAITING_EXTERNAL", waiting, **notes)
     return result("REPAIR_STATE", ["Reconcile step dependencies and missing prerequisites internally; do not turn a stale status into a human gate."], **notes)
 

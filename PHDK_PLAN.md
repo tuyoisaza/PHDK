@@ -4,22 +4,23 @@
 
 For multi-tenant plans, apply `PHDK_TENANT_RISK_STANDARD.md` and consume `TENANT_RISK_ASSESSMENT.md`. Compare justified shared RLS versus dedicated database/infrastructure architectures and baseline versus additional field-level/per-tenant-key encryption, along with risk reduction, cost and operations. Record risk tier, owner-approved choice or DECISION REQUIRED in `ADMIN_ARCHITECTURE.md`; map selected controls, migration/rollback and UAT verification to `MILESTONE_PLAN.md`. Never silently provision infrastructure or convert live data.
 
-
-
 ## Mandatory milestone planning and project-management model
 
 Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` during Plan. Classify the delivery approach as predictive, adaptive or hybrid from actual requirement stability/uncertainty, then create or refresh `MILESTONE_PLAN.md`.
 
 Milestones are value/acceptance boundaries, not PHDK lifecycle stages. Every in-scope commitment and implementation task/workstream must map to a milestone. Each milestone needs a stable `MS-###` ID, value outcome, linked requirements, included workstreams/tasks, dependencies, material risks/domain impacts, acceptance criteria/evidence, expected SemVer impact, and UAT user-goal intent. Prefer vertical, independently coherent increments; do not reserve an exact version number during planning because current `main` may advance before delivery.
 
-Inside Auto/Auto Force, completing a milestone triggers the milestone publication gate: relevant verification → version reconciliation/bump → version-prefixed commit → scoped PR → merge to `main` → remote SHA/version readback → continue from refreshed `main`. Ending Capture, Plan, PMO, UAT or another lifecycle stage by itself never triggers a version.
+Inside Auto/Auto Force, completing a milestone triggers the milestone publication gate: relevant verification → version reconciliation/bump → version-prefixed commit → scoped PR → merge to `main` → remote SHA/version readback → continue from refreshed `main`. Ending Capture, Plan, Design, PMO, UAT or another lifecycle stage by itself never triggers a version.
 
 When available, prefer the planning/task-breakdown and detailed implementation-plan capabilities registered in `SKILLS_REGISTRY.md`; PHDK's milestone, authorization and delivery rules override any external skill's checkpoint/commit/approval conventions.
 
-## Mandatory product UX/UI planning
+## Mandatory product UX/UI planning and Design handoff
 
-For every user-facing interface, implement `PHDK_UX_UI.md` in greenfield or brownfield mode. Plan must produce `UX_RESEARCH_BASELINE.md`, `UX_JOURNEYS.md`, `UI_DESIGN_SYSTEM.md`, and `UX_UI_DECISIONS.md` alongside `UX_ARCHITECTURE.md`, link critical journeys to requirements and implementation tasks, and preserve valid existing workflows in redesigns. Do not declare Plan exit passed with these missing, unless the project has no UI and has documented N/A.
+For every user-facing interface, implement `PHDK_UX_UI.md` in greenfield or brownfield mode. Plan must produce `UX_RESEARCH_BASELINE.md`, `UX_JOURNEYS.md`, `UI_DESIGN_SYSTEM.md`, and `UX_UI_DECISIONS.md` alongside `UX_ARCHITECTURE.md`, link critical journeys to requirements and implementation tasks, and preserve valid existing workflows in redesigns. Do not declare Plan exit passed with these missing, unless the current scope has no applicable UI and has documented N/A.
 
+Plan fixes the technical stack, content/navigation architecture, existing brand constraints and draft design-system/component boundaries. **Final visual selection belongs to `PHDK design`, stage 25-design, after Plan and before affected UI implementation.** Mark pending aesthetic choices explicitly in the existing design artifacts; do not demand a finished approved style guide as a prerequisite to entering Design. Design refines the same files with references, alternatives, previews, final tokens/component mappings and decision provenance, then updates affected implementation/milestone tasks.
+
+Normal Auto and standalone Design ask one unresolved visual question at a time and wait for the owner's selection/preview approval. Auto Force makes and records the choices as `AGENT_SELECTED_AUTO_FORCE` and continues without a PHDK visual-approval pause. Reuse valid owner decisions; preserve actual owner restrictions and the no-local-runtime/no-Docker/no-new-environment boundary in `PHDK_PRODUCTION_VERIFICATION.md`. A plan, generated mockup or source specification is not runtime verification.
 
 ## Mandatory administration architecture
 
@@ -33,7 +34,7 @@ For applicable apps, apply `CRUD_STANDARD.md`: inventory managed entities, role 
 
 Follow `PHDK_COMMITMENT_STANDARD.md`. Consume `PHDK_COMMITMENTS.md`, and generate `PHDK_COMMITMENT_COVERAGE.md` retaining visibility of every confirmed ID. Map **every confirmed ID in the current authorized goal** to requirements, design decisions, implementation tasks/workstreams, dependencies and acceptance evidence; fail the Plan exit gate if any such ID is unowned or omitted without a documented blocker. Mark other commitments outside this run's scope without executing, cancelling or silently deferring them. Missing implementation of a confirmed in-scope requirement stays linked to that commitment and is executed by Auto. Return genuinely new outcomes outside the goal or indispensable material decisions unresolved by current rules/decisions to Capture for owner scope confirmation; preserve original plan and ledger history.
 
-Under active AUTO FORCE, [Propose missing definitions and solutions](PHDK_AUTO_CONTINUITY.md#propose-missing-definitions-and-solutions) takes precedence over generic requests for missing specifications. The assistant supplies concrete behavior and acceptance criteria for gaps already implied by the authorized outcome: recover relevant current standards and product decisions, choose reasonable safe reversible defaults, identify useful configuration, and record assumptions and rationale in the existing Plan/decision artifacts. Then implement the inferable authorized work; do not ask the owner to design every detail or recommend dropping required capabilities to finish.
+Under active AUTO FORCE, [Propose missing definitions and solutions](PHDK_AUTO_CONTINUITY.md#propose-missing-definitions-and-solutions) takes precedence over generic requests for missing specifications. The assistant supplies concrete behavior and acceptance criteria for gaps already implied by the authorized outcome: recover relevant current standards and product decisions, choose reasonable safe reversible defaults, identify useful configuration, and record assumptions and rationale in the existing Plan/decision artifacts. Then implement the inferable authorized work; do not ask the owner to design every detail or recommend dropping required capabilities to finish. For visual choices, first complete the applicable Design baseline under `PHDK_DESIGN.md` without a FORCE owner-selection wait.
 
 For a genuinely new indispensable material decision that cannot be resolved within that mandate, present the recommended definition and its impact, ask only for the specific remaining choice, and continue independent work. Existing user decisions and non-goals remain binding. Standalone Plan and audit-only requests retain their planning/read-only boundaries; this rule does not activate implementation outside an authorized parent goal.
 
@@ -215,11 +216,11 @@ Include:
 - conceptual screen/page inventory;
 - optional low-fidelity Mermaid/ASCII flow diagrams.
 
-Do not invent branding or visual art direction unsupported by intent. Detailed graphical design may be produced only when the request includes it.
+Do not invent branding or visual art direction unsupported by intent. Standalone Plan records constraints and unresolved aesthetic choices; the explicit `PHDK design` command or the Design stage included in an authorized Auto goal supplies the graphical design scope. Final visual choices follow that stage's mode policy before dependent UI coding.
 
 ### 4. MILESTONE_PLAN.md
 
-Define the ordered value-delivery roadmap required by `PHDK_PROJECT_MANAGEMENT_STANDARD.md`. Map milestones to commitments, requirements, workstreams/tasks, dependencies, risks, acceptance evidence, expected SemVer impact and UAT user-goal intent. Record actual version/PR/main evidence only after execution.
+Define the ordered value-delivery roadmap required by `PHDK_PROJECT_MANAGEMENT_STANDARD.md`. Map milestones to commitments, requirements, workstreams/tasks, dependencies, risks, acceptance evidence, expected SemVer impact and UAT user-goal intent. Record actual version/PR/main evidence only after execution. Include the selected Design baseline as a dependency for applicable UI work, not as a mandatory separate release milestone.
 
 ### 5. IMPLEMENTATION_PLAN.md
 
@@ -231,7 +232,7 @@ Every step must contain:
 - intent/requirement/feature links;
 - inspected implementation state, existing source/evidence, and the exact missing behavior, with routine definitions supplied by the assistant under the FORCE rule above when applicable;
 - outcome;
-- prerequisites/dependencies;
+- prerequisites/dependencies, including the applicable selected Design baseline for UI tasks;
 - exact components/files/packages likely affected;
 - implementation steps;
 - data/schema/API implications;
@@ -262,7 +263,7 @@ For each decision:
 
 Do not overwrite historical decisions silently. Supersede them explicitly.
 
-### 6. TASK.md integration
+### 7. TASK.md integration
 
 Plan translates the approved architecture/implementation sequence into actionable task structure.
 
@@ -325,38 +326,40 @@ Before Plan is complete:
 - migration steps exist for brownfield gaps;
 - implementation ordering is dependency-safe;
 - UX route/flow architecture covers all P0 workflows;
+- applicable Design inputs and unresolved visual choices are ready for stage 25;
 - unresolved material decisions are explicit.
 
 ## Relationship to PMO
 
-Plan supplies PMO with the architecture and executable decomposition.
+Plan supplies PMO with the architecture and executable decomposition; Design supplies the selected visual baseline for applicable UI workstreams.
 
 Recommended chain:
 
 ```text
-Capture → Plan → PMO
+Capture → Plan → Design → PMO / implementation
 ```
 
-PMO should derive workstreams primarily from `IMPLEMENTATION_PLAN.md`, requirements/features, architecture ownership boundaries, and current repo state.
+PMO should derive workstreams primarily from `IMPLEMENTATION_PLAN.md`, requirements/features, architecture ownership boundaries, the selected Design baseline and current repo state.
 
-Plan proposes workstream groupings but does not activate them. PMO owns portfolio confirmation and coordination.
+Plan proposes workstream groupings but does not activate them. PMO owns portfolio confirmation and coordination. It may organize or execute genuinely independent authorized non-UI work while an ordinary Auto design choice is pending, but cannot bypass the affected UI design dependency.
 
 ## Relationship to Auto
 
-Standalone `PHDK plan` produces architecture/planning artifacts and stops unless a parent request includes execution.
+Standalone `PHDK plan` produces architecture/planning artifacts and stops unless a parent request includes execution. Its completion response identifies `PHDK design` as the next applicable step without silently activating it.
 
-Full `PHDK auto` uses Plan as an internal lifecycle stage after Capture and before PMO/workstream execution. After the Plan exit gate passes, Auto must immediately execute the next eligible implementation task and continue the complete authorized development in the same invocation, including greenfield construction when code is absent. It must not ask whether to start development or require another mode command. Ask only for genuinely material unresolved architecture/product decisions and continue independent permitted work. A completed plan proves readiness to execute; it does not prove implemented or accepted behavior.
+Full `PHDK auto` uses Plan as an internal lifecycle stage after Capture. After Plan, immediately execute/reuse applicable `PHDK design` before UI workstream implementation. **Auto asks the unresolved visual choices and waits for the owner; Auto Force chooses, records AGENT_SELECTED_AUTO_FORCE and continues.** No second development command is needed after the applicable decision. Continue the complete authorized scope, including greenfield construction when code is absent, while preserving valid code and independent permitted work. A completed plan or design package proves readiness to execute, not implemented or accepted behavior.
 
 ## Lifecycle handoff
 
 When Plan completes or is reused inside a lifecycle run:
 
 - create `docs/phdk/lifecycle/<run-id>/20-plan/HANDOFF.md`;
-- snapshot the material Plan outputs, including `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, relevant architecture decisions, and TASK integration;
+- snapshot the material Plan outputs, including `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, draft design artifacts, `MILESTONE_PLAN.md`, `IMPLEMENTATION_PLAN.md`, relevant architecture decisions, and TASK integration;
 - record the architecture quality/exit gate;
-- declare what PMO must verify before it creates/confirms workstreams.
+- declare what Design must verify before visual selection, or why Design is NOT APPLICABLE for this scope;
+- retain the architecture/dependency inputs that PMO will consume after the Design gate.
 
-PMO must validate `IMPLEMENTATION_PLAN.md`, ownership/dependency boundaries, and relevant ADRs before workstream execution.
+Design verifies the technical/content baseline, existing decisions and components; it refines only affected planning outputs. PMO must validate `IMPLEMENTATION_PLAN.md`, ownership/dependency boundaries, relevant ADRs and the applicable `25-design/HANDOFF.md` before dependent UI execution.
 
 ## Completion response
 
@@ -369,7 +372,7 @@ At completion, explain:
 - recommended repo topology;
 - workstream decomposition;
 - migration/convergence plan;
-- unresolved decisions.
+- unresolved decisions and the next applicable Design choice.
 
 Then list/link:
 
@@ -377,7 +380,8 @@ Then list/link:
 - `REPOSITORY_ARCHITECTURE.md`
 - `UX_ARCHITECTURE.md`
 - `IMPLEMENTATION_PLAN.md`
+- `UI_DESIGN_SYSTEM.md` and `UX_UI_DECISIONS.md` when UI applies
 - `ARCHITECTURE_DECISIONS.md` when created/updated
 - `TASK.md` when updated
 
-State clearly that PMO/Auto execution should use these artifacts as the architectural source of truth.
+State clearly that Design and PMO/Auto execution use these artifacts as the architectural source of truth; the selected visual baseline is finalized in Design.
