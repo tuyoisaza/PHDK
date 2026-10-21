@@ -32,3 +32,8 @@ Before any write, establish a run ID, unique test namespace/owner tag, precise e
 ## Gate semantics and policy coherence
 
 Local static PASS is not behavioral PASS; merged or deployed is not accepted. Runtime tests unexecuted are BLOCKED/UNVERIFIED. Existing required hooks/security gates cannot be skipped; escalate any incompatible gate rather than running forbidden local runtime tests. PHDK Check must detect violations in scripts and standards; vendor this policy on upgrade and apply it as the explicit governing exception to older local-only/staging-only phrases pending their full removal. No new CI or paid resources may be created for this policy.
+
+
+## Hook compatibility (v2.61.0)
+
+Apply [PHDK_HOOK_COMPATIBILITY.md](PHDK_HOOK_COMPATIBILITY.md). Inspect effective Git hooks and nested package scripts before push; a local behavioral test required by a legacy PHDK hook is an AUTO-FIXABLE policy violation, not a reason to request a local-testing exception. Within authorized Auto/Auto Force/Check Fix, replace **only proven PHDK-owned** prohibited test invocations with permitted static checks while preserving security/version/branch/commit gates. Owner-owned, external, or unknown hooks remain unchanged absent explicit authorization; report BLOCKED if they prevent push. Never execute prohibited tests or use --no-verify.
