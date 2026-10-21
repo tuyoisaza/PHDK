@@ -1,3 +1,11 @@
+## v2.61.0 — 2026-10-21
+
+### Automatic PHDK-managed hook compatibility remediation
+- Add `PHDK_HOOK_COMPATIBILITY.md`: scan effective Git hooks and nested scripts against production-first verification before publication; identify provenance before editing.
+- Authorize Auto/Auto Force and Check Fix to repair only proven legacy/PHDK-owned runtime-test hook conflicts while preserving versioning, secret scans, security and independent checks.
+- Require bare Check to report findings and preserve owner/external/unknown hooks, never bypass or run prohibited local tests to make a push pass.
+- Update active execution, agent, testing and enforcement guidance and vendor the standard. Documentation-only checks; downstream adoption and runtime behavior unverified.
+
 ## v2.60.1 — 2026-10-21
 
 ### Publish the historical intelligent-development architecture audit
