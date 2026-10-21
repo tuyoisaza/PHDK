@@ -1,3 +1,10 @@
+## v2.60.1 — 2026-10-21
+
+### Publish the historical intelligent-development architecture audit
+- Publish the previously delivered v2.56.0 read-only architecture audit as an optional repository report, including measured inventory, evidence references, context estimates, delegation analysis, target architecture, alternatives, migration and benchmark proposal.
+- Add publication provenance and an explicit addendum: general bounded delegation and progressive context guidance already shipped in v2.57.x; historical findings must not be treated as current rules.
+- Link the report from README without adding it to mandatory instructions or the vendoring manifest. No execution-policy change, runtime benchmark, downstream upgrade or deployment is performed.
+
 ## v2.60.0 — 2026-10-21
 
 ### Pre-implementation visual Design
