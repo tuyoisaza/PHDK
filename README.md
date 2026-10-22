@@ -1,10 +1,12 @@
 # PHDK
 
+**UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. Legacy lifecycle arrows below describe the optional explicit UAT path, not an Auto transition.
+
 **Hook compatibility (v2.61.0):** [`PHDK_HOOK_COMPATIBILITY.md`](PHDK_HOOK_COMPATIBILITY.md) requires Check/Auto to detect local runtime-test hooks, automatically reconcile only proven PHDK-owned legacy hooks without weakening independent security controls, and preserve/block on owner or external gates.
 
 
 **Project Handoff to Development Kit**  
-**Version v2.60.1**
+**Version v2.62.0**
 
 **Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
 
@@ -61,7 +63,7 @@ Verified delivery
 For a single focused workstream:
 
 ```text
-Capture → Plan → Design → implementation/integration → UAT Prep → UAT/Fix → applicable SEO/AEO → Check → delivery
+Capture → Plan → Design → implementation/integration → applicable SEO/AEO → Check → delivery; optional explicit `PHDK uat` → UAT Prep/UAT/Fix
 ```
 
 Or run `PHDK auto` for the complete authorized goal. Every invocation revalidates intent/requirements against actual code before reusing prior work, builds missing implementation and completes partial products. UI-independent work can proceed while normal Auto awaits a design choice; dependent UI cannot. Non-visual scopes record Design NOT APPLICABLE rather than inventing screens.
@@ -234,7 +236,7 @@ Auto rereads intent and requirements against actual code every invocation, reuse
 
 **Plan → Design → implementation is one active goal.** Auto asks unresolved visual choices and waits for your answer; after the applicable Design decision, it continues without another development command or ceremonial approval. It does not silently reduce complete scope to an MVP. A design wait blocks dependent UI, not genuinely independent authorized tasks.
 
-The full sequence includes Capture, Plan, Design, PMO/implementation, Integration, UAT Prep, UAT/Fix, applicable SEO/AEO, Check/remediation and delivery. A status board shows where work is running and what is complete/reused/blocked/N/A. Generic Auto with several coherent active fronts uses PMO portfolio confirmation instead of forcing one arbitrary task.
+The Auto sequence includes Capture, Plan, Design, PMO/implementation, Integration, applicable SEO/AEO, Check/remediation and delivery. UAT Prep/UAT/Fix are separate optional stages triggered only by explicit `PHDK uat`. A status board shows where work is running and what is complete/reused/blocked/N/A. Generic Auto with several coherent active fronts uses PMO portfolio confirmation instead of forcing one arbitrary task.
 
 ## `PHDK auto force`
 

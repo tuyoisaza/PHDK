@@ -1,3 +1,11 @@
+## v2.62.0 — Explicit-only UAT authorization (overrides legacy automatic-stage wording)
+
+**Binding rule:** `PHDK auto` and `PHDK auto force` MUST NOT invoke, enter, provision, seed, or run UAT Prep (45), UAT (50), or UAT Fix (60), even after milestones, deployment, Check, or a failed prior UAT. Neither FORCE nor a generic full-lifecycle instruction grants UAT authorization. These stages are **DEFERRED — OWNER OPT-IN**, not BLOCKED, FAILED, or a completion prerequisite. This rule takes precedence over any older automatic UAT transitions in this file.
+
+Auto/Force must implement **all authorized milestones first**, perform permitted static checks and integration review, version/commit/push/PR/merge each completed value milestone, finish applicable SEO/AEO and Check/remediation without invoking acceptance tests, deploy through the existing authorized production route, verify remote main and deployment with available non-UAT evidence, and report truthful **DEVELOPMENT COMPLETE / PARTIALLY DELIVERED / BLOCKED** separately from **UAT NOT RUN**. A deployment that cannot be verified must be reported as unverified, not complete. Preserve user stories, acceptance criteria and milestone-to-story mapping as *documentation only*; no synthetic accounts, fixtures, browser journeys, runtime acceptance, or UAT spending in Auto. Do not execute local behavioral tests, Docker, or unauthorized external services.
+
+At the end, offer `PHDK uat` as an optional **future explicit command**, without waiting for an answer as a delivery gate. Only a fresh, explicit owner invocation of `PHDK uat` authorizes UAT and its necessary Prep prerequisite, subject to normal access, safety and spending controls. Standalone `PHDK uat prep` prepares identities only when explicitly requested; it does not authorize running UAT. `PHDK uat fix` requires explicit invocation or authorization within an active explicitly initiated UAT. Prior UAT failures never reopen the completed development goal or prevent subsequent independent development.
+
 ## Risk-specific multi-tenant UAT preparation
 
 For multi-tenant products read `PHDK_TENANT_RISK_STANDARD.md` and the project's `TENANT_RISK_ASSESSMENT.md`. Plan separately owned synthetic tenant fixtures and safely scoped denial cases that match the accepted tier. The newer `PHDK_PRODUCTION_VERIFICATION.md` supersedes older local/non-production testing directions: no local behavioral/in-process tests, Docker, extra staging or databases. Use only permitted synthetic records on the already-deployed candidate with automatic audited cleanup; do not probe actual customer records or buy/provision infrastructure. Record unverifiable runtime controls as BLOCKED/UNVERIFIED.
@@ -6,7 +14,7 @@ For multi-tenant products read `PHDK_TENANT_RISK_STANDARD.md` and the project's 
 
 ## Command, position and authority
 
-**Command:** `PHDK uat prep`, case-insensitive after whitespace trim; also mandatory **stage 45 UAT Prep** within `PHDK auto`, between Integration Review (40) and UAT (50). This is an **implementation and provisioning** command, not a planning-only audit. A request to define this command does not activate it in another product. It does not activate Auto, UAT, background work or any browser exception.
+**Command:** `PHDK uat prep`, case-insensitive after whitespace trim; stage 45 is only entered after explicit `PHDK uat` or explicit `PHDK uat prep`; never automatically within Auto. This is an **implementation and provisioning** command, not a planning-only audit. A request to define this command does not activate it in another product. It does not activate Auto, UAT, background work or any browser exception.
 
 On a standalone invocation, complete permitted in-scope application edits, non-browser verification, versioned branch/PR/merge and remote verification under `MAIN_DELIVERY_STANDARD.md`. Inside Auto, develop on the same integrated candidate and **do not merge or release at stage 45**; use Auto's final delivery.
 
@@ -37,13 +45,13 @@ Inside Auto create immutable sanitized snapshots plus `docs/phdk/lifecycle/<run-
 
 ## UAT transition, source changes and browser boundary
 
-Auto order: **40 Integration → 45 UAT Prep → 50 UAT → 60 UAT Fix**. Prep **must not** launch Playwright, browser/headless tests, screenshots, OAuth login pages or full acceptance journeys. The browser exception only starts on entry to UAT/UAT Fix under `UAT_BROWSER_READINESS_STANDARD.md`. At UAT entry separately verify real connected browser availability and safe target; a complete Prep handoff does not prove browser access.
+Explicit UAT order only: **40 Integration evidence → 45 UAT Prep → 50 UAT → 60 UAT Fix**. Auto/Force never enter stages 45–60. Prep **must not** launch Playwright, browser/headless tests, screenshots, OAuth login pages or full acceptance journeys. The browser exception only starts on entry to UAT/UAT Fix under `UAT_BROWSER_READINESS_STANDARD.md`. At UAT entry separately verify real connected browser availability and safe target; a complete Prep handoff does not prove browser access.
 
 When Prep alters application code/schema after the prior Integration Review, rerun affected integration/non-browser verification, **refresh the current `INTEGRATION_REPORT.md` to identify the changed candidate** and preserve the earlier immutable history. UAT must inspect this reconciled candidate and exact Prep outputs before attempting logged-in stories. UAT may repair a newly discovered missing Prep item in authorized UAT Fix and re-run its Prep checks, but UAT Fix must not be the normal initial provisioning phase.
 
 **Never** provision production privileged test identities, write to live identity-provider/hosting settings, access real customer data, send unsolicited invitations, purchase services, request arbitrary spending caps or ask humans to paste secrets. If such an action is genuinely required, name one specific legitimate external authorization/action and mark dependent work BLOCKED. Do not claim success for unrun tests or accounts not actually created.
 
-**Final status contract:** `COMPLETADO: Prep READY/PARTIAL/BLOCKED/N/A, version and verified files/test paths, outstanding role blockers. SIGUIENTE PASO: PHDK uat` (or the single required safe owner action). Auto proceeds to applicable UAT without requesting a ceremonial approval.
+**Final status contract:** `COMPLETADO: Prep READY/PARTIAL/BLOCKED/N/A, version and verified files/test paths, outstanding role blockers. SIGUIENTE PASO: PHDK uat` (or the single required safe owner action). Auto does not run Prep or UAT; only explicit `PHDK uat` begins acceptance.
 
 
 ## Production-first verification override (v2.58.0)
