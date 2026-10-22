@@ -14,7 +14,7 @@ At the end, offer `PHDK uat` as an optional **future explicit command**, without
 
 ## Design before UI implementation
 
-For applicable UI scope, `PHDK_DESIGN.md` adds **25-design** after technical/content Plan and before dependent UI implementation. The sequence is Capture → Plan → Design → PMO/implementation → Integration → UAT Prep → UAT/Fix → applicable SEO/AEO → Check → Delivery. **Auto asks one unresolved visual question at a time and waits for the owner; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK visual-approval pause.** Actual owner restrictions remain binding. Reuse current owner-approved baselines; no forced redesign for non-visual changes or immutable historical runs.
+For applicable UI scope, `PHDK_DESIGN.md` adds **25-design** after technical/content Plan and before dependent UI implementation. The Auto sequence is Capture → Plan → Design → PMO/implementation → Integration → applicable SEO/AEO → Check → Delivery. UAT Prep → UAT/Fix is a separate, explicitly invoked acceptance sequence. **Auto asks one unresolved visual question at a time and waits for the owner; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK visual-approval pause.** Actual owner restrictions remain binding. Reuse current owner-approved baselines; no forced redesign for non-visual changes or immutable historical runs.
 
 ## Tenant-risk handoff
 
