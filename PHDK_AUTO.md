@@ -107,9 +107,9 @@ Plan ................. RUNNING
 Design ............... PENDING
 PMO / Workstreams .... PENDING
 Integration Review ... PENDING
-UAT Prep ............. PENDING
-UAT .................. PENDING
-UAT Fix .............. PENDING
+UAT Prep ............. DEFERRED — OWNER OPT-IN
+UAT .................. DEFERRED — OWNER OPT-IN
+UAT Fix .............. DEFERRED — OWNER OPT-IN
 SEO .................. PENDING
 AEO/GEO .............. PENDING
 Check ................ PENDING
@@ -266,18 +266,18 @@ After workstream execution, perform the PMO Integration Review and produce one c
 
 For every applicable app-style product, Auto must inspect `DEBUG_DIAGNOSTICS_STANDARD.md` as a separate required acceptance gate, alongside available skills and capability checks. Discover the *actual source implementation* and its usage sites: do not assume a version label or an old checklist establishes compliance. If absent, implement a single shared always-visible version → clipboard → trash icon-only component on public home, login, shell and admin, including unauthenticated visitors and debug OFF, compact fixed visual metrics (only `vX.Y.Z`, 12px text, 28×28px visible buttons, 14×14px icons, 4px gap; never SHA/date or oversized tiles), exact handlers, green checkmark success/revert, sanitized verbose report, cache reset and safe access gates. Add focused component/unit test source; execution follows `PHDK_PRODUCTION_VERIFICATION.md`. Trace evidence to source files, actual permitted results and the final Check report; mark unresolved items BLOCKED/FAIL rather than silently skipping. For projects to which the standard does not apply, record an evidence-backed NOT APPLICABLE. Do not misrepresent code review as browser/runtime verification.
 
-### 5. UAT Prep — mandatory implementation before acceptance
+### Optional explicit UAT only — never an Auto stage
 
 Only on explicit `PHDK uat` or `PHDK uat prep`, execute `PHDK uat prep` under `PHDK_UAT_PREP.md` and the governing `PHDK_PRODUCTION_VERIFICATION.md`. **Build, seed and verify** missing Company Co synthetic identities, legitimate role sessions, real role/tenant policies and safe required Test as functionality where in scope. Runtime verification uses only the permitted deployed production candidate and uniquely run-owned fixtures, never local/in-process tests or a production authentication bypass. Write `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` plus `45-uat-prep/HANDOFF.md`. If Prep edits product code, reconcile and deliver the revised candidate, then perform impacted permitted checks before entering UAT. Do not defer routine account development to UAT Fix. Browser access is not granted during Prep. Treat external provider authorization/paid/access blockers individually, not as a reason to skip all Prep.
 
 ### 6. UAT and repair
-**Auto UAT Browser Gate:** At the UAT Prep → UAT boundary run `UAT_BROWSER_READINESS_STANDARD.md` as a required phase transition, confirm **Navegador UAT: permiso de fase ACTIVO; acceso real VERIFICADO / NO DISPONIBLE / REQUIERE CONEXIÓN**, and log actual evidence in UAT Access/Report. Recheck on UAT Fix or re-entry as needed. Do not ask for budget caps, paid testing/browser APIs or discretionary owner approval of already permitted browser use. Continue independent cases and isolate the actual host connection/target blocker without fabricating a PASS or broadening production/provider permissions.
+**Explicit UAT Browser Gate (not Auto):** At the UAT Prep → UAT boundary run `UAT_BROWSER_READINESS_STANDARD.md` as a required phase transition, confirm **Navegador UAT: permiso de fase ACTIVO; acceso real VERIFICADO / NO DISPONIBLE / REQUIERE CONEXIÓN**, and log actual evidence in UAT Access/Report. Recheck on UAT Fix or re-entry as needed. Do not ask for budget caps, paid testing/browser APIs or discretionary owner approval of already permitted browser use. Continue independent cases and isolate the actual host connection/target blocker without fabricating a PASS or broadening production/provider permissions.
 
-Run `PHDK uat` **after verifying the current Prep handoff** against the reconciled integrated deployed candidate. Reuse legitimate synthetic sessions and test real authenticated browser/API roles and tenant isolation in UAT. Compare the rendered UI with the selected Design previews and verify responsive/state/theme behavior; owner approval or a generated concept is not acceptance evidence. Newly broken Prep items are repaired in UAT Fix, followed by impacted permitted Prep-check reruns; routine account provisioning belongs to stage 45. Never create a production test-auth backdoor or infer browser access when disconnected. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain. Perform and verify safe synthetic cleanup/revocation on every outcome under the production-first standard.
+On explicit `PHDK uat` only, run acceptance **after verifying the current Prep handoff** against the reconciled integrated deployed candidate. Reuse legitimate synthetic sessions and test real authenticated browser/API roles and tenant isolation in UAT. Compare the rendered UI with the selected Design previews and verify responsive/state/theme behavior; owner approval or a generated concept is not acceptance evidence. Newly broken Prep items are repaired in UAT Fix, followed by impacted permitted Prep-check reruns; routine account provisioning belongs to stage 45. Never create a production test-auth backdoor or infer browser access when disconnected. Automatically execute `PHDK uat fix` semantics for all in-scope FAILs and removable BLOCKED cases. Continue until acceptance succeeds or only concrete external/manual/material-decision blockers remain. Perform and verify safe synthetic cleanup/revocation on every outcome under the production-first standard.
 
 ### 7. SEO and AEO/GEO
 
-After UAT and UAT Fix, run `PHDK_SEO.md` on public indexable pages and then `PHDK_AEO_GEO.md` on applicable public answer/discovery content. Show separate status-board rows and transitions, preserve `65-seo/` and `67-aeo-geo/` handoffs, execute safe in-scope source fixes and revalidate impacted UAT. Mark either NOT APPLICABLE only with evidence when a product has no relevant public discovery goal. Neither stage silently authorizes browser, live probes, paid calls, production changes or fabricated AI visibility. Do not proceed to Check without verifying both gates/explicit N/A records. Reconcile resulting tasks with the commitment ledger.
+After Integration Review (without running UAT), run `PHDK_SEO.md` on public indexable pages and then `PHDK_AEO_GEO.md` on applicable public answer/discovery content. Show separate status-board rows and transitions, preserve `65-seo/` and `67-aeo-geo/` handoffs, execute safe in-scope source fixes and revalidate impacted UAT. Mark either NOT APPLICABLE only with evidence when a product has no relevant public discovery goal. Neither stage silently authorizes browser, live probes, paid calls, production changes or fabricated AI visibility. Do not proceed to Check without verifying both gates/explicit N/A records. Reconcile resulting tasks with the commitment ledger.
 
 ### 8. Check and remediation
 
@@ -319,7 +319,7 @@ Both Auto and FORCE authorize the permitted synchronous static checks needed to 
 
 After every in-scope part is implemented and integrated, complete the permitted static checks and versioned delivery needed for the existing production autodeploy, confirm the deployed revision, do not run UAT Prep or UAT; then `PHDK uat` under `UAT_STANDARD.md` when the goal includes end-user behavior or acceptance criteria, and perform safe synthetic cleanup. Review the entire outgoing diff and final evidence for the whole goal. Documentation-only goals use complete source/reference and policy-scenario review where relevant; do not invent an application build or runtime UAT for a standards repository.
 
-Fix in-scope failures, including UAT FAIL cases attributable to this goal, and rerun affected permitted deployed cases/checks until the candidate meets completion criteria or a concrete unsatisfied control/access/decision blocks it. Expand verification only to address remaining risk or a required gate. Do not delete meaningful failing tests, weaken a check, label a failure passed, or declare all tests passed when any required check did not run. The assistant performs permitted checks; do not hand routine source verification to the owner.
+Fix in-scope development and Check failures; do not reopen historical UAT FAIL cases or rerun acceptance without explicit `PHDK uat` authorization; rerun affected permitted non-UAT checks until the candidate meets completion criteria or a concrete unsatisfied control/access/decision blocks it. Expand verification only to address remaining risk or a required gate. Do not delete meaningful failing tests, weaken a check, label a failure passed, or declare all tests passed when any required check did not run. The assistant performs permitted checks; do not hand routine source verification to the owner.
 
 Necessary mechanical formatting repairs for an applicable failing gate are part of this goal, including an existing workflow file when its meaning is demonstrably unchanged. Review the exact diff and use appropriate parsed/source evidence to retain commands, triggers, jobs, permissions, and other behavior. Do not demand another OK solely for a non-semantic format repair. This narrow permission does not authorize workflow behavior changes, CI execution, unrelated cleanup, or removing the gate. If equivalence or scope cannot be established, isolate that blocker and finish independent work.
 
@@ -371,7 +371,7 @@ Plan ................. COMPLETED
 Design ............... COMPLETED / REUSED / NOT APPLICABLE
 PMO / Workstreams .... COMPLETED
 Integration Review ... COMPLETED
-UAT Prep ............. COMPLETED / REUSED / BLOCKED
+UAT Prep ............. DEFERRED — OWNER OPT-IN
 UAT .................. COMPLETED — ACCEPTED
 UAT Fix .............. NOT APPLICABLE
 SEO .................. COMPLETED / NOT APPLICABLE
