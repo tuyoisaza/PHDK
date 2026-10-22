@@ -45,7 +45,7 @@ Inside Auto create immutable sanitized snapshots plus `docs/phdk/lifecycle/<run-
 
 ## UAT transition, source changes and browser boundary
 
-Auto order: **40 Integration → 45 UAT Prep → 50 UAT → 60 UAT Fix**. Prep **must not** launch Playwright, browser/headless tests, screenshots, OAuth login pages or full acceptance journeys. The browser exception only starts on entry to UAT/UAT Fix under `UAT_BROWSER_READINESS_STANDARD.md`. At UAT entry separately verify real connected browser availability and safe target; a complete Prep handoff does not prove browser access.
+Explicit UAT order only: **40 Integration evidence → 45 UAT Prep → 50 UAT → 60 UAT Fix**. Auto/Force never enter stages 45–60. Prep **must not** launch Playwright, browser/headless tests, screenshots, OAuth login pages or full acceptance journeys. The browser exception only starts on entry to UAT/UAT Fix under `UAT_BROWSER_READINESS_STANDARD.md`. At UAT entry separately verify real connected browser availability and safe target; a complete Prep handoff does not prove browser access.
 
 When Prep alters application code/schema after the prior Integration Review, rerun affected integration/non-browser verification, **refresh the current `INTEGRATION_REPORT.md` to identify the changed candidate** and preserve the earlier immutable history. UAT must inspect this reconciled candidate and exact Prep outputs before attempting logged-in stories. UAT may repair a newly discovered missing Prep item in authorized UAT Fix and re-run its Prep checks, but UAT Fix must not be the normal initial provisioning phase.
 
