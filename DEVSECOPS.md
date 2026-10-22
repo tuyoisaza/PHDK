@@ -7,7 +7,7 @@ Read `PHDK_TENANT_RISK_STANDARD.md` for every multi-tenant security decision. Ma
 
 ## UAT JWT and synthetic identity security boundary
 
-`JWT_STANDARD.md` is normative for authenticated UAT and JWT-consuming apps: only trusted non-production auth issuers/test harnesses may create synthetic sessions, production must reject test keys/issuers/adapters, and token validation includes fixed allowed algorithms, issuer/audience/type/expiry plus server-side roles and tenant policy. Default to existing OAuth/OIDC/server session instead of mandating JWT, keep temporary state and secrets outside source/reports/logs, and revoke/clean up after UAT. A synthetic super_admin label is never proof of authority. Test wrong tenant, stale/suspended identities and unauthenticated/expired/revoked sessions. Do not introduce public admin-login test routes.
+`JWT_STANDARD.md` is normative for authenticated UAT and JWT-consuming apps. During explicitly authorized UAT or Prep, obtain sessions for uniquely run-owned synthetic identities through the existing trusted application/provider flow; do not introduce test issuers, trusted test keys, alternate authentication adapters or bypasses in production. Preserve fixed allowed algorithms, issuer/audience/type/expiry validation and server-side roles and tenant policy. Default to existing OAuth/OIDC/server sessions instead of mandating JWT, keep temporary state and secrets outside source/reports/logs, and verify revocation and exact run-owned cleanup. A synthetic super_admin label is never proof of authority. Exercise wrong-tenant, stale/suspended and unauthenticated/expired/revoked-session cases only within explicitly authorized deployed acceptance; Auto performs source/static review and reports `UAT NOT RUN`. Do not introduce public admin-login test routes.
 
 
 ## Purpose
@@ -16,7 +16,7 @@ This file defines the security and operational safety baseline for all PHDK proj
 
 Its goal is to prevent AI developers from accidentally exposing secrets, weakening authentication, leaking private data, adding unsafe dependencies, or making risky deployment changes.
 
-`EXECUTION_SCOPE.md` is the execution boundary. These standards govern repository code and local verification; they do not authorize the PHDK agent to configure or administer cloud services, real databases, external secrets, dashboards, scheduled jobs, or provider integrations. Its **Bounded read-only provider diagnostics** section separately permits requested existing provider status/non-secret configuration metadata and log reads through authorized access, independently of PHDK Developer Mode or unlock. Deployment uses only the existing GitHub-connected push pipeline. Product security and diagnostics remain code requirements, tested without a browser or real-service calls.
+`EXECUTION_SCOPE.md` is the execution boundary. These standards govern repository code and permitted verification; they do not authorize the PHDK agent to configure or administer cloud services, real databases, external secrets, dashboards, scheduled jobs, or provider integrations. Its **Bounded read-only provider diagnostics** section separately permits requested existing provider status/non-secret configuration metadata and log reads through authorized access, independently of PHDK Developer Mode or unlock. Deployment uses only the existing GitHub-connected push pipeline. Product security and diagnostics remain code requirements reviewed through source/static checks; runtime acceptance requires explicit UAT authorization under `PHDK_PRODUCTION_VERIFICATION.md`.
 
 ---
 

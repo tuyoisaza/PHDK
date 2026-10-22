@@ -14,7 +14,7 @@ A current implement/fix/update request for repository code or documentation norm
 
 ### Auto for the complete current goal
 
-Explicit `PHDK auto` starts the complete `PHDK_AUTO.md` lifecycle for the identified current goal; `PHDK salir de auto` exits it. Reuse/run Capture, Plan, PMO/workstream execution, Integration Review, UAT/Fix, Check/remediation and delivery as applicable without redundant OKs between stages. Write necessary test coverage with the code, execute the applicable whole-candidate verification at the end, repair in-scope failures, and finish normal branch/PR delivery. Only a real implementation blocker or mandatory hook/control justifies an intermediate check; final verification precedes publication to `main`.
+Explicit `PHDK auto` starts the complete `PHDK_AUTO.md` lifecycle for the identified current goal; `PHDK salir de auto` exits it. Reuse/run Capture, Plan, applicable Design, PMO/workstream execution, Integration Review, applicable SEO/AEO, Check/remediation and delivery without redundant OKs between stages. Write necessary test coverage with the code, execute permitted static whole-candidate verification, repair in-scope development failures, and finish normal branch/PR delivery. UAT Prep/UAT/Fix remain DEFERRED — OWNER OPT-IN, with UAT NOT RUN; a fresh explicit `PHDK uat` alone starts acceptance and necessary Prep. Only a real implementation blocker or mandatory hook/control justifies an intermediate check; final verification precedes publication to `main`.
 
 Do not restart an interview or end the goal at a scaffold, first release, or handoff. Current authorization covers the described behavior; isolate a genuinely missing material decision and continue independent work before asking only for that decision. Existing actual reviews and controls remain binding. Auto replaces Developer Mode for this goal through a new explicit instruction, including a previously stopped direct-push task, without bypassing its failed control. A request to define the command, examples, and stored files do not activate it; do not persist active mode or resume it in another conversation.
 
@@ -24,7 +24,7 @@ Explicit `PHDK plan` invokes `PHDK_PLAN.md`. Consume Capture requirements and in
 
 ### PHDK PMO in the current conversation
 
-Explicit `PHDK PMO` invokes `PHDK_PMO.md`. Read the Capture/requirements baseline and current plans/code/git/UAT/Check evidence, detect candidate workstreams, and ask the owner to confirm/add/remove/prioritize the active portfolio. Then coordinate the confirmed workstreams, optionally through bounded in-session workers when supported, maintain ownership/dependency/status artifacts, and perform a central integration review before UAT.
+Explicit `PHDK PMO` invokes `PHDK_PMO.md`. Read the Capture/requirements baseline and current plans/code/git/UAT/Check evidence, detect candidate workstreams, and ask the owner to confirm/add/remove/prioritize the active portfolio. Then coordinate the confirmed workstreams, optionally through bounded in-session workers when supported, maintain ownership/dependency/status artifacts, and perform a central integration review before Check/delivery. A later explicitly initiated UAT uses the delivered integrated candidate.
 
 ### PHDK Check in the current conversation
 

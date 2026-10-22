@@ -51,7 +51,8 @@ A blocked closure gives: what is blocked; exact URL/location/artifact and target
 Under AUTO FORCE, a missing ordinary definition calls for a proposal per gap: behavior, justified default, explicit assumptions, meaningful configuration and next implementation/acceptance action. Resolve inferable reversible choices within the current mandate and continue. Do not ask the owner to design every missing capability or recommend excluding confirmed gaps merely to finish. A genuinely indispensable new decision must come with a concrete recommendation and its impact, after completing independent work. Before asking or stopping, apply the operative reminder and check whether the impediment affects only a test/operation while authorized implementation, repair or preparation remains. Use the genuine blocked/completed wording above when that is the actual outcome; never attach an active continuation claim to a stopped run.
 
 ## Suggested compact wording
-PHDK vX.Y.Z (verificada/no verificada) · Modo: AUTO · Etapa: UAT
+PHDK vX.Y.Z (verificada/no verificada) · Modo: AUTO · Etapa: Check/Entrega
+UAT Prep / UAT / UAT Fix: DEFERRED — OWNER OPT-IN · UAT NOT RUN.
 Hecho: [observable outcome and evidence].
 Pendiente: [specific remaining commitment/gate or none].
 Git: [branch / commit / PR / main / deploy observed or unverified].
@@ -65,7 +66,7 @@ Ver aquí: [verified clickable URL] — [what to inspect and publication state].
 4. Developer Mode eligible change has existing approval: proceed through allowed commit/push/checks, no redundant owner question.
 5. AUTO FORCE encounters a PHDK-only pending human/security review: record `NON_BLOCKING_BY_MODE`, review the diff itself, run required checks and continue delivery without reviewer/protection investigation.
 6. Version or deploy not verified: mark unverified, never invent publication.
-7. Pre-push requires `pnpm test`: run the scoped mandatory suite under existing authorization; repair failures and retry without another approval question.
+7. Pre-push requires prohibited local runtime tests: inspect provenance and apply `PHDK_HOOK_COMPATIBILITY.md` within authorized remediation; preserve real controls, do not run prohibited tests or bypass the hook.
 8. GitHub rejects delivery: report the rejection, diagnose the real cause, repair within scope, revalidate and retry. A remaining enforced review/access requirement is reported accurately; never fabricate review or bypass controls.
 9. Context compaction or malformed `AUTO_STATE.json`: reconstruct current mandate internally and execute the next eligible action; do not ask the user to grant it again.
 10. Progress ends with “Continúo” but no next action executes: fail the continuity contract; continue working instead of yielding a terminal response.

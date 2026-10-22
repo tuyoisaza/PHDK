@@ -2,13 +2,13 @@
 
 ## Position and scope
 
-Run **after SEO and before Check** (UAT → UAT Fix → SEO → AEO/GEO → Check). AEO means answer engine optimization; GEO means generative engine optimization. Apply to public content that the owner intends to be discoverable, cited, or used as a reliable source in AI-assisted search. For private/authenticated systems with no public discovery goal mark NOT APPLICABLE, with evidence. Reuse SEO technical findings rather than inventing a second set of indexation tasks.
+Run **after SEO and before Check** (Integration → SEO → AEO/GEO → Check). Auto keeps UAT Prep/UAT/Fix DEFERRED — OWNER OPT-IN. AEO means answer engine optimization; GEO means generative engine optimization. Apply to public content that the owner intends to be discoverable, cited, or used as a reliable source in AI-assisted search. For private/authenticated systems with no public discovery goal mark NOT APPLICABLE, with evidence. Reuse SEO technical findings rather than inventing a second set of indexation tasks.
 
 **No special ranking formula exists.** Google states that ordinary SEO fundamentals are relevant to AI Overviews/AI Mode, without additional required special files or schema; Bing emphasizes indexation, verified facts, clear entities and semantic content for grounding. No guarantee of citations, AI recommendations, referral traffic or model behavior. Do not treat a model's answer as proof of indexing, rank or attribution.
 
 ## Entry gate
 
-Verify SEO handoff and report (including explicit NOT APPLICABLE) and latest UAT/UAT Fix outcomes for the exact candidate. Consume Capture audience/market/language/intent, public route map, validated SEO canonical/indexability, existing real content, source/brand provenance and owner-approved claims. AEO/GEO may be NOT APPLICABLE when SEO is NOT APPLICABLE unless a specifically confirmed public answer/discovery goal exists. If upstream SEO is BLOCKED on essential discoverability, report dependency rather than fabricate AEO/GEO success.
+Verify SEO handoff and report (including explicit NOT APPLICABLE) for the exact candidate. Consult existing UAT/UAT Fix history when relevant without requiring a run or making historical acceptance failure a development gate. Consume Capture audience/market/language/intent, public route map, validated SEO canonical/indexability, existing real content, source/brand provenance and owner-approved claims. AEO/GEO may be NOT APPLICABLE when SEO is NOT APPLICABLE unless a specifically confirmed public answer/discovery goal exists. If upstream SEO is BLOCKED on essential discoverability, report dependency rather than fabricate AEO/GEO success.
 
 ## Execute, don't merely advise
 
@@ -18,7 +18,7 @@ Verify SEO handoff and report (including explicit NOT APPLICABLE) and latest UAT
 4. Improve answer discoverability with relevant Q&A/FAQ sections **only where a real user need and supported answer exist**. Never mass-produce doorway pages or fake FAQs. Use valid structured data only when eligible and faithful to visible content; FAQ schema is not a universal visibility shortcut.
 5. Reuse SEO's canonicals, internal links, HTML renderability and crawling controls. Review applicable bot/robots policies without weakening privacy or permitting unwanted collection. Do not assume `llms.txt`, special AI schema, or opening all AI crawlers is necessary; any crawler-access changes require intent/privacy review.
 6. If access is available and authorized, compare a reproducible sample of relevant question prompts and retrieved AI answer references, naming engine, market, locale, date and method. These are observations, **not guarantees**; never fabricate citations or percentages. External paid model queries, production probes or browser work are not automatically authorized merely by this stage. Browser use stays limited to UAT/UAT Fix unless separately authorized.
-7. Implement safe source/code/content improvements, run permitted local checks and impacted UAT regressions, and report specific before/after evidence and remaining unknowns. Substantive new marketing claims or policy changes need owner approval.
+7. Implement safe source/code/content improvements, run permitted static checks, record affected acceptance cases for later explicit UAT, and report specific before/after evidence and remaining unknowns. Substantive new marketing claims or policy changes need owner approval.
 
 ## Canonical deliverables and status
 

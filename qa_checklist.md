@@ -9,7 +9,7 @@ Choose the QA scope for the whole requested outcome. With explicit `PHDK auto`, 
 ## Evidence Boundary
 
 
-For milestone-driven Auto, verify `MILESTONE_PLAN.md` traceability and actual milestone delivery evidence: acceptance criteria satisfied for the published increment, version/commit/PR/main SHA recorded, and subsequent work based on refreshed `main`. Final UAT must include `UAT_MILESTONE_MATRIX.md` when milestones exist and no delivered milestone may be absent from user-value acceptance coverage.
+For milestone-driven Auto, verify `MILESTONE_PLAN.md` traceability and actual milestone delivery evidence: acceptance criteria satisfied for the published increment, version/commit/PR/main SHA recorded, and subsequent work based on refreshed `main`. Retain milestone-to-story mapping as documentation during Auto without running acceptance. A later explicitly initiated UAT must include `UAT_MILESTONE_MATRIX.md` when milestones exist and cover every delivered milestone; UAT NOT RUN is not a development-delivery gate.
 
 The product requirements below are checked through source/diff review, static checks, local builds, and risk-triggered local unit/in-process integration tests with deterministic doubles. A checked UI, auth, database, or diagnostics item confirms implementation evidence, not an exercised user flow. Requested status, non-secret configuration metadata, and existing logs follow **Bounded read-only provider diagnostics** in `EXECUTION_SCOPE.md`, independently of Developer Mode or unlock; they are separate diagnostic evidence, never an executed product test.
 

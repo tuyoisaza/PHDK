@@ -6,7 +6,7 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 ## Interactive-only execution
 
-- One assistant normally responds to the current explicit user request. `PHDK auto` may orchestrate the full Capture → Plan → PMO → Integration → UAT/Fix → Check/remediation → delivery lifecycle for one authorized goal. No Mission Autopilot/background queues. Bounded in-session worker delegation is available in any mode under `PHDK_INTELLIGENT_EXECUTION.md` when host-supported and useful; workers cannot delegate.
+- One assistant normally responds to the current explicit user request. `PHDK auto` may orchestrate the full Capture → Plan → Design → PMO → Integration → applicable SEO/AEO → Check/remediation → delivery lifecycle for one authorized goal. UAT Prep/UAT/Fix remain DEFERRED — OWNER OPT-IN, with UAT NOT RUN; only a fresh explicit `PHDK uat` starts acceptance and necessary Prep. No Mission Autopilot/background queues. Bounded in-session worker delegation is available in any mode under `PHDK_INTELLIGENT_EXECUTION.md` when host-supported and useful; workers cannot delegate.
 - An installed skill, opened repository, old task, alert, failed check, or version mismatch never starts or resumes work.
 - Complete every necessary step of the whole requested deliverable, report, and stop; an Auto slice, scaffold, or first release is not completion. Do not select a new backlog goal.
 - Re-read owner pause/stop instructions before edits and git writes; a specifically approved intervention does not reactivate earlier work.

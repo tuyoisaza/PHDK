@@ -17,7 +17,7 @@ Capture creates and maintains `PHDK_COMMITMENTS.md` as the single durable invent
 | Acceptance criteria | Observable conditions, linked requirement/story and case IDs |
 | Plan / workstream | Task ID, WS ID, dependency and owner |
 | Execution status | NOT STARTED, IN PROGRESS, BLOCKED or IMPLEMENTED; distinguish implementation from delivery |
-| Verification | Tests/UAT cases, PASS/FAIL/BLOCKED/MANUAL and evidence reference |
+| Verification | Permitted source/static evidence and actual outcomes; UAT NOT RUN / DEFERRED — OWNER OPT-IN in Auto, separate from explicit UAT case results |
 | Git delivery | Branch, commit(s), PR URL/number, PR state, merge SHA and verified target branch |
 | Final disposition | DONE, BLOCKED, DEFERRED or CANCELLED, with reason and next owner action if unresolved |
 | Last update | Revision/time of the last verified change |
@@ -44,7 +44,7 @@ Publish a compact, user-visible PMO board (not just files) at entry, portfolio c
 
 ## No-silent-drop reconciliation
 
-At every handoff, reconcile ledger IDs against the initial confirmed baseline, Plan tasks, PMO workstreams, implementation/evidence, UAT, SEO, AEO/GEO and target-branch delivery. A newly discovered implementation gap in an already confirmed requirement is work within that requirement: link it to its existing commitment and execute it inside authorized Auto without another scope approval. Genuinely new outcomes outside the confirmed scope get new proposed IDs and owner scope decisions. Missing IDs, unowned confirmed work, stale statuses or inconsistent PR states fail the next-stage entry gate until resolved. Snapshots of ledger and coverage are included with Capture, Plan, PMO and Delivery historical HANDOFFs; preserve superseded state in history.
+At every handoff, reconcile ledger IDs against the initial confirmed baseline, Plan tasks, PMO workstreams, implementation/evidence, applicable SEO/AEO and target-branch delivery. Preserve acceptance stories and any historical UAT results, but Auto does not require executed cases, synthetic fixtures or UAT handoffs; missing opt-in is DEFERRED — OWNER OPT-IN, not an unfulfilled development commitment. A newly discovered implementation gap in an already confirmed requirement is work within that requirement: link it to its existing commitment and execute it inside authorized Auto without another scope approval. Genuinely new outcomes outside the confirmed scope get new proposed IDs and owner scope decisions. Missing IDs, unowned confirmed work, stale statuses or inconsistent PR states fail the next-stage entry gate until resolved. Snapshots of ledger and coverage are included with Capture, Plan, PMO and Delivery historical HANDOFFs; preserve superseded state in history.
 
 In active AUTO FORCE, follow [Propose missing definitions and solutions](PHDK_AUTO_CONTINUITY.md#propose-missing-definitions-and-solutions) for each gap in an authorized commitment. Retain its ID, recover relevant current rules and decisions, define the missing behavior with reasonable safe reversible defaults and useful configuration, record rationale/acceptance criteria, and implement what is inferable within that scope. Missing routine details or implementation complexity do not create a new commitment or justify recommending "exclude/defer for now" to close the goal. A real owner-requested scope reduction remains valid and must retain its decision history.
 
@@ -54,9 +54,9 @@ A genuinely new outcome or indispensable material decision outside what the mand
 
 Before saying Auto or Delivery is COMPLETED, generate `PHDK_COMPLETION_AUDIT.md`:
 
-1. Enumerate every CONFIRMED commitment, its acceptance evidence and final disposition; compare initial inventory and planned tasks against delivered work.
+1. Enumerate every CONFIRMED commitment, its permitted development evidence, documented acceptance criteria, separate UAT status and final disposition; compare initial inventory and planned tasks against delivered work.
 2. Reconcile every in-scope branch and PR (including those created by workers): OPEN, DRAFT, MERGED or CLOSED WITHOUT MERGE; confirm real merge SHA and exact remote target revision when available.
-3. Identify all unmerged PRs, unfinished tasks, unresolved tests, unresolved blockers, and missing historical handoffs. An open PR is never evidence of completed target-branch delivery.
+3. Identify all unmerged PRs, unfinished authorized tasks, failed permitted checks, actual blockers, and missing required historical handoffs. Separate optional UAT NOT RUN and its deferred handoffs from development completion; historical acceptance failures do not reopen the goal. An open PR is never evidence of completed target-branch delivery.
 4. For each unresolved item, either complete the authorized action through normal controls or record its exact blocker, owner, next action and affected commitment. Do not silently defer/cancel or treat missing permissions as success.
 5. Declare **COMPLETED** only if all confirmed in-scope commitments are verified DONE, the intended target is verified, required reviews/checks have passed, no in-scope PR remains open/unmerged, and the archive is complete. Otherwise terminal status is **BLOCKED** or **PARTIALLY DELIVERED**, never successful completion. An explicitly owner-approved scope reduction is recorded as a decision and audited against the revised baseline; do not rewrite history to manufacture 100%.
 

@@ -64,7 +64,7 @@ These are concurrent/revisitable focuses, not rigid phases:
 - **Planning** — define architecture, milestones, dependencies, acceptance, quality and principal risks.
 - **Execution** — coordinate workstreams, resources and dependencies to produce working outcomes.
 - **Monitoring and control** — compare actual progress/evidence with the approved milestone plan; evaluate material variance and changes.
-- **Closure** — verify acceptance evidence, delivery state, operational handoff/residual ownership and lessons/decisions needed before declaring the goal complete.
+- **Closure** — verify the authorized development evidence, delivery state, operational handoff/residual ownership and lessons/decisions needed before declaring the development goal complete. Record optional runtime acceptance separately as `UAT NOT RUN` until explicitly initiated.
 
 ## Milestone contract
 
@@ -80,17 +80,17 @@ Each milestone records:
 - material domain impacts and risks;
 - acceptance criteria and required technical evidence;
 - expected SemVer impact (`patch`, `minor`, `major`) as a planning expectation, not a pre-reserved version number;
-- UAT intent: the user goal(s) that final UAT must validate;
+- UAT intent: documented user goal(s) for optional acceptance after explicit `PHDK uat`; planning this coverage does not authorize execution;
 - completion state and, after delivery, actual version/commit/PR/main SHA evidence.
 
 Milestones should be vertically sliced when practical: a user-observable path or complete enabling capability that leaves the product coherent. Do not create a milestone solely because a PHDK stage ended.
 
 ## Milestone completion and publication gate
 
-Inside an authorized `PHDK auto` / `PHDK auto force` goal, when a milestone's implementation and relevant non-browser technical acceptance are complete:
+Inside an authorized `PHDK auto` / `PHDK auto force` goal, when a milestone's implementation and relevant permitted non-UAT verification are complete:
 
 1. reconcile all included workstreams, dependencies, acceptance criteria and material risks;
-2. run applicable milestone-level source/build/test/security checks;
+2. run applicable milestone-level source/static/typecheck/safe-build/security checks; do not run behavioral tests, synthetic provisioning or UAT;
 3. refresh remote `main` and resolve routine integration drift;
 4. determine the actual next version from current `main` and the delivered behavior;
 5. update version/changelog metadata;
@@ -99,7 +99,7 @@ Inside an authorized `PHDK auto` / `PHDK auto force` goal, when a milestone's im
 8. record the delivery evidence in `MILESTONE_PLAN.md` / PMO status;
 9. continue immediately with the next milestone from the newly verified `main`.
 
-A milestone publication is an incremental delivery checkpoint, **not final product acceptance**. Do not run full UAT, Check, SEO/AEO or declare the whole goal complete after every milestone unless the milestone itself is the entire authorized goal. PHDK lifecycle stages do not trigger version bumps merely by ending.
+A milestone publication is an incremental delivery checkpoint, **not final product acceptance**. Do not run the full non-UAT Check/SEO/AEO lifecycle or declare the whole goal complete after every milestone unless that milestone is the entire authorized goal. UAT Prep/UAT/Fix remain deferred even at the final milestone; only explicit UAT authorization permits acceptance. PHDK lifecycle stages do not trigger version bumps merely by ending.
 
 If milestone publication is blocked by a real control, complete independent work that does not depend on it, preserve the exact blocker and do not fabricate delivery.
 
@@ -143,4 +143,4 @@ These controls supplement `DEVSECOPS.md`, `AI_ADMIN_STANDARD.md` and product-spe
 
 When information is insufficient, mark assumptions/unknowns explicitly rather than inventing dates, budgets, probabilities, owners or approvals. Ask only the highest-priority indispensable question after independent work is exhausted.
 
-When a deliverable or milestone is declared complete, verify its acceptance criteria and record evidence. PHDK may prepare analysis and recommendations but must never simulate a human signature, formal acceptance or regulated approval that did not occur.
+When a deliverable or milestone is declared development-complete, verify its implementation and required permitted non-UAT criteria and record evidence. Keep the documented behavioral acceptance criteria and deferred execution status separate; no static check establishes runtime acceptance. PHDK may prepare analysis and recommendations but must never simulate a human signature, formal acceptance or regulated approval that did not occur.
