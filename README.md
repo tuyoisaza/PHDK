@@ -236,7 +236,7 @@ Auto rereads intent and requirements against actual code every invocation, reuse
 
 **Plan → Design → implementation is one active goal.** Auto asks unresolved visual choices and waits for your answer; after the applicable Design decision, it continues without another development command or ceremonial approval. It does not silently reduce complete scope to an MVP. A design wait blocks dependent UI, not genuinely independent authorized tasks.
 
-The full sequence includes Capture, Plan, Design, PMO/implementation, Integration, UAT Prep, UAT/Fix, applicable SEO/AEO, Check/remediation and delivery. A status board shows where work is running and what is complete/reused/blocked/N/A. Generic Auto with several coherent active fronts uses PMO portfolio confirmation instead of forcing one arbitrary task.
+The Auto sequence includes Capture, Plan, Design, PMO/implementation, Integration, applicable SEO/AEO, Check/remediation and delivery. UAT Prep/UAT/Fix are separate optional stages triggered only by explicit `PHDK uat`. A status board shows where work is running and what is complete/reused/blocked/N/A. Generic Auto with several coherent active fronts uses PMO portfolio confirmation instead of forcing one arbitrary task.
 
 ## `PHDK auto force`
 
