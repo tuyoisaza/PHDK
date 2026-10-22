@@ -1,3 +1,11 @@
+## v2.62.0 — 2026-10-21
+
+### Explicit-only UAT authorization
+- Auto and Auto Force finish all development, milestone publication, non-UAT checks and deployment before offering optional acceptance.
+- UAT Prep, UAT and UAT Fix are never automatic Auto stages; only an explicit `PHDK uat` invocation authorizes acceptance and its required preparation.
+- Retain milestone acceptance stories without synthetic provisioning; report development completion separately from UAT NOT RUN.
+- Preserve standalone `PHDK uat prep` as a separate explicit command.
+
 ## v2.61.0 — 2026-10-21
 
 ### Automatic PHDK-managed hook compatibility remediation
