@@ -26,9 +26,9 @@ Stop when the whole deliverable is complete, the user pauses it, the conversatio
 
 ### PHDK Auto tracks one complete lifecycle goal
 
-An explicit `PHDK auto` or `PHDK auto force` follows `PHDK_AUTO.md`: record the entire current goal and applicable lifecycle stages (Capture, Plan, PMO/workstreams, integration, UAT/Fix, Check/remediation, delivery), final verification coverage, and delivery target. Keep that goal in progress across slices, candidate releases, status questions, and context compaction; do not replace it with the first stage or move its remaining authorized work into inactive follow-ups. Progress records never require an OK to continue.
+An explicit `PHDK auto` or `PHDK auto force` follows `PHDK_AUTO.md`: record the entire current goal and applicable lifecycle stages (Capture, Plan, Design, PMO/workstreams, integration, applicable SEO/AEO, Check/remediation, delivery), final verification coverage, and delivery target. Keep that goal in progress across slices, candidate releases, status questions, and context compaction; do not replace it with the first stage or move its remaining authorized work into inactive follow-ups. Record UAT Prep/UAT/Fix separately as DEFERRED — OWNER OPT-IN with UAT NOT RUN, not as executable Auto steps. Progress records never require an OK to continue.
 
-Complete implementation before comprehensive final checks and normal branch/PR delivery. Required risk-based tests belong to this final coverage; only implementation-blocker diagnosis and actual mandatory controls require earlier execution. Existing mandatory isolated suites, including `pnpm test`/Vitest and composition when required, are already authorized; record script scope and actual results without another suite approval. Auto/Force replaces Developer Mode for this goal only through explicit activation. Record the invocation, scope, decisions and evidence as dated facts under the continuity contract, never a reusable `auto=true` flag or standalone authority; exit and conversation lifetime remain governed by `PHDK_AUTO.md`.
+Complete implementation before comprehensive final checks and normal branch/PR delivery. Final development coverage uses permitted static checks; test source and acceptance criteria remain documentation until explicit UAT. Do not execute local runtime suites or imply a hook authorizes them; resolve actual hook conflicts under `PHDK_HOOK_COMPATIBILITY.md` while preserving real controls. Record actual script scope and evidence. Auto/Force replaces Developer Mode for this goal only through explicit activation. Record the invocation, scope, decisions and evidence as dated facts under the continuity contract, never a reusable `auto=true` flag or standalone authority; exit and conversation lifetime remain governed by `PHDK_AUTO.md`.
 
 ### Developer Mode is not task state
 
@@ -141,7 +141,7 @@ Do not create or use a multiple-agent queue. If another human or independently a
 
 When `PHDK uat` runs, `UAT_CASES.md` and `UAT_REPORT.md` are the authoritative acceptance artifacts. Task/status files may record the candidate revision/version and summary counts but should not duplicate every UAT step.
 
-UAT evidence does not create or revoke authorization. PASS starts no new task. FAIL/BLOCKED/MANUAL does not make the current task inactive. Under active `PHDK auto`, an in-scope UAT failure remains part of the same whole goal until repaired or concretely blocked.
+UAT evidence does not create or revoke authorization. PASS starts no new task. FAIL/BLOCKED/MANUAL does not make the current task inactive. Auto/Force do not reopen historical UAT failures or execute acceptance from those reports. A newly requested development fix may use historical evidence within its scope, but retesting still needs explicit UAT authorization. Acceptance outcomes remain separate from development completion.
 
 
 ## PHDK Check evidence
@@ -178,7 +178,7 @@ They record:
 
 These files are context/evidence, not reusable authorization. Never store a persistent `pmo=true` flag. Conversation end ends PMO activation.
 
-Worker TASK/STATUS records, when used, remain subordinate to the PMO workstream contract. A worker completion does not mark the overall PMO portfolio complete. PMO owns central integration and downstream UAT/Check handoff.
+Worker TASK/STATUS records, when used, remain subordinate to the PMO workstream contract. A worker completion does not mark the overall PMO portfolio complete. PMO owns central integration and Check/delivery handoff. Later explicitly initiated UAT targets the integrated candidate without becoming an automatic PMO transition.
 
 
 ## PHDK Plan artifacts

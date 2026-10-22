@@ -11,6 +11,8 @@ Run universal Preflight ONCE at each PHDK command entry. For stages inside Auto/
 - Every vendoring manifest source must exist, with unique safe source/destination paths.
 - Run the static coherence checker and applicable existing repository checks when an execution environment is available. A static pass does not certify semantic coherence or behavior.
 - Review full outgoing diff for conflicting instructions and non-vendored new dependencies.
+- Reconcile explicit-only UAT throughout instruction bodies, lifecycle sequences, completion examples and managed installation blocks. Auto/Force must leave UAT Prep/UAT/Fix `DEFERRED — OWNER OPT-IN`, report `UAT NOT RUN` separately from development, and never require acceptance to finish delivery. Verify that explicit `PHDK uat` includes necessary Prep, standalone `PHDK uat prep` does not initiate acceptance, and Fix requires its explicit invocation or authorization within an active explicitly initiated UAT. A precedence header does not excuse contradictory body text.
+- The static checker rejects known legacy automatic-UAT clauses, non-deferred Auto acceptance rows and missing managed authorization markers. These bounded source checks do not prove semantic completeness, runtime behavior, user authorization or downstream adoption; retain full diff review. Archived changelogs and evidence reports are not current instruction sources.
 - Reconcile PR checks, reviews, target main SHA, version and commit evidence after merge.
 - Do not claim COMPLETE for untested behavior, open required PRs, or unverified remote main.
 

@@ -1,3 +1,13 @@
+## v2.62.1 — 2026-10-22
+
+### Reconcile explicit-only UAT throughout active guidance
+- Replace obsolete automatic UAT transitions in acceptance, Auto/Force, lifecycle, PMO, milestone delivery, Check/remediation, SEO/AEO and completion guidance. Auto keeps stages 45/50/60 `DEFERRED — OWNER OPT-IN` and reports development/delivery separately from `UAT NOT RUN`; absent acceptance artifacts and historical UAT failures do not reopen completed development.
+- Preserve the existing command boundaries: fresh explicit `PHDK uat` includes necessary Prep; standalone `PHDK uat prep` prepares only; UAT Fix requires explicit invocation or repair authorization within an explicitly initiated UAT run. Designer and source remediation do not implicitly authorize acceptance.
+- Put the binding rule inside the distributed native `PHDK-MANAGED` block, restore SKILL YAML front matter to the start of the file, and align entrypoints, boards, examples, commitment criteria and optional acceptance evidence without weakening actual owner, host, security or required-check controls.
+- Align affected acceptance/security guidance with the existing production-only verification policy: legitimate application/provider sessions, uniquely run-owned synthetic records, server-side role/tenant enforcement, expiry/revocation and verified cleanup. No new test issuer, staging/database or authentication bypass is authorized.
+- Add bounded static coherence guards for deferred stages, explicit entrypoints, native managed rules, SKILL distribution/front matter and known obsolete affirmative transitions. Keep archived history outside the active-policy scan and reject unsafe scan paths. Update UAT Prep regression source to the current policy; behavioral tests and UAT were not run.
+- Record source/static verification and its limits in `PHDK_COHERENCE_REPORT.md` and the prepublication delivery checkpoint. Publishing canonical PHDK does not upgrade downstream projects or reload existing agent sessions.
+
 ## v2.62.0 — 2026-10-21
 
 ### Explicit-only UAT authorization

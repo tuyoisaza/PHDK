@@ -1,39 +1,42 @@
-# PHDK coherence report — v2.54.1
+# PHDK coherence report — v2.62.1
 
-Baseline: `63e8cd28bbb4d412954abda6fb7fe9b79568ba9d` (canonical `main`, v2.54.0).
-Review: 2026-10-18 05:12 UTC. Scope: the visible AUTO FORCE operating reminder and concrete proposals for ordinary missing definitions. This is a focused standards update, not an audit of downstream applications.
+Baseline: `5e2cf5a1f43c4833a4e294999cd7af05b41805fa` (canonical main, v2.62.0).
+Review: 2026-10-22 15:06 UTC.
+Scope: reconcile the reported Auto/UAT contradiction with the existing explicit-only acceptance policy. This is a focused source audit and correction, not an exhaustive semantic audit or downstream product verification. The PHDK maintainer owns the fixes below.
 
 ## Findings and resolution
 
-| Finding | Resolution |
-|---|---|
-| The existing footer retained authorization and next action but did not repeat rule refresh, solution seeking or proposing what was missing. | Make those instructions visible at start/resume, in substantive progress, after partial delivery and before proposed questions/blockers. Keep one canonical wording in the communication standard. |
-| Check/Plan could classify missing ordinary behavior as a decision for the owner and offer exclusion instead of proposing the implementation. | For an authorized capability, define behavior, justified defaults, assumptions, meaningful configuration and acceptance criteria; implement inferable reversible choices. Retain confirmed commitments. |
-| A genuine new decision could still be presented as a blank request for the owner to define the feature. | Prepare a concrete recommendation with impact and the precise remaining choice, while continuing independent work. |
-| Routine browser recovery was only implicit in the general repair rule. | Name supported harmless reload/fresh-tab/disposable-context recovery in an already-authorized phase, preferring isolation over shared cache/session disruption. |
-| Repeating the reminder could be mistaken for proof of an executed reread or a requirement to rerun every standard check at each message. | State that the reminder is an operating instruction. Refresh relevant rules at entry/recovery and before escalation, use newly relevant source as needed, and do not repeat full Preflight per update. |
+| Category / severity | Evidence | Resolution |
+|---|---|---|
+| CONFLICT / High | UAT_STANDARD.md and PHDK_UAT_PREP.md retained integrated Auto acceptance and stage-45 preparation instructions. | Keep Auto stages 45/50/60 deferred. Fresh explicit UAT includes necessary Prep; standalone Prep stops before acceptance; Fix needs explicit invocation or repair authorization in the active explicit UAT run. |
+| CONFLICT / High | PHDK_AUTO.md, PHDK_LIFECYCLE.md, PMO and milestone/delivery guidance still carried automatic acceptance sequences, handoffs and completion examples. | Reconcile executable stage order, dashboards, stale Auto-state handling and final outcomes. Report development/delivery independently from UAT NOT RUN; preserve acceptance criteria as documentation. |
+| CONFLICT / High | Check, SEO/AEO, commitment, completion, hook, theme and UX/UI guidance could indirectly require acceptance before development delivery. | Audit source/static evidence and actual product gaps while retaining optional acceptance separately. Preserve real owner/host/security checks and do not fabricate runtime PASS or reopen development from historical UAT failures. |
+| GAP / High | The v2.62.0 native policy preface was outside PHDK-MANAGED boundaries; SKILL policy text preceded YAML metadata. | Put the binding authorization rule inside the installed managed block and restore front matter to the first line. Existing manifest mappings remain intact. |
+| CONFLICT / Medium | Affected acceptance/JWT/security guidance retained non-production issuers, local runtime or staging assumptions that conflicted with production-first verification. | Use only existing authorized deployment/authentication paths, uniquely run-owned synthetic identities/records, server-side role/tenant enforcement, expiry/revocation and verified cleanup during explicit acceptance. |
+| GAP / Medium | Static checks and UAT Prep regression source still allowed or asserted legacy Auto preparation. | Add bounded legacy-clause, deferred-row, managed-rule and entrypoint guards; require vendored SKILL and valid front matter; protect active-policy reads from unsafe paths. Update the existing regression source, including the renamed explicit-preparation heading. |
 
 ## Executed verification
 
-- Existing Python regression suite: `python -m unittest discover -s tests -v`, PASS, 57 tests. No new tests were added for this textual change.
-- Static coherence: `python scripts/phdk_coherence_check.py`, PASS, v2.54.1 and 66 mappings.
-- Skill creator `quick_validate.py .`: PASS.
-- Source/diff review and `git diff --check`: PASS.
-- Existing pre-commit version helper executed: 2.54.0 → 2.54.1. VERSION, README and newest changelog agree.
+- `python scripts/phdk_coherence_check.py`: PASS, v2.62.1, 77 unique manifest mappings; static only.
+- AST parsing of `scripts/phdk_coherence_check.py` and `tests/test_uat_prep_policy.py`: PASS; this does not execute behavioral tests.
+- `git diff --check`: PASS.
+- Complete outgoing source/diff review plus independent cross-reviews of acceptance/security, Auto/lifecycle/delivery and checker logic: completed; identified heading, guard-path and indirect-gate issues were corrected.
+- Completion-evidence JSON example: parses as JSON. The executable completion verifier is unchanged.
+- VERSION, README and top CHANGELOG release: v2.62.1. Baseline source files were independently matched to their canonical Git blob hashes before edits; actual Git history was subsequently fetched and the baseline index verified.
 
-## Policy scenarios reviewed
+## Reviewed command boundaries
 
-| Scenario | Required behavior |
+| Entry | Expected result |
 |---|---|
-| Missing detail for an already-authorized administration feature | Propose its behavior/defaults/configuration, label assumptions and implement the inferable in-scope definition. |
-| Truly new indispensable decision outside what current intent and rules resolve | Present a concrete recommendation and impact; ask only for the remaining choice after independent work. |
-| Progress or partial delivery with more executable work | Include the operative reminder and execute the next eligible action; do not close the goal at the report. |
-| Inherited PHDK human-review note | Nonblocking immediately under FORCE; the rule refresh never adds preventive reviewer/protection research. |
-| Recoverable browser problem in an authorized UAT phase | Use supported bounded recovery or an isolated alternative and continue independent tasks. |
-| Standalone Plan, bare Check or audit-only request | Keep the explicitly limited scope; the proposal rule does not silently activate development. |
+| Auto / Auto Force | Implement the authorized goal, perform permitted source/static checks, deliver and verify the target; Prep/UAT/Fix remain DEFERRED — OWNER OPT-IN with UAT NOT RUN. |
+| Fresh explicit PHDK uat | Perform necessary Prep and acceptance within existing access/safety/spending boundaries; report real acceptance and cleanup outcomes. |
+| Explicit PHDK uat prep | Prepare/readiness-check authorized run-owned identities and artifacts; no acceptance journeys or implicit continuation. |
+| Explicit PHDK uat fix, or repair authorized within active explicit UAT | Repair the authorized acceptance defects and validate within that scope. |
+| Designer or Check remediation | Complete authorized source work and permitted checks; user-facing changes do not themselves authorize acceptance. |
+| Missing or historical UAT evidence | Keep its truthful separate status; do not fabricate PASS or convert it into an automatic development blocker. |
 
 ## Evidence limits and publication
 
-These checks verify source consistency and existing local regressions. They do not demonstrate that an external agent has loaded this version, that a live browser was recovered, or that a downstream application was implemented. No advisor code, runtime executor, hook, state schema, provider configuration or downstream repository was changed.
+UNVERIFIED: behavioral regression coverage of the checker changes, external agents following the rules, deployed application behavior and downstream adoption. Local behavioral tests and runtime UAT were NOT RUN under the existing execution policy. No live identities, fixtures, production records, provider settings or independent controls were changed.
 
-This is the pre-merge report. Publish the versioned source branch, merge its PR and verify the actual remote main SHA/tree/version with the original completion verifier. Record that final evidence as post-merge runtime artifacts without another release to restamp this report.
+This source report predates publication. The normal versioned branch/PR merge, final commit prefix, remote main SHA/version/content and unchanged completion-verifier result must be established from actual post-publication readback, retained in the delivery evidence and PR. Next action at this checkpoint: publish the reviewed candidate and verify those results; no background work or downstream upgrade is implied.

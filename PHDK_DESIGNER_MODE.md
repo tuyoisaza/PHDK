@@ -8,7 +8,7 @@ Activate only when the owner explicitly invokes `PHDK designer mode`, `PHDK modo
 
 Examine and actually improve the owner's authorized interface scope. For a generic invocation on an identified product, inventory all its existing applicable public/anonymous, authentication, user, admin, and Superadmin surfaces. An explicit module, page, or component limitation overrides that default. Do not invent pages, features, business claims, branding decisions overriding owner constraints, or major workflow changes. For a new project with no screens, produce the requested interface before claiming visual work is done.
 
-This is an interactive work mode, not a standing background agent. Follow `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UX_UI.md`, `PHDK_COMMUNICATION_STANDARD.md`, `CRUD_STANDARD.md`, and `DEBUG_DIAGNOSTICS_STANDARD.md`. Designer Mode does not activate Auto, PMO, or Developer Mode. Browser/headless/screenshots are confined to the per-unit and final UAT/UAT Fix subphases expressly included in `EXECUTION_SCOPE.md`. The current Designer invocation permits entering those bounded subphases without a second UAT command; it creates no general browser or production permission. Never describe code-only review as browser-tested.
+This is an interactive work mode, not a standing background agent. Follow `AGENTS.md`, `EXECUTION_SCOPE.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UX_UI.md`, `PHDK_COMMUNICATION_STANDARD.md`, `CRUD_STANDARD.md`, and `DEBUG_DIAGNOSTICS_STANDARD.md`. Designer Mode does not activate Auto, PMO, or Developer Mode. Designer performs source inspection, implementation and permitted static checks. Browser/headless/screenshots require a fresh explicit `PHDK uat`; fixes/retests require explicit `PHDK uat fix` or authorization within that active UAT. Designer, including work under Auto/Force, does not start acceptance by itself. Keep UAT DEFERRED — OWNER OPT-IN and UAT NOT RUN until the owner opts in. Never describe code-only review as browser-tested.
 
 ## Mandatory prerequisite: Design System Readiness
 
@@ -17,7 +17,7 @@ Before creative directions, screen recommendations, or UI edits, execute the rea
 Do not block useful source-level improvements merely because a browser is unavailable. Keep visual verification explicitly unresolved rather than calling the appearance validated.
 
 ## Mandatory theme-source repair gate
-Before redesign recommendations and during the unit-by-unit loop, read PHDK_THEME_STANDARD.md and inspect theme token sources, provider/import graph, Superadmin Configuración → Edición de templates and corporate visibility behavior. Run the vendored scripts/phdk_theme_audit.py against the product, record specific file:line hardcoded-color findings, repair shared root causes, then reopen every affected unit when shared tokens change. Add review units for light/dark/corporate, template save/preview/reset, ordinary selector show/hide, session fallback, permissions and reload persistence. Source inspection or a static scan cannot mark runtime behavior VERIFIED; exercise the corresponding tests and permitted UAT before closing applicable units.
+Before redesign recommendations and during the unit-by-unit loop, read PHDK_THEME_STANDARD.md and inspect theme token sources, provider/import graph, Superadmin Configuración → Edición de templates and corporate visibility behavior. Run the vendored scripts/phdk_theme_audit.py against the product, record specific file:line hardcoded-color findings, repair shared root causes, then reopen every affected unit when shared tokens change. Add review units for light/dark/corporate, template save/preview/reset, ordinary selector show/hide, session fallback, permissions and reload persistence. Source inspection or a static scan cannot mark runtime behavior VERIFIED. Source-complete units remain SOURCE_REVIEWED; exercise corresponding deployed cases only in explicitly initiated UAT before marking visual acceptance VERIFIED.
 
 ## Mandatory review unit and coverage ledger
 
@@ -48,7 +48,7 @@ The ledger must record:
 | Dependencies | Shared components/tokens and parent units affected by changes |
 | Next action | Exact pending action or blocker, not merely "review later" |
 
-`SOURCE_REVIEWED` is not visually verified. `VERIFIED` requires the applicable checks and actual visual/interaction evidence for that unit. `NOT_APPLICABLE` requires an evidence-backed reason; missing access, time, browser, or test data are blockers, not exclusions.
+`SOURCE_REVIEWED` is not visually verified. `VERIFIED` requires the applicable checks and actual visual/interaction evidence for that unit. `NOT_APPLICABLE` requires an evidence-backed reason. Before explicit UAT, runtime acceptance is DEFERRED — OWNER OPT-IN, not BLOCKED; after UAT starts, missing access, browser or safe test data blocks the affected case.
 
 A parent cannot be VERIFIED while an applicable child or required variation is NOT_REVIEWED, IN_PROGRESS, SOURCE_REVIEWED, FAILED, or BLOCKED. Updating a shared component never marks its consuming pages or their contents as reviewed automatically.
 
@@ -78,14 +78,14 @@ Process the queue in a stable, dependency-aware order: shared foundation, import
 
 For **each** unit, perform this entire loop before treating it as closed:
 
-Enter the scoped Designer UAT subphase for rendered inspection, leave it for source edits, then re-enter UAT/UAT Fix for reinspection and evidence. Announce phase transitions briefly; do not turn them into approval requests. Do not use the UAT label to authorize unrelated browser or live-service operations.
+Process the queue through source inspection, edits and permitted static checks. If the owner separately starts `PHDK uat`, add rendered inspection and authorized repair/retest evidence within that active scope without per-case approval. Otherwise preserve SOURCE_REVIEWED outcomes and UAT NOT RUN; neither available browser tooling nor the UAT label grants acceptance authorization.
 
 1. **Enter and expose it.** Inspect its source and, during permitted UAT, navigate to the actual screen, scroll through its contents, open tabs/accordions/dialogs, and use the appropriate authorized role and fixture. Do not wait for the owner to send the next screenshot or identify the next component.
 2. **Read and understand its contents.** Identify what the user must understand or do. Read the actual headings, descriptions, values, labels, table columns, chart labels, help text, messages, and action wording — not just the outer container.
 3. **Critique the unit against its task.** Check hierarchy, grouping, density, alignment, completeness, consistency, legibility, actionable controls, and whether the next action is obvious. Diagnose concrete problems instead of mechanically restyling everything.
 4. **Implement the safe corrections.** Improve the content presentation, microcopy, grouping, internal layouts, and interactions within the authorized design scope. Preserve underlying meaning, data integrity, and valid product behavior. Do not turn the loop into a list of suggestions for the owner to implement.
 5. **Reinspect the result as a first-time user of that role.** Conduct a distinct critical pass after editing. During permitted UAT, examine the rendered result and exercise the relevant states. Do not infer quality merely because the code changed, the component rendered, or a screenshot was captured.
-6. **Repair, retest, and record evidence.** Correct evidenced defects, rerun affected cases, then record the result. If no correction is needed, record the observed reason; unnecessary redesign is not a completion requirement.
+6. **Repair and record evidence.** Correct evidenced source defects and rerun permitted static checks. Rerun deployed acceptance cases only within an explicitly authorized UAT/fix scope, then record the actual result. If no correction is needed, record the observed reason; unnecessary redesign is not a completion requirement.
 7. **Move to the next actionable row automatically.** Do not request ceremonial approval between units. A blocked unit stays visible with an exact blocker; continue independent permitted units rather than stopping the entire sweep.
 
 Repeated attempts must be bounded and diagnosis-driven. Never repeat an unchanged failed approach indefinitely. Record unresolved defects and their next action rather than lowering acceptance criteria or fabricating a pass. Subjective polish must not become an endless redesign cycle.
@@ -108,17 +108,17 @@ Apply this checklist inside the loop according to the unit's actual content:
 
 Presentation corrections may clarify existing meaning. Unsupported facts, commercial promises, legal/policy language, permissions, missing business logic, API/database/auth changes, and major workflow decisions require their existing authorization boundary. Record these separately and continue independent in-scope design work. Do not create features merely to satisfy a generic checklist.
 
-### 6. Reconcile across pages and run scoped visual QA / UAT
+### 6. Reconcile across pages and retain optional visual acceptance coverage
 
-After the unit sweep, perform a separate cross-product consistency and regression pass. Compare shared patterns, terminology, density, actions, and responsive behavior across the reviewed screens. Rerun affected task journeys; improving isolated components must not break the overall flow.
+After the unit sweep, perform a separate cross-product consistency and regression pass. Compare shared patterns, terminology, density, actions, and responsive behavior across the reviewed screens. Review affected task journeys in source; execute them only within explicitly initiated UAT. Improving isolated components must not break the overall flow.
 
-Use browser/headless/screenshots only in the scoped UAT/UAT Fix verification allowed by `EXECUTION_SCOPE.md`. Inspect representative desktop, tablet, and mobile viewports, relevant themes/locales, keyboard/focus, text scaling, contrast, and required states. Use safe fixtures and role journeys under `UAT_JOURNEY_STANDARD.md`; preserve production/access/privacy restrictions. No purchases, real emails, or destructive live mutations are implied by a visual review.
+Without explicit UAT opt-in, complete source/static cross-page review and retain unexecuted acceptance coverage. Use browser/headless/screenshots only after a fresh explicit `PHDK uat` or authorized fix/retest under `EXECUTION_SCOPE.md`. Inspect representative desktop, tablet, and mobile viewports, relevant themes/locales, keyboard/focus, text scaling, contrast, and required states. Use safe fixtures and role journeys under `UAT_JOURNEY_STANDARD.md`; preserve production/access/privacy restrictions. No purchases, real emails, or destructive live mutations are implied by a visual review.
 
 Record candidate revision, environment, unit ID/UAT case, role/state/viewport, steps, expected/actual result, and redacted evidence. Compare before/after when actual baseline evidence exists. Never fabricate a historical before image or claim screenshots were inspected merely because a file was generated.
 
 When a shared token/component changes after earlier verification, reopen all materially affected units. Revalidate dependent screens, or document why a particular prior result remains valid for the new candidate. Stale evidence cannot close the new candidate.
 
-When visual access is unavailable or not authorized, continue permitted source improvements, mark unresolved units SOURCE_REVIEWED or BLOCKED as appropriate, and disclose the limitation. Do not require the owner to supply screen-by-screen prompts as the normal execution method.
+Before explicit UAT, continue permitted source improvements and record SOURCE_REVIEWED with UAT NOT RUN. Within an explicitly initiated UAT, unavailable visual access blocks only affected cases. Keep real source-work blockers separate and disclose each limitation. Do not require the owner to supply screen-by-screen prompts as the normal execution method.
 
 ### 7. Reconcile coverage before claiming completion
 
@@ -126,17 +126,17 @@ Refresh the inventory against final routes/components and discoveries. Confirm e
 
 Report counts for applicable units, VERIFIED, SOURCE_REVIEWED, FAILED, BLOCKED, and not yet reviewed. Track verified coverage separately from implementation progress and explicit NOT_APPLICABLE exclusions. Any percentage must use disclosed counts and a reproducible denominator; it is not a subjective aesthetic score.
 
-The design coverage gate passes only when every applicable unit is VERIFIED against the current candidate, required variations are accounted for, and no required findings remain unresolved. P0/P1 usability/accessibility regressions block acceptance. Optional future refinements may be recorded without indefinitely blocking an otherwise complete, evidenced delivery.
+Visual acceptance passes only when an explicitly initiated UAT verifies every applicable unit against the current candidate, required variations are accounted for, and no required findings remain unresolved. P0/P1 usability/accessibility regressions block that acceptance. Development delivery is assessed separately from UAT: all authorized source work, static checks and remote delivery must be complete; deferred visual acceptance is reported UAT NOT RUN and never fabricated as VERIFIED.
 
 Do not say "Designer Mode completed" because the shell looks better, a few critical screens passed, documents exist, or the code was merged. Distinguish implemented/source-reviewed work, verified visual work, and repository delivery.
 
 ### 8. Deliver under the existing repository rules
 
-Review the complete outgoing diff, perform the available applicable lint/typecheck/build and focused tests, version, commit, push, create the PR, satisfy actual reviews, merge, and verify the intended remote main revision under `MAIN_DELIVERY_STANDARD.md`, unless the owner specified a narrower target.
+Review the complete outgoing diff, perform the available permitted lint/static typecheck/safe-build checks, version, commit, push, create the PR, satisfy actual reviews, merge, and verify the intended remote main revision under `MAIN_DELIVERY_STANDARD.md`, unless the owner specified a narrower target.
 
 Use `PHDK_COMPLETION_GATE.md` and its verifier when supported to prove remote target SHA/version. Inspect PR/review and task-acceptance evidence separately. An open PR is not delivery to main; a merged standard is not proof of a redesigned or deployed downstream product.
 
-If the coverage gate or a mandatory delivery control remains unmet, report PARTIALLY DELIVERED or BLOCKED with exact residual items. Do not hide useful completed work, and do not describe the whole outcome as complete.
+If source implementation or a mandatory delivery control remains unmet, report PARTIALLY DELIVERED or BLOCKED with exact residual items. Report unexecuted visual acceptance separately as UAT NOT RUN; it does not block otherwise complete development delivery. Do not hide useful completed work, and do not describe the whole outcome as complete.
 
 ## Continuity and progress reporting
 
@@ -159,7 +159,7 @@ Inside a PHDK lifecycle run, link and snapshot these outputs into the active his
 
 ## Mandatory closure and blocker recovery
 
-Report `DESIGNER MODE: COMPLETED / PARTIALLY DELIVERED / BLOCKED` truthfully. Include meaningful pages and internal contents improved, coverage counts, evidence and unverified portions, checks/UAT outcomes, version, commit, pushed branch, PR/merge target, independently verified remote SHA, and the exact next action. End with a verified result/artifact link or clearly state its absence. Never headline "complete locally" when authorized remote delivery is unfinished.
+Report `DESIGNER DEVELOPMENT: COMPLETE / PARTIALLY DELIVERED / BLOCKED` truthfully and separately report visual acceptance as `UAT NOT RUN` or the actual explicitly initiated UAT outcome. Include meaningful pages and internal contents improved, coverage counts, evidence and unverified portions, checks/UAT outcomes, version, commit, pushed branch, PR/merge target, independently verified remote SHA, and the exact next action. End with a verified result/artifact link or clearly state its absence. Never headline "complete locally" when authorized remote delivery is unfinished.
 
 For recoverable tooling failures such as `ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY`, diagnose package-manager version, lockfile, node_modules, hooks, and the actual failing command. Try bounded safe alternatives such as the existing local executable or compatible project-supported noninteractive setup when authorized. Rerun required checks and use the normal commit path. Preserve unrelated working-tree changes through selective staging. Never use `--no-verify`, disable hooks, force-push, hide failed checks, or blindly repeat failures.
 
@@ -170,14 +170,14 @@ These are requirements for a future real run, not claims that the scenarios have
 1. **Shell-only improvement:** navigation and card styles improve, but inner form/table/text units remain untouched. Result: coverage gate fails; continue the internal sweep.
 2. **Hidden content:** a screen has tabs, a drawer, and a below-the-fold section. Result: each is inventoried and inspected in its relevant context; reviewing only the default tab is insufficient.
 3. **Already-good unit:** an inspected section meets criteria without edits. Result: it can be VERIFIED with actual evidence; unnecessary changes are not required.
-4. **Browser unavailable:** source corrections are made, but rendered appearance is unseen. Result: SOURCE_REVIEWED/BLOCKED visual units and truthful partial delivery, not a fabricated visual pass.
+4. **Browser unavailable:** source corrections are made, but rendered appearance is unseen. Result: SOURCE_REVIEWED units and UAT NOT RUN before opt-in; an affected case is BLOCKED if explicitly initiated UAT cannot access the browser. Report development delivery independently and never fabricate a visual pass.
 5. **Blocked role:** one privileged view is inaccessible. Result: record the blocker, complete other permitted units, and keep the blocked unit in the denominator.
 6. **Late shared change:** a final typography/token fix affects previously reviewed screens. Result: dependent units reopen and are revalidated against the resulting candidate.
 7. **Interruption:** the current session ends mid-sweep. Result: save the next row, stop execution, and resume only on a new explicit request after evidence reconciliation.
 8. **Scope limitation:** the owner requests a single module. Result: fully cover that module and its affected shared dependencies; do not silently redesign unrelated product areas.
 9. **Questionable content or missing capability:** a misleading metric or missing business action is discovered. Result: correct supported presentation problems, but do not invent data, permissions, or new product behavior.
 10. **Premature closure:** several units remain NOT_REVIEWED, FAILED, or BLOCKED after a successful merge. Result: distinguish repository integration from incomplete design acceptance; no overall COMPLETED claim.
-11. **Designer visual authority:** an explicit Designer invocation has an available safe test target and browser. Result: enter its bounded per-unit/final UAT subphases without asking for a second UAT command; production access and destructive/external operations remain separately restricted.
+11. **Designer visual authority:** an explicit Designer invocation has an available safe target and browser. Result: source work proceeds but acceptance remains DEFERRED — OWNER OPT-IN. Only a fresh explicit `PHDK uat` starts rendered per-unit/final acceptance; actual access, production safety and spending controls still apply.
 
 ## Skills and references
 

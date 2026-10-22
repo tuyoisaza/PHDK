@@ -4,18 +4,18 @@ For multi-tenant UAT, use `TENANT_RISK_ASSESSMENT.md` and `PHDK_TENANT_RISK_STAN
 
 ## Mandatory UAT Prep handoff
 
-Before standalone UAT or Auto UAT on an authenticated product, inspect `PHDK_UAT_PREP.md` and the **current** `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` for the exact candidate, real seeded/provider-backed synthetic identity, role/tenant local checks and cleanup. Under Auto, `45-uat-prep/HANDOFF.md` must exist or the Prep stage must run and close with truthful per-role blockers. If standalone UAT lacks initial synthetic accounts/bootstrap, record impacted cases BLOCKED and recommend explicit `PHDK uat prep`; standalone `PHDK uat` does not silently develop an entire new authentication module. UAT Fix repairs newly discovered defects. Do not mark Prep's non-browser evidence as acceptance/browser PASS. At stage 50 run `UAT_BROWSER_READINESS_STANDARD.md` independently; Prep does not grant browser access.
+After a fresh explicit `PHDK uat` invocation, inspect `PHDK_UAT_PREP.md` and the **current** `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md` for the exact deployed candidate, real seeded/provider-backed synthetic identity, role/tenant readiness and cleanup. That invocation authorizes necessary Prep before acceptance; complete or reuse it within the existing application's authentication and security boundaries, recording truthful per-role blockers when access or a safe mechanism is unavailable. In an explicitly initiated lifecycle run, retain `45-uat-prep/HANDOFF.md`. Auto and Auto Force never run Prep and do not require its handoff to complete development. Standalone `PHDK uat prep` prepares readiness only and does not start UAT. Do not mark Prep's non-browser evidence as acceptance/browser PASS. At stage 50 run `UAT_BROWSER_READINESS_STANDARD.md` independently; Prep does not grant browser access.
 
 ## JWT and synthetic authentication gate
 
-Before authenticated UAT/UAT Fix, read `JWT_STANDARD.md` and prepare `UAT_AUTH_PLAN.md`: map Company Co's fiction-only fixture users to **real provider/server-issued test sessions** for each actual application role, elevated admin/super_admin (tenancy-appropriate) included. Do not request passwords or raw bearer tokens from the owner, forge JWTs, add production backdoors or mistake a seed record for a logged-in identity. Use a dedicated non-production issuer/adapter only when existing app/provider mechanisms do not suffice; repair in UAT Fix/authorized Auto scope and test positive/negative API and browser journeys. Redact state, revoke grants and report evidence or precise remaining blockers.
+Before authenticated UAT/UAT Fix, read `JWT_STANDARD.md` and prepare `UAT_AUTH_PLAN.md`: map Company Co's fiction-only fixture users to **real provider/server-issued test sessions** for each actual application role, elevated admin/super_admin (tenancy-appropriate) included. Do not request passwords or raw bearer tokens from the owner, forge JWTs, add production backdoors or mistake a seed record for a logged-in identity. Use the existing legitimate application/provider mechanisms under `PHDK_PRODUCTION_VERIFICATION.md`; necessary readiness repairs belong to authorized Prep, while acceptance defects require explicitly authorized UAT Fix. Exercise positive/negative API and browser journeys only in the authorized UAT scope. Redact state, revoke grants and report evidence or precise remaining blockers.
 
 ## Company Co standard fixture (mandatory evaluation)
 Before preparing UAT datasets, read `USE_COMPANY_CO_INFO_FOR_DEMOS.md` and `UAT_JOURNEY_STANDARD.md`. Use synthetic Company Co staff, 17 leaders/departments, buyer/customer and supplier profiles when applicable. Map the records to the actual schema, seed idempotently, provision scoped test accounts, prove Superadmin test-profile switching, and document all resulting UAT actions/evidence. Do not send bulk emails or use live financial transactions as fixture side effects.
 
 ## Mandatory persona journeys, test identities and next action
 
-Before executing UAT, obey `UAT_JOURNEY_STANDARD.md` fully: inspect actual profiles and source-backed permissions, verify deployed development access, create safe synthetic role accounts when absent, verify Superadmin audited role switching, plan stories by persona, execute observable browser/API journeys, retain per-step evidence and retest repaired failures. Generate the role/access/stories/journey map and retest artifacts listed there. End every UAT/UAT Fix response with an exact `SIGUIENTE PASO` instruction; do not wait unnecessarily when autonomous work remains. Production URLs do not imply permission to affect real production data or bypass authentication.
+Before executing explicitly authorized UAT, obey `UAT_JOURNEY_STANDARD.md` fully: inspect actual profiles and source-backed permissions, verify access to the existing deployed production candidate, prepare safe run-owned synthetic role accounts when absent, verify Superadmin audited role switching, plan stories by persona, execute observable browser/API journeys, retain per-step evidence and retest authorized repairs. Generate the role/access/stories/journey map and retest artifacts listed there. End every UAT/UAT Fix response with an exact `SIGUIENTE PASO` instruction; do not wait unnecessarily when autonomous work remains. Production URLs do not imply permission to affect real production data or bypass authentication.
 
 ## CRUD acceptance gate
 
@@ -33,9 +33,9 @@ On UI-applicable projects, follow `PHDK_UX_UI.md` and deliver `UX_UI_AUDIT_REPOR
 Before browser-dependent cases, follow `UAT_BROWSER_READINESS_STANDARD.md`: explicitly distinguish scoped phase permission from actual tool availability; verify one harmless browser operation against the authorized candidate; log proof/error, safe target and spend disposition in `UAT_ACCESS_REPORT.md` and `UAT_REPORT.md`. No invented budget ceilings, paid browser/API purchases or approval pauses just for an unavailable browser. Continue independent safe UAT cases; BLOCKED/MANUAL is not PASS. Require only genuine host connection/production authorization.
 
 
-**Only** during explicit `PHDK uat`, `PHDK uat fix`, or the UAT/UAT Fix phases of an authorized `PHDK auto` run, a connected/available browser, browser MCP, Playwright, Cypress or equivalent may be used to exercise real user journeys, UI behavior, responsiveness and accessibility and capture timestamped screenshots/evidence. This narrow exception overrides general browser bans **for these phases only**; it does not activate browser work during Capture, Plan, implementation, generic verification, Check or Delivery. PMO workers do not inherit a standalone browser permission outside their authorized UAT phase.
+**Only** during an explicitly initiated `PHDK uat` run, explicit `PHDK uat fix`, or a retest authorized within that active UAT run, a connected/available browser, browser MCP, Playwright, Cypress or equivalent may be used to exercise real user journeys, UI behavior, responsiveness and accessibility and capture timestamped screenshots/evidence. This narrow exception applies **only to those UAT phases**; Auto, Auto Force, PMO or Designer Mode alone do not activate it. It does not activate browser work during Capture, Plan, Prep, implementation, generic verification, Check or Delivery. Delegated work inherits the same scoped authorization and host controls.
 
-Use a local or dedicated staging/test environment and non-production test accounts/fixtures by default. Production browsing or production account interactions require separate explicit owner authorization, a read-only/non-destructive test plan, and confirmation of target and risks. Never perform real purchases, send real emails, mutate production data, bypass authentication, extract secrets, expose personal data, modify provider/repository settings, or call paid services without separate authorization. No persistent sessions, unattended monitoring or background jobs. Do not open a browser merely to diagnose deployment status.
+Use only the existing versioned production application and database with uniquely run-owned synthetic accounts/fixtures under `PHDK_PRODUCTION_VERIFICATION.md`. Confirm the target, allowed operations and cleanup before writes; do not create local/staging deployments or test databases. Never perform real purchases, send real emails, mutate real customer data, bypass authentication, extract secrets, expose personal data, modify provider/repository settings, or call paid services without separate authorization. No unattended monitoring or background jobs; revoke temporary sessions and verify cleanup on every outcome. Do not open a browser merely to diagnose deployment status.
 
 For each test record the candidate revision, target environment, case ID, steps, expected/actual result and redacted screenshot or trace reference. After applying `JWT_STANDARD.md`'s supported synthetic provider/session bootstrap options, stop or mark BLOCKED when browser access, a safe environment or legitimate test identity issuance are still unavailable; **never** infer PASS from code inspection or claim browser evidence not collected. Close browser sessions after the active UAT execution. UAT Fix may rerun the impacted browser cases after permitted code repairs.
 
@@ -45,7 +45,7 @@ Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`
 
 `PHDK uat` runs autonomous user acceptance testing for the identified current product candidate. Match the command case-insensitively after trimming whitespace. Use the current conversation, repository requirements, product documentation, acceptance criteria, current task, code, and existing test evidence to identify the candidate and scope. If no candidate or product goal can be determined, ask only for that missing target.
 
-The command authorizes the assistant to create or refresh UAT artifacts, derive acceptance cases, execute every permitted acceptance check available for those cases, collect evidence, and write the final report without requesting approval between cases. It does not authorize unrelated product development, browser testing outside the narrowly scoped UAT exception, live destructive operations, provider writes, recurring work, or work after the conversation.
+Only a fresh explicit owner invocation of `PHDK uat` starts acceptance and its necessary Prep prerequisite. The command authorizes the assistant to create or refresh UAT artifacts, derive acceptance cases, execute every permitted acceptance check available for those cases, collect evidence, and write the final report without requesting approval between cases. It does not authorize unrelated product development, browser testing outside the narrowly scoped UAT exception, live destructive operations, provider configuration writes, recurring work, or work after the conversation. Product-code remediation requires explicit `PHDK uat fix` or specific repair authorization within the active explicitly initiated UAT run.
 
 ## Required artifacts
 
@@ -105,15 +105,15 @@ Run the strongest permitted evidence for each case without waiting for approval.
 
 Preferred evidence:
 
-1. Existing automated acceptance/in-process integration tests that exercise the workflow.
-2. Repository-local API/service/domain flows using isolated fixtures, test databases, doubles, or existing harnesses.
-3. Focused automated test sources added when needed to exercise the acceptance behavior.
+1. Existing permitted acceptance/API/browser checks exercising the exact deployed production revision with run-owned synthetic fixtures.
+2. Focused automated test sources added when needed, delivered through the authorized source workflow and executed only against that permitted deployed candidate.
+3. Direct user journeys and API evidence in the scoped UAT environment, with actual role/tenant isolation and cleanup evidence.
 4. Static/build/type evidence only for acceptance conditions genuinely established by those checks.
 5. Bounded read-only provider metadata/log evidence only when the user asked to include deployment/incident state and `EXECUTION_SCOPE.md` permits it.
 
 Code inspection may establish traceability or explain a blocked case, but it does not make an unexecuted behavioral case PASS.
 
-Use browser/headless automation, screenshots and UI clicking only within the scoped UAT exception above. Do not perform unauthorized production/live app probes, live database writes, destructive migrations, paid calls, provider configuration writes, hosted CI dispatch, recurring monitoring, or background jobs.
+Use browser/headless automation, screenshots and UI clicking only within the scoped UAT exception above. Do not perform unauthorized production/live app probes, unscoped or real-data database writes, destructive migrations, paid calls, provider configuration writes, hosted CI dispatch, recurring monitoring or background jobs. Any permitted synthetic write requires exact run ownership and verified cleanup.
 
 ## Status semantics
 
@@ -122,15 +122,15 @@ Use browser/headless automation, screenshots and UI clicking only within the sco
 - **BLOCKED** — required access, environment, dependency, or permitted tooling was unavailable.
 - **MANUAL** — acceptance requires an unavailable or excluded human/physical/external interaction with no permitted automated equivalent.
 - **NOT APPLICABLE** — the traced requirement does not apply to this candidate, with reason.
-- **NOT RUN** — temporary state only; final reports resolve it to another status.
+- **NOT RUN** — temporary case status inside an authorized UAT run; final UAT reports resolve required unexecuted cases to BLOCKED/MANUAL as appropriate. Auto's separate **UAT NOT RUN** delivery statement is valid and does not imply a failed or blocked development goal.
 
 Never convert BLOCKED or MANUAL to PASS by inference.
 
 ## Defects and autonomous repair
 
-Standalone `PHDK uat` validates and reports the current candidate. It may repair UAT artifacts or the test harness needed to obtain truthful evidence, but it does not silently change unrelated product behavior.
+Explicit `PHDK uat` prepares the necessary safe readiness, validates and reports the current candidate. It may repair UAT artifacts or in-scope preparation needed to obtain truthful evidence, but it does not silently change unrelated product behavior or authorize product defect remediation.
 
-When an active `PHDK auto` goal includes the candidate, an in-scope UAT FAIL is part of that same goal. Diagnose it, make the bounded in-scope repair, rerun the affected case and relevant regression checks, and update the artifacts before final delivery. No additional PHDK approval is required for that repair.
+After explicit `PHDK uat fix` or repair authorization within the active explicitly initiated UAT run, diagnose in-scope failures, make bounded repairs, deliver the changed candidate, rerun affected permitted cases and update the evidence without per-defect approval. Auto and Auto Force do not enter UAT Fix, rerun acceptance or reopen completed development because an earlier UAT report contains FAIL cases.
 
 A defect requiring a new material product decision, unavailable access, undisclosed sensitive behavior, or out-of-scope work remains FAIL/BLOCKED with a concrete explanation.
 
@@ -143,7 +143,7 @@ A defect requiring a new material product decision, unavailable access, undisclo
 - project intent sources and intent-alignment summary;
 - user-story coverage and any OUT OF INTENT items;
 - UAT scope and source requirements;
-- environment/harness, distinguishing local/in-process evidence from production;
+- exact deployed production environment/revision and permitted harness, distinguishing static source evidence from executed acceptance;
 - summary counts by PASS/FAIL/BLOCKED/MANUAL/NOT APPLICABLE;
 - every case ID, result, and evidence;
 - commands/tests/harnesses actually executed;
@@ -210,13 +210,13 @@ For every FAIL, first normalize it into an actionable defect with:
 
 Then execute all repairs that are clearly within the current product intent and do not require a new material product/security/infrastructure decision.
 
-Treat a BLOCKED case as potentially repairable when the blocker is itself repository-local and permitted to fix. Examples include a missing isolated fixture, test adapter, in-process API harness, deterministic auth stub, fake persistence adapter, or other local verification plumbing. In those cases, `PHDK uat fix` should create/repair the smallest appropriate harness, rerun the blocked case, and update the evidence instead of merely repeating that no FAIL exists.
+Treat a BLOCKED case as potentially repairable when the blocker is a source-level defect within the authorized repair scope. Examples include a missing safely scoped fixture seeder, legitimate session integration or cleanup/revocation support. In those cases, `PHDK uat fix` should repair the smallest appropriate support, deliver the changed candidate, rerun the case only in the permitted deployed environment and update the evidence. Do not add authentication bypasses, local runtime harnesses or new test databases to make a case pass.
 
 A BLOCKED case is non-removable only when the missing prerequisite is genuinely external or excluded, such as a unavailable/unauthorized browser environment, provider/account access, real secret, live environment, manual approval, or external system state. Do not ask for approval per failure. Repair autonomously, run the affected tests/UAT cases, update the report, and continue until all fixable FAILs are resolved or only concrete blockers/decisions remain.
 
 If a FAIL requires a new material product decision, unavailable access, external/manual action, unavailable/unsafe browser evidence, provider write, or out-of-scope behavior, do not guess. Leave it unresolved with the exact blocker and required decision.
 
-A standalone `PHDK uat` still validates/reports only. `PHDK uat fix` is the explicit command that authorizes product-code repair from the current UAT failure backlog. Under active `PHDK auto`, this repair authority is already included for in-scope UAT failures and no separate `uat fix` command is required.
+`PHDK uat` authorizes acceptance and necessary Prep; product-code repairs from its failure backlog require explicit `PHDK uat fix` or specific repair authorization within that active explicitly initiated UAT run. Auto and Auto Force provide neither UAT execution nor UAT Fix authority. A prior failure report is evidence for a later authorized repair, not a command to resume one.
 
 Create/update `UAT_REMEDIATION.md` during UAT Fix. It must list each defect/blocker, root cause, repair/action, affected components, retest evidence, resolution state, and remaining manual/external action.
 
@@ -232,9 +232,9 @@ If the user also requested normal repository delivery, follow `MAIN_DELIVERY_STA
 
 ## Relationship to Auto and delivery
 
-`PHDK uat` is standalone and does not activate `PHDK auto` or PMO. Under active Auto, UAT becomes part of the final integrated acceptance boundary when end-user behavior is in scope: finish implementation, run final UAT, repair in-scope failures, rerun affected cases, then complete remaining final verification and delivery.
+`PHDK uat` is an explicit acceptance command and does not activate `PHDK auto` or PMO. Auto and Auto Force complete authorized implementation, permitted static checks, integration, applicable SEO/AEO, Check/remediation and verified delivery without entering, provisioning, seeding or running UAT Prep, UAT or UAT Fix. These stages remain **DEFERRED — OWNER OPT-IN**. Report the actual **DEVELOPMENT COMPLETE / PARTIALLY DELIVERED / BLOCKED** outcome separately from **UAT NOT RUN**; absent UAT is not a development completion prerequisite. Offer `PHDK uat` as an optional future command without waiting for acceptance authorization as a delivery gate.
 
-When PMO is active, UAT runs against the PMO-integrated candidate after central integration review; worker-level passes do not replace integrated UAT. A standalone UAT run normally leaves product behavior unchanged unless the user separately asks for fixes. If UAT artifact/test-source changes are requested for repository delivery, follow `MAIN_DELIVERY_STANDARD.md` for versioning and delivery.
+When the owner later explicitly invokes `PHDK uat`, use the final integrated and deployed candidate, including PMO integration evidence when applicable; worker-level passes do not replace integrated acceptance. Preserve milestone-to-story/criterion mapping as documentation during development without provisioning UAT fixtures. Explicit `PHDK uat prep` alone does not start acceptance, and historical UAT failures never reopen the completed development goal. Deliver authorized preparation or repair source changes through `MAIN_DELIVERY_STANDARD.md` before testing the revised deployed candidate.
 
 ## Completion report
 

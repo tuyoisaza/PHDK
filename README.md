@@ -1,12 +1,12 @@
 # PHDK
 
-**UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. Legacy lifecycle arrows below describe the optional explicit UAT path, not an Auto transition.
+**UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. The development lifecycle and optional acceptance path are shown separately below.
 
 **Hook compatibility (v2.61.0):** [`PHDK_HOOK_COMPATIBILITY.md`](PHDK_HOOK_COMPATIBILITY.md) requires Check/Auto to detect local runtime-test hooks, automatically reconcile only proven PHDK-owned legacy hooks without weakening independent security controls, and preserve/block on owner or external gates.
 
 
 **Project Handoff to Development Kit**  
-**Version v2.62.0**
+**Version v2.62.1**
 
 **Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
 
@@ -34,7 +34,7 @@ Software delivery breaks down when requirements live only in chat, agents stop a
 
 PHDK makes the work **traceable, repeatable, governable and aligned with the product's actual intent**. Each stage leaves durable evidence, not only a conversational claim.
 
-# One lifecycle from idea to aligned repository
+# Development lifecycle and optional acceptance
 
 For applicable UI work:
 
@@ -49,16 +49,14 @@ PHDK PMO / implementation — selected workstreams and real product development
     ↓
 Integration Review — coherent candidate and actual owner/host controls
     ↓
-PHDK uat prep
-    ↓
-PHDK uat → PHDK uat fix
-    ↓
 SEO → AEO/GEO, when relevant
     ↓
 PHDK check → authorized remediation
     ↓
 Verified delivery
 ```
+
+After delivery, only a fresh explicit `PHDK uat` starts the optional acceptance path: necessary UAT Prep → UAT → explicitly authorized UAT Fix/retest. Standalone `PHDK uat prep` prepares identities without starting acceptance.
 
 For a single focused workstream:
 
@@ -78,8 +76,8 @@ Or run `PHDK auto` for the complete authorized goal. Every invocation revalidate
 | **Auto Force** | Execute the same lifecycle; decide routine visual choices and remove PHDK-only human-review waits. |
 | **Designer Mode** | Implement improvements/redesigns to an existing authorized interface. |
 | **UX/UI quality** | Preserve usable journeys, accessible states, consistency and selected-design fidelity. |
-| **UAT Prep** | Implement safe synthetic identities, fixtures and legitimate role access for acceptance. |
-| **UAT / UAT Fix** | Verify intent-linked behavior, repair failures and retest the deployed candidate. |
+| **UAT Prep** | Explicit preparation, standalone or necessary within an explicit UAT request; no automatic Auto stage. |
+| **UAT / UAT Fix** | Explicit acceptance of the deployed candidate; repairs/retests require their own command or authorization within active explicit UAT. |
 | **SEO / AEO-GEO** | Improve applicable public discoverability and factual answer clarity without invented ranking promises. |
 | **CRUD governance** | Enforce justified resource × role × surface operations and authorization evidence. |
 | **Check** | Audit applicable standards and produce a scoped remediation backlog. |
@@ -212,7 +210,7 @@ UAT later compares the actual deployed UI to the selected baseline; Check evalua
 
 ## `PHDK designer mode`
 
-This separate explicit mode inspects an existing interface, chooses a product-specific direction, **implements** improvements and verifies them through scoped UAT. It is not completed by delivering only a style guide or attractive screenshot.
+This separate explicit mode inspects an existing interface, chooses a product-specific direction, **implements** improvements and performs permitted static checks. Rendered acceptance requires a separate explicit `PHDK uat`. It is not completed by delivering only a style guide or attractive screenshot.
 
 Use [PHDK_DESIGNER_MODE.md](PHDK_DESIGNER_MODE.md) and actual design-system readiness. Preserve valid selected Design decisions, functionality, permissions, diagnostic controls and brand. Parent Auto/Force mode controls material new visual choices when present; standalone Designer retains its explicit autonomous redesign scope.
 
@@ -236,7 +234,7 @@ Auto rereads intent and requirements against actual code every invocation, reuse
 
 **Plan → Design → implementation is one active goal.** Auto asks unresolved visual choices and waits for your answer; after the applicable Design decision, it continues without another development command or ceremonial approval. It does not silently reduce complete scope to an MVP. A design wait blocks dependent UI, not genuinely independent authorized tasks.
 
-The Auto sequence includes Capture, Plan, Design, PMO/implementation, Integration, applicable SEO/AEO, Check/remediation and delivery. UAT Prep/UAT/Fix are separate optional stages triggered only by explicit `PHDK uat`. A status board shows where work is running and what is complete/reused/blocked/N/A. Generic Auto with several coherent active fronts uses PMO portfolio confirmation instead of forcing one arbitrary task.
+The Auto sequence includes Capture, Plan, Design, PMO/implementation, Integration, applicable SEO/AEO, Check/remediation and delivery. UAT Prep/UAT/Fix are separate optional stages triggered only by explicit `PHDK uat`. A status board shows development progress and marks UAT Prep/UAT/UAT Fix DEFERRED — OWNER OPT-IN, with UAT NOT RUN separate from completion. Generic Auto with several coherent active fronts uses PMO portfolio confirmation instead of forcing one arbitrary task.
 
 ## `PHDK auto force`
 
@@ -256,13 +254,13 @@ Updating, installing or discussing PHDK never activates Auto. Neither mode execu
 
 ## `PHDK uat prep`
 
-Before authenticated acceptance, [PHDK_UAT_PREP.md](PHDK_UAT_PREP.md) implements missing safe Company Co synthetic identities, repeatable seeders, legitimate role sessions, authorized Test as, fixture ownership and cleanup. It produces auth/role/fixture/prep evidence, not merely a list of fictional users.
+Explicit `PHDK uat prep`, or necessary Prep within an explicitly initiated `PHDK uat`, follows [PHDK_UAT_PREP.md](PHDK_UAT_PREP.md) to implement missing safe Company Co synthetic identities, repeatable seeders, legitimate role sessions, authorized Test as, fixture ownership and cleanup. It produces auth/role/fixture/prep evidence, not merely a list of fictional users.
 
 The production-first verification policy governs actual runtime checks. Prep does not grant browser access, authentication bypasses, human password/bearer collection, provider writes, local tests or new environments. If it changes code, reconcile/deliver the new candidate before acceptance. Stage 50 separately verifies browser availability.
 
 ## `PHDK uat`
 
-Acceptance follows:
+Only a fresh explicit owner invocation starts acceptance and its necessary Prep. Auto/Force completion, deployment, Check and prior UAT failures do not start it. Acceptance follows:
 
 ```text
 Project intent → user story → requirement/acceptance criterion → UAT case → evidence
@@ -276,13 +274,13 @@ Read [JWT_STANDARD.md](JWT_STANDARD.md), [UAT_JOURNEY_STANDARD.md](UAT_JOURNEY_S
 
 ## `PHDK uat fix`
 
-Turn unresolved acceptance into defects and an executable repair plan. For each FAIL/BLOCKED/MANUAL case, identify cause, impact, actor, location, ordered action, closure evidence and retest command. Repair in-scope source/auth/fixture gaps and rerun only permitted deployed cases. Do not create local/in-process harness execution contrary to the governing policy.
+Explicit `PHDK uat fix`, or repair authorization within an active explicitly initiated UAT, turns unresolved acceptance into defects and an executable repair plan. For each FAIL/BLOCKED/MANUAL case, identify cause, impact, actor, location, ordered action, closure evidence and retest command. Repair in-scope source/auth/fixture gaps and rerun only permitted deployed cases. Do not create local/in-process harness execution contrary to the governing policy.
 
 Real external account, provider, secret, host-control or browser limitations get exact owner actions rather than a bare BLOCKED label. Material design direction changes follow the current mode's affected-choice policy; fidelity fixes do not require a fresh full interview.
 
-## SEO and AEO/GEO — after UAT
+## SEO and AEO/GEO — after Integration, before Check
 
-[PHDK_SEO.md](PHDK_SEO.md) audits and applies safe public-site corrections; [PHDK_AEO_GEO.md](PHDK_AEO_GEO.md) improves factual answers, entity clarity and source credibility. Both retain reports/handoffs and impacted regression evidence. Private-only scope records justified N/A. Neither grants extra production/browser/provider access or promises rankings/AI citations.
+[PHDK_SEO.md](PHDK_SEO.md) audits and applies safe public-site corrections; [PHDK_AEO_GEO.md](PHDK_AEO_GEO.md) improves factual answers, entity clarity and source credibility. Both retain reports/handoffs and permitted static verification evidence. Auto does not require UAT reports or runtime regressions; a later explicit UAT validates affected behavior. Private-only scope records justified N/A. Neither grants extra production/browser/provider access or promises rankings/AI citations.
 
 ## `PHDK check`
 
@@ -361,7 +359,7 @@ PHDK PMO
 
 Then implement and continue applicable acceptance/audit/delivery. Or use `PHDK auto` for the complete goal with guided visual choices; use `PHDK auto force` to let the agent choose and continue.
 
-The lifecycle board includes Preflight, Capture, Plan, **Design**, PMO/Workstreams, Integration, UAT Prep/UAT/Fix, SEO/AEO, Check/Remediation and Delivery. Statuses are PENDING, RUNNING, REUSED, COMPLETED, BLOCKED and NOT APPLICABLE. A normal Auto design wait is explicitly `DESIGN_AWAITING_OWNER`; answering resumes the active goal.
+The lifecycle board includes Preflight, Capture, Plan, **Design**, PMO/Workstreams, Integration, UAT Prep/UAT/Fix, SEO/AEO, Check/Remediation and Delivery. Development statuses are PENDING, RUNNING, REUSED, COMPLETED, BLOCKED and NOT APPLICABLE. In Auto, UAT Prep/UAT/UAT Fix instead remain DEFERRED — OWNER OPT-IN, with UAT NOT RUN; their absence does not block delivery. A normal Auto design wait is explicitly `DESIGN_AWAITING_OWNER`; answering resumes the active goal.
 
 For an existing project, use `PHDK upgrade`, then Capture/Plan to reconstruct intent and architecture. Design reuses valid choices and changes only affected scope; no automatic wholesale redesign. `PHDK auto` performs this reconciliation within an authorized complete goal. For unclear standards drift, use `PHDK check` first.
 
