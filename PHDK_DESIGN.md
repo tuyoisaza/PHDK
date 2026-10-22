@@ -6,7 +6,7 @@
 
 Read `PHDK_PLAN.md`, `PHDK_UX_UI.md`, `PHDK_DESIGN_SYSTEM.md` and `PHDK_THEME_STANDARD.md` only as needed for the current task. `EXECUTION_SCOPE.md`, `PHDK_PRODUCTION_VERIFICATION.md`, actual host/security controls and current owner instructions remain authoritative. This standard adds no paid services, browser permission, local runtime tests, Docker, preview server, staging environment or provider writes.
 
-The lifecycle is **Capture → Plan → Design → PMO/implementation → Integration → UAT Prep → UAT/Fix → applicable SEO/AEO → Check → Delivery**. PMO may organize independent work earlier, but no UI workstream may implement an unresolved design. API-only/non-visual scope records evidence-based NOT APPLICABLE. A backend-only change to an existing UI product does not trigger a redesign.
+The Auto/Auto Force lifecycle is **Capture → Plan → Design (25-design) → PMO/implementation → Integration → applicable SEO/AEO → Check/remediation → Delivery**. UAT Prep → UAT/Fix is a separate optional sequence initiated only by explicit `PHDK uat`. PMO may organize independent work earlier, but no UI workstream may implement an unresolved design. API-only/non-visual scope records evidence-based NOT APPLICABLE. A backend-only change to an existing UI product does not trigger a redesign.
 
 `PHDK designer mode` remains the separate implementation/redesign mode for existing interfaces. It consumes or refreshes the Design baseline for a material new visual direction; it is not silently activated by `PHDK design`. Standalone Design produces the design package and its authorized repository delivery, not the full application. Neither quoted commands nor saved artifacts activate any mode.
 
