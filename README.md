@@ -63,7 +63,7 @@ Verified delivery
 For a single focused workstream:
 
 ```text
-Capture → Plan → Design → implementation/integration → UAT Prep → UAT/Fix → applicable SEO/AEO → Check → delivery
+Capture → Plan → Design → implementation/integration → applicable SEO/AEO → Check → delivery; optional explicit `PHDK uat` → UAT Prep/UAT/Fix
 ```
 
 Or run `PHDK auto` for the complete authorized goal. Every invocation revalidates intent/requirements against actual code before reusing prior work, builds missing implementation and completes partial products. UI-independent work can proceed while normal Auto awaits a design choice; dependent UI cannot. Non-visual scopes record Design NOT APPLICABLE rather than inventing screens.
