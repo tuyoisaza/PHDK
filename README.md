@@ -1,10 +1,12 @@
 # PHDK
 
+**UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. Legacy lifecycle arrows below describe the optional explicit UAT path, not an Auto transition.
+
 **Hook compatibility (v2.61.0):** [`PHDK_HOOK_COMPATIBILITY.md`](PHDK_HOOK_COMPATIBILITY.md) requires Check/Auto to detect local runtime-test hooks, automatically reconcile only proven PHDK-owned legacy hooks without weakening independent security controls, and preserve/block on owner or external gates.
 
 
 **Project Handoff to Development Kit**  
-**Version v2.60.1**
+**Version v2.62.0**
 
 **Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
 
