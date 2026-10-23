@@ -2,7 +2,7 @@
 
 # PHDK
 
-**Node.js default:** New Node.js projects target the latest security-patched Active LTS compatible with the full stack and deployment. Plan verifies and pins the runtime; Secure enforces npm supply-chain controls and deployment evidence. See [PHDK_SECURE.md](PHDK_SECURE.md).
+**Node.js default:** New Node.js projects target the newest compatible security-patched Active LTS, with a supported Maintenance LTS fallback when no Active LTS exists or is compatible. Plan verifies and pins the runtime; Secure enforces npm supply-chain controls and deployment evidence. See [PHDK_SECURE.md](PHDK_SECURE.md).
 
 **UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. The development lifecycle and optional acceptance path are shown separately below.
 
@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.63.2**
+**Version v2.65.0**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
@@ -334,19 +334,25 @@ Autonomy operates inside explicit human direction. Owners define intent, portfol
 
 No unattended/overnight execution, recurring agents, Actions/hosted CI activation, local runtime tests, Docker, preview servers/new staging/databases, secret inspection, real-data test mutations or provider administration. Browser/headless application verification is only scoped UAT/UAT Fix on the existing permitted deployment. Static design artifact creation is distinct, and never proves behavior. See [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) and [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md).
 
+## Stack review on upgrade
+
+Every `PHDK upgrade` / `PHDK upgrade force` includes the bounded read-only [Stack Security Review](PHDK_SECURE.md#stack-security-review), even when standards are already current. Preflight runs it once when adopting a new version. It checks runtimes, resolved dependencies/frameworks, images and data engines against current official advisories/support schedules, separating source, build and deployed evidence.
+
+Report **STANDARDS_SYNC**, **STACK_REVIEW_COVERAGE** and **STACK_SECURITY_STATUS** independently. Vendoring can succeed with security findings or unverified runtime evidence; it does not patch the application. Existing supported Node majors receive patch recommendations first; EOL/major migrations require compatibility work. Reuse current evidence at unchanged stages; no scheduler, new infrastructure, package installation or UAT is introduced.
+
 # Keep PHDK synchronized
 
 ```text
 PHDK upgrade
 ```
 
-Conservatively synchronizes standards, preserving dirty PHDK files and reporting conflicts.
+Conservatively synchronizes standards, preserving dirty PHDK files and reporting conflicts, then reviews the actual project stack even when no standards changed.
 
 ```text
 PHDK upgrade force
 ```
 
-Replaces only manifest-owned `phdk-standards/` files and exact `PHDK-MANAGED` blocks, removing obsolete proven PHDK-owned files when appropriate. It does not overwrite product code, requirements/intents, TASK/STATUS, ADRs, hooks, package files, provider settings or owner text outside managed markers. Publication of PHDK does not prove existing projects or already-open sessions adopted it.
+Performs the same stack review and replaces only manifest-owned `phdk-standards/` files and exact `PHDK-MANAGED` blocks, removing obsolete proven PHDK-owned files when appropriate. It does not overwrite product code, requirements/intents, TASK/STATUS, ADRs, hooks, package files, provider settings or owner text outside managed markers. Publication of PHDK does not prove existing projects or already-open sessions adopted it.
 
 # Other operational commands
 

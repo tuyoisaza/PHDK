@@ -59,7 +59,7 @@ git diff --check
 pnpm typecheck
 pnpm lint
 targeted package build when bundling is affected
-targeted local unit/in-process integration test when risk requires it
+targeted static source/security analysis when risk requires it
 ```
 
 Do not repeatedly run install + full build + full test suites after every small edit.
@@ -74,15 +74,14 @@ pnpm typecheck
 pnpm lint
 pnpm format:check
 pnpm build
-pnpm test                      — when required by the repository/hook or concrete risk
-<existing composition command> — when required by the repository/hook
+<existing composition command> — only after verifying all nested effects are permitted static checks
 ```
 
-The command list is illustrative: inspect actual scripts and run every applicable existing mandatory gate. Auto and FORCE already authorize synchronous isolated suites, including a full Vitest suite required by pre-push, without another permission request. Avoiding optional tests does not waive mandatory tests. Preserve a current explicit owner ban on the actual operation; script effects, not names or suite size, determine whether an excluded operation needs a separate decision. Use finite runs, preserve hooks and complete independent work if a real conflict remains.
+The command list is illustrative: inspect actual scripts and preserve every applicable mandatory gate. Under PHDK_PRODUCTION_VERIFICATION.md, Auto/Force do not authorize local unit, in-process, integration or runtime suites, including a Vitest suite required by pre-push. A conflicting required hook must be reconciled only within PHDK_HOOK_COMPATIBILITY.md ownership/authorization limits or reported BLOCKED. Never execute prohibited tests, suppress a failed gate or bypass a hook. Run permitted checks with finite bounds and continue independent authorized work.
 
-The verification scripts must stay within `EXECUTION_SCOPE.md`. Use an existing offline/test configuration when available. If a verification script requires a browser, live database, provider credentials, network service, or deployment, do not run it; report the dependency and the verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
+The verification scripts must stay within `EXECUTION_SCOPE.md`. Use an existing safe static configuration when available; offline or mocked execution is still prohibited local behavioral testing. If a verification script requires a browser, live database, provider credentials, network service, or deployment, do not run it; report the dependency and the verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
 
-Report required-suite and risk-triggered test commands with their actual results. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
+Report permitted static commands with their actual results and prohibited/unexecuted runtime checks as NOT RUN, including any unresolved hook conflict. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
 
 ---
 

@@ -1,3 +1,18 @@
+## v2.65.0 — 2026-10-23
+
+### Stack security review on upgrade
+- Require a bounded read-only Stack Security Review for every explicit Upgrade/Force, including no-op synchronization, and once when foreground Preflight actually adopts a new canonical version.
+- Reuse Secure as the canonical evidence contract for all workspace/service roles: distinguish declared, resolved, build and observed deployed versions; review current official advisories, support/EOL, dependency/native compatibility, images and data engines.
+- Report standards synchronization, review coverage and security findings independently. A successful vendor update cannot clear product vulnerabilities; findings do not prevent safer standards from being delivered.
+- Replace the stale Node 20 minimum with supported, security-patched LTS selection. Prefer compatible Active LTS for new projects, allow a documented supported Maintenance LTS fallback, and recommend patches within existing supported majors before migration.
+- Route Upgrade, Preflight, Plan, Check, execution/delivery and native agent entrypoints coherently. The foreground updater exposes pending review obligations without pretending to execute a security scan. Static coherence checks understand canonical and vendored manifest destinations.
+- Reconcile touched legacy local-test instructions with production-first verification. Preserve owner customizations, actual controls, explicit-only UAT and separately authorized remediation/delivery.
+
+### Verification and adoption
+- Source/diff, Python syntax, manifest/native-block and static coherence verification are required; no local behavioral tests, Docker, UAT, new scanners, hosted workflow dispatch or provider mutations are introduced.
+- This release does not claim every project is updated or its application dependencies patched. Downstream adoption and security evidence must be verified per repository.
+- v2.64.0 was already proposed by the independent encryption/KMS PR when this release was prepared; its unmerged changes are not included.
+
 ## v2.63.2 — 2026-10-23
 
 ### Reconcile phase limits with current owner authorization

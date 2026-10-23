@@ -1,3 +1,23 @@
+# PHDK delivery checkpoint — v2.65.0
+
+Date: 2026-10-23. Owner instruction: implement, update and vendorize the preceding stack-security proposal. Canonical baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Candidate branch: `feature/v2.65.0-stack-security-upgrade`. MINOR adds a compatible command review workflow. The independent unmerged v2.64.0 encryption/KMS proposal is excluded.
+
+## Scope and verified source
+
+Secure owns one reusable Stack Security Review; Upgrade, actual Preflight adoption, Plan, Check and managed entrypoints route to it. Supported Node selection, dated evidence, source/build/deployment distinctions and standards/application clearance separation are explicit. Foreground updater output describes pending review; source guards validate both canonical and installed manifest layouts. Existing owner/host controls, explicit-only UAT and publication boundaries remain binding.
+
+| Delivery field | Prepublication checkpoint |
+|---|---|
+| VERSION_BUMP | PASS — VERSION/README/newest CHANGELOG agree on 2.65.0; fresh target must still be checked before merge. |
+| COMMIT_PREFIX | PENDING — source and integration subjects must begin with v2.65.0. |
+| PUSH_AND_PR | PENDING — scoped branch, PR and permitted merge must be observed. |
+| REMOTE_MAIN | PENDING — read back final SHA, version and changed file hashes after merge. |
+| SCOPE_AND_CHECKS | Source/diff, Python syntax and static coherence reviewed; final evidence records actual checks and publication responses. |
+
+This checkpoint does not claim merge, release/tag, deployment, downstream adoption, repaired application dependencies, runtime security validation or acceptance. No local behavioral tests, Docker, UAT, provider writes or new automation are introduced. Later publication and per-project vendor results are recorded from actual operations; do not create a redundant version-only commit to stamp this checkpoint.
+
+---
+
 # PHDK delivery checkpoint — v2.63.2
 
 Integration refresh: main advanced to `06efe2fe98d94548c1acfc533e138a0ef4d1c05c` / v2.63.1 while this candidate was being published. Its manifest repair and full release history are retained; this change is v2.63.2. The existing branch name predates that concurrent patch. The original baseline evidence below remains historical source provenance.
