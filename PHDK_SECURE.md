@@ -1,3 +1,5 @@
+**Encryption standard (v2.64.0):** Apply PHDK_ENCRYPTION_STANDARD.md for TLS, encrypted databases and backups, external key custody, workload identity, secret recovery and bounded encryption-key caching. No unauthorized provider changes or live data migrations.
+
 # PHDK Secure Standard — v2.63.0
 
 ## Contract
