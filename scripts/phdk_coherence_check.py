@@ -16,7 +16,7 @@ if f"**Version v{version}**" not in readme:
 releases = re.findall(r"^## v(\d+\.\d+\.\d+)\b", changelog, re.M)
 if not releases or releases[0] != version:
     errors.append("newest CHANGELOG version mismatch")
-sources, destinations = set(), set()
+sources, destinations, manifest_mappings = set(), set(), {}
 for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8").splitlines(), 1):
     line = raw.strip()
     if not line or line.startswith("#"):
@@ -33,6 +33,7 @@ for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8")
         errors.append(f"manifest line {n}: duplicate")
     sources.add(src)
     destinations.add(dst)
+    manifest_mappings[src] = dst
     if not (root / src).is_file():
         errors.append(f"manifest line {n}: missing {src}")
 for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "PHDK_EVOLUTION_STANDARD.md", "CHANGE_MANAGEMENT.md", "scripts/phdk_coherence_check.py", "PHDK_AUTO_CONTINUITY.md", "scripts/phdk_auto_gate.py", "PHDK_DESIGN.md", "SKILL.md", "PHDK_NATIVE_RULES.md", "UAT_STANDARD.md", "PHDK_UAT_PREP.md", "EXECUTION_SCOPE.md", "MAIN_DELIVERY_STANDARD.md", "TASK_TRACKING_STANDARD.md", "PHDK_PLAN.md"]:
@@ -87,6 +88,49 @@ for entrypoint in ["README.md", "AGENTS.md", "SKILL.md", "PHDK_AUTO_CONTINUITY.m
     file = root / entrypoint
     if not file.is_file() or transition_reference not in file.read_text(encoding="utf-8"):
         errors.append(f"{entrypoint} missing phase-transition routing")
+
+# Hook guards verify installed routing and documented decision coverage only.
+# They cannot classify a project's scripts or prove an agent followed the rule.
+hook_reference = "PHDK_HOOK_COMPATIBILITY.md#decision-procedure"
+native_hook_reference = "phdk-standards/" + hook_reference
+
+
+def has_hook_trigger(body):
+    # Wrapped prose stays together; separate bullets cannot supply each other's trigger terms.
+    for paragraph in re.split(r"\n[ \t]*\n|\n(?=[ \t]*[-+*][ \t]+)", body):
+        if hook_reference in paragraph and all(re.search(pattern, paragraph, re.I) for pattern in [
+            r"\b(?:build|packaging|hook)\b", r"\bload\b", r"\bbefore\b",
+            r"\bexecut\w*\b", r"\bBLOCKED\b", r"\b(?:ask\w*|request\w*)\b",
+        ]):
+            return True
+    return False
+
+
+for dependency in ["PHDK_HOOK_COMPATIBILITY.md", "PHDK_PRODUCTION_VERIFICATION.md"]:
+    if manifest_mappings.get(dependency) != dependency:
+        errors.append(f"manifest must vendor hook dependency at {dependency}")
+for entrypoint in ["AGENTS.md", "SKILL.md", "PHDK_AUTO.md", "PHDK_AUTO_CONTINUITY.md"]:
+    file = root / entrypoint
+    if not file.is_file() or not has_hook_trigger(file.read_text(encoding="utf-8")):
+        errors.append(f"{entrypoint} missing hook decision trigger before execution/block/question")
+hook_file = root / "PHDK_HOOK_COMPATIBILITY.md"
+hook_body = hook_file.read_text(encoding="utf-8") if hook_file.is_file() else ""
+for heading in ["Decision procedure", "Required decision scenarios"]:
+    section = re.search(r"^## " + re.escape(heading) + r"\s*\n(.*?)(?=^#{1,2}\s|\Z)",
+                        hook_body, re.M | re.S)
+    if section is None:
+        errors.append(f"PHDK_HOOK_COMPATIBILITY.md missing section {heading}")
+    elif heading == "Decision procedure":
+        for marker in ["import", "require", "runtime", "provenance"]:
+            if marker not in section.group(1).lower():
+                errors.append(f"hook decision procedure missing classification marker {marker}")
+    else:
+        rows = re.findall(r"^\|\s*`?(HC-[A-Z]+)`?\s*\|\s*([^\n]+)", section.group(1), re.M)
+        for scenario in ["HC-STATIC", "HC-LOAD", "HC-PHDK", "HC-OWNER", "HC-UNKNOWN", "HC-ORDER"]:
+            matches = [cells for key, cells in rows if key == scenario]
+            cells = matches[0].strip().removesuffix("|").split("|") if len(matches) == 1 else []
+            if len(cells) != 2 or not all(cell.strip() for cell in cells):
+                errors.append(f"hook decision scenarios missing complete unique row {scenario}")
 
 # Design routing guards are source-level signals, never evidence of an owner
 # decision, rendered preview, actual execution, or downstream adoption.
@@ -153,9 +197,11 @@ if native_file.is_file():
     else:
         for marker in ["PHDK auto", "PHDK auto force", "PHDK uat", "PHDK uat prep",
                        "PHDK uat fix", "DEFERRED — OWNER OPT-IN", "UAT NOT RUN",
-                       transition_reference]:
+                       transition_reference, native_hook_reference]:
             if marker not in managed.group(1):
                 errors.append(f"PHDK_NATIVE_RULES.md managed block missing {marker}")
+        if not has_hook_trigger(managed.group(1)):
+            errors.append("PHDK_NATIVE_RULES.md managed block missing hook decision trigger")
 
 auto_file = root / "PHDK_AUTO.md"
 if auto_file.is_file():
@@ -187,6 +233,16 @@ legacy_auto_uat_patterns = [
     re.compile(r"Then: reuse/run Capture, Plan, Design, PMO/workstream execution, Integration Review, UAT Prep", re.I),
     re.compile(r"Run \*\*SEO after UAT and UAT Fix and before Check\*\* in `PHDK auto`", re.I),
 ]
+# Known affirmative local-test instructions conflict with production-first policy.
+# Do not match generic runtime/test mentions: prohibitions and scenarios are valid.
+legacy_local_runtime_patterns = [
+    re.compile(r"Auto and FORCE already authorize synchronous isolated suites", re.I),
+    re.compile(r"→ local unit/in-process integration tests when risk requires them", re.I),
+    re.compile(r"Run risk-triggered unit or in-process integration tests with test doubles", re.I),
+    re.compile(r"Verification uses repository review, static checks, local builds, and risk-triggered unit or in-process integration tests", re.I),
+    re.compile(r"Run the smallest useful local tests", re.I),
+    re.compile(r"targeted local unit/in-process integration test when risk requires it", re.I),
+]
 active_policy_paths = set(root.glob("*.md"))
 active_policy_paths.update(
     root / source for source in sources
@@ -207,6 +263,8 @@ for path in sorted(active_policy_paths):
     for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if any(pattern.search(line) for pattern in legacy_auto_uat_patterns):
             errors.append(f"{relative}:{lineno}: obsolete automatic UAT directive")
+        if any(pattern.search(line) for pattern in legacy_local_runtime_patterns):
+            errors.append(f"{relative}:{lineno}: obsolete local-runtime directive")
 
 # Guard against reintroducing the deprecated PMO-only task-delegation prohibition.
 # Scan active Markdown instructions only; archival CHANGELOG/ORIGINALS are historical.

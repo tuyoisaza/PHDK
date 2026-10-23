@@ -4,7 +4,7 @@
 
 This file defines code-verification evidence within `EXECUTION_SCOPE.md`, the authoritative boundary for every PHDK agent. `MAIN_DELIVERY_STANDARD.md` defines normal development completion, including verified integration into remote `main` or the user's explicit target.
 
-Verification uses repository review, static checks, local builds, and risk-triggered unit or in-process integration tests. A successful check proves only the behavior it actually exercised; it does not prove that a deployed application works.
+Verification uses repository review, permitted static checks and safe local builds, plus review of risk-triggered test source. Local runtime tests, including unit/in-process suites with mocks, remain prohibited by `PHDK_PRODUCTION_VERIFICATION.md`; runtime verification requires its separately authorized deployed scope. Static success does not prove application behavior or deployed acceptance.
 
 ---
 
@@ -16,7 +16,7 @@ Verification uses repository review, static checks, local builds, and risk-trigg
 source and diff review
 → targeted static checks
 → local build when affected
-→ local unit/in-process integration tests when risk requires them
+→ review risk-triggered test source and record runtime evidence limits
 → accurate report of evidence and remaining uncertainty
 ```
 
@@ -30,12 +30,12 @@ Outside the scoped UAT/UAT Fix exception in `EXECUTION_SCOPE.md`, browser verifi
 
 ## Code Verification Loop
 
-For the requested deliverable, use this loop. When `PHDK auto` or `PHDK auto force` is explicitly active, `PHDK_AUTO.md` takes precedence over the per-slice cadence: implement the whole goal and necessary test source first, then execute the integrated verification. Internal slices, scaffolds, and candidate releases are coverage categories, not intermediate test or human-approval gates. Follow `PHDK_AUTO_CONTINUITY.md` to retain the factual mandate after context recovery and before a terminal blocker report.
+For the requested deliverable, use this loop. When `PHDK auto` or `PHDK auto force` is explicitly active, `PHDK_AUTO.md` takes precedence over the per-slice cadence: implement the whole goal and necessary test source first, then execute the integrated permitted static verification. Internal slices, scaffolds, and candidate releases are coverage categories, not intermediate test or human-approval gates. Follow `PHDK_AUTO_CONTINUITY.md` to retain the factual mandate after context recovery and before a terminal blocker report.
 
 1. **Review the changed source and diff** against the requested behavior and security requirements.
-2. **Inspect commands before running them** so test, build, install, or hook scripts do not start browsers, reach services, perform migrations, provision infrastructure, or deploy.
+2. **Inspect commands before running them** so test, build, install, or hook scripts do not run local application/runtime tests, start browsers, reach services, perform migrations, provision infrastructure, or deploy. Apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) to any ambiguity or conflict before execution, BLOCKED or user input.
 3. **Develop the candidate** and write justified test coverage with the implementation. Outside Auto, targeted static checks may support iteration; in Auto, an intermediate check requires an actual implementation blocker or a mandatory hook/control.
-4. **Run the smallest useful local tests** when `TESTING_STANDARD.md` identifies risk triggers. In Auto, execute them for the completed integrated goal, including relevant interactions across its features. Integrations run in process with test doubles for external dependencies, without a network listener or database connection.
+4. **Review justified test source and execution limits** when `TESTING_STANDARD.md` identifies risk triggers. Run only permitted source/static checks locally. Test doubles, disabled listeners and absent database connections do not authorize unit/in-process runtime execution. Runtime verification follows the separately authorized deployed scope in `PHDK_PRODUCTION_VERIFICATION.md`; Auto records `UAT NOT RUN` and does not initiate acceptance.
 5. **Before publication**, run the applicable repository static/build gate. In Auto, this is the final whole-candidate boundary, not a release per stage. Documentation-only work needs source/diff and applicable formatting checks, not application test scaffolding. Repair in-scope failures and recheck affected behavior after material fixes or integration changes. Required hooks still run at the operations they govern.
 6. **Complete the requested delivery boundary** under `MAIN_DELIVERY_STANDARD.md`. Normal development includes the scoped versioned branch/PR workflow, applicable reviews, merge, and fresh remote target/version verification; a branch push or open PR alone does not complete it. Honor an explicit local-only, branch-only, PR-only, or different-target instruction.
 7. **Record actual results and limits** in the final report and `STATUS.md`, including delivery evidence or its precise blocker. During Auto, communicate progress and continue until the whole requested outcome is complete; a milestone is not a final handoff. For UI or deployed behavior, state `visual/runtime unverified`.
@@ -59,10 +59,10 @@ git diff --check
 pnpm typecheck
 pnpm lint
 targeted package build when bundling is affected
-targeted local unit/in-process integration test when risk requires it
+source/static review of risk-triggered test coverage
 ```
 
-Do not repeatedly run install + full build + full test suites after every small edit.
+Do not repeatedly run install + full build after every small edit; local behavioral test suites remain prohibited.
 
 ### Before push/release
 
@@ -74,21 +74,20 @@ pnpm typecheck
 pnpm lint
 pnpm format:check
 pnpm build
-pnpm test                      — when required by the repository/hook or concrete risk
-<existing composition command> — when required by the repository/hook
+<existing composition command> — only after inspecting that every step is permitted locally
 ```
 
-The command list is illustrative: inspect actual scripts and run every applicable existing mandatory gate. Auto and FORCE already authorize synchronous isolated suites, including a full Vitest suite required by pre-push, without another permission request. Avoiding optional tests does not waive mandatory tests. Preserve a current explicit owner ban on the actual operation; script effects, not names or suite size, determine whether an excluded operation needs a separate decision. Use finite runs, preserve hooks and complete independent work if a real conflict remains.
+The command list is illustrative: inspect actual scripts and run applicable permitted mandatory gates. Auto and FORCE do not authorize local runtime suites, including Vitest required by pre-push. Apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before executing an ambiguous build/packaging/hook command, declaring BLOCKED or asking the owner. Classify actual effects and provenance; repair only authorized proven PHDK-managed conflicts and preserve independent owner/external/unknown controls. Use finite runs, report unresolved mandatory gates and continue independent permitted work without bypass or a prohibited local-runtime exception.
 
-The verification scripts must stay within `EXECUTION_SCOPE.md`. Use an existing offline/test configuration when available. If a verification script requires a browser, live database, provider credentials, network service, or deployment, do not run it; report the dependency and the verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
+The verification scripts must stay within `EXECUTION_SCOPE.md` and `PHDK_PRODUCTION_VERIFICATION.md`. Offline/test configuration does not make runtime tests static. Do not execute a local script that runs application/runtime tests, starts a browser, connects to a database or service, uses provider credentials, or deploys. Resolve an incompatible mandatory step through the hook decision procedure and report any remaining verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
 
-Report required-suite and risk-triggered test commands with their actual results. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
+Report permitted checks with their actual results and test-source coverage separately from unexecuted runtime cases; report actual runtime results only when separately authorized and performed. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
 
 ---
 
 ## Product Health Check Standard
 
-The following sections specify application code for authorized product users and operators. They do not authorize PHDK agents to call these endpoints, press diagnostic buttons, or operate a deployed service. Verify the implementation through source review and permitted local tests. Requested provider observations follow `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**; do not generate events by calling the application or its probes.
+The following sections specify application code for authorized product users and operators. They do not authorize PHDK agents to call these endpoints, press diagnostic buttons, or operate a deployed service. Verify the implementation through source review and permitted static/build checks. Requested provider observations follow `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**; do not generate events by calling the application or its probes.
 
 ### Public health
 
@@ -230,8 +229,8 @@ In Auto, accumulate these requirements across the entire goal and verify them at
 ### Auth / authorization
 
 - [ ] Source enforces secure auth/session configuration and redacts secrets.
-- [ ] Local tests cover unauthenticated, wrong-role, and authorized decisions when the boundary changes.
-- [ ] Tests replace OAuth, sessions, persistence, and network dependencies with local doubles.
+- [ ] Test sources cover unauthenticated, wrong-role, and authorized decisions when the boundary changes; execution remains within the separately authorized deployed scope.
+- [ ] Test sources identify controlled dependencies and fixtures; mocks or test doubles do not authorize local runtime execution.
 - [ ] Correlation IDs and safe logging paths are reviewed in code.
 
 ### Feature / UI
@@ -239,13 +238,13 @@ In Auto, accumulate these requirements across the entire goal and verify them at
 - [ ] Source matches the requested behavior, routes, permissions, and data flow.
 - [ ] Loading/empty/error states and i18n/accessibility requirements are reviewed in source.
 - [ ] Important execution boundaries have structured logging; no fake production data is introduced.
-- [ ] Relevant risk-triggered local tests pass or failures are reported.
+- [ ] Relevant risk-triggered test source is reviewed, and unexecuted runtime coverage is reported without a false PASS.
 - [ ] UI appearance, browser interaction, and deployed behavior are reported as `visual/runtime unverified`.
 
 ### Data / destructive changes
 
 - [ ] Migration files and compatibility/rollback notes are reviewed without applying migrations.
-- [ ] High-risk deterministic transformations are checked with local fixtures and test doubles.
+- [ ] High-risk deterministic transformations and their fixture/test source receive static review; runtime evidence follows the separately authorized deployed scope.
 - [ ] Destructive behavior cannot run through an automatic product health probe.
 - [ ] No database, backup, restoration, or production-state operation is performed by the agent.
 - [ ] Database execution and operational recovery remain explicitly unverified.
@@ -280,9 +279,10 @@ Static/build gate:
   format:check:  pass / fail / not run + reason
   build:         pass / fail / not run + reason
 
-Local automated tests:
-  [required repository/hook suites + command/result, or none applicable]
-  [risk-triggered added coverage + command/result, or no new tests needed]
+Test source and runtime limits:
+  [risk-triggered test source reviewed, or no new tests needed]
+  [local runtime tests NOT RUN; incompatible required gates and resolution evidence]
+  [UAT NOT RUN, or actual separately authorized deployed results]
 
 Bounded provider diagnostics, if requested:
   [service/deployment, source, query scope/limits, non-secret metadata or redacted logs, and uncertainty; not a product test]
@@ -307,4 +307,4 @@ Known failures / gaps:
 
 ## Production-first verification override (v2.58.0)
 
-**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; a conflicting gate is BLOCKED.
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED.

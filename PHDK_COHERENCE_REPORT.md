@@ -1,3 +1,30 @@
+# PHDK coherence report — v2.63.3
+
+Baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Review date: 2026-10-23. Scope: the owner-approved build/packaging/hook decision procedure, its active routing and bounded static guards; not an exhaustive audit of PHDK or a downstream runtime investigation.
+
+## Findings and resolution
+
+| Category / severity | Evidence | Resolution |
+|---|---|---|
+| GAP / High | Native instructions could report a conflicting hook BLOCKED without routing to the existing compatibility policy. | Load the anchored decision procedure before executing the disputed command, declaring BLOCKED or requesting input; align agent/Auto/verification/delivery entrypoints. |
+| GAP / High | A packaging check that imports compiled API modules could be confused with permitted compilation when networking/listeners are disabled. | Classify actual command chains, distinguish tool execution from application evaluation, and include the mixed pre-push build as HC-LOAD. |
+| CONFLICT / High | EXECUTION_SCOPE restricted loading the compatibility policy to already-proven PHDK ownership; enforcement/verification bodies still authorized local unit/in-process suites. | Route unknown provenance through inspection, limit only automatic repair, and reconcile the obsolete affirmative local-runtime clauses. |
+| RISK / High | A static replacement or later remote check could be misreported as equivalent to an independent pre-push runtime gate. | Preserve independent controls and ordering, keep runtime source, disclose NOT RUN coverage and prepare a concrete authorized resolution. No automatic UAT, CI or provider route. |
+| GAP / Medium | A native list could combine unrelated trigger terms; a scenario row could omit its decision cell. | Static guards separate bullets/paragraphs and require unique scenario rows with exactly two populated cells after each ID. |
+
+## Verification and limits
+
+- All 105 baseline file contents and modes were checked against canonical Git objects; the local baseline tree matches `bb3edda210289d1e2697918659cbb92395feb08b`.
+- `python scripts/phdk_coherence_check.py`: PASS, v2.63.3, 78 manifest mappings; static source checks only. Guards include routing, the installed managed block, scenario presence, vendored dependencies and six known obsolete local-runtime directives.
+- Changed Python AST, 58 changed relative Markdown references including anchors, and `git diff --check`: PASS.
+- The full source change and six HC-* decision scenarios received source review. Independent authorization/ordering/routing/checker findings were corrected and re-reviewed without behavioral execution.
+
+Static checks do not prove script safety, actual agent decisions, runtime behavior or downstream adoption. No unit/in-process/behavioral suites, Docker, UAT, provider operation or downstream upgrade was run. Existing manifest mappings are sufficient; no new standard, command or distribution dependency is introduced.
+
+This is a prepublication source checkpoint. Actual branch/PR/merge, remote main content/version/SHA and the unchanged completion verifier are recorded after those operations. Earlier reports follow as historical evidence.
+
+---
+
 # PHDK coherence report — v2.63.2
 
 Integration refresh: main advanced to `06efe2fe98d94548c1acfc533e138a0ef4d1c05c` / v2.63.1 while this candidate was being published. Its manifest repair and full release history are retained; this change is v2.63.2. The existing branch name predates that concurrent patch. The original baseline evidence below remains historical source provenance.
