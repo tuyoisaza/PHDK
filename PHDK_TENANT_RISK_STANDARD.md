@@ -1,3 +1,5 @@
+**Encryption standard (v2.64.0):** Apply PHDK_ENCRYPTION_STANDARD.md for TLS, encrypted databases and backups, external key custody, workload identity, secret recovery and bounded encryption-key caching. No unauthorized provider changes or live data migrations.
+
 # PHDK Tenant Risk Management and Isolation Standard
 
 **Scope:** all products with existing, planned or plausible multi-tenancy; single-tenant products record NOT APPLICABLE to cross-tenant controls while retaining ordinary security/privacy duties. This standard is consulted during Capture, Plan, Auto/implementation, UAT Prep, UAT and Check. Read with `ADMIN_CONSOLE_STANDARD.md`, `DEVSECOPS.md` and `PHDK_PRODUCTION_VERIFICATION.md`.
