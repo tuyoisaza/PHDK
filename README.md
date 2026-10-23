@@ -1,4 +1,8 @@
+**Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.
+
 # PHDK
+
+**Node.js default:** New Node.js projects target the latest security-patched Active LTS compatible with the full stack and deployment. Plan verifies and pins the runtime; Secure enforces npm supply-chain controls and deployment evidence. See [PHDK_SECURE.md](PHDK_SECURE.md).
 
 **UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. The development lifecycle and optional acceptance path are shown separately below.
 
@@ -6,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.62.1**
+**Version v2.63.0**
 
 **Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
 
@@ -51,7 +55,7 @@ Integration Review — coherent candidate and actual owner/host controls
     ↓
 SEO → AEO/GEO, when relevant
     ↓
-PHDK check → authorized remediation
+PHDK secure (hybrid gate) → PHDK check → authorized remediation
     ↓
 Verified delivery
 ```
@@ -80,7 +84,7 @@ Or run `PHDK auto` for the complete authorized goal. Every invocation revalidate
 | **UAT / UAT Fix** | Explicit acceptance of the deployed candidate; repairs/retests require their own command or authorization within active explicit UAT. |
 | **SEO / AEO-GEO** | Improve applicable public discoverability and factual answer clarity without invented ranking promises. |
 | **CRUD governance** | Enforce justified resource × role × surface operations and authorization evidence. |
-| **Check** | Audit applicable standards and produce a scoped remediation backlog. |
+| **Secure** | Hybrid milestone security checks and consolidated pre-delivery audit/remediation. |\n| **Check** | Audit applicable standards and produce a scoped remediation backlog. |
 
 # Before every command: PHDK Preflight
 

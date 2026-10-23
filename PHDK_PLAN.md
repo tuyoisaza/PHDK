@@ -1,5 +1,9 @@
 # PHDK Plan Standard
 
+## Default Node.js runtime selection
+For Node.js stacks, follow the mandatory Node.js runtime and npm supply-chain profile in [PHDK_SECURE.md](PHDK_SECURE.md). Default to the latest patched Active LTS compatible with the complete selected stack and Railway deployment. Record version, compatibility evidence, engines pinning and exceptions in the technical architecture; do not assume every framework supports the newest runtime. Re-evaluate at each material stack change.
+
+
 ## Risk-proportionate tenant isolation and encryption
 
 For multi-tenant plans, apply `PHDK_TENANT_RISK_STANDARD.md` and consume `TENANT_RISK_ASSESSMENT.md`. Compare justified shared RLS versus dedicated database/infrastructure architectures and baseline versus additional field-level/per-tenant-key encryption, along with risk reduction, cost and operations. Record risk tier, owner-approved choice or DECISION REQUIRED in `ADMIN_ARCHITECTURE.md`; map selected controls, migration/rollback and UAT verification to `MILESTONE_PLAN.md`. Never silently provision infrastructure or convert live data.

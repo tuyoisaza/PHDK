@@ -4,7 +4,7 @@ description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
   documentation, run permitted static checks, deliver through GitHub, synchronize standards,
   run the full delivery lifecycle with PHDK auto or PHDK auto force, design solution architecture
-  with PHDK plan, establish a visual style guide and previews with PHDK design,
+  with PHDK plan, run hybrid security assurance with PHDK secure, establish a visual style guide and previews with PHDK design,
   coordinate multi-workstream delivery with PHDK PMO, prepare authenticated synthetic users
   with PHDK uat prep, run acceptance validation with PHDK uat, audit and close standards gaps
   with PHDK check, capture requirements with PHDK capture, repair PHDK blockers with PHDK unlock,
