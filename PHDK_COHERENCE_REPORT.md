@@ -1,4 +1,6 @@
-# PHDK coherence report — v2.63.1
+# PHDK coherence report — v2.63.2
+
+Integration refresh: main advanced to `06efe2fe98d94548c1acfc533e138a0ef4d1c05c` / v2.63.1 while this candidate was being published. Its manifest repair and full release history are retained; this change is v2.63.2. The existing branch name predates that concurrent patch. The original baseline evidence below remains historical source provenance.
 
 Baseline: `ca9f0b1e6555936cd131304ead26ecc2f60c8807` / v2.63.0. Review date: 2026-10-23. Scope: the owner-supplied phase-transition brief and its planning, task, delivery, delegation and managed-entrypoint dependencies; not an exhaustive audit of every PHDK rule.
 
@@ -13,7 +15,7 @@ Baseline: `ca9f0b1e6555936cd131304ead26ecc2f60c8807` / v2.63.0. Review date: 202
 
 ## Verification and limits
 
-The 105 baseline files matched canonical blob hashes. The complete changed source and independent authorization/distribution review were examined. Static coherence passed for v2.63.1 and 78 mappings; changed Python AST, relative Markdown references and whitespace checks passed. Guard additions check active sections, fields, routing and distribution, not runtime decisions.
+The 105 baseline files matched canonical blob hashes. The complete changed source and independent authorization/distribution review were examined. Static coherence passed for v2.63.2 and 78 mappings; changed Python AST, relative Markdown references and whitespace checks passed. Guard additions check active sections, fields, routing and distribution, not runtime decisions.
 
 Source review covers the owner's later publication authorization, independent UAT/cost controls, continuing technical denial, unchanged real owner stops and unknown provenance. No behavioral tests, UAT, runtime permission-transition test, provider write or downstream upgrade was executed. DEBATE's later build and executor events are owner-reported; this release does not resolve or independently reproduce that incident.
 

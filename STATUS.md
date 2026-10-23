@@ -1,8 +1,10 @@
 # PHDK publication status
 
-## v2.63.1 phase-transition reconciliation
+Integration refresh: main advanced to `06efe2fe98d94548c1acfc533e138a0ef4d1c05c` / v2.63.1 while this candidate was being published. Its manifest repair and full release history are retained; this change is v2.63.2. The existing branch name predates that concurrent patch. The original baseline evidence below remains historical source provenance.
 
-Current owner-supplied brief: prevent a temporary construction limit from permanently blocking a later scoped main/deployment authorization. Baseline main: `ca9f0b1e6555936cd131304ead26ecc2f60c8807` / v2.63.0. Candidate branch: `fix/v2.63.1-phase-transition-reconciliation`; version metadata agrees on v2.63.1.
+## v2.63.2 phase-transition reconciliation
+
+Current owner-supplied brief: prevent a temporary construction limit from permanently blocking a later scoped main/deployment authorization. Baseline main: `ca9f0b1e6555936cd131304ead26ecc2f60c8807` / v2.63.0. Candidate branch: `fix/v2.63.1-phase-transition-reconciliation`; version metadata agrees on v2.63.2.
 
 Source changes implement restriction provenance/lifetime, Plan baseline capture, task/plan/status reconciliation and updated worker/agent routing. Owner authorization, technical permissions, costs and UAT are reported separately. Original restrictions and independent controls are preserved; a document change cannot clear an executor denial.
 

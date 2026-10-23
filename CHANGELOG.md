@@ -1,14 +1,21 @@
-## v2.63.1 — 2026-10-23
+## v2.63.2 — 2026-10-23
 
 ### Reconcile phase limits with current owner authorization
 - Require Plan to load and record the verified applicable PHDK baseline before deriving briefs, plans and tasks; distinguish adopted and verified canonical versions.
 - Classify restrictions by lifetime and provenance in the existing task record. Retain source, known date, scope, closure condition and superseding instruction; never attribute assistant-created restrictions to the owner or treat phase completion as a permission grant.
 - Reconcile TASK, plan, STATUS, Auto mandate and affected worker context before construction-to-publication transitions. Keep owner authorization, technical permission, costs and explicit-only UAT separate; do not duplicate an approval already granted or claim that a document edit clears an executor denial.
 - Align delivery, execution, planning, delegation and agent entrypoints; add bounded static coherence guards without changing executor permissions or introducing a new runtime authority mechanism.
-- Repair escaped newlines in the existing Secure manifest mapping, preceding release-note formatting and touched agent/native entrypoint boundaries, preserving their meaning and restoring manifest source resolution.
+- Preserve the concurrently published v2.63.1 manifest repair and release history. Normalize escaped newlines at the touched agent/native entrypoint boundaries without changing policy.
 
 ### Verification limits
 - Static/source verification is recorded in the delivery checkpoint; no local behavioral tests, Docker, UAT, provider operations or downstream project changes are part of this correction. Publishing PHDK does not resolve DEBATE's executor permission or prove its deployment.
+
+## v2.63.1 — 2026-10-23
+
+### Repair canonical manifest vendoring
+- Remove literal escaped newline delimiters from the PHDK_SECURE.md manifest mapping so all sources resolve inside the canonical repository and downstream upgrades can validate the distribution.
+- Normalize the escaped line breaks in the previous release note; align VERSION and the README release marker.
+- Static distribution repair only. No downstream product implementation, UAT, provider operations, or policy changes are authorized by this patch.
 
 ## v2.63.0 — 2026-10-22
 
