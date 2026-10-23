@@ -1,4 +1,18 @@
-## v2.63.0 — 2026-10-22\n\n### Hybrid PHDK Secure\n- Add standalone `PHDK secure` and milestone security deltas plus consolidated pre-Check security gate in Auto/Force.\n- Add `PHDK_SECURE.md` to the vendoring manifest; align Plan, lifecycle, Check, native agent entrypoints and README. Require patched Active LTS Node.js compatibility and npm supply-chain checks for Node.js projects. Preserve explicit-only UAT and production-first static verification.\n- This standards release does not assert downstream adoption, runtime security validation or application deployment.\n\n## v2.62.1 — 2026-10-22
+## v2.63.1 — 2026-10-23
+
+### Repair canonical manifest vendoring
+- Remove literal escaped newline delimiters from the PHDK_SECURE.md manifest mapping so all sources resolve inside the canonical repository and downstream upgrades can validate the distribution.
+- Normalize the escaped line breaks in the previous release note; align VERSION and the README release marker.
+- Static distribution repair only. No downstream product implementation, UAT, provider operations, or policy changes are authorized by this patch.
+
+## v2.63.0 — 2026-10-22
+
+### Hybrid PHDK Secure
+- Add standalone `PHDK secure` and milestone security deltas plus consolidated pre-Check security gate in Auto/Force.
+- Add `PHDK_SECURE.md` to the vendoring manifest; align Plan, lifecycle, Check, native agent entrypoints and README. Require patched Active LTS Node.js compatibility and npm supply-chain checks for Node.js projects. Preserve explicit-only UAT and production-first static verification.
+- This standards release does not assert downstream adoption, runtime security validation or application deployment.
+
+## v2.62.1 — 2026-10-22
 
 ### Reconcile explicit-only UAT throughout active guidance
 - Replace obsolete automatic UAT transitions in acceptance, Auto/Force, lifecycle, PMO, milestone delivery, Check/remediation, SEO/AEO and completion guidance. Auto keeps stages 45/50/60 `DEFERRED — OWNER OPT-IN` and reports development/delivery separately from `UAT NOT RUN`; absent acceptance artifacts and historical UAT failures do not reopen completed development.
