@@ -490,4 +490,3 @@ Before marking UI code complete, verify the implementation in source and applica
 - [ ] i18n layout impact was considered.
 - [ ] Critical errors are not toast-only.
 - [ ] Source-level accessibility requirements are implemented; rendered accessibility and usability remain unverified.
-

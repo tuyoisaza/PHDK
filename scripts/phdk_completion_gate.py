@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Fail-closed remote delivery evidence verifier. Python standard library only."""
+
 import argparse
 import json
 import re
@@ -7,11 +8,15 @@ import subprocess
 import sys
 from pathlib import Path, PureWindowsPath
 
+
 def git(*args):
-    p = subprocess.run(["git", *args], capture_output=True, text=True, timeout=25, check=False)
+    p = subprocess.run(
+        ["git", *args], capture_output=True, text=True, timeout=25, check=False
+    )
     if p.returncode:
         raise RuntimeError(f"git {' '.join(args)} failed: {p.stderr.strip()}")
     return p.stdout.strip()
+
 
 def extract_version(content, property_path=None):
     """Read a plain-text version or an explicitly selected JSON property."""
@@ -28,15 +33,20 @@ def extract_version(content, property_path=None):
             raise ValueError(f"JSON version property {property_path!r} not found")
         value = value[key]
     if not isinstance(value, str) or not value.strip():
-        raise ValueError(f"JSON version property {property_path!r} must be a non-empty string")
+        raise ValueError(
+            f"JSON version property {property_path!r} must be a non-empty string"
+        )
     return value.strip()
+
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", default="PHDK_DELIVERY_EVIDENCE.json")
     ap.add_argument("--remote", default="origin")
     ap.add_argument("--version-file", help="Override the evidence version_file")
-    ap.add_argument("--version-property", help="Dot-separated JSON property in version_file")
+    ap.add_argument(
+        "--version-property", help="Dot-separated JSON property in version_file"
+    )
     args = ap.parse_args()
     errors = []
     try:
@@ -47,7 +57,13 @@ def main():
         print(f"BLOCKED: invalid evidence: {exc}")
         return 1
 
-    for key in ("goal", "target_branch", "expected_version", "merged_commit_sha", "pr_url"):
+    for key in (
+        "goal",
+        "target_branch",
+        "expected_version",
+        "merged_commit_sha",
+        "pr_url",
+    ):
         if not isinstance(data.get(key), str) or not data[key].strip():
             errors.append(f"missing {key}")
     sha = data.get("merged_commit_sha", "")
@@ -67,9 +83,14 @@ def main():
             status = entry.get("status")
             if status not in ("PASS", "NOT_APPLICABLE"):
                 errors.append(f"{name}: status {status!r} prevents COMPLETED")
-            if not isinstance(entry.get("evidence"), str) or not entry["evidence"].strip():
+            if (
+                not isinstance(entry.get("evidence"), str)
+                or not entry["evidence"].strip()
+            ):
                 errors.append(f"{name}: missing evidence/rationale")
-        if not any(x.get("status") == "PASS" for x in checks.values() if isinstance(x, dict)):
+        if not any(
+            x.get("status") == "PASS" for x in checks.values() if isinstance(x, dict)
+        ):
             errors.append("at least one actual PASS check required")
 
     branch = data.get("target_branch", "main")
@@ -100,7 +121,9 @@ def main():
         errors.append("unsafe branch")
     if not errors:
         try:
-            ls = git("ls-remote", "--heads", args.remote, "refs/heads/" + branch).split()
+            ls = git(
+                "ls-remote", "--heads", args.remote, "refs/heads/" + branch
+            ).split()
             if len(ls) < 2 or ls[1] != "refs/heads/" + branch:
                 raise RuntimeError("remote ref not returned")
             remote_sha = ls[0]
@@ -114,8 +137,12 @@ def main():
                     git("fetch", "--no-tags", args.remote, branch)
                 source = git("show", sha + ":" + version_file)
                 observed_version = extract_version(source, version_property)
-                if observed_version.lstrip("v") != data.get("expected_version", "").lstrip("v"):
-                    errors.append(f"remote version source {observed_version!r} != expected {data.get('expected_version')!r}")
+                if observed_version.lstrip("v") != data.get(
+                    "expected_version", ""
+                ).lstrip("v"):
+                    errors.append(
+                        f"remote version source {observed_version!r} != expected {data.get('expected_version')!r}"
+                    )
         except Exception as exc:
             errors.append(f"remote verification unavailable: {exc}")
     if errors:
@@ -123,9 +150,14 @@ def main():
         for error in errors:
             print(" - " + error)
         return 1
-    print(f"PASS: remote {args.remote}/{branch} SHA={sha} VERSION={data['expected_version']}")
-    print("Note: PR merge/reviews and product acceptance must also be independently verified.")
+    print(
+        f"PASS: remote {args.remote}/{branch} SHA={sha} VERSION={data['expected_version']}"
+    )
+    print(
+        "Note: PR merge/reviews and product acceptance must also be independently verified."
+    )
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -1,3 +1,28 @@
+# PHDK delivery checkpoint — v2.65.1
+
+Date: 2026-10-23. Current owner mandate: implement, update and vendor the reviewed standards. Published canonical baseline: `9fc6605c75b42e678bab41feb741dca71fcbabcc` / v2.65.0. An actual downstream source hook exposed formatting incompatibilities; this compatible PATCH repairs those canonical source bytes while retaining the existing controls.
+
+## Scope and source checks
+
+Six Python helpers receive Ruff 0.7.0 formatting; the updater's single grouped import is split without reordering. README hard-break syntax and two redundant EOF newlines are corrected. VERSION, README and CHANGELOG identify 2.65.1. No application code, hook configuration, distribution mapping, permission policy or runtime contract is changed.
+
+| Delivery field | Prepublication checkpoint |
+|---|---|
+| VERSION_BUMP | PASS — VERSION/README/newest CHANGELOG agree on 2.65.1. |
+| PINNED_STATIC_HOOKS | PASS — Ruff 0.7.0 check/format and applicable pre-commit-hooks 5.0.0 content checks. |
+| SOURCE_EQUIVALENCE | PASS — exact formatting ASTs; only the explicitly documented equivalent updater import grouping differs in the final AST. Static compiled-code comparison passes with source positions normalized. |
+| DISTRIBUTION | PASS — unchanged 78 mappings; canonical and byte-equal installed-layout coherence pass. |
+| COMMIT_PREFIX | PENDING — authorized source/integration subjects must begin with v2.65.1. |
+| PUSH_AND_PR | PENDING — the primary agent owns review, scoped branch/PR and permitted merge. |
+| REMOTE_MAIN | PENDING — independently read back final SHA, version and changed hashes after publication. |
+| DOWNSTREAM_ADOPTION | PENDING — preserve original 2.65.0 bytes and regenerate exact incremental copies after canonical publication; retain each project's real gates. |
+
+See `PHDK_COHERENCE_REPORT.md` for the actual static checks, AST exception and limits. No behavioral tests, UAT, provider writes, new automation or application remediation form part of this patch. This checkpoint does not claim publication, application security clearance, downstream adoption or deployment. The independent unmerged v2.64.0 encryption/KMS proposal remains outside this patch.
+
+Previous checkpoints follow as historical evidence.
+
+---
+
 # PHDK delivery checkpoint — v2.65.0
 
 Date: 2026-10-23. Owner instruction: implement, update and vendorize the preceding stack-security proposal. Canonical baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Candidate branch: `feature/v2.65.0-stack-security-upgrade`. MINOR adds a compatible command review workflow. The independent unmerged v2.64.0 encryption/KMS proposal is excluded.

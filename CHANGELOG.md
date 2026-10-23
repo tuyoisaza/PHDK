@@ -1,3 +1,14 @@
+## v2.65.1 — 2026-10-23
+
+### Preserve downstream static-hook compatibility
+- Format the six manifest-owned Python helpers with Ruff 0.7.0 and split the updater's grouped import into identical-order individual imports. This is a mechanical source correction: command contracts, review obligations, permissions and runtime behavior are unchanged.
+- Preserve the README hard line break using Markdown backslash syntax, remove one redundant EOF newline from each of the design guide and the oldest changelog archive, and retain the historical text.
+- Keep the 78 source/destination manifest mappings and exact-copy distribution contract unchanged. Existing downstream Ruff and source-hygiene checks remain enabled; no hook, configuration or vendored exception is introduced.
+
+### Static verification and limits
+- Formatting preserves the exact AST for all six helpers. The subsequent updater import split is the only structural AST difference; import order and the rest of its AST are identical. Static compilation with normalized source positions produces equivalent code for all six helpers; no helper behavior or application tests are executed for this comparison.
+- Record pinned Ruff/source-hygiene, canonical and installed-layout coherence, manifest, version and outgoing-source checks in `PHDK_COHERENCE_REPORT.md`. Source publication and downstream adoption require separate verification.
+
 ## v2.65.0 — 2026-10-23
 
 ### Stack security review on upgrade
