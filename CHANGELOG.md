@@ -3,6 +3,7 @@
 ### Encryption and secrets standard
 - Add PHDK_ENCRYPTION_STANDARD.md and integrate Plan, Secure, tenant risk, native rules and manifest.
 - Require TLS, encrypted database and backups, external key custody and performance-conscious envelope encryption.
+- Require verified first-time superadmin enrollment, MFA and secure account recovery without default passwords or email-only privilege escalation.
 - No live provider mutations or runtime tests performed.
 
 ## v2.63.0 — 2026-10-22
