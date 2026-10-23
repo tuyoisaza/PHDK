@@ -1,0 +1,13 @@
+COMPANY CO - EXPEDIENTE SGC 2025
+
+Simulación para probar un importador. No representa una certificación real.
+
+Carga recomendada: 01_PDF_para_importar contiene 35 documentos digitales.
+Alternativa editable: 02_Word_editables contiene sus 35 equivalentes.
+Alternativa de un solo archivo: 03_Consolidado.
+Casos optativos: 04_Casos_adicionales, revisión antigua y escaneado.
+Respuestas esperadas: 90_Control_del_evaluador. No importar esa carpeta como documentación empresarial.
+
+No cargar todas las alternativas juntas salvo que se quiera probar duplicados.
+Los registros se sitúan en 2025. Se usa la referencia histórica ISO 9001:2015 con Amd 1:2024.
+Todos los datos y actividades empresariales son ficticios.

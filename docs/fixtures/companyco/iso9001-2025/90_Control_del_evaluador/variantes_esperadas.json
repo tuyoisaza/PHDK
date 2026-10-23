@@ -1,0 +1,18 @@
+{
+  "obsolete": {
+    "logical_id": "CC-PR-01",
+    "revision": "02",
+    "status": "Obsoleto",
+    "replaced_by_revision": "03",
+    "docx": "04_Casos_adicionales/Version_anterior/CC-PR-01_r02_OBSOLETO.docx",
+    "pdf": "04_Casos_adicionales/Version_anterior/CC-PR-01_r02_OBSOLETO.pdf"
+  },
+  "ocr": {
+    "logical_id": "CC-RG-02",
+    "revision": "01",
+    "pdf": "04_Casos_adicionales/OCR/CC-RG-02_r01_escaneado.pdf",
+    "pages": 3,
+    "text_layer": false,
+    "equivalent_to": "01_PDF_para_importar/04_Registros/CC-RG-02_r01.pdf"
+  }
+}

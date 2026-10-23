@@ -1,0 +1,201 @@
+﻿id;nombre;departamento;cargo;edad;habilidad_digital;rol;estado
+EMP-001;Valentina Ríos;Dirección general;Líder;46;Avanzado;superadmin;Activo
+EMP-002;Gabriela Vargas;Dirección general;Colaborador;36;Avanzado;employee;Activo
+EMP-003;David Ortega;Dirección general;Colaborador;43;Experto;employee;Activo
+EMP-004;Lucía García;Dirección general;Colaborador;50;Básico;employee;Activo
+EMP-005;Emilio Herrera;Dirección general;Colaborador;57;Intermedio;employee;Activo
+EMP-006;Sara Vargas;Dirección general;Colaborador;25;Avanzado;employee;Activo
+EMP-007;Javier Ortega;Dirección general;Colaborador;32;Experto;employee;Activo
+EMP-008;Elena García;Dirección general;Colaborador;39;Básico;employee;Activo
+EMP-009;Mateo Salcedo;Finanzas;Líder;51;Intermedio;finance_manager;Activo
+EMP-010;Samuel Quintero;Finanzas;Colaborador;54;Experto;employee;Activo
+EMP-011;Alejandra Navarro;Finanzas;Colaborador;22;Básico;employee;Activo
+EMP-012;Tomás Torres;Finanzas;Colaborador;29;Intermedio;employee;Activo
+EMP-013;Gabriela Castro;Finanzas;Colaborador;36;Avanzado;employee;Activo
+EMP-014;David Quintero;Finanzas;Colaborador;43;Experto;employee;Activo
+EMP-015;Lucía Navarro;Finanzas;Colaborador;50;Básico;employee;Activo
+EMP-016;Emilio Torres;Finanzas;Colaborador;57;Intermedio;employee;Activo
+EMP-017;Sara Castro;Finanzas;Colaborador;25;Avanzado;employee;Activo
+EMP-018;Javier Quintero;Finanzas;Colaborador;32;Experto;employee;Activo
+EMP-019;Camila Duarte;Talento humano;Líder;39;Intermedio;hr_manager;Inactivo
+EMP-020;Clara Ramírez;Talento humano;Colaborador;47;Avanzado;employee;Activo
+EMP-021;Samuel Mejía;Talento humano;Colaborador;54;Experto;employee;Activo
+EMP-022;Alejandra Morales;Talento humano;Colaborador;22;Básico;employee;Activo
+EMP-023;Tomás Peña;Talento humano;Colaborador;29;Intermedio;employee;Vacaciones
+EMP-024;Gabriela Ramírez;Talento humano;Colaborador;36;Avanzado;employee;Activo
+EMP-025;David Mejía;Talento humano;Colaborador;43;Experto;employee;Activo
+EMP-026;Lucía Morales;Talento humano;Colaborador;50;Básico;employee;Activo
+EMP-027;Emilio Peña;Talento humano;Colaborador;57;Intermedio;employee;Activo
+EMP-028;Sara Ramírez;Talento humano;Colaborador;25;Avanzado;employee;Activo
+EMP-029;Javier Mejía;Talento humano;Colaborador;32;Experto;employee;Activo
+EMP-030;Elena Morales;Talento humano;Colaborador;39;Básico;employee;Activo
+EMP-031;Martín Peña;Talento humano;Colaborador;46;Intermedio;employee;Activo
+EMP-032;Clara Ramírez;Talento humano;Colaborador;53;Avanzado;employee;Activo
+EMP-033;Andrés Molina;Consultoría B2B;Líder;43;Avanzado;consulting_manager;Activo
+EMP-034;Tomás Ortega;Consultoría B2B;Colaborador;29;Intermedio;employee;Activo
+EMP-035;Gabriela García;Consultoría B2B;Colaborador;36;Avanzado;employee;Activo
+EMP-036;David Herrera;Consultoría B2B;Colaborador;43;Experto;employee;Activo
+EMP-037;Lucía Vargas;Consultoría B2B;Colaborador;50;Básico;employee;Activo
+EMP-038;Emilio Ortega;Consultoría B2B;Colaborador;57;Intermedio;employee;Inactivo
+EMP-039;Sara García;Consultoría B2B;Colaborador;25;Avanzado;employee;Activo
+EMP-040;Javier Herrera;Consultoría B2B;Colaborador;32;Experto;employee;Activo
+EMP-041;Elena Vargas;Consultoría B2B;Colaborador;39;Básico;employee;Activo
+EMP-042;Martín Ortega;Consultoría B2B;Colaborador;46;Intermedio;employee;Activo
+EMP-043;Clara García;Consultoría B2B;Colaborador;53;Avanzado;employee;Activo
+EMP-044;Samuel Herrera;Consultoría B2B;Colaborador;60;Experto;employee;Activo
+EMP-045;Alejandra Vargas;Consultoría B2B;Colaborador;28;Básico;employee;Activo
+EMP-046;Tomás Ortega;Consultoría B2B;Colaborador;35;Intermedio;employee;Vacaciones
+EMP-047;Gabriela García;Consultoría B2B;Colaborador;42;Avanzado;employee;Activo
+EMP-048;David Herrera;Consultoría B2B;Colaborador;49;Experto;employee;Activo
+EMP-049;Lucía Vargas;Consultoría B2B;Colaborador;56;Básico;employee;Activo
+EMP-050;Emilio Ortega;Consultoría B2B;Colaborador;24;Intermedio;employee;Activo
+EMP-051;Juliana Franco;Ventas B2C;Líder;36;Avanzado;sales_manager;Activo
+EMP-052;Elena Castro;Ventas B2C;Colaborador;39;Básico;employee;Activo
+EMP-053;Martín Quintero;Ventas B2C;Colaborador;46;Intermedio;employee;Activo
+EMP-054;Clara Navarro;Ventas B2C;Colaborador;53;Avanzado;employee;Activo
+EMP-055;Samuel Torres;Ventas B2C;Colaborador;60;Experto;employee;Activo
+EMP-056;Alejandra Castro;Ventas B2C;Colaborador;28;Básico;employee;Activo
+EMP-057;Tomás Quintero;Ventas B2C;Colaborador;35;Intermedio;employee;Inactivo
+EMP-058;Gabriela Navarro;Ventas B2C;Colaborador;42;Avanzado;employee;Activo
+EMP-059;David Torres;Ventas B2C;Colaborador;49;Experto;employee;Activo
+EMP-060;Lucía Castro;Ventas B2C;Colaborador;56;Básico;employee;Activo
+EMP-061;Emilio Quintero;Ventas B2C;Colaborador;24;Intermedio;employee;Activo
+EMP-062;Sara Navarro;Ventas B2C;Colaborador;31;Avanzado;employee;Activo
+EMP-063;Javier Torres;Ventas B2C;Colaborador;38;Experto;employee;Activo
+EMP-064;Elena Castro;Ventas B2C;Colaborador;45;Básico;employee;Activo
+EMP-065;Martín Quintero;Ventas B2C;Colaborador;52;Intermedio;employee;Activo
+EMP-066;Clara Navarro;Ventas B2C;Colaborador;59;Avanzado;employee;Activo
+EMP-067;Sebastián Vélez;Ventas B2B;Líder;45;Intermedio;b2b_sales_manager;Activo
+EMP-068;Tomás Mejía;Ventas B2B;Colaborador;35;Intermedio;employee;Activo
+EMP-069;Gabriela Morales;Ventas B2B;Colaborador;42;Avanzado;employee;Vacaciones
+EMP-070;David Peña;Ventas B2B;Colaborador;49;Experto;employee;Activo
+EMP-071;Lucía Ramírez;Ventas B2B;Colaborador;56;Básico;employee;Activo
+EMP-072;Emilio Mejía;Ventas B2B;Colaborador;24;Intermedio;employee;Activo
+EMP-073;Sara Morales;Ventas B2B;Colaborador;31;Avanzado;employee;Activo
+EMP-074;Javier Peña;Ventas B2B;Colaborador;38;Experto;employee;Activo
+EMP-075;Elena Ramírez;Ventas B2B;Colaborador;45;Básico;employee;Activo
+EMP-076;Martín Mejía;Ventas B2B;Colaborador;52;Intermedio;employee;Inactivo
+EMP-077;Clara Morales;Ventas B2B;Colaborador;59;Avanzado;employee;Activo
+EMP-078;Samuel Peña;Ventas B2B;Colaborador;27;Experto;employee;Activo
+EMP-079;Laura Pardo;Marketing;Líder;34;Experto;marketing_manager;Activo
+EMP-080;Gabriela Vargas;Marketing;Colaborador;42;Avanzado;employee;Activo
+EMP-081;David Ortega;Marketing;Colaborador;49;Experto;employee;Activo
+EMP-082;Lucía García;Marketing;Colaborador;56;Básico;employee;Activo
+EMP-083;Emilio Herrera;Marketing;Colaborador;24;Intermedio;employee;Activo
+EMP-084;Sara Vargas;Marketing;Colaborador;31;Avanzado;employee;Activo
+EMP-085;Javier Ortega;Marketing;Colaborador;38;Experto;employee;Activo
+EMP-086;Elena García;Marketing;Colaborador;45;Básico;employee;Activo
+EMP-087;Martín Herrera;Marketing;Colaborador;52;Intermedio;employee;Activo
+EMP-088;Clara Vargas;Marketing;Colaborador;59;Avanzado;employee;Activo
+EMP-089;Nicolás Acosta;E-commerce;Líder;31;Experto;ecommerce_manager;Activo
+EMP-090;Tomás Torres;E-commerce;Colaborador;35;Intermedio;employee;Activo
+EMP-091;Gabriela Castro;E-commerce;Colaborador;42;Avanzado;employee;Activo
+EMP-092;David Quintero;E-commerce;Colaborador;49;Experto;employee;Vacaciones
+EMP-093;Lucía Navarro;E-commerce;Colaborador;56;Básico;employee;Activo
+EMP-094;Emilio Torres;E-commerce;Colaborador;24;Intermedio;employee;Activo
+EMP-095;Sara Castro;E-commerce;Colaborador;31;Avanzado;employee;Inactivo
+EMP-096;Javier Quintero;E-commerce;Colaborador;38;Experto;employee;Activo
+EMP-097;Daniela Suárez;Compras;Líder;41;Intermedio;procurement_manager;Activo
+EMP-098;Clara Ramírez;Compras;Colaborador;53;Avanzado;employee;Activo
+EMP-099;Samuel Mejía;Compras;Colaborador;60;Experto;employee;Activo
+EMP-100;Alejandra Morales;Compras;Colaborador;28;Básico;employee;Activo
+EMP-101;Tomás Peña;Compras;Colaborador;35;Intermedio;employee;Activo
+EMP-102;Gabriela Ramírez;Compras;Colaborador;42;Avanzado;employee;Activo
+EMP-103;David Mejía;Compras;Colaborador;49;Experto;employee;Activo
+EMP-104;Lucía Morales;Compras;Colaborador;56;Básico;employee;Activo
+EMP-105;Emilio Peña;Compras;Colaborador;24;Intermedio;employee;Activo
+EMP-106;Sara Ramírez;Compras;Colaborador;31;Avanzado;employee;Activo
+EMP-107;Javier Mejía;Compras;Colaborador;38;Experto;employee;Activo
+EMP-108;Elena Morales;Compras;Colaborador;45;Básico;employee;Activo
+EMP-109;Martín Peña;Compras;Colaborador;52;Intermedio;employee;Activo
+EMP-110;Felipe Ospina;Logística;Líder;48;Básico;logistics_manager;Activo
+EMP-111;Alejandra Vargas;Logística;Colaborador;28;Básico;employee;Activo
+EMP-112;Tomás Ortega;Logística;Colaborador;35;Intermedio;employee;Activo
+EMP-113;Gabriela García;Logística;Colaborador;42;Avanzado;employee;Activo
+EMP-114;David Herrera;Logística;Colaborador;49;Experto;employee;Inactivo
+EMP-115;Lucía Vargas;Logística;Colaborador;56;Básico;employee;Vacaciones
+EMP-116;Emilio Ortega;Logística;Colaborador;24;Intermedio;employee;Activo
+EMP-117;Sara García;Logística;Colaborador;31;Avanzado;employee;Activo
+EMP-118;Javier Herrera;Logística;Colaborador;38;Experto;employee;Activo
+EMP-119;Paola Cárdenas;Inventarios;Líder;44;Básico;inventory_manager;Activo
+EMP-120;Clara Navarro;Inventarios;Colaborador;53;Avanzado;employee;Activo
+EMP-121;Samuel Torres;Inventarios;Colaborador;60;Experto;employee;Activo
+EMP-122;Alejandra Castro;Inventarios;Colaborador;28;Básico;employee;Activo
+EMP-123;Tomás Quintero;Inventarios;Colaborador;35;Intermedio;employee;Activo
+EMP-124;Gabriela Navarro;Inventarios;Colaborador;42;Avanzado;employee;Activo
+EMP-125;David Torres;Inventarios;Colaborador;49;Experto;employee;Activo
+EMP-126;Lucía Castro;Inventarios;Colaborador;56;Básico;employee;Activo
+EMP-127;Emilio Quintero;Inventarios;Colaborador;24;Intermedio;employee;Activo
+EMP-128;Sara Navarro;Inventarios;Colaborador;31;Avanzado;employee;Activo
+EMP-129;Javier Torres;Inventarios;Colaborador;38;Experto;employee;Activo
+EMP-130;Elena Castro;Inventarios;Colaborador;45;Básico;employee;Activo
+EMP-131;Martín Quintero;Inventarios;Colaborador;52;Intermedio;employee;Activo
+EMP-132;Óscar Benítez;Montaje;Líder;47;Intermedio;installations_manager;Activo
+EMP-133;Alejandra Ramírez;Montaje;Colaborador;28;Básico;employee;Inactivo
+EMP-134;Tomás Mejía;Montaje;Colaborador;35;Intermedio;employee;Activo
+EMP-135;Gabriela Morales;Montaje;Colaborador;42;Avanzado;employee;Activo
+EMP-136;David Peña;Montaje;Colaborador;49;Experto;employee;Activo
+EMP-137;Lucía Ramírez;Montaje;Colaborador;56;Básico;employee;Activo
+EMP-138;Emilio Mejía;Montaje;Colaborador;24;Intermedio;employee;Vacaciones
+EMP-139;Sara Morales;Montaje;Colaborador;31;Avanzado;employee;Activo
+EMP-140;Javier Peña;Montaje;Colaborador;38;Experto;employee;Activo
+EMP-141;Elena Ramírez;Montaje;Colaborador;45;Básico;employee;Activo
+EMP-142;Martín Mejía;Montaje;Colaborador;52;Intermedio;employee;Activo
+EMP-143;Mariana León;Servicio al cliente;Líder;32;Intermedio;support_manager;Activo
+EMP-144;Alejandra García;Servicio al cliente;Colaborador;28;Básico;employee;Activo
+EMP-145;Tomás Herrera;Servicio al cliente;Colaborador;35;Intermedio;employee;Activo
+EMP-146;Gabriela Vargas;Servicio al cliente;Colaborador;42;Avanzado;employee;Activo
+EMP-147;David Ortega;Servicio al cliente;Colaborador;49;Experto;employee;Activo
+EMP-148;Lucía García;Servicio al cliente;Colaborador;56;Básico;employee;Activo
+EMP-149;Emilio Herrera;Servicio al cliente;Colaborador;24;Intermedio;employee;Activo
+EMP-150;Sara Vargas;Servicio al cliente;Colaborador;31;Avanzado;employee;Activo
+EMP-151;Javier Ortega;Servicio al cliente;Colaborador;38;Experto;employee;Activo
+EMP-152;Elena García;Servicio al cliente;Colaborador;45;Básico;employee;Inactivo
+EMP-153;Santiago Robledo;Tecnología;Líder;38;Experto;it_manager;Activo
+EMP-154;Samuel Quintero;Tecnología;Colaborador;60;Experto;employee;Activo
+EMP-155;Alejandra Navarro;Tecnología;Colaborador;28;Básico;employee;Activo
+EMP-156;Tomás Torres;Tecnología;Colaborador;35;Intermedio;employee;Activo
+EMP-157;Gabriela Castro;Tecnología;Colaborador;42;Avanzado;employee;Activo
+EMP-158;David Quintero;Tecnología;Colaborador;49;Experto;employee;Activo
+EMP-159;Lucía Navarro;Tecnología;Colaborador;56;Básico;employee;Activo
+EMP-160;Emilio Torres;Tecnología;Colaborador;24;Intermedio;employee;Activo
+EMP-161;Sara Castro;Tecnología;Colaborador;31;Avanzado;employee;Vacaciones
+EMP-162;Javier Quintero;Tecnología;Colaborador;38;Experto;employee;Activo
+EMP-163;Isabel Restrepo;Diseño de espacios;Líder;37;Avanzado;design_manager;Activo
+EMP-164;Clara Ramírez;Diseño de espacios;Colaborador;53;Avanzado;employee;Activo
+EMP-165;Samuel Mejía;Diseño de espacios;Colaborador;60;Experto;employee;Activo
+EMP-166;Alejandra Morales;Diseño de espacios;Colaborador;28;Básico;employee;Activo
+EMP-167;Tomás Peña;Diseño de espacios;Colaborador;35;Intermedio;employee;Activo
+EMP-168;Gabriela Ramírez;Diseño de espacios;Colaborador;42;Avanzado;employee;Activo
+EMP-169;David Mejía;Diseño de espacios;Colaborador;49;Experto;employee;Activo
+EMP-170;Lucía Morales;Diseño de espacios;Colaborador;56;Básico;employee;Activo
+EMP-171;Emilio Peña;Diseño de espacios;Colaborador;24;Intermedio;employee;Inactivo
+EMP-172;Sara Ramírez;Diseño de espacios;Colaborador;31;Avanzado;employee;Activo
+EMP-173;Javier Mejía;Diseño de espacios;Colaborador;38;Experto;employee;Activo
+EMP-174;Elena Morales;Diseño de espacios;Colaborador;45;Básico;employee;Activo
+EMP-175;Ricardo Muñoz;Calidad y posventa;Líder;49;Intermedio;quality_manager;Activo
+EMP-176;Samuel Herrera;Calidad y posventa;Colaborador;60;Experto;employee;Activo
+EMP-177;Alejandra Vargas;Calidad y posventa;Colaborador;28;Básico;employee;Activo
+EMP-178;Tomás Ortega;Calidad y posventa;Colaborador;35;Intermedio;employee;Activo
+EMP-179;Gabriela García;Calidad y posventa;Colaborador;42;Avanzado;employee;Activo
+EMP-180;David Herrera;Calidad y posventa;Colaborador;49;Experto;employee;Activo
+EMP-181;Lucía Vargas;Calidad y posventa;Colaborador;56;Básico;employee;Activo
+EMP-182;Emilio Ortega;Calidad y posventa;Colaborador;24;Intermedio;employee;Activo
+EMP-183;Sara García;Calidad y posventa;Colaborador;31;Avanzado;employee;Activo
+EMP-184;Javier Herrera;Calidad y posventa;Colaborador;38;Experto;employee;Vacaciones
+EMP-185;Natalia Escobar;Legal y cumplimiento;Líder;42;Intermedio;legal_manager;Activo
+EMP-186;Clara Navarro;Legal y cumplimiento;Colaborador;53;Avanzado;employee;Activo
+EMP-187;Samuel Torres;Legal y cumplimiento;Colaborador;60;Experto;employee;Activo
+EMP-188;Alejandra Castro;Legal y cumplimiento;Colaborador;28;Básico;employee;Activo
+EMP-189;Tomás Quintero;Legal y cumplimiento;Colaborador;35;Intermedio;employee;Activo
+EMP-190;Gabriela Navarro;Legal y cumplimiento;Colaborador;42;Avanzado;employee;Inactivo
+EMP-191;David Torres;Legal y cumplimiento;Colaborador;49;Experto;employee;Activo
+EMP-192;Lucía Castro;Legal y cumplimiento;Colaborador;56;Básico;employee;Activo
+EMP-193;Emilio Quintero;Legal y cumplimiento;Colaborador;24;Intermedio;employee;Activo
+EMP-194;Sara Navarro;Legal y cumplimiento;Colaborador;31;Avanzado;employee;Activo
+EMP-195;Javier Torres;Legal y cumplimiento;Colaborador;38;Experto;employee;Activo
+EMP-196;Elena Castro;Legal y cumplimiento;Colaborador;45;Básico;employee;Activo
+EMP-197;Martín Quintero;Legal y cumplimiento;Colaborador;52;Intermedio;employee;Activo
+EMP-198;Clara Navarro;Legal y cumplimiento;Colaborador;59;Avanzado;employee;Activo
+EMP-199;Samuel Torres;Legal y cumplimiento;Colaborador;27;Experto;employee;Activo
+EMP-200;Alejandra Castro;Legal y cumplimiento;Colaborador;34;Básico;employee;Activo

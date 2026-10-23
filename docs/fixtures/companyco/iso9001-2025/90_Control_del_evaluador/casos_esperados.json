@@ -1,0 +1,82 @@
+[
+  {
+    "id": "AN-R01",
+    "document_id": "CC-RG-02",
+    "location": "Compra autorizada y Traslado y recepción en Cali",
+    "observed": "Una fecha aparece como 01/09/2025 y otra como 15 de septiembre de 2025; el resto usa YYYY-MM-DD.",
+    "expected": "Normalizar fechas a 2025-09-01 y 2025-09-15, conservar el texto original y usar contexto es-CO; no interpretar 01/09 como enero.",
+    "category": "formatos de fecha"
+  },
+  {
+    "id": "AN-R02",
+    "document_id": "CC-RG-02",
+    "location": "Título Recepcion del primero de septiembre",
+    "observed": "La palabra Recepcion carece de tilde.",
+    "expected": "Indexar recepción/recepcion como variantes, conservar el título literal y no dividir el proceso en dos entidades.",
+    "category": "ortografía"
+  },
+  {
+    "id": "AN-R03",
+    "document_id": "CC-RG-04",
+    "location": "Fuentes consultadas",
+    "observed": "La hoja de preparación cita CC-PR-01 revisión 02; la revisión vigente del procedimiento en el lote es 03.",
+    "expected": "Resolver el código CC-PR-01, conservar la revisión citada 02, advertir referencia superada y no reemplazar silenciosamente la fuente ni atribuir revisión 02 como vigente.",
+    "category": "referencia a versión anterior"
+  },
+  {
+    "id": "AN-R04",
+    "document_id": "CC-RG-05",
+    "location": "Verificación de eficacia de TR 2025 042 fila Validó eficacia",
+    "observed": "La validación de eficacia está vacía pese a existir asistencia al curso.",
+    "expected": "Extraer valor nulo y estado pendiente; no inferir aprobación de Paola, Clara ni Ricardo a partir de otras filas. Vincular a AC-2025-019.",
+    "category": "aprobación pendiente"
+  },
+  {
+    "id": "AN-R05",
+    "document_id": "CC-RG-04",
+    "location": "Acción AC 2025 019 fila Fecha de cierre",
+    "observed": "Estado Abierta con fecha de cierre vacía y fecha objetivo 2026-01-15.",
+    "expected": "Mantener acción abierta, cierre nulo y vencimiento futuro respecto al corte 2025-12-18. No convertir fecha objetivo en fecha de cierre.",
+    "category": "estado y ausencia significativa"
+  },
+  {
+    "id": "AN-X01",
+    "document_id": "CC-PR-01",
+    "location": "04_Casos_adicionales/Version_anterior",
+    "observed": "Revisión 02 con estado Obsoleto y revisión 03 vigente en el conjunto principal.",
+    "expected": "Relacionar las revisiones por código, mantener historia y seleccionar 03 como vigente.",
+    "category": "versiones"
+  },
+  {
+    "id": "AN-X02",
+    "document_id": "CC-RG-02",
+    "location": "04_Casos_adicionales/OCR",
+    "observed": "Copia de imagen sin capa de texto del mismo registro revisión 01.",
+    "expected": "Detectar necesidad de OCR, extraer información y reconocer identidad lógica duplicada.",
+    "category": "OCR"
+  },
+  {
+    "id": "AN-X03",
+    "document_id": "CC-AN-01",
+    "location": "Delegación en Talento humano",
+    "observed": "Camila titular Inactivo; Clara EMP-020 encargada.",
+    "expected": "Separar estructura, estado de persona y autoridad delegada.",
+    "category": "roles y estado"
+  },
+  {
+    "id": "AN-X04",
+    "document_id": "CC-FO-01 y CC-FO-02",
+    "location": "Campos de formato sin diligenciar",
+    "observed": "Plantillas con instrucciones y campos vacíos.",
+    "expected": "Clasificar como formatos y no inventar eventos, responsables asignados ni fechas de ejecución.",
+    "category": "plantillas"
+  },
+  {
+    "id": "AN-X05",
+    "document_id": "CC-MT-02 y CC-AC-01",
+    "location": "Corte de indicadores",
+    "observed": "Matriz con cierre 31/12 y acta de 15/12 con corte parcial y proyección.",
+    "expected": "Preservar fecha de corte y separar estimación, línea base y resultado de cierre.",
+    "category": "tiempo y proyección"
+  }
+]

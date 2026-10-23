@@ -1,3 +1,31 @@
+# PHDK delivery checkpoint — v2.65.3
+
+Recorded: 2026-10-23. Scope: publish the already-delivered fictional Company Co quality-management corpus following the owner's explicit `push to main` instruction. Baseline main: `67a5ccfcfb3a34dce10eae1790d28e9adefa45b7` / v2.65.2. Candidate branch: `docs/v2.65.3-companyco-sgc-fixtures`; target: canonical `main`.
+
+Integration refresh: main advanced through v2.65.0, v2.65.1 and v2.65.2 during publication. All concurrent releases are retained; the unchanged dossier keeps its original company-source provenance. The publication candidate is now v2.65.3.
+
+## Content and review
+
+Publish the complete 86-file dossier plus an English index under `docs/fixtures/companyco/iso9001-2025/`: 35 logical documents, 17 processes, PDF/Word and consolidated alternatives, OCR/obsolete variants and evaluator expectations. Avoid committing the duplicate ZIP or extra consolidated copies. Link from README and the Company Co reference, preserve the canonical company baseline, keep the optional corpus outside the 78-entry vendoring manifest and synchronize release metadata at v2.65.3.
+
+The primary assistant reviewed the source diff; bounded independent reviews checked artifact integrity and distribution/version scope. All 70 principal document hashes match. Static coherence reports `PASS: v2.65.3, 78 manifest mappings (static only)`. Scoped binary attributes preserve PDF/Word bytes, including the ASCII-encoded OCR PDF; CSV line endings follow the existing normalization policy. Existing hook files were inspected; this checkout has no active local hooks or configured hooks path. GitHub controls still govern publication. No human diff inspection or GitHub approval event is invented.
+
+## Delivery proof at this checkpoint
+
+| Field | Status | Evidence / next action |
+|---|---|---|
+| VERSION_BUMP | PASS | Compatible optional-document publication: 2.65.2 to 2.65.3; VERSION, README and CHANGELOG agree. Recheck current main before merge. |
+| COMMIT_PREFIX | PENDING | Use `v2.65.3 docs(companyco): publish optional quality management importer corpus`; verify the resulting remote commit. |
+| PUSH_AND_PR | PENDING | Publish the scoped branch and normal PR targeting main, then merge through the permitted GitHub route. |
+| REMOTE_MAIN | PENDING | Read the final SHA, version and corpus tree from GitHub after merge. |
+| SCOPE_AND_CHECKS | PASS | Corpus/file review, independent scope review and static coherence pass; review staged whitespace and exact publication paths before the write. |
+
+This is prepublication evidence, not a completion claim or a new approval gate. Final operation responses and remote-main readback supersede pending fields. A merge of the already-versioned candidate needs no second version bump.
+
+Importer execution and runtime UAT: **NOT RUN**. No application deployment, provider change, real-data operation, downstream upgrade, new automation or release tag is part of this documentation publication. Open PRs #36, #74 and #76 remain outside this task. Earlier checkpoints follow unchanged.
+
+---
+
 # PHDK delivery checkpoint — v2.65.2
 
 Recorded: 2026-10-23. This integration checkpoint precedes merge and does not claim a published v2.65.2.

@@ -1,0 +1,1232 @@
+[
+  {
+    "from": "CC-MC-01",
+    "relation": "referencia_documental",
+    "to": "CC-MT-01"
+  },
+  {
+    "from": "CC-MC-01",
+    "relation": "referencia_documental",
+    "to": "CC-MT-02"
+  },
+  {
+    "from": "CC-MC-01",
+    "relation": "referencia_documental",
+    "to": "CC-LM-01"
+  },
+  {
+    "from": "CC-MC-01",
+    "relation": "referencia_documental",
+    "to": "CC-AC-01"
+  },
+  {
+    "from": "CC-MT-01",
+    "relation": "referencia_documental",
+    "to": "CC-PR-02"
+  },
+  {
+    "from": "CC-MT-01",
+    "relation": "referencia_documental",
+    "to": "CC-AC-01"
+  },
+  {
+    "from": "CC-MT-01",
+    "relation": "referencia_documental",
+    "to": "CC-RG-04"
+  },
+  {
+    "from": "CC-MT-02",
+    "relation": "referencia_documental",
+    "to": "CC-AC-01"
+  },
+  {
+    "from": "CC-MT-02",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-MT-02",
+    "relation": "referencia_documental",
+    "to": "CC-MT-01"
+  },
+  {
+    "from": "CC-AN-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-01"
+  },
+  {
+    "from": "CC-AN-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-03"
+  },
+  {
+    "from": "CC-AN-01",
+    "relation": "referencia_documental",
+    "to": "CC-PR-05"
+  },
+  {
+    "from": "CC-CP-01",
+    "relation": "referencia_documental",
+    "to": "CC-MC-01"
+  },
+  {
+    "from": "CC-CP-01",
+    "relation": "referencia_documental",
+    "to": "CC-MT-01"
+  },
+  {
+    "from": "CC-CP-01",
+    "relation": "referencia_documental",
+    "to": "CC-MT-02"
+  },
+  {
+    "from": "CC-CP-01",
+    "relation": "referencia_documental",
+    "to": "CC-AC-01"
+  },
+  {
+    "from": "CC-CP-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-03"
+  },
+  {
+    "from": "CC-CP-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-01"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-08"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-14"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-17"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-CP-02",
+    "relation": "referencia_documental",
+    "to": "CC-LM-01"
+  },
+  {
+    "from": "CC-CP-03",
+    "relation": "referencia_documental",
+    "to": "CC-CP-01"
+  },
+  {
+    "from": "CC-CP-03",
+    "relation": "referencia_documental",
+    "to": "CC-CP-14"
+  },
+  {
+    "from": "CC-CP-03",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-03",
+    "relation": "referencia_documental",
+    "to": "CC-PR-05"
+  },
+  {
+    "from": "CC-CP-03",
+    "relation": "referencia_documental",
+    "to": "CC-RG-05"
+  },
+  {
+    "from": "CC-CP-03",
+    "relation": "referencia_documental",
+    "to": "CC-AN-01"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-04",
+    "relation": "referencia_documental",
+    "to": "CC-LM-01"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-07"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-08"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-10"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-11"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-CP-05",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-CP-04"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-CP-17"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-06",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-CP-05"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-CP-08"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-CP-17"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-07",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-CP-07"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-CP-10"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-CP-11"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-CP-14"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-08",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-CP-04"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-CP-10"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-CP-11"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-MT-01"
+  },
+  {
+    "from": "CC-CP-09",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-CP-11"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-10",
+    "relation": "referencia_documental",
+    "to": "CC-MT-01"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-CP-05"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-CP-08"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-CP-10"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-11",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-CP-04"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-CP-10"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-RG-05"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-12",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-CP-05"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-CP-10"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-CP-17"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-RG-04"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-13",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-CP-03"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-CP-08"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-CP-11"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-CP-17"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-14",
+    "relation": "referencia_documental",
+    "to": "CC-LM-01"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-CP-04"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-15",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-CP-01"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-PR-03"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-RG-04"
+  },
+  {
+    "from": "CC-CP-16",
+    "relation": "referencia_documental",
+    "to": "CC-RG-05"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-CP-01"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-CP-14"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-CP-17",
+    "relation": "referencia_documental",
+    "to": "CC-LM-01"
+  },
+  {
+    "from": "CC-PR-01",
+    "relation": "referencia_documental",
+    "to": "CC-LM-01"
+  },
+  {
+    "from": "CC-PR-01",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-PR-01",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-PR-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-14"
+  },
+  {
+    "from": "CC-PR-02",
+    "relation": "referencia_documental",
+    "to": "CC-MT-01"
+  },
+  {
+    "from": "CC-PR-02",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-PR-02",
+    "relation": "referencia_documental",
+    "to": "CC-AC-01"
+  },
+  {
+    "from": "CC-PR-03",
+    "relation": "referencia_documental",
+    "to": "CC-RG-04"
+  },
+  {
+    "from": "CC-PR-03",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-PR-03",
+    "relation": "referencia_documental",
+    "to": "CC-AC-01"
+  },
+  {
+    "from": "CC-PR-04",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-PR-04",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-PR-04",
+    "relation": "referencia_documental",
+    "to": "CC-RG-04"
+  },
+  {
+    "from": "CC-PR-04",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-PR-05",
+    "relation": "referencia_documental",
+    "to": "CC-RG-05"
+  },
+  {
+    "from": "CC-PR-05",
+    "relation": "referencia_documental",
+    "to": "CC-AN-01"
+  },
+  {
+    "from": "CC-PR-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-03"
+  },
+  {
+    "from": "CC-RG-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-04"
+  },
+  {
+    "from": "CC-RG-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-06"
+  },
+  {
+    "from": "CC-RG-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-RG-01",
+    "relation": "referencia_documental",
+    "to": "CC-FO-01"
+  },
+  {
+    "from": "CC-RG-01",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-RG-01",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-RG-02",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-RG-02",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-RG-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-09"
+  },
+  {
+    "from": "CC-RG-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-10"
+  },
+  {
+    "from": "CC-RG-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-11"
+  },
+  {
+    "from": "CC-RG-02",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-RG-03",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-RG-03",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-RG-03",
+    "relation": "referencia_documental",
+    "to": "CC-RG-05"
+  },
+  {
+    "from": "CC-RG-03",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-RG-03",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-RG-03",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-RG-03",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-PR-03"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-RG-01"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-RG-02"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-RG-05"
+  },
+  {
+    "from": "CC-RG-04",
+    "relation": "referencia_documental",
+    "to": "CC-AC-01"
+  },
+  {
+    "from": "CC-RG-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-03"
+  },
+  {
+    "from": "CC-RG-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-RG-05",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-RG-05",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-RG-05",
+    "relation": "referencia_documental",
+    "to": "CC-PR-05"
+  },
+  {
+    "from": "CC-RG-05",
+    "relation": "referencia_documental",
+    "to": "CC-RG-03"
+  },
+  {
+    "from": "CC-RG-05",
+    "relation": "referencia_documental",
+    "to": "CC-RG-04"
+  },
+  {
+    "from": "CC-FO-01",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-FO-01",
+    "relation": "referencia_documental",
+    "to": "CC-PR-02"
+  },
+  {
+    "from": "CC-FO-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-15"
+  },
+  {
+    "from": "CC-FO-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-12"
+  },
+  {
+    "from": "CC-FO-01",
+    "relation": "referencia_documental",
+    "to": "CC-FO-02"
+  },
+  {
+    "from": "CC-FO-02",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "CC-FO-02",
+    "relation": "referencia_documental",
+    "to": "CC-PR-04"
+  },
+  {
+    "from": "CC-FO-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-FO-02",
+    "relation": "referencia_documental",
+    "to": "CC-CP-13"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-01"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-02"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-CP-16"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-MT-01"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-MT-02"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-RG-04"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-RG-05"
+  },
+  {
+    "from": "CC-AC-01",
+    "relation": "referencia_documental",
+    "to": "CC-PR-02"
+  },
+  {
+    "from": "CC-LM-01",
+    "relation": "referencia_documental",
+    "to": "CC-PR-01"
+  },
+  {
+    "from": "PRJ-005",
+    "relation": "cliente",
+    "to": "CUS-003"
+  },
+  {
+    "from": "PRJ-005",
+    "relation": "oferta",
+    "to": "COT-2025-144"
+  },
+  {
+    "from": "PRJ-005",
+    "relation": "cambio",
+    "to": "CL-2025-009"
+  },
+  {
+    "from": "PRJ-005",
+    "relation": "compra",
+    "to": "PO-2025-084"
+  },
+  {
+    "from": "PRJ-005",
+    "relation": "serie",
+    "to": "ESP-CC-25117"
+  },
+  {
+    "from": "PRJ-005",
+    "relation": "serie",
+    "to": "MOL-CC-25118"
+  },
+  {
+    "from": "PRJ-005",
+    "relation": "posventa",
+    "to": "TCK-2025-0419"
+  }
+]

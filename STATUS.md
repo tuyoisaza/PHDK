@@ -1,5 +1,15 @@
 # PHDK publication status
 
+## v2.65.3 Company Co document corpus
+
+Recorded 2026-10-23. The owner requested the fictional quality-management documents and then explicitly authorized `push to main`. Baseline: `67a5ccfcfb3a34dce10eae1790d28e9adefa45b7` / v2.65.2. Candidate branch: `docs/v2.65.3-companyco-sgc-fixtures`; PATCH publication of optional sample content.
+
+The 86-file dossier and its English index are under `docs/fixtures/companyco/iso9001-2025/`. README and the canonical Company Co reference link to it using absolute GitHub URLs. VERSION, README and CHANGELOG agree on v2.65.3; the 78-entry standards manifest is unchanged. Static coherence and all 70 principal document hashes pass. No importer, runtime UAT, provider action or downstream upgrade was executed.
+
+This is a prepublication checkpoint. Actual commit, PR, merge and remote-main evidence follow through the already-authorized delivery flow. Its pending state is historical bookkeeping, not a new restriction or a reason to repeat owner approval. Earlier checkpoints follow unchanged.
+
+---
+
 ## v2.65.2 build and hook decision routing
 
 Owner request: implement the proposed procedure so an agent resolves an ambiguous build/packaging/hook check before asking for a prohibited local-runtime exception. Integration baseline main: `d4ed10e96f5fd05ebeaa38a664442d7d10d6cf86` / v2.65.1. Main advanced while PR #81 was opened; its stack-review and source-formatting work is retained. Candidate branch: `fix/v2.63.3-hook-decision-routing`; VERSION, README and newest CHANGELOG agree on v2.65.2. The branch name predates this integration refresh.
