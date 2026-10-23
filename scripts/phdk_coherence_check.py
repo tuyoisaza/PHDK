@@ -184,6 +184,70 @@ for entrypoint in ["README.md", "AGENTS.md", "SKILL.md", "PHDK_AUTO_CONTINUITY.m
     ):
         errors.append(f"{entrypoint} missing phase-transition routing")
 
+# Hook guards verify routing and documented coverage, never actual agent behavior.
+hook_reference = "PHDK_HOOK_COMPATIBILITY.md#decision-procedure"
+native_hook_reference = "phdk-standards/" + hook_reference
+
+
+def has_hook_trigger(body):
+    # Wrapped prose stays together; separate bullets cannot supply trigger terms.
+    for paragraph in re.split(r"\n[ \t]*\n|\n(?=[ \t]*[-+*][ \t]+)", body):
+        if hook_reference in paragraph and all(
+            re.search(pattern, paragraph, re.I)
+            for pattern in [
+                r"\b(?:build|packaging|hook)\b",
+                r"\bload\b",
+                r"\bbefore\b",
+                r"\bexecut\w*\b",
+                r"\bBLOCKED\b",
+                r"\b(?:ask\w*|request\w*)\b",
+            ]
+        ):
+            return True
+    return False
+
+
+for dependency in ["PHDK_HOOK_COMPATIBILITY.md", "PHDK_PRODUCTION_VERIFICATION.md"]:
+    if source_destinations.get(dependency) != dependency:
+        errors.append(f"manifest must vendor hook dependency at {dependency}")
+for entrypoint in ["AGENTS.md", "SKILL.md", "PHDK_AUTO.md", "PHDK_AUTO_CONTINUITY.md"]:
+    file = policy_path(entrypoint)
+    if not file.is_file() or not has_hook_trigger(file.read_text(encoding="utf-8")):
+        errors.append(
+            f"{entrypoint} missing hook decision trigger before execution/block/question"
+        )
+hook_file = policy_path("PHDK_HOOK_COMPATIBILITY.md")
+hook_body = hook_file.read_text(encoding="utf-8") if hook_file.is_file() else ""
+for heading in ["Decision procedure", "Required decision scenarios"]:
+    section = re.search(
+        r"^## " + re.escape(heading) + r"\s*\n(.*?)(?=^#{1,2}\s|\Z)",
+        hook_body,
+        re.M | re.S,
+    )
+    if section is None:
+        errors.append(f"PHDK_HOOK_COMPATIBILITY.md missing section {heading}")
+    elif heading == "Decision procedure":
+        for marker in ["import", "require", "runtime", "provenance"]:
+            if marker not in section.group(1).lower():
+                errors.append(
+                    f"hook decision procedure missing classification marker {marker}"
+                )
+    else:
+        rows = re.findall(
+            r"^\|\s*`?(HC-[A-Z]+)`?\s*\|\s*([^\n]+)", section.group(1), re.M
+        )
+        for scenario in "HC-STATIC HC-LOAD HC-PHDK HC-OWNER HC-UNKNOWN HC-ORDER".split():
+            matches = [cells for key, cells in rows if key == scenario]
+            cells = (
+                matches[0].strip().removesuffix("|").split("|")
+                if len(matches) == 1
+                else []
+            )
+            if len(cells) != 2 or not all(cell.strip() for cell in cells):
+                errors.append(
+                    f"hook decision scenarios missing complete unique row {scenario}"
+                )
+
 # Stack review routing is an instruction contract, not an advisory scanner.
 # These guards never establish security clearance or deployed-version evidence.
 stack_reference = "PHDK_SECURE.md#stack-security-review"
@@ -365,9 +429,14 @@ if native_file.is_file():
             "UAT NOT RUN",
             transition_reference,
             stack_reference,
+            native_hook_reference,
         ]:
             if marker not in managed.group(1):
                 errors.append(f"PHDK_NATIVE_RULES.md managed block missing {marker}")
+        if not has_hook_trigger(managed.group(1)):
+            errors.append(
+                "PHDK_NATIVE_RULES.md managed block missing hook decision trigger"
+            )
 
 auto_file = policy_path("PHDK_AUTO.md")
 if auto_file.is_file():
@@ -429,6 +498,21 @@ legacy_stack_patterns = [
     re.compile(r"\ba bare `PHDK upgrade` still authorizes only its sync\b", re.I),
     re.compile(r"including `pnpm test` when required", re.I),
 ]
+# Match known affirmative local-test clauses, not prohibitions or scenarios.
+legacy_local_runtime_patterns = [
+    re.compile(pattern, re.I)
+    for pattern in [
+        "Auto and FORCE already authorize synchronous isolated suites",
+        "→ local unit/in-process integration tests when risk requires them",
+        "Run risk-triggered unit or in-process integration tests with test doubles",
+        (
+            "Verification uses repository review, static checks, local builds, and "
+            "risk-triggered unit or in-process integration tests"
+        ),
+        "Run the smallest useful local tests",
+        "targeted local unit/in-process integration test when risk requires it",
+    ]
+]
 active_policy_paths = set(root.glob("*.md"))
 active_policy_paths.update(
     policy_path(source)
@@ -456,6 +540,8 @@ for path in sorted(active_policy_paths):
     for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if any(pattern.search(line) for pattern in legacy_auto_uat_patterns):
             errors.append(f"{relative}:{lineno}: obsolete automatic UAT directive")
+        if any(pattern.search(line) for pattern in legacy_local_runtime_patterns):
+            errors.append(f"{relative}:{lineno}: obsolete local-runtime directive")
         if any(pattern.search(line) for pattern in legacy_stack_patterns):
             errors.append(
                 f"{relative}:{lineno}: obsolete stack review or verification directive"

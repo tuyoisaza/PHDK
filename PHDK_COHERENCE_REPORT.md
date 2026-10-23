@@ -1,3 +1,30 @@
+# PHDK coherence report — v2.65.2
+
+Integration baseline: `d4ed10e96f5fd05ebeaa38a664442d7d10d6cf86` / v2.65.1. Main advanced while PR #81 was being opened; its Stack Security Review, formatting and vendored-layout corrections are retained. The initial unpublished v2.63.3 candidate used `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Review date: 2026-10-23. Scope: the owner-approved build/packaging/hook decision procedure, its active routing and bounded static guards; not an exhaustive audit of PHDK or a downstream runtime investigation.
+
+## Findings and resolution
+
+| Category / severity | Evidence | Resolution |
+|---|---|---|
+| GAP / High | Native instructions could report a conflicting hook BLOCKED without routing to the existing compatibility policy. | Load the anchored decision procedure before executing the disputed command, declaring BLOCKED or requesting input; align agent/Auto/verification/delivery entrypoints. |
+| GAP / High | A packaging check that imports compiled API modules could be confused with permitted compilation when networking/listeners are disabled. | Classify actual command chains, distinguish tool execution from application evaluation, and include the mixed pre-push build as HC-LOAD. |
+| CONFLICT / High | EXECUTION_SCOPE restricted loading the compatibility policy to already-proven PHDK ownership; enforcement/verification bodies still authorized local unit/in-process suites. | Route unknown provenance through inspection, limit only automatic repair, and reconcile the obsolete affirmative local-runtime clauses. |
+| RISK / High | A static replacement or later remote check could be misreported as equivalent to an independent pre-push runtime gate. | Preserve independent controls and ordering, keep runtime source, disclose NOT RUN coverage and prepare a concrete authorized resolution. No automatic UAT, CI or provider route. |
+| GAP / Medium | A native list could combine unrelated trigger terms; a scenario row could omit its decision cell. | Static guards separate bullets/paragraphs and require unique scenario rows with exactly two populated cells after each ID. |
+
+## Verification and limits
+
+- All 105 original v2.63.2 baseline file contents and modes were checked against canonical Git objects; the local baseline tree matches `bb3edda210289d1e2697918659cbb92395feb08b`.
+- `python scripts/phdk_coherence_check.py`: PASS for integrated v2.65.2 with 78 manifest mappings in both the canonical checkout and an exact manifest copy using the installed `phdk-standards/` layout. All 78 copied mappings were byte-compared. These are static source checks only. Guards include routing, the installed managed block, scenario presence, vendored dependencies and six known obsolete local-runtime directives.
+- Integrated Python AST, all 58 changed relative Markdown references including anchors, and `git diff origin/main --check`: PASS. The completion verifier is byte-identical to the v2.65.1 integration baseline. Ruff is not installed in this environment; no Ruff result is claimed.
+- The full source change and six HC-* decision scenarios received source review. Independent authorization/ordering/routing/checker findings were corrected and re-reviewed without behavioral execution.
+
+Static checks do not prove script safety, actual agent decisions, runtime behavior or downstream adoption. No unit/in-process/behavioral suites, Docker, UAT, provider operation or downstream upgrade was run. Existing manifest mappings are sufficient; no new standard, command or distribution dependency is introduced.
+
+This is a prepublication source checkpoint. Actual branch/PR/merge, remote main content/version/SHA and the result of the upstream completion verifier (unmodified by this correction) are recorded after those operations. Earlier reports follow as historical evidence.
+
+---
+
 # PHDK coherence report — v2.65.1
 
 Date: 2026-10-23. Baseline: published canonical `9fc6605c75b42e678bab41feb741dca71fcbabcc` / v2.65.0, freshly read from remote main. Scope: the mechanical source correction needed to satisfy an existing downstream Ruff 0.7.0 and pre-commit-hooks 5.0.0 gate during the authorized standards vendoring. All 105 original source files were hash-verified and retained before edits. This is a PATCH candidate; no policy or command behavior changes.

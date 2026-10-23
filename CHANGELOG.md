@@ -1,3 +1,15 @@
+## v2.65.2 — 2026-10-23
+
+### Resolve build and hook ambiguity before asking
+- Add an ordered decision procedure to the existing hook standard and route native managed instructions, agent/skill entrypoints, Auto, verification and delivery through it before execution, BLOCKED or a user question.
+- Distinguish permitted compiler/static tooling from import/require load checks of compiled application/API modules, including checks with networking/listeners disabled. Classify mixed command chains and provenance before choosing a correction.
+- Repair only authorized proven PHDK-managed local invocations, retain runtime source and disclose NOT RUN coverage. Preserve independent owner/external/unknown controls and their required ordering; prepare concrete unresolved decisions without local-runtime exception prompts or duplicate approvals.
+- Reconcile older local-suite instructions in enforcement and verification with production-first policy. No automatic UAT, new CI, provider change or infrastructure route is introduced.
+- Add bounded static guards for on-demand routing, the installed managed block, manifest dependencies and six decision scenarios. Keep VERSION, README and CHANGELOG synchronized. Integrate on v2.65.1 while preserving Stack Security Review and canonical/vendored static-check compatibility.
+
+### Verification limits
+- Static source checks and independent review are recorded in the release checkpoint. The scenarios document expected decisions; no local behavioral tests, downstream agent execution, UAT or project upgrade is claimed.
+
 ## v2.65.1 — 2026-10-23
 
 ### Preserve downstream static-hook compatibility

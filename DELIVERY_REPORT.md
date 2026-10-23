@@ -1,3 +1,35 @@
+# PHDK delivery checkpoint — v2.65.2
+
+Recorded: 2026-10-23. This integration checkpoint precedes merge and does not claim a published v2.65.2.
+
+## Scope and authority
+
+The owner said "implementa" after reviewing the proposed mandatory hook decision procedure and routing correction. This authorizes the described policy correction and its normal versioned branch/PR delivery. It does not authorize changing a downstream hook, running local behavioral tests, starting UAT or operating infrastructure.
+
+Integration baseline: `d4ed10e96f5fd05ebeaa38a664442d7d10d6cf86` / v2.65.1. Main advanced while PR #81 was being opened; the new stack-review and source-formatting changes are preserved. Candidate: v2.65.2 on `fix/v2.63.3-hook-decision-routing`; the branch name and its initial unpublished source commit predate that advance. Release category: PATCH, clarifying and consistently applying existing production-first/hook-compatibility rules.
+
+## Prepublication evidence
+
+| Delivery field | Observed at this checkpoint |
+|---|---|
+| VERSION_BUMP | PASS — candidate VERSION, README and newest CHANGELOG agree on v2.65.2 against baseline v2.65.1; recheck remote main before final publication. |
+| COMMIT_PREFIX | PENDING — final integration and squash subjects must begin with v2.65.2; the initial unpublished candidate subject used v2.63.3. |
+| PUSH_AND_PR | IN PROGRESS — scoped branch and PR #81 exist; integrated revision publication and normal merge remain within the current request. |
+| REMOTE_MAIN | NOT YET EXECUTED — final remote SHA/version/content readback and the upstream completion verifier follow merge. |
+| SCOPE_AND_CHECKS | PASS — integrated v2.65.2 canonical/vendored static coherence, 78 byte-compared mappings, Python AST, 58 changed references/anchors and whitespace checks; real remote controls remain binding. |
+
+The source update adds the decision procedure and six policy scenarios, connects active entrypoints including the native managed block, reconciles contradictory local-suite directives, and adds bounded static guards. The initial v2.63.3 candidate passed coherence with 78 mappings, Python AST, 58 changed relative references/anchors and whitespace checks. Its tree matched the uploaded source exactly. The integrated v2.65.2 candidate also passed coherence in canonical and exact-copy installed layouts, 78 manifest byte comparisons, Python AST, all 58 changed references/anchors and whitespace checks. Ruff is unavailable, so no formatter result is claimed. Optional local version hooks were inspected. The current upstream completion verifier is retained byte-for-byte; this correction does not modify it.
+
+Final branch/PR/commit/main evidence and all five gate dispositions belong in the actual PR publication readback and project-local completion evidence. Do not create a redundant version-only release to restamp this checkpoint.
+
+## Evidence limits
+
+The supplied screenshot is an incident example, not source evidence of a downstream script's effects or provenance. The six scenarios were reviewed as policy/source, not executed by a downstream agent. No local behavioral suite, Docker, UAT, new CI, provider operation, paid service, background job or downstream project modification was performed. Canonical publication does not upgrade installed projects or reload an already-open agent session.
+
+New text/code in this change was authored by AI agents and reviewed against repository evidence; the AI-authorship percentage of pre-existing sources is not verifiable.
+
+---
+
 # PHDK delivery checkpoint — v2.65.1
 
 Date: 2026-10-23. Current owner mandate: implement, update and vendor the reviewed standards. Published canonical baseline: `9fc6605c75b42e678bab41feb741dca71fcbabcc` / v2.65.0. An actual downstream source hook exposed formatting incompatibilities; this compatible PATCH repairs those canonical source bytes while retaining the existing controls.

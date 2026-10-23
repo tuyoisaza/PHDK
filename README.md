@@ -6,11 +6,11 @@
 
 **UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. The development lifecycle and optional acceptance path are shown separately below.
 
-**Hook compatibility (v2.61.0):** [`PHDK_HOOK_COMPATIBILITY.md`](PHDK_HOOK_COMPATIBILITY.md) requires Check/Auto to detect local runtime-test hooks, automatically reconcile only proven PHDK-owned legacy hooks without weakening independent security controls, and preserve/block on owner or external gates.
+**Hook decisions (clarified in v2.65.2):** The [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) must load before executing, blocking or asking about ambiguous build/packaging/hook commands. Distinguish static tooling from compiled-application load checks; repair only proven PHDK-owned steps within authorized scope, preserve independent controls, and propose the concrete remaining decision without requesting prohibited local-runtime exceptions.
 
 
 **Project Handoff to Development Kit**\
-**Version v2.65.1**
+**Version v2.65.2**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
