@@ -1,0 +1,1032 @@
+{
+  "dataset": "CompanyCo-SGC-2025",
+  "version": "1.0",
+  "snapshot": "2025-12-31",
+  "logical_document_count": 35,
+  "process_count": 17,
+  "documents": [
+    {
+      "logical_id": "CC-MC-01",
+      "revision": "04",
+      "title": "Manual del sistema de gestión de la calidad",
+      "type": "Manual",
+      "owner": "Valentina Ríos",
+      "document_date": "2025-07-01",
+      "status": "Vigente",
+      "docx": "02_Word_editables/01_Sistema/CC-MC-01_r04.docx",
+      "pdf": "01_PDF_para_importar/01_Sistema/CC-MC-01_r04.pdf",
+      "related_ids": [
+        "CC-MT-01",
+        "CC-MT-02",
+        "CC-LM-01",
+        "CC-AC-01"
+      ],
+      "iso_refs": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "ab70300dd1e213533ab702d6a73ba541098b3716e7722d1c9cee362093cfc2f3",
+      "docx_sha256": "c6cb95280c8352b2924b49e44c23e3fd6bdba714f165e07fdb8925d6ccdcffb4"
+    },
+    {
+      "logical_id": "CC-MT-01",
+      "revision": "03",
+      "title": "Contexto partes interesadas riesgos y oportunidades",
+      "type": "Matriz",
+      "owner": "Valentina Ríos",
+      "document_date": "2025-12-31",
+      "status": "Vigente",
+      "docx": "02_Word_editables/01_Sistema/CC-MT-01_r03.docx",
+      "pdf": "01_PDF_para_importar/01_Sistema/CC-MT-01_r03.pdf",
+      "related_ids": [
+        "CC-PR-02",
+        "CC-AC-01",
+        "CC-RG-04"
+      ],
+      "iso_refs": [
+        "4.1",
+        "4.2",
+        "6.1"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "66e5f1d55e13ed537b884e923b76223b2cfd7c4455d7b8228367a6140e20455d",
+      "docx_sha256": "e0880edaeeff3261c34cf0e44d68ce8a085d833327637ef4154fcc2ddc1ed2e9"
+    },
+    {
+      "logical_id": "CC-MT-02",
+      "revision": "02",
+      "title": "Objetivos e indicadores de calidad",
+      "type": "Matriz",
+      "owner": "Valentina Ríos",
+      "document_date": "2025-12-31",
+      "status": "Vigente",
+      "docx": "02_Word_editables/01_Sistema/CC-MT-02_r02.docx",
+      "pdf": "01_PDF_para_importar/01_Sistema/CC-MT-02_r02.pdf",
+      "related_ids": [
+        "CC-AC-01",
+        "CC-PR-04",
+        "CC-MT-01"
+      ],
+      "iso_refs": [
+        "6.2",
+        "9.1",
+        "9.3"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "01e5ef93b0bcf8dcfd0fb7bf4b8bb62417fd1d65729272cf7626a6c23a96ed87",
+      "docx_sha256": "a7882d093c26ece900edc7030cc3ef466c658dbe8be9b7448c404754700780dc"
+    },
+    {
+      "logical_id": "CC-AN-01",
+      "revision": "01",
+      "title": "Organización sedes y personal de referencia",
+      "type": "Anexo",
+      "owner": "Valentina Ríos",
+      "document_date": "2025-12-31",
+      "status": "Vigente",
+      "docx": "02_Word_editables/01_Sistema/CC-AN-01_r01.docx",
+      "pdf": "01_PDF_para_importar/01_Sistema/CC-AN-01_r01.pdf",
+      "related_ids": [
+        "CC-CP-01",
+        "CC-CP-03",
+        "CC-PR-05"
+      ],
+      "iso_refs": [
+        "4.4",
+        "5.3",
+        "7.5"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "6cd85c888ca4a1593f51434593a8a741de8c5384548f13ff32c824cea18ba8ad",
+      "docx_sha256": "b35f7b071bdf89e1d86e7b874b5602f95d9414888a5f49f114369221efa4ca10"
+    },
+    {
+      "logical_id": "CC-CP-01",
+      "revision": "04",
+      "title": "Dirección y gestión del sistema de calidad",
+      "type": "Caracterización de proceso",
+      "owner": "Valentina Ríos | Directora general",
+      "document_date": "2025-10-06",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-01_r04.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-01_r04.pdf",
+      "related_ids": [
+        "CC-MC-01",
+        "CC-MT-01",
+        "CC-MT-02",
+        "CC-AC-01",
+        "CC-CP-02",
+        "CC-CP-03",
+        "CC-CP-16"
+      ],
+      "iso_refs": [
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "5.1",
+        "5.2",
+        "5.3",
+        "6.2",
+        "9.3"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "1bfc4fc885d8c66a864216caed8617053c866f1a51d13193f47c28d12e96516e",
+      "docx_sha256": "8c5b252f9ea214285de49c7ee50cf9adf4d90f80dfc1268db9dd654ee0068626"
+    },
+    {
+      "logical_id": "CC-CP-02",
+      "revision": "03",
+      "title": "Gestión financiera facturación y cartera",
+      "type": "Caracterización de proceso",
+      "owner": "Mateo Salcedo | Líder de Finanzas",
+      "document_date": "2025-07-14",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-02_r03.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-02_r03.pdf",
+      "related_ids": [
+        "CC-CP-01",
+        "CC-CP-06",
+        "CC-CP-08",
+        "CC-CP-09",
+        "CC-CP-14",
+        "CC-CP-17",
+        "CC-RG-01",
+        "CC-RG-02",
+        "CC-LM-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "6.1",
+        "7.1",
+        "7.5",
+        "8.2",
+        "9.1"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "5dc5a5f020197c3c74524f62d83a59fcb712a6dd0eeeecff270587aaaa2469bb",
+      "docx_sha256": "d3a89ac16a8656ecb8a648b46d8e45eb5547999b2d7121cebb39d59406c2dbba"
+    },
+    {
+      "logical_id": "CC-CP-03",
+      "revision": "05",
+      "title": "Gestión de personas competencia y conocimiento",
+      "type": "Caracterización de proceso",
+      "owner": "Clara Ramírez EMP-020 | Encargada operativa de Talento humano",
+      "document_date": "2025-09-15",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-03_r05.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-03_r05.pdf",
+      "related_ids": [
+        "CC-CP-01",
+        "CC-CP-14",
+        "CC-CP-16",
+        "CC-PR-05",
+        "CC-RG-05",
+        "CC-AN-01"
+      ],
+      "iso_refs": [
+        "5.3",
+        "7.1.2",
+        "7.1.6",
+        "7.2",
+        "7.3",
+        "7.4",
+        "7.5"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "ba8896b90dd7309cf6c36c46628ccbf97cb9326c2291e92780721bc3515b8c31",
+      "docx_sha256": "e8a537e7f30ef7e554cb7bc399c46cade8657f3aa88502e16665675e53f824fe"
+    },
+    {
+      "logical_id": "CC-CP-04",
+      "revision": "03",
+      "title": "Consultoría para proyectos de cafeterías",
+      "type": "Caracterización de proceso",
+      "owner": "Andrés Molina",
+      "document_date": "2025-05-12",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-04_r03.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-04_r03.pdf",
+      "related_ids": [
+        "CC-CP-06",
+        "CC-CP-15",
+        "CC-CP-09",
+        "CC-CP-12",
+        "CC-RG-01",
+        "CC-FO-01",
+        "CC-PR-01",
+        "CC-PR-04",
+        "CC-LM-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.1",
+        "8.2",
+        "8.3"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "70a27314d3bc3fa1a30219591f80356d20148f86be85603104c0777c49118d44",
+      "docx_sha256": "9af84e8ada524f4391b56daae9fa926dc80d654745f9f1b7a9b2cdf127d85032"
+    },
+    {
+      "logical_id": "CC-CP-05",
+      "revision": "04",
+      "title": "Venta en tiendas y atención comercial B2C",
+      "type": "Caracterización de proceso",
+      "owner": "Juliana Franco",
+      "document_date": "2025-06-03",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-05_r04.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-05_r04.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-07",
+        "CC-CP-08",
+        "CC-CP-10",
+        "CC-CP-11",
+        "CC-CP-13",
+        "CC-CP-16",
+        "CC-RG-02",
+        "CC-FO-02"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.2",
+        "8.5",
+        "8.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "6a9d5c24581213653129c05c5f61ecae8ed809069eb364e58348b8d352ef0abb",
+      "docx_sha256": "0f61534d8a8564cd4db1cc434f21ca91e9446281268af36ed6cb8615c02a0afa"
+    },
+    {
+      "logical_id": "CC-CP-06",
+      "revision": "05",
+      "title": "Venta consultiva y contratación B2B",
+      "type": "Caracterización de proceso",
+      "owner": "Sebastián Vélez",
+      "document_date": "2025-04-22",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-06_r05.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-06_r05.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-04",
+        "CC-CP-09",
+        "CC-CP-15",
+        "CC-CP-17",
+        "CC-RG-01",
+        "CC-FO-01",
+        "CC-PR-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.2",
+        "8.3",
+        "8.5.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "abb0d80949c5d09cf7de2ca078413e9ee8eea9dd31bae960327fc7144331c947",
+      "docx_sha256": "6507ff3b17448954e9b8dabc458887b71a1daff7698c78ff07b260fd6b65b4cc"
+    },
+    {
+      "logical_id": "CC-CP-07",
+      "revision": "02",
+      "title": "Marketing y comunicación de la oferta",
+      "type": "Caracterización de proceso",
+      "owner": "Laura Pardo",
+      "document_date": "2025-03-17",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-07_r02.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-07_r02.pdf",
+      "related_ids": [
+        "CC-CP-05",
+        "CC-CP-06",
+        "CC-CP-08",
+        "CC-CP-13",
+        "CC-CP-16",
+        "CC-CP-17",
+        "CC-PR-01",
+        "CC-FO-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "7.4",
+        "8.2"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "49c95f914bad4f8e2aba75c830d1cbe4d6b915a9e6af36b76a17779d24d0074a",
+      "docx_sha256": "b20f48ee25ed73754690280a0efc158b3adb72f5d6a4715d4f581c4176eabe92"
+    },
+    {
+      "logical_id": "CC-CP-08",
+      "revision": "04",
+      "title": "Operación de comercio electrónico",
+      "type": "Caracterización de proceso",
+      "owner": "Nicolás Acosta",
+      "document_date": "2025-07-07",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-08_r04.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-08_r04.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-07",
+        "CC-CP-10",
+        "CC-CP-11",
+        "CC-CP-13",
+        "CC-CP-14",
+        "CC-PR-01",
+        "CC-PR-04",
+        "CC-FO-01",
+        "CC-FO-02"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.2",
+        "8.5",
+        "8.6",
+        "9.1"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "6696775e7d984782fe176e633b7520bebe5f6abba6145c76b1c4e5b6ae5bc395",
+      "docx_sha256": "f9bf538473264971af1f9311302db4428b6d42822995a5ed9d9e37961ff4afee"
+    },
+    {
+      "logical_id": "CC-CP-09",
+      "revision": "06",
+      "title": "Compras y desarrollo de proveedores",
+      "type": "Caracterización de proceso",
+      "owner": "Daniela Suárez",
+      "document_date": "2025-08-11",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-09_r06.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-09_r06.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-04",
+        "CC-CP-10",
+        "CC-CP-11",
+        "CC-CP-15",
+        "CC-CP-16",
+        "CC-RG-02",
+        "CC-FO-02",
+        "CC-MT-01",
+        "CC-PR-04"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.4",
+        "8.5",
+        "8.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "8a4f780426029d1f2da80d8cee39e3f56b3837fb04facd60e2afa8af5cd8f30b",
+      "docx_sha256": "d6706606ccfa81bed4098aa8de71996e9b4b75c530022d638334008e3d9b63ca"
+    },
+    {
+      "logical_id": "CC-CP-10",
+      "revision": "04",
+      "title": "Despacho transporte y entrega",
+      "type": "Caracterización de proceso",
+      "owner": "Felipe Ospina",
+      "document_date": "2025-09-01",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-10_r04.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-10_r04.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-09",
+        "CC-CP-11",
+        "CC-CP-12",
+        "CC-CP-13",
+        "CC-CP-16",
+        "CC-RG-02",
+        "CC-FO-02",
+        "CC-PR-04",
+        "CC-MT-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.5.1",
+        "8.5.4",
+        "8.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "cd073f5f82ff830c1fc86cfc361d9d7891ae3cefef66651edbbfbdcf0245d888",
+      "docx_sha256": "2aa201327435ef06074814674ccbd3e54e9910785b6c79134c1cd8e769abdaa7"
+    },
+    {
+      "logical_id": "CC-CP-11",
+      "revision": "05",
+      "title": "Recepción almacenamiento y control de inventario",
+      "type": "Caracterización de proceso",
+      "owner": "Paola Cárdenas",
+      "document_date": "2025-08-18",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-11_r05.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-11_r05.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-05",
+        "CC-CP-08",
+        "CC-CP-09",
+        "CC-CP-10",
+        "CC-CP-16",
+        "CC-RG-02",
+        "CC-FO-02",
+        "CC-PR-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.5.2",
+        "8.5.4",
+        "8.6",
+        "8.7"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "43c9281db803301cbe7902c86062d92e3d5eb746fdbace05a8eb48636609efd3",
+      "docx_sha256": "124458990542b6723c4afd3980dca33a2df3ae1a902502fbbbd3388fb7e8a4fe"
+    },
+    {
+      "logical_id": "CC-CP-12",
+      "revision": "04",
+      "title": "Montaje puesta en servicio y entrega técnica",
+      "type": "Caracterización de proceso",
+      "owner": "Óscar Benítez",
+      "document_date": "2025-09-08",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-12_r04.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-12_r04.pdf",
+      "related_ids": [
+        "CC-CP-04",
+        "CC-CP-06",
+        "CC-CP-10",
+        "CC-CP-15",
+        "CC-CP-16",
+        "CC-RG-03",
+        "CC-RG-05",
+        "CC-FO-01",
+        "CC-FO-02",
+        "CC-PR-04"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.5.1",
+        "8.5.2",
+        "8.5.6",
+        "8.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "c4362e7ae2f42cc66fb2980b9307808a74b242e168d546f8bd0c3b44d9d32f22",
+      "docx_sha256": "33a47f054644649a7a353558b525e51b0e3465a395ea6b75600bc25d96df8f11"
+    },
+    {
+      "logical_id": "CC-CP-13",
+      "revision": "03",
+      "title": "Atención al cliente y gestión de solicitudes",
+      "type": "Caracterización de proceso",
+      "owner": "Mariana León",
+      "document_date": "2025-06-16",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-13_r03.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-13_r03.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-05",
+        "CC-CP-06",
+        "CC-CP-10",
+        "CC-CP-12",
+        "CC-CP-16",
+        "CC-CP-17",
+        "CC-RG-03",
+        "CC-RG-04",
+        "CC-FO-02",
+        "CC-PR-01",
+        "CC-PR-04"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.2.1",
+        "9.1.2",
+        "10.2"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "4c2a9e7fac6fe255c4f790d910e7f05b81c8f3412a69612324dc8eb4d98322a7",
+      "docx_sha256": "50d12c9c58f06476dd3d273561f314adf7497167ba4081f7a6dd9ee08e75de08"
+    },
+    {
+      "logical_id": "CC-CP-14",
+      "revision": "03",
+      "title": "Tecnología continuidad y control de información",
+      "type": "Caracterización de proceso",
+      "owner": "Santiago Robledo | Líder de Tecnología",
+      "document_date": "2025-08-04",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-14_r03.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-14_r03.pdf",
+      "related_ids": [
+        "CC-CP-02",
+        "CC-CP-03",
+        "CC-CP-08",
+        "CC-CP-11",
+        "CC-CP-17",
+        "CC-PR-01",
+        "CC-PR-04",
+        "CC-FO-01",
+        "CC-LM-01"
+      ],
+      "iso_refs": [
+        "6.3",
+        "7.1.3",
+        "7.1.6",
+        "7.5",
+        "8.5.6",
+        "9.1"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "333e8f5b490d0472ba2467f3ece1bd7843322d3a34bbb136a43db8152df6d44c",
+      "docx_sha256": "c374146d932ef5192f16b5ebb00c365dd3942629302f7fe73b0b565f73c65f45"
+    },
+    {
+      "logical_id": "CC-CP-15",
+      "revision": "05",
+      "title": "Diseño de espacios y soluciones para cafeterías",
+      "type": "Caracterización de proceso",
+      "owner": "Isabel Restrepo",
+      "document_date": "2025-07-21",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-15_r05.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-15_r05.pdf",
+      "related_ids": [
+        "CC-CP-04",
+        "CC-CP-06",
+        "CC-CP-09",
+        "CC-CP-12",
+        "CC-CP-16",
+        "CC-RG-01",
+        "CC-FO-01",
+        "CC-PR-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "8.3.2",
+        "8.3.3",
+        "8.3.4",
+        "8.3.5",
+        "8.3.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "99307a691beda3957ee4cb27f1697d8bb2eca2dd6c7afd0518a1f3c11dcff8f5",
+      "docx_sha256": "d482578e7c6c38b3a88867e4ac07c8d581d7c9333faaabe89d4abdf75c62b78e"
+    },
+    {
+      "logical_id": "CC-CP-16",
+      "revision": "04",
+      "title": "Aseguramiento de calidad y servicio de posventa",
+      "type": "Caracterización de proceso",
+      "owner": "Ricardo Muñoz | Líder de Calidad y posventa",
+      "document_date": "2025-11-03",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-16_r04.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-16_r04.pdf",
+      "related_ids": [
+        "CC-CP-01",
+        "CC-CP-09",
+        "CC-CP-12",
+        "CC-CP-13",
+        "CC-CP-15",
+        "CC-PR-03",
+        "CC-PR-04",
+        "CC-FO-02",
+        "CC-RG-03",
+        "CC-RG-04",
+        "CC-RG-05"
+      ],
+      "iso_refs": [
+        "7.1.5",
+        "8.4",
+        "8.6",
+        "8.7",
+        "9.1",
+        "9.2",
+        "10.2",
+        "10.3"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "72c71deaaadfb6a0b3c0ccb0a9ba16311f95ee1482a44c7ae4065e585207bcc3",
+      "docx_sha256": "74a5fffc671ecc8058156a66f29a7884f526c36f9e515abd0a48bd050b57afb8"
+    },
+    {
+      "logical_id": "CC-CP-17",
+      "revision": "02",
+      "title": "Gestión contractual y seguimiento de compromisos",
+      "type": "Caracterización de proceso",
+      "owner": "Natalia Escobar | Líder de Legal y cumplimiento",
+      "document_date": "2025-05-19",
+      "status": "Vigente",
+      "docx": "02_Word_editables/02_Procesos/CC-CP-17_r02.docx",
+      "pdf": "01_PDF_para_importar/02_Procesos/CC-CP-17_r02.pdf",
+      "related_ids": [
+        "CC-CP-01",
+        "CC-CP-02",
+        "CC-CP-06",
+        "CC-CP-09",
+        "CC-CP-13",
+        "CC-CP-14",
+        "CC-CP-15",
+        "CC-PR-01",
+        "CC-FO-01",
+        "CC-RG-01",
+        "CC-RG-02",
+        "CC-LM-01"
+      ],
+      "iso_refs": [
+        "4.2",
+        "6.1",
+        "7.5",
+        "8.2",
+        "8.4",
+        "8.5.3",
+        "8.5.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "d5ffa644e403e96a12d990e354264875dc82795c7245bb01fa2fddebcdc8948f",
+      "docx_sha256": "78904011baef06c770580e3fddd091a6c1c6bc4aaa6d3637e6025814fb05e78f"
+    },
+    {
+      "logical_id": "CC-PR-01",
+      "revision": "03",
+      "title": "Control de documentos y registros",
+      "type": "Procedimiento",
+      "owner": "Ricardo Muñoz",
+      "document_date": "2025-05-05",
+      "status": "Vigente",
+      "docx": "02_Word_editables/03_Procedimientos/CC-PR-01_r03.docx",
+      "pdf": "01_PDF_para_importar/03_Procedimientos/CC-PR-01_r03.pdf",
+      "related_ids": [
+        "CC-LM-01",
+        "CC-FO-01",
+        "CC-FO-02",
+        "CC-CP-14"
+      ],
+      "iso_refs": [
+        "7.5"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "1f9e9f193db4d51676e580db88f6ff219caab4937386d4ad7a71575ead5ea1bc",
+      "docx_sha256": "5d9fd964889fcb69be68aff68efacc4d739f3de7cdb5ef023c1afaf15b8294de"
+    },
+    {
+      "logical_id": "CC-PR-02",
+      "revision": "02",
+      "title": "Gestión de riesgos oportunidades y cambios",
+      "type": "Procedimiento",
+      "owner": "Valentina Ríos",
+      "document_date": "2025-04-08",
+      "status": "Vigente",
+      "docx": "02_Word_editables/03_Procedimientos/CC-PR-02_r02.docx",
+      "pdf": "01_PDF_para_importar/03_Procedimientos/CC-PR-02_r02.pdf",
+      "related_ids": [
+        "CC-MT-01",
+        "CC-FO-01",
+        "CC-AC-01"
+      ],
+      "iso_refs": [
+        "4.1",
+        "4.2",
+        "6.1",
+        "6.3",
+        "8.5.6"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "d011923482474605614cfc29e50a0215994b76508bc3e8e1065158d7a93c179a",
+      "docx_sha256": "298622603223b7c25eff753f2ff1d06672579a85db41f8ae2ca76084d5565ddb"
+    },
+    {
+      "logical_id": "CC-PR-03",
+      "revision": "02",
+      "title": "Auditoría interna del sistema de calidad",
+      "type": "Procedimiento",
+      "owner": "Ricardo Muñoz",
+      "document_date": "2025-03-03",
+      "status": "Vigente",
+      "docx": "02_Word_editables/03_Procedimientos/CC-PR-03_r02.docx",
+      "pdf": "01_PDF_para_importar/03_Procedimientos/CC-PR-03_r02.pdf",
+      "related_ids": [
+        "CC-RG-04",
+        "CC-PR-04",
+        "CC-AC-01"
+      ],
+      "iso_refs": [
+        "9.2"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "c7238360509aa30414003cd8d46818e7a946c15da87ee988440bf1543cc6389e",
+      "docx_sha256": "446e9ef6f7d9a21308655ca6ead127c06bf1208822d314a3f06fa0315ea307f5"
+    },
+    {
+      "logical_id": "CC-PR-04",
+      "revision": "03",
+      "title": "Salidas no conformes y acciones correctivas",
+      "type": "Procedimiento",
+      "owner": "Ricardo Muñoz",
+      "document_date": "2025-06-16",
+      "status": "Vigente",
+      "docx": "02_Word_editables/03_Procedimientos/CC-PR-04_r03.docx",
+      "pdf": "01_PDF_para_importar/03_Procedimientos/CC-PR-04_r03.pdf",
+      "related_ids": [
+        "CC-FO-02",
+        "CC-RG-03",
+        "CC-RG-04",
+        "CC-CP-16"
+      ],
+      "iso_refs": [
+        "8.7",
+        "10.2",
+        "10.3"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "67f714add3fd19b0dab6eadc15465d1bca66b68f5271e99d98b44c77940f4005",
+      "docx_sha256": "db9901e9e6e9ce82834fbeb1ba240285847a8b2d74e4b23867075e73b1d9d0db"
+    },
+    {
+      "logical_id": "CC-PR-05",
+      "revision": "02",
+      "title": "Competencia formación y conocimiento operativo",
+      "type": "Procedimiento",
+      "owner": "Clara Ramírez EMP-020",
+      "document_date": "2025-07-07",
+      "status": "Vigente",
+      "docx": "02_Word_editables/03_Procedimientos/CC-PR-05_r02.docx",
+      "pdf": "01_PDF_para_importar/03_Procedimientos/CC-PR-05_r02.pdf",
+      "related_ids": [
+        "CC-RG-05",
+        "CC-AN-01",
+        "CC-CP-03"
+      ],
+      "iso_refs": [
+        "7.1.6",
+        "7.2",
+        "7.3",
+        "7.4"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "d0aba5291677aac3006693ec6c5e8496f5362919bafcf8ee3185296d0b6c113d",
+      "docx_sha256": "b2ea1819bc8ae67c6edefadfc36cd6a45821175f35ddd8312650266f15cf8bed"
+    },
+    {
+      "logical_id": "CC-RG-01",
+      "revision": "02",
+      "title": "Expediente comercial y de diseño PRJ 005",
+      "type": "Registro diligenciado",
+      "owner": "Sebastián Vélez e Isabel Restrepo",
+      "document_date": "2025-08-26",
+      "status": "Cerrado",
+      "docx": "02_Word_editables/04_Registros/CC-RG-01_r02.docx",
+      "pdf": "01_PDF_para_importar/04_Registros/CC-RG-01_r02.pdf",
+      "related_ids": [
+        "CC-CP-04",
+        "CC-CP-06",
+        "CC-CP-15",
+        "CC-FO-01",
+        "CC-RG-02",
+        "CC-RG-03"
+      ],
+      "iso_refs": [
+        "8.2",
+        "8.3",
+        "8.5.6"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "d1f1b1ee5383844a9805f12330e4902231e8411781d46fb7a6f88effb30e6edf",
+      "docx_sha256": "8666980b881f19fed08ed41f2a2fe2f6fc4efef6b4f917dd495917f1e463df7f"
+    },
+    {
+      "logical_id": "CC-RG-02",
+      "revision": "01",
+      "title": "Compras recepción y entrega PRJ 005",
+      "type": "Registro diligenciado",
+      "owner": "Daniela Suárez Paola Cárdenas y Felipe Ospina",
+      "document_date": "2025-09-15",
+      "status": "Cerrado",
+      "docx": "02_Word_editables/04_Registros/CC-RG-02_r01.docx",
+      "pdf": "01_PDF_para_importar/04_Registros/CC-RG-02_r01.pdf",
+      "related_ids": [
+        "CC-RG-01",
+        "CC-RG-03",
+        "CC-CP-09",
+        "CC-CP-10",
+        "CC-CP-11",
+        "CC-PR-04"
+      ],
+      "iso_refs": [
+        "8.4",
+        "8.5.2",
+        "8.5.4",
+        "8.6"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "ccc72a82f4de726e8a94b484963f551917affe99e399b856b2507b2cd7e6441b",
+      "docx_sha256": "5a821f4ac8c671bb34367a6231b507929553e7ba832a2c37d15ea146c2019c98"
+    },
+    {
+      "logical_id": "CC-RG-03",
+      "revision": "02",
+      "title": "Montaje liberación y posventa PRJ 005",
+      "type": "Registro diligenciado",
+      "owner": "Óscar Benítez Mariana León y Ricardo Muñoz",
+      "document_date": "2025-10-03",
+      "status": "Cerrado",
+      "docx": "02_Word_editables/04_Registros/CC-RG-03_r02.docx",
+      "pdf": "01_PDF_para_importar/04_Registros/CC-RG-03_r02.pdf",
+      "related_ids": [
+        "CC-RG-01",
+        "CC-RG-02",
+        "CC-RG-05",
+        "CC-CP-12",
+        "CC-CP-13",
+        "CC-CP-16",
+        "CC-PR-04"
+      ],
+      "iso_refs": [
+        "8.5.1",
+        "8.6",
+        "8.7",
+        "9.1.2",
+        "10.2"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "45b8f9156353f73c91d23379275daebdfa4ff2800fa201acb1be4eaf5bd02f2d",
+      "docx_sha256": "9ca9eec07604e4f993f919a769c16d281a228f206d944e37a30bbd2aa6e99ddb"
+    },
+    {
+      "logical_id": "CC-RG-04",
+      "revision": "02",
+      "title": "Auditoría interna y seguimiento de acciones",
+      "type": "Registro diligenciado",
+      "owner": "Ricardo Muñoz",
+      "document_date": "2025-12-18",
+      "status": "Seguimiento abierto",
+      "docx": "02_Word_editables/04_Registros/CC-RG-04_r02.docx",
+      "pdf": "01_PDF_para_importar/04_Registros/CC-RG-04_r02.pdf",
+      "related_ids": [
+        "CC-PR-01",
+        "CC-PR-03",
+        "CC-PR-04",
+        "CC-RG-01",
+        "CC-RG-02",
+        "CC-RG-03",
+        "CC-RG-05",
+        "CC-AC-01"
+      ],
+      "iso_refs": [
+        "9.2",
+        "10.2",
+        "7.5"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "b51109a6475e2b48d338740c06f4225426e1d6ec492723ba377fdfcfe243fdf4",
+      "docx_sha256": "08691fc06d4758c540e187ece4b464067cbd4292dec527d814d59ca522f72989"
+    },
+    {
+      "logical_id": "CC-RG-05",
+      "revision": "03",
+      "title": "Formación y equipos de seguimiento",
+      "type": "Registro diligenciado",
+      "owner": "Clara Ramírez y Ricardo Muñoz",
+      "document_date": "2025-12-18",
+      "status": "Vigente",
+      "docx": "02_Word_editables/04_Registros/CC-RG-05_r03.docx",
+      "pdf": "01_PDF_para_importar/04_Registros/CC-RG-05_r03.pdf",
+      "related_ids": [
+        "CC-CP-03",
+        "CC-CP-12",
+        "CC-CP-16",
+        "CC-PR-01",
+        "CC-PR-05",
+        "CC-RG-03",
+        "CC-RG-04"
+      ],
+      "iso_refs": [
+        "7.1.5",
+        "7.2",
+        "7.3",
+        "7.1.6"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "1fc10b9318731f5a6f7eab7cc83387f59c8c915a34e91fc612cbaf68a2bf51c3",
+      "docx_sha256": "39fce11ee69e86c2c7411dbe0211854beeac49abb38d076c45ed89c33e3e3647"
+    },
+    {
+      "logical_id": "CC-FO-01",
+      "revision": "03",
+      "title": "Solicitud de cambio y liberación",
+      "type": "Formato sin diligenciar",
+      "owner": "Isabel Restrepo",
+      "document_date": "2025-06-02",
+      "status": "Vigente",
+      "docx": "02_Word_editables/05_Formatos/CC-FO-01_r03.docx",
+      "pdf": "01_PDF_para_importar/05_Formatos/CC-FO-01_r03.pdf",
+      "related_ids": [
+        "CC-PR-01",
+        "CC-PR-02",
+        "CC-CP-15",
+        "CC-CP-12",
+        "CC-FO-02"
+      ],
+      "iso_refs": [
+        "6.3",
+        "8.3.6",
+        "8.5.6",
+        "8.6"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "9b2a6a5cac8c4074e611faec9a75fab0cd6badb9c88931dc53ec2343ff5fac9e",
+      "docx_sha256": "ef74e23db137662575fa27f649e48a551c88883a767f931236f63a43012b2f3f"
+    },
+    {
+      "logical_id": "CC-FO-02",
+      "revision": "04",
+      "title": "Reporte de no conformidad",
+      "type": "Formato sin diligenciar",
+      "owner": "Ricardo Muñoz",
+      "document_date": "2025-07-01",
+      "status": "Vigente",
+      "docx": "02_Word_editables/05_Formatos/CC-FO-02_r04.docx",
+      "pdf": "01_PDF_para_importar/05_Formatos/CC-FO-02_r04.pdf",
+      "related_ids": [
+        "CC-PR-01",
+        "CC-PR-04",
+        "CC-CP-16",
+        "CC-CP-13"
+      ],
+      "iso_refs": [
+        "8.7",
+        "10.2"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "d24b202e279e60d4229ab17818ba9232cf52ced82e3709efe2b764269d4b7cee",
+      "docx_sha256": "969ece444a01d45570c0587b7c9b4479bab51c6774678c33c14e1d4c48ccaaa2"
+    },
+    {
+      "logical_id": "CC-AC-01",
+      "revision": "01",
+      "title": "Revisión por la dirección diciembre 2025",
+      "type": "Acta diligenciada",
+      "owner": "Valentina Ríos",
+      "document_date": "2025-12-15",
+      "status": "Vigente",
+      "docx": "02_Word_editables/04_Registros/CC-AC-01_r01.docx",
+      "pdf": "01_PDF_para_importar/04_Registros/CC-AC-01_r01.pdf",
+      "related_ids": [
+        "CC-CP-01",
+        "CC-CP-02",
+        "CC-CP-16",
+        "CC-MT-01",
+        "CC-MT-02",
+        "CC-RG-04",
+        "CC-RG-05",
+        "CC-PR-02"
+      ],
+      "iso_refs": [
+        "9.3",
+        "6.2",
+        "6.3",
+        "7.1"
+      ],
+      "page_count": 3,
+      "pdf_sha256": "203a2c3e70bca540286f7c2fa75f542e014f3089c77d0783248e8cc58aeed223",
+      "docx_sha256": "5fa6105f8d3b950c586cd30dec899ad55285741bd0fdbfc2468ee4135073bbbd"
+    },
+    {
+      "logical_id": "CC-LM-01",
+      "revision": "01",
+      "title": "Listado maestro de documentos y registros",
+      "type": "Listado maestro",
+      "owner": "Ricardo Muñoz",
+      "document_date": "2025-12-31",
+      "status": "Vigente",
+      "docx": "02_Word_editables/01_Sistema/CC-LM-01_r01.docx",
+      "pdf": "01_PDF_para_importar/01_Sistema/CC-LM-01_r01.pdf",
+      "related_ids": [
+        "CC-PR-01"
+      ],
+      "iso_refs": [
+        "4.4",
+        "5.3",
+        "7.5"
+      ],
+      "page_count": 2,
+      "pdf_sha256": "7c401e8c5f2e69c4c5b4ffceae3d9a3a6957d90f460a4db5612c25de59648a80",
+      "docx_sha256": "185560394eebb704c899c00edfd424849746fcc8e0f2b2abf8b2b93a0ed75645"
+    }
+  ],
+  "main_pdf_page_total": 81
+}

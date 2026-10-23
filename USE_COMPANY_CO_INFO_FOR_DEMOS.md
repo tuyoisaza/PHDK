@@ -1,5 +1,12 @@
 # USE COMPANY CO INFO FOR DEMOS
 > Canonical PHDK synthetic UAT fixture · v1.0 · 2026-10-12. ALL people, companies and numbers are fictional.
+
+## Optional quality-management document corpus
+
+The [Company Co 2025 importer corpus](https://github.com/tuyoisaza/PHDK/tree/main/docs/fixtures/companyco/iso9001-2025) expands this fictional company into 35 Spanish-language documents covering all 17 departments, with PDF/Word alternatives, a consolidated dossier, an obsolete revision, an image-only scan and evaluator expectations. Its historical reference is ISO 9001:2015 with Amendment 1:2024; it makes no claim of actual certification.
+
+Use it as optional sample content when a document-import exercise is explicitly requested. Choose one primary input route; keep evaluator answers outside the imported business documents. The corporate baseline below remains authoritative: additional project events and temporary responsibilities belong to the simulated 2025 dossier and do not change these employee records. The corpus is not included in `PHDK_MANIFEST.txt`; publishing or reading it does not provision identities, run an importer, activate UAT or change PHDK permissions.
+
 ## Company profile
 **Company Co S.A.S.** was founded 2021-10-12, based in Bogotá, Colombia, and operates in the **cafeteria/coffee-shop** industry (not restaurants). B2B: café feasibility consulting, space design, procurement, fit-out, training and maintenance. B2C: retail/ecommerce for espresso machines, grinders, furniture, POS, refrigeration, coffee and consumables. Scope: nationwide Colombia; COP; America/Bogota; es-CO.
 **200 employees exactly in 17 departments**, including 17 department leaders. HQ Bogotá 1,100 m², Bogotá showroom 650 m², Bogotá warehouse 2,400 m², Medellín showroom 350 m², Cali showroom 300 m² (total 4,800 m²).

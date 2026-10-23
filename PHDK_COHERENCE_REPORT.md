@@ -1,3 +1,21 @@
+# PHDK coherence report — v2.65.3
+
+Baseline: `67a5ccfcfb3a34dce10eae1790d28e9adefa45b7` / v2.65.2. Review date: 2026-10-23. Scope: publication of the owner-requested Company Co document corpus, its discovery links and release metadata; no policy or runtime implementation change.
+
+| Category | Evidence and disposition |
+|---|---|
+| VERIFIED | The 86 original corpus files preserve the delivered dossier; 35 unique logical documents, 17 processes and 70 principal PDF/Word hashes are consistent. Git normalizes CSV line endings under the existing text policy; generated PDF/Word files have explicit binary attributes. The English index is the only additional corpus file. |
+| VERIFIED | The existing static coherence checker passes for v2.65.3 and 78 manifest mappings. VERSION, README and the newest CHANGELOG release agree. |
+| VERIFIED | Optional corpus links in the two vendored documents use canonical GitHub URLs. The binaries and corpus index are excluded from automatic standards distribution. |
+| VERIFIED | The canonical Company Co staff, commercial figures and existing UAT/authentication rules are preserved. Added narratives and project events remain explicitly fictional historical sample content. |
+| RISK / controlled | PDF, Word, consolidated and OCR alternatives repeat logical content deliberately. The index identifies primary input routes and keeps evaluator expectations out of business inputs. |
+| UNVERIFIED | No importer execution, runtime UAT or downstream adoption is claimed. The document checks are file/content checks, not application acceptance. |
+| N/A | No command routing, managed agent instructions, dependency, hook, provider or execution-policy change is required. |
+
+The primary assistant owns integration and delivery; bounded independent reviews checked artifact integrity and publication/distribution scope. This report is recorded before publication. Actual GitHub operations and remote-main readback establish the release outcome. Earlier reports follow as historical evidence.
+
+---
+
 # PHDK coherence report — v2.65.2
 
 Integration baseline: `d4ed10e96f5fd05ebeaa38a664442d7d10d6cf86` / v2.65.1. Main advanced while PR #81 was being opened; its Stack Security Review, formatting and vendored-layout corrections are retained. The initial unpublished v2.63.3 candidate used `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Review date: 2026-10-23. Scope: the owner-approved build/packaging/hook decision procedure, its active routing and bounded static guards; not an exhaustive audit of PHDK or a downstream runtime investigation.

@@ -1,0 +1,22 @@
+VERIFICACIÓN DEL CONJUNTO — CompanyCo SGC 2025 v1.0
+
+Resultado: archivos preparados y revisados.
+35 documentos lógicos principales: 35 PDF y 35 Word equivalentes.
+17 fichas de proceso; 81 páginas en los PDF principales.
+Consolidado: 83 páginas, en Word y PDF.
+Archivos adicionales: guía del evaluador, revisión antigua y escaneado de prueba.
+Total: 38 Word y 39 PDF; 172 páginas PDF revisadas visualmente.
+
+Verificaciones realizadas:
+- Apertura de los Word y renderizado de todos a PDF.
+- Inspección visual de cada página final, incluidos los tres folios escaneados.
+- Revisión de legibilidad, márgenes, tablas, encabezados y pies.
+- Comprobación de códigos, revisiones y referencias entre documentos.
+- Comprobación de metadatos y correspondencia con el manifiesto.
+- Comprobación de que el escaneado contiene imágenes y carece de capa de texto.
+- Huellas SHA-256 de los documentos principales en manifest_documentos.json.
+
+Las imperfecciones indicadas en casos_esperados.json son deliberadas.
+Los cierres administrativos breves y pequeñas variaciones tipográficas se conservan.
+Esta revisión verifica el conjunto de archivos, no el comportamiento de un importador.
+No se ha ejecutado el importador del usuario ni se afirma conformidad certificada con ISO 9001.

@@ -10,11 +10,13 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.65.2**
+**Version v2.65.3**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
 **Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
+
+**Optional Company Co documents:** [Quality-management importer corpus](https://github.com/tuyoisaza/PHDK/tree/main/docs/fixtures/companyco/iso9001-2025) provides 35 fictional documents covering 17 processes, editable Word and PDF versions, a consolidated dossier, OCR/version variants and expected extraction cases. This Spanish-language 2025 scenario is sample data for an explicitly requested import exercise; it is not a PHDK execution standard, certification claim or automatic UAT trigger. The corpus is available separately from the vendored standards.
 
 PHDK is an operating system for AI-assisted software delivery. It turns a repository, an idea or an unfinished product into a structured process where AI can understand intent, define a visible design, coordinate work, implement, validate, repair and deliver without losing human control.
 

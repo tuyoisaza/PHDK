@@ -1,3 +1,15 @@
+## v2.65.3 — 2026-10-23
+
+### Publish the optional Company Co document importer corpus
+- Publish the existing fictional 2025 quality-management dossier as 35 logical documents covering 17 processes, with individual PDF and Word files, consolidated alternatives, completed records and blank forms.
+- Include an obsolete revision, an image-only PDF for OCR, ten documented extraction cases, machine-readable expectations and integrity metadata. Preserve the canonical Company Co people, departments and commercial baseline.
+- Add an English corpus index and discoverable links from README and the Company Co reference. Keep the business documents in Spanish and the optional corpus outside the standards vendoring manifest.
+- Treat the ISO 9001:2015 / Amendment 1:2024 reference as historical simulation, with no actual certification claim or new execution policy, command, provisioning or automatic UAT behavior.
+
+### Verification limits
+- Review the corpus inventory, document hashes, internal references, rendered pages and publication diff. Run the existing static PHDK coherence check and verify release metadata and remote publication separately.
+- The importer itself and runtime UAT were not executed. This documentation publication does not upgrade downstream projects or deploy an application.
+
 ## v2.65.2 — 2026-10-23
 
 ### Resolve build and hook ambiguity before asking

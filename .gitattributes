@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Preserve generated document bytes, including image-only PDFs with ASCII streams.
+docs/fixtures/companyco/iso9001-2025/**/*.pdf binary
+docs/fixtures/companyco/iso9001-2025/**/*.docx binary
