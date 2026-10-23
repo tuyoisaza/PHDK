@@ -1,3 +1,54 @@
+# PHDK delivery checkpoint — v2.63.2
+
+Integration refresh: main advanced to `06efe2fe98d94548c1acfc533e138a0ef4d1c05c` / v2.63.1 while this candidate was being published. Its manifest repair and full release history are retained; this change is v2.63.2. The existing branch name predates that concurrent patch. The original baseline evidence below remains historical source provenance.
+
+Recorded: 2026-10-23, current maintenance session. This is a prepublication source checkpoint, not evidence that GitHub has accepted or merged the candidate.
+
+## Scope and baseline
+
+Implement the owner-supplied DEBATE brief on reconciling planning/construction restrictions with a later scoped publication instruction. Baseline canonical main: `ca9f0b1e6555936cd131304ead26ecc2f60c8807` / v2.63.0; baseline tree: `2cb00db1b6211b17b2781ac6954dcf1d1a7116ef`. Candidate: `fix/v2.63.1-phase-transition-reconciliation`, v2.63.2 PATCH. This clarifies the existing authorization contract rather than adding a new command or changing executor access controls.
+
+The current brief defines the requested policy correction. Assistant source review and actual host/repository controls remain separate facts; no human diff inspection or platform approval event is asserted. Concurrent open PRs #74 and #76 were inspected as context and are outside this change.
+
+## Source verification
+
+- All 105 baseline source files retrieved through the GitHub connector matched their canonical Git blob hashes before edits.
+- `python scripts/phdk_coherence_check.py`: PASS, v2.63.2, 78 manifest mappings, static only. The original baseline failed on an escaped-newline Secure manifest path; its formatting was corrected without changing the mapping's intent.
+- Changed Python AST parsing, relative Markdown target checks and `git diff --no-index --check`: PASS. The complete outgoing candidate and independent authorization/distribution review were examined; the managed-block transition reference uses a repository-root-relative path so it survives installation in different native instruction locations.
+- VERSION, README and newest CHANGELOG release agree on v2.63.2. Optional version hooks were inspected; release metadata and actual GitHub commit prefixes must be verified without a second integration-only version bump.
+
+## Source-reviewed acceptance boundaries
+
+These are documentary/source-review conclusions, not executed executor or product tests.
+
+| Scenario | Required result in the candidate |
+|---|---|
+| Build-only phase, followed by the owner's scoped main/deployment authorization | Reconcile TASK, plan, STATUS and affected workers; preserve the former limit as superseded history and proceed through the permitted route without duplicate approval. |
+| Merge/deployment authorized without UAT or new spend | Keep UAT deferred and independent spending/provider controls in force. |
+| Owner permission present but executor still denies | Preserve authorization, record the exact technical rejection, use only a permitted re-evaluation path and do not assert that document edits resolved access. |
+| Compound restriction or unchanged real owner stop | Replace only the expressly superseded scope; keep unrelated security, cost, UAT and owner controls active. |
+| Unknown provenance or elapsed phase/date | Record UNKNOWN accurately; neither invent an owner prohibition nor grant new authority from missing metadata or phase completion. |
+
+## Prepublication delivery evidence
+
+| Delivery field | Checkpoint result |
+|---|---|
+| VERSION_BUMP | PASS — integration baseline 2.63.1; candidate metadata 2.63.2. Recheck fresh main before integration. |
+| COMMIT_PREFIX | NOT YET EXECUTED — source and integration subjects must begin with v2.63.2. |
+| PUSH_AND_PR | NOT YET EXECUTED — normal scoped branch/PR publication and permitted merge remain to be observed. |
+| REMOTE_MAIN | NOT YET EXECUTED — verify actual merge SHA, version and candidate contents after publication. |
+| SCOPE_AND_CHECKS | PASS for the reviewed source candidate and permitted static verification; actual GitHub controls are evaluated by the publication operations. |
+
+Final publication evidence belongs in the actual PR/readback and project-local completion evidence after execution; this checkpoint must not be restamped through a redundant version-only release.
+
+## Evidence limits
+
+The [DEBATE task snapshot](https://github.com/tuyoisaza/debate/blob/157d57e75626e338e092448ec2bf40ecc4bfa2b1/TASK.md) shows an unqualified branch/draft-PR limit; the [historical authorization standard](https://github.com/tuyoisaza/PHDK/blob/a0f01defab8c38b1ea70a2363081d12eeea42b69/MAIN_DELIVERY_STANDARD.md) already separates owner instructions from task records and technical enforcement. The snapshot does not prove who requested every restriction, the later authorization/rejection, or the subsequently reported successful build. Those later incident facts remain owner-reported, not independently verified here.
+
+No local behavioral suite, Docker, runtime/UAT, provider operation, new spending, tag/release, background job or downstream DEBATE change was performed. Publishing this standard does not update installed projects, reload another agent's context, clear its executor denial or deploy DEBATE. The static guard cannot prove runtime compliance or permission resolution. Source AI-authorship percentages are not determinable from the available metadata.
+
+---
+
 # PHDK delivery checkpoint — v2.62.1
 
 Recorded: 2026-10-22 15:06 UTC. This is the source checkpoint prepared before publication, not a claim that the PR has merged.

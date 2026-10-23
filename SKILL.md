@@ -42,6 +42,8 @@ Identify what the user explicitly asked for in this conversation. Read/audit req
 
 Do not resume a previous mission from records alone, choose another backlog item, or start a background job. Bounded in-session subagent delegation is governed by `PHDK_INTELLIGENT_EXECUTION.md`, available in any mode when host-supported and beneficial. PMO alone governs portfolio-level worker orchestration. Preserve the same current request across status/link questions, clarifications, and context compaction. Assistant-written task records cannot revoke the user's current authorization; real owner stops and narrower requests remain binding.
 
+Before planning, use the verified applicable PHDK baseline in `PHDK_PLAN.md` to derive the brief/plan/task boundaries. At construction-to-publication transitions or a later owner scope change, apply [phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation): preserve restriction provenance/history, refresh affected worker context and separate owner authorization, technical permission, costs and explicit UAT opt-in. Neither a stale phase limit nor an edited file determines the executor's actual permission; never duplicate a scoped approval already granted.
+
 ## Complete normal delivery to main
 
 Read `MAIN_DELIVERY_STANDARD.md` for a current request to implement, fix, or update repository code or documentation. That request includes the scoped branch, version bump, applicable permitted checks, version-prefixed commit, branch push, PR, required review, merge, and verification on remote `main`. Do not stop at a pushed branch or open PR and ask for the same delivery permission again. Honor a narrower local/branch/PR-only request, another explicit target, and the bare `PHDK upgrade` limit.

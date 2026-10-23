@@ -20,6 +20,20 @@ This boundary applies to bootstrap, development, upgrades, verification, inciden
 - Review the complete outgoing diff and apply `MAIN_DELIVERY_STANDARD.md` to approval evidence. Sensitive behavior or policy decisions need owner approval, which a well-defined current request can already supply. A clear "push to main", "merge", or "aprobado" for the identified current change is approval in the conversation; do not add a PHDK-only requirement to repeat it, attest to opening every diff line, or submit a GitHub review. Formal/named/independent review actually required by current owner instructions, hooks, repository rules, or server protections remains binding. Never fabricate human inspection, bypass a hook/protection, or publish with an unmet applicable control.
 - An explicit, still-active PHDK Developer Mode activation authorizes its separate direct-main flow for eligible small changes requested while active, as defined in `PHDK_DEVELOPER_MODE.md`; its immediate stop rules remain effective. Neither flow authorizes a release tag, unrelated work, or post-conversation execution merely from a completion checklist.
 
+## Restriction provenance and lifetime
+
+Classify each material restriction separately; lifetime and source are different facts:
+
+| Kind | Meaning |
+|---|---|
+| `PERMANENT_POLICY` | An ongoing rule within its documented scope, until its legitimate authority changes it. An owner may replace an owner-controlled documentary rule; this never overrides higher-priority instructions or actual host, security, access or repository controls. |
+| `PHASE_LIMIT` | A boundary for a named phase, milestone or operation, with a recorded closure condition. Do not promote it to permanent agent policy or carry it into a later phase without reconciling current authority. |
+| `HISTORICAL_RECORD` | Evidence of a completed or superseded constraint, retained with its source and disposition. It is not an active instruction or proof that an external control has changed. |
+
+Use the compact restriction record in [TASK_TRACKING_STANDARD.md](TASK_TRACKING_STANDARD.md). Record origin (`OWNER`, `ASSISTANT`, `PHDK`, `HOST_OR_EXTERNAL`, or `UNKNOWN`), source reference, known issue date, scope and lifetime. Never attribute an assistant's proposed boundary to the owner. Missing provenance stays `UNKNOWN`; it neither proves an owner prohibition nor authorizes ignoring an observed control. Split a combined "no merge, deploy, UAT, secrets or spending" statement into independently scoped restrictions so replacing one does not remove the others.
+
+A phase ending, a date passing or a document being edited does not itself authorize a broader action. Apply an actual current owner instruction only to the scope it replaces; preserve unaffected restrictions and the original history. An active owner stop remains binding until legitimately replaced. Before construction-to-publication transitions, follow [phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation). Documents record authority and outcomes; they cannot grant technical permission or resolve a denial by assertion.
+
 ## Universal PHDK preflight
 
 All PHDK lifecycle commands first follow `PHDK_PREFLIGHT.md`. Preflight may inspect canonical PHDK version, installed manifest/managed rules, and the active tool's installed/connected skills/capabilities. It may conservatively self-synchronize clean PHDK-owned standards when the installed version is stale. It must not silently force-overwrite dirty PHDK-owned changes or mutate unrelated/global tooling.

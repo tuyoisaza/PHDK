@@ -1,5 +1,15 @@
 # PHDK publication status
 
+Integration refresh: main advanced to `06efe2fe98d94548c1acfc533e138a0ef4d1c05c` / v2.63.1 while this candidate was being published. Its manifest repair and full release history are retained; this change is v2.63.2. The existing branch name predates that concurrent patch. The original baseline evidence below remains historical source provenance.
+
+## v2.63.2 phase-transition reconciliation
+
+Current owner-supplied brief: prevent a temporary construction limit from permanently blocking a later scoped main/deployment authorization. Baseline main: `ca9f0b1e6555936cd131304ead26ecc2f60c8807` / v2.63.0. Candidate branch: `fix/v2.63.1-phase-transition-reconciliation`; version metadata agrees on v2.63.2.
+
+Source changes implement restriction provenance/lifetime, Plan baseline capture, task/plan/status reconciliation and updated worker/agent routing. Owner authorization, technical permissions, costs and UAT are reported separately. Original restrictions and independent controls are preserved; a document change cannot clear an executor denial.
+
+Source/static review passed, including coherence with 78 manifest mappings, changed Python syntax, references and whitespace. This is a prepublication checkpoint: normal GitHub publication, actual operation responses and remote-main readback follow. Consult the final PR/evidence rather than treating this dated pending state as a new restriction. DEBATE integration/deployment and its executor permissions were not changed or independently verified.
+
 ## v2.62.1 explicit-only UAT coherence correction
 
 Owner request: fix the documented Auto/UAT contradiction. Baseline main: 5e2cf5a1f43c4833a4e294999cd7af05b41805fa / v2.62.0. Candidate branch: fix/v2.62.1-explicit-uat-coherence. VERSION, README and CHANGELOG agree on v2.62.1.

@@ -35,7 +35,7 @@ for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8")
     destinations.add(dst)
     if not (root / src).is_file():
         errors.append(f"manifest line {n}: missing {src}")
-for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "PHDK_EVOLUTION_STANDARD.md", "CHANGE_MANAGEMENT.md", "scripts/phdk_coherence_check.py", "PHDK_AUTO_CONTINUITY.md", "scripts/phdk_auto_gate.py", "PHDK_DESIGN.md", "SKILL.md", "PHDK_NATIVE_RULES.md", "UAT_STANDARD.md", "PHDK_UAT_PREP.md"]:
+for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "PHDK_EVOLUTION_STANDARD.md", "CHANGE_MANAGEMENT.md", "scripts/phdk_coherence_check.py", "PHDK_AUTO_CONTINUITY.md", "scripts/phdk_auto_gate.py", "PHDK_DESIGN.md", "SKILL.md", "PHDK_NATIVE_RULES.md", "UAT_STANDARD.md", "PHDK_UAT_PREP.md", "EXECUTION_SCOPE.md", "MAIN_DELIVERY_STANDARD.md", "TASK_TRACKING_STANDARD.md", "PHDK_PLAN.md"]:
     if mandatory not in sources:
         errors.append(f"manifest lacks {mandatory}")
 for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MANAGEMENT.md", "SKILL.md"]:
@@ -48,6 +48,45 @@ for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MAN
 skill_file = root / "SKILL.md"
 if skill_file.is_file() and not skill_file.read_text(encoding="utf-8").startswith("---\n"):
     errors.append("SKILL.md metadata must remain the first front-matter block")
+
+# Restriction and transition guards check the active contract sections, not
+# historical mentions elsewhere. Presence does not establish owner authority,
+# resolve an executor denial, or prove that a phase transition actually ran.
+transition_reference = "MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation"
+required_transition_sections = {
+    "EXECUTION_SCOPE.md": ("Restriction provenance and lifetime", [
+        "PERMANENT_POLICY", "PHASE_LIMIT", "HISTORICAL_RECORD",
+    ]),
+    "MAIN_DELIVERY_STANDARD.md": ("Phase-transition reconciliation", [
+        "OWNER_AUTHORIZATION", "TECHNICAL_PERMISSION", "COST_AUTHORIZATION",
+        "UAT_AUTHORIZATION", "TASK_TRACKING_STANDARD.md#restriction-record",
+    ]),
+    "TASK_TRACKING_STANDARD.md": ("Restriction record", [
+        "PERMANENT_POLICY", "PHASE_LIMIT", "HISTORICAL_RECORD",
+        "HOST_OR_EXTERNAL", "UNKNOWN", "source_ref", "issued_at", "recorded_at",
+        "scope", "closure_condition", "status", "superseded_by",
+    ]),
+    "PHDK_PLAN.md": ("Current PHDK baseline and scope", [
+        "PHDK_PREFLIGHT.md", "VERSION", "TASK_TRACKING_STANDARD.md#restriction-record",
+    ]),
+}
+for filename, (heading, markers) in required_transition_sections.items():
+    file = root / filename
+    if not file.is_file():
+        errors.append(f"missing phase-transition contract file {filename}")
+        continue
+    section = re.search(r"^## " + re.escape(heading) + r"\s*\n(.*?)(?=^#{1,2}\s|\Z)",
+                        file.read_text(encoding="utf-8"), re.M | re.S)
+    if section is None:
+        errors.append(f"{filename} missing section {heading}")
+        continue
+    for marker in markers:
+        if marker not in section.group(1):
+            errors.append(f"{filename} section {heading} missing {marker}")
+for entrypoint in ["README.md", "AGENTS.md", "SKILL.md", "PHDK_AUTO_CONTINUITY.md"]:
+    file = root / entrypoint
+    if not file.is_file() or transition_reference not in file.read_text(encoding="utf-8"):
+        errors.append(f"{entrypoint} missing phase-transition routing")
 
 # Design routing guards are source-level signals, never evidence of an owner
 # decision, rendered preview, actual execution, or downstream adoption.
@@ -113,7 +152,8 @@ if native_file.is_file():
         errors.append("PHDK_NATIVE_RULES.md missing managed instruction block")
     else:
         for marker in ["PHDK auto", "PHDK auto force", "PHDK uat", "PHDK uat prep",
-                       "PHDK uat fix", "DEFERRED — OWNER OPT-IN", "UAT NOT RUN"]:
+                       "PHDK uat fix", "DEFERRED — OWNER OPT-IN", "UAT NOT RUN",
+                       transition_reference]:
             if marker not in managed.group(1):
                 errors.append(f"PHDK_NATIVE_RULES.md managed block missing {marker}")
 

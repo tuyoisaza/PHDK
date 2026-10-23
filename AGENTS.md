@@ -1,4 +1,6 @@
-**Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.\n\n## Explicit-only UAT authorization
+**Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.
+
+## Explicit-only UAT authorization
 
 **Binding rule:** `PHDK auto` and `PHDK auto force` MUST NOT invoke, enter, provision, seed, or run UAT Prep (45), UAT (50), or UAT Fix (60), even after milestones, deployment, Check, or a failed prior UAT. Neither FORCE nor a generic full-lifecycle instruction grants UAT authorization. These stages are **DEFERRED — OWNER OPT-IN**, not BLOCKED, FAILED, or a completion prerequisite.
 
@@ -9,6 +11,10 @@ At the end, offer `PHDK uat` as an optional **future explicit command**, without
 ## Canonical PHDK maintenance session gate
 
 When the requested work changes **PHDK itself** (the canonical standards repository), read `PHDK_EVOLUTION_STANDARD.md` at session entry. Verify fresh remote `main`, `VERSION`, README and newest CHANGELOG entry; use consistent **PHDK** spelling and the defined workspace, version, coherence, manifest and versioned branch/PR delivery contract. Preserve `EXECUTION_SCOPE.md`, `VERSIONING.md`, `CHANGE_MANAGEMENT.md`, existing host controls and current user authorization. A discussion or copied brief does not activate Auto, PMO, Developer Mode or background work. In ordinary downstream-product tasks, follow applicable vendored rules without turning this maintainer guide into a new lifecycle gate.
+
+## Phase-transition scope reconciliation
+
+Before planning, load the verified applicable PHDK baseline under `PHDK_PLAN.md`; derive the brief, plan and task boundaries from it and the actual current request. Before publication or a later owner scope change, apply [phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation). Classify restrictions by provenance and lifetime in the existing task record, preserve superseded history, and refresh affected workers. Separate owner authorization, technical permissions, costs and explicit UAT opt-in. A file update cannot grant access or defeat an executor denial, and a technical denial does not justify asking for an already-granted general approval again.
 
 ## Mandatory pre-implementation Design gate
 
