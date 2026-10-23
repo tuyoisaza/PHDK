@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.63.0**
+**Version v2.64.0**
 
 **Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
 
