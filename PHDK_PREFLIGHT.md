@@ -2,8 +2,10 @@
 
 ## Centralized updater
 
-At authorized PHDK command entry, after installation detection, invoke the vendored `scripts/phdk_update.py` once to refresh manifest-owned standards from canonical main when safe. Re-read updated instructions before continuing. Report connectivity, version or local edit conflicts without force-overwriting. This foreground action does not run on dormant repositories or activate old work.
+At authorized PHDK command entry, after installation detection, invoke the vendored `scripts/phdk_update.py --trigger preflight <project>` once to refresh manifest-owned standards from canonical main when safe. Re-read updated instructions before continuing. When a new canonical version is actually adopted, complete the [Stack Security Review](PHDK_SECURE.md#stack-security-review) once for that adoption. The helper reports pending review, not completed security evidence; native-block verification remains an assistant responsibility. Report connectivity, version or local edit conflicts without force-overwriting. This foreground action does not run on dormant repositories or activate old work.
 
+
+Before invoking the copier, inspect installed source provenance and committed customization/owner-rule differences under PHDK_UPGRADE.md. A clean worktree is not proof that committed owner overrides are absent. The helper detects uncommitted conflicts but cannot establish ownership or preserve unknown committed exceptions by itself; resolve those differences conservatively or report the exact conflict before copying. Do not silently force replacement.
 
 ## Purpose
 
@@ -44,7 +46,7 @@ Run Preflight before:
 - Developer Mode tasks
 - other future PHDK lifecycle commands
 
-`PHDK upgrade` and `PHDK upgrade force` run the installation/version portions of Preflight as part of their own synchronization contract.
+`PHDK upgrade` and `PHDK upgrade force` run installation/version checks and the Stack Security Review under their own contract, even when the installed version is already current. Use the updater's `--trigger upgrade` flag if invoking that helper; do not run the same adoption review twice.
 
 ## User override
 
@@ -71,7 +73,7 @@ For explicit `PHDK auto` or `PHDK auto force`, read `PHDK_AUTO_CONTINUITY.md` an
 
 AUTO FORCE sets PHDK-only human reviews/sign-offs to `NON_BLOCKING_BY_MODE` immediately. Preflight must not query reviews, reviewer availability or branch/ruleset protection configuration to discover whether those human gates block. Proceed with the assistant's diff review, applicable scoped checks and the normal authorized delivery attempt; real current owner/host restrictions still apply. Missing optional review skills are non-blocking.
 
-Mandatory local suites/hooks are included in the scoped implementation authorization, including `pnpm test` when required. A real tool/hook/GitHub rejection is reported, diagnosed, repaired in scope, revalidated and retried under the continuity contract. Only then investigate the concrete rejected action as needed; do not stop merely because a first attempt failed. Keep independent work moving without changing controls, transports or credentials to evade rejection.
+Mandatory hooks remain binding, but execution is limited to permitted static checks under PHDK_PRODUCTION_VERIFICATION.md. Inspect nested scripts; a hook demanding local behavioral tests is a concrete conflict to reconcile under PHDK_HOOK_COMPATIBILITY.md or report BLOCKED, never permission to execute the tests or bypass the hook. A real tool/hook/GitHub rejection is reported, diagnosed, repaired in scope, revalidated and retried under the continuity contract. Only then investigate the concrete rejected action as needed; do not stop merely because a first attempt failed. Keep independent work moving without changing controls, transports or credentials to evade rejection.
 
 ## Step 1 — Verify PHDK installation
 
@@ -102,7 +104,7 @@ Compare canonical vs installed version.
 
 ### Current
 
-If versions match, continue.
+If versions match, continue using current evidence. Ordinary Preflight does not repeat a full stack review solely because it compared versions; explicit Upgrade still refreshes the review, and material stack/advisory changes invalidate affected evidence.
 
 ### Installed version is older
 
@@ -115,7 +117,8 @@ This automatic preflight synchronization:
 - changes only the PHDK-owned synchronization surface defined in `PHDK_UPGRADE.md`;
 - does not authorize product changes by itself;
 - does not push/merge/deploy solely because of the sync;
-- must preserve unrelated repository changes.
+- must preserve unrelated repository changes;
+- after actual adoption of a new version, completes the bounded read-only Stack Security Review once, then reuses valid evidence at unchanged stages. First or pre-versioned installation also requires this adoption review; a failed sync or same-version integrity repair alone does not.
 
 If dirty local edits in the PHDK-owned surface would be overwritten, do not discard them. Report the paths and continue only when the installed version remains capable of safely executing the command. If current semantics are required, instruct the owner to use `PHDK upgrade force` or explicitly resolve the PHDK-local changes.
 
@@ -311,7 +314,7 @@ When Preflight is part of Capture/Plan/PMO/Auto/UAT/UAT Fix/Check or another lif
 PHDK_PREFLIGHT_REPORT.md
 ```
 
-with the installed/canonical version, manifest/managed-rule state, relevant capability inventory, user-disabled capabilities, any conservative sync performed, and unresolved limitations. For Auto variants, link the run's `AUTO_STATE.json` and identify the actual mode; the report records authorization provenance without granting permission itself.
+with the installed/canonical version, manifest/managed-rule state, relevant capability inventory, user-disabled capabilities, any conservative sync performed, and unresolved limitations. When review is triggered, include STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS or link the current shared evidence. These outcomes remain independent; incomplete runtime coverage and source/main versus deployed SHA differences must stay visible. For Auto variants, link the run's `AUTO_STATE.json` and identify the actual mode; the report records authorization provenance without granting permission itself.
 
 When a lifecycle run is active, snapshot it under the run's `00-preflight/` folder and create the Preflight `HANDOFF.md` required by `PHDK_LIFECYCLE.md`.
 

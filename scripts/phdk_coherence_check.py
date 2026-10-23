@@ -17,6 +17,11 @@ releases = re.findall(r"^## v(\d+\.\d+\.\d+)\b", changelog, re.M)
 if not releases or releases[0] != version:
     errors.append("newest CHANGELOG version mismatch")
 sources, destinations = set(), set()
+source_destinations = {}
+# The canonical checkout uses manifest source paths. The documented installed
+# layout uses destination paths, including uppercase aliases such as
+# TECHNICAL_STACK.md; do not report those valid mappings as missing sources.
+vendored_layout = root.name == "phdk-standards"
 for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8").splitlines(), 1):
     line = raw.strip()
     if not line or line.startswith("#"):
@@ -26,26 +31,43 @@ for n, raw in enumerate((root / "PHDK_MANIFEST.txt").read_text(encoding="utf-8")
         errors.append(f"manifest line {n}: malformed")
         continue
     src, dst = p
+    safe = True
     for path in p:
-        if Path(path).is_absolute() or ".." in Path(path).parts:
+        if (Path(path).is_absolute() or ".." in Path(path).parts
+                or "\\" in path or "\x00" in path or path == "."):
             errors.append(f"manifest line {n}: unsafe path")
+            safe = False
+    if not safe:
+        continue
     if src in sources or dst in destinations:
         errors.append(f"manifest line {n}: duplicate")
     sources.add(src)
     destinations.add(dst)
-    if not (root / src).is_file():
-        errors.append(f"manifest line {n}: missing {src}")
+    source_destinations[src] = dst
+    expected = dst if vendored_layout else src
+    candidate = root / expected
+    if not candidate.resolve().is_relative_to(root.resolve()):
+        errors.append(f"manifest line {n}: path escapes standards root")
+    elif not candidate.is_file():
+        errors.append(f"manifest line {n}: missing {expected}")
+
+
+def policy_path(source):
+    """Resolve a known canonical policy name in either supported layout."""
+    return root / (source_destinations.get(source, source) if vendored_layout else source)
+
+
 for mandatory in ["VERSION", "README.md", "CHANGELOG.md", "AGENTS.md", "PHDK_PREFLIGHT.md", "PHDK_COHERENCE_STANDARD.md", "PHDK_EVOLUTION_STANDARD.md", "CHANGE_MANAGEMENT.md", "scripts/phdk_coherence_check.py", "PHDK_AUTO_CONTINUITY.md", "scripts/phdk_auto_gate.py", "PHDK_DESIGN.md", "SKILL.md", "PHDK_NATIVE_RULES.md", "UAT_STANDARD.md", "PHDK_UAT_PREP.md", "EXECUTION_SCOPE.md", "MAIN_DELIVERY_STANDARD.md", "TASK_TRACKING_STANDARD.md", "PHDK_PLAN.md"]:
     if mandatory not in sources:
         errors.append(f"manifest lacks {mandatory}")
 for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "CHANGE_MANAGEMENT.md", "SKILL.md"]:
-    file = root / entrypoint
+    file = policy_path(entrypoint)
     if not file.is_file() or "PHDK_EVOLUTION_STANDARD.md" not in file.read_text(encoding="utf-8"):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
 
 # A policy header before YAML front matter prevents this entrypoint from
 # retaining the conventional skill metadata structure.
-skill_file = root / "SKILL.md"
+skill_file = policy_path("SKILL.md")
 if skill_file.is_file() and not skill_file.read_text(encoding="utf-8").startswith("---\n"):
     errors.append("SKILL.md metadata must remain the first front-matter block")
 
@@ -71,7 +93,7 @@ required_transition_sections = {
     ]),
 }
 for filename, (heading, markers) in required_transition_sections.items():
-    file = root / filename
+    file = policy_path(filename)
     if not file.is_file():
         errors.append(f"missing phase-transition contract file {filename}")
         continue
@@ -84,16 +106,59 @@ for filename, (heading, markers) in required_transition_sections.items():
         if marker not in section.group(1):
             errors.append(f"{filename} section {heading} missing {marker}")
 for entrypoint in ["README.md", "AGENTS.md", "SKILL.md", "PHDK_AUTO_CONTINUITY.md"]:
-    file = root / entrypoint
+    file = policy_path(entrypoint)
     if not file.is_file() or transition_reference not in file.read_text(encoding="utf-8"):
         errors.append(f"{entrypoint} missing phase-transition routing")
+
+# Stack review routing is an instruction contract, not an advisory scanner.
+# These guards never establish security clearance or deployed-version evidence.
+stack_reference = "PHDK_SECURE.md#stack-security-review"
+stack_outcomes = ["STANDARDS_SYNC", "STACK_REVIEW_COVERAGE", "STACK_SECURITY_STATUS"]
+for mandatory in ["PHDK_SECURE.md", "PHDK_UPGRADE.md", "PHDK_CHECK.md",
+                  "PHDK_CENTRAL_UPDATE.md", "technical_stack.md", "scripts/phdk_update.py"]:
+    if mandatory not in sources:
+        errors.append(f"manifest lacks stack review dependency {mandatory}")
+for entrypoint in ["PHDK_UPGRADE.md", "PHDK_PREFLIGHT.md", "PHDK_PLAN.md",
+                   "PHDK_CHECK.md", "PHDK_CENTRAL_UPDATE.md", "README.md",
+                   "AGENTS.md", "SKILL.md", "PHDK_NATIVE_RULES.md",
+                   "EXECUTION_SCOPE.md", "MAIN_DELIVERY_STANDARD.md", "PHDK_AUTO.md"]:
+    file = policy_path(entrypoint)
+    if not file.is_file() or stack_reference not in file.read_text(encoding="utf-8"):
+        errors.append(f"{entrypoint} missing Stack Security Review routing")
+
+secure_file = policy_path("PHDK_SECURE.md")
+if secure_file.is_file():
+    secure = secure_file.read_text(encoding="utf-8")
+    stack = re.search(r"^## Stack Security Review\s*\n(.*?)(?=^#{1,2}\s|\Z)",
+                      secure, re.M | re.S)
+    if stack is None:
+        errors.append("PHDK_SECURE.md missing canonical Stack Security Review section")
+    else:
+        for marker in stack_outcomes + ["PHDK upgrade", "PHDK upgrade force", "UNVERIFIED"]:
+            if marker not in stack.group(1):
+                errors.append(f"Stack Security Review missing contract marker {marker}")
+        for term in ["declared", "resolved", "build", "deployed", "official"]:
+            if not re.search(r"\b" + term + r"\b", stack.group(1), re.I):
+                errors.append(f"Stack Security Review missing {term} evidence distinction")
+    for marker in ["Active LTS", "Maintenance LTS"]:
+        if marker not in secure:
+            errors.append(f"PHDK_SECURE.md missing supported runtime selection {marker}")
+
+upgrade_file = policy_path("PHDK_UPGRADE.md")
+if upgrade_file.is_file():
+    upgrade = upgrade_file.read_text(encoding="utf-8")
+    for marker in stack_outcomes:
+        if marker not in upgrade:
+            errors.append(f"PHDK_UPGRADE.md missing independent outcome {marker}")
+    if not re.search(r"\b(?:no-op|already current|versions? match)\b", upgrade, re.I):
+        errors.append("PHDK_UPGRADE.md missing explicit no-op review trigger")
 
 # Design routing guards are source-level signals, never evidence of an owner
 # decision, rendered preview, actual execution, or downstream adoption.
 for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "SKILL.md",
                    "PHDK_PLAN.md", "PHDK_LIFECYCLE.md", "PHDK_AUTO.md",
                    "PHDK_AUTO_CONTINUITY.md", "PHDK_UX_UI.md"]:
-    file = root / entrypoint
+    file = policy_path(entrypoint)
     if not file.is_file() or "PHDK_DESIGN.md" not in file.read_text(encoding="utf-8"):
         errors.append(f"{entrypoint} missing Design stage routing")
 required_design_markers = {
@@ -106,7 +171,7 @@ required_design_markers = {
     "scripts/phdk_auto_gate.py": ["design_choice", "AGENT_SELECTED_AUTO_FORCE", "DESIGN_AWAITING_OWNER"],
 }
 for filename, markers in required_design_markers.items():
-    file = root / filename
+    file = policy_path(filename)
     if not file.is_file():
         errors.append(f"missing Design contract file {filename}")
         continue
@@ -114,7 +179,7 @@ for filename, markers in required_design_markers.items():
     for marker in markers:
         if marker not in body:
             errors.append(f"{filename} missing Design marker {marker}")
-ux_file = root / "PHDK_UX_UI.md"
+ux_file = policy_path("PHDK_UX_UI.md")
 if ux_file.is_file() and "No new independent stage is required" in ux_file.read_text(encoding="utf-8"):
     errors.append("PHDK_UX_UI.md retains obsolete no-independent-Design-stage wording")
 
@@ -132,7 +197,7 @@ required_uat_markers = {
                           "DEFERRED — OWNER OPT-IN", "UAT NOT RUN"],
 }
 for filename, markers in required_uat_markers.items():
-    file = root / filename
+    file = policy_path(filename)
     if not file.is_file():
         errors.append(f"missing explicit-UAT contract file {filename}")
         continue
@@ -143,7 +208,7 @@ for filename, markers in required_uat_markers.items():
     if "explicit" not in body.lower():
         errors.append(f"{filename} missing explicit UAT authorization routing")
 
-native_file = root / "PHDK_NATIVE_RULES.md"
+native_file = policy_path("PHDK_NATIVE_RULES.md")
 if native_file.is_file():
     native = native_file.read_text(encoding="utf-8")
     managed = re.search(r"<!-- PHDK-MANAGED:START -->(.*?)<!-- PHDK-MANAGED:END -->",
@@ -153,11 +218,11 @@ if native_file.is_file():
     else:
         for marker in ["PHDK auto", "PHDK auto force", "PHDK uat", "PHDK uat prep",
                        "PHDK uat fix", "DEFERRED — OWNER OPT-IN", "UAT NOT RUN",
-                       transition_reference]:
+                       transition_reference, stack_reference]:
             if marker not in managed.group(1):
                 errors.append(f"PHDK_NATIVE_RULES.md managed block missing {marker}")
 
-auto_file = root / "PHDK_AUTO.md"
+auto_file = policy_path("PHDK_AUTO.md")
 if auto_file.is_file():
     auto = auto_file.read_text(encoding="utf-8")
     rows = re.findall(r"^\s*(UAT Prep|UAT Fix|UAT)\s*\.{2,}\s*(.*?)\s*$", auto, re.M)
@@ -187,9 +252,16 @@ legacy_auto_uat_patterns = [
     re.compile(r"Then: reuse/run Capture, Plan, Design, PMO/workstream execution, Integration Review, UAT Prep", re.I),
     re.compile(r"Run \*\*SEO after UAT and UAT Fix and before Check\*\* in `PHDK auto`", re.I),
 ]
+legacy_stack_patterns = [
+    re.compile(r"\bNode minimum:\s*(?:18|20)\.x\b", re.I),
+    re.compile(r"\b(?:retains|keeps) its synchronization-only contract\b", re.I),
+    re.compile(r"\ba bare sync does not start that investigation\b", re.I),
+    re.compile(r"\ba bare `PHDK upgrade` still authorizes only its sync\b", re.I),
+    re.compile(r"including `pnpm test` when required", re.I),
+]
 active_policy_paths = set(root.glob("*.md"))
 active_policy_paths.update(
-    root / source for source in sources
+    policy_path(source) for source in sources
     if source.endswith(".md") and not Path(source).is_absolute()
     and ".." not in Path(source).parts
 )
@@ -207,6 +279,8 @@ for path in sorted(active_policy_paths):
     for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if any(pattern.search(line) for pattern in legacy_auto_uat_patterns):
             errors.append(f"{relative}:{lineno}: obsolete automatic UAT directive")
+        if any(pattern.search(line) for pattern in legacy_stack_patterns):
+            errors.append(f"{relative}:{lineno}: obsolete stack review or verification directive")
 
 # Guard against reintroducing the deprecated PMO-only task-delegation prohibition.
 # Scan active Markdown instructions only; archival CHANGELOG/ORIGINALS are historical.
@@ -224,7 +298,7 @@ for path in root.rglob("*.md"):
     for lineno, line in enumerate(body.splitlines(), 1):
         if any(pattern.search(line) for pattern in legacy_delegation_patterns):
             errors.append(f"{path.relative_to(root)}:{lineno}: deprecated PMO-only delegation rule")
-if not (root / "PHDK_INTELLIGENT_EXECUTION.md").is_file():
+if not policy_path("PHDK_INTELLIGENT_EXECUTION.md").is_file():
     errors.append("missing universal intelligent execution contract")
 
 if errors:
