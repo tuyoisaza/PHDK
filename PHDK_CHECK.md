@@ -199,6 +199,10 @@ After explicit approval in the same conversation, an explicit fix variant, or fo
 
 Do not fix genuine DECISION REQUIRED or EXTERNAL / MANUAL items merely because they appeared in the same report. In FORCE, first resolve routine missing definitions under the rule above; for a remaining indispensable decision, present the concrete recommendation and impact rather than a blank request to define behavior, after continuing independent work.
 
+## Stack review evidence
+
+Consume and revalidate the [Stack Security Review](PHDK_SECURE.md#stack-security-review) from Upgrade, Preflight adoption, Plan or Secure. Check its repository/input hashes, deployment identifiers, advisory/support dates and scope; refresh affected stale evidence, not every unchanged component. Reuse STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS and classify findings with this Check report's existing severities/remediation categories. A sync success or zero package advisories cannot prove runtime/image/data-engine security. Record missing access and deployed-version evidence as UNVERIFIED. Bare Check remains audit-only; Check Fix and existing current remediation authorization keep their stated write/delivery limits.
+
 ## Relationship to other commands
 
 - **`PHDK PMO`** coordinates owner-confirmed workstreams and integrated delivery; Check is not a workstream detector or PMO replacement.
@@ -207,7 +211,7 @@ Do not fix genuine DECISION REQUIRED or EXTERNAL / MANUAL items merely because t
 - **`PHDK auto`** runs the authorized development/delivery lifecycle and includes final non-UAT Check plus automatic remediation of in-scope AUTO-FIXABLE / FIXABLE WITH VALIDATION findings. It excludes Prep/UAT/Fix.
 - **`PHDK uat`** validates intent-aligned user acceptance behavior; it can provide evidence for check findings but does not replace the broader standards audit.
 - **`PHDK unlock`** reconciles PHDK-related blockers; it is not a general compliance audit.
-- **`PHDK upgrade`** synchronizes PHDK standards; it does not by itself remediate the repository to match them.
+- **`PHDK upgrade`** synchronizes PHDK standards and performs the bounded read-only Stack Security Review; it does not by itself remediate the repository or patch product vulnerabilities.
 - **Developer Mode** remains a narrow direct-main mode for eligible small changes and does not bypass the check audit/approval split.
 
 ## Lifecycle handoff

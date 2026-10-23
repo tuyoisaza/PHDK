@@ -1,14 +1,40 @@
-## v2.63.3 — 2026-10-23
+## v2.65.2 — 2026-10-23
 
 ### Resolve build and hook ambiguity before asking
 - Add an ordered decision procedure to the existing hook standard and route native managed instructions, agent/skill entrypoints, Auto, verification and delivery through it before execution, BLOCKED or a user question.
 - Distinguish permitted compiler/static tooling from import/require load checks of compiled application/API modules, including checks with networking/listeners disabled. Classify mixed command chains and provenance before choosing a correction.
 - Repair only authorized proven PHDK-managed local invocations, retain runtime source and disclose NOT RUN coverage. Preserve independent owner/external/unknown controls and their required ordering; prepare concrete unresolved decisions without local-runtime exception prompts or duplicate approvals.
 - Reconcile older local-suite instructions in enforcement and verification with production-first policy. No automatic UAT, new CI, provider change or infrastructure route is introduced.
-- Add bounded static guards for on-demand routing, the installed managed block, manifest dependencies and six decision scenarios. Keep VERSION, README and CHANGELOG synchronized.
+- Add bounded static guards for on-demand routing, the installed managed block, manifest dependencies and six decision scenarios. Keep VERSION, README and CHANGELOG synchronized. Integrate on v2.65.1 while preserving Stack Security Review and canonical/vendored static-check compatibility.
 
 ### Verification limits
 - Static source checks and independent review are recorded in the release checkpoint. The scenarios document expected decisions; no local behavioral tests, downstream agent execution, UAT or project upgrade is claimed.
+
+## v2.65.1 — 2026-10-23
+
+### Preserve downstream static-hook compatibility
+- Format the six manifest-owned Python helpers with Ruff 0.7.0 and split the updater's grouped import into identical-order individual imports. This is a mechanical source correction: command contracts, review obligations, permissions and runtime behavior are unchanged.
+- Preserve the README hard line break using Markdown backslash syntax, remove one redundant EOF newline from each of the design guide and the oldest changelog archive, and retain the historical text.
+- Keep the 78 source/destination manifest mappings and exact-copy distribution contract unchanged. Existing downstream Ruff and source-hygiene checks remain enabled; no hook, configuration or vendored exception is introduced.
+
+### Static verification and limits
+- Formatting preserves the exact AST for all six helpers. The subsequent updater import split is the only structural AST difference; import order and the rest of its AST are identical. Static compilation with normalized source positions produces equivalent code for all six helpers; no helper behavior or application tests are executed for this comparison.
+- Record pinned Ruff/source-hygiene, canonical and installed-layout coherence, manifest, version and outgoing-source checks in `PHDK_COHERENCE_REPORT.md`. Source publication and downstream adoption require separate verification.
+
+## v2.65.0 — 2026-10-23
+
+### Stack security review on upgrade
+- Require a bounded read-only Stack Security Review for every explicit Upgrade/Force, including no-op synchronization, and once when foreground Preflight actually adopts a new canonical version.
+- Reuse Secure as the canonical evidence contract for all workspace/service roles: distinguish declared, resolved, build and observed deployed versions; review current official advisories, support/EOL, dependency/native compatibility, images and data engines.
+- Report standards synchronization, review coverage and security findings independently. A successful vendor update cannot clear product vulnerabilities; findings do not prevent safer standards from being delivered.
+- Replace the stale Node 20 minimum with supported, security-patched LTS selection. Prefer compatible Active LTS for new projects, allow a documented supported Maintenance LTS fallback, and recommend patches within existing supported majors before migration.
+- Route Upgrade, Preflight, Plan, Check, execution/delivery and native agent entrypoints coherently. The foreground updater exposes pending review obligations without pretending to execute a security scan. Static coherence checks understand canonical and vendored manifest destinations.
+- Reconcile touched legacy local-test instructions with production-first verification. Preserve owner customizations, actual controls, explicit-only UAT and separately authorized remediation/delivery.
+
+### Verification and adoption
+- Source/diff, Python syntax, manifest/native-block and static coherence verification are required; no local behavioral tests, Docker, UAT, new scanners, hosted workflow dispatch or provider mutations are introduced.
+- This release does not claim every project is updated or its application dependencies patched. Downstream adoption and security evidence must be verified per repository.
+- v2.64.0 was already proposed by the independent encryption/KMS PR when this release was prepared; its unmerged changes are not included.
 
 ## v2.63.2 — 2026-10-23
 

@@ -1,6 +1,6 @@
-# PHDK coherence report — v2.63.3
+# PHDK coherence report — v2.65.2
 
-Baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Review date: 2026-10-23. Scope: the owner-approved build/packaging/hook decision procedure, its active routing and bounded static guards; not an exhaustive audit of PHDK or a downstream runtime investigation.
+Integration baseline: `d4ed10e96f5fd05ebeaa38a664442d7d10d6cf86` / v2.65.1. Main advanced while PR #81 was being opened; its Stack Security Review, formatting and vendored-layout corrections are retained. The initial unpublished v2.63.3 candidate used `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Review date: 2026-10-23. Scope: the owner-approved build/packaging/hook decision procedure, its active routing and bounded static guards; not an exhaustive audit of PHDK or a downstream runtime investigation.
 
 ## Findings and resolution
 
@@ -14,14 +14,74 @@ Baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Review date: 202
 
 ## Verification and limits
 
-- All 105 baseline file contents and modes were checked against canonical Git objects; the local baseline tree matches `bb3edda210289d1e2697918659cbb92395feb08b`.
-- `python scripts/phdk_coherence_check.py`: PASS, v2.63.3, 78 manifest mappings; static source checks only. Guards include routing, the installed managed block, scenario presence, vendored dependencies and six known obsolete local-runtime directives.
-- Changed Python AST, 58 changed relative Markdown references including anchors, and `git diff --check`: PASS.
+- All 105 original v2.63.2 baseline file contents and modes were checked against canonical Git objects; the local baseline tree matches `bb3edda210289d1e2697918659cbb92395feb08b`.
+- `python scripts/phdk_coherence_check.py`: PASS for integrated v2.65.2 with 78 manifest mappings in both the canonical checkout and an exact manifest copy using the installed `phdk-standards/` layout. All 78 copied mappings were byte-compared. These are static source checks only. Guards include routing, the installed managed block, scenario presence, vendored dependencies and six known obsolete local-runtime directives.
+- Integrated Python AST, all 58 changed relative Markdown references including anchors, and `git diff origin/main --check`: PASS. The completion verifier is byte-identical to the v2.65.1 integration baseline. Ruff is not installed in this environment; no Ruff result is claimed.
 - The full source change and six HC-* decision scenarios received source review. Independent authorization/ordering/routing/checker findings were corrected and re-reviewed without behavioral execution.
 
 Static checks do not prove script safety, actual agent decisions, runtime behavior or downstream adoption. No unit/in-process/behavioral suites, Docker, UAT, provider operation or downstream upgrade was run. Existing manifest mappings are sufficient; no new standard, command or distribution dependency is introduced.
 
-This is a prepublication source checkpoint. Actual branch/PR/merge, remote main content/version/SHA and the unchanged completion verifier are recorded after those operations. Earlier reports follow as historical evidence.
+This is a prepublication source checkpoint. Actual branch/PR/merge, remote main content/version/SHA and the result of the upstream completion verifier (unmodified by this correction) are recorded after those operations. Earlier reports follow as historical evidence.
+
+---
+
+# PHDK coherence report — v2.65.1
+
+Date: 2026-10-23. Baseline: published canonical `9fc6605c75b42e678bab41feb741dca71fcbabcc` / v2.65.0, freshly read from remote main. Scope: the mechanical source correction needed to satisfy an existing downstream Ruff 0.7.0 and pre-commit-hooks 5.0.0 gate during the authorized standards vendoring. All 105 original source files were hash-verified and retained before edits. This is a PATCH candidate; no policy or command behavior changes.
+
+## Findings and resolutions
+
+| Category / severity | Verified issue | Candidate resolution |
+|---|---|---|
+| DEFECT / Low | All six vendored Python helpers fail the existing Ruff 0.7.0 formatter check. | Apply that pinned formatter to the six canonical source helpers; retain their ASTs. |
+| DEFECT / Low | `scripts/phdk_update.py` reports Ruff E401 for one seven-module import statement. | Split the statement into seven imports in exactly the original order; all other AST nodes remain identical. |
+| DEFECT / Low | The README uses a trailing-space Markdown hard break rejected by the existing whitespace hook. | Preserve the hard break with equivalent Markdown backslash syntax. |
+| DEFECT / Low | The design guide and oldest changelog archive each contain one redundant final newline. | Remove exactly one final newline from each; preserve every historical text byte preceding it. |
+| VERIFIED | Source fixes can satisfy the existing checks without downstream exemptions. | Keep the downstream hooks, all 78 manifest mappings and the exact-copy contract unchanged. |
+
+## Static evidence
+
+- Ruff **0.7.0** `check` and `format --check`: **PASS** for `phdk_auto_gate.py`, `phdk_automation_audit.py`, `phdk_coherence_check.py`, `phdk_completion_gate.py`, `phdk_theme_audit.py` and `phdk_update.py` under `scripts/`.
+- Exact AST comparison before/after formatting: **PASS for all six** Python helpers. After the separate E401 repair, five final ASTs remain exact. The updater's only structural difference is one grouped import becoming seven single-name imports, with the same names, aliases and order; normalizing only that grouping yields exact AST equality.
+- Static compilation, without execution: all six compiled-code structures are identical after source-position normalization. This comparison includes opcode bytes, constants, nested code, names, variables, argument/closure metadata, flags, stack size and exception tables. Source-position normalization avoids treating formatter-induced line/debug positions as behavior changes.
+- Pinned **pre-commit-hooks 5.0.0** whitespace, EOF, merge-conflict-marker and private-key checks: **PASS** over all 78 canonical manifest sources plus the two current reports. YAML validation is **NOT APPLICABLE** because none of these source paths is YAML. The exact hook content functions are applied read-only; input bytes remain unchanged.
+- `python3 scripts/phdk_coherence_check.py`: **PASS**, v2.65.1 and 78 mappings. The same checker also passes in a separately materialized `phdk-standards/` layout whose 78 destination files are byte-equal to their canonical sources.
+- VERSION, README release marker and newest CHANGELOG entry agree on **2.65.1**. The manifest remains byte-identical to the published v2.65.0 manifest. The complete source delta is confined to formatting, the E401 import grouping, release metadata and these verification checkpoints.
+
+## Verification limits and delivery
+
+No application behavior, helper behavioral suite, database, server, Docker, UAT, provider action or hosted workflow was executed. Static equivalence is source evidence, not deployed-runtime or security clearance. The patch does not change Stack Security Review triggers, pending-review output, supported Node selection, authorization or owner-override handling.
+
+The prepared candidate is not a published release. The primary agent must review its exact delta, satisfy actual release controls, publish through the authorized branch/PR route, and read back remote main before updating downstream copies. Original v2.65.0 files and expected blob hashes are retained for incremental downstream preparation. Existing downstream application gates and their unrelated blockers remain separate.
+
+Previous reports follow as historical evidence.
+
+---
+
+# PHDK coherence report — v2.65.0
+
+Date: 2026-10-23. Baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Scope: implement the owner-approved stack-security review proposal and prepare downstream vendoring. This is a focused canonical source audit, not application security clearance.
+
+## Findings and resolutions
+
+| Category / severity | Verified issue | Candidate resolution |
+|---|---|---|
+| GAP / High | Upgrade only synchronized standards; no actual-stack review even at no-op. | Secure owns the bounded review; explicit Upgrade/Force always requests it and actual new-version Preflight adoption requests it once. |
+| CONFLICT / High | Node minimum 20 conflicts with supported patched-runtime selection; Active-LTS-only rule lacks a supported fallback. | Supported patched LTS, ordinary compatible Maintenance fallback, current official per-major security floors in dated evidence and explicit compatibility work for EOL/major migration. |
+| GAP / High | Source declarations, build logs and running versions can be confused. | Separate declared/resolved/build/deployed evidence, source versus deployed SHA and independent sync/coverage/security outcomes. |
+| DEFECT / Medium | Static checker used canonical source names inside vendor installs with renamed destinations. | Resolve mapped destination files in the installed layout; validate safe unique mappings and paths. |
+| CONFLICT / Medium | Touched Preflight/stack/verification guidance allowed local runtime suites despite production-first rules. | Align bounded static verification and actual-hook conflict handling without bypasses or local test execution. |
+| LIMIT / Medium | Conservative copier cannot infer committed owner exceptions from a clean worktree. | Require provenance/customization inspection before the helper; manual ownership-aware reconciliation remains necessary. |
+
+## Source-reviewed cases
+
+Explicit current/no-op/newer-local/blocked-sync cases retain independent review obligations. Preflight compares without a full repeated audit when no new version is adopted; adoption and material stack changes invalidate affected evidence. Helper PENDING/UNVERIFIED is not an audit pass. Standards-only publication remains separate from application clearance and does not authorize product fixes, provider writes, UAT, spending or background work.
+
+## Verification
+
+Static coherence: candidate v2.65.0 with 78 manifest mappings. Python AST, whitespace/diff, manifest hashes, managed routing and independent semantic review cover the changed source. Canonical and vendored-layout results are retained in final delivery evidence. No local behavioral tests, Docker, application builds, provider mutations or UAT form part of this canonical change. Static guards do not prove deployed security or future agent compliance.
+
+This is a prepublication checkpoint. Actual PR/merge, remote main SHA/version/content and downstream adoption must be read back after delivery. Source AI-authorship percentages are not determinable from available metadata. Previous reports follow as historical evidence.
 
 ---
 

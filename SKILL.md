@@ -166,16 +166,17 @@ Follow `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics` for a c
 
 For exact `PHDK upgrade` or `PHDK upgrade force` (case-insensitive after trimming whitespace):
 
-- Bare `PHDK upgrade` preserves local edits/conflicts inside the PHDK-owned surface and stops rather than overwriting them.
+- Bare `PHDK upgrade` preserves local edits/conflicts inside the PHDK-owned surface and stops conflicting writes while continuing independent permitted review.
 - `PHDK upgrade force` authorizes replacement only of the PHDK-owned surface from canonical upstream: manifest-owned `phdk-standards/` files plus exact `PHDK-MANAGED` blocks. It may discard dirty edits there and remove obsolete previously manifest-owned standards files.
 - Force preserves all non-PHDK source/docs/config, owner instructions outside managed markers, hooks/settings, and unknown extra files.
 
 1. Fetch current canonical PHDK `main` and read `VERSION` and upgrade instructions.
 2. Follow `PHDK_UPGRADE.md` within the current request. Preserve dirty work and genuine owner overrides in a bare sync; apply any explicit current request to remove/reconcile local PHDK exceptions through `PHDK_UNLOCK.md`.
 3. Synchronize manifest-controlled standards and the current tool's managed rule block.
-4. Verify source copy, report, and stop. Do not continue into product work or schedule a later upgrade.
+4. Perform the bounded read-only [Stack Security Review](PHDK_SECURE.md#stack-security-review), including no-op/newer-local cases. Actual Preflight version adoption also requires it once; reuse current evidence at unchanged stages. Report STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS separately; pending helper output is not a completed audit.
+5. Verify source copy and review evidence, report, and stop. Do not continue into product work or schedule a later upgrade.
 
-The exact command authorizes sync, not a push/merge, deployment, workflow run, or external administration. A current instruction explicitly requesting git delivery supplies that additional permission.
+The exact command authorizes standards synchronization and read-only review, not a push/merge, deployment, workflow run, or external administration. A current instruction explicitly requesting git delivery supplies that additional permission.
 
 ## Skill updates
 

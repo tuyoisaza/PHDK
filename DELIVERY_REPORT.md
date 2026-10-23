@@ -1,24 +1,24 @@
-# PHDK delivery checkpoint — v2.63.3
+# PHDK delivery checkpoint — v2.65.2
 
-Recorded: 2026-10-23. This source checkpoint precedes publication and does not claim a merged PR.
+Recorded: 2026-10-23. This integration checkpoint precedes merge and does not claim a published v2.65.2.
 
 ## Scope and authority
 
 The owner said "implementa" after reviewing the proposed mandatory hook decision procedure and routing correction. This authorizes the described policy correction and its normal versioned branch/PR delivery. It does not authorize changing a downstream hook, running local behavioral tests, starting UAT or operating infrastructure.
 
-Baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Candidate: `fix/v2.63.3-hook-decision-routing` / v2.63.3. Release category: PATCH, clarifying and consistently applying existing production-first/hook-compatibility rules.
+Integration baseline: `d4ed10e96f5fd05ebeaa38a664442d7d10d6cf86` / v2.65.1. Main advanced while PR #81 was being opened; the new stack-review and source-formatting changes are preserved. Candidate: v2.65.2 on `fix/v2.63.3-hook-decision-routing`; the branch name and its initial unpublished source commit predate that advance. Release category: PATCH, clarifying and consistently applying existing production-first/hook-compatibility rules.
 
 ## Prepublication evidence
 
 | Delivery field | Observed at this checkpoint |
 |---|---|
-| VERSION_BUMP | PASS — candidate VERSION, README and newest CHANGELOG agree on v2.63.3 against fresh baseline v2.63.2; recheck remote main before final publication. |
-| COMMIT_PREFIX | NOT YET EXECUTED — source and integration subjects must begin with v2.63.3; verify actual GitHub records. |
-| PUSH_AND_PR | NOT YET EXECUTED — normal scoped branch/PR/merge to main remains within the current request. |
-| REMOTE_MAIN | NOT YET EXECUTED — fresh remote SHA/version/content readback and the unchanged completion verifier follow merge. |
-| SCOPE_AND_CHECKS | PASS for the source candidate — static coherence, Python syntax, changed references, whitespace and independent source review; real remote controls remain binding. |
+| VERSION_BUMP | PASS — candidate VERSION, README and newest CHANGELOG agree on v2.65.2 against baseline v2.65.1; recheck remote main before final publication. |
+| COMMIT_PREFIX | PENDING — final integration and squash subjects must begin with v2.65.2; the initial unpublished candidate subject used v2.63.3. |
+| PUSH_AND_PR | IN PROGRESS — scoped branch and PR #81 exist; integrated revision publication and normal merge remain within the current request. |
+| REMOTE_MAIN | NOT YET EXECUTED — final remote SHA/version/content readback and the upstream completion verifier follow merge. |
+| SCOPE_AND_CHECKS | PASS — integrated v2.65.2 canonical/vendored static coherence, 78 byte-compared mappings, Python AST, 58 changed references/anchors and whitespace checks; real remote controls remain binding. |
 
-The source update adds the decision procedure and six policy scenarios, connects active entrypoints including the native managed block, reconciles contradictory local-suite directives, and adds bounded static guards. `python scripts/phdk_coherence_check.py` passed at v2.63.3 with 78 mappings; Python AST, 58 changed relative references/anchors and whitespace checks passed. The optional local version hooks were inspected; metadata and commit prefixes are verified explicitly. The completion verifier is unchanged.
+The source update adds the decision procedure and six policy scenarios, connects active entrypoints including the native managed block, reconciles contradictory local-suite directives, and adds bounded static guards. The initial v2.63.3 candidate passed coherence with 78 mappings, Python AST, 58 changed relative references/anchors and whitespace checks. Its tree matched the uploaded source exactly. The integrated v2.65.2 candidate also passed coherence in canonical and exact-copy installed layouts, 78 manifest byte comparisons, Python AST, all 58 changed references/anchors and whitespace checks. Ruff is unavailable, so no formatter result is claimed. Optional local version hooks were inspected. The current upstream completion verifier is retained byte-for-byte; this correction does not modify it.
 
 Final branch/PR/commit/main evidence and all five gate dispositions belong in the actual PR publication readback and project-local completion evidence. Do not create a redundant version-only release to restamp this checkpoint.
 
@@ -27,6 +27,51 @@ Final branch/PR/commit/main evidence and all five gate dispositions belong in th
 The supplied screenshot is an incident example, not source evidence of a downstream script's effects or provenance. The six scenarios were reviewed as policy/source, not executed by a downstream agent. No local behavioral suite, Docker, UAT, new CI, provider operation, paid service, background job or downstream project modification was performed. Canonical publication does not upgrade installed projects or reload an already-open agent session.
 
 New text/code in this change was authored by AI agents and reviewed against repository evidence; the AI-authorship percentage of pre-existing sources is not verifiable.
+
+---
+
+# PHDK delivery checkpoint — v2.65.1
+
+Date: 2026-10-23. Current owner mandate: implement, update and vendor the reviewed standards. Published canonical baseline: `9fc6605c75b42e678bab41feb741dca71fcbabcc` / v2.65.0. An actual downstream source hook exposed formatting incompatibilities; this compatible PATCH repairs those canonical source bytes while retaining the existing controls.
+
+## Scope and source checks
+
+Six Python helpers receive Ruff 0.7.0 formatting; the updater's single grouped import is split without reordering. README hard-break syntax and two redundant EOF newlines are corrected. VERSION, README and CHANGELOG identify 2.65.1. No application code, hook configuration, distribution mapping, permission policy or runtime contract is changed.
+
+| Delivery field | Prepublication checkpoint |
+|---|---|
+| VERSION_BUMP | PASS — VERSION/README/newest CHANGELOG agree on 2.65.1. |
+| PINNED_STATIC_HOOKS | PASS — Ruff 0.7.0 check/format and applicable pre-commit-hooks 5.0.0 content checks. |
+| SOURCE_EQUIVALENCE | PASS — exact formatting ASTs; only the explicitly documented equivalent updater import grouping differs in the final AST. Static compiled-code comparison passes with source positions normalized. |
+| DISTRIBUTION | PASS — unchanged 78 mappings; canonical and byte-equal installed-layout coherence pass. |
+| COMMIT_PREFIX | PENDING — authorized source/integration subjects must begin with v2.65.1. |
+| PUSH_AND_PR | PENDING — the primary agent owns review, scoped branch/PR and permitted merge. |
+| REMOTE_MAIN | PENDING — independently read back final SHA, version and changed hashes after publication. |
+| DOWNSTREAM_ADOPTION | PENDING — preserve original 2.65.0 bytes and regenerate exact incremental copies after canonical publication; retain each project's real gates. |
+
+See `PHDK_COHERENCE_REPORT.md` for the actual static checks, AST exception and limits. No behavioral tests, UAT, provider writes, new automation or application remediation form part of this patch. This checkpoint does not claim publication, application security clearance, downstream adoption or deployment. The independent unmerged v2.64.0 encryption/KMS proposal remains outside this patch.
+
+Previous checkpoints follow as historical evidence.
+
+---
+
+# PHDK delivery checkpoint — v2.65.0
+
+Date: 2026-10-23. Owner instruction: implement, update and vendorize the preceding stack-security proposal. Canonical baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Candidate branch: `feature/v2.65.0-stack-security-upgrade`. MINOR adds a compatible command review workflow. The independent unmerged v2.64.0 encryption/KMS proposal is excluded.
+
+## Scope and verified source
+
+Secure owns one reusable Stack Security Review; Upgrade, actual Preflight adoption, Plan, Check and managed entrypoints route to it. Supported Node selection, dated evidence, source/build/deployment distinctions and standards/application clearance separation are explicit. Foreground updater output describes pending review; source guards validate both canonical and installed manifest layouts. Existing owner/host controls, explicit-only UAT and publication boundaries remain binding.
+
+| Delivery field | Prepublication checkpoint |
+|---|---|
+| VERSION_BUMP | PASS — VERSION/README/newest CHANGELOG agree on 2.65.0; fresh target must still be checked before merge. |
+| COMMIT_PREFIX | PENDING — source and integration subjects must begin with v2.65.0. |
+| PUSH_AND_PR | PENDING — scoped branch, PR and permitted merge must be observed. |
+| REMOTE_MAIN | PENDING — read back final SHA, version and changed file hashes after merge. |
+| SCOPE_AND_CHECKS | Source/diff, Python syntax and static coherence reviewed; final evidence records actual checks and publication responses. |
+
+This checkpoint does not claim merge, release/tag, deployment, downstream adoption, repaired application dependencies, runtime security validation or acceptance. No local behavioral tests, Docker, UAT, provider writes or new automation are introduced. Later publication and per-project vendor results are recorded from actual operations; do not create a redundant version-only commit to stamp this checkpoint.
 
 ---
 

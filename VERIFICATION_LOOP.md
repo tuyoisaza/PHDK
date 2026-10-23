@@ -59,6 +59,7 @@ git diff --check
 pnpm typecheck
 pnpm lint
 targeted package build when bundling is affected
+targeted static source/security analysis when risk requires it
 source/static review of risk-triggered test coverage
 ```
 
@@ -74,14 +75,14 @@ pnpm typecheck
 pnpm lint
 pnpm format:check
 pnpm build
-<existing composition command> — only after inspecting that every step is permitted locally
+<existing composition command> — only after verifying all nested effects are permitted static/build checks
 ```
 
-The command list is illustrative: inspect actual scripts and run applicable permitted mandatory gates. Auto and FORCE do not authorize local runtime suites, including Vitest required by pre-push. Apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before executing an ambiguous build/packaging/hook command, declaring BLOCKED or asking the owner. Classify actual effects and provenance; repair only authorized proven PHDK-managed conflicts and preserve independent owner/external/unknown controls. Use finite runs, report unresolved mandatory gates and continue independent permitted work without bypass or a prohibited local-runtime exception.
+The command list is illustrative: inspect actual scripts and preserve every applicable mandatory gate. Under `PHDK_PRODUCTION_VERIFICATION.md`, Auto and FORCE do not authorize local runtime suites, including unit, in-process and integration suites or Vitest required by pre-push. Apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before executing an ambiguous build/packaging/hook command, declaring BLOCKED or asking the owner. Classify actual effects and provenance; repair only authorized proven PHDK-managed conflicts and preserve independent owner/external/unknown controls. Never execute prohibited tests, suppress a failed gate, bypass a hook or request a prohibited local-runtime exception. Run permitted checks with finite bounds, report unresolved mandatory gates and continue independent authorized work.
 
-The verification scripts must stay within `EXECUTION_SCOPE.md` and `PHDK_PRODUCTION_VERIFICATION.md`. Offline/test configuration does not make runtime tests static. Do not execute a local script that runs application/runtime tests, starts a browser, connects to a database or service, uses provider credentials, or deploys. Resolve an incompatible mandatory step through the hook decision procedure and report any remaining verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
+The verification scripts must stay within `EXECUTION_SCOPE.md` and `PHDK_PRODUCTION_VERIFICATION.md`. Use an existing safe static configuration when available; offline or mocked execution does not make runtime tests static. Do not execute a local script that runs application/runtime tests, starts a browser, connects to a database or service, uses provider credentials, or deploys. Resolve an incompatible mandatory step through the hook decision procedure and report any remaining verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
 
-Report permitted checks with their actual results and test-source coverage separately from unexecuted runtime cases; report actual runtime results only when separately authorized and performed. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
+Report permitted static/build commands with their actual results and test-source coverage separately from unexecuted runtime cases. Record prohibited or unexecuted runtime checks as NOT RUN, including any unresolved hook conflict; report actual runtime results only when separately authorized and performed. Missing runtime evidence is not permission to add a service probe, recurring workflow, backup job, dependency bot, or browser harness.
 
 ---
 

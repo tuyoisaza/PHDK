@@ -22,9 +22,11 @@ Every agent must treat this file as the source of truth for technology choices. 
 Package manager:    pnpm
 Build system:       Turborepo
 Language:           TypeScript (strict mode)
-Node minimum:       20.x
+Node runtime:       Supported, security-patched LTS (see PHDK_SECURE.md)
 Formatter:          Prettier
 ```
+
+Runtime selection and review follow [PHDK_SECURE.md](PHDK_SECURE.md#stack-security-review): prefer compatible Active LTS for new projects, with a documented supported Maintenance LTS fallback; patch an existing supported major before recommending a major migration. Reconcile runtime/package-manager declarations, lockfiles, build/image pins and observed deployment versions. A range or build log is not proof of the running patch.
 
 Structure:
 
@@ -115,7 +117,7 @@ Database:           PostgreSQL — all environments
 Migration tool:     Drizzle Kit
 ```
 
-PostgreSQL is the application's supported runtime database. Runtime database infrastructure is an external prerequisite; PHDK implements its schema, migrations, queries, and configuration validation in the repository even when the runtime is not yet available. Do not provision a cloud database, start a local database/container, or replace the runtime database with SQLite. Local verification uses isolated test doubles or in-process adapters and never connects to a real database.
+PostgreSQL is the application's supported runtime database. Runtime database infrastructure is an external prerequisite; PHDK implements its schema, migrations, queries, and configuration validation in the repository even when the runtime is not yet available. Do not provision a cloud database, start a local database/container, or replace the runtime database with SQLite. Local verification is static source, SQL, type and safe-build review under PHDK_PRODUCTION_VERIFICATION.md; do not execute test doubles, in-process adapters or database probes locally.
 
 Configuration is environment-driven:
 
@@ -124,12 +126,12 @@ DATABASE_PROVIDER="postgresql"
 DATABASE_URL="..."
 ```
 
-### Database code and isolated verification
+### Database code and static verification
 
 - Runtime connection values belong to the existing deployment environment; PHDK documents variable names in `.env.example` without retrieving or setting real credentials
 - Never run migrations, queries, seeds, or verification probes against a real dev, staging, or production database from the PHDK agent
-- Review migration SQL and compatibility locally; test query and migration-related application logic with explicit test doubles when risk-triggered coverage is needed
-- Test doubles are confined to verification and must never become a silent production fallback
+- Review migration SQL, queries and compatibility statically; retain necessary test source and acceptance criteria for separately authorized deployed UAT without executing local behavioral tests
+- Test doubles must never become a silent production fallback; their presence does not authorize local runtime execution
 - If runtime `DATABASE_URL` is unset or unreachable, application code must fail clearly rather than fall back to SQLite or an in-memory store — see `QA_CHECKLIST.md` Database
 
 Rules:

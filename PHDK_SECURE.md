@@ -1,4 +1,4 @@
-# PHDK Secure Standard — v2.63.0
+# PHDK Secure Standard
 
 ## Contract
 `PHDK secure` is an explicit standalone security audit-and-authorized-remediation command. In `PHDK auto` and `PHDK auto force`, Secure is mandatory **development work**, not UAT or UAT Prep. Hybrid operation means lightweight security checks at each completed value milestone and a consolidated security gate after integration and before final Check/delivery. Security findings may require reopening implementation. Never interpret Secure as permission for UAT, penetration testing, paid scanning, external provider mutations, local behavioral tests, Docker, new environments or bypassing controls.
@@ -16,9 +16,67 @@ Critical/High confirmed security vulnerabilities block Secure clearance and fina
 At each milestone, record a concise security delta in the milestone handoff. For the consolidated gate, create `docs/phdk/lifecycle/<run-id>/68-secure/HANDOFF.md` and `SECURITY_REPORT.md` with scope, controls matrix, findings, remediation commits, static verification, residual risk, release decision and explicit `RUNTIME SECURITY VALIDATION NOT RUN` where applicable. Record stage in lifecycle status. Standalone Secure audits current state and fixes only within the owner's authorization; read-only invocation must not mutate code.
 
 ## Precedence and integration
-Secure runs after implementation/integration, before final Check and delivery; it never enters stages 45/50/60. This standard supplements existing tenant, production-verification, Check, delivery, Auto and milestone rules. Existing owner/host controls take precedence. Load this file only at the relevant security stage or milestone rather than in every context.
+Secure runs after implementation/integration, before final Check and delivery; it never enters stages 45/50/60. This standard supplements existing tenant, production-verification, Check, delivery, Auto and milestone rules. Existing owner/host controls take precedence. Load this file at a relevant security stage, stack-review trigger or milestone; reuse its compact evidence in later unchanged stages.
 
 ## Mandatory Node.js runtime and npm supply-chain profile
-For every new Node.js project, Plan MUST select the latest security-patched **Active LTS** line compatible with the entire chosen framework, package manager, native addons, database drivers, build tooling and hosting platform. Do not select Current solely because its version number is higher. Verify the actual current Node.js release/security schedule from official sources at planning time; never hard-code a supposedly latest patch release in this standard. Pin the selected major/runtime in package `engines`, package-manager configuration and deployment configuration where supported; record exact resolved production version and support/EOL dates. Do not claim Railway compatibility without inspecting the actual builder/image and deployed runtime. If no Active LTS is compatible, document the incompatibility, recommend a supported stack change, and escalate an explicit risk decision; do not silently select an EOL runtime.
 
-For all Node.js projects (including existing projects), Secure MUST audit the runtime and supply chain at each relevant milestone and at the consolidated gate: verify Node.js security-patch level, supported release line, framework/driver/native-addon compatibility, lockfile integrity and reproducible `npm ci` (or equivalent), transitive dependency advisories, suspicious package releases/maintainer changes, lifecycle/install scripts, secret exposure, npm publisher MFA and provenance/trusted publishing where applicable. Prefer an evidence-backed dependency cooldown for newly published versions, with documented exceptions for urgent security fixes. Do not blanket-disable install scripts if legitimate native builds require them; isolate and explicitly allowlist necessary scripts. Use static inspections and authorized existing provider metadata under PHDK production-first policy; no new local behavioral tests, staging or paid scanners. Treat compromised packages or exposed credentials as incidents requiring containment, credential rotation through authorized channels and documented remediation. Record confirmed issues separately from unverified deployment/runtime claims.
+For a new Node.js project, Plan MUST prefer the newest security-patched **Active LTS** compatible with the framework, package manager, native addons, database drivers, build tooling and hosting platform. If no Active LTS exists or none is compatible, use the newest compatible, supported **Maintenance LTS** and record why, its support deadline and migration implications. This supported fallback is an ordinary technical choice, not unresolved risk requiring an extra approval. If no supported LTS is compatible at all, recommend the concrete stack changes needed and record `DECISION_REQUIRED` for a genuinely new material decision; never silently substitute Current or EOL. Do not select Current solely because its version number is higher, or silently select an EOL runtime. Verify official release/security notices and the support schedule at review time; never freeze a supposedly latest patch in PHDK.
+
+For an existing supported major, recommend its current security-patched release first. A security fix does not itself authorize a major migration. An EOL line requires a concrete supported migration target and compatibility assessment. Material architecture/provider decisions and acceptance of unresolved security risk retain existing owner controls. Align runtime/package-manager declarations, lockfiles and deployment pins where supported; keep the declared constraint, exact resolved build version and observed deployed version distinct. Do not claim hosting compatibility or a running patch from a manifest alone.
+
+All Node.js projects, including existing products, apply the Stack Security Review below during relevant milestones and the consolidated gate. Inspect reproducible install configuration such as `npm ci` or the lockfile-equivalent without executing installs as part of the review. Evaluate publisher MFA and provenance/trusted publishing where applicable without requesting account secrets. Prefer an evidence-backed dependency cooldown with documented exceptions for urgent security fixes. Do not blanket-disable legitimate native install scripts; review necessary script permissions and isolation. A compromised package or exposed credential requires incident classification and containment/rotation through separately authorized channels, never unapproved provider changes.
+
+## Stack Security Review
+
+This is the shared, bounded review contract for the actual project stack, including non-Node components. It reuses Secure and Check findings; it does not create another lifecycle mode or a background scanner.
+
+### Triggers and reuse
+
+- Every explicit `PHDK upgrade` and `PHDK upgrade force` MUST review the current project, **including a no-op standards synchronization** or a newer local version that cannot be downgraded. A blocked sync does not prevent independent permitted reads; report the sync conflict separately.
+- Foreground Preflight MUST perform the review once when it actually adopts a new canonical PHDK version, including a first installation or pre-versioned installation. A version comparison, failed sync or same-version integrity repair alone does not trigger a repeated full review. Re-read adopted instructions before continuing.
+- Plan performs or refreshes the applicable review when selecting the initial architecture. Refresh affected evidence on material changes to runtimes, manifests/locks, frameworks, native dependencies, builders/base images, deployment roles or database/cache/search engines. Secure milestones and the consolidated gate reuse the same evidence contract.
+- Review all applicable workspace packages and service roles, including workers, within the identified project. A multi-project rollout requires the current owner's identified scope; no dormant-project scan, recurring job, webhook or post-conversation work follows from this rule.
+- Within one command/run, reuse evidence only after checking its repository/input hashes, deployment identifiers, source retrieval dates and advisory/support freshness. An explicit later Upgrade still checks for new advisories even with unchanged files. New relevant advisories or changed evidence invalidate the affected result. Do not repeat the whole review at every unchanged Auto/PMO stage.
+
+### Read scope and execution boundary
+
+An explicit Upgrade/Force or a Preflight adoption trigger includes repository/source reads, current official advisory/support lookups and bounded reads of already connected provider metadata/logs for the identified project under [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics). Define finite targets, request/result bounds and log windows before retrieval. Existing owner restrictions and host access controls remain binding. Missing access becomes `UNVERIFIED`; do not ask for credentials, create an account or infer a runtime from a successful deployment.
+
+Review does not itself authorize product edits, dependency installation, lifecycle scripts, lockfile regeneration, application builds/execution, local behavioral tests, Docker, UAT, live probes, provider/configuration writes, paid scanners, commits, pushes, merges or deployment. Preserve separately authorized implementation/delivery already in progress. Force expands only the PHDK-owned replacement boundary. Documentation and review never expand tool permissions or weaken actual controls.
+
+### Inventory and evidence
+
+For each applicable component, retain separate evidence fields:
+
+| Field | Required evidence |
+|---|---|
+| Declared | Manifest/engine/package-manager range, runtime file, image tag or deployment configuration and source path. |
+| Resolved | Exact lockfile/package/image version and integrity/provenance where available; identify direct versus transitive dependencies. |
+| Build | Builder/runtime/base-OS image and digest, build timestamp and deployment/artifact identifier. Mark build-only tooling explicitly. |
+| Deployed | Actually observed runtime/engine version, service, environment, deployed source SHA/image and observation source/time. Missing exact evidence remains `UNKNOWN` or `UNVERIFIED`. |
+
+Record review date, repository SHA, relevant input hashes, service/environment, deployment/image identifier, evidence references and bounded coverage. Inspect workspace manifests and all relevant lockfiles; `packageManager`, `engines`, runtime-version files, Dockerfiles and builder/deployment configuration; frameworks, ORMs/drivers and native addons; operating-system images and database/cache/search engines. Never read secret values or customer data to build this inventory.
+
+A range, floating major tag, `@types/node`, build log or successful deployment is not proof of the running Node patch. A package-manager audit with no findings does not cover Node itself, OS images or data engines. Source/main and deployed commits may differ; assess them separately and identify unreviewed deployed dependencies instead of presenting a source lockfile as live evidence.
+
+### Current security and compatibility baseline
+
+Use primary vendor security/release notices, official support/EOL schedules and applicable package advisories. Record advisory IDs, affected ranges, fixed versions **per supported major**, publication/retrieval dates, exploit prerequisites and compatibility requirements. Evaluate each actual major against its own dated floor; a numerically higher EOL major is not a substitute. Verify official current sources at review time rather than relying on the previous report or model memory.
+
+Distinguish version applicability from verified application exploitability. An affected version warrants a finding; unknown reachability is not proof of safety. A workaround must match the resolved component and be evaluated only for the advisory it mitigates. Keep unaffected packages distinct from similarly named vulnerable transports or plugins.
+
+Review direct/transitive runtime and build dependencies, lockfile consistency/integrity, registry/source origins, known advisories, suspicious release/maintainer changes, install-script exceptions, native binaries and framework/driver/runtime compatibility. Use already available safe static tools and existing vendor evidence; do not install scanners or execute dependency code. Record incomplete coverage rather than inventing a complete supply-chain clearance.
+
+### Results, recording and remediation
+
+Report these independent outcomes in the existing Upgrade, Preflight, Check or security report:
+
+- **STANDARDS_SYNC:** `VERIFIED`, `CURRENT`, `SKIPPED_NEWER_LOCAL`, `BLOCKED` or `NOT_APPLICABLE`, with version, upstream SHA, manifest/native-block evidence and conflicts. A helper's manifest-only success is not proof of native-block verification.
+- **STACK_REVIEW_COVERAGE:** `COMPLETE`, `PARTIAL`, `PENDING` or `NOT_APPLICABLE`, with enumerated components, environments, advisory sources and missing evidence. COMPLETE describes the stated review scope, never universal security assurance.
+- **STACK_SECURITY_STATUS:** `NO_KNOWN_FINDINGS_IN_REVIEWED_SCOPE`, `GAPS_FOUND`, `UNVERIFIED` or `NOT_APPLICABLE`. Use GAPS_FOUND when findings exist, retaining any additional unknowns. An incomplete or pending review cannot receive a clean status; a source-only assessment can have COMPLETE source coverage while deployed runtime remains UNVERIFIED.
+
+A verified standards sync may coexist with stack gaps or incomplete evidence. Findings MUST NOT prevent delivery of safer standards or be reported as repaired by vendoring. This separation does not waive Secure's application-release clearance rule for confirmed Critical/High vulnerabilities. A standards-only delivery is not application security clearance, even if an existing connection rebuilds the unchanged application.
+
+Use existing Check severity/remediation categories. Each finding identifies component/service scope, evidence, affected/fixed range, recommended compatible change, verification limits and owner/action. Reuse `SECURITY_REPORT.md`, `PHDK_CHECK_REPORT.md` or `PHDK_PREFLIGHT_REPORT.md` when that report belongs to the current task; otherwise include the structured review in the Upgrade report. An authorized rollout may retain a scoped report under `docs/phdk/`. Such evidence files are project documentation, not new PHDK-owned force-replacement surfaces.
+
+Continue already-authorized remediation without duplicate consent. Otherwise present the concrete patch/migration action within the current review/sync scope. Do not silently change a major version, provider or live service, accept residual risk, activate Auto or initiate UAT. Missing optional UAT remains `DEFERRED — OWNER OPT-IN`, not a stack defect. A sync helper reporting PENDING/UNVERIFIED means the assistant still owes the review; never relabel that helper output as a completed audit.

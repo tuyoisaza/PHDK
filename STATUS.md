@@ -1,12 +1,12 @@
 # PHDK publication status
 
-## v2.63.3 build and hook decision routing
+## v2.65.2 build and hook decision routing
 
-Owner request: implement the proposed procedure so an agent resolves an ambiguous build/packaging/hook check before asking for a prohibited local-runtime exception. Baseline main: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Candidate branch: `fix/v2.63.3-hook-decision-routing`; VERSION, README and newest CHANGELOG agree on v2.63.3.
+Owner request: implement the proposed procedure so an agent resolves an ambiguous build/packaging/hook check before asking for a prohibited local-runtime exception. Integration baseline main: `d4ed10e96f5fd05ebeaa38a664442d7d10d6cf86` / v2.65.1. Main advanced while PR #81 was opened; its stack-review and source-formatting work is retained. Candidate branch: `fix/v2.63.3-hook-decision-routing`; VERSION, README and newest CHANGELOG agree on v2.65.2. The branch name predates this integration refresh.
 
 The existing hook standard now defines classification, provenance, permitted repair, concrete unresolved decisions, preserved gate order and six review scenarios. Native/agent/Auto/verification/delivery routing loads it before execution, BLOCKED or user input. Contradictory local-suite instructions in enforcement and verification are reconciled. Independent owner/external/unknown controls and explicit-only UAT remain effective.
 
-Static coherence passed with 78 manifest mappings; changed Python AST, 58 changed relative Markdown references/anchors and whitespace checks passed. Independent source review found routing and guard gaps, which were corrected and reviewed. No local behavioral suites, UAT or downstream agent execution was performed. This is a prepublication checkpoint: the normal PR, merge, fresh remote-main readback and unchanged completion verifier establish final publication evidence. Publishing canonical PHDK alone does not upgrade another project or reload an existing agent.
+The integrated v2.65.2 candidate passed static coherence in canonical and installed layouts with 78 manifest mappings, all 78 manifest byte comparisons, Python AST, 58 changed relative Markdown references/anchors and whitespace checks. Independent source review found routing and guard gaps, which were corrected and reviewed. No local behavioral suites, UAT or downstream agent execution was performed. This is a prepublication checkpoint: the normal PR, merge, fresh remote-main readback and upstream completion verifier, unmodified by this correction, establish final publication evidence. Publishing canonical PHDK alone does not upgrade another project or reload an existing agent.
 
 ## Historical publication checkpoints
 
