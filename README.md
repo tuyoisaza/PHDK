@@ -1,4 +1,8 @@
-**Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.\n\n# PHDK
+**Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.
+
+# PHDK
+
+**Node.js default:** New Node.js projects target the latest security-patched Active LTS compatible with the full stack and deployment. Plan verifies and pins the runtime; Secure enforces npm supply-chain controls and deployment evidence. See [PHDK_SECURE.md](PHDK_SECURE.md).
 
 **UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. The development lifecycle and optional acceptance path are shown separately below.
 
