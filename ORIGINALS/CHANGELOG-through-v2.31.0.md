@@ -773,4 +773,3 @@ This version upgrades PHDK from a standards repo for AI coding to an AI develope
 - `BOOTSTRAP_MONOREPO_PROMPT.md`
 - `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`
 - `README.md`
-

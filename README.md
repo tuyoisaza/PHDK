@@ -9,8 +9,8 @@
 **Hook compatibility (v2.61.0):** [`PHDK_HOOK_COMPATIBILITY.md`](PHDK_HOOK_COMPATIBILITY.md) requires Check/Auto to detect local runtime-test hooks, automatically reconcile only proven PHDK-owned legacy hooks without weakening independent security controls, and preserve/block on owner or external gates.
 
 
-**Project Handoff to Development Kit**  
-**Version v2.65.0**
+**Project Handoff to Development Kit**\
+**Version v2.65.1**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 

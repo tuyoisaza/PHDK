@@ -1,3 +1,36 @@
+# PHDK coherence report — v2.65.1
+
+Date: 2026-10-23. Baseline: published canonical `9fc6605c75b42e678bab41feb741dca71fcbabcc` / v2.65.0, freshly read from remote main. Scope: the mechanical source correction needed to satisfy an existing downstream Ruff 0.7.0 and pre-commit-hooks 5.0.0 gate during the authorized standards vendoring. All 105 original source files were hash-verified and retained before edits. This is a PATCH candidate; no policy or command behavior changes.
+
+## Findings and resolutions
+
+| Category / severity | Verified issue | Candidate resolution |
+|---|---|---|
+| DEFECT / Low | All six vendored Python helpers fail the existing Ruff 0.7.0 formatter check. | Apply that pinned formatter to the six canonical source helpers; retain their ASTs. |
+| DEFECT / Low | `scripts/phdk_update.py` reports Ruff E401 for one seven-module import statement. | Split the statement into seven imports in exactly the original order; all other AST nodes remain identical. |
+| DEFECT / Low | The README uses a trailing-space Markdown hard break rejected by the existing whitespace hook. | Preserve the hard break with equivalent Markdown backslash syntax. |
+| DEFECT / Low | The design guide and oldest changelog archive each contain one redundant final newline. | Remove exactly one final newline from each; preserve every historical text byte preceding it. |
+| VERIFIED | Source fixes can satisfy the existing checks without downstream exemptions. | Keep the downstream hooks, all 78 manifest mappings and the exact-copy contract unchanged. |
+
+## Static evidence
+
+- Ruff **0.7.0** `check` and `format --check`: **PASS** for `phdk_auto_gate.py`, `phdk_automation_audit.py`, `phdk_coherence_check.py`, `phdk_completion_gate.py`, `phdk_theme_audit.py` and `phdk_update.py` under `scripts/`.
+- Exact AST comparison before/after formatting: **PASS for all six** Python helpers. After the separate E401 repair, five final ASTs remain exact. The updater's only structural difference is one grouped import becoming seven single-name imports, with the same names, aliases and order; normalizing only that grouping yields exact AST equality.
+- Static compilation, without execution: all six compiled-code structures are identical after source-position normalization. This comparison includes opcode bytes, constants, nested code, names, variables, argument/closure metadata, flags, stack size and exception tables. Source-position normalization avoids treating formatter-induced line/debug positions as behavior changes.
+- Pinned **pre-commit-hooks 5.0.0** whitespace, EOF, merge-conflict-marker and private-key checks: **PASS** over all 78 canonical manifest sources plus the two current reports. YAML validation is **NOT APPLICABLE** because none of these source paths is YAML. The exact hook content functions are applied read-only; input bytes remain unchanged.
+- `python3 scripts/phdk_coherence_check.py`: **PASS**, v2.65.1 and 78 mappings. The same checker also passes in a separately materialized `phdk-standards/` layout whose 78 destination files are byte-equal to their canonical sources.
+- VERSION, README release marker and newest CHANGELOG entry agree on **2.65.1**. The manifest remains byte-identical to the published v2.65.0 manifest. The complete source delta is confined to formatting, the E401 import grouping, release metadata and these verification checkpoints.
+
+## Verification limits and delivery
+
+No application behavior, helper behavioral suite, database, server, Docker, UAT, provider action or hosted workflow was executed. Static equivalence is source evidence, not deployed-runtime or security clearance. The patch does not change Stack Security Review triggers, pending-review output, supported Node selection, authorization or owner-override handling.
+
+The prepared candidate is not a published release. The primary agent must review its exact delta, satisfy actual release controls, publish through the authorized branch/PR route, and read back remote main before updating downstream copies. Original v2.65.0 files and expected blob hashes are retained for incremental downstream preparation. Existing downstream application gates and their unrelated blockers remain separate.
+
+Previous reports follow as historical evidence.
+
+---
+
 # PHDK coherence report — v2.65.0
 
 Date: 2026-10-23. Baseline: `b3c39ee4b918ea3a6015005d621a9dae5469c4cf` / v2.63.2. Scope: implement the owner-approved stack-security review proposal and prepare downstream vendoring. This is a focused canonical source audit, not application security clearance.
