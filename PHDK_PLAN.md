@@ -1,5 +1,13 @@
 # PHDK Plan Standard
 
+## Current PHDK baseline and scope
+
+At Plan entry or material replanning, complete or reuse valid `PHDK_PREFLIGHT.md` evidence before deriving the brief, plan and worker tasks. Load the adopted PHDK `VERSION`, `EXECUTION_SCOPE.md`, this standard, `MAIN_DELIVERY_STANDARD.md` and the relevant specialist rules. Verify current canonical `main`/version when access is available and synchronize only through the existing conservative Preflight/Upgrade contract. Do not overwrite downstream owner decisions or repeat universal Preflight when its verified baseline remains unchanged.
+
+Record the adopted PHDK version/ref, canonical version/ref actually verified, check date and applicable rule paths in the existing `IMPLEMENTATION_PLAN.md` and link them from its handoff. Use `UNKNOWN` for unavailable refs and `UNVERIFIED` for upstream freshness that could not be checked; an installed or copied version is not proof of the latest standard. Apply Preflight's existing safe-continuation rules to an unavailable or conflicting update.
+
+Derive briefs and tasks from that baseline and the actual current owner request. Use the [restriction record](TASK_TRACKING_STANDARD.md#restriction-record) for every operative delivery limit, including its provenance, phase scope and closure condition. A planning choice or worker-only draft-PR limit introduced by the assistant is not an owner prohibition on integrating the whole goal. Link restrictions by ID instead of copying unexplained bans into later phases. Before construction moves to publication, apply [phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation); completing Plan or a milestone does not itself authorize an expanded scope, UAT or spending.
+
 ## Default Node.js runtime selection
 For Node.js stacks, follow the mandatory Node.js runtime and npm supply-chain profile in [PHDK_SECURE.md](PHDK_SECURE.md). Default to the latest patched Active LTS compatible with the complete selected stack and Railway deployment. Record version, compatibility evidence, engines pinning and exceptions in the technical architecture; do not assume every framework supports the newest runtime. Re-evaluate at each material stack change.
 
@@ -278,7 +286,8 @@ Plan translates the approved architecture/implementation sequence into actionabl
 - sequence;
 - shared integration points;
 - completion criteria;
-- planned verification.
+- planned verification;
+- adopted PHDK baseline and links to applicable restriction IDs, with the current delivery scope and any recorded phase transition.
 
 TASK remains execution context, not permanent product requirements or reusable authorization.
 
@@ -319,6 +328,8 @@ Do not introduce infrastructure/services merely because they are common architec
 
 Before Plan is complete:
 
+- the adopted PHDK baseline and any upstream-verification limits are recorded;
+- operative restrictions have classified provenance, scope and, for phase limits, a closure condition in the linked task record;
 - every P0 requirement maps to a target architecture capability;
 - all major components have clear responsibilities;
 - dependency direction is explicit;
@@ -360,6 +371,7 @@ When Plan completes or is reused inside a lifecycle run:
 - create `docs/phdk/lifecycle/<run-id>/20-plan/HANDOFF.md`;
 - snapshot the material Plan outputs, including `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, draft design artifacts, `MILESTONE_PLAN.md`, `IMPLEMENTATION_PLAN.md`, relevant architecture decisions, and TASK integration;
 - record the architecture quality/exit gate;
+- link the adopted PHDK baseline, current restriction IDs and any reconciled phase-transition record; preserve earlier snapshots as history;
 - declare what Design must verify before visual selection, or why Design is NOT APPLICABLE for this scope;
 - retain the architecture/dependency inputs that PMO will consume after the Design gate.
 

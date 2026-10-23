@@ -1,4 +1,23 @@
-## v2.63.0 — 2026-10-22\n\n### Hybrid PHDK Secure\n- Add standalone `PHDK secure` and milestone security deltas plus consolidated pre-Check security gate in Auto/Force.\n- Add `PHDK_SECURE.md` to the vendoring manifest; align Plan, lifecycle, Check, native agent entrypoints and README. Require patched Active LTS Node.js compatibility and npm supply-chain checks for Node.js projects. Preserve explicit-only UAT and production-first static verification.\n- This standards release does not assert downstream adoption, runtime security validation or application deployment.\n\n## v2.62.1 — 2026-10-22
+## v2.63.1 — 2026-10-23
+
+### Reconcile phase limits with current owner authorization
+- Require Plan to load and record the verified applicable PHDK baseline before deriving briefs, plans and tasks; distinguish adopted and verified canonical versions.
+- Classify restrictions by lifetime and provenance in the existing task record. Retain source, known date, scope, closure condition and superseding instruction; never attribute assistant-created restrictions to the owner or treat phase completion as a permission grant.
+- Reconcile TASK, plan, STATUS, Auto mandate and affected worker context before construction-to-publication transitions. Keep owner authorization, technical permission, costs and explicit-only UAT separate; do not duplicate an approval already granted or claim that a document edit clears an executor denial.
+- Align delivery, execution, planning, delegation and agent entrypoints; add bounded static coherence guards without changing executor permissions or introducing a new runtime authority mechanism.
+- Repair escaped newlines in the existing Secure manifest mapping, preceding release-note formatting and touched agent/native entrypoint boundaries, preserving their meaning and restoring manifest source resolution.
+
+### Verification limits
+- Static/source verification is recorded in the delivery checkpoint; no local behavioral tests, Docker, UAT, provider operations or downstream project changes are part of this correction. Publishing PHDK does not resolve DEBATE's executor permission or prove its deployment.
+
+## v2.63.0 — 2026-10-22
+
+### Hybrid PHDK Secure
+- Add standalone `PHDK secure` and milestone security deltas plus consolidated pre-Check security gate in Auto/Force.
+- Add `PHDK_SECURE.md` to the vendoring manifest; align Plan, lifecycle, Check, native agent entrypoints and README. Require patched Active LTS Node.js compatibility and npm supply-chain checks for Node.js projects. Preserve explicit-only UAT and production-first static verification.
+- This standards release does not assert downstream adoption, runtime security validation or application deployment.
+
+## v2.62.1 — 2026-10-22
 
 ### Reconcile explicit-only UAT throughout active guidance
 - Replace obsolete automatic UAT transitions in acceptance, Auto/Force, lifecycle, PMO, milestone delivery, Check/remediation, SEO/AEO and completion guidance. Auto keeps stages 45/50/60 `DEFERRED — OWNER OPT-IN` and reports development/delivery separately from `UAT NOT RUN`; absent acceptance artifacts and historical UAT failures do not reopen completed development.

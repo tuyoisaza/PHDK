@@ -10,7 +10,9 @@
 
 
 **Project Handoff to Development Kit**  
-**Version v2.63.0**
+**Version v2.63.1**
+
+**Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
 **Historical architecture audit:** [Intelligent development architecture audit](docs/audits/intelligent-development-architecture-2026-10-18.md) publishes the v2.56.0 assessment, estimates and migration/benchmark proposals, with an addendum identifying later policy changes. It is an optional historical report, not a current instruction or proof of performance gains.
 
