@@ -1,3 +1,10 @@
+## v2.62.2 — 2026-10-23
+
+### Optional DEBATE collaboration case study
+- Add a non-normative case study of owner intent, precise planning, bounded implementation and coordinator evidence review. Distinguish the verified planning draft from implementation in progress and from runtime acceptance.
+- Document the requested monthly learning-review checklist without adding repository automation, execution permissions or policy changes.
+- Documentation candidate only: source/reference review and remote branch readback; executable checks and UAT not run. No downstream adoption or deployment is implied.
+
 ## v2.62.1 — 2026-10-22
 
 ### Reconcile explicit-only UAT throughout active guidance
