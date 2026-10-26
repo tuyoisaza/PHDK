@@ -2,7 +2,7 @@
 
 ## Purpose and command contract
 
-Synchronize an existing PHDK project to the current published standards and perform its bounded, read-only [Stack Security Review](PHDK_SECURE.md#stack-security-review) in response to the user's request in this conversation.
+Synchronize an existing PHDK project to the current published standards, perform its bounded, read-only [Stack Security Review](PHDK_SECURE.md#stack-security-review), and, when eligible, publish the repository's current central status under [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md) in response to the user's request in this conversation.
 
 The canonical commands are:
 
@@ -158,6 +158,14 @@ Inspect runtimes/package managers, direct and transitive dependencies, framework
 
 Report STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS independently, with concrete fixes/migration recommendations and missing evidence. Sync success cannot mark the stack safe, and findings do not block delivery of safer standards. Preserve Secure's application-release rule and existing controls. Do not install/update dependencies or run applications, tests, Docker, UAT, scanners, deployments or provider mutations from this review alone. Continue separately authorized remediation; otherwise leave its concrete findings for the owner's decision.
 
+### 9b. Publish eligible central repository status
+
+After the Stack Security Review has current evidence, apply [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md).
+
+For a verified `tuyoisaza/<repo>` downstream repository, when the active session already has write access to `tuyoisaza/PHDK`, refresh `docs/repos/<repo>/status.md` in the canonical PHDK repository with the installed/canonical PHDK versions, observed repository SHA, concise tech-stack versions and independent stack-review status. Use only evidence already established by this foreground operation. Do not include secrets or infer deployed versions.
+
+Treat central publication as a separate reporting outcome. Failure or unavailable write access does not invalidate the downstream standards sync or stack review and must not trigger a credential request, scheduler, background retry or new monitoring process. Report `CENTRAL_STATUS: PUBLISHED | NOT_PUBLISHED | UNVERIFIED` with the reason.
+
 ### 10. Commit or deliver only when authorized
 
 A bare `PHDK upgrade` or `PHDK upgrade force` leaves the verified sync and stack-review findings available unless the current request separately authorizes git delivery. Force changes overwrite authority, not delivery authority. It does not automatically commit, push, merge, tag, deploy, or delete branches.
@@ -168,7 +176,7 @@ Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI to 
 
 ## Report and stop
 
-Report the command used, old/new versions, upstream SHA, vendored-file count, native-block state, branch/commit/merge state where applicable, checks, conflicts, and limitations. Include STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS with dated evidence, missing coverage, findings and exact next actions under Secure; a copied manifest or helper PENDING result is not a completed audit. For force mode, explicitly list the PHDK-owned dirty paths that were overwritten/removed and state that non-PHDK repository files were preserved. Then stop.
+Report the command used, old/new versions, upstream SHA, vendored-file count, native-block state, branch/commit/merge state where applicable, checks, conflicts, limitations, and CENTRAL_STATUS. Include STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS with dated evidence, missing coverage, findings and exact next actions under Secure; a copied manifest or helper PENDING result is not a completed audit. For force mode, explicitly list the PHDK-owned dirty paths that were overwritten/removed and state that non-PHDK repository files were preserved. Then stop.
 
 An upgrade does not activate Developer Mode, remove installed application automation, terminate a process, revoke a credential, disable an external scheduler, or change GitHub/hosting settings. Removing existing automation files is a separate explicit repository-code request; external administration remains outside PHDK. Never report those operations as completed merely because standards were updated.
 

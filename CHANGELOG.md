@@ -1,3 +1,15 @@
+## v2.66.0 — 2026-10-25
+
+### Central downstream repository status registry
+- Add `PHDK_REPOSITORY_STATUS.md` as a vendored contract for eligible PHDK repositories under `tuyoisaza/*`. During foreground PHDK work, repositories that already have canonical-PHDK write access publish or refresh `docs/repos/<repo>/status.md`.
+- Record installed versus canonical PHDK version, observed repository SHA, evidence-backed tech-stack versions and an independent Stack Security Review status so maintainers can identify both standards drift and security/version drift without conflating them.
+- Route Upgrade/Force, Preflight adoption and native managed instructions through the registry. Missing canonical write access is non-blocking and never triggers a credential request.
+- Keep the registry explicitly foreground-only: no telemetry, repository crawler, scheduler, GitHub Action, webhook, background retry or autonomous cross-repository maintenance is introduced.
+
+### Verification and adoption
+- Add the registry standard to the vendoring manifest and document the canonical `docs/repos/<repository-name>/status.md` location.
+- Publishing this PHDK release does not populate every downstream status record. Each eligible repository reports itself when a foreground PHDK session runs with sufficient evidence and existing access.
+
 ## v2.65.3 — 2026-10-23
 
 ### Publish the optional Company Co document importer corpus
