@@ -1,3 +1,15 @@
+## v2.68.0 — 2026-10-25
+
+### One-command forced upgrade and Auto Force
+- Redefine exact `PHDK upgrade force` as a composite foreground command: complete forced PHDK synchronization, Stack Security Review, eligible central-status publication and verification, then transition immediately into `PHDK auto force` without asking the owner for a second command.
+- Continue an already identified authorized development goal when present. When none exists, use a bounded repository-maintenance goal: reconcile current code/configuration with current PHDK and recorded product intent, remediate compatible in-repository security/standards gaps, complete applicable Check/remediation and normal delivery, and do not invent new product features.
+- Reuse the upgrade phase's fresh stack-review evidence as the Auto baseline when inputs and advisory freshness are unchanged. Do not duplicate the same review immediately.
+- Preserve Auto Force boundaries: no automatic UAT, no major/material migration decision, no provider/new-infrastructure write, spending, secret/account operation or bypass of actual controls.
+
+### Verification and adoption
+- Reconcile Upgrade, Auto, native managed rules, AGENTS, SKILL and README so the chained transition is visible from active entrypoints.
+- Bare `PHDK upgrade` remains sync/review-only. Publishing this release does not start Auto in dormant repositories; the composite behavior activates only when the owner explicitly invokes `PHDK upgrade force`.
+
 ## v2.67.0 — 2026-10-25
 
 ### Auto owns compatible stack security maintenance
