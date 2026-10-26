@@ -26,7 +26,7 @@ tech_stack:
       resolved: "5.0.5"
   package_managers:
     - name: npm
-      resolved: "10.9.8 (portable Node 22 distribution; lockfile v3)"
+      resolved: "10.9.9 (verified portable Node 22 distribution; lockfile v3)"
   data_engines:
     - name: postgresql
       declared: "existing Railway Postgres service"
