@@ -2,8 +2,8 @@
 repository: tuyoisaza/keledon
 repository_url: https://github.com/tuyoisaza/keledon
 default_branch: main
-observed_repository_sha: 48378830abc56e10c67b45a1f6ca30a43e8fa68a
-observed_at_utc: 2026-10-26T19:12:00Z
+observed_repository_sha: b70d983f8c85c66d07a529c049197b12f886ed73
+observed_at_utc: 2026-10-26T19:27:10Z
 phdk_version: 2.68.0
 phdk_canonical_version: 2.68.0
 phdk_status: CURRENT
@@ -26,7 +26,7 @@ tech_stack:
     - "nginx:alpine source, digest/security coverage UNVERIFIED"
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-10-26T19:12:00Z
+  reviewed_at_utc: 2026-10-26T19:27:10Z
   evidence: "https://github.com/tuyoisaza/keledon/blob/48378830abc56e10c67b45a1f6ca30a43e8fa68a/docs/phdk/lifecycle/20261026-auto-force/SECURITY_REVIEW.md"
   findings:
     critical: 0
@@ -36,4 +36,4 @@ stack_review:
 central_status_source: PHDK
 ---
 
-KELEDON5.8.0 merged through PR296. Counts cover only known npm advisories for seven reviewed lockfiles after compatible remediation; zero counts do not clear unreviewed native/OS/engine/deployed components. Node24 major migration explicitly owner-approved; native audio/Prisma compatibility not behaviorally accepted. Existing production GitHub autodeploy building this SHA at observation; no runtime success inferred. UAT NOT RUN, owner opt-in. No local application tests/build/lint or provider administration.
+KELEDON5.8.1 merged through PR297 after PR296. Counts cover only known npm advisories for seven reviewed lockfiles after compatible remediation; zero counts do not clear unreviewed native/OS/engine/deployed components. Node24 major migration explicitly owner-approved; native audio/Prisma compatibility not behaviorally accepted. Existing production GitHub autodeploy reports API/Web SUCCESS for this SHA (deployments058e0452-3fd2-4284-9860-284ea279eacf and79a35265-dbbd-49c1-8288-536972b7e1bd). API Prisma generation and TypeScript compilation plus Web Vite build completed remotely; explicit OpenSSL installation removed the observed Prisma ABI-detection warning. This is build/deployment evidence, not conversation/native/audio acceptance. UAT NOT RUN, owner opt-in. No local application tests/build/lint or provider administration.
