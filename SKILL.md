@@ -174,7 +174,8 @@ For exact `PHDK upgrade` or `PHDK upgrade force` (case-insensitive after trimmin
 2. Follow `PHDK_UPGRADE.md` within the current request. Preserve dirty work and genuine owner overrides in a bare sync; apply any explicit current request to remove/reconcile local PHDK exceptions through `PHDK_UNLOCK.md`.
 3. Synchronize manifest-controlled standards and the current tool's managed rule block.
 4. Perform the bounded read-only [Stack Security Review](PHDK_SECURE.md#stack-security-review), including no-op/newer-local cases. Actual Preflight version adoption also requires it once; reuse current evidence at unchanged stages. Report STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS separately; pending helper output is not a completed audit.
-5. Verify source copy and review evidence, report, and stop. Do not continue into product work or schedule a later upgrade.
+5. For a verified `tuyoisaza/<repo>`, apply `PHDK_REPOSITORY_STATUS.md`. If this foreground session already has write access to canonical `tuyoisaza/PHDK`, refresh `docs/repos/<repo>/status.md` with evidence-backed PHDK, repository SHA, tech-stack and stack-review state. Missing access is `CENTRAL_STATUS: NOT_PUBLISHED`; never request credentials or schedule a retry.
+6. Verify source copy and review evidence, report, and stop. Do not continue into product work or schedule a later upgrade.
 
 The exact command authorizes standards synchronization and read-only review, not a push/merge, deployment, workflow run, or external administration. A current instruction explicitly requesting git delivery supplies that additional permission.
 
