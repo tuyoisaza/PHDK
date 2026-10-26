@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.66.0**
+**Version v2.67.0**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
@@ -232,7 +232,8 @@ Any host-supported PHDK mode may delegate bounded in-session tasks under `PHDK_I
 
 ## `PHDK auto`
 
-Execute one complete authorized goal:
+Execute one complete authorized goal. **Auto now includes stack maintenance by default:** every new Auto/Force run performs a fresh Stack Security Review at Preflight and automatically applies compatible repository-owned security maintenance such as supported same-major Node.js security patches and compatible dependency security fixes. No separate `PHDK upgrade force` or remediation sentence is required. Major migrations, provider/infrastructure changes, spending, secret/account operations and explicit owner exclusions remain separate boundaries.
+
 
 ```text
 PHDK auto
