@@ -1,3 +1,15 @@
+## v2.67.0 — 2026-10-25
+
+### Auto owns compatible stack security maintenance
+- Make every new `PHDK auto` and `PHDK auto force` run perform one fresh Stack Security Review during Preflight, even when canonical PHDK is already current. Reuse the resulting evidence at unchanged later stages instead of requiring a separate Upgrade command.
+- Treat compatible repository-owned security maintenance discovered by Auto as part of the existing development mandate: supported same-major runtime security patches such as Node.js patch releases, compatible dependency security fixes, and aligned repo-owned runtime/build declarations, lockfiles and pins.
+- Revalidate affected static/security evidence and continue normal Auto versioning and delivery without asking the owner for a second security-remediation command.
+- Preserve boundaries for major runtime migrations, material breaking dependency migrations, provider administration/new infrastructure, spending, secrets/account operations, UAT and explicit owner exclusions. Standalone Upgrade remains read-only with respect to product remediation unless separately authorized.
+
+### Verification and adoption
+- Reconcile Auto, Preflight, Secure, native managed rules, AGENTS, SKILL and README so the same behavior is visible from all active entrypoints.
+- Publishing this release does not retroactively execute Auto in dormant repositories. Downstream repositories adopt the behavior when they next synchronize PHDK or run a clean Preflight that adopts this version.
+
 ## v2.66.0 — 2026-10-25
 
 ### Central downstream repository status registry
