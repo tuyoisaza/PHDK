@@ -7,13 +7,13 @@ Synchronize an existing PHDK project to the current published standards, perform
 The canonical commands are:
 
 - `PHDK upgrade` — conservative standards synchronization plus Stack Security Review, including a no-op sync.
-- `PHDK upgrade force` — authoritative replacement of the PHDK-owned surface from canonical upstream `main`, even when that PHDK-owned surface has local edits, plus the same read-only Stack Security Review.
+- `PHDK upgrade force` — authoritative replacement of the PHDK-owned surface from canonical upstream `main`, even when that PHDK-owned surface has local edits, plus the same Stack Security Review, **then an immediate handoff into `PHDK auto force` in the same foreground session when the upgrade phase finishes without a real blocking boundary**.
 
 Match both case-insensitively after trimming whitespace.
 
-A bare `PHDK upgrade` authorizes the conservative standards sync and bounded stack review now, without a second confirmation in the clean case. `PHDK upgrade force` additionally authorizes discarding local modifications only inside the explicitly PHDK-owned surface defined below. It does not authorize product implementation, a commit/push/merge/release, deployment, workflow execution, an agent, or a future run. A current request that explicitly includes git delivery provides that additional authorization.
+A bare `PHDK upgrade` authorizes only the conservative standards sync and bounded stack review now, without a second confirmation in the clean case. **`PHDK upgrade force` is a composite foreground command:** it authorizes discarding local modifications only inside the explicitly PHDK-owned surface defined below, completing the forced standards sync/review, and then continuing immediately under `PHDK auto force` for the current repository without another user command. The Auto Force phase carries its normal implementation, compatible security remediation, versioning and delivery authority and its normal exclusions. The composite command still does not authorize unrelated new features, background/future execution, UAT, provider administration, new infrastructure, spending, secrets/account operations, or bypassing real controls.
 
-Follow `EXECUTION_SCOPE.md`: interactive-only, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Bounded in-session delegation is permitted in any mode under `PHDK_INTELLIGENT_EXECUTION.md`, with PMO portfolio workstreams governed by `PHDK_PMO.md`. The review includes official advisory/support lookups and bounded reads of already connected provider metadata/logs for the identified project under EXECUTION_SCOPE.md. Record missing access as UNVERIFIED; no credentials, new access or live probes are implied. Report and stop after the sync, review and any separately authorized remediation or git delivery.
+Follow `EXECUTION_SCOPE.md`: interactive-only, no GitHub Actions, no scheduled/background work, no browsers, live application probes, or provider writes. Bounded in-session delegation is permitted in any mode under `PHDK_INTELLIGENT_EXECUTION.md`, with PMO portfolio workstreams governed by `PHDK_PMO.md`. The review includes official advisory/support lookups and bounded reads of already connected provider metadata/logs for the identified project under EXECUTION_SCOPE.md. Record missing access as UNVERIFIED; no credentials, new access or live probes are implied. For bare `PHDK upgrade`, report and stop after the sync/review. For `PHDK upgrade force`, do **not** stop merely because the upgrade phase completed: perform the transition contract below and continue into Auto Force unless a real boundary prevents the handoff.
 
 An upgrade copies the complete canonical manifest, including `PHDK_PREFLIGHT.md`, `SKILLS_REGISTRY.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_AUTO.md`, `PHDK_PLAN.md`, `PHDK_PMO.md`, and the definition of `PHDK_DEVELOPER_MODE.md`; copying them activates no command or mode. Execution/authorization policy changes use the normal branch flow, even if Developer Mode is active. Review their actual diff and apply the approval rules in `MAIN_DELIVERY_STANDARD.md`: a well-defined owner request can already approve the policy decision, and a current instruction to deliver the identified update supplies delivery approval. Do not add a PHDK-only demand to open the diff or submit a GitHub review; actual formal review requirements remain binding.
 
@@ -166,21 +166,35 @@ For a verified `tuyoisaza/<repo>` downstream repository, when the active session
 
 Treat central publication as a separate reporting outcome. Failure or unavailable write access does not invalidate the downstream standards sync or stack review and must not trigger a credential request, scheduler, background retry or new monitoring process. Report `CENTRAL_STATUS: PUBLISHED | NOT_PUBLISHED | UNVERIFIED` with the reason.
 
+### 9c. Transition `PHDK upgrade force` → `PHDK auto force`
+
+After forced standards synchronization, Stack Security Review, eligible central-status publication, and upgrade-phase verification complete, `PHDK upgrade force` MUST transition immediately into `PHDK auto force` in the same conversation/session. Do not ask the owner to type a second command and do not emit a terminal upgrade-only response first.
+
+Determine the Auto Force goal in this order:
+
+1. If the current conversation or repository state already identifies an unfinished authorized product/development goal, continue that goal.
+2. Otherwise use the bounded maintenance goal: **reconcile this repository with current PHDK and current recorded product intent; remediate compatible in-repository security/standards gaps; complete applicable Check/remediation and normal delivery; do not invent new product features or broaden scope.**
+3. If multiple active fronts are already evidenced, let Auto Force use its PMO/portfolio rules rather than selecting an unrelated feature.
+
+The handoff reuses the just-completed upgrade review as the Auto run's fresh Preflight Stack Security Review when evidence/input hashes and advisory freshness are unchanged; do not immediately repeat identical work. Initialize/recover Auto state and lifecycle under `PHDK_AUTO.md` / `PHDK_AUTO_CONTINUITY.md`, then continue through the eligible lifecycle.
+
+A real blocker in the upgrade phase may prevent the transition only when Auto Force cannot safely proceed around it. Finish independent permitted work and report the exact boundary. Missing optional tooling, PHDK-only review waits, or the mere absence of a pre-existing product task are not reasons to ask for another command.
+
 ### 10. Commit or deliver only when authorized
 
-A bare `PHDK upgrade` or `PHDK upgrade force` leaves the verified sync and stack-review findings available unless the current request separately authorizes git delivery. Force changes overwrite authority, not delivery authority. It does not automatically commit, push, merge, tag, deploy, or delete branches.
+A bare `PHDK upgrade` leaves the verified sync and stack-review findings available and does not authorize product delivery. **`PHDK upgrade force` is the explicit exception:** after its upgrade phase it enters Auto Force, whose normal scoped development/version/branch/PR/merge/delivery authority applies to the resulting maintenance/current goal. The upgrade phase itself still does not bypass controls, force-push, create tags/releases, administer providers, or execute UAT.
 
-When the current request also authorizes git delivery, stage only the synced standards, the changed native managed block, authorized review/continuity evidence, and minimal required version metadata. Use normal project version rules and an authorized feature/maintenance branch. A clear instruction to merge includes necessary commit/push/PR steps, without bypassing existing restrictions.
+For a bare `PHDK upgrade`, when the current request separately authorizes git delivery, stage only the synced standards, the changed native managed block, authorized review/continuity evidence, and minimal required version metadata. Use normal project version rules and an authorized feature/maintenance branch. For `PHDK upgrade force`, the subsequent Auto Force phase owns its normal scoped versioning and delivery; do not create a redundant upgrade-only delivery stop before the handoff.
 
 Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI to validate or deliver the upgrade.
 
-## Report and stop
+## Report, stop, or transition
 
-Report the command used, old/new versions, upstream SHA, vendored-file count, native-block state, branch/commit/merge state where applicable, checks, conflicts, limitations, and CENTRAL_STATUS. Include STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS with dated evidence, missing coverage, findings and exact next actions under Secure; a copied manifest or helper PENDING result is not a completed audit. For force mode, explicitly list the PHDK-owned dirty paths that were overwritten/removed and state that non-PHDK repository files were preserved. Then stop.
+Report the command used, old/new versions, upstream SHA, vendored-file count, native-block state, branch/commit/merge state where applicable, checks, conflicts, limitations, and CENTRAL_STATUS. Include STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS with dated evidence, missing coverage, findings and exact next actions under Secure; a copied manifest or helper PENDING result is not a completed audit. For force mode, explicitly list the PHDK-owned dirty paths that were overwritten/removed and state that non-PHDK repository files were preserved. For bare Upgrade, then stop. For Upgrade Force, continue through the mandatory Auto Force handoff and report only the final composite outcome.
 
 An upgrade does not activate Developer Mode, remove installed application automation, terminate a process, revoke a credential, disable an external scheduler, or change GitHub/hosting settings. Removing existing automation files is a separate explicit repository-code request; external administration remains outside PHDK. Never report those operations as completed merely because standards were updated.
 
 
 ## Post-force standards acceptance note
 
-After `PHDK upgrade force`, report verified standards synchronization separately from stack-review coverage/security findings and from product validation. Product debug-widget behavior is NOT validated or repaired by upgrade alone. Recommend concrete authorized remediation for stack findings; `PHDK auto` is an optional subsequent implementation command, not automatically activated by Upgrade. If an Auto goal is already authorized, continue its relevant DEBUG_WIDGET_READINESS.md inspection and development gates within that mandate. Never report vendoring as proof that app copy/clear actions work or that vulnerable dependencies were patched.
+After `PHDK upgrade force`, keep verified standards synchronization, stack-review coverage/security findings and product validation as separate evidence, **then continue automatically into the required Auto Force phase**. The upgrade phase alone does not validate or repair product behavior; the chained Auto Force phase performs its applicable implementation, security remediation, Check and delivery work under its own contract. Never report vendoring itself as proof that application behavior works or that vulnerabilities were patched; report those outcomes only from the subsequent Auto Force evidence.

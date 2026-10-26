@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.67.0**
+**Version v2.68.0**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
@@ -365,7 +365,7 @@ Conservatively synchronizes standards, preserving dirty PHDK files and reporting
 PHDK upgrade force
 ```
 
-Performs the same stack review and replaces only manifest-owned `phdk-standards/` files and exact `PHDK-MANAGED` blocks, removing obsolete proven PHDK-owned files when appropriate. It does not overwrite product code, requirements/intents, TASK/STATUS, ADRs, hooks, package files, provider settings or owner text outside managed markers. Publication of PHDK does not prove existing projects or already-open sessions adopted it.
+Performs the forced standards synchronization and Stack Security Review, then **immediately continues as `PHDK auto force` in the same session**. If there is an active authorized development goal, it continues it; otherwise it runs bounded repository maintenance: reconcile against current PHDK and recorded product intent, remediate compatible security/standards gaps, Check/remediate and deliver without inventing new features. The upgrade phase still replaces only manifest-owned `phdk-standards/` files and exact `PHDK-MANAGED` blocks. The chained Auto Force preserves all normal exclusions for UAT, major/material decisions, provider/infrastructure writes, spending, secrets and real controls.
 
 # Other operational commands
 
