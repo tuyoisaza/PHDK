@@ -2,8 +2,8 @@
 repository: tuyoisaza/hrhportal
 repository_url: https://github.com/tuyoisaza/hrhportal
 default_branch: main
-observed_repository_sha: UNVERIFIED
-observed_at_utc: 2026-10-26T14:09:18Z
+observed_repository_sha: 431a564be5c1432ca216d50b286f63e3cb25f8c6
+observed_at_utc: 2026-10-26T15:05:05Z
 phdk_version: 2.68.0
 phdk_canonical_version: 2.68.0
 phdk_status: CURRENT
@@ -15,11 +15,15 @@ tech_stack:
       deployed: UNVERIFIED
   frameworks:
     - name: Next.js
-      resolved: 15.5.28-candidate
+      resolved: 15.5.28
+      deployed: UNVERIFIED
     - name: Fastify
-      resolved: 5.12.6-candidate
+      resolved: 5.12.6
+      deployed: UNVERIFIED
     - name: Zod
-      resolved: 3.25.76
+      declared: "^4.6.6"
+      resolved: 4.6.7
+      deployed: UNVERIFIED
   package_managers:
     - name: pnpm
       resolved: 10.0.0
@@ -31,15 +35,15 @@ tech_stack:
     - name: postgres-ssl
       tag: "18"
 stack_review:
-  status: FINDINGS
-  reviewed_at_utc: 2026-10-26T14:09:18Z
-  evidence: docs/phdk/lifecycle/20261026-phdk-upgrade-force/00-preflight/STACK_SECURITY_REVIEW.md in active candidate
+  status: PARTIAL
+  reviewed_at_utc: 2026-10-26T15:05:05Z
+  evidence: docs/phdk/lifecycle/20261026-phdk-upgrade-force/68-secure/SECURITY_REPORT.md and 00-preflight/STACK_SECURITY_REVIEW.md at observed main SHA
   findings:
     critical: 0
-    high: 1
-    medium: 0
+    high: 0
+    medium: 2
     low: 0
 central_status_source: PHDK
 ---
 
-Notes: The candidate is uncommitted on codex/security-maintenance-2026-10-26 and based on remote main SHA 636f32066fbaebd59ef9c4d3d048b223e983ace7 (v0.10.1 / PHDK 2.65.1). Candidate PHDK 2.68.0 and compatible dependency patches are not yet on main or deployed. The candidate audit has one High Zod finding; application release clearance is held. Exact Node build/deployed version and live database state are UNVERIFIED.
+Notes: HRH PR #49 merged v0.10.2 to main at the observed repository SHA. The pinned production dependency audit reports no known vulnerabilities after the owner-authorized Zod migration. Medium evidence gaps remain: the declared Node range permits EOL Node 20 while the exact Railway runtime is UNVERIFIED, and runtime tenant-denial evidence was not exercised. A bounded Railway production read at 2026-10-26T15:05:05Z observed @repo/api and @repo/web BUILDING with pending deployments; Postgres was SLEEPING. Deployed source SHA and successful rollout are UNVERIFIED. UAT NOT RUN; no live application probe was performed.
