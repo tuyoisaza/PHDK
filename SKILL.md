@@ -168,6 +168,8 @@ Follow `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics` for a c
 
 ## Universal commands — `PHDK upgrade` / `PHDK upgrade force`
 
+**Composite Force behavior:** exact `PHDK upgrade force` does not end after synchronization. After the forced upgrade, security review, eligible central-status update and verification, transition immediately into `PHDK auto force` in the same foreground session. Continue the already identified authorized goal when present; otherwise use the bounded repository-maintenance goal from `PHDK_UPGRADE.md`. Do not ask the owner to type Auto separately and do not invent new features.
+
 For exact `PHDK upgrade` or `PHDK upgrade force` (case-insensitive after trimming whitespace):
 
 - Bare `PHDK upgrade` preserves local edits/conflicts inside the PHDK-owned surface and stops conflicting writes while continuing independent permitted review.
