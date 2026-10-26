@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.65.3**
+**Version v2.66.0**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
@@ -342,6 +342,16 @@ Every `PHDK upgrade` / `PHDK upgrade force` includes the bounded read-only [Stac
 
 Report **STANDARDS_SYNC**, **STACK_REVIEW_COVERAGE** and **STACK_SECURITY_STATUS** independently. Vendoring can succeed with security findings or unverified runtime evidence; it does not patch the application. Existing supported Node majors receive patch recommendations first; EOL/major migrations require compatibility work. Reuse current evidence at unchanged stages; no scheduler, new infrastructure, package installation or UAT is introduced.
 
+## Central downstream repository status
+
+[PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md) defines a lightweight registry for PHDK repositories owned by `tuyoisaza`. When a foreground PHDK session is operating on `tuyoisaza/<repo>` and already has write access to canonical `tuyoisaza/PHDK`, it refreshes:
+
+```text
+docs/repos/<repo>/status.md
+```
+
+The snapshot records the downstream PHDK version, observed repository SHA, evidence-backed runtime/framework/package-manager/data-engine/image versions and the independent Stack Security Review result. This lets maintainers identify repositories behind the current PHDK release or current stack-security recommendations. Missing canonical write access is reported without blocking the downstream task or requesting credentials. No background agent, crawler, Action, webhook or scheduler is introduced.
+
 # Keep PHDK synchronized
 
 ```text
@@ -408,6 +418,7 @@ Intent before implementation; visible design before dependent UI coding; require
 | Security/tenant risk | [DEVSECOPS.md](DEVSECOPS.md), [PHDK_TENANT_RISK_STANDARD.md](PHDK_TENANT_RISK_STANDARD.md) |
 | Versioning | [VERSIONING.md](VERSIONING.md) |
 | Upgrade | [PHDK_UPGRADE.md](PHDK_UPGRADE.md) |
+| Repository status registry | [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md) |
 | Changes/releases | [CHANGE_MANAGEMENT.md](CHANGE_MANAGEMENT.md) |
 | Technical release history | [CHANGELOG.md](CHANGELOG.md) |
 
