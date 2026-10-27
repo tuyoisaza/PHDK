@@ -22,5 +22,7 @@ Apply [Stack Security Review](PHDK_SECURE.md#stack-security-review) on explicit 
 - Reconcile PR checks, reviews, target main SHA, version and commit evidence after merge.
 - Do not claim COMPLETE for untested behavior, open required PRs, or unverified remote main.
 
+- Review [post-merge workspace closeout](PHDK_GIT_WORKSPACE_CLOSEOUT.md) routing through Auto, PMO, native agent/skill entrypoints, lifecycle and delivery. Verify both the distributable standard and `scripts/phdk_git_closeout.py` are in the manifest, that local main is updated only by safe fast-forward, and that branch/worktree cleanup preserves dirty, exclusive and unknown ignored data. The helper's presence never proves a local cleanup actually ran; require milestone-specific evidence and explicit remote-only dispositions.
+
 ## Audit report
 Use PHDK_COHERENCE_REPORT.md with baseline SHA, timestamp, scope and coverage; categorized findings (CONFLICT, GAP, RISK, VERIFIED, UNVERIFIED, N/A), severity, evidence, owners, remediation and exact next action. Distinguish sampled checks from exhaustive audit. A new conversation may run a fresh review on request; no passive background monitoring or inferred authorization to change unrelated repositories.

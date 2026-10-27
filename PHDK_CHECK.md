@@ -6,6 +6,10 @@ Apply `PHDK_TENANT_RISK_STANDARD.md` to actual/proposed multi-tenant projects. C
 
 # PHDK Check Standard
 
+## Local Git closeout evidence check (read-only)
+
+For each previously published value milestone with a local checkout, inspect the actual `PHDK_GIT_WORKSPACE_CLOSEOUT.md` LOCAL_MAIN and LOCAL_CLEANUP evidence, local-vs-fetched-origin/main SHA and any retained active worktrees/branches. Bare `PHDK check` is read-only: never delete branches, run remote/provider writes or trigger cleanup from a stored task. Auto/Force perform actual closeout at the post-merge boundary before the next local milestone, then Check audits its evidence. If only a GitHub connector exists, record NOT_APPLICABLE_REMOTE_ONLY, never infer that the owner's computer was synchronized. Railway branch/deploy evidence is separate.
+
 ## Acceptance scope during Check
 
 Check and Check remediation do not invoke UAT Prep, UAT or UAT Fix. Under Auto/Auto Force, report these phases `DEFERRED — OWNER OPT-IN` and `UAT NOT RUN`; evaluate source, static checks and delivery evidence without requiring acceptance handoffs, synthetic provisioning or runtime journeys. Keep actual missing product behavior and security defects as development findings, while optional acceptance execution remains deferred. Only a fresh explicit `PHDK uat` initiates acceptance and necessary Prep; standalone `PHDK uat prep` is prep-only, and UAT Fix needs explicit authorization. Old UAT failures do not automatically reopen completed development.

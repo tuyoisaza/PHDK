@@ -802,6 +802,8 @@ Delivery verifies the latest Check/remediation result and identifies any accepte
 
 ## 90 — Delivery
 
+After verifying remote main, close the local milestone workspace under `PHDK_GIT_WORKSPACE_CLOSEOUT.md`: safe main fast-forward, SHA equality and scoped clean worktree/branch retirement, or explicit BLOCKED / NOT_APPLICABLE_REMOTE_ONLY evidence. Record LOCAL_MAIN/LOCAL_CLEANUP independently of PUBLISHED/DEPLOYED/ACCEPTED; no redundant push to main or deletion of unrelated work.
+
 ### Purpose
 
 Complete versioned integration to the requested target and record exactly what shipped.
