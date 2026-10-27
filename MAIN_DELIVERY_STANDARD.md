@@ -123,6 +123,19 @@ When an operation remains blocked after permitted repairs and independent work, 
 
 Keep task records and final reporting honest. A record written before publication is a dated checkpoint; compare it with live git/PR evidence before claiming an operation remains pending or repeating it. Do not create a second release solely to stamp a post-merge checklist. A requested application URL should be an observed appropriate URL with the known delivery state; a local source-file link is not evidence of a deployed change. Missing deployment evidence is reported as such, without browser tests or provider writes.
 
+## Delivery-state truth and milestone visibility
+
+For every milestone and terminal report, keep these states independent:
+
+- **IMPLEMENTED** — required source/integration for the declared capability exists and its permitted development evidence is satisfied.
+- **PUBLISHED** — the change is verified on the requested source target (normally remote `main`) with version/SHA evidence.
+- **DEPLOYED** — the published revision is observed on the intended runtime/deployment target through permitted evidence.
+- **ACCEPTED** — the relevant user/business acceptance was actually executed and passed under its authorization; deferred UAT is `UAT NOT RUN`, never ACCEPTED.
+
+Do not infer a later state from an earlier one. A mock, static design, fixture-only path, disabled control, screenshot, page shell or isolated backend primitive is not a functional user capability unless the milestone explicitly defines that enabling output and its evidence. Report simulated behavior and unexecuted checks explicitly.
+
+Under the milestone model, internal agile slices do not trigger publication. Conversely, once a coherent authorized milestone is implemented and verified, do not postpone its already-authorized publication merely because later product milestones remain.
+
 ## Developer Mode remains a separate direct-main flow
 
 `PHDK_DEVELOPER_MODE.md` still requires explicit activation, an eligible small low-risk request, and the active conversation. Its failed-check, rejected/non-fast-forward push, and unmet-control conditions stop the direct flow immediately. The normal repair/integration steps above do not authorize automatic repair, rebase, merge, retry, or switching delivery paths to get around that stop. Report the blocker and wait for the user's next instruction.
