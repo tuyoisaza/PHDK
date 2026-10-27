@@ -2,11 +2,11 @@
 repository: tuyoisaza/XeniaCharis
 repository_url: https://github.com/tuyoisaza/XeniaCharis
 default_branch: main
-observed_repository_sha: 80f1c87cc82c3ea3d3718dfe9130b3463d0e2688
-observed_at_utc: "2026-10-27T21:22:12Z"
-phdk_version: "2.68.0"
+observed_repository_sha: d0039bf56fe8094ace825b11e804d192b94f1d75
+observed_at_utc: "2026-10-27T21:38:00Z"
+phdk_version: "2.69.0"
 phdk_canonical_version: "2.69.0"
-phdk_status: BEHIND
+phdk_status: CURRENT
 tech_stack:
   runtimes:
     - name: node
@@ -44,20 +44,21 @@ tech_stack:
       declared: "ghcr.io/astral-sh/uv:0.13.5"
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: "2026-10-27T04:55:56Z"
-  evidence: "Same-run review: https://github.com/tuyoisaza/XeniaCharis/blob/main/docs/phdk/lifecycle/20261026-auto-portfolio/68-secure/SECURITY_REPORT.md. Current application/dependency source baseline remains v0.13.7; later releases through v0.13.13 changed evidence/release metadata only. Source coverage remains PARTIAL. Tenant isolation/applied RLS, host secret scope/revocation, enforceability of the owner-confirmed commercial/contact data boundary, exact PostgreSQL patch, image digest, and deployed revision are UNVERIFIED."
+  reviewed_at_utc: "2026-10-27T21:30:00Z"
+  evidence: "Fresh Auto Preflight source/lock review: https://github.com/tuyoisaza/XeniaCharis/blob/main/docs/phdk/lifecycle/20261026-auto-portfolio/00-preflight/STACK_SECURITY_REVIEW.md. Canonical PHDK 2.69.0 was adopted; coherence passed 84 mappings. Reviewed key pinned runtimes/frameworks/security-sensitive dependencies against current official sources. Full transitive advisory coverage, base-image digest/OS package inventory, deployed service versions/SHA/runtime, tenant isolation and effective deployment controls remain UNVERIFIED."
   findings:
     critical: 0
-    high: 3
-    medium: 2
+    high: 0
+    medium: 0
     low: 0
 central_status_source: PHDK
 ---
 
 # Current evidence
 
-- XeniaCharis main is v0.13.13 at 80f1c87cc82c3ea3d3718dfe9130b3463d0e2688 (PR #117). GitHub API/web deployment-status contexts are PENDING for this SHA; they do not prove deployed SHA, runtime, or application health.
-- The vendored/adopted PHDK version is 2.68.0; canonical PHDK main is 2.69.0. Status is BEHIND by one minor release. Runtime and framework versions above remain source-evidenced; deployment values remain UNVERIFIED.
-- The latest source audit baseline remains v0.13.7; PR #117 and later updates contain no product/dependency source change. Static tenant RLS inventory reports 92/92 lexical declarations across 85 migration sources, not semantic or deployed isolation evidence.
-- Stack review remains PARTIAL, not security clearance. Provisional tenant risk remains R3 High; source and effective controls do not establish residual-risk acceptance. The dependency inventory's 631 third-party exact-release declarations remain DECLARED_UNREVIEWED, not legal/commercial approval.
-- UAT Prep/UAT/UAT Fix remain DEFERRED — OWNER OPT-IN; UAT NOT RUN. No Railway diagnostics, provider/database write, deployment, behavioral test, or application probe was performed.
+- XeniaCharis main is v0.13.14 at d0039bf56fe8094ace825b11e804d192b94f1d75 (PR #118). GitHub commit metadata currently reports both API and web deployment contexts as PENDING, with “Railway is deploying the service”; this does not prove deployed SHA, runtime, or application health.
+- Adopted and canonical PHDK are both 2.69.0. The official updater verified 21 manifest destinations; the static coherence checker passed 84 mappings.
+- Current source/runtime declarations remain: Node 24.22.1, Python 3.12.16 build recipe, Next 16.4.2, React 19.3.1, FastAPI 0.143.3, SQLAlchemy 2.1.5, pypdf 6.21.2, pnpm 11.25.0 and uv 0.13.5. Deployed versions remain UNVERIFIED.
+- Static tenant RLS inventory reports 92/92 lexical declarations across 85 migration sources; it does not prove policy semantics, applied schema or effective tenant denial. Provisional tenant risk remains R3 High; the intended commercial/contact-only data scope does not establish technical enforcement or residual-risk acceptance. The dependency inventory's third-party exact-release declarations remain DECLARED_UNREVIEWED for legal/commercial suitability.
+- Stack security review is PARTIAL and overall deployed security status remains UNVERIFIED. No Critical/High issue was confirmed in the reviewed pinned versions, but transitive, image/OS, deployment and host-control coverage remain incomplete.
+- UAT Prep/UAT/UAT Fix remain DEFERRED — OWNER OPT-IN; UAT NOT RUN. No Railway diagnostics/logs, provider/database write, manual deployment, behavioral test or application probe was performed.
