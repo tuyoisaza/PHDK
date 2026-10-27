@@ -69,6 +69,14 @@ def inventory(repo, remote, target):
                    "refs/heads", cwd=repo).splitlines()
     worktrees = git("worktree", "list", "--porcelain", cwd=repo).splitlines()
     remote_refs = git("ls-remote", "--heads", remote, cwd=repo).splitlines()
+    remote_branches = []
+    for line in remote_refs:
+        items = line.split()
+        if len(items) != 2 or not items[1].startswith("refs/heads/"):
+            continue
+        branch = items[1][len("refs/heads/"):]
+        if branch_valid(repo, branch, target):
+            remote_branches.append({"branch": branch, "sha": items[0]})
     names = []
     for record in branches:
         if not record.strip():
@@ -83,6 +91,7 @@ def inventory(repo, remote, target):
     return {"mode": "INVENTORY_READ_ONLY", "repo": repo_identity(repo, remote),
             "target": target, "local_main_sha": rev(repo, "refs/heads/" + target) or None,
             "local_branches": names, "worktree_lines": worktrees,
+            "remote_branch_heads": remote_branches,
             "remote_branch_count": len(remote_refs), "remote_snapshot": "LIVE_LS_REMOTE",
             "next_step": "Fetch recent merged/open PR metadata for exact candidates; no deletions by ancestry alone"}
 
@@ -122,6 +131,13 @@ def save_state(repo, report):
     path = audit_path(repo)
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(".tmp")
+    if path.exists() and "historical_inventory" not in report:
+        try:
+            previous = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(previous, dict) and "historical_inventory" in previous:
+                report["historical_inventory"] = previous["historical_inventory"]
+        except (ValueError, OSError):
+            pass
     temp.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     temp.replace(path)
     return str(path)
@@ -227,6 +243,8 @@ def apply(repo, remote, target, evidence, max_candidates, allow_generated_ignore
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument("--record-inventory", action="store_true",
+                        help="only in an authorized local Auto/Force run: save an audit checkpoint under .git")
     parser.add_argument("--evidence", type=Path)
     parser.add_argument("--remote", default="origin")
     parser.add_argument("--target", default="main")
@@ -246,7 +264,13 @@ def main():
                            args.max_candidates, args.allow_generated_ignored)
             print(json.dumps(report, indent=2, sort_keys=True))
             return 0 if report["pending"] == 0 else 3
-        print(json.dumps(inventory(root, args.remote, args.target), indent=2, sort_keys=True))
+        found = inventory(root, args.remote, args.target)
+        if args.record_inventory:
+            marker = {"schema_version": 1, "historical_inventory": found,
+                      "history_complete": False,
+                      "observed_at_utc": dt.datetime.now(dt.timezone.utc).isoformat()}
+            found["state_path"] = save_state(root, marker)
+        print(json.dumps(found, indent=2, sort_keys=True))
         return 0
     except (RuntimeError, OSError, ValueError, KeyError, subprocess.TimeoutExpired) as err:
         print(json.dumps({"status": "BLOCKED", "error": str(err)}), file=sys.stderr)

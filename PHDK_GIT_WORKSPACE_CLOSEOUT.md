@@ -18,7 +18,7 @@ On the **first explicitly initiated PHDK auto or PHDK auto force** in a local ch
 
 ### Machine-readable GitHub evidence for bounded deletion
 
-The agent constructs the JSON from **fresh, actual GitHub PR records**, never by inventing a merged state. The helper checks identity, exact SHA, target ancestry, timestamps, and live refs; it cannot independently authenticate the origin of a caller-supplied PR record.
+The agent constructs the JSON from **fresh, actual GitHub PR records**, never by inventing a merged state. The helper checks identity, exact SHA, target ancestry, timestamps, and live refs; it cannot independently authenticate the origin of a caller-supplied PR record. The inventory includes the local and remote branch-head names/SHAs so the agent can fetch associated PR evidence automatically. Save any temporary proof JSON under the repo's private Git common directory, not among source files. A saved audit marker never authorizes work in a new conversation.
 
 ```json
 {
@@ -50,8 +50,8 @@ The agent constructs the JSON from **fresh, actual GitHub PR records**, never by
 The SHA strings shown are placeholders, not valid execution evidence. For the current just-merged milestone use `scope: "milestone"` and the actual observed records without the 24-hour historical age gate. Run the inventory first, then apply from the relevant local checkout with validated real evidence:
 
 ```text
-python phdk-standards/scripts/phdk_git_history_cleanup.py
-python phdk-standards/scripts/phdk_git_history_cleanup.py --apply --evidence verified-pr-evidence.json
+python phdk-standards/scripts/phdk_git_history_cleanup.py --record-inventory
+python phdk-standards/scripts/phdk_git_history_cleanup.py --apply --evidence .git/phdk/verified-pr-evidence.json
 ```
 
 In canonical PHDK source checkout use `scripts/` rather than `phdk-standards/scripts/`. No fallback to blanket `git push --delete`, broad ref pruning, guessed merge SHA or uncontrolled directory removal. Keep the entire audit bounded to the current authorized repository.
