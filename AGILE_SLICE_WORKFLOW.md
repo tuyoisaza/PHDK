@@ -14,7 +14,7 @@ A request to implement, fix, or update repository code or documentation includes
 
 Explicit `PHDK_DEVELOPER_MODE.md` activation is a narrow exception for delivery of eligible tasks requested during the active conversation; a slice, template, or stored record cannot activate or restore it.
 
-With explicit `PHDK auto`, `PHDK_AUTO.md` takes precedence over this workflow's per-slice cadence. Implement every part of the whole agreed goal before comprehensive verification and normal branch/PR delivery. Slices, stages, and candidate releases are internal organization, never approval, human-acceptance, or completion gates. Preserve mandatory hooks at their governed operations and continue independent authorized work around a genuine blocker.
+With explicit `PHDK auto`, `PHDK_AUTO.md` and `PHDK_PROJECT_MANAGEMENT_STANDARD.md` take precedence over this workflow's per-slice cadence. **A slice is not a milestone.** Implement and integrate the internal slices needed to satisfy the active milestone, then apply milestone-level permitted verification and the **milestone publication boundary** before continuing from refreshed `main`. Do not publish each slice, and do not hold a complete independently valuable milestone until the entire product is finished. Slices and stages are internal organization, never approval, human-acceptance, or whole-goal completion gates. Preserve mandatory hooks at their governed operations and continue independent authorized work around a genuine blocker.
 
 ## Examples
 
@@ -36,11 +36,11 @@ For `PHDK unlock` or an explicit request to reconcile/remove local PHDK exceptio
 
 Work directly by default; use bounded in-session workers in any mode only when supported and beneficial under `PHDK_INTELLIGENT_EXECUTION.md`. PMO owns portfolio/workstream coordination. Workers cannot delegate or run in the background.
 
-Make routine decisions within the approved change. Complete its necessary steps, but do not select another backlog goal or launch follow-up work. In Auto, proceed through all authorized features and stages before moving to the final verification boundary; an explicitly selected multi-feature goal is not limited to its first useful slice.
+Make routine decisions within the approved change. Complete its necessary steps, but do not select another backlog goal or launch follow-up work. In Auto, proceed through the active milestone's internal slices until its complete capability/evidence contract is satisfied, publish that milestone when authorized, then continue the remaining milestones and final cross-milestone verification. An explicitly selected multi-feature goal is not limited to its first useful slice or first milestone.
 
 ### 4. Verify locally at the applicable boundary
 
-In Auto, apply this coverage to the completed integrated candidate under `PHDK_AUTO.md`, not after each slice. Write needed tests with implementation; execute intermediate checks only to diagnose an implementation blocker or satisfy an actual mandatory control. Final QA and in-scope repairs precede publication.
+In Auto, apply proportionate permitted verification at the **milestone boundary**, not after each internal slice. Write needed test source with implementation; execute intermediate checks only to diagnose an implementation blocker or satisfy an actual mandatory control. Milestone verification precedes its publication; final cross-milestone Integration Review/Check still verifies the complete goal without creating another version-only release.
 
 Review source/diffs and run applicable synchronous formatting, linting, typechecking, builds, and risk-triggered non-browser unit/in-process integration tests. Use isolated test doubles, not real services or customer data. End the checks; do not leave a watcher running.
 
@@ -82,7 +82,7 @@ Developer Mode remains only in the active interactive conversation and ends on `
 
 ## Slice sizing
 
-A useful slice has a clear outcome, a coherent source diff, and proportionate local coverage. Split a broad implementation plan into understandable steps without reducing the owner's complete goal, inventing additional approvals, or creating agents. Auto validates those steps together at the final boundary.
+A useful slice has a clear outcome, a coherent source diff, and proportionate permitted coverage. Split a broad implementation plan into understandable steps without reducing the owner's complete goal, inventing additional approvals, or creating agents. Auto integrates slices into a milestone and validates them together at that milestone boundary; final cross-milestone verification remains separate.
 
 ## Planning template
 
@@ -94,7 +94,7 @@ In scope: ...
 Out of scope: ...
 Owner restrictions: ...
 Delivery target and observed git/review evidence (context only; no mode state): ...
-Verification: source/diff + relevant synchronous local checks; Auto collects full coverage at the completed candidate, with mandatory controls at their actual operations
+Verification: source/diff + relevant permitted checks; Auto aggregates internal slices at the milestone boundary, then performs final cross-milestone verification for the whole goal
 Done when: whole requested scope is complete and result/version verified on remote main, or explicit narrower target satisfied
 Inactive follow-ups: ...
 ```
