@@ -2,11 +2,11 @@
 repository: tuyoisaza/XeniaCharis
 repository_url: https://github.com/tuyoisaza/XeniaCharis
 default_branch: main
-observed_repository_sha: 8136ef3dd34e3190b05be9805842120b6a17e681
-observed_at_utc: "2026-10-27T04:59:57Z"
+observed_repository_sha: 80f1c87cc82c3ea3d3718dfe9130b3463d0e2688
+observed_at_utc: "2026-10-27T21:22:12Z"
 phdk_version: "2.68.0"
-phdk_canonical_version: "2.68.0"
-phdk_status: CURRENT
+phdk_canonical_version: "2.69.0"
+phdk_status: BEHIND
 tech_stack:
   runtimes:
     - name: node
@@ -45,7 +45,7 @@ tech_stack:
 stack_review:
   status: PARTIAL
   reviewed_at_utc: "2026-10-27T04:55:56Z"
-  evidence: "Same-run review: https://github.com/tuyoisaza/XeniaCharis/blob/main/docs/phdk/lifecycle/20261026-auto-portfolio/68-secure/SECURITY_REPORT.md. Reviewed v0.13.0 managed-secret lifecycle delta and current tenant/data-boundary evidence. No confirmed Critical/High exploitable source vulnerability; source coverage remains PARTIAL. Tenant isolation and applied RLS, host secret scope/revocation, enforceability of the owner-confirmed commercial/contact data boundary, exact PostgreSQL patch, image digest and deployed revision are UNVERIFIED. Node/Python/framework/package versions remain source-evidenced and unchanged by docs-only v0.13.1."
+  evidence: "Same-run review: https://github.com/tuyoisaza/XeniaCharis/blob/main/docs/phdk/lifecycle/20261026-auto-portfolio/68-secure/SECURITY_REPORT.md. Current application/dependency source baseline remains v0.13.7; later releases through v0.13.13 changed evidence/release metadata only. Source coverage remains PARTIAL. Tenant isolation/applied RLS, host secret scope/revocation, enforceability of the owner-confirmed commercial/contact data boundary, exact PostgreSQL patch, image digest, and deployed revision are UNVERIFIED."
   findings:
     critical: 0
     high: 3
@@ -56,7 +56,8 @@ central_status_source: PHDK
 
 # Current evidence
 
-- XeniaCharis main is v0.13.1 at 8136ef3dd34e3190b05be9805842120b6a17e681, independently verified after PR #103 merged. PHDK is current at 2.68.0, matching canonical main; the run verified 79 manifest mappings.
-- Source declares Node 24.22.1 and CPython 3.12.16; framework/package-manager versions above remain source-evidenced. The repository inventory has 631 third-party exact-release declarations marked DECLARED_UNREVIEWED; this is not legal/commercial approval.
-- Stack review remains PARTIAL, not security clearance. Provisional tenant risk remains R3 High; source and effective controls do not establish residual-risk acceptance. Production runtime, effective RLS, managed-host identity/token scope, migration/worker execution, PostgreSQL patch, image digest and deployed SHA remain UNVERIFIED.
-- UAT Prep/UAT/UAT Fix remain DEFERRED — OWNER OPT-IN; UAT NOT RUN. No Railway diagnostics, provider/database write, deployment, behavioral test or application probe was performed for v0.13.1.
+- XeniaCharis main is v0.13.13 at 80f1c87cc82c3ea3d3718dfe9130b3463d0e2688 (PR #117). GitHub API/web deployment-status contexts are PENDING for this SHA; they do not prove deployed SHA, runtime, or application health.
+- The vendored/adopted PHDK version is 2.68.0; canonical PHDK main is 2.69.0. Status is BEHIND by one minor release. Runtime and framework versions above remain source-evidenced; deployment values remain UNVERIFIED.
+- The latest source audit baseline remains v0.13.7; PR #117 and later updates contain no product/dependency source change. Static tenant RLS inventory reports 92/92 lexical declarations across 85 migration sources, not semantic or deployed isolation evidence.
+- Stack review remains PARTIAL, not security clearance. Provisional tenant risk remains R3 High; source and effective controls do not establish residual-risk acceptance. The dependency inventory's 631 third-party exact-release declarations remain DECLARED_UNREVIEWED, not legal/commercial approval.
+- UAT Prep/UAT/UAT Fix remain DEFERRED — OWNER OPT-IN; UAT NOT RUN. No Railway diagnostics, provider/database write, deployment, behavioral test, or application probe was performed.
