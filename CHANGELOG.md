@@ -1,3 +1,18 @@
+## v2.69.0 — 2026-10-27
+
+### Visible milestones and optional reusable-capability catalog
+- Tighten milestone contracts around a complete user capability/journey, explicit scope/dependencies, acceptance criteria, honest working/simulated/not-run evidence, delivery target/authorization and next milestone.
+- Resolve the agile-slice ambiguity: internal slices do not trigger publication, while a completed coherent authorized milestone is verified/versioned/published before later milestones instead of being held until the whole product is finished.
+- Require delivery reporting to distinguish IMPLEMENTED, PUBLISHED, DEPLOYED and ACCEPTED; mocks, shells, fixtures and unexecuted checks cannot be promoted to functional evidence.
+- Add optional Plan-time REUSE / ADAPT / BUILD assessment. Only ACCEPTED_VERSIONED catalog entries are eligible for direct reuse; candidate/reviewed implementations require current-project revalidation and specification-only entries have no implementation.
+- Add a public reusable-capability catalog contract, JSON schema, standard-library validator and policy scenarios. Accepted reusable packages require explicit license/security/maintenance evidence, observed passing tests and portability in a second independent consumer.
+- Define a specification-only starter composition for administration/organizations/multitenancy/roles, synthetic UAT tooling, AI prompt administration, light/dark/corporate themes and internationalization/language selection. Synthetic identities retain explicit UAT opt-in and real authentication/authorization controls.
+
+### Publication, privacy and verification limits
+- Keep PHDK as methodology/contracts/catalog; reusable implementations belong in separately versioned packages. The canonical public catalog uses generic contracts and synthetic starter examples.
+- This release does not publish private donor source, inventory or evidence, and does not modify donor projects or consumers automatically.
+- Add static test scenarios for optional module selection, rejection of unvalidated accepted status, milestone/slice separation and truthful delivery evidence. Local repository test execution, UAT, deployment and provider operations are not implied by the standards change and must be reported separately when not run.
+
 ## v2.68.0 — 2026-10-25
 
 ### One-command forced upgrade and Auto Force
