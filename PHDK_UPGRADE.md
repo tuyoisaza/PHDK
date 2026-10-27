@@ -163,7 +163,7 @@ Report STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS independe
 
 ### 9b. Publish eligible central repository status
 
-After the Stack Security Review has current evidence, apply [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md).
+After the Stack Security Review has current evidence, apply [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md). For bare Upgrade, the eligible central status may be published after the review. For **Upgrade Force**, prepare the status now but **defer the central write until after step 9c verifies the downstream remote-main result**, so its observed repository SHA describes the published state rather than an unmerged upgrade branch. If 9c is blocked, report the central update as pending/unverified rather than publishing a false delivered SHA.
 
 For a verified `tuyoisaza/<repo>` downstream repository, when the active session already has write access to `tuyoisaza/PHDK`, refresh `docs/repos/<repo>/status.md` in the canonical PHDK repository with the installed/canonical PHDK versions, observed repository SHA, concise tech-stack versions and independent stack-review status. Use only evidence already established by this foreground operation. Do not include secrets or infer deployed versions.
 
