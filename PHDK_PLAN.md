@@ -20,11 +20,15 @@ For multi-tenant plans, apply `PHDK_TENANT_RISK_STANDARD.md` and consume `TENANT
 
 Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` during Plan. Classify the delivery approach as predictive, adaptive or hybrid from actual requirement stability/uncertainty, then create or refresh `MILESTONE_PLAN.md`.
 
-Milestones are value/acceptance boundaries, not PHDK lifecycle stages. Every in-scope commitment and implementation task/workstream must map to a milestone. Each milestone needs a stable `MS-###` ID, value outcome, linked requirements, included workstreams/tasks, dependencies, material risks/domain impacts, acceptance criteria/evidence, expected SemVer impact, and UAT user-goal intent. Prefer vertical, independently coherent increments; do not reserve an exact version number during planning because current `main` may advance before delivery.
+Milestones are value/acceptance boundaries, not PHDK lifecycle stages. Every in-scope commitment and implementation task/workstream must map to a milestone. Each milestone needs a stable `MS-###` ID; the concrete user capability gained and representative journey the user can complete; linked requirements; included scope/workstreams/tasks and explicit exclusions; dependencies; material risks/domain impacts; acceptance criteria and permitted evidence; an evidence summary distinguishing what is working, simulated/mocked and `NOT RUN`/`UNVERIFIED`; delivery target and applicable authorization reference; expected SemVer impact; UAT user-goal intent; and the next milestone or terminal goal. Prefer vertical, independently coherent increments; do not reserve an exact version number during planning because current `main` may advance before delivery. A screen, mock, scaffold or isolated infrastructure layer is not a complete user capability unless the milestone explicitly defines and verifies that enabling capability.
 
 Inside Auto/Auto Force, completing a milestone triggers the milestone publication gate: relevant verification → version reconciliation/bump → version-prefixed commit → scoped PR → merge to `main` → remote SHA/version readback → continue from refreshed `main`. Ending Capture, Plan, Design, PMO, UAT or another lifecycle stage by itself never triggers a version.
 
 When available, prefer the planning/task-breakdown and detailed implementation-plan capabilities registered in `SKILLS_REGISTRY.md`; PHDK's milestone, authorization and delivery rules override any external skill's checkpoint/commit/approval conventions.
+
+## Optional reusable-capability assessment
+
+Before rebuilding a common capability when a plausible match exists, consult `PHDK_REUSE_CATALOG_STANDARD.md` and `PHDK_REUSE_CATALOG.json`. Compare **REUSE, ADAPT and BUILD** rather than assuming reuse is desirable. When material, create/update `REUSE_ASSESSMENT.md` with fit, integration cost, maintenance burden, dependencies, compatibility, security, license and evidence, then map the decision to the affected milestone/tasks. Only `ACCEPTED_VERSIONED` entries may be selected as REUSE; candidate/reviewed implementations require current-project revalidation and may be considered for ADAPT, while `SPECIFICATION_ONLY` has no implementation. Identify promising donor modules without delaying the active project merely to generalize them; contribution/extraction can follow after the product capability works.
 
 ## Mandatory product UX/UI planning and Design handoff
 
@@ -232,7 +236,7 @@ Do not invent branding or visual art direction unsupported by intent. Standalone
 
 ### 4. MILESTONE_PLAN.md
 
-Define the ordered value-delivery roadmap required by `PHDK_PROJECT_MANAGEMENT_STANDARD.md`. Map milestones to commitments, requirements, workstreams/tasks, dependencies, risks, acceptance evidence, expected SemVer impact and UAT user-goal intent. Record actual version/PR/main evidence only after execution. Include the selected Design baseline as a dependency for applicable UI work, not as a mandatory separate release milestone.
+Define the ordered value-delivery roadmap required by `PHDK_PROJECT_MANAGEMENT_STANDARD.md`. Map milestones to commitments, requirements, user capability/journey, included/excluded scope, workstreams/tasks, dependencies, risks, acceptance evidence, working/simulated/not-run evidence, delivery target/authorization, expected SemVer impact, UAT user-goal intent and next milestone. Record actual IMPLEMENTED/PUBLISHED/DEPLOYED/ACCEPTED state and version/PR/main evidence only after execution. Include the selected Design baseline as a dependency for applicable UI work, not as a mandatory separate release milestone.
 
 ### 5. IMPLEMENTATION_PLAN.md
 
