@@ -88,6 +88,11 @@ for mandatory in [
     "MAIN_DELIVERY_STANDARD.md",
     "TASK_TRACKING_STANDARD.md",
     "PHDK_PLAN.md",
+    "PHDK_REUSE_CATALOG_STANDARD.md",
+    "PHDK_STARTER_PROFILE.md",
+    "PHDK_REUSE_CATALOG.json",
+    "schemas/phdk-reuse-catalog.schema.json",
+    "scripts/phdk_reuse_catalog_check.py",
 ]:
     if mandatory not in sources:
         errors.append(f"manifest lacks {mandatory}")
@@ -370,6 +375,55 @@ if ux_file.is_file() and "No new independent stage is required" in ux_file.read_
     encoding="utf-8"
 ):
     errors.append("PHDK_UX_UI.md retains obsolete no-independent-Design-stage wording")
+
+# Reuse/catalog routing is source-level contract verification, not package acceptance.
+reuse_reference = "PHDK_REUSE_CATALOG_STANDARD.md"
+for entrypoint in ["README.md", "AGENTS.md", "PHDK_NATIVE_RULES.md", "SKILL.md", "PHDK_PLAN.md"]:
+    file = policy_path(entrypoint)
+    if not file.is_file() or reuse_reference not in file.read_text(encoding="utf-8"):
+        errors.append(f"{entrypoint} missing reusable-capability catalog routing")
+
+required_reuse_markers = {
+    "PHDK_REUSE_CATALOG_STANDARD.md": [
+        "REUSE",
+        "ADAPT",
+        "BUILD",
+        "SPECIFICATION_ONLY",
+        "ACCEPTED_VERSIONED",
+        "second independent consumer",
+        "tests_present",
+        "test_status",
+    ],
+    "PHDK_STARTER_PROFILE.md": [
+        "Composition target only",
+        "super_admin",
+        "Synthetic identities",
+        "AI prompt administration",
+        "Theme system",
+        "Internationalization",
+    ],
+    "PHDK_PROJECT_MANAGEMENT_STANDARD.md": [
+        "user capability",
+        "user journey",
+        "IMPLEMENTED",
+        "PUBLISHED",
+        "DEPLOYED",
+        "ACCEPTED",
+    ],
+    "AGILE_SLICE_WORKFLOW.md": [
+        "A slice is not a milestone",
+        "milestone publication boundary",
+    ],
+}
+for filename, markers in required_reuse_markers.items():
+    file = policy_path(filename)
+    if not file.is_file():
+        errors.append(f"missing reuse/milestone contract file {filename}")
+        continue
+    body = file.read_text(encoding="utf-8")
+    for marker in markers:
+        if marker not in body:
+            errors.append(f"{filename} missing reuse/milestone marker {marker}")
 
 # Acceptance routing must remain coherent in the body and in the installed
 # managed block. A precedence header never suppresses a conflicting directive.
