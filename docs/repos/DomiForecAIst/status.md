@@ -25,7 +25,7 @@ tech_stack:
     - name: next-auth
       resolved: "5.0.0-beta.32"
     - name: fastapi
-      resolved: "UNVERIFIED"
+      resolved: "0.140.0"
   package_managers:
     - name: npm
       resolved: "UNVERIFIED"
