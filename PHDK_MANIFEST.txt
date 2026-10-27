@@ -35,6 +35,8 @@ ONBOARDING_AI_DEVELOPER.md | ONBOARDING_AI_DEVELOPER.md
 AGENTS.md | AGENTS.md
 EXECUTION_SCOPE.md | EXECUTION_SCOPE.md
 MAIN_DELIVERY_STANDARD.md | MAIN_DELIVERY_STANDARD.md
+PHDK_GIT_WORKSPACE_CLOSEOUT.md | PHDK_GIT_WORKSPACE_CLOSEOUT.md
+scripts/phdk_git_closeout.py | scripts/phdk_git_closeout.py
 PHDK_COMPLETION_GATE.md | PHDK_COMPLETION_GATE.md
 scripts/phdk_completion_gate.py | scripts/phdk_completion_gate.py
 PHDK_AUTO.md | PHDK_AUTO.md

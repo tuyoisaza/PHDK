@@ -25,6 +25,10 @@ DIAGNOSTICS REPORT (copied text, not visible beside the version): version, short
 
 Increment guidance: patch for fixes/copy/internal changes, minor for new features, major for breaking changes. Follow explicit project release decisions. The current request can already approve a described breaking change; ask only about a new material breaking decision it does not cover, without blocking independent authorized work.
 
+## Post-merge local main and worktree reconciliation
+
+Every published milestone in Auto/Force uses [PHDK_GIT_WORKSPACE_CLOSEOUT.md](PHDK_GIT_WORKSPACE_CLOSEOUT.md) **after** the remote PR/merge SHA has been verified and **before** any new local milestone branch. Synchronize local main with origin/main by safe fast-forward and verify SHA equality; retire only the integrated milestone branch/worktree with a clean and independently proven merge. Never do a second push from local main after a GitHub PR merge. Report local sync/cleanup, remote branch deletion and production deployment as separate results. Connector-only work has no local workspace and must say NOT_APPLICABLE_REMOTE_ONLY.
+
 ## Branches and current authorization
 
 Typical prefixes are `feature/`, `fix/`, `chore/`, `phdk/vX.Y.Z/`, and a specifically justified `checkpoint/YYYY-MM-DD`.

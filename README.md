@@ -10,7 +10,9 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.69.0**
+**Version v2.70.0**
+
+**Git workspace closeout (v2.70.0):** After each verified merged milestone, [PHDK_GIT_WORKSPACE_CLOSEOUT.md](PHDK_GIT_WORKSPACE_CLOSEOUT.md) requires local main fast-forward synchronization and safe retirement of only proven-integrated milestone branches/worktrees. GitHub PR merge already updates remote main; no second push is needed. Local-only blockers and remote-only access are reported separately; never discard unmerged changes or unknown ignored data. The vendored [closeout helper](scripts/phdk_git_closeout.py) verifies target SHA equality and refuses unsafe cleanup.
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 

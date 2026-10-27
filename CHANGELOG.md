@@ -1,3 +1,11 @@
+## v2.70.0 — 2026-10-27
+
+### Verified Git workspace closeout after milestone merge
+- Add PHDK_GIT_WORKSPACE_CLOSEOUT.md and a stdlib helper for local origin/main fetch, fast-forward-only main sync, SHA reconciliation, and scoped safe cleanup of independently verified merged milestone branches/worktrees.
+- Require Auto/Auto Force and PMO coordinators to run post-merge local closeout at each authorized published value milestone before starting new local work; preserve dirty, locked, active, unmatched and unmerged state and report exact blockers rather than forcing deletion.
+- Reconcile entrypoints, delivery/versioning, README and the distribution manifest. Keep remote merge, local sync, remote feature-branch cleanup, Railway deployment and UAT as distinct evidence states; no redundant post-PR main push, server/provider setting changes, background jobs or local product tests.
+- Add regression test source for safe branch retirement, SHA mismatch and ignored-data protection. Syntax/static review permitted; runtime/regression execution and deployed UAT not claimed.
+
 ## v2.69.0 — 2026-10-27
 
 ### Visible milestones and optional reusable-capability catalog
