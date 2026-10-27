@@ -8,6 +8,11 @@
 - Add a public reusable-capability catalog contract, JSON schema, standard-library validator and policy scenarios. Accepted reusable packages require explicit license/security/maintenance evidence, observed passing tests and portability in a second independent consumer.
 - Define a specification-only starter composition for administration/organizations/multitenancy/roles, synthetic UAT tooling, AI prompt administration, light/dark/corporate themes and internationalization/language selection. Synthetic identities retain explicit UAT opt-in and real authentication/authorization controls.
 
+### Catalog review corrections
+- Reject accepted status based on flags alone: require version-linked test, security and license evidence plus evidence for each distinct consumer. Document the license/permission basis and redistribution rights without restricting acceptance to SPDX licenses.
+- Align schema/checker required fields, types, unknown-field rejection and assigned version/owner gates; missing implementation is not null. Keep cross-record version and identity checks explicit and clarify that metadata validation is not semantic proof.
+- Add shared synthetic negative fixtures for the stdlib checker and optional JSON Schema parity checks. Keep all five canonical starter entries specification-only with empty evidence; do not claim checks ran when execution is unavailable.
+
 ### Publication, privacy and verification limits
 - Keep PHDK as methodology/contracts/catalog; reusable implementations belong in separately versioned packages. The canonical public catalog uses generic contracts and synthetic starter examples.
 - This release does not publish private donor source, inventory or evidence, and does not modify donor projects or consumers automatically.

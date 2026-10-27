@@ -64,6 +64,25 @@ Evidence must be literal:
 - implementation, publication, deployment and user acceptance are separate states;
 - acceptance requires its own evidence and never follows automatically from catalog acceptance.
 
+### Machine-readable evidence contract
+
+All declared fields are required, including explicit `implementation: null`; omission is not equivalent to null. Unknown fields and wrong types are rejected. Text fields and reference items must contain non-whitespace text. The schema and standard-library checker share these structural requirements.
+
+Evidence references use records of the form `{"version": "<implementation version>", "references": ["<evidence locator>"]}`:
+
+- `security.evidence` records the review and its threat/isolation assumptions.
+- `license.evidence` records the rights review; `license.identifier` names the license or permission basis, and `license.rights` documents applicable use/redistribution rights and conditions. An SPDX identifier is welcome, **not mandatory**: a documented custom license or authorized permission basis is valid. The catalog does not invent redistribution rights.
+- `evidence.test_runs` points to observed test-execution results, not just test source or a test-present flag.
+- Each `evidence.portability_consumers` item has `consumer`, `version` and `references`, tying evidence to that particular consumer. Two different labels alone do not establish independence.
+
+For `ACCEPTED_VERSIONED`, implementation version and maintenance owner must be assigned (not null, blank or `UNASSIGNED`); maintenance policy must be nonblank. Security must be `REVIEWED`, license `VERIFIED`, tests present and `PASS`. Each evidence category must have records with nonempty references, license identifier/rights must be documented, and at least two distinct consumer identities must each have evidence. All record versions must exactly match `implementation.version`. Specification-only starters retain empty evidence arrays, null license rights/identifier, `NOT_RUN`, no implementation and no download.
+
+The JSON Schema enforces structure, field types and conditional acceptance requirements. The stdlib checker additionally enforces equal implementation/evidence versions and unique entry/consumer identities: standard JSON Schema does not compare values across these records. **Run the checker as well as schema validation**, not one as a substitute for the other. This is an explicit catalog contract, not a general-purpose hand-written JSON Schema engine.
+
+A successful check verifies metadata only. It does not fetch references, prove observed execution, establish license rights or security adequacy, verify independent consumers, or authorize UAT. A reviewer must inspect the cited evidence and its version binding before promotion; stale, fabricated or inaccessible evidence cannot be promoted merely because the record validates. This preserves current-project compatibility and rights review before REUSE.
+
+The regression suite in `tests/test_reuse_milestone_policy.py` generates shared synthetic negative fixtures for missing/extra fields, types, empty evidence and acceptance gates. They are not published packages or real acceptance evidence. Schema parity uses `jsonschema` only if already available and reports a skip otherwise; the distributed checker itself stays standard-library-only. Report any unavailable or unexecuted checks as **NOT RUN**, never PASS.
+
 ## Contribution checklist
 
 Before `ACCEPTED_VERSIONED`, a proposed reusable implementation must document:
