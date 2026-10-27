@@ -29,6 +29,10 @@ Increment guidance: patch for fixes/copy/internal changes, minor for new feature
 
 Every published milestone in Auto/Force uses [PHDK_GIT_WORKSPACE_CLOSEOUT.md](PHDK_GIT_WORKSPACE_CLOSEOUT.md) **after** the remote PR/merge SHA has been verified and **before** any new local milestone branch. Synchronize local main with origin/main by safe fast-forward and verify SHA equality; retire only the integrated milestone branch/worktree with a clean and independently proven merge. Never do a second push from local main after a GitHub PR merge. Report local sync/cleanup, remote branch deletion and production deployment as separate results. Connector-only work has no local workspace and must say NOT_APPLICABLE_REMOTE_ONLY.
 
+## One-time historical Git hygiene is not a source release
+
+On the first explicitly initiated local Auto/Force run after adoption, PHDK_GIT_WORKSPACE_CLOSEOUT.md permits a bounded, evidence-backed audit of old branches and safe retirement of verified merged worktrees/heads; subsequent verified milestones retire their own unchanged remote heads as well. These **Git maintenance operations do not create new source commits, SemVer bumps or tags**. Never force-update a remote branch; the SHA lease applies solely to the deletion of an exact, already merged feature ref. Keep source publication, local main synchronization, branch retirement and Railway deployment independently verified. A plain PHDK upgrade remains non-destructive.
+
 ## Branches and current authorization
 
 Typical prefixes are `feature/`, `fix/`, `chore/`, `phdk/vX.Y.Z/`, and a specifically justified `checkpoint/YYYY-MM-DD`.

@@ -2,6 +2,9 @@
 
 ## Purpose and command contract
 
+**Adoption is not deletion:** installing or syncing PHDK never itself deletes historical Git branches/worktrees. The first subsequent explicitly initiated local PHDK auto/auto force (including the Auto Force phase of upgrade force) runs the bounded historical inventory and safe cleanup in PHDK_GIT_WORKSPACE_CLOSEOUT.md if it has local Git access and fresh PR evidence. A bare PHDK upgrade remains limited to its established sync/read-only review scope, and a remote-only agent must not claim the owner's local disk changed.
+
+
 Synchronize an existing PHDK project to the current published standards, perform its bounded, read-only [Stack Security Review](PHDK_SECURE.md#stack-security-review), and, when eligible, publish the repository's current central status under [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md) in response to the user's request in this conversation.
 
 The canonical commands are:

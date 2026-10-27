@@ -6,6 +6,10 @@ Apply `PHDK_TENANT_RISK_STANDARD.md` to actual/proposed multi-tenant projects. C
 
 # PHDK Check Standard
 
+## Historical and remote Git cleanup evidence check (read-only)
+
+Inspect one-time historical inventory, local .git/phdk/git-hygiene-state.json state where accessible, actual merged-PR/head SHA proofs, preserved blocked worktrees, and observed remote branch disappearance after each milestone. A skipped remote deletion or unverified local checkout is reported separately; an open PR or dirty branch never becomes an auto-cleanable source. Bare PHDK check does not run --apply, delete remote refs, change provider settings or start historical cleanup. Apply current repository controls and keep UAT deferred.
+
 ## Local Git closeout evidence check (read-only)
 
 For each previously published value milestone with a local checkout, inspect the actual `PHDK_GIT_WORKSPACE_CLOSEOUT.md` LOCAL_MAIN and LOCAL_CLEANUP evidence, local-vs-fetched-origin/main SHA and any retained active worktrees/branches. Bare `PHDK check` is read-only: never delete branches, run remote/provider writes or trigger cleanup from a stored task. Auto/Force perform actual closeout at the post-merge boundary before the next local milestone, then Check audits its evidence. If only a GitHub connector exists, record NOT_APPLICABLE_REMOTE_ONLY, never infer that the owner's computer was synchronized. Railway branch/deploy evidence is separate.
