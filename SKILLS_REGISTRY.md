@@ -16,7 +16,7 @@ For user-facing React/Next.js projects, `PHDK_DESIGN_SYSTEM.md` defines the appr
 
 | Capability | Recommended stages | Priority | Purpose |
 |---|---|---|---|
-| Planning and task breakdown skill | Plan, Auto | Important for multi-step development | Convert requirements into dependency-ordered, vertically sliced, verifiable tasks with acceptance criteria; PHDK groups them into value milestones |
+| Planning and task breakdown skill | Plan, Auto | Important for multi-step development | Convert requirements into dependency-ordered, vertically sliced, verifiable tasks with acceptance criteria; PHDK groups them into value milestones and applies optional REUSE/ADAPT/BUILD catalog assessment |
 | Detailed implementation-plan skill | Plan | Optional/Important for complex milestones | File/interface/test-level implementation planning; PHDK artifact locations and milestone rules override skill defaults |
 | Incremental implementation skill | PMO/workstreams, Auto | Important for multi-file implementation | Thin verifiable slices inside a milestone; slice commits/checkpoints never override PHDK milestone version/publication boundaries |
 | UX architecture / journey-design skill | Capture, Plan, Auto | Important when UI applies | User journeys, IA, task success, UX baseline; greenfield and brownfield per PHDK_UX_UI.md |
@@ -60,7 +60,7 @@ Design references may also include Vercel web-design-guidelines, AccessLint guid
 Prefer repository/document readers and requirements/discovery guidance.
 
 ### Plan
-Prefer an available planning/task-breakdown capability for multi-step development, supplemented by detailed implementation-plan guidance when a complex milestone needs file/interface/test-level decomposition. Also prefer frontend/UX design guidance when UI exists, security guidance when security boundaries exist, and current framework/docs capability for architecture decisions. External skill output must be normalized into `MILESTONE_PLAN.md` + `IMPLEMENTATION_PLAN.md`; do not adopt its default file paths, human checkpoints or commit cadence when they conflict with PHDK.
+Prefer an available planning/task-breakdown capability for multi-step development, supplemented by detailed implementation-plan guidance when a complex milestone needs file/interface/test-level decomposition. Also prefer frontend/UX design guidance when UI exists, security guidance when security boundaries exist, and current framework/docs capability for architecture decisions. External skill output must be normalized into `MILESTONE_PLAN.md` + `IMPLEMENTATION_PLAN.md`; do not adopt its default file paths, human checkpoints or commit cadence when they conflict with PHDK. When common capabilities are in scope, consult `PHDK_REUSE_CATALOG_STANDARD.md` / `PHDK_REUSE_CATALOG.json` and record a material `REUSE_ASSESSMENT.md`; reuse remains optional and unvalidated candidates cannot be treated as accepted modules.
 
 ### PMO
 Prefer repository/GitHub readers, incremental-implementation guidance for work inside a milestone, and runtime worker/subagent capability when supported. Worker capability is optional; PMO can run sequentially. PMO owns milestone integration/version delivery; workers do not.

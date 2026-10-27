@@ -77,6 +77,8 @@ For exact release details, see `CHANGELOG.md`.
 
 High-level milestones include:
 
+- **v2.69** — visible capability milestones, honest delivery-state evidence, and optional REUSE/ADAPT/BUILD catalog planning with specification-only starter contracts.
+
 - **v2.47** — post-UAT SEO and AEO/GEO stages with evidence-based audits, fixes and historical handoffs.
 - **v2.46** — owner-confirmed commitment ledger, PMO milestone reporting and fail-closed delivery audit.
 - **v2.45** — formal lifecycle handoff contracts, stage deliverables, downstream entry validation, and immutable historical run artifacts.

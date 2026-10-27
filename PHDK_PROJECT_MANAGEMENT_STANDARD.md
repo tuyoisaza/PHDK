@@ -73,17 +73,22 @@ A **milestone is a coherent, independently valuable and verifiable product incre
 Each milestone records:
 
 - ID and value/outcome;
+- **user capability** gained and representative **user journey** that becomes possible;
 - linked intent, commitments and requirements;
-- included workstreams/tasks and explicit exclusions;
+- included workstreams/tasks, in-scope behavior and explicit exclusions;
 - dependencies and ordering;
 - affected actors/surfaces;
 - material domain impacts and risks;
-- acceptance criteria and required technical evidence;
+- acceptance criteria and required permitted technical evidence;
+- evidence ledger: what is observed working, what is simulated/mocked/fixture-only, and what is `NOT RUN` / `UNVERIFIED`;
+- delivery target and the current authorization/restriction reference that applies to publication;
 - expected SemVer impact (`patch`, `minor`, `major`) as a planning expectation, not a pre-reserved version number;
 - UAT intent: documented user goal(s) for optional acceptance after explicit `PHDK uat`; planning this coverage does not authorize execution;
-- completion state and, after delivery, actual version/commit/PR/main SHA evidence.
+- next milestone (or terminal goal) and dependency handoff;
+- distinct state/evidence for **IMPLEMENTED**, **PUBLISHED** to the requested source target, **DEPLOYED**, and **ACCEPTED**; none implies the next;
+- after delivery, actual version/commit/PR/main SHA evidence.
 
-Milestones should be vertically sliced when practical: a user-observable path or complete enabling capability that leaves the product coherent. Do not create a milestone solely because a PHDK stage ended.
+Milestones should be vertically sliced when practical: a user-observable path or complete enabling capability that leaves the product coherent. A mock, page shell, isolated API, database table or internal slice is not a milestone unless it independently satisfies the declared capability and evidence contract. Do not create a milestone solely because a PHDK stage ended.
 
 ## Milestone completion and publication gate
 
@@ -99,7 +104,7 @@ Inside an authorized `PHDK auto` / `PHDK auto force` goal, when a milestone's im
 8. record the delivery evidence in `MILESTONE_PLAN.md` / PMO status;
 9. continue immediately with the next milestone from the newly verified `main`.
 
-A milestone publication is an incremental delivery checkpoint, **not final product acceptance**. Do not run the full non-UAT Check/SEO/AEO lifecycle or declare the whole goal complete after every milestone unless that milestone is the entire authorized goal. UAT Prep/UAT/Fix remain deferred even at the final milestone; only explicit UAT authorization permits acceptance. PHDK lifecycle stages do not trigger version bumps merely by ending.
+A milestone publication is an incremental delivery checkpoint, **not final product acceptance**. Record source publication separately from deployment and acceptance, and never convert a simulated screen/mock or unexecuted criterion into working evidence. Do not run the full non-UAT Check/SEO/AEO lifecycle or declare the whole goal complete after every milestone unless that milestone is the entire authorized goal. UAT Prep/UAT/Fix remain deferred even at the final milestone; only explicit UAT authorization permits acceptance. PHDK lifecycle stages and milestone-internal slices do not trigger version bumps merely by ending.
 
 If milestone publication is blocked by a real control, complete independent work that does not depend on it, preserve the exact blocker and do not fabricate delivery.
 

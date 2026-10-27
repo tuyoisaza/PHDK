@@ -20,6 +20,12 @@ Before planning, load the verified applicable PHDK baseline under `PHDK_PLAN.md`
 
 When a build, packaging check or Git hook has ambiguous effects or conflicts with local verification policy, load and apply the [decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) **before executing the command, declaring BLOCKED, or requesting user input**. Inspect the actual command chain and provenance; run permitted static steps and repair only proven PHDK-managed or legacy PHDK-generated steps within the authorized task. Preserve independent owner/external/unknown controls and prepare a concrete gate-change proposal if authorization is missing. Never request a prohibited local-runtime exception or initiate UAT to satisfy the gate.
 
+## Optional reusable-capability planning and milestone evidence
+
+During Plan and applicable Auto work, load `PHDK_REUSE_CATALOG_STANDARD.md` when a common capability could plausibly be reused. Compare REUSE, ADAPT and BUILD; only `ACCEPTED_VERSIONED` is eligible for REUSE, and catalog presence never overrides current compatibility, security, license or maintenance evidence. Record material decisions in `REUSE_ASSESSMENT.md`; do not delay product delivery to generalize a donor prematurely. PHDK remains methodology/contracts/catalog while reusable implementations live in separately versioned packages and require a second consumer before accepted portability.
+
+Treat agile slices as milestone-internal work. A slice does not trigger version/publication, but a coherent completed authorized milestone should not be held until the whole product is finished. Milestone evidence must distinguish IMPLEMENTED, PUBLISHED, DEPLOYED and ACCEPTED plus simulated/mocked and NOT RUN/UNVERIFIED behavior.
+
 ## Mandatory pre-implementation Design gate
 
 For explicit `PHDK design` and applicable Auto stage **25-design**, load `PHDK_DESIGN.md` after technical/content Plan and before affected UI implementation. **Auto asks one unresolved visual question at a time, shows alternatives/previews and waits for the owner's selection and preview approval. Auto Force compares, selects, records `AGENT_SELECTED_AUTO_FORCE` with rationale and continues without a PHDK visual-approval pause.** This is the specific product-input exception to normal Auto's generic no-interview/no-stage-approval language. FORCE performs Design rather than skipping it; never invent owner approval. Reuse current owner-approved choices, preserve actual owner restrictions and brand/security decisions, and do not force a redesign for non-visual scope.

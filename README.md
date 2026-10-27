@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.68.0**
+**Version v2.69.0**
 
 **Phase transitions:** [Phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation) keeps temporary plan limits from becoming permanent prohibitions. Plan records the verified PHDK baseline and restriction provenance; a later scoped owner authorization reconciles existing task/plan/status and worker context without duplicate approval. Technical access, spending and explicit UAT remain separate controls; updating documents does not resolve an executor denial.
 
@@ -28,7 +28,9 @@ PHDK is an operating system for AI-assisted software delivery. It turns a reposi
 
 **Intelligent execution:** [PHDK_INTELLIGENT_EXECUTION.md](PHDK_INTELLIGENT_EXECUTION.md) permits bounded in-session delegation in any host-supported mode, keeps PMO for portfolio governance and loads context progressively by stage/task/specialist. Worker handoffs do not replace primary-agent integration and delivery. After Design, workers consume the relevant selected-baseline slice rather than every rejected concept.
 
-**Milestone delivery:** [PHDK_PROJECT_MANAGEMENT_STANDARD.md](PHDK_PROJECT_MANAGEMENT_STANDARD.md) makes `MILESTONE_PLAN.md` the value roadmap. Auto/Force verify, version and merge each completed value milestone to verified main before continuing; final UAT maps milestones to user-value stories. Merely ending Plan, Design or another lifecycle stage does not trigger a release.
+**Milestone delivery:** [PHDK_PROJECT_MANAGEMENT_STANDARD.md](PHDK_PROJECT_MANAGEMENT_STANDARD.md) makes `MILESTONE_PLAN.md` the value roadmap. Each milestone declares the user capability/journey, scope/dependencies, honest working/simulated/not-run evidence, delivery target/authorization and next milestone. Auto/Force integrate internal slices, then verify/version/merge each completed coherent value milestone to verified main before continuing; slices and lifecycle stages do not trigger releases. Implementation, publication, deployment and acceptance are reported separately.
+
+**Optional reusable-capability planning:** [PHDK_REUSE_CATALOG_STANDARD.md](PHDK_REUSE_CATALOG_STANDARD.md) makes Plan compare **REUSE / ADAPT / BUILD** for common capabilities without forcing reuse. The public [catalog](PHDK_REUSE_CATALOG.json) starts with specification-only synthetic starter targets; `SPECIFICATION_ONLY` always has `implementation: null`. Reusable implementations stay in separate versioned packages and require current evidence, license/security review and portability in a second consumer before `ACCEPTED_VERSIONED`.
 
 **Maintaining PHDK itself:** [PHDK_EVOLUTION_STANDARD.md](PHDK_EVOLUTION_STANDARD.md) governs fresh repository context, naming, workspace ownership, SemVer, release coherence and verified publication. Reading this guide does not activate Auto or authorize unattended changes.
 

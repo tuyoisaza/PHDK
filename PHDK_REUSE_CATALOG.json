@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "starter.admin-tenancy-rbac",
+      "title": "Starter administration, organizations, tenancy and roles",
+      "status": "SPECIFICATION_ONLY",
+      "specification": "PHDK_STARTER_PROFILE.md#1-administration-organizations-multitenancy-and-roles",
+      "capabilities": [
+        "Administrative tenancy and authorization foundation"
+      ],
+      "implementation": null,
+      "downloadable": false,
+      "dependencies": [],
+      "compatibility": {
+        "runtimes": [],
+        "frameworks": [],
+        "contracts": [
+          "ADMIN_CONSOLE_STANDARD.md",
+          "PHDK_TENANT_RISK_STANDARD.md"
+        ]
+      },
+      "security": {
+        "status": "SPECIFICATION_ONLY",
+        "evidence": []
+      },
+      "license": {
+        "status": "NOT_APPLICABLE",
+        "identifier": null,
+        "evidence": [],
+        "rights": null
+      },
+      "evidence": {
+        "tests_present": false,
+        "test_status": "NOT_RUN",
+        "portability_consumers": [],
+        "notes": [
+          "Specification only; no reusable implementation is claimed."
+        ],
+        "test_runs": []
+      },
+      "maintenance": {
+        "owner": "PHDK methodology",
+        "policy": "Promote only through PHDK_REUSE_CATALOG_STANDARD.md contribution and portability gates."
+      }
+    },
+    {
+      "id": "starter.synthetic-uat",
+      "title": "Starter synthetic identities and UAT tooling",
+      "status": "SPECIFICATION_ONLY",
+      "specification": "PHDK_STARTER_PROFILE.md#2-synthetic-identities-and-uat-tooling",
+      "capabilities": [
+        "Explicit-opt-in synthetic UAT identity/tooling foundation"
+      ],
+      "implementation": null,
+      "downloadable": false,
+      "dependencies": [],
+      "compatibility": {
+        "runtimes": [],
+        "frameworks": [],
+        "contracts": [
+          "PHDK_UAT_PREP.md",
+          "JWT_STANDARD.md",
+          "PHDK_PRODUCTION_VERIFICATION.md"
+        ]
+      },
+      "security": {
+        "status": "SPECIFICATION_ONLY",
+        "evidence": []
+      },
+      "license": {
+        "status": "NOT_APPLICABLE",
+        "identifier": null,
+        "evidence": [],
+        "rights": null
+      },
+      "evidence": {
+        "tests_present": false,
+        "test_status": "NOT_RUN",
+        "portability_consumers": [],
+        "notes": [
+          "Specification only; no reusable implementation is claimed."
+        ],
+        "test_runs": []
+      },
+      "maintenance": {
+        "owner": "PHDK methodology",
+        "policy": "Promote only through PHDK_REUSE_CATALOG_STANDARD.md contribution and portability gates."
+      }
+    },
+    {
+      "id": "starter.ai-prompt-admin",
+      "title": "Starter AI prompt administration",
+      "status": "SPECIFICATION_ONLY",
+      "specification": "PHDK_STARTER_PROFILE.md#3-ai-prompt-administration",
+      "capabilities": [
+        "Versioned and auditable AI prompt administration"
+      ],
+      "implementation": null,
+      "downloadable": false,
+      "dependencies": [],
+      "compatibility": {
+        "runtimes": [],
+        "frameworks": [],
+        "contracts": [
+          "AI_ADMIN_STANDARD.md"
+        ]
+      },
+      "security": {
+        "status": "SPECIFICATION_ONLY",
+        "evidence": []
+      },
+      "license": {
+        "status": "NOT_APPLICABLE",
+        "identifier": null,
+        "evidence": [],
+        "rights": null
+      },
+      "evidence": {
+        "tests_present": false,
+        "test_status": "NOT_RUN",
+        "portability_consumers": [],
+        "notes": [
+          "Specification only; no reusable implementation is claimed."
+        ],
+        "test_runs": []
+      },
+      "maintenance": {
+        "owner": "PHDK methodology",
+        "policy": "Promote only through PHDK_REUSE_CATALOG_STANDARD.md contribution and portability gates."
+      }
+    },
+    {
+      "id": "starter.themes",
+      "title": "Starter theme system",
+      "status": "SPECIFICATION_ONLY",
+      "specification": "PHDK_STARTER_PROFILE.md#4-theme-system",
+      "capabilities": [
+        "Light, dark and corporate theme foundation"
+      ],
+      "implementation": null,
+      "downloadable": false,
+      "dependencies": [],
+      "compatibility": {
+        "runtimes": [],
+        "frameworks": [],
+        "contracts": [
+          "PHDK_THEME_STANDARD.md",
+          "PHDK_DESIGN.md"
+        ]
+      },
+      "security": {
+        "status": "SPECIFICATION_ONLY",
+        "evidence": []
+      },
+      "license": {
+        "status": "NOT_APPLICABLE",
+        "identifier": null,
+        "evidence": [],
+        "rights": null
+      },
+      "evidence": {
+        "tests_present": false,
+        "test_status": "NOT_RUN",
+        "portability_consumers": [],
+        "notes": [
+          "Specification only; no reusable implementation is claimed."
+        ],
+        "test_runs": []
+      },
+      "maintenance": {
+        "owner": "PHDK methodology",
+        "policy": "Promote only through PHDK_REUSE_CATALOG_STANDARD.md contribution and portability gates."
+      }
+    },
+    {
+      "id": "starter.i18n",
+      "title": "Starter internationalization and language selection",
+      "status": "SPECIFICATION_ONLY",
+      "specification": "PHDK_STARTER_PROFILE.md#5-internationalization-and-language-selection",
+      "capabilities": [
+        "Internationalization and language preference foundation"
+      ],
+      "implementation": null,
+      "downloadable": false,
+      "dependencies": [],
+      "compatibility": {
+        "runtimes": [],
+        "frameworks": [],
+        "contracts": [
+          "PHDK_PLAN.md",
+          "PHDK_UX_UI.md"
+        ]
+      },
+      "security": {
+        "status": "SPECIFICATION_ONLY",
+        "evidence": []
+      },
+      "license": {
+        "status": "NOT_APPLICABLE",
+        "identifier": null,
+        "evidence": [],
+        "rights": null
+      },
+      "evidence": {
+        "tests_present": false,
+        "test_status": "NOT_RUN",
+        "portability_consumers": [],
+        "notes": [
+          "Specification only; no reusable implementation is claimed."
+        ],
+        "test_runs": []
+      },
+      "maintenance": {
+        "owner": "PHDK methodology",
+        "policy": "Promote only through PHDK_REUSE_CATALOG_STANDARD.md contribution and portability gates."
+      }
+    }
+  ]
+}

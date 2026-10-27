@@ -44,6 +44,11 @@ PHDK_CHECK.md | PHDK_CHECK.md
 PHDK_CAPTURE.md | PHDK_CAPTURE.md
 PHDK_PLAN.md | PHDK_PLAN.md
 PHDK_PROJECT_MANAGEMENT_STANDARD.md | PHDK_PROJECT_MANAGEMENT_STANDARD.md
+PHDK_REUSE_CATALOG_STANDARD.md | PHDK_REUSE_CATALOG_STANDARD.md
+PHDK_STARTER_PROFILE.md | PHDK_STARTER_PROFILE.md
+PHDK_REUSE_CATALOG.json | PHDK_REUSE_CATALOG.json
+schemas/phdk-reuse-catalog.schema.json | schemas/phdk-reuse-catalog.schema.json
+scripts/phdk_reuse_catalog_check.py | scripts/phdk_reuse_catalog_check.py
 PHDK_PMO.md | PHDK_PMO.md
 UAT_STANDARD.md | UAT_STANDARD.md
 AI_ADMIN_STANDARD.md | AI_ADMIN_STANDARD.md
