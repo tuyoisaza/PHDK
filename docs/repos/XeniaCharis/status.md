@@ -2,8 +2,8 @@
 repository: tuyoisaza/XeniaCharis
 repository_url: https://github.com/tuyoisaza/XeniaCharis
 default_branch: main
-observed_repository_sha: 1de5dbcc5dcbcc69bef4224ba6289fe40711cafa
-observed_at_utc: "2026-10-26T20:02:15Z"
+observed_repository_sha: 54140e38dac27a468b5e701f480028d8859ed3c7
+observed_at_utc: "2026-10-27T00:27:01Z"
 phdk_version: "2.68.0"
 phdk_canonical_version: "2.68.0"
 phdk_status: CURRENT
@@ -26,6 +26,8 @@ tech_stack:
       resolved: "0.143.3"
     - name: sqlalchemy
       resolved: "2.1.5"
+    - name: pypdf
+      resolved: "6.21.2"
   package_managers:
     - name: pnpm
       resolved: "11.25.0"
@@ -42,8 +44,8 @@ tech_stack:
       declared: "ghcr.io/astral-sh/uv:0.13.5"
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: null
-  evidence: "2026-10-26 bounded source/advisory review; current XeniaCharis main 1de5dbcc5dcbcc69bef4224ba6289fe40711cafa. Node/Python/pypdf source patches are present; complete transitive/PostgreSQL and deployed-runtime coverage are not established."
+  reviewed_at_utc: "2026-10-27"
+  evidence: "Same-run bounded source security review is recorded at https://github.com/tuyoisaza/XeniaCharis/blob/main/docs/phdk/lifecycle/20261026-auto-portfolio/68-secure/SECURITY_REPORT.md. Its functional-source review is pinned to v0.12.0; dependency/runtime versions remain unchanged through v0.12.8. The v0.12.8 final diff review covered the new read-only license metadata auditor and evidence; no package versions or application behavior changed. No Critical/High exploitable source vulnerability was confirmed by the bounded review. Overall stack status remains PARTIAL because runtime, effective RLS, host secret scope, exact PostgreSQL patch, image digest and deployed revision are unverified."
   findings:
     critical: 0
     high: 0
@@ -54,6 +56,6 @@ central_status_source: PHDK
 
 # Current evidence
 
-- Installed and canonical PHDK versions match at 2.68.0; all 79 manifest destinations and the native managed block matched canonical PHDK main commit 5206b417d9575e24d3bf7fe6ff6992b34006d01f.
-- XeniaCharis main v0.6.5 is commit 1de5dbcc5dcbcc69bef4224ba6289fe40711cafa. Patched Node.js, Python and pypdf versions are represented in source. Resolved/deployed runtime, exact PostgreSQL patch, complete transitive dependency coverage, and current production deployment identity remain unverified.
-- This is a partial stack review, not an application security clearance.
+- Installed and canonical PHDK versions match at 2.68.0. All 79 manifest destinations and the native managed block were verified against canonical PHDK main during the current run.
+- XeniaCharis main v0.12.8 is commit 54140e38dac27a468b5e701f480028d8859ed3c7. Source declares Node 24.22.1 and CPython 3.12.16; lock entries include pypdf 6.21.2. The dependency inventory contains 631 third-party exact-release declarations marked DECLARED_UNREVIEWED; publisher metadata is not legal/commercial approval.
+- The stack review is PARTIAL, not an application security clearance. Effective PostgreSQL RLS, host identity/token scope, exact database patch, image digest, deployed runtime/revision and production behavior remain UNVERIFIED. Candidate deployment was not queried or observed.
