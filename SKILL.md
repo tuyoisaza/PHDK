@@ -68,11 +68,15 @@ When the current task or `PHDK check` establishes actual AI/LLM use, load `AI_AD
 
 When a product is or may become multi-tenant, read `PHDK_TENANT_RISK_STANDARD.md` at Capture/Plan and recheck at UAT/Check. Evaluate source-backed exposure, confidentiality/impact and blast radius before asking one unanswered material question at a time. Produce `TENANT_RISK_ASSESSMENT.md` with justified risk tier, recommended baseline/advanced isolation and encryption controls, tradeoffs, owner decision and residual risk. Do not require per-tenant databases or KMS by default, incur external costs or violate `PHDK_PRODUCTION_VERIFICATION.md`.
 
+## Optional reusable-capability planning
+
+For Plan/Auto, load `PHDK_REUSE_CATALOG_STANDARD.md` before rebuilding common capabilities when a catalog match is plausible. Compare `REUSE | ADAPT | BUILD` using fit, integration/maintenance cost, dependencies, compatibility, security, license and evidence. Reuse is optional; only `ACCEPTED_VERSIONED` may be selected as REUSE. Record material comparisons in `REUSE_ASSESSMENT.md`. Candidate/reviewed implementations require current-project revalidation and may inform ADAPT; `SPECIFICATION_ONLY` has no implementation. Do not delay the project to generalize a donor prematurely.
+
 ## PHDK plan
 
 For explicit `PHDK plan`, follow `PHDK_PLAN.md`. Use the Capture/requirements baseline and applicable PHDK standards to define solution, repository, data/integration/security, and conceptual UX architecture plus a dependency-ordered implementation plan. On brownfield projects, model current state first, preserve valid decisions, identify gaps, and produce an incremental convergence plan rather than imposing a greenfield scaffold.
 
-Create/update `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `MILESTONE_PLAN.md`, `IMPLEMENTATION_PLAN.md`, applicable architecture decisions, and TASK integration. For UI scope, retain UX journeys/baseline and draft `UI_DESIGN_SYSTEM.md` / `UX_UI_DECISIONS.md`; final visual selection follows in Design. Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md`: every in-scope task/workstream maps to a value milestone with acceptance evidence and expected SemVer impact. Plan does not implement product code unless a parent Auto request includes execution; even then affected UI waits for the applicable Design decision.
+Create/update `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, `MILESTONE_PLAN.md`, `IMPLEMENTATION_PLAN.md`, applicable architecture decisions, TASK integration, and `REUSE_ASSESSMENT.md` when a common-capability comparison is material. For UI scope, retain UX journeys/baseline and draft `UI_DESIGN_SYSTEM.md` / `UX_UI_DECISIONS.md`; final visual selection follows in Design. Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md`: every in-scope task/workstream maps to a value milestone with a user capability/journey, scope/dependencies, acceptance/evidence, delivery target/authorization, next milestone and expected SemVer impact. Plan does not implement product code unless a parent Auto request includes execution; even then affected UI waits for the applicable Design decision.
 
 ## PHDK design
 
