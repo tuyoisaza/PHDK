@@ -1,3 +1,11 @@
+## v2.71.1 — 2026-10-27
+
+### Complete forced upgrade publication and workspace closeout
+- Publish a changed PHDK upgrade force standards sync as its first scoped value milestone through branch push, PR, permitted merge and independent remote-main manifest/native verification before Auto Force creates more worktrees; an already-published no-op needs no duplicate PR, but local CURRENT does not prove remote publication.
+- Fast-forward clean local main and safely retire only the verified integrated owned branch/worktree before new same-goal work. Keep v2.71.0 historical/continuous hygiene, genuine controls and dirty/unmerged data protection; no feature-to-main direct push or redundant post-merge main push.
+- Add read-only remote-main manifest gate, explicit copier --force-owned control and honest unpublished-state output, regression test source and vendoring manifest coverage. Reconcile active Upgrade, Auto, agent/skill/native entrypoints, README, VERSION and changelog.
+- No local runtime tests, Docker, GitHub Actions, provider administration, unverified branch deletion or downstream automatic upgrades were executed.
+
 ## v2.71.0 — 2026-10-27
 
 ### One-time historical and continuous safe Git hygiene

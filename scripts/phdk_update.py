@@ -14,7 +14,7 @@ def run(*args, cwd=None):
     return subprocess.check_output(args, cwd=cwd, text=True).strip()
 
 
-def sync_result(status, *, trigger, installed, latest, upstream_sha, files=0):
+def sync_result(status, *, trigger, installed, latest, upstream_sha, files=0, force_owned=False, overwritten=None):
     adopted = status == "UPDATED" and installed != latest
     required = trigger == "upgrade" or adopted
     return {
@@ -29,6 +29,11 @@ def sync_result(status, *, trigger, installed, latest, upstream_sha, files=0):
         "files": files,
         "upstream_sha": upstream_sha,
         "trigger": trigger,
+        "force_owned": force_owned,
+        "overwritten_owned_paths": overwritten or [],
+        "remote_main_verification": "UNVERIFIED",
+        "forced_upgrade_publication": "PENDING_REMOTE_MAIN_CHECKPOINT" if force_owned else "NOT_AUTHORIZED_BY_COPIER",
+        "auto_force_handoff": "PENDING_PUBLICATION" if force_owned else "NOT_TRIGGERED",
         "stack_review_required": required,
         "stack_review_coverage": "PENDING" if required else "NOT_TRIGGERED",
         "stack_security_status": "UNVERIFIED",
@@ -38,9 +43,11 @@ def sync_result(status, *, trigger, installed, latest, upstream_sha, files=0):
     }
 
 
-def sync(project, trigger="preflight"):
+def sync(project, trigger="preflight", force_owned=False):
     if trigger not in {"preflight", "upgrade"}:
         raise ValueError("Invalid trigger")
+    if force_owned and trigger != "upgrade":
+        raise ValueError("--force-owned requires --trigger upgrade")
     target = project / "phdk-standards"
     if not (target / "VERSION").exists():
         raise ValueError("PHDK is not installed")
@@ -74,8 +81,10 @@ def sync(project, trigger="preflight"):
                 installed=installed,
                 latest=latest,
                 upstream_sha=upstream_sha,
+                force_owned=force_owned,
             )
         changes = []
+        overwritten = []
         seen = set()
         for line in (upstream / "PHDK_MANIFEST.txt").read_text().splitlines():
             if not line.strip() or line.startswith("#"):
@@ -107,8 +116,10 @@ def sync(project, trigger="preflight"):
                     str(dest.relative_to(project)),
                     cwd=project,
                 )
-                if status:
+                if status and not force_owned:
                     raise ValueError("Local edits: " + str(dest))
+                if status:
+                    overwritten.append(str(dest.relative_to(project)))
                 changes.append((source, dest))
         snapshots = [
             (dst, dst.read_bytes() if dst.is_file() else None) for _, dst in changes
@@ -133,6 +144,8 @@ def sync(project, trigger="preflight"):
             latest=latest,
             upstream_sha=upstream_sha,
             files=len(changes),
+            force_owned=force_owned,
+            overwritten=overwritten,
         )
 
 
@@ -145,10 +158,14 @@ if __name__ == "__main__":
         default="preflight",
         help="Upgrade requires an agent stack review even when standards are current.",
     )
+    parser.add_argument(
+        "--force-owned", action="store_true",
+        help="Only for exact owner-invoked PHDK upgrade force; replace dirty manifest-owned files.",
+    )
     args = parser.parse_args()
     try:
         print(
-            json.dumps(sync(pathlib.Path(args.project).resolve(), trigger=args.trigger))
+            json.dumps(sync(pathlib.Path(args.project).resolve(), trigger=args.trigger, force_owned=args.force_owned))
         )
     except Exception as e:
         print(
@@ -158,6 +175,8 @@ if __name__ == "__main__":
                     "standards_sync": "BLOCKED",
                     "reason": str(e),
                     "trigger": args.trigger,
+                    "force_owned": args.force_owned,
+                    "remote_main_verification": "UNVERIFIED",
                     "stack_review_required": args.trigger == "upgrade",
                     "stack_review_coverage": "PENDING"
                     if args.trigger == "upgrade"
