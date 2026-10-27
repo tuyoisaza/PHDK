@@ -174,6 +174,8 @@ Follow `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics` for a c
 
 ## Universal commands — `PHDK upgrade` / `PHDK upgrade force`
 
+Exact `PHDK upgrade force` publishes changed vendored standards as its first remote-main milestone before creating fresh Auto Force worktrees. Reuse an unfinished same-goal branch/PR, verify remote manifest content with `scripts/phdk_upgrade_remote_gate.py` where local Git is available (and native rules/PR separately), then fast-forward clean local main and retire only the proven-integrated owned branch/worktree. The updater's CURRENT/UPDATED is not publication. Bare Upgrade and passive Preflight cannot publish by themselves.
+
 **Composite Force behavior:** exact `PHDK upgrade force` does not end after synchronization. After the forced upgrade, security review, eligible central-status update and verification, transition immediately into `PHDK auto force` in the same foreground session. Continue the already identified authorized goal when present; otherwise use the bounded repository-maintenance goal from `PHDK_UPGRADE.md`. Do not ask the owner to type Auto separately and do not invent new features.
 
 For exact `PHDK upgrade` or `PHDK upgrade force` (case-insensitive after trimming whitespace):

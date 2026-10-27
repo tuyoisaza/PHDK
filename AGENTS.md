@@ -8,6 +8,10 @@ Auto/Force must implement **all authorized milestones first**, perform permitted
 
 At the end, offer `PHDK uat` as an optional **future explicit command**, without waiting for an answer as a delivery gate. Only a fresh, explicit owner invocation of `PHDK uat` authorizes UAT and its necessary Prep prerequisite, subject to normal access, safety and spending controls. Standalone `PHDK uat prep` prepares identities only when explicitly requested; it does not authorize running UAT. `PHDK uat fix` requires explicit invocation or authorization within an active explicitly initiated UAT. Prior UAT failures never reopen the completed development goal or prevent subsequent independent development.
 
+## Forced-upgrade publication and worktree closure
+
+Exact `PHDK upgrade force` must finish the `PHDK_UPGRADE.md` remote-main checkpoint as its first milestone before creating another worktree: reuse/finish an existing upgrade branch/PR, merge changed vendored rules via the ordinary PR route, independently read back remote main (not just the copier output), then synchronize clean local main and safely close the merged owned worktree. Do not push feature:main directly, redundantly push main after GitHub merge, or delete dirty/unverified work. Bare Upgrade/Preflight have no such delivery authority.
+
 ## Canonical PHDK maintenance session gate
 
 When the requested work changes **PHDK itself** (the canonical standards repository), read `PHDK_EVOLUTION_STANDARD.md` at session entry. Verify fresh remote `main`, `VERSION`, README and newest CHANGELOG entry; use consistent **PHDK** spelling and the defined workspace, version, coherence, manifest and versioned branch/PR delivery contract. Preserve `EXECUTION_SCOPE.md`, `VERSIONING.md`, `CHANGE_MANAGEMENT.md`, existing host controls and current user authorization. A discussion or copied brief does not activate Auto, PMO, Developer Mode or background work. In ordinary downstream-product tasks, follow applicable vendored rules without turning this maintainer guide into a new lifecycle gate.

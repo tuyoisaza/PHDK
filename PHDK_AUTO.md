@@ -357,7 +357,7 @@ A standalone explicit Auto invocation owns the complete lifecycle described abov
 
 ## Entry from `PHDK upgrade force`
 
-A completed `PHDK upgrade force` transitions directly into this mode as `PHDK auto force` in the same foreground session. Do not require a second command. Reuse the upgrade phase's fresh Stack Security Review as the Auto baseline when its inputs/advisories remain current.
+A completed `PHDK upgrade force` transitions directly into this mode as `PHDK auto force` in the same foreground session. Do not require a second command. Before opening another branch/worktree, finish or truthfully block the forced standards upgrade's own remote-main publication checkpoint in `PHDK_UPGRADE.md`, including already-published no-op verification. Synchronize clean local main and close the completed owned branch/worktree when applicable; reuse any same-goal unfinished branch/PR. Reuse the upgrade phase's fresh Stack Security Review as the Auto baseline when its inputs/advisories remain current.
 
 If an unfinished authorized goal is already identified, continue it. Otherwise the inherited goal is bounded repository maintenance: reconcile current code/configuration with current PHDK and recorded product intent, remediate compatible in-repository security/standards gaps, complete applicable Check/remediation and normal delivery, and **do not invent new features**. Existing multiple fronts use normal PMO portfolio handling.
 

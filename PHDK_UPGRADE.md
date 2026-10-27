@@ -82,13 +82,15 @@ git clone --depth 1 https://github.com/tuyoisaza/PHDK.git <temporary-directory>
 
 If the fetch fails, make no project changes and report it. Do not register a retry job, scheduled sync, session-start hook, or background updater. Do not force-reset a dirty installed skill clone.
 
+For a forced upgrade, use the **freshly fetched canonical updater** (`scripts/phdk_update.py --trigger upgrade --force-owned <project>`) or a reviewed equivalent manifest copier, not a stale already-vendored updater that lacks force support. Verify the fetched upstream identity/SHA and the PHDK-owned paths first. This helper does not publish, replace native managed blocks, run the Stack Security Review, or retire obsolete files; complete those separately under the explicit force procedure. Never install a new updater merely by silently overwriting unrelated project files.
+
 ### 4. Compare versions and choose the working branch
 
 Read upstream `VERSION` and project `phdk-standards/VERSION`. Do not downgrade a newer local version. Missing local version metadata identifies an older/pre-versioned installation, not authority for product changes.
 
 When versions match, check the managed block and file hashes before saying already current. Still perform the Stack Security Review and refresh advisory/support evidence; the no-op only applies to standards copying. A newer local version is not downgraded and still receives the explicit-command review. Do not create a no-op commit.
 
-For an authorized update on a default/protected branch, use a dedicated working branch such as `chore/phdk-upgrade-vX.Y.Z`; keep unrelated work untouched. Branch creation is part of the requested file-sync safety workflow, not permission to push it.
+For an authorized update on a default/protected branch, use a dedicated working branch such as `chore/phdk-upgrade-vX.Y.Z`; keep unrelated work untouched. Branch creation is part of the requested file-sync safety workflow, not permission to push it. In force mode inspect existing branches, PRs and `git worktree list --porcelain` first; reuse the suitable unfinished upgrade branch/worktree. Do not create another worktree for the same goal. Only use an isolated worktree when needed to protect unrelated work, and record ownership and a post-merge closeout obligation.
 
 ### 5. Synchronize the manifest
 
@@ -155,7 +157,7 @@ Documentation-only verification is source/diff and reference checking. Do not ru
 
 ### 9a. Review the actual project stack
 
-Perform the shared [Stack Security Review](PHDK_SECURE.md#stack-security-review) for all applicable packages/service roles, regardless of whether standards changed. Reuse the audit already performed for the same adoption/command only after validating its input hashes, deployment identifiers and advisory freshness. A standards-copy helper is not a security scanner; `scripts/phdk_update.py --trigger upgrade <project>` reports pending work but does not perform this review or refresh native blocks.
+Perform the shared [Stack Security Review](PHDK_SECURE.md#stack-security-review) for all applicable packages/service roles, regardless of whether standards changed. Reuse the audit already performed for the same adoption/command only after validating its input hashes, deployment identifiers and advisory freshness. A standards-copy helper is not a security scanner; `scripts/phdk_update.py --trigger upgrade <project>` (add `--force-owned` only when the owner explicitly invoked force mode) reports pending work but does not perform the review, refresh native blocks, commit, push, open a PR or merge.
 
 Inspect runtimes/package managers, direct and transitive dependencies, frameworks/native addons, builder/base-OS images/digests and data engines. Preserve the distinction between declared constraints, resolved locks, build versions and actually observed deployed runtime. Record source/main versus deployed SHA differences. Use current primary vendor advisories, support schedules and compatible per-major patch floors; a reviewed affected version is not proof of reachable exploitation.
 
@@ -163,15 +165,26 @@ Report STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS independe
 
 ### 9b. Publish eligible central repository status
 
-After the Stack Security Review has current evidence, apply [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md).
+After the Stack Security Review has current evidence, apply [PHDK_REPOSITORY_STATUS.md](PHDK_REPOSITORY_STATUS.md). For bare Upgrade, the eligible central status may be published after the review. For **Upgrade Force**, prepare the status now but **defer the central write until after step 9c verifies the downstream remote-main result**, so its observed repository SHA describes the published state rather than an unmerged upgrade branch. If 9c is blocked, report the central update as pending/unverified rather than publishing a false delivered SHA.
 
 For a verified `tuyoisaza/<repo>` downstream repository, when the active session already has write access to `tuyoisaza/PHDK`, refresh `docs/repos/<repo>/status.md` in the canonical PHDK repository with the installed/canonical PHDK versions, observed repository SHA, concise tech-stack versions and independent stack-review status. Use only evidence already established by this foreground operation. Do not include secrets or infer deployed versions.
 
 Treat central publication as a separate reporting outcome. Failure or unavailable write access does not invalidate the downstream standards sync or stack review and must not trigger a credential request, scheduler, background retry or new monitoring process. Report `CENTRAL_STATUS: PUBLISHED | NOT_PUBLISHED | UNVERIFIED` with the reason.
 
-### 9c. Transition `PHDK upgrade force` → `PHDK auto force`
+### 9c. Mandatory forced-upgrade publication checkpoint
 
-After forced standards synchronization, Stack Security Review, eligible central-status publication, and upgrade-phase verification complete, `PHDK upgrade force` MUST transition immediately into `PHDK auto force` in the same conversation/session. Do not ask the owner to type a second command and do not emit a terminal upgrade-only response first.
+An exact PHDK upgrade force command authorizes **delivery of its changed standards to remote main as the first scoped milestone**. The copier's UPDATED/CURRENT status, a local main commit, a branch push, a Railway branch deployment or an open PR do not prove delivery. A locally CURRENT sync can still be absent on remote main.
+
+1. **Recover instead of multiplying workspaces.** Inspect current branch, worktrees, uncommitted edits, existing upgrade PRs and remote main. Reuse an in-scope unfinished branch/PR rather than opening another. An already-published no-op means the expected canonical manifest files **and** applicable native managed block are verified on fresh remote main; in that case do not create a dummy commit, branch or PR.
+2. **Publish the actual change.** If main differs, stage only the synced PHDK-owned surface, required project version/changelog and authorized continuity evidence. Preserve other work. Apply permitted static/source checks and reviews, version-prefixed commit, push to **the feature branch**, create/update the PR targeting main, reconcile fresh target changes and merge using the permitted GitHub method. Never push feature:main directly or bypass GitHub rules. A PR merge itself updates remote main; do not add a redundant main-to-main push. Railway autodeploy is independent and may follow the existing main connection.
+3. **Read back remote main.** Independently verify the merged PR result/SHA, expected project version, all synced manifest files and the applicable native managed block on remote main. With local Git, use `python phdk-standards/scripts/phdk_upgrade_remote_gate.py --expected-version <UPSTREAM_VERSION>` for the read-only **vendored-content** comparison; PR merge, native block, application and deployment still need separate evidence. With connector-only access use equivalent source comparisons. A missing or failed readback means UPGRADE_REMOTE_MAIN=BLOCKED/UNVERIFIED, never PUBLISHED. Apply the normal PHDK completion gate for versioned deliveries; a proven already-published no-op does not require a fictitious PR.
+4. **Close the local workspace before the next one.** After verified merge, fetch and fast-forward clean local main to the newly observed origin/main, checking both SHA and ahead/behind=0. Run PHDK_GIT_WORKSPACE_CLOSEOUT.md using the verified merge SHA and owned branch. If the completed branch is checked out in the current linked worktree, move the coordinator into an existing safe main worktree first; do not delete its own running worktree. Retire only clean, unlocked, independently integrated owned branches/worktrees; use v2.71.0 evidence-backed remote branch cleanup where available. Never discard dirty, active, divergent, unknown or unrelated work.
+
+Record UPGRADE_REMOTE_MAIN=PUBLISHED | ALREADY_PUBLISHED | BLOCKED | UNVERIFIED, final remote SHA, version, PR/merge (or verified no-op), LOCAL_MAIN, LOCAL_CLEANUP and retained worktree reasons. If an actual hook, access or server control prevents publication, preserve the unfinished branch and report the precise blocker. Continue genuinely independent authorized work where safe, but do not call the upgrade delivered or open another worktree for the same unfinished delivery.
+
+### 9d. Transition `PHDK upgrade force` → `PHDK auto force`
+
+After forced standards synchronization, Stack Security Review, eligible central-status publication, the mandatory remote-main publication checkpoint above, and upgrade-phase verification complete, `PHDK upgrade force` MUST transition immediately into `PHDK auto force` in the same conversation/session. Do not ask the owner to type a second command and do not emit a terminal upgrade-only response first.
 
 Determine the Auto Force goal in this order:
 
@@ -187,7 +200,7 @@ A real blocker in the upgrade phase may prevent the transition only when Auto Fo
 
 A bare `PHDK upgrade` leaves the verified sync and stack-review findings available and does not authorize product delivery. **`PHDK upgrade force` is the explicit exception:** after its upgrade phase it enters Auto Force, whose normal scoped development/version/branch/PR/merge/delivery authority applies to the resulting maintenance/current goal. The upgrade phase itself still does not bypass controls, force-push, create tags/releases, administer providers, or execute UAT.
 
-For a bare `PHDK upgrade`, when the current request separately authorizes git delivery, stage only the synced standards, the changed native managed block, authorized review/continuity evidence, and minimal required version metadata. Use normal project version rules and an authorized feature/maintenance branch. For `PHDK upgrade force`, the subsequent Auto Force phase owns its normal scoped versioning and delivery; do not create a redundant upgrade-only delivery stop before the handoff.
+For a bare `PHDK upgrade`, when the current request separately authorizes git delivery, stage only the synced standards, the changed native managed block, authorized review/continuity evidence, and minimal required version metadata. Use normal project version rules and an authorized feature/maintenance branch. For `PHDK upgrade force`, step 9c publishes changed standards as the first scoped milestone before the Auto Force handoff. Auto Force owns additional authorized product milestones. If remote main already has the exact standards, do not invent an upgrade-only commit, version bump or PR.
 
 Do not create, enable, dispatch, rerun, or schedule GitHub Actions/hosted CI to validate or deliver the upgrade.
 

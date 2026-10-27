@@ -84,6 +84,7 @@ PHDK_COHERENCE_STANDARD.md | PHDK_COHERENCE_STANDARD.md
 scripts/phdk_coherence_check.py | scripts/phdk_coherence_check.py
 PHDK_CENTRAL_UPDATE.md | PHDK_CENTRAL_UPDATE.md
 scripts/phdk_update.py | scripts/phdk_update.py
+scripts/phdk_upgrade_remote_gate.py | scripts/phdk_upgrade_remote_gate.py
 
 # Linked release history and evidence (not active instructions)
 CHANGELOG-through-v2.59.0.md | CHANGELOG-through-v2.59.0.md
