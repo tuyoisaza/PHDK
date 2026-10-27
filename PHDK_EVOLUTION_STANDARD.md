@@ -72,6 +72,10 @@ For each new or changed standard, complete all relevant checks:
 
 After each authorized merged milestone, follow [PHDK_GIT_WORKSPACE_CLOSEOUT.md](PHDK_GIT_WORKSPACE_CLOSEOUT.md) from a usable local Git checkout: fetch and fast-forward the appropriate main worktree, prove local/main equals fresh origin/main and safely retire the verified integrated branch/worktree. Preserve any unmerged/dirty/locked/unknown-ignored work. GitHub PR merge does not synchronize a developer's local main and requires no second main push. With connector-only GitHub access, report NOT_APPLICABLE_REMOTE_ONLY for local cleanup; keep remote branch and deployed-state facts independent. This closeout belongs to the already-authorized delivery scope, not a new background mandate.
 
+## Historical Git hygiene and remote merged branch disposal
+
+Every new published PHDK release that materially changes Git hygiene must reconcile `PHDK_GIT_WORKSPACE_CLOSEOUT.md`, `scripts/phdk_git_closeout.py`, `scripts/phdk_git_history_cleanup.py`, the Auto/Preflight/PMO/Check entrypoints, vendoring manifest, and source tests. The historical pass is an interactive, bounded first Auto/Force adoption operation within the current repository, not a passive standards-upgrade side effect. Remote deletion is evidence-backed for the **exact merged head** with expected-SHA protection, not a force push, global pruning or provider configuration change. Record historical retained branches rather than claiming they were all removed. The updated repo does not retroactively affect other local clones.
+
 ## Compact session brief for a PHDK maintainer group
 
 > **PHDK (Project Handoff to Development Kit)** is the operating system for AI-assisted software delivery. It turns product intent into planned, implemented, tested and traceable GitHub-delivered software through Capture, Plan, PMO when needed, Auto/Auto Force, UAT Prep, UAT/Fix, Check and remediation.

@@ -1,3 +1,11 @@
+## v2.71.0 — 2026-10-27
+
+### One-time historical and continuous safe Git hygiene
+- Extend post-merge PHDK Git workspace closeout with a **bounded historical inventory** on the first explicitly authorized local Auto/Auto Force run after adopting this version. Do not run destructive cleanup from bare Upgrade, passive Preflight, Check, unattended jobs or remote-only sessions.
+- Add a vendored, standard-library helper that requires recent merged-PR evidence, checks target ancestry, exact local/remote branch head SHA, open PR count, age for historical records, protected names and tracked/untracked/ignored worktree safety before any branch/worktree retirement. Record detailed retained reasons and local audit state without a new source version bump.
+- After each verified milestone merge, coordinate local main fast-forward and verified local branch/worktree retirement with SHA-lease-guarded **deletion-only** remote feature branch cleanup, without rewriting history or changing GitHub/Railway settings. Existing autodelete and inaccessible remotes are reported independently.
+- Reconcile Auto, Preflight, PMO, Check, handoffs, versioning, native/agent/skill instructions and vendoring manifest. Add source-only regression scenarios. Local behavioral test runs, user-PC cleanup, provider changes and deployed UAT were not performed in this release.
+
 ## v2.70.0 — 2026-10-27
 
 ### Verified Git workspace closeout after milestone merge

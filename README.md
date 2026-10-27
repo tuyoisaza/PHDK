@@ -10,7 +10,9 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.70.0**
+**Version v2.71.0**
+
+**Historical + continuous Git cleanup (v2.71.0):** A first explicitly initiated Auto/Force run after adoption inventories old branches/worktrees, checks recent GitHub PR evidence, and retires only safely verified merged refs; each subsequent published milestone also closes its unchanged remote feature branch by exact SHA-guarded deletion. No GitHub/Railway settings change, broad pruning, second main push or forced worktree deletion. The [cleanup policy](PHDK_GIT_WORKSPACE_CLOSEOUT.md) and [history helper](scripts/phdk_git_history_cleanup.py) preserve unmerged or unknown content and report local/remote results separately.
 
 **Git workspace closeout (v2.70.0):** After each verified merged milestone, [PHDK_GIT_WORKSPACE_CLOSEOUT.md](PHDK_GIT_WORKSPACE_CLOSEOUT.md) requires local main fast-forward synchronization and safe retirement of only proven-integrated milestone branches/worktrees. GitHub PR merge already updates remote main; no second push is needed. Local-only blockers and remote-only access are reported separately; never discard unmerged changes or unknown ignored data. The vendored [closeout helper](scripts/phdk_git_closeout.py) verifies target SHA equality and refuses unsafe cleanup.
 

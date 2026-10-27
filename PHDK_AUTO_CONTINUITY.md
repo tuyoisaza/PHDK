@@ -28,6 +28,10 @@ The latest user instruction still defines scope and exclusions. A genuine curren
 
 After each published milestone, Auto/Force must apply PHDK_GIT_WORKSPACE_CLOSEOUT.md before new local development: reconcile `origin/main` and local `main` using safe fast-forward, verify matching SHA, and retire only clean, task-owned, proven-merged branches/worktrees. A published remote target can remain true while LOCAL_MAIN/LOCAL_CLEANUP are blocked; preserve the active mandate, record the exact dirty/divergent/locked worktree and repair only within scope. Remote-only connector sessions explicitly mark local closeout NOT_APPLICABLE_REMOTE_ONLY. Never assume a GitHub merge cleaned the owner's computer or issue another redundant main push.
 
+## Historical and remote branch continuity
+
+Within a current expressly initiated Auto/Force run, apply the bounded historical Git inventory once after adoption from a local workspace, then retain unresolved cases in `.git/phdk/git-hygiene-state.json` without new milestones, jobs or repeated permission. After each verified PR merge, apply the local closeout followed by remote feature-head retirement only with current PR/head SHA evidence and no open PR. A real deletion refusal or changed head is a retained branch, not a reason to overwrite history. With GitHub-only tools and no local checkout, report local NOT_APPLICABLE_REMOTE_ONLY and remote RETAINED_TOOL_UNAVAILABLE when applicable; do not claim to have cleaned the owner's PC.
+
 ## Design choices and mode continuity
 
 `PHDK_DESIGN.md` is the specific product-input exception to ordinary Auto's generic no-stage-approval/no-interview wording. Stage **25-design** follows technical/content Plan and precedes dependent UI implementation. **Auto asks one unresolved visual question at a time and waits for the owner's selection/preview approval. Auto Force compares alternatives, chooses, records `AGENT_SELECTED_AUTO_FORCE` with rationale and continues.** Neither mode may fabricate owner approval or runtime visual evidence. Reuse valid prior owner choices instead of repeating the interview.

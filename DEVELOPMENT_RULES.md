@@ -12,6 +12,9 @@ Prioritize correctness, security, maintainability, observability, user experienc
 
 ## Branching and authorization
 
+A first locally executed Auto/Force invocation after PHDK hygiene adoption runs a bounded historical branch/worktree inventory under PHDK_GIT_WORKSPACE_CLOSEOUT.md. Retire only real PR-proven merged, inactive, clean heads whose live SHA has not changed. Each later verified milestone delivery also retires its unchanged merged remote feature head via deletion-only SHA lease when permitted; keep the local main fast-forward separate from remote main publication. No broad `git clean`, forced worktree removal, GitHub/Railway setting changes or source version bump for hygiene. Bare Upgrade and Check are non-destructive.
+
+
 Use `feature/`, `fix/`, `chore/`, `checkpoint/YYYY-MM-DD`, or `phdk/vX.Y.Z/short-slice-name` when relevant to an authorized git operation.
 
 - Use a feature/fix branch for the current requested change, except for an eligible direct-to-`main` task under explicitly active `PHDK_DEVELOPER_MODE.md`. Concurrent worker branches/worktrees require explicit isolated ownership, dependency coordination and runtime support under `PHDK_INTELLIGENT_EXECUTION.md`; PMO adds portfolio-level coordination. Do not parallel-write shared files or bypass actual Git controls.
