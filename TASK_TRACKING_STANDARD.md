@@ -52,6 +52,10 @@ Follow `PHDK_UNLOCK.md` for the command or an explicit request to reconcile/remo
 
 Do not add infrastructure, a locking service, or a standing worker to consume these files. Keep transient task state, pending steps, branch/PR identifiers, and current delivery status out of permanent instruction headers such as `AGENTS.md` and native rules blocks; those files hold stable rules and pointers.
 
+## Documentation hierarchy integration (v2.73.0)
+
+`TASK.md` remains the **single current execution goal** in the project root; optional `STATUS.md` is a factual dashboard, not a second task authority. Per [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), durable intent, brief, decision and plan baselines are versioned under `docs/`; the generated `docs/INDEX.md` points to active/draft versions. TASK links to IDs/paths/versions for the current goal and records decisions/verification deltas without copying entire specifications. Keep lifecycle snapshots and PMO status at their already-governed locations. Legacy root Capture/Plan artifacts remain accepted until their authorized migration.
+
 ## Restriction record
 
 Apply [restriction provenance and lifetime](EXECUTION_SCOPE.md#restriction-provenance-and-lifetime). Keep one compact restriction section in the existing `TASK.md`; the plan, `STATUS.md` and worker handoffs reference its stable IDs and current transition summary. Do not introduce another ledger or copy the complete standards into every task.
@@ -182,7 +186,7 @@ For standalone `PHDK check`, the initial audit is read-only. A later explicit ye
 
 ## Capture requirements baseline
 
-`PHDK capture` produces the project-level requirements baseline in `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, and `REQUIREMENTS_TRACEABILITY.md`. TASK/STATUS may reference these artifacts but must not replace them or treat incomplete task notes as the project's canonical intent.
+`PHDK capture` produces the project-level baseline at the indexed versioned `docs/intents/`, `docs/briefs/` and `docs/plans/` paths in `PHDK_DOCUMENTATION_STANDARD.md`, or verified legacy root `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md` and `REQUIREMENTS_TRACEABILITY.md` paths. TASK/STATUS may reference these artifacts but must not replace them or treat incomplete task notes as the project's canonical intent.
 
 Capture may span multiple turns while resolving Blocking/Material requirements gaps. This is an explicit interactive requirements task, not a persistent mode or background job. Capture completion does not authorize implementation unless the current request separately includes development.
 

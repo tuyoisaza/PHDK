@@ -241,6 +241,10 @@ Auto asks for the unresolved visual choice; Auto Force selects and continues.
 
 The transition declaration itself is informational, not an approval gate. The actual ordinary Auto Design choice is governed separately by `PHDK_DESIGN.md`. During Auto/AUTO FORCE, append the truthful active-mandate/next-action capsule from `PHDK_COMMUNICATION_STANDARD.md` and execute the next eligible action in the same turn. Do not issue a terminal response merely because a stage/handoff completed; when a genuine ordinary Auto design answer is needed and independent work is exhausted, ask that one question and preserve the mandate.
 
+## Versioned-document handoff resolution (v2.73.0)
+
+All lifecycle stage contracts below use logical artifact names such as `PROJECT_INTENT.md`, `IMPLEMENTATION_PLAN.md` and `UI_DESIGN_SYSTEM.md`. Resolve each from `docs/INDEX.md` and [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) in new/updated projects; accept verified legacy root paths in brownfield projects. Record the **actual** path, document ID/version/status and candidate Git revision in each stage `HANDOFF.md` rather than reporting only the logical name. Snapshot the precise stage baseline in existing `docs/phdk/lifecycle/<run-id>/<stage>/`; no new stage, approval gate, redundant archive, or automatic UAT is created. An outdated index or divergent root/versioned copies is a coherence gap, not evidence of implementation.
+
 # Stage contracts
 
 ## 00 — Preflight

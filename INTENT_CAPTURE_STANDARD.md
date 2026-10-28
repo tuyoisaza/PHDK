@@ -1,5 +1,10 @@
 # INTENT_CAPTURE_STANDARD.md
 
+## Current versioned intent paths (v2.73.0)
+
+[PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) governs new durable intent artifacts: `docs/intents/<short-name>-intent.v0.md`, with required `doc_id`, `version`, `status`, `created_at`, `updated_at` and `authority` metadata, linked from generated `docs/INDEX.md`. Subsequent material revisions create `v1`, `v2`, etc.; historical substantive baselines are preserved. Legacy `docs/intents/<short-name>-intent.md` and root Capture files remain usable until the specific owning task migrates them safely. The older unversioned template below describes **content fields**, not the new output filename. `TASK.md` stays in root; an intent is evidence, never a standing execution mandate.
+
+
 ## Purpose
 
 `PHDK capture` is the preferred project-level discovery/reconstruction workflow and is governed by `PHDK_CAPTURE.md`. It produces `PROJECT_INTENT.md` for project-level ethos/purpose plus the professional requirements package. This standard remains the durable mechanism for later feature/bug/change-level intent files under `docs/intents/`.
@@ -55,7 +60,7 @@ When in doubt, write one. A short intent file costs little; a lost "why" costs a
 
 ## Format
 
-Create the file at `docs/intents/<short-name>-intent.md`:
+Create the file at `docs/intents/<short-name>-intent.v0.md` (or the next material revision), with the required front matter shown in `PHDK_DOCUMENTATION_STANDARD.md`:
 
 ```md
 # Intent — <short name>
@@ -97,8 +102,8 @@ Ask only what the current request and available evidence do not answer, one ques
 
 ## File Location and Lifecycle
 
-- Intent files live in `docs/intents/`, one file per intent.
-- An intent file is created once and never overwritten. It can span multiple slices and `TASK.md` cycles over time; it is a permanent record. Keep `TASK.md` focused on the whole current goal until that goal closes, including all Auto stages, rather than replacing it at each internal checkpoint.
+- Intent files live in `docs/intents/`, one stable document ID per intent with versioned baseline filenames.
+- Preserve each historical intent baseline's substantive meaning; material changes create a new numbered version, while small metadata and linked-slice updates may use Git history without changing the filename. A logical intent can span multiple slices and `TASK.md` cycles over time. Keep `TASK.md` focused on the whole current goal until that goal closes.
 - Never delete an intent file. If the work it describes is abandoned, add a line under `Open Questions` noting that and why, rather than removing the file.
 - As slices that implement an intent close, add a pointer to each closed slice's archived `TASK.md` (per `TASK_TRACKING_STANDARD.md`) under the intent's `Linked Slices` section.
 
@@ -143,7 +148,7 @@ PHDK deliberately does not add a separate `spec.md` artifact on top of this. `PR
 - [ ] `TASK.md`'s `Slice` header references the intent file via its `Intent:` field, or explicitly states none applies
 - [ ] The intent file describes the problem and desired outcome, not implementation
 - [ ] Closed slices that implemented the intent are linked back under its `Linked Slices` section
-- [ ] No intent file was deleted or overwritten
+- [ ] No historical intent baseline was deleted or silently substantively rewritten
 
 
 ## Relationship to UAT and user stories
