@@ -112,7 +112,7 @@ Instructions and local hooks do not prove an external agent was stopped or serve
 
 ## Diagnostics
 
-Implement explicitly requested health/diagnostic routes, authorization, redaction, output contracts, and UI source. For applicable deployed HTTP products also implement the public uncached `/health/version` contract in `PHDK_DEPLOYMENT_VERSION_STANDARD.md`. Inspect the code and author relevant tests without executing local behavioral/in-process suites. Analyze sanitized diagnostics already supplied by the user.
+Implement explicitly requested health/diagnostic routes, authorization, redaction, output contracts, and UI source. For applicable deployed HTTP products also implement the public uncached `/health/version` contract in `PHDK_DEPLOYMENT_VERSION_STANDARD.md`. Inspect the code and author relevant tests without executing local behavioral/in-process suites. Analyze sanitized diagnostics already supplied by the user. Analyze sanitized diagnostics already supplied by the user.
 
 Do not operate the product UI, call arbitrary live health probes, connect to a database, or send notifications as a completion gate. The bounded read-only deployed-revision `GET /health/version` is the sole normal non-UAT endpoint exception.
 
