@@ -12,9 +12,9 @@ With explicit `PHDK auto` or `PHDK auto force`, Plan divides the authorized goal
 
 ## Version source and metadata
 
-Use the project's existing version source, normally root `package.json`; this standards repository uses `VERSION`. Keep the source version consistent across changelog/status, app shell, login/admin and health-response metadata. Commit SHA and build timestamp stay in diagnostic metadata and responses, never in the visible version/action widget. Exact widget sizing is defined in `DEBUG_DIAGNOSTICS_STANDARD.md`.
+Use the project's existing version source, normally root `package.json`; this standards repository uses `VERSION`. Keep the source version consistent across changelog/status, app shell, login/admin and health-response metadata. For deployed HTTP products implement `PHDK_DEPLOYMENT_VERSION_STANDARD.md`: the public `GET /health/version` returns the **application version**, vendored `phdkVersion`, full deployed `commitSha` and immutable `builtAt` (unknowns are `null`). Commit SHA and build timestamp stay in diagnostic metadata and responses, never in the visible version/action widget. Exact widget sizing is defined in `DEBUG_DIAGNOSTICS_STANDARD.md`.
 
-These are source-code requirements. Do not open a browser or invoke live endpoints to verify them.
+These are source-code requirements, with **one narrow post-release readback exception**: a bounded `GET /health/version` under `EXECUTION_SCOPE.md` and `PHDK_DEPLOYMENT_VERSION_STANDARD.md` may confirm the deployed revision. Do not open a browser or invoke other live endpoints for ordinary development verification.
 
 ```txt
 VISIBLE UI (all public/login/app/admin surfaces): `vMAJOR.MINOR.PATCH` ONLY

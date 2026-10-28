@@ -90,6 +90,7 @@ for mandatory in [
     "PHDK_PLAN.md",
     "PHDK_REUSE_CATALOG_STANDARD.md",
     "PHDK_STARTER_PROFILE.md",
+    "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
     "PHDK_REUSE_CATALOG.json",
     "schemas/phdk-reuse-catalog.schema.json",
     "scripts/phdk_reuse_catalog_check.py",
@@ -108,6 +109,62 @@ for entrypoint in [
         encoding="utf-8"
     ):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
+
+# Deployment-revision contract and its narrow non-UAT permission routing.
+# This source-only guard checks document coherence, not implementation or a live
+# HTTP response; users still need an authorized production readback.
+deployment_version_sources = {
+    "PHDK_DEPLOYMENT_VERSION_STANDARD.md": [
+        "GET /health/version",
+        "Cache-Control: no-store",
+        "commitSha",
+        "phdkVersion",
+        "STALE_OR_DIFFERENT_REVISION",
+    ],
+    "EXECUTION_SCOPE.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+    "PHDK_PRODUCTION_VERIFICATION.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+    "MAIN_DELIVERY_STANDARD.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+    "VERSIONING.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+    "PHDK_AUTO.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+    "PHDK_CHECK.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+    "DEBUG_DIAGNOSTICS_STANDARD.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+    "AGENTS.md": ["PHDK_DEPLOYMENT_VERSION_STANDARD.md", "GET /health/version"],
+    "SKILL.md": ["PHDK_DEPLOYMENT_VERSION_STANDARD.md", "GET /health/version"],
+    "PHDK_NATIVE_RULES.md": [
+        "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+        "GET /health/version",
+    ],
+}
+for filename, required_markers in deployment_version_sources.items():
+    candidate = policy_path(filename)
+    if not candidate.is_file():
+        errors.append(f"deployment-version contract missing: {filename}")
+        continue
+    body = candidate.read_text(encoding="utf-8")
+    for marker in required_markers:
+        if marker not in body:
+            errors.append(f"deployment-version routing: {filename} lacks {marker}")
 
 # A policy header before YAML front matter prevents this entrypoint from
 # retaining the conventional skill metadata structure.

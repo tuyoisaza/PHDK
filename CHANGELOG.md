@@ -1,3 +1,10 @@
+## v2.72.0 — 2026-10-27
+
+### Cheap and truthful production revision identification
+- Introduce the vendored `PHDK_DEPLOYMENT_VERSION_STANDARD.md`: deployed HTTP products expose public, uncached JSON `GET /health/version` with application version, installed PHDK version, exact built Git SHA and immutable build time. Missing provenance is explicitly UNVERIFIED; the compact UI version widget does not change.
+- Permit one tightly scoped, non-UAT, read-only `curl` after an authorized merge/autodeploy or a requested version check; compare the served artifact's revision to the expected release. A successful response proves the answering revision, not all replicas, full application health, acceptance, or Railway deployment success.
+- Reconcile source/versioning, production-verification, security boundary, delivery/Auto/Check, diagnostics, managed entrypoints, coherence and manifest rules. No browser, UAT, local behavioral test, new GitHub Action, external provider administration, or downstream project deployment was performed.
+
 ## v2.71.1 — 2026-10-27
 
 ### Complete forced upgrade publication and workspace closeout

@@ -135,7 +135,7 @@ Use structured logs at important execution boundaries. Include applicable event,
 
 Errors need stable codes, useful messages, safe technical detail, correlation IDs, and severity. Follow `DEBUG_DIAGNOSTICS_STANDARD.md` for diagnostic-code contracts without invoking live diagnostics.
 
-A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics), independently of Developer Mode or unlock. Through existing authorized API/CLI/connector access, read finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and existing logs needed for that question. An earlier task's exclusion does not cancel a later scoped read request. Redact sensitive content; do not retrieve secret values, run browser tests or live application probes, stream/watch, write settings, or deploy.
+A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics), independently of Developer Mode or unlock. Through existing authorized API/CLI/connector access, read finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and existing logs needed for that question. An earlier task's exclusion does not cancel a later scoped read request. Redact sensitive content; do not retrieve secret values, run browser tests or arbitrary live application probes, stream/watch, write settings, or deploy. The only normal non-UAT HTTP exception is a bounded public `GET /health/version` under `PHDK_DEPLOYMENT_VERSION_STANDARD.md` after authorized delivery or an explicit deployed-version request.
 
 ## i18n
 

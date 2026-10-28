@@ -90,9 +90,9 @@ Do not ask for duplicate approval for normal delivery or a well-defined sensitiv
 
 Follow `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` within `EXECUTION_SCOPE.md`, using the whole-candidate final boundary in `PHDK_AUTO.md` while Auto is active. Do not hand routine permitted final checks to the owner or require human testing between stages.
 
-Evidence can include source/diff review, relevant formatting/lint/typecheck/build output, and risk-triggered non-browser unit or in-process integration tests with isolated dependencies. Checks must run synchronously and exit; do not leave watchers or register future checks.
+Evidence can include source/diff review, relevant formatting/lint/typecheck/build output, and inspection of risk-triggered test source. Do not run local unit, in-process integration, API or browser tests, even with isolated dependencies, per `PHDK_PRODUCTION_VERIFICATION.md`; do not leave watchers or register future checks.
 
-Documentation-only work requires a source/diff and reference review, not an application build. Do not invoke browser tests, screenshots, live endpoints, databases, or paid APIs to broaden a claim.
+Documentation-only work requires a source/diff and reference review, not an application build. Do not invoke browser tests, screenshots, arbitrary live endpoints, databases, or paid APIs to broaden a claim. A post-delivery deployed-version check may use only the bounded `GET /health/version` in `PHDK_DEPLOYMENT_VERSION_STANDARD.md`.
 
 A passing build supports compilation. An isolated test supports only the behavior exercised. Neither proves production health. Report unverified UI/runtime behavior without creating a manual-testing obligation for the user.
 
@@ -112,11 +112,11 @@ Instructions and local hooks do not prove an external agent was stopped or serve
 
 ## Diagnostics
 
-Implement explicitly requested health/diagnostic routes, authorization, redaction, output contracts, and UI source. Inspect that code and use isolated in-process tests where relevant. Analyze sanitized diagnostics already supplied by the user.
+Implement explicitly requested health/diagnostic routes, authorization, redaction, output contracts, and UI source. For applicable deployed HTTP products also implement the public uncached `/health/version` contract in `PHDK_DEPLOYMENT_VERSION_STANDARD.md`. Inspect the code and author relevant tests without executing local behavioral/in-process suites. Analyze sanitized diagnostics already supplied by the user. Analyze sanitized diagnostics already supplied by the user.
 
-Do not operate the product UI, call live health probes, connect to a database, or send notifications as a completion gate.
+Do not operate the product UI, call arbitrary live health probes, connect to a database, or send notifications as a completion gate. The bounded read-only deployed-revision `GET /health/version` is the sole normal non-UAT endpoint exception.
 
-A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics), independently of Developer Mode or unlock. Through existing authorized API/CLI/connector access, read finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and existing logs needed for the question. A prior code task's exclusion does not cancel this newer scoped request. Redact sensitive content and stop after the bounded read; no secret-value retrieval, browser tests, live application probes, streams/watchers, settings writes, or provider deployments.
+A request such as "verifica Railway" authorizes [Bounded read-only provider diagnostics](EXECUTION_SCOPE.md#bounded-read-only-provider-diagnostics), independently of Developer Mode or unlock. Through existing authorized API/CLI/connector access, read finite service/deployment status, source/branch and non-secret configuration/watch-pattern metadata, and existing logs needed for the question. A prior code task's exclusion does not cancel this newer scoped request. Redact sensitive content and stop after the bounded read; no secret-value retrieval, browser tests, live application probes other than the explicitly scoped `/health/version` GET, streams/watchers, settings writes, or provider deployments.
 
 ## Continuity and final report
 

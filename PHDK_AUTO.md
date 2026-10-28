@@ -28,6 +28,10 @@ Use the existing `UI_DESIGN_SYSTEM.md`, `UX_UI_DECISIONS.md`, retained `docs/des
 
 Run the `PHDK_AUTOMATION_HYGIENE.md` gate as part of Auto's final `PHDK check`: inspect repository files **and** GitHub/Railway remote metadata when authorized read-only access exists. Reconcile active workflows, PHDK legacy agents/schedules, CI/deployment dependencies, Railway Wait for CI, cron/restart/redeploy loops and potential charges. Automatically repair clearly obsolete PHDK-generated source/configuration within the current goal and validate preserved GitHub-connected autodeploy, but **never** disable GitHub Actions, alter Railway settings or remove required security checks through provider writes. Report inaccessible external settings as UNVERIFIED / EXTERNAL and do not claim full alignment without evidence.
 
+## Low-cost post-merge deployed-version evidence
+
+For each in-scope HTTP service with an existing production URL, implement `PHDK_DEPLOYMENT_VERSION_STANDARD.md` during development. After the authorized merge and existing autodeploy, compare the live `GET /health/version` response with the expected application version and full Git commit SHA using the one bounded, non-UAT GET exception in `EXECUTION_SCOPE.md`. Record `DEPLOYED_REVISION_CONFIRMED`, `STALE_OR_DIFFERENT_REVISION`, or `DEPLOYMENT_UNVERIFIED` independently of GitHub PUBLISHED, provider delivery metadata, health and UAT acceptance. No browser, provider write, background probe, polling or local runtime testing. A missing endpoint is a scoped implementation GAP, not evidence that Railway successfully published; do not claim live revision confirmation when the route was not called.
+
 ## Verified delivery
 
 Before final success for a remote-main goal, comply with `PHDK_COMPLETION_GATE.md`, create evidence after merge, run the mechanical verifier where available, and independently reconcile PR merge, required checks and confirmed commitments. Without these proofs do not report COMPLETED. Apply `PHDK_AUTO_CONTINUITY.md` before a terminal blocker report; missing evidence is work to obtain when a permitted path remains, not an automatic reason to stop.

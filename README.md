@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.71.1**
+**Version v2.72.0**
 
 **Historical + continuous Git cleanup (v2.71.0):** A first explicitly initiated Auto/Force run after adoption inventories old branches/worktrees, checks recent GitHub PR evidence, and retires only safely verified merged refs; each subsequent published milestone also closes its unchanged remote feature branch by exact SHA-guarded deletion. No GitHub/Railway settings change, broad pruning, second main push or forced worktree deletion. The [cleanup policy](PHDK_GIT_WORKSPACE_CLOSEOUT.md) and [history helper](scripts/phdk_git_history_cleanup.py) preserve unmerged or unknown content and report local/remote results separately.
 
@@ -27,6 +27,8 @@
 PHDK is an operating system for AI-assisted software delivery. It turns a repository, an idea or an unfinished product into a structured process where AI can understand intent, define a visible design, coordinate work, implement, validate, repair and deliver without losing human control.
 
 **New pre-implementation Design:** [`PHDK_DESIGN.md`](PHDK_DESIGN.md) introduces `PHDK design` and applicable lifecycle stage **25-design**, after technical/content Plan and before affected UI implementation. **Auto asks one visual question at a time and waits for your selection; Auto Force chooses, records its rationale and continues.** References, visual alternatives, representative previews and the selected style guide are retained in the repository. Agent selection is never reported as owner approval.
+
+**Cheap deployed-version verification (v2.72.0):** [PHDK_DEPLOYMENT_VERSION_STANDARD.md](PHDK_DEPLOYMENT_VERSION_STANDARD.md) requires a public, no-store JSON `GET /health/version` on HTTP apps with an existing production URL. It reports the product version, vendored PHDK version, exact deployed Git SHA and build time. After authorized GitHub→Railway autodeploy, one bounded `curl` verifies the serving revision without opening Railway or the site; no UAT, browser journey, polling, provider write or new infrastructure is implied. Source `main`, app health and deployed revision are separate evidence.
 
 **Production-first verification (v2.58.0):** [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md) governs all modes: local static checks/builds only; no local behavioral tests, Docker, extra staging/databases or preview servers. Runtime UAT uses the existing versioned production deployment/database, uniquely run-owned synthetic fixtures and verified cleanup. Static design concepts do not create a browser/runtime exception.
 
