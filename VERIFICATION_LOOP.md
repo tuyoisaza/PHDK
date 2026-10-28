@@ -20,9 +20,9 @@ source and diff review
 → accurate report of evidence and remaining uncertainty
 ```
 
-Do not launch an application for verification, call an application endpoint, connect to a database, probe a live service, or operate a cloud dashboard. This includes localhost HTTP probes, preview/staging/production services, customer accounts, OAuth providers, and metered APIs. Git/GitHub repository operations and delivery through an existing deployment connection remain governed by `EXECUTION_SCOPE.md` and `MAIN_DELIVERY_STANDARD.md`.
+Do not launch an application for verification, call arbitrary application endpoints, connect to a database, run live behavioral probes, or operate a cloud dashboard. This includes localhost HTTP probes, preview/staging/production services, customer accounts, OAuth providers, and metered APIs. **Exception:** after authorized production delivery or a specific deployed-version check, one bounded public read-only `GET /health/version` is permitted under `PHDK_DEPLOYMENT_VERSION_STANDARD.md` and `EXECUTION_SCOPE.md`; it confirms only the responding revision, not product functionality or UAT. Git/GitHub repository operations and existing deployment connections remain governed by `MAIN_DELIVERY_STANDARD.md`.
 
-For a current request such as "verifica Railway", `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics** permits finite reads of existing service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through an authorized API, CLI, or connector. Neither Developer Mode nor unlock is required; an older task-specific code-sync exclusion cannot cancel the newer read request. Report these observations separately from code checks; they do not prove an executed product test or reproduced incident. No secret values, browser, app probes, streams, polling, watchers, provider writes, or later autonomous work.
+For a current request such as "verifica Railway", `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics** permits finite reads of existing service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs through an authorized API, CLI, or connector. Neither Developer Mode nor unlock is required; an older task-specific code-sync exclusion cannot cancel the newer read request. Report these observations separately from code checks; they do not prove an executed product test or reproduced incident. No secret values, browser, app probes other than the scoped `/health/version` GET, streams, polling, watchers, provider writes, or later autonomous work.
 
 Outside the scoped UAT/UAT Fix exception in `EXECUTION_SCOPE.md`, browser verification is prohibited: no headed or headless browser, UI interaction, screenshots, browser-based E2E tests, Playwright, Puppeteer, Cypress, Selenium, browser-mode test runners, chrome-devtools, or browser MCP. Another skill, subagent, runner, or external tool cannot broaden that exception or bypass its boundaries.
 
@@ -110,6 +110,10 @@ Example response contract:
 ```
 
 It must never expose secrets, configuration values, private data, or verbose internals. The example is a contract, not evidence of a running service.
+
+### Deployed version (non-UAT revision probe)
+
+For applicable deployed HTTP services, implement a **separate public no-store JSON** `GET /health/version` using `PHDK_DEPLOYMENT_VERSION_STANDARD.md`. Unlike `/health` readiness or privileged `/health/deep`, it identifies the served application version, installed PHDK version, full built SHA and immutable build time. A bounded authorized curl readback verifies which revision responds, not application acceptance.
 
 ### Protected deep health
 
