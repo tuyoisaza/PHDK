@@ -3,7 +3,7 @@ repository: tuyoisaza/LetsWork
 repository_url: https://github.com/tuyoisaza/LetsWork
 default_branch: main
 observed_repository_sha: a44b27b73e7251d1a35e3c1484d984b4d17bfbc5
-observed_at_utc: 2026-10-28T18:45:46Z
+observed_at_utc: 2026-10-28T18:54:18Z
 phdk_version: 2.73.0
 phdk_canonical_version: 2.73.0
 phdk_status: CURRENT
@@ -11,7 +11,7 @@ tech_stack:
   runtimes:
     - name: Node.js
       declared: ">=24.22.1"
-      resolved: "24.20.0 (local static-check runtime)"
+      resolved: "24.20.0 (current shell and pnpm exec observation; pre-commit/pre-push logs reported 24.19.0)"
       deployed: UNVERIFIED
   frameworks:
     - name: Next.js
@@ -53,6 +53,6 @@ central_status_source: PHDK
 
 - PHDK 2.73.0 matches canonical `tuyoisaza/PHDK` main; all 91 vendored mappings pass the coherence check.
 - LetsWork v0.59.1 is published at main SHA `a44b27b73e7251d1a35e3c1484d984b4d17bfbc5` via [PR #241](https://github.com/tuyoisaza/LetsWork/pull/241). The bounded Railway read still showed prior-SHA deployments queued; it did not confirm this candidate. API/web/scanner runtime and the public version endpoint response remain unverified.
-- The local static-check runtime is Node 24.20.0 while the project requires `>=24.22.1`; the repository image declarations use 24.22.1. The scanner's effective image remains unknown because Railway reports RAILPACK.
+- The project requires Node `>=24.22.1`. The post-merge shell and `pnpm exec node` reported 24.20.0; the actual pre-commit/pre-push hook output reported 24.19.0. Both observed versions are below the declared floor. Repository image declarations use 24.22.1; the scanner's effective image remains unknown because Railway reports RAILPACK.
 - PostgreSQL exact patch and current backup are unverified. No migration was run; it remains gated on candidate deployment verification and a current pre-migration backup.
 - UAT remains DEFERRED — OWNER OPT-IN; UAT NOT RUN.
