@@ -127,6 +127,10 @@ At lifecycle invocation read `PHDK_COMMITMENT_STANDARD.md`. Capture inventories 
 
 For apps with managed records, apply `CRUD_STANDARD.md` across applicable elevated/admin/authenticated/public surfaces. Inventory entities and enforce a per-resource × role × surface CRUD matrix. Require actionable admin details and server-side permission evidence; accept documented immutable/read-only exceptions rather than unsafe delete controls. Capture, Plan, UAT and Check reconcile `CRUD_MATRIX.md` with evidence/handoffs.
 
+## Mandatory deployed-version endpoint
+
+For HTTP products with an existing production hostname, implement the public JSON `GET /health/version` contract in `PHDK_DEPLOYMENT_VERSION_STANDARD.md` using authoritative application version, vendored PHDK version, full built commit SHA and immutable build timestamp, with no-store caching. After an authorized GitHub→production autodeploy, make the bounded non-UAT curl readback permitted by `EXECUTION_SCOPE.md` and compare the served revision to the expected deployed service commit. Report stale, unknown or missing endpoint as unverified. Never infer live deployment from source main alone, start browser/UAT, poll, or change provider settings.
+
 ## Mandatory debug widget gate
 
 For applicable app-style products follow `DEBUG_DIAGNOSTICS_STANDARD.md`: one reusable always-visible version → clipboard → trash icon-only row on public home, login, app and admin, including anonymous visitors and debug OFF. Only `vX.Y.Z` visible, no SHA/date; 28×28px visible buttons, 14px icons, 12px version text, 4px gap, no helper/success text; successful copy and cache clearing individually show a temporary green check and revert. Copy verbose sanitized diagnostics; clear only permitted caches/session state. Auto inspects implementation/test source, repairs in-scope omissions and reconciles Check. No visual/runtime claim without permitted evidence.
