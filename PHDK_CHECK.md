@@ -6,6 +6,11 @@ Apply `PHDK_TENANT_RISK_STANDARD.md` to actual/proposed multi-tenant projects. C
 
 # PHDK Check Standard
 
+## Live deployment-version endpoint compliance (non-UAT)
+
+For PHDK-managed HTTP applications or APIs with an existing reachable production hostname, apply `PHDK_DEPLOYMENT_VERSION_STANDARD.md` and inspect the actual `GET /health/version` source route, public safe JSON payload, authoritative application version, exact deployed full SHA provenance, vendored PHDK version, immutable build timestamp, and `Cache-Control: no-store` headers. Require source test coverage for stale/missing provenance and SPA catch-all failures; absence of the route is GAP, incomplete/mocked implementation is PARTIAL, unreachable deployment evidence is UNVERIFIED, and genuinely non-HTTP workloads are NOT_APPLICABLE. In an authorized delivery/version-check task only, permit the single bounded non-UAT GET per `EXECUTION_SCOPE.md`; bare read-only Check never starts application probing, provider writes, UAT or new infrastructure. Separate PUBLISHED, DEPLOYED_REVISION_CONFIRMED, health and ACCEPTED evidence.
+
+
 ## Historical and remote Git cleanup evidence check (read-only)
 
 Inspect one-time historical inventory, local .git/phdk/git-hygiene-state.json state where accessible, actual merged-PR/head SHA proofs, preserved blocked worktrees, and observed remote branch disappearance after each milestone. A skipped remote deletion or unverified local checkout is reported separately; an open PR or dirty branch never becomes an auto-cleanable source. Bare PHDK check does not run --apply, delete remote refs, change provider settings or start historical cleanup. Apply current repository controls and keep UAT deferred.
