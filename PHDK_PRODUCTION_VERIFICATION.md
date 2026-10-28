@@ -16,7 +16,7 @@ Reuse the application's already existing production deployment, database, identi
 
 ## Narrow non-UAT deployment revision readback
 
-After an authorized GitHub→production release, or a specific request to check the live version, use `PHDK_DEPLOYMENT_VERSION_STANDARD.md`: a single bounded read-only GET to the existing public `/health/version` may compare returned version and full build commit SHA to the expected deployed artifact. No provider dashboard, site navigation, browser, credentials or paid/new service is required. It is **revision evidence only**, not functional health, replica-wide readiness, UAT or a general exception for application API probes. A missing/mismatched/unreachable endpoint is UNVERIFIED or STALE, never a reason to fabricate deployment completion. Respect current owner/host limits, and never poll; a second GET requires separate provider-completion evidence.
+After an authorized GitHub→production release, or a specific request to check the live version, use `PHDK_DEPLOYMENT_VERSION_STANDARD.md`: a single bounded read-only `GET /health/version` to the existing public production hostname may compare returned version and full build commit SHA to the expected deployed artifact. No provider dashboard, site navigation, browser, credentials or paid/new service is required. It is **revision evidence only**, not functional health, replica-wide readiness, UAT or a general exception for application API probes. A missing/mismatched/unreachable endpoint is UNVERIFIED or STALE, never a reason to fabricate deployment completion. Respect current owner/host limits, and never poll; a second GET requires separate provider-completion evidence.
 
 ## Production UAT authorization and safe scope
 
