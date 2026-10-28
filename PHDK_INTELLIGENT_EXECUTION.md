@@ -1,5 +1,8 @@
 # PHDK Intelligent Execution and Progressive Context Standard
 
+**Indexed documentation context (v2.73.0):** Read [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and the project's generated `docs/INDEX.md` at the relevant lifecycle entry. Load only current task-related active intent/brief/ADR/plan versions plus necessary excerpts for the worker; read historical baselines when reconciling changes, not by default. The index never grants task authority and cannot replace Auto's full current-intent reconciliation.
+
+
 ## Purpose and authority
 
 This standard governs **how** an already-authorized PHDK task is executed, not **whether** new work is authorized. It applies to Capture, Plan, Auto/Auto Force, PMO, Designer, UAT, Check, and maintenance. The latest user instruction, `EXECUTION_SCOPE.md`, tool/runtime access limits, and real security controls remain authoritative. Reading this document never starts background activity or a new lifecycle.

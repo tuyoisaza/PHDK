@@ -1,5 +1,8 @@
 # Auto continuity and Auto Force
 
+**Document context at resume (v2.73.0):** When reloading `AUTO_STATE.json`, resolve active versioned intent, brief, ADR and plan artifacts through `docs/INDEX.md` under [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). Store links/IDs and the observed revision in the existing state/handoff rather than copying entire documents or launching a new task. A stale/missing legacy index is a recoverable documentation gap, not a new permission or a reason to restart Capture.
+
+
 ## Contents
 
 - Command and review policy

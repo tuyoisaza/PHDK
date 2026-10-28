@@ -59,6 +59,9 @@ An HTML/SVG/specification file whose rendered result was not viewed is not a sho
 
 ## Durable, compact design package
 
+**Versioned location rule:** Apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). New/revised style guides live at `docs/plans/ui-design-system.vN.md`, new decision records at `docs/decisions/ux-ui-decisions.vN.md`, and retained visual assets at `docs/images/<topic>/vN/`. Read the active baseline from `docs/INDEX.md`; a newer draft is not automatic approval. The legacy `UI_DESIGN_SYSTEM.md`, `UX_UI_DECISIONS.md` and `docs/design/` paths below remain accepted for existing projects; do not migrate them on a passive upgrade or create a parallel design truth. Design selection/provenance and stage-25 handoff requirements remain unchanged.
+
+
 Reuse existing canonical artifacts; do not introduce a parallel set of truth documents:
 
 - **`UI_DESIGN_SYSTEM.md`**: the visual style guide, selected direction, tokens, typography, layout/density/breakpoints, component catalog/states, three-theme semantics, icons, accessibility, motion and implementation mappings. Link to the existing single canonical CSS palette source; never add a competing palette file just for Design.

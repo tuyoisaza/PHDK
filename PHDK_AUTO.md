@@ -16,6 +16,11 @@ When the active product goal has multi-tenancy, load `PHDK_TENANT_RISK_STANDARD.
 
 # PHDK Auto
 
+## Continuous documentation governance (v2.73.0)
+
+Follow [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). At entry, read `TASK.md` and the active `docs/INDEX.md` if present; compare indexed intent/brief/decision/plan versions with actual current owner requirements and source. A missing index in a legacy-only project is not a ceremony blocker. During Capture/Plan/Design and whenever a material milestone changes assumptions or implementation scope, create only the necessary versioned documents and refresh the generated index in the **same authorized change**. Before each completed value milestone is published, use the read-only `scripts/phdk_docs_audit.py --root . --check` (vendored from `phdk-standards/scripts/` in downstream projects), identify changed document paths with `--changed`, and use `--sync-index` only when the current task authorizes writes. Resolve divergent legacy/current copies, missing cross-links and stale active baselines in scope; report untouched legacy debt proportionately. Never mistake document compliance for working code, deployment, owner design approval or UAT; never stop complete implementation for unnecessary folder creation.
+
+
 ## Design decision policy — Auto asks; Auto Force decides
 
 Apply `PHDK_DESIGN.md` as lifecycle stage **25-design** after technical/content Plan and before dependent UI implementation. This is a specific exception to generic no-interview/no-stage-approval language: **normal Auto asks one unresolved visual question at a time, shows alternatives/previews and waits for the owner's choice and final visual approval; Auto Force makes the design decisions, records `AGENT_SELECTED_AUTO_FORCE` with rationale and continues without a PHDK visual-approval pause.** FORCE still performs Design; it does not silently skip its outputs or pretend the owner approved them. Preserve actual current owner restrictions, existing brand decisions and security controls.

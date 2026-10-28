@@ -1,5 +1,10 @@
 # PHDK Capture Standard
 
+## Canonical Capture artifact location (v2.73.0)
+
+Apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) before creating or materially revising requirements documents. In **new** projects, `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md` and `REQUIREMENTS_TRACEABILITY.md` below are logical artifact names; authoritative physical locations are `docs/intents/project-intent.vN.md`, `docs/briefs/project-brief.vN.md`, `docs/briefs/prd.vN.md`, `docs/briefs/features.vN.md` and `docs/plans/requirements-traceability.vN.md`. Start with `v0` and record provenance/status in front matter; update `docs/INDEX.md` in the same authorized change. Existing coherent root artifacts remain valid legacy inputs, not an instruction to make duplicate copies. Preserve their content and links until an in-scope migration reconciles consumers. Capture still does not authorize implementation or UAT.
+
+
 ## Consultative tenant-risk discovery
 
 For a multi-tenant or plausible SaaS product, consult `PHDK_TENANT_RISK_STANDARD.md`. Examine existing facts first; determine exposure, data sensitivity, likely threats, blast radius and constraints. Ask one unresolved material question at a time, then record provisional `TENANT_RISK_ASSESSMENT.md`, inherent risk, evidence, decision needs and relevant security requirements. Do not impose dedicated databases or per-tenant keys without a risk/owner decision.

@@ -1,5 +1,10 @@
 # VERSIONING.md
 
+## Product document versions are independent (v2.73.0)
+
+Per [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), `docs/<category>/<topic>.vN.md` is a **document baseline revision**, not PHDK `VERSION`, product SemVer, Git SHA or a reason to publish every change as a separate milestone. `docs/INDEX.md` chooses the active baseline by metadata, not highest filename. Minor copy corrections stay in Git history; materially revised intent/plan/decision/visual baselines get a new document version. Actual product release and delivery decisions still follow this file's existing SemVer/milestone rules.
+
+
 ## Purpose and authority
 
 Keep authorized changes, commits, releases, and built artifacts traceable. `EXECUTION_SCOPE.md` governs all versioning and delivery: active conversation and current request, no unattended/background work, GitHub Actions, or external administration. Bounded in-session delegation is allowed in any mode under `PHDK_INTELLIGENT_EXECUTION.md`; PMO separately governs portfolio workstreams. `PHDK_AUTO.md` defines continuous development through one identified goal.

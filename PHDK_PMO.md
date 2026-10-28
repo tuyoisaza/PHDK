@@ -1,5 +1,10 @@
 # PHDK PMO Standard
 
+## Versioned project documents in PMO (v2.73.0)
+
+Use [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and the active `docs/INDEX.md` baselines (or verified legacy root files) to assign workstreams. Record the exact intent/brief/plan/ADR versions each workstream consumes. A material design, scope or architecture decision creates/updates its governed versioned document and refreshes the index within the authorized milestone, without copying PMO's live coordination files into `docs/` or spinning off approval ceremonies. Reconcile worker outputs against the active baseline at integration.
+
+
 
 ## Mandatory milestone execution and proportional project control
 

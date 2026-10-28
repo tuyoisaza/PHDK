@@ -6,6 +6,13 @@ Apply `PHDK_TENANT_RISK_STANDARD.md` to actual/proposed multi-tenant projects. C
 
 # PHDK Check Standard
 
+## Mandatory documentation and nomenclature audit (v2.73.0)
+
+Apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) to the **current candidate**. For new or materially revised project documents, audit the category paths, `kebab-case.vN.md` names, truthful front-matter version/status/authority/dates, unique active baseline per document ID, stable ADR supersession, matching `docs/INDEX.md`, root `TASK.md` links, milestone/intent/decision/evidence cross-references, and stale duplicate root documents. Prefer the vendored read-only `phdk-standards/scripts/phdk_docs_audit.py --root . --check` plus `--changed` for in-scope paths, and inspect semantic links manually; static filename checks alone are insufficient.
+
+Bare `PHDK check` is read-only: **never** run `--sync-index` or migrate documents during its audit. Classify new mismatches as GAP/PARTIAL, missing access as UNVERIFIED, and untouched brownfield root paths as LEGACY_COMPATIBLE/low-priority debt rather than a blanket deployment blocker. Inside authorized Auto/Auto Force or explicit Check Fix, repair in-scope documents, update the index, rerun the read-only audit and record evidence without expanding the product scope or invoking UAT. The index is a locator, not proof of implemented features or approval.
+
+
 ## Live deployment-version endpoint compliance (non-UAT)
 
 For PHDK-managed HTTP applications or APIs with an existing reachable production hostname, apply `PHDK_DEPLOYMENT_VERSION_STANDARD.md` and inspect the actual `GET /health/version` source route, public safe JSON payload, authoritative application version, exact deployed full SHA provenance, vendored PHDK version, immutable build timestamp, and `Cache-Control: no-store` headers. Require source test coverage for stale/missing provenance and SPA catch-all failures; absence of the route is GAP, incomplete/mocked implementation is PARTIAL, unreachable deployment evidence is UNVERIFIED, and genuinely non-HTTP workloads are NOT_APPLICABLE. In an authorized delivery/version-check task only, permit the single bounded non-UAT GET per `EXECUTION_SCOPE.md`; bare read-only Check never starts application probing, provider writes, UAT or new infrastructure. Separate PUBLISHED, DEPLOYED_REVISION_CONFIRMED, health and ACCEPTED evidence.

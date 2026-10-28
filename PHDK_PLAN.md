@@ -1,5 +1,10 @@
 # PHDK Plan Standard
 
+## Canonical Plan artifact location (v2.73.0)
+
+Read [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and `docs/INDEX.md` where present. The uppercase names under **Canonical Plan artifacts** are logical contracts, not a requirement to create root-level duplicates. New and materially revised Plan artifacts live under `docs/plans/<kebab-name>.vN.md` (solution/repository/UX architecture, requirements traceability, milestone and implementation plans); individual ADRs and the decision ledger live in `docs/decisions/` with stable IDs. Record draft versus active revisions and source/decision links, refresh `docs/INDEX.md`, and update root `TASK.md` for current execution. Reuse coherent legacy root paths until a safe, scoped migration; do not rewrite all plans merely to change filenames. Plan and Auto's intent-to-implementation reconciliation still use complete, current content.
+
+
 ## Current PHDK baseline and scope
 
 At Plan entry or material replanning, complete or reuse valid `PHDK_PREFLIGHT.md` evidence before deriving the brief, plan and worker tasks. Load the adopted PHDK `VERSION`, `EXECUTION_SCOPE.md`, this standard, `MAIN_DELIVERY_STANDARD.md` and the relevant specialist rules. Verify current canonical `main`/version when access is available and synchronize only through the existing conservative Preflight/Upgrade contract. Do not overwrite downstream owner decisions or repeat universal Preflight when its verified baseline remains unchanged.
