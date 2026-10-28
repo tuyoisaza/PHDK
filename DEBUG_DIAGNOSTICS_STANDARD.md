@@ -20,11 +20,11 @@ For static or public-only projects, debug mode is a recommended technical note, 
 
 `EXECUTION_SCOPE.md` is authoritative. This document describes application features for authorized product users; it does not instruct the agent to operate them.
 
-PHDK agents review diagnostics code and run permitted local static/build checks or risk-triggered unit/in-process integration tests. Browser APIs, OAuth, database access, network requests, and metered providers must be replaced with test doubles in those tests. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call application/health/probe endpoints, or change cloud settings. Requested non-secret provider metadata reads follow the separate boundary below; another tool, skill, or subagent cannot widen it.
+PHDK agents review diagnostics code and run only permitted local static/build/source checks under `PHDK_PRODUCTION_VERIFICATION.md`; local unit, in-process, API, browser and behavioral tests are not authorized. Agents must not open a browser, press debug buttons, collect screenshots, copy reports from a live session, call arbitrary application/health/probe endpoints, or change cloud settings. The sole ordinary non-UAT live application exception is a bounded unauthenticated `GET /health/version` after authorized release or a current deployed-version request, under `EXECUTION_SCOPE.md` and `PHDK_DEPLOYMENT_VERSION_STANDARD.md`. Other diagnostics remain source review or expressly authorized UAT.
 
 When `PHDK auto` is explicitly active, follow `PHDK_AUTO.md`: implement diagnostics and necessary test coverage as part of the full goal, then verify these requirements with the completed integrated candidate. The checklist below is not a separate release, human acceptance, or intermediate test gate. Only an actual implementation blocker or mandatory control justifies an earlier check; permitted scope remains unchanged.
 
-For a current request such as "verifica Railway", follow `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**. Existing authorized API/CLI/connector access may retrieve finite service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs. Neither Developer Mode nor unlock is required, and an older code-sync task exclusion cannot veto a newer read request. No secret values, application probes, browser use, streams, polling, watchers, writes, or recurring work. Report provider observations and user-supplied redacted diagnostics separately from source checks; retain `visual/runtime unverified` for behavior not exercised. Independent human product use is optional, never a checklist chore.
+For a current request such as "verifica Railway", follow `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics**. Existing authorized API/CLI/connector access may retrieve finite service/deployment status, non-secret source/branch/configuration/watch metadata, and relevant logs. Neither Developer Mode nor unlock is required, and an older code-sync task exclusion cannot veto a newer read request. No secret values, application probes other than the separately scoped `/health/version` GET, browser use, streams, polling, watchers, writes, or recurring work. Report provider observations and user-supplied redacted diagnostics separately from source checks; retain `visual/runtime unverified` for behavior not exercised. Independent human product use is optional, never a checklist chore.
 
 Do not create recurring diagnostics, monitoring jobs, or scheduled agents. Existing product behavior remains subject to its own authentication, redaction, and consumption controls.
 
@@ -143,6 +143,7 @@ feature flags
 debug mode state
 API base URL — hostname only, never full URL with tokens
 /health status
+/health/version — version and commit SHA only, when available
 deep-health status if available
 DB provider if available
 recent frontend logs — last 20 entries
@@ -204,6 +205,7 @@ Feature flags: [list or none]
 
 API: [hostname only]
 /health: [status or unavailable]
+/health/version: [application version / full commit SHA or unavailable]
 /health/deep: [status or unavailable / protected]
 DB provider: [provider or unavailable]
 
