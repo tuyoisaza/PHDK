@@ -96,7 +96,7 @@ Test doubles must never become a silent production fallback for a missing databa
 
 Outside the scoped UAT/UAT Fix exception, do not create or run browser-based E2E, headed/headless browser tests, visual snapshots, screenshot comparisons, or browser-mode test runners. This includes Playwright, Puppeteer, Cypress, Selenium, chrome-devtools, browser MCP, UI interaction through another skill, and delegation to another agent. Renaming a browser check as a smoke test, accessibility scan, preview, or manual confirmation does not make it permitted.
 
-Do not call an application health/probe endpoint, start a preview server, connect to local or cloud databases, use customer accounts, complete OAuth sign-in, call paid providers, or provision services to make tests pass. Existing test scripts must be inspected for these behaviors before execution. An existing browser suite may remain in a repository, but the PHDK agent must neither run nor expand it outside authorized UAT/UAT Fix.
+Do not call arbitrary application health/probe endpoints, start a preview server, connect to local or cloud databases, use customer accounts, complete OAuth sign-in, call paid providers, or provision services to make tests pass. The only normal non-UAT endpoint exception is a bounded read-only `GET /health/version` after authorized production delivery or a current version-check request under `PHDK_DEPLOYMENT_VERSION_STANDARD.md` and `EXECUTION_SCOPE.md`; that is revision evidence, not a behavioral test. Existing test scripts must be inspected for these behaviors before execution. An existing browser suite may remain in a repository, but the PHDK agent must neither run nor expand it outside authorized UAT/UAT Fix.
 
 A human may independently test the product. That is not a mandatory PHDK completion gate and must not be reported as an agent-performed check or assigned to the human merely to close a checklist.
 
@@ -104,7 +104,7 @@ A human may independently test the product. That is not a mandatory PHDK complet
 
 ## Product Diagnostics Are Implementation Requirements
 
-Health endpoints, protected probes, debug panels, redaction, correlation IDs, and copyable reports remain product features where specified by `VERIFICATION_LOOP.md` and `DEBUG_DIAGNOSTICS_STANDARD.md`.
+Health endpoints, the lightweight deployed-version endpoint, protected probes, debug panels, redaction, correlation IDs, and copyable reports remain product features where specified by `VERIFICATION_LOOP.md`, `PHDK_DEPLOYMENT_VERSION_STANDARD.md` and `DEBUG_DIAGNOSTICS_STANDARD.md`.
 
 Review their implementation and author focused coverage for risky logic such as authorization, probe-mode enforcement, redaction, timeouts, quotas and retry bounds. Perform only permitted static checks during development; do not execute a real probe, local runtime harness or provider request as a substitute for separately authorized acceptance.
 
