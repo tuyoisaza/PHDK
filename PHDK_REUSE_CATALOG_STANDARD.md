@@ -19,8 +19,8 @@ Before implementing a common capability when a plausible implementation exists, 
 - **BUILD** — implement locally because reuse/adaptation has worse fit, integration cost, maintenance burden, compatibility, security, licensing or evidence.
 
 Reuse is never mandatory. Optimize the product outcome, not catalog utilization.
-Prefer a compatible accepted package only when evidence supports its integration and maintenance; otherwise ADAPT or BUILD. When there is no eligible implementation, BUILD is legitimate without an empty assessment ritual. Do not block a current user-value milestone on extracting a reusable package.
 
+Prefer a compatible accepted package only when evidence supports its integration and maintenance; otherwise ADAPT or BUILD. When there is no eligible implementation, BUILD is legitimate without an empty assessment ritual. Do not block a current user-value milestone on extracting a reusable package.
 
 When the comparison is material, create or update `REUSE_ASSESSMENT.md`. For each capability record:
 
