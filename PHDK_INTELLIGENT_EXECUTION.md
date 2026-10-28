@@ -30,6 +30,8 @@ The receiving executor must distinguish documented owner authorization from its 
 
 ## Progressive context routing
 
+**Portfolio-first context discipline:** share verified capability contracts and relevant project decisions, not an entire cross-project codebase or catalog in each prompt. For a plausible shared feature, load only relevant `PHDK_REUSE_CATALOG_STANDARD.md` entries and task-specific sections of `TECHNICAL_STACK.md` in Plan; a worker gets only scoped requirements, interfaces, evidence and authorized access. No cross-project permission follows from shareability.
+
 **L0 — Kernel:** active user mandate, non-negotiable authorization/access/security boundaries, and current mode/next action. Use the smallest effective persistent instruction surface.
 
 **L1 — Mode:** read the current mode's contract (Auto/Force, PMO, Capture, Plan, UAT, Designer, Check, etc.) only when relevant.

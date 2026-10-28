@@ -6,6 +6,10 @@ Apply `PHDK_TENANT_RISK_STANDARD.md` to actual/proposed multi-tenant projects. C
 
 # PHDK Check Standard
 
+## Portfolio-first consistency (v2.74.0)
+
+When relevant, inspect the project's adopted `TECHNICAL_STACK.md` baseline and ADRs, Plan's REUSE/ADAPT/BUILD reasoning, and `PHDK_REUSE_CATALOG_STANDARD.md`. Flag unjustified duplication, unsupported implementation/reuse claims, and undocumented material stack drift proportionately. Do not block delivery on a separate catalog contribution, imply that specification-only starters are usable, upgrade consumers, run local behavioral tests or administer a host. Local lint, static analysis, typechecks and safe builds remain permitted under `PHDK_PRODUCTION_VERIFICATION.md`.
+
 ## Mandatory documentation and nomenclature audit (v2.73.0)
 
 Apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) to the **current candidate**. For new or materially revised project documents, audit the category paths, `kebab-case.vN.md` names, truthful front-matter version/status/authority/dates, unique active baseline per document ID, stable ADR supersession, matching `docs/INDEX.md`, root `TASK.md` links, milestone/intent/decision/evidence cross-references, and stale duplicate root documents. Prefer the vendored read-only `phdk-standards/scripts/phdk_docs_audit.py --root . --check` plus `--changed` for in-scope paths, and inspect semantic links manually; static filename checks alone are insufficient.

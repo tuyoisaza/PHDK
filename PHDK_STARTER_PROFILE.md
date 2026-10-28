@@ -8,6 +8,8 @@ Matching entries in `PHDK_REUSE_CATALOG.json` are `SPECIFICATION_ONLY` with `imp
 
 ## Composition principles
 
+**Portfolio-first, not starter-first:** shared stack and versioned contracts enable reuse, but the currently `SPECIFICATION_ONLY` catalog entries are not installable implementations. Build needed product capabilities now; propose subsequent shared-package contribution with its own authorization and evidence. Do not force unrelated starter capabilities into a project.
+
 A future starter should be assembled from independently versioned capabilities with explicit contracts. Consumers may reuse, adapt or build each capability separately; adoption of one must not force the entire stack.
 
 Cross-cutting requirements:

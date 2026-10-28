@@ -28,7 +28,9 @@ Before planning, load the verified applicable PHDK baseline under `PHDK_PLAN.md`
 
 When a build, packaging check or Git hook has ambiguous effects or conflicts with local verification policy, load and apply the [decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) **before executing the command, declaring BLOCKED, or requesting user input**. Inspect the actual command chain and provenance; run permitted static steps and repair only proven PHDK-managed or legacy PHDK-generated steps within the authorized task. Preserve independent owner/external/unknown controls and prepare a concrete gate-change proposal if authorization is missing. Never request a prohibited local-runtime exception or initiate UAT to satisfy the gate.
 
-## Optional reusable-capability planning and milestone evidence
+## Portfolio-first reuse and milestone evidence (v2.74.0)
+
+PHDK is an opinionated, owner-governed system for sharing working knowledge/modules across projects. Use the evolvable `technical_stack.md` baseline and relevant catalog entries; preserve existing compatible implementations and separate security, license and portability evidence from claims. Keep local work lightweight: source/diff review, lint/typechecking and safe builds remain permitted, while Docker, local running services/databases and local behavioral tests remain excluded. Use existing GitHub-connected production (Railway where configured); only explicit deployed UAT establishes runtime acceptance. Never auto-extract private donor code or modify unrelated repositories.
 
 During Plan and applicable Auto work, load `PHDK_REUSE_CATALOG_STANDARD.md` when a common capability could plausibly be reused. Compare REUSE, ADAPT and BUILD; only `ACCEPTED_VERSIONED` is eligible for REUSE, and catalog presence never overrides current compatibility, security, license or maintenance evidence. Record material decisions in `REUSE_ASSESSMENT.md`; do not delay product delivery to generalize a donor prematurely. PHDK remains methodology/contracts/catalog while reusable implementations live in separately versioned packages and require a second consumer before accepted portability.
 

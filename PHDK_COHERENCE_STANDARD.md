@@ -1,5 +1,9 @@
 # PHDK Coherence Standard
 
+## Portfolio-first policy release routing (v2.74.0)
+
+Keep README philosophy, Evolution, technical stack, reuse catalog, Plan, starter, Check, hosted verification, progressive context and installed AGENTS/SKILL/native entrypoints aligned. Reuse is a default **assessment** when common capabilities plausibly exist, never forced extraction, cross-repo changes or automatic upgrades. The standard stack evolves through reviewed policy/ADR decisions; local safe builds/static checks remain permitted, but Docker, running local servers/databases and local behavioral tests remain excluded. Existing GitHub-connected production (Railway where configured), explicit-only UAT and truthful deployed-version evidence are not changed. Correct stale local in-process test, PMO-only delegation and automatic-UAT prose in INANUTSHELL. The source-only coherence checker guards key markers; it cannot prove package portability, runtime behavior or downstream adoption.
+
 ## Documentation contract release routing (v2.73.0)
 
 Before publishing changes to [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), require the standard and `scripts/phdk_docs_audit.py` in `PHDK_MANIFEST.txt` and inspect entrypoints for coherent interpretation: Capture/Plan logical names versus new versioned paths, existing Design legacy location, active root TASK/STATUS, PMO/Auto milestone updates, read-only bare Check, UAT explicit-only, and bounded delivery checks. `scripts/phdk_coherence_check.py` provides source-only markers; do not claim a project documentation audit or runtime test passed unless actually executed.

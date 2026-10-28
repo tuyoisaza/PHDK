@@ -1,5 +1,11 @@
 # TECHNICAL_STACK.md
 
+## Portfolio standardization and cloud-first rationale (v2.74.0)
+
+**Portfolio-first:** this is PHDK's opinionated, versioned stack baseline for sharing components, packages and learned practices between related projects. Prefer compatible standard-stack solutions and the evidence-based catalog in `PHDK_REUSE_CATALOG_STANDARD.md`; material deviations require explicit project ADRs, and future changes to the baseline are reviewed PHDK releases. Preserve healthy brownfield architecture unless its migration is authorized.
+
+**Lightweight local execution:** source review, formatting, linting, typechecking, compilation and safe builds are permitted; Docker/Compose, local containers, running application servers/databases and behavioral/runtime tests (including mocks) are not. Follow `PHDK_PRODUCTION_VERIFICATION.md`. Existing GitHub-to-Railway autodeploy is the preferred portfolio route where already configured; other existing authorized production hosts remain valid. A build or merge is not evidence of deployed behavior, and runtime UAT requires explicit owner opt-in.
+
 For explicit `PHDK auto`, `PHDK_AUTO.md` governs the whole goal's cadence: implement all agreed features and cross-package wiring before final integrated verification and versioned branch/PR delivery. Stack and build contracts below remain applicable; they do not impose a QA/release/approval cycle after each internal stage. Preserve actual mandatory controls and the provider/browser boundaries in `EXECUTION_SCOPE.md`.
 
 ## UI implementation baseline
