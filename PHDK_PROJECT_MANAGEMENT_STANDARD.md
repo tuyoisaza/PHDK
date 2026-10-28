@@ -8,6 +8,11 @@ At the end, offer `PHDK uat` as an optional **future explicit command**, without
 
 # PHDK Project Management Standard
 
+## Documented milestone baselines (v2.73.0)
+
+Apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) to new/materially revised milestone and implementation plans. A milestone references exact document IDs/versions, associated ADRs, retained visual baseline (when applicable), root `TASK.md`, and actual source/evidence. At milestone close refresh changed durable documents and `docs/INDEX.md` *before* permitted Check/PR delivery; do not version-bump every slice or silently rewrite old baselines. The document version is not the product release SemVer, deployment revision or UAT result.
+
+
 ## Tenant-risk register input
 
 For multi-tenant initiatives, `PHDK_TENANT_RISK_STANDARD.md` and `TENANT_RISK_ASSESSMENT.md` supply a concise risk register input: inherent/residual score and tier, evidence, risk owner, controls, cost/operability, pending material decisions and review triggers. Map approved mitigations into milestones. Assessment is not authorization to purchase, provision or migrate infrastructure; preserve `PHDK_PRODUCTION_VERIFICATION.md` limits.
