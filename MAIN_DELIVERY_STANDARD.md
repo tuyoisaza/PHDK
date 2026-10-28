@@ -1,5 +1,10 @@
 # Main Delivery Standard
 
+## Project-document delivery consistency (v2.73.0)
+
+Before declaring an authorized value milestone delivered, apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) to any newly created/materially revised project documents: stable category/name, honest front matter, current generated `docs/INDEX.md`, root `TASK.md` references and decision/plan/evidence links. Run permitted read-only `phdk-standards/scripts/phdk_docs_audit.py --root . --check` on the candidate when available; for changed documents pass the `--changed` paths and resolve material gaps within scope before commit/PR. Do not rewrite untouched brownfield documents, create a second task tracker, claim Check alone proves code/acceptance, or use a post-merge index-only commit. Existing main/PR/deploy evidence gates remain authoritative.
+
+
 ## Machine-verifiable completion proof
 
 For implementation tasks targeting remote `main`, enforce `PHDK_COMPLETION_GATE.md` after PR merge. Produce the evidence record from actual observations, run `phdk-standards/scripts/phdk_completion_gate.py` where supported, and independently verify PR merge, technical checks and remaining commitments. Review evidence follows the active mode below: FORCE does not require PHDK-only human review or a review/protection investigation. The evidence file containing the final merge SHA is a post-merge local/runtime delivery artifact, not a file that must be committed before the merge (which would create a circular SHA dependency). A failed or unavailable gate forbids a COMPLETED claim; complete permitted evidence work before reporting a precise blocker.

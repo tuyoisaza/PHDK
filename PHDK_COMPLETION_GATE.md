@@ -1,5 +1,10 @@
 # PHDK Verified Completion Gate
 
+## Documentation consistency at completion (v2.73.0)
+
+For a goal that creates or materially revises durable project documentation, include [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) compliance in the actual scoped diff/evidence: versioned paths and IDs, updated generated `docs/INDEX.md`, links to current `TASK.md`/milestones and truthful source, validation, merge and deployment status. Use the vendored `scripts/phdk_docs_audit.py --root . --check` where available. A docs audit is not execution proof or authorization for UAT. Untouched legacy documents remain compatible; no bulk rename or additional completion ceremony.
+
+
 ## Principle
 An assistant may not equate effort, local edits, a passing formatter, an unmerged PR, or an optimistic status summary with successful delivery. For any current task whose target is remote `main`, COMPLETED requires independently verified delivery and relevant validation. This extends `MAIN_DELIVERY_STANDARD.md`, `PHDK_COMMITMENT_STANDARD.md` and `PHDK_DESIGNER_MODE.md`; it does not authorize background activity, bypass permissions, or silently start another task.
 

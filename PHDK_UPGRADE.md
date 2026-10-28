@@ -1,5 +1,10 @@
 # PHDK_UPGRADE.md
 
+## Preserve downstream documentation on adoption (v2.73.0)
+
+Vendor [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and `scripts/phdk_docs_audit.py` as PHDK-owned standard/helper files only. A bare Upgrade or force sync must not move, rename, delete, version, rewrite, create an index for, or repair owner product files in `docs/`, root Capture/Plan records, `TASK.md` or `STATUS.md` as a synchronization side effect. Active authorized Auto Force later applies the standard only to its scoped project task. Treat legacy root/doc paths as compatible until an authorized material revision and safe reference migration.
+
+
 ## Purpose and command contract
 
 **Adoption is not deletion:** installing or syncing PHDK never itself deletes historical Git branches/worktrees. The first subsequent explicitly initiated local PHDK auto/auto force (including the Auto Force phase of upgrade force) runs the bounded historical inventory and safe cleanup in PHDK_GIT_WORKSPACE_CLOSEOUT.md if it has local Git access and fresh PR evidence. A bare PHDK upgrade remains limited to its established sync/read-only review scope, and a remote-only agent must not claim the owner's local disk changed.

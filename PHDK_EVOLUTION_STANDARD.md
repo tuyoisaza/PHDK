@@ -8,6 +8,11 @@ At the end, offer `PHDK uat` as an optional **future explicit command**, without
 
 # PHDK Evolution Standard
 
+## Downstream project document architecture (v2.73.0)
+
+The vendored [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) defines **product** documentation hierarchy, `kebab-case.vN.md` artifact names, metadata, draft/active/historical versions, `docs/INDEX.md`, visual asset baseline folders and the read-only `scripts/phdk_docs_audit.py` check. Canonical PHDK's own uppercase root **standards** filenames and `VERSION` SemVer are distinct and stay unchanged. When evolving this contract, reconcile Capture, Plan, Design, PMO, Auto, Check, lifecycle, task/intent, UAT source resolution, delivery, manifest, agents and tests. Never migrate downstream project files on a standard's release or mistake metadata for approval.
+
+
 ## Authority and purpose
 
 This is the session-entry and maintenance contract for the **canonical PHDK standards repository**: https://github.com/tuyoisaza/PHDK. It consolidates discovery, terminology, workspace discipline, versioning and publication; it does not replace the detailed standards or activate an implementation mode.
