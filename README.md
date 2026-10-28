@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.73.0**
+**Version v2.74.0**
 
 **Project documentation governance (v2.73.0):** [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) standardizes `docs/intents/`, `docs/briefs/`, `docs/decisions/`, `docs/plans/`, `docs/images/` and `docs/evidence/`. New durable records have per-document `kebab-case.vN.md` versions, status/provenance metadata and a generated `docs/INDEX.md`; images use topic/`vN/` baselines, while root `TASK.md` remains the live execution record. Capture, Plan, Design, PMO, Auto and Check keep these coherent without bulk-migrating existing projects. The [vendored static auditor](scripts/phdk_docs_audit.py) is read-only by default; only an authorized write task may refresh the index.
 
@@ -403,6 +403,16 @@ The lifecycle board includes Preflight, Capture, Plan, **Design**, PMO/Workstrea
 For an existing project, use `PHDK upgrade`, then Capture/Plan to reconstruct intent and architecture. Design reuses valid choices and changes only affected scope; no automatic wholesale redesign. `PHDK auto` performs this reconciliation within an authorized complete goal. For unclear standards drift, use `PHDK check` first.
 
 # The PHDK philosophy
+
+**Portfolio-first operating policy (v2.74.0).** PHDK is an opinionated, owner-governed engineering system for a portfolio of related software products, not a generic agent methodology. Turn human intent into verified user value while making proven knowledge and capabilities compound across projects.
+
+- **Intent and user value:** deliver usable outcomes rather than accumulating plans, scaffolds, documentation or agent activity.
+- **Reuse-first, not reuse-forced:** consider compatible existing components and the reusable catalog before rebuilding common functions; choose REUSE, ADAPT or BUILD based on fit, cost, security, license and evidence. A specification is not an implemented package.
+- **Defined, evolvable stack:** `technical_stack.md` is the shared baseline so modules and best practices transfer. Version and review material changes; respect sound existing brownfield architecture and project ADRs.
+- **Lightweight local, cloud-first:** editing, static/diff review, lint, typechecks, compilation and safe builds are allowed locally; no Docker, local application/database services or local behavioral/runtime test execution. Deliver through existing GitHub-connected production (Railway where already configured); confirm the deployed revision independently and reserve runtime UAT for explicit owner authorization.
+- **Accountability and collective learning:** keep traceable intent, decisions and evidence; load only task-relevant instructions; treat real production signals and project discoveries as proposed future work, not authorization to alter another repository or disclose private donor code.
+
+Operational standards: [reuse](PHDK_REUSE_CATALOG_STANDARD.md), [stack](technical_stack.md), [production verification](PHDK_PRODUCTION_VERIFICATION.md), [scope](EXECUTION_SCOPE.md) and [progressive context](PHDK_INTELLIGENT_EXECUTION.md).
 
 Intent before implementation; visible design before dependent UI coding; requirements and decisions that survive chat sessions; complete authorized work rather than ceremonial continuation prompts; parallel ownership/integration discipline; acceptance tied to user needs; actionable blockers; proportionate standards; autonomy with accountability; evidence for every completion claim; and a repository that preserves the project's durable memory.
 

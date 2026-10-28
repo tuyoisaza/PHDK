@@ -1,3 +1,12 @@
+## v2.74.0 — 2026-10-28
+
+### Official portfolio-first ethos, reuse and cloud-first execution
+- Establish PHDK as an opinionated owner-governed system for related projects, focused on compounding shared knowledge/modules, intent-to-verified-value, accountable autonomy and progressive context. Keep existing policy sources instead of adding a competing methodology.
+- Make REUSE/ADAPT/BUILD assessment the default for plausibly shared capabilities, preserving fitness, security, license, portability, independent versioning and separate authorization for public/private donor contributions. Starter catalog remains `SPECIFICATION_ONLY`.
+- Clarify that the defined but evolvable stack and existing GitHub-connected production (Railway where configured) minimize per-project local infrastructure. Local static review, lint/typechecks, compilation and safe builds remain allowed; Docker, running services/databases and local behavioral tests remain prohibited. Deployed UAT stays explicit-only.
+- Align README, Evolution, reuse catalog, Plan, technical stack, starter, hosted verification, Check, progressive context, AGENTS, SKILL, native rules, INANUTSHELL and coherence guard. Remove stale in-process tests, PMO-only delegation and automatic UAT wording from INANUTSHELL.
+- This standards release does not implement reusable packages, update downstream projects, change hosting, run local behavioral tests or perform production UAT. Those outcomes remain independently unverified.
+
 ## v2.73.0 — 2026-10-28
 
 ### Versioned project documentation, hierarchy and traceability

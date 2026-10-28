@@ -8,6 +8,14 @@ At the end, offer `PHDK uat` as an optional **future explicit command**, without
 
 # PHDK Evolution Standard
 
+## Portfolio-first operating policy (v2.74.0)
+
+PHDK is an **opinionated, owner-governed engineering system for a related project portfolio**. Its purpose is to transform human intent into verified user value while making proven knowledge, components and implementation contracts shareable across projects. This is a deliberate standardization choice, not a universal ADLC methodology.
+
+Treat `technical_stack.md` as the evolvable default, with explicit ADRs for material project deviations; do not reset sound existing products. For plausibly repeatable capabilities, Plan applies the REUSE/ADAPT/BUILD assessment in `PHDK_REUSE_CATALOG_STANDARD.md`. PHDK itself maintains methodology, catalog and contracts; actual shared code belongs in independently versioned packages. Generalization, public disclosure and changes in other repositories require separate authorization and real security/license/portability evidence.
+
+Keep the workstation lightweight: local editing, static/diff review, lint, typechecking, compilation and safe builds are allowed; no Docker, local running application/database services or local behavioral tests under `PHDK_PRODUCTION_VERIFICATION.md`. Use existing GitHub-connected production (Railway when configured), distinct deployed-revision evidence and explicit owner-opt-in UAT. Load only task-relevant rules and catalog entries into agents.
+
 ## Downstream project document architecture (v2.73.0)
 
 The vendored [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) defines **product** documentation hierarchy, `kebab-case.vN.md` artifact names, metadata, draft/active/historical versions, `docs/INDEX.md`, visual asset baseline folders and the read-only `scripts/phdk_docs_audit.py` check. Canonical PHDK's own uppercase root **standards** filenames and `VERSION` SemVer are distinct and stay unchanged. When evolving this contract, reconcile Capture, Plan, Design, PMO, Auto, Check, lifecycle, task/intent, UAT source resolution, delivery, manifest, agents and tests. Never migrate downstream project files on a standard's release or mistake metadata for approval.

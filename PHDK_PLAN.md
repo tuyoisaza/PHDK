@@ -31,9 +31,16 @@ Inside Auto/Auto Force, completing a milestone triggers the milestone publicatio
 
 When available, prefer the planning/task-breakdown and detailed implementation-plan capabilities registered in `SKILLS_REGISTRY.md`; PHDK's milestone, authorization and delivery rules override any external skill's checkpoint/commit/approval conventions.
 
-## Optional reusable-capability assessment
+## Portfolio reuse and stack policy
 
-Before rebuilding a common capability when a plausible match exists, consult `PHDK_REUSE_CATALOG_STANDARD.md` and `PHDK_REUSE_CATALOG.json`. Compare **REUSE, ADAPT and BUILD** rather than assuming reuse is desirable. When material, create/update `REUSE_ASSESSMENT.md` with fit, integration cost, maintenance burden, dependencies, compatibility, security, license and evidence, then map the decision to the affected milestone/tasks. Only `ACCEPTED_VERSIONED` entries may be selected as REUSE; candidate/reviewed implementations require current-project revalidation and may be considered for ADAPT, while `SPECIFICATION_ONLY` has no implementation. Identify promising donor modules without delaying the active project merely to generalize them; contribution/extraction can follow after the product capability works.
+**Portfolio-first:** begin with `technical_stack.md` and the actual project's compatible architecture. The defined, evolvable default exists so knowledge, modules and operational practices transfer across related projects, not to impose unnecessary brownfield rewrites. Record material exceptions in architecture decisions; do not silently introduce new platforms or provider changes.
+
+**Reuse-first:** before implementing a common capability that plausibly repeats across projects, consult `PHDK_REUSE_CATALOG_STANDARD.md`, relevant already shared/installed modules and `PHDK_REUSE_CATALOG.json`. Compare **REUSE, ADAPT and BUILD** rather than assuming a catalog listing is an implemented or suitable package.
+
+When material, create/update `REUSE_ASSESSMENT.md` with fit, integration cost, maintenance burden, dependencies, compatibility, security, license and evidence, then map the decision to the affected milestone/tasks. Only `ACCEPTED_VERSIONED` entries may be selected as REUSE; candidate/reviewed implementations require current-project revalidation and may be considered for ADAPT, while `SPECIFICATION_ONLY` has no implementation. Identify promising donor modules without delaying the active project merely to generalize them; contribution/extraction can follow after the product capability works.
+
+A delivered capability can become a separately authorized **proposed** shared-package contribution, never an automatic cross-project edit. Preserve the existing GitHub-connected production route and the local-build/hosted-UAT boundary in `PHDK_PRODUCTION_VERIFICATION.md`.
+
 
 ## Mandatory product UX/UI planning and Design handoff
 

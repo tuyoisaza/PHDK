@@ -211,6 +211,42 @@ for filename, markers in document_routes.items():
         if marker not in body:
             errors.append(f"documentation routing: {filename} missing {marker}")
 
+# Portfolio-first routing is a source-only consistency guard, not proof of
+# installed modules, actual tests or deployed downstream behavior.
+portfolio_routes = {
+    "README.md": ["Portfolio-first", "PHDK_REUSE_CATALOG_STANDARD.md", "PHDK_PRODUCTION_VERIFICATION.md"],
+    "PHDK_EVOLUTION_STANDARD.md": ["Portfolio-first", "technical_stack.md", "PHDK_REUSE_CATALOG_STANDARD.md"],
+    "PHDK_REUSE_CATALOG_STANDARD.md": ["Portfolio-first", "Reuse-first portfolio default", "ACCEPTED_VERSIONED"],
+    "PHDK_PLAN.md": ["Portfolio-first", "REUSE, ADAPT and BUILD", "technical_stack.md"],
+    "technical_stack.md": ["Portfolio-first", "safe builds", "PHDK_PRODUCTION_VERIFICATION.md"],
+    "PHDK_PRODUCTION_VERIFICATION.md": ["Portfolio-first", "not a ban on builds", "Do not launch Docker"],
+    "PHDK_STARTER_PROFILE.md": ["Portfolio-first", "SPECIFICATION_ONLY"],
+    "PHDK_INTELLIGENT_EXECUTION.md": ["Portfolio-first", "PHDK_REUSE_CATALOG_STANDARD.md"],
+    "PHDK_CHECK.md": ["Portfolio-first", "PHDK_REUSE_CATALOG_STANDARD.md"],
+    "PHDK_NATIVE_RULES.md": ["Portfolio-first", "TECHNICAL_STACK.md", "PHDK_REUSE_CATALOG_STANDARD.md"],
+    "AGENTS.md": ["Portfolio-first", "PHDK_REUSE_CATALOG_STANDARD.md"],
+    "SKILL.md": ["Portfolio-first", "PHDK_REUSE_CATALOG_STANDARD.md"],
+    "INANUTSHELL.md": ["Portfolio-first", "TECHNICAL_STACK.md", "PHDK_REUSE_CATALOG_STANDARD.md"],
+    "PHDK_COHERENCE_STANDARD.md": ["Portfolio-first", "scripts/phdk_coherence_check.py"],
+}
+for filename, markers in portfolio_routes.items():
+    candidate = policy_path(filename)
+    if not candidate.is_file():
+        errors.append(f"portfolio policy routing missing: {filename}")
+        continue
+    body = candidate.read_text(encoding="utf-8")
+    for marker in markers:
+        if marker not in body:
+            errors.append(f"portfolio policy routing: {filename} missing {marker}")
+
+for obsolete in [
+    "Use isolated in-process substitutes in relevant local tests.",
+    "After all milestones, run final cross-milestone UAT/Check",
+    "Agent orchestration remains allowed only through explicit PMO",
+]:
+    if obsolete in policy_path("INANUTSHELL.md").read_text(encoding="utf-8"):
+        errors.append(f"obsolete nutshell policy: {obsolete}")
+
 # A policy header before YAML front matter prevents this entrypoint from
 # retaining the conventional skill metadata structure.
 skill_file = policy_path("SKILL.md")

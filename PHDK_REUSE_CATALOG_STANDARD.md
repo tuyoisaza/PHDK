@@ -8,15 +8,19 @@ PHDK remains the methodology, contracts, schemas, validators and public catalog.
 
 Current owner instructions, `EXECUTION_SCOPE.md`, `PHDK_PLAN.md`, `PHDK_PROJECT_MANAGEMENT_STANDARD.md`, security standards, package licenses and actual repository/provider controls remain authoritative.
 
-## Optional reuse decision in Plan
+## Reuse-first portfolio default in Plan
 
-Before rebuilding a common capability when a plausible catalog match exists, Plan compares three legitimate outcomes:
+**Portfolio-first:** eligible projects benefit from previously verified project knowledge and reusable modules, and can offer their own proven improvements. At Plan or material feature replanning, inspect relevant existing shared/installed packages and `PHDK_REUSE_CATALOG.json` when a capability plausibly repeats across projects. This is a bounded, relevant check, not blanket cross-repository access or a new mandatory document for every feature.
+
+Before implementing a common capability when a plausible implementation exists, Plan compares three legitimate outcomes:
 
 - **REUSE** — consume an `ACCEPTED_VERSIONED` implementation without materially changing its contract.
 - **ADAPT** — use a candidate/reviewed implementation or accepted package as an input, but make project-specific changes and validate the adapted result for this consumer.
 - **BUILD** — implement locally because reuse/adaptation has worse fit, integration cost, maintenance burden, compatibility, security, licensing or evidence.
 
 Reuse is never mandatory. Optimize the product outcome, not catalog utilization.
+
+Prefer a compatible accepted package only when evidence supports its integration and maintenance; otherwise ADAPT or BUILD. When there is no eligible implementation, BUILD is legitimate without an empty assessment ritual. Do not block a current user-value milestone on extracting a reusable package.
 
 When the comparison is material, create or update `REUSE_ASSESSMENT.md`. For each capability record:
 
@@ -36,6 +40,10 @@ When the comparison is material, create or update `REUSE_ASSESSMENT.md`. For eac
 A `REUSE` decision is valid only for `ACCEPTED_VERSIONED`. A `CANDIDATE` or `REVIEWED` entry may be investigated for `ADAPT` only after current-project revalidation. `SPECIFICATION_ONLY` has no implementation to consume.
 
 Planning may identify promising donor modules, but must not delay the active project merely to extract or generalize them. Generalization is a separate contribution outcome after the project capability works.
+
+### Contribute proven capabilities back to the portfolio
+
+After a delivered in-scope milestone, a possibly shared capability may be **proposed** for catalog review. Never auto-extract private donor code, copy customer data, create a package/repository, publish private coordinates, update consumers or start a new task without authorization. A separately scoped contribution needs independently versioned implementation, maintained contracts, supported compatibility, security/license/rights review, and evidence. One observed working consumer can establish `CANDIDATE`, not `ACCEPTED_VERSIONED`; a second independent consumer and observed test evidence remain mandatory for acceptance. The immediate product goal does not wait for portfolio generalization.
 
 ## Catalog states
 

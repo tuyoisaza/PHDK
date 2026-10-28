@@ -16,6 +16,10 @@ description: >-
 
 # PHDK
 
+## Portfolio-first operating policy (v2.74.0)
+
+PHDK is the owner's opinionated operating system for related software projects: share verified knowledge and versioned modules, with `technical_stack.md` (vendored as `TECHNICAL_STACK.md`) as an evolvable default. At relevant Plan/Auto work use `PHDK_REUSE_CATALOG_STANDARD.md` to assess REUSE/ADAPT/BUILD for plausibly common capabilities; `SPECIFICATION_ONLY` is not installable code. Cross-project extraction and publication require separate authorization. Source review, lint/typecheck and safe builds are local-safe; no Docker, local services/databases or local behavioral tests under `PHDK_PRODUCTION_VERIFICATION.md`. Keep GitHub-connected hosted production (Railway where configured) and explicit UAT; load only task-relevant rules.
+
 ## Project documentation standard (v2.73.0)
 
 For project documents created/revised during Capture, Plan, Design, PMO, Auto, Check or a scoped development task, load [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). Resolve the active versions through `docs/INDEX.md`, retain `TASK.md` in root, store new versioned intent/brief/decision/plan documents under their stable `docs/` categories and design assets in `docs/images/<topic>/vN/`. In authorized write tasks, update index and audit via `scripts/phdk_docs_audit.py` (under `phdk-standards/scripts/` when installed). Bare Check is read-only; preserve legacy files and owner customizations rather than renaming them on Upgrade. Document status never grants user approval or UAT.
