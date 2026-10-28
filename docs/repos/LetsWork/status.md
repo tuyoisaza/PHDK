@@ -2,16 +2,16 @@
 repository: tuyoisaza/LetsWork
 repository_url: https://github.com/tuyoisaza/LetsWork
 default_branch: main
-observed_repository_sha: 8b341c0d1d9a674daed0eebad32d3fc078ec39a0
-observed_at_utc: 2026-10-26T15:39:02Z
-phdk_version: 2.68.0
-phdk_canonical_version: 2.68.0
+observed_repository_sha: a44b27b73e7251d1a35e3c1484d984b4d17bfbc5
+observed_at_utc: 2026-10-28T18:45:46Z
+phdk_version: 2.73.0
+phdk_canonical_version: 2.73.0
 phdk_status: CURRENT
 tech_stack:
   runtimes:
     - name: Node.js
       declared: ">=24.22.1"
-      resolved: "24.22.1 (portable static-check runtime)"
+      resolved: "24.20.0 (local static-check runtime)"
       deployed: UNVERIFIED
   frameworks:
     - name: Next.js
@@ -27,16 +27,20 @@ tech_stack:
   data_engines:
     - name: PostgreSQL
       declared_image: "ghcr.io/railwayapp-templates/postgres-ssl:18"
-      provider_deployment: SUCCESS
-      server_version: UNVERIFIED (not queried)
+      provider_deployment: "candidate deployment UNVERIFIED"
+      server_version: "UNVERIFIED (not queried)"
   images:
     - name: Node.js API/web build base
-      declared: "public.ecr.aws/docker/library/node:24.22.1-bookworm-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205"
+      declared: "node:24.22.1-bookworm-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205"
+      deployed: UNVERIFIED
+    - name: Node.js scanner build base
+      declared: "node:24.22.1-bookworm-slim (same pinned digest)"
+      provider_builder: RAILPACK
       deployed: UNVERIFIED
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-10-26T15:39:02Z
-  evidence: "PHDK Auto Force 20261022-0753-check; pnpm audit reported zero advisories; Railway deployment metadata read-only"
+  reviewed_at_utc: 2026-10-28T18:30:00Z
+  evidence: "PHDK Auto Force 20261028-upgrade-force; pnpm audit reported zero known advisories; source review found Node patch aligned; Railway read-only metadata did not show v0.59.1 candidate deployed and reports scanner builder RAILPACK."
   findings:
     critical: 0
     high: 0
@@ -47,6 +51,8 @@ central_status_source: PHDK
 
 ## Notes
 
-- PHDK 2.68.0 matches the canonical tuyoisaza/PHDK main version; all 79 vendored manifest mappings pass the coherence checker.
-- Repository runtime/image declarations and the locally resolved Node version are not evidence of the runtime currently deployed. Railway showed the LetsWork API, web and scanner services on main with successful deployments; application runtime versions and behavior remain unverified.
-- Candidate v0.52.0 was not included in the observed repository SHA above. No deployment of that candidate is claimed.
+- PHDK 2.73.0 matches canonical `tuyoisaza/PHDK` main; all 91 vendored mappings pass the coherence check.
+- LetsWork v0.59.1 is published at main SHA `a44b27b73e7251d1a35e3c1484d984b4d17bfbc5` via [PR #241](https://github.com/tuyoisaza/LetsWork/pull/241). The bounded Railway read still showed prior-SHA deployments queued; it did not confirm this candidate. API/web/scanner runtime and the public version endpoint response remain unverified.
+- The local static-check runtime is Node 24.20.0 while the project requires `>=24.22.1`; the repository image declarations use 24.22.1. The scanner's effective image remains unknown because Railway reports RAILPACK.
+- PostgreSQL exact patch and current backup are unverified. No migration was run; it remains gated on candidate deployment verification and a current pre-migration backup.
+- UAT remains DEFERRED — OWNER OPT-IN; UAT NOT RUN.
