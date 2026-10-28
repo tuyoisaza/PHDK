@@ -1,3 +1,12 @@
+## v2.73.0 — 2026-10-28
+
+### Versioned project documentation, hierarchy and traceability
+- Introduce vendored `PHDK_DOCUMENTATION_STANDARD.md`: stable `docs/intents/`, `docs/briefs/`, `docs/decisions/`, `docs/plans/`, `docs/images/`, `docs/evidence/` with versioned document baselines and design asset folders. Root `TASK.md` remains authoritative for the current goal; no duplicate task/status system.
+- Define `kebab-case.vN.md` names, stable IDs, date/provenance metadata, draft/active/superseded history, permanent ADR supersession, and a generated active-document locator `docs/INDEX.md`. Document versions are independent from PHDK/product SemVer; an active revision does not imply owner approval.
+- Add vendored standard-library `scripts/phdk_docs_audit.py` for read-only path, metadata, duplicate-active and index drift detection, with explicit write-only `--sync-index` for authorized changes, plus source regression scenarios. Newly changed unversioned documents are reported while untouched brownfield content is preserved as LEGACY_COMPATIBLE.
+- Integrate Capture, Plan, Design/Designer, PMO, Auto/continuity, Check, lifecycle handoffs, intent/task tracking, UAT baseline resolution, agent/native/skill entrypoints, upgrade, main delivery, and coherence routing. No bulk renames, new background automation, local runtime tests, Docker, or automatic UAT.
+- Documentation/source consistency and release metadata reviewed; tests and actual downstream deployment/adoption remain independently unverified unless separately evidenced.
+
 ## v2.72.0 — 2026-10-27
 
 ### Cheap and truthful production revision identification

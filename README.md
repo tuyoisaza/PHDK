@@ -10,7 +10,10 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.72.0**
+**Version v2.73.0**
+
+**Project documentation governance (v2.73.0):** [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) standardizes `docs/intents/`, `docs/briefs/`, `docs/decisions/`, `docs/plans/`, `docs/images/` and `docs/evidence/`. New durable records have per-document `kebab-case.vN.md` versions, status/provenance metadata and a generated `docs/INDEX.md`; images use topic/`vN/` baselines, while root `TASK.md` remains the live execution record. Capture, Plan, Design, PMO, Auto and Check keep these coherent without bulk-migrating existing projects. The [vendored static auditor](scripts/phdk_docs_audit.py) is read-only by default; only an authorized write task may refresh the index.
+
 
 **Historical + continuous Git cleanup (v2.71.0):** A first explicitly initiated Auto/Force run after adoption inventories old branches/worktrees, checks recent GitHub PR evidence, and retires only safely verified merged refs; each subsequent published milestone also closes its unchanged remote feature branch by exact SHA-guarded deletion. No GitHub/Railway settings change, broad pruning, second main push or forced worktree deletion. The [cleanup policy](PHDK_GIT_WORKSPACE_CLOSEOUT.md) and [history helper](scripts/phdk_git_history_cleanup.py) preserve unmerged or unknown content and report local/remote results separately.
 
@@ -132,6 +135,7 @@ Each executed/reused stage has `HANDOFF.md` and material snapshots. Later stages
 
 | Stage | Canonical outputs |
 |---|---|
+| Document paths | For new projects, the logical Capture/Plan names below resolve to indexed `docs/<category>/<name>.vN.md` locations; existing coherent root paths remain valid until an authorized migration. |
 | Preflight | `PHDK_PREFLIGHT_REPORT.md` |
 | Capture | `PROJECT_INTENT.md`, `PROJECT_BRIEF.md`, `PRD.md`, `FEATURES.md`, `REQUIREMENTS_TRACEABILITY.md` |
 | Plan | Solution/repository/UX architecture, UX baseline/journeys, draft `UI_DESIGN_SYSTEM.md` / `UX_UI_DECISIONS.md`, `MILESTONE_PLAN.md`, `IMPLEMENTATION_PLAN.md`, ADRs and TASK integration |
@@ -404,9 +408,13 @@ Intent before implementation; visible design before dependent UI coding; require
 
 # Documentation map
 
+**Product documents:** [Documentation hierarchy, nomenclature and traceability](PHDK_DOCUMENTATION_STANDARD.md) applies to newly created/materially revised *downstream project* artifacts. Existing root `PROJECT_INTENT.md`, `MILESTONE_PLAN.md`, `UI_DESIGN_SYSTEM.md` and other legacy paths listed below are logical names and remain compatible inputs. New versioned records live in appropriate `docs/` categories and are located via `docs/INDEX.md`. This does not rename PHDK's own uppercase standard files or require empty directories.
+
+
 | Need | Read |
 |---|---|
 | Maintainer sessions/evolution | [PHDK_EVOLUTION_STANDARD.md](PHDK_EVOLUTION_STANDARD.md) |
+| Product document naming, history, index and audit | [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), [scripts/phdk_docs_audit.py](scripts/phdk_docs_audit.py) |
 | Execution boundaries | [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) |
 | Production-first verification | [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md) |
 | Preflight | [PHDK_PREFLIGHT.md](PHDK_PREFLIGHT.md) |

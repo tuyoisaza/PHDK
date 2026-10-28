@@ -91,6 +91,8 @@ for mandatory in [
     "PHDK_REUSE_CATALOG_STANDARD.md",
     "PHDK_STARTER_PROFILE.md",
     "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
+    "PHDK_DOCUMENTATION_STANDARD.md",
+    "scripts/phdk_docs_audit.py",
     "PHDK_REUSE_CATALOG.json",
     "schemas/phdk-reuse-catalog.schema.json",
     "scripts/phdk_reuse_catalog_check.py",
@@ -165,6 +167,49 @@ for filename, required_markers in deployment_version_sources.items():
     for marker in required_markers:
         if marker not in body:
             errors.append(f"deployment-version routing: {filename} lacks {marker}")
+
+
+# Versioned project-documentation routing is a source-only consistency gate.
+# It does not audit or mutate any downstream product, create docs/INDEX.md,
+# approve a document, run local behavioral tests or activate UAT.
+document_routes = {
+    "PHDK_DOCUMENTATION_STANDARD.md": [
+        "docs/INDEX.md", "docs/intents/", "docs/briefs/", "docs/decisions/",
+        "docs/plans/", "docs/images/", "docs/evidence/", "kebab-case.vN.md",
+        "TASK.md", "LEGACY_COMPATIBLE", "--sync-index",
+    ],
+    "PHDK_CAPTURE.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "INTENT_CAPTURE_STANDARD.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/intents/"],
+    "PHDK_PLAN.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/plans/"],
+    "PHDK_DESIGN.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/images/"],
+    "PHDK_DESIGNER_MODE.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/images/"],
+    "PHDK_LIFECYCLE.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "TASK_TRACKING_STANDARD.md": ["PHDK_DOCUMENTATION_STANDARD.md", "TASK.md"],
+    "PHDK_PMO.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "PHDK_PROJECT_MANAGEMENT_STANDARD.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "PHDK_AUTO.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md", "--sync-index"],
+    "PHDK_AUTO_CONTINUITY.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "PHDK_CHECK.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md", "--check", "--sync-index"],
+    "MAIN_DELIVERY_STANDARD.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "PHDK_COMPLETION_GATE.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "PHDK_UPGRADE.md": ["PHDK_DOCUMENTATION_STANDARD.md", "scripts/phdk_docs_audit.py"],
+    "PHDK_EVOLUTION_STANDARD.md": ["PHDK_DOCUMENTATION_STANDARD.md", "scripts/phdk_docs_audit.py"],
+    "UAT_STANDARD.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "PHDK_INTELLIGENT_EXECUTION.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "AGENTS.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "SKILL.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "PHDK_NATIVE_RULES.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+    "README.md": ["PHDK_DOCUMENTATION_STANDARD.md", "docs/INDEX.md"],
+}
+for filename, markers in document_routes.items():
+    file = policy_path(filename)
+    if not file.is_file():
+        errors.append(f"missing documentation routing file {filename}")
+        continue
+    body = file.read_text(encoding="utf-8")
+    for marker in markers:
+        if marker not in body:
+            errors.append(f"documentation routing: {filename} missing {marker}")
 
 # A policy header before YAML front matter prevents this entrypoint from
 # retaining the conventional skill metadata structure.

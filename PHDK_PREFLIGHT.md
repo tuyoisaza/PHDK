@@ -1,5 +1,8 @@
 # PHDK Preflight Standard
 
+**Document inventory at entry (v2.73.0):** When the current authorized work involves product intent, plans, design, decisions or compliance, inspect `docs/INDEX.md` where present under [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), then resolve the relevant active versions before reusing upstream handoffs. Do not require an index in untouched legacy projects, rename owner files, regenerate every document, invoke UAT or repeat universal Preflight solely for documentation naming.
+
+
 ## One-time historical Git cleanup trigger (Auto/Force only)
 
 When an explicit `PHDK auto` or `PHDK auto force` begins after adoption of the current PHDK release, check for a local historical Git-hygiene marker and route a **bounded first-run inventory** to `PHDK_GIT_WORKSPACE_CLOSEOUT.md` / `scripts/phdk_git_history_cleanup.py`. This occurs **after** installation/version verification and before opening another local development branch. A bare `PHDK upgrade`, a read-only Check, or a copied manifest never executes destructive branch cleanup. Use one foreground inventory per local workspace/release, then retry only unresolved candidates with fresh GitHub PR facts rather than rescanning at every lifecycle stage. Without local Git access, state NOT_APPLICABLE_REMOTE_ONLY; do not claim that the owner's disk was cleaned.
