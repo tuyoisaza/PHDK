@@ -169,6 +169,10 @@ Use `scripts/phdk_auto_gate.py` directly in the PHDK source repository. Supply m
 
 `VERIFY_DELIVERY` does not mean COMPLETED. Use `PHDK_COMPLETION_GATE.md` for real remote target/content/version evidence; its generic review wording never restores a PHDK human gate in FORCE. The record and advisor cannot detect a fabricated observation or substitute for real checks, selected design evidence or current user instructions.
 
+## Human-effort estimate must not block Auto
+
+At the post-PMO pre-implementation point and material evidence-backed milestones, apply [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md). The original and remaining human-equivalent days and progress bar are **reporting projections**, not a wait condition, new `AUTO_STATE.json` step kind, authorization token or AI ETA. Link the factual current-run `EFFORT_STATE.json` without duplicating mandates; do not create `owner_decision` solely to display effort. Both Auto and Force continue the next authorized action. Preserve real owner/Design/security/external blockers and explicit-only UAT.
+
 ## Progress and closure
 
 In every substantive AUTO FORCE progress update include the operative continuation cue from `PHDK_COMMUNICATION_STANDARD.md`:

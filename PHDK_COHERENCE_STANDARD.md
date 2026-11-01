@@ -9,6 +9,10 @@ Keep README philosophy, Evolution, technical stack, reuse catalog, Plan, starter
 Before publishing changes to [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), require the standard and `scripts/phdk_docs_audit.py` in `PHDK_MANIFEST.txt` and inspect entrypoints for coherent interpretation: Capture/Plan logical names versus new versioned paths, existing Design legacy location, active root TASK/STATUS, PMO/Auto milestone updates, read-only bare Check, UAT explicit-only, and bounded delivery checks. `scripts/phdk_coherence_check.py` provides source-only markers; do not claim a project documentation audit or runtime test passed unless actually executed.
 
 
+## Human-equivalent effort contract routing (v2.75.0)
+
+When revising [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md), check the standard and `scripts/phdk_effort_status.py` are each vendored once, that Plan/PMO baselines precede implementation and Auto/Force/continuity/communications/AGENTS/SKILL/native rules show a nonblocking human-workday progress report. Work must be earned by verifiable output, not elapsed time, and downstream adoption remains independently unverified. Existing UAT, git delivery and environment restrictions remain unchanged.
+
 ## Mandatory canonical release review
 Before publishing PHDK, inventory applicable standards, manifest files, scripts, agent entrypoints and changed dependencies. Review contradictory requirements involving Preflight, AUTO/PMO, delegation, UAT/browser permissions, security scope, delivery, and completion evidence. Record exact conflicting files and smallest fixes. Documentation never substitutes for implementation and executed test evidence.
 

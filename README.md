@@ -10,7 +10,9 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.74.0**
+**Version v2.75.0**
+
+**Human-effort visibility (v2.75.0):** Auto/Force displays a baseline estimate in **focused human workdays** after PMO milestones, before implementation; evidence-based remaining workdays and a progress bar update after verified milestone/slice delivery. This is not AI completion time, a timer, a calendar promise or an approval wait. See [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md), and the optional read-only `scripts/phdk_effort_status.py`.
 
 **Project documentation governance (v2.73.0):** [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) standardizes `docs/intents/`, `docs/briefs/`, `docs/decisions/`, `docs/plans/`, `docs/images/` and `docs/evidence/`. New durable records have per-document `kebab-case.vN.md` versions, status/provenance metadata and a generated `docs/INDEX.md`; images use topic/`vN/` baselines, while root `TASK.md` remains the live execution record. Capture, Plan, Design, PMO, Auto and Check keep these coherent without bulk-migrating existing projects. The [vendored static auditor](scripts/phdk_docs_audit.py) is read-only by default; only an authorized write task may refresh the index.
 

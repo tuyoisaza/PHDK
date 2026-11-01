@@ -21,6 +21,10 @@ Every substantive PHDK progress, handoff, blocked, status-request or completion 
 
 At the start of a lifecycle or meaningful mode transition announce the current mode, scope, planned stage and next immediate action. At each meaningful milestone say what just closed, evidence, where the lifecycle now is, and what runs next. Keep updates succinct and avoid repeating a giant board when unchanged; Auto's mandatory lifecycle board still applies at entry, transitions and closure.
 
+## Human-effort status and visual progress
+
+Use [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md) after milestone/PMO scope is concrete. Show an initial focused-human-workday estimate, a small progress bar and the remaining days **before implementation**; update when evidence-backed completed scope or material re-estimation actually changes the figure. Preserve original forecast and confidence; remaining effort may rise. Never count elapsed time or opened PRs as earned effort, invent percentages, present the number as AI runtime/calendar ETA, or request ceremonial approval. Continue the existing `SIGUIENTE PASO` and git/publication status contract.
+
 ## Auto mandate and action capsule
 
 Apply `PHDK_AUTO_CONTINUITY.md` to both Auto variants. Every Auto-facing response ends its status text with the actual mandate and next-action capsule, before the final evidence link when applicable. AUTO FORCE makes its operating reminder visible at start/resume, in every substantive progress update, after a partial delivery and before a proposed question/blocker. While an authorized action is executable, use the real scope:

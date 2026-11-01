@@ -31,6 +31,10 @@ Inside Auto/Auto Force, completing a milestone triggers the milestone publicatio
 
 When available, prefer the planning/task-breakdown and detailed implementation-plan capabilities registered in `SKILLS_REGISTRY.md`; PHDK's milestone, authorization and delivery rules override any external skill's checkpoint/commit/approval conventions.
 
+## Estimating human-equivalent effort (v2.75.0)
+
+Follow [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md). Plan decomposes `MILESTONE_PLAN.md` sufficiently to estimate human-focused hours per value milestone with integration, security and technical delivery once, documenting assumptions/uncertainty. The initial figure is provisional until PMO finalizes workstreams or a single-workstream Auto confirms its scope. Show the baseline after that decomposition but **before** implementation begins; it does not request another approval, predict AI runtime or imply calendar dates.
+
 ## Portfolio reuse and stack policy
 
 **Portfolio-first:** begin with `technical_stack.md` and the actual project's compatible architecture. The defined, evolvable default exists so knowledge, modules and operational practices transfer across related projects, not to impose unnecessary brownfield rewrites. Record material exceptions in architecture decisions; do not silently introduce new platforms or provider changes.
