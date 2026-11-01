@@ -71,6 +71,10 @@ These are concurrent/revisitable focuses, not rigid phases:
 - **Monitoring and control** — compare actual progress/evidence with the approved milestone plan; evaluate material variance and changes.
 - **Closure** — verify the authorized development evidence, delivery state, operational handoff/residual ownership and lessons/decisions needed before declaring the development goal complete. Record optional runtime acceptance separately as `UAT NOT RUN` until explicitly initiated.
 
+## Human-equivalent effort baseline and verified countdown (v2.75.0)
+
+Use [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md). Add focused-human-hour estimates per milestone, baseline, assumptions/confidence and exclusions to `MILESTONE_PLAN.md`. After PMO confirms workstreams and before first implementation milestone, show the owner the baseline in workdays (default 8 h) as a **nonblocking informational checkpoint**. Update remaining human-equivalent effort from verified completed work/replanning only, not clock time. Preserve initial estimate, report scope variance and avoid confusing work progress with UAT, deployment or calendar dates.
+
 ## Milestone contract
 
 A **milestone is a coherent, independently valuable and verifiable product increment**, not a lifecycle stage, arbitrary time box, worker checkpoint or folder boundary. Plan must create `MILESTONE_PLAN.md` and map each in-scope requirement/workstream to one or more milestone IDs such as `MS-001`.

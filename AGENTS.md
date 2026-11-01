@@ -1,3 +1,7 @@
+## Human-equivalent effort visibility (v2.75.0)
+
+After PMO finalizes milestone workstreams or single-workstream planning, before Auto/Force implementation, follow [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md). Display focused human workdays (default eight hours), remaining effort and a visible evidence-weighted bar. Update with milestone/slice proof and changed estimates, never because wall-clock time passes. This is informational, not an approval pause, a real AI ETA, a scheduled countdown or a UAT exception.
+
 **Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.
 
 ## Explicit-only UAT authorization

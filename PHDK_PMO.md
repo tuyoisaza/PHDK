@@ -6,6 +6,10 @@ Use [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and the act
 
 
 
+## Human-workday effort visibility (v2.75.0)
+
+After PMO confirms milestone/workstream dependencies, before executing the first implementation milestone, show an initial **PHDK Development ETA** panel using [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md): baseline focused human workdays (8 h/day by default), confidence, work-weighted bar and remaining workdays. It is an **informational pause** only; continue authorized Auto/Force. Standalone PMO reports it once the portfolio is concrete. After meaningful verified milestones or non-overlapping functional slices, update `PMO_STATUS.md` / `PMO_PROGRESS_REPORT.md` and current-run `EFFORT_STATE.json`; preserve original estimate and report material increases. Wall-clock time alone never consumes work.
+
 ## Mandatory milestone execution and proportional project control
 
 PMO applies `PHDK_PROJECT_MANAGEMENT_STANDARD.md` and executes the `MILESTONE_PLAN.md` produced by Plan. A workstream is an execution unit; a milestone is the integration/value/publication boundary that may contain one or more workstreams.

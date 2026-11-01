@@ -146,6 +146,10 @@ Capture → Plan → Design → PMO/workstream execution → PMO Integration Rev
 
 For authorized development stages, reuse current/coherent outputs or record grounded non-applicability. UAT Prep/UAT/Fix remain `DEFERRED — OWNER OPT-IN` throughout Auto; do not execute or mark them reused to satisfy a generic handoff rule. Do not rerun Capture, Plan or resolved Design choices merely for ceremony.
 
+## Post-PMO human-effort reporting checkpoint (v2.75.0)
+
+When milestone/workstream scope is concrete, **before first implementation milestone**, apply [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md). Show the owner an informational **PHDK Development ETA** panel: focused-human-workday baseline (default 8 h), remaining days, work-weighted progress bar, confidence, assumptions and `SIGUIENTE PASO`. Then continue the authorized action in the same invocation — **do not wait for a confirmation**. Update after meaningful verified delivery or material re-estimation (which can increase remaining effort), never because elapsed time passed. Link `MILESTONE_PLAN.md` and current-run `EFFORT_STATE.json`. This is not AI runtime, calendar ETA, a new lifecycle stage, owner gate, scheduled countdown or UAT permission.
+
 ## Lifecycle communication contract
 
 Before Auto enters a new stage, validate that stage's required upstream handoff/artifacts from `PHDK_LIFECYCLE.md`. If they are missing or stale, do not silently skip the contract: either repair/reopen the upstream stage or mark the transition BLOCKED with the exact missing deliverable.

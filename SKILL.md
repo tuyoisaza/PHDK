@@ -25,6 +25,10 @@ PHDK is the owner's opinionated operating system for related software projects: 
 For project documents created/revised during Capture, Plan, Design, PMO, Auto, Check or a scoped development task, load [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). Resolve the active versions through `docs/INDEX.md`, retain `TASK.md` in root, store new versioned intent/brief/decision/plan documents under their stable `docs/` categories and design assets in `docs/images/<topic>/vN/`. In authorized write tasks, update index and audit via `scripts/phdk_docs_audit.py` (under `phdk-standards/scripts/` when installed). Bare Check is read-only; preserve legacy files and owner customizations rather than renaming them on Upgrade. Document status never grants user approval or UAT.
 
 
+## Human-equivalent effort visibility
+
+After the milestone/workstream breakdown is concrete in Plan/PMO, load [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md); before Auto/Force implementation show the owner baseline focused human workdays, remaining work and progress bar (8 h/day default), without waiting for a reply. With verified milestones or meaningful functional slices refresh the existing milestone/PMO records and current-run `EFFORT_STATE.json`; read-only `scripts/phdk_effort_status.py` optionally renders it. Preserve original baseline, expose variance, and do not conflate AI runtime, calendar time or UAT with completed human-equivalent work.
+
 ## Explicit-only UAT authorization
 
 **Binding rule:** `PHDK auto` and `PHDK auto force` MUST NOT invoke, enter, provision, seed, or run UAT Prep (45), UAT (50), or UAT Fix (60), even after milestones, deployment, Check, or a failed prior UAT. Neither FORCE nor a generic full-lifecycle instruction grants UAT authorization. These stages are **DEFERRED — OWNER OPT-IN**, not BLOCKED, FAILED, or a completion prerequisite.

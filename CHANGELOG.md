@@ -1,3 +1,11 @@
+## v2.75.0 — 2026-10-31
+
+### Human-equivalent development effort reporting
+- Introduce a vendored post-PMO, pre-implementation informational checkpoint: estimate uninterrupted focused human workdays (default 8 h), not AI wall-clock ETA or calendar delivery dates.
+- Baseline per-milestone effort in MILESTONE_PLAN and track verified equivalent completion, remaining work and variance in existing PMO reports plus a current-run JSON projection; retain original forecast and uncertainty.
+- Add a read-only synchronous CLI progress-bar renderer and source regression scenarios. Reconcile Plan, PMO, Auto/Force, lifecycle, continuity, communications, managed entrypoints, manifest and coherence.
+- No new stage approval, background timer, provider spend, UAT scope, downstream update or inferred deployment. Unit tests and downstream behavior remain NOT RUN/UNVERIFIED without executed evidence.
+
 ## v2.74.0 — 2026-10-28
 
 ### Official portfolio-first ethos, reuse and cloud-first execution

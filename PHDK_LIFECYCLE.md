@@ -20,6 +20,10 @@ For applicable UI scope, `PHDK_DESIGN.md` adds **25-design** after technical/con
 
 For multi-tenant scope, apply `PHDK_TENANT_RISK_STANDARD.md` from Capture to Check. Capture creates a provisional `TENANT_RISK_ASSESSMENT.md`; Plan confirms or escalates the owner decision; Integration records implemented controls; separately authorized UAT Prep/UAT use safe synthetic tenant identities and Check records evidence, gaps and residual risk without initiating acceptance. Auto records deferred runtime evidence separately from its non-UAT checks. Reference or snapshot the sanitized assessment in relevant HANDOFF records; reopen on changed exposure, sensitive data, contract, incident or blast radius. No new tenant-risk stage or approval ceremony is implied. `PHDK_PRODUCTION_VERIFICATION.md` remains authoritative for where and how behavioral verification may occur throughout this lifecycle: local static checks only, no local runtime tests/Docker/new staging, and bounded production UAT with safe synthetic ownership and cleanup.
 
+## Post-PMO human-effort visibility
+
+After confirmed PMO milestone/workstream planning (or one-workstream equivalent), apply [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md) and show a visible **nonblocking** human-equivalent effort baseline before first implementation milestone. Include the current estimate/projection link in the existing PMO handoff when applicable; revise only with meaningful verified work or planning change. This is not an extra lifecycle stage or approval handoff; UAT remains explicit-only.
+
 ## Milestone roadmap and acceptance traceability
 
 Apply `PHDK_PROJECT_MANAGEMENT_STANDARD.md` across Plan, Design, PMO/implementation, Integration and UAT.
