@@ -4,7 +4,7 @@
 
 Development principles, code organization, and git safety for PHDK. `EXECUTION_SCOPE.md` governs every action. Work stays in the active conversation; `PHDK_AUTO.md` permits continuous development of one identified goal. Any mode may delegate bounded in-session work under `PHDK_INTELLIGENT_EXECUTION.md` where supported; PMO governs portfolio workstreams under `PHDK_PMO.md`. No unattended/background execution.
 
-Product requirements below describe repository code, not permission to provision services, run live checks, create automation, or start work from a stored task.
+Product requirements below describe repository code, not permission to provision services, run live checks, create automation or start work from a stored task. A **current specific owner request** to configure external project accounts/services can independently authorize bounded non-UAT browser-assisted provider setup under `PHDK_BROWSER_CONFIGURATION_STANDARD.md`; merely writing code or enabling a browser switch does not.
 
 ## Development principles
 
@@ -74,7 +74,7 @@ Update the appropriate version source in the same change, record meaningful user
 
 Use coherent slices only to organize the current deliverable. `AGILE_SLICE_WORKFLOW.md` does not authorize an automatic next task or a push per checkpoint. In Auto, continue every in-scope slice and collect the verification below at the completed integrated candidate under `PHDK_AUTO.md`; intermediate checks are only for an implementation blocker or an actual mandatory control.
 
-Use source/diff review and relevant synchronous local formatting, linting, typechecking, builds, and risk-triggered non-browser unit/in-process tests. Checks must exit; no watchers, browser testing, live services, databases, or metered APIs. Documentation-only changes need source/diff and reference review. Report UI/live runtime behavior as unverified without inventing manual testing obligations.
+Use source/diff review and relevant synchronous local formatting, linting, typechecking, builds, and risk-triggered non-browser unit/in-process tests. Checks must exit; no watchers, **product browser testing**, live application/database runtime or metered test APIs. Separately authorized external provider-console configuration under `PHDK_BROWSER_CONFIGURATION_STANDARD.md` is not a development test. Documentation-only changes need source/diff and reference review. Report UI/live runtime behavior as unverified without inventing manual testing obligations.
 
 ## File and feature structure
 

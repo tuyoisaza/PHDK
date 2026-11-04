@@ -8,6 +8,10 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 PHDK is the owner's standardized engineering system for a related project portfolio. Use the evolvable `TECHNICAL_STACK.md` and compare REUSE/ADAPT/BUILD for common capabilities under `PHDK_REUSE_CATALOG_STANDARD.md` before duplicating work. `SPECIFICATION_ONLY` entries cannot be installed, and shared-code extraction needs separate authorization. Local source review, lint/typechecking and safe builds are allowed; no Docker, running local services/databases or local behavioral testing. Existing GitHub-connected production (Railway where configured) and explicit deployed `PHDK uat` remain the validation route. Load only relevant context.
 
+## External configuration browser commands (v2.76.0)
+
+`PHDK browser on` and alias `PHDK browser allow` enable scoped browser-assisted **external provider setup** for an already authorized present goal; `PHDK browser off` revokes that channel. A direct current instruction to configure necessary project accounts/integrations suffices for that specific task. No app browser verification outside explicit UAT, no unapproved settings/security/billing changes, and no persistent session flag. Browser tooling must really be available; provider saved-state evidence is not product acceptance.
+
 ## Interactive-only execution
 
 - One assistant normally responds to the current explicit user request. `PHDK auto` may orchestrate the full Capture → Plan → Design → PMO → Integration → applicable SEO/AEO → Check/remediation → delivery lifecycle for one authorized goal. UAT Prep/UAT/Fix remain DEFERRED — OWNER OPT-IN, with UAT NOT RUN; only a fresh explicit `PHDK uat` starts acceptance and necessary Prep. No Mission Autopilot/background queues. Bounded in-session worker delegation is available in any mode under `PHDK_INTELLIGENT_EXECUTION.md` when host-supported and useful; workers cannot delegate.
@@ -19,7 +23,7 @@ PHDK is the owner's standardized engineering system for a related project portfo
 - No background, overnight, scheduled, recurring, or post-session work; when the conversation ends, save unfinished work as inactive context.
 - No creation, enabling, dispatch, rerun, or scheduling of GitHub Actions or hosted CI.
 - No cron jobs, dependency bots, recurring backups, maintenance workflows, task-sync services, monitoring loops, or preview deployments.
-- No browser operation, headless tests, screenshots, live probes, database operations, metered verification calls, or external administration.
+- No browser **product tests**, headless acceptance/screenshots, arbitrary live application probes, database tests or metered verification calls without explicit UAT. Owner-scoped external service configuration (accounts, OAuth, domains, integrations) is a distinct non-UAT exception under `PHDK_BROWSER_CONFIGURATION_STANDARD.md` and requires real authorization for provider writes.
 - `PHDK plan` turns Capture into solution/repository/UX architecture and a dependency-ordered implementation plan; brownfield projects converge from current state rather than being reset.
 - Every PHDK command runs `PHDK_PREFLIGHT.md` and lifecycle stages follow `PHDK_LIFECYCLE.md`: verify installed/current PHDK, manifest/managed rules, and stage-relevant skills/capabilities from `SKILLS_REGISTRY.md`. Use relevant AVAILABLE skills unless the user explicitly disabled them. A registry entry is not proof of installation. PMO owns portfolio workstreams; bounded in-session workers may also be used in other applicable modes under `PHDK_INTELLIGENT_EXECUTION.md`. Each stage verifies its required upstream handoff before starting and snapshots its outputs under `docs/phdk/lifecycle/<run-id>/` before transitioning.
 - Full rules: `EXECUTION_SCOPE.md`, `AI_DEVELOPER_OPERATING_MODEL.md`.

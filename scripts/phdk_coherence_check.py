@@ -92,6 +92,7 @@ for mandatory in [
     "PHDK_STARTER_PROFILE.md",
     "PHDK_DEPLOYMENT_VERSION_STANDARD.md",
     "PHDK_DOCUMENTATION_STANDARD.md",
+    "PHDK_BROWSER_CONFIGURATION_STANDARD.md",
     "scripts/phdk_docs_audit.py",
     "PHDK_REUSE_CATALOG.json",
     "schemas/phdk-reuse-catalog.schema.json",
@@ -111,6 +112,38 @@ for entrypoint in [
         encoding="utf-8"
     ):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
+
+# Browser transport is not application acceptance: verify both independent paths.
+# This is a source-only regression guard, not proof of connected tools or live writes.
+browser_routes = {
+    "PHDK_BROWSER_CONFIGURATION_STANDARD.md": [
+        "PHDK browser on", "PHDK browser off", "PHDK browser allow",
+        "PRODUCT_UAT", "EXTERNAL_CONFIG", "CONFIGURATION_VERIFIED",
+    ],
+    "EXECUTION_SCOPE.md": [
+        "PHDK_BROWSER_CONFIGURATION_STANDARD.md",
+        "PHDK browser on", "PHDK browser off", "PHDK browser allow",
+        "product browser testing",
+    ],
+    "AGENTS.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md", "PHDK browser on", "PHDK browser off"],
+    "SKILL.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md", "PHDK browser on", "PHDK browser off"],
+    "PHDK_NATIVE_RULES.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md", "PHDK browser on", "PHDK browser off"],
+    "PHDK_AUTO.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md", "Product browser testing"],
+    "PHDK_PRODUCTION_VERIFICATION.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md", "product browser testing"],
+    "README.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md", "PHDK browser on", "PHDK browser off"],
+    "INANUTSHELL.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md", "PHDK browser on", "PHDK browser off"],
+    "PHDK_UPGRADE.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md"],
+    "UAT_BROWSER_READINESS_STANDARD.md": ["PHDK_BROWSER_CONFIGURATION_STANDARD.md"],
+}
+for filename, markers in browser_routes.items():
+    file = policy_path(filename)
+    if not file.is_file():
+        errors.append(f"browser routing missing: {filename}")
+        continue
+    body = file.read_text(encoding="utf-8")
+    for marker in markers:
+        if marker not in body:
+            errors.append(f"browser routing: {filename} lacks {marker}")
 
 # Deployment-revision contract and its narrow non-UAT permission routing.
 # This source-only guard checks document coherence, not implementation or a live
