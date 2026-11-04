@@ -2,50 +2,38 @@
 repository: tuyoisaza/XeniaCharis
 repository_url: https://github.com/tuyoisaza/XeniaCharis
 default_branch: main
-observed_repository_sha: d0039bf56fe8094ace825b11e804d192b94f1d75
-observed_at_utc: "2026-10-27T21:38:00Z"
-phdk_version: "2.69.0"
-phdk_canonical_version: "2.69.0"
+observed_repository_sha: 9d3249b222189ee3da99a059d330a259ecb96fad
+observed_at_utc: "2026-11-04T15:00:30Z"
+phdk_version: "2.76.0"
+phdk_canonical_version: "2.76.0"
 phdk_status: CURRENT
 tech_stack:
   runtimes:
     - name: node
-      declared: "24.22.1 (railpack.json and package.json engines)"
-      resolved: "24.22.1 (source build configuration)"
+      declared: "24.22.2 (package.json and railpack.json)"
+      resolved: UNVERIFIED
       deployed: UNVERIFIED
     - name: python
-      declared: ">=3.12,<3.13"
-      resolved: "3.12.16 (source build recipe with published SHA-256)"
+      declared: ">=3.12,<3.13; Dockerfile builds 3.12.16 from SHA-256-checked source"
+      resolved: UNVERIFIED
       deployed: UNVERIFIED
-  frameworks:
-    - name: next
-      resolved: "16.4.2"
-    - name: react
-      resolved: "19.3.1"
-    - name: fastapi
-      resolved: "0.143.3"
-    - name: sqlalchemy
-      resolved: "2.1.5"
-    - name: pypdf
-      resolved: "6.21.2"
+  frameworks: []
   package_managers:
     - name: pnpm
-      resolved: "11.25.0"
-    - name: uv
-      resolved: "0.13.5 (API image build source)"
+      declared: "11.25.0"
+      resolved: UNVERIFIED
   data_engines:
     - name: PostgreSQL
-      resolved: "Exact server patch UNVERIFIED"
+      deployed: UNVERIFIED
+    - name: Redis
       deployed: UNVERIFIED
   images:
     - name: python
-      declared: "python:3.12-slim-trixie (tag; digest UNVERIFIED)"
-    - name: uv
-      declared: "ghcr.io/astral-sh/uv:0.13.5"
+      declared: "python:3.12-slim-trixie; digest UNVERIFIED"
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: "2026-10-27T21:30:00Z"
-  evidence: "Fresh Auto Preflight source/lock review: https://github.com/tuyoisaza/XeniaCharis/blob/main/docs/phdk/lifecycle/20261026-auto-portfolio/00-preflight/STACK_SECURITY_REVIEW.md. Canonical PHDK 2.69.0 was adopted; coherence passed 84 mappings. Reviewed key pinned runtimes/frameworks/security-sensitive dependencies against current official sources. Full transitive advisory coverage, base-image digest/OS package inventory, deployed service versions/SHA/runtime, tenant isolation and effective deployment controls remain UNVERIFIED."
+  reviewed_at_utc: "2026-11-04T15:00:30Z"
+  evidence: "https://github.com/tuyoisaza/XeniaCharis/blob/main/docs/phdk/2026-11-04-upgrade-276-stack-review.md"
   findings:
     critical: 0
     high: 0
@@ -54,11 +42,6 @@ stack_review:
 central_status_source: PHDK
 ---
 
-# Current evidence
+PHDK 2.76.0 and the Node patch declaration were merged in XeniaCharis PRs #124 and #125. Source versions are not proof of deployed runtime. The pnpm production audit found no advisories; Python advisory coverage, image/OS, deployment and server versions remain unverified. UAT was not run.
 
-- XeniaCharis main is v0.13.14 at d0039bf56fe8094ace825b11e804d192b94f1d75 (PR #118). GitHub commit metadata currently reports both API and web deployment contexts as PENDING, with “Railway is deploying the service”; this does not prove deployed SHA, runtime, or application health.
-- Adopted and canonical PHDK are both 2.69.0. The official updater verified 21 manifest destinations; the static coherence checker passed 84 mappings.
-- Current source/runtime declarations remain: Node 24.22.1, Python 3.12.16 build recipe, Next 16.4.2, React 19.3.1, FastAPI 0.143.3, SQLAlchemy 2.1.5, pypdf 6.21.2, pnpm 11.25.0 and uv 0.13.5. Deployed versions remain UNVERIFIED.
-- Static tenant RLS inventory reports 92/92 lexical declarations across 85 migration sources; it does not prove policy semantics, applied schema or effective tenant denial. Provisional tenant risk remains R3 High; the intended commercial/contact-only data scope does not establish technical enforcement or residual-risk acceptance. The dependency inventory's third-party exact-release declarations remain DECLARED_UNREVIEWED for legal/commercial suitability.
-- Stack security review is PARTIAL and overall deployed security status remains UNVERIFIED. No Critical/High issue was confirmed in the reviewed pinned versions, but transitive, image/OS, deployment and host-control coverage remain incomplete.
-- UAT Prep/UAT/UAT Fix remain DEFERRED — OWNER OPT-IN; UAT NOT RUN. No Railway diagnostics/logs, provider/database write, manual deployment, behavioral test or application probe was performed.
+The canonical native PHDK block contains a scoped browser-configuration allowance and an older categorical prohibition; the semantic conflict needs reconciliation.
