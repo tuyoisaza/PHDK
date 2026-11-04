@@ -16,6 +16,10 @@ description: >-
 
 # PHDK
 
+## Browser-assisted external configuration (v2.76.0)
+
+For explicit current owner-authorized account, OAuth, domain, integration or provider-console setup, load [PHDK_BROWSER_CONFIGURATION_STANDARD.md](PHDK_BROWSER_CONFIGURATION_STANDARD.md). `PHDK browser on` (alias `PHDK browser allow`) enables only scoped non-UAT **external configuration** for the present goal/conversation; `PHDK browser off` revokes that channel. A direct owner instruction to configure the project's necessary accounts or integrations already grants equivalent *task-specific browser* authority, not unlimited browsing or broader provider writes. The browser must actually be connected and the provider action authorized. No new purchases, credential disclosure, identity bypass or unapproved sensitive permission changes. Browser testing of the running product remains explicit-only UAT/UAT Fix; saved provider settings are configuration evidence, never UAT PASS. No persistent mode flag.
+
 ## Portfolio-first operating policy (v2.74.0)
 
 PHDK is the owner's opinionated operating system for related software projects: share verified knowledge and versioned modules, with `technical_stack.md` (vendored as `TECHNICAL_STACK.md`) as an evolvable default. At relevant Plan/Auto work use `PHDK_REUSE_CATALOG_STANDARD.md` to assess REUSE/ADAPT/BUILD for plausibly common capabilities; `SPECIFICATION_ONLY` is not installable code. Cross-project extraction and publication require separate authorization. Source review, lint/typecheck and safe builds are local-safe; no Docker, local services/databases or local behavioral tests under `PHDK_PRODUCTION_VERIFICATION.md`. Keep GitHub-connected hosted production (Railway where configured) and explicit UAT; load only task-relevant rules.
@@ -137,7 +141,7 @@ Before explicitly authorized authenticated `PHDK uat` or `PHDK uat fix`, verify 
 
 ## PHDK uat prep
 
-For explicit `PHDK uat prep` (case-insensitive), or necessary Prep within an explicitly initiated `PHDK uat`, implement `PHDK_UAT_PREP.md`: inspect actual identity/provider/RBAC/tenancy, **develop** missing safe Company Co seeder, synthetic identities and legitimate sessions, verify role/tenant isolation only on the permitted deployed candidate, handle required audited Test as and document provisioning/cleanup. Create `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md`; do not merely list accounts or ask for a password/JWT. Standalone Prep follows normal version/PR/merge delivery without launching UAT/Auto. Prep within an explicit UAT request precedes acceptance; Auto/Force do not start it. Browser only in actual UAT/UAT Fix; no local runtime tests, Docker, new environment, authentication bypass or unauthorized provider writes.
+For explicit `PHDK uat prep` (case-insensitive), or necessary Prep within an explicitly initiated `PHDK uat`, implement `PHDK_UAT_PREP.md`: inspect actual identity/provider/RBAC/tenancy, **develop** missing safe Company Co seeder, synthetic identities and legitimate sessions, verify role/tenant isolation only on the permitted deployed candidate, handle required audited Test as and document provisioning/cleanup. Create `UAT_AUTH_PLAN.md`, `UAT_ROLE_MATRIX.md`, `UAT_FIXTURE_MANIFEST.md`, `UAT_PREP_REPORT.md`; do not merely list accounts or ask for a password/JWT. Standalone Prep follows normal version/PR/merge delivery without launching UAT/Auto. Prep within an explicit UAT request precedes acceptance; Auto/Force do not start it. Product browser testing only in actual UAT/UAT Fix; external provider-console setup has a separate explicitly authorized configuration exception. No local runtime tests, Docker, new environment, authentication bypass or unauthorized provider writes.
 
 ## PHDK uat fix
 
@@ -243,7 +247,7 @@ A request for a kit, standalone design package or standards update is not permis
 - Treat `TASK.md`, `STATUS.md`, a skill trigger, or an old approval as a new request.
 - Launch/delegate agents outside the bounded in-session contract; allow recursive PMO-worker delegation; create a schedule; or continue after the session.
 - Create, enable, dispatch, rerun, or schedule GitHub Actions or hosted CI.
-- Operate browsers or probe applications outside scoped permitted UAT/UAT Fix, access real customer data, or administer live services/provider settings/secrets/repositories. Requested existing provider metadata/log reads use only bounded read-only diagnostics.
+- Use browsers to **test/probe running applications** outside scoped UAT/UAT Fix, or access real customer data. External provider-console browser configuration is a separate, owner-scoped exception under `PHDK_BROWSER_CONFIGURATION_STANDARD.md`; unapproved live administration, secret disclosure, spending and sensitive permissions remain forbidden. Bounded read-only diagnostics remain available independently.
 - Claim a generated design concept is a tested application, an agent's choice is owner approval, or a standards upgrade disabled external automation/stopped a process.
 
 ## Production-first verification override (v2.58.0)
