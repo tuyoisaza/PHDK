@@ -10,7 +10,9 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.75.0**
+**Version v2.76.0**
+
+**Browser-assisted provider configuration (v2.76.0):** [PHDK_BROWSER_CONFIGURATION_STANDARD.md](PHDK_BROWSER_CONFIGURATION_STANDARD.md) introduces `PHDK browser on` (alias `PHDK browser allow`) and `PHDK browser off` for task/conversation-scoped external account, OAuth, domain and service-console setup. An explicit owner request to configure necessary project accounts/integrations also enables scoped browser assistance for that task without a redundant command. This does **not** authorize opening the running product to test its UI, journeys or behavior (still explicit `PHDK uat`), unauthorized settings/security/billing changes, secret handling or unattended browsing. Actual browser access and third-party authority must be verified separately; provider saved-state readback is configuration evidence, not product acceptance.
 
 **Human-effort visibility (v2.75.0):** Auto/Force displays a baseline estimate in **focused human workdays** after PMO milestones, before implementation; evidence-based remaining workdays and a progress bar update after verified milestone/slice delivery. This is not AI completion time, a timer, a calendar promise or an approval wait. See [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md), and the optional read-only `scripts/phdk_effort_status.py`.
 
@@ -351,7 +353,7 @@ Applicable privileged administration includes Prompts with an agent/prompt list,
 
 Autonomy operates inside explicit human direction. Owners define intent, portfolio, material product/security choices, actual formal approvals and external actions. Normal Auto asks visual choices; FORCE delegates those routine choices to the agent without fabricating owner approval. Real retained owner restrictions, security/access controls, hooks and spending boundaries remain effective.
 
-No unattended/overnight execution, recurring agents, Actions/hosted CI activation, local runtime tests, Docker, preview servers/new staging/databases, secret inspection, real-data test mutations or provider administration. Browser/headless application verification is only scoped UAT/UAT Fix on the existing permitted deployment. Static design artifact creation is distinct, and never proves behavior. See [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) and [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md).
+No unattended/overnight execution, recurring agents, Actions/hosted CI activation, local runtime tests, Docker, preview servers/new staging/databases, secret inspection, real-data test mutations or **unapproved** provider administration. Browser/headless **product** verification is only scoped UAT/UAT Fix on the existing permitted deployment; separately owner-authorized provider-console setup follows the external configuration standard. Static design artifact creation is distinct, and never proves behavior. See [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) and [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md).
 
 ## Stack review on upgrade
 
