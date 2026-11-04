@@ -29,7 +29,7 @@ Create/update a **Browser Readiness** section of `UAT_ACCESS_REPORT.md` and mirr
 - spend disposition `NO_NEW_SPEND`, `PAID_DEPENDENCY_EXCLUDED`, or `EXISTING_AUTHORIZED_SERVICE` (billing remains UNVERIFIED unless inspected);
 - executed cases, BLOCKED/MANUAL cases, independent work performed, specific one-step owner action and exact retest cue.
 
-After verification say **Navegador UAT: permiso de fase ACTIVO; acceso real VERIFICADO / NO DISPONIBLE / REQUIERE CONEXIÓN.** Never call UAT ACCEPTED with outstanding required browser evidence. The next-action contract of `UAT_JOURNEY_STANDARD.md` applies. This rule does not authorize browser use in any other phase or bypass host connection requirements.
+After verification say **Navegador UAT: permiso de fase ACTIVO; acceso real VERIFICADO / NO DISPONIBLE / REQUIERE CONEXIÓN.** Never call UAT ACCEPTED with outstanding required browser evidence. The next-action contract of `UAT_JOURNEY_STANDARD.md` applies. This UAT readiness rule does not authorize **product browser testing** in any other phase or bypass host connection requirements. The independent `PHDK_BROWSER_CONFIGURATION_STANDARD.md` may authorize external provider-console setup, never application acceptance.
 
 
 ## Production-first verification override (v2.58.0)
