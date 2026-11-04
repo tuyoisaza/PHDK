@@ -1,3 +1,12 @@
+## v2.76.0 — 2026-11-04
+
+### Explicit browser-assisted external service configuration, without UAT
+- Add `PHDK_BROWSER_CONFIGURATION_STANDARD.md` and vendored `PHDK browser on`, `PHDK browser allow` (alias) and `PHDK browser off`. Grants are bound to the current identified goal/conversation, never persisted to a reusable settings flag or inferred from a generic development task.
+- Treat a specific current owner instruction to create/configure required external project accounts, OAuth applications, domain records or integrations as equivalent **task-scoped browser assistance**, subject to actual connected tooling, provider permissions, individually authorized settings, real security controls and no unapproved spending or secret disclosure.
+- Maintain the strict prohibition on **browser testing of the running application** without explicit UAT/UAT Fix. Provider-console saved-state readback establishes only configuration evidence, not acceptance or deployed-product behavior.
+- Reconcile execution scope, production verification, UAT Prep/browser readiness, Auto/Upgrade, canonical and managed agent/skill rules, summaries, enforcement, documentation and distribution manifest.
+- No downstream accounts, browser sessions, provider writes, runtime tests or UAT were performed by this standards-only release; actual downstream adoption requires synchronization/reload.
+
 ## v2.75.0 — 2026-10-31
 
 ### Human-equivalent development effort reporting
