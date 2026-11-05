@@ -1,4 +1,6 @@
 # USE COMPANY CO INFO FOR DEMOS
+
+For an optional fictional customer-service scenario with linked calls, messages and appointments, see [COMPANY_CO_SERVICE_SCENARIOS.md](COMPANY_CO_SERVICE_SCENARIOS.md) and its structured [JSON catalog](COMPANY_CO_SERVICE_SCENARIOS.json). These records do not establish real activity or authorize communication.
 > Canonical PHDK synthetic UAT fixture · v1.0 · 2026-10-12. ALL people, companies and numbers are fictional.
 
 ## Optional quality-management document corpus

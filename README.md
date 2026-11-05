@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.76.0**
+**Version v2.77.0**
 
 **Browser-assisted provider configuration (v2.76.0):** [PHDK_BROWSER_CONFIGURATION_STANDARD.md](PHDK_BROWSER_CONFIGURATION_STANDARD.md) introduces `PHDK browser on` (alias `PHDK browser allow`) and `PHDK browser off` for task/conversation-scoped external account, OAuth, domain and service-console setup. An explicit owner request to configure necessary project accounts/integrations also enables scoped browser assistance for that task without a redundant command. This does **not** authorize opening the running product to test its UI, journeys or behavior (still explicit `PHDK uat`), unauthorized settings/security/billing changes, secret handling or unattended browsing. Actual browser access and third-party authority must be verified separately; provider saved-state readback is configuration evidence, not product acceptance.
 

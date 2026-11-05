@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "classification": "fictional_synthetic",
+  "company": "Company Co S.A.S.",
+  "timezone": "America/Bogota",
+  "currency": "COP",
+  "time_model": "days before the date of provisioning",
+  "external_dispatch": false,
+  "scenarios": [
+    {
+      "id": "I001",
+      "customer": "Café Bruma",
+      "channel": "whatsapp",
+      "days_ago": 29,
+      "incoming": "Abriremos una cafetería; ¿nos ayudan a planear equipos y espacio?",
+      "reply": "Sí, agendemos una asesoría de apertura.",
+      "status": "resolved",
+      "case": "apertura",
+      "appointment": "confirmed"
+    },
+    {
+      "id": "I002",
+      "customer": "Lucía Pineda",
+      "channel": "instagram",
+      "days_ago": 28,
+      "incoming": "¿Qué máquina recomiendan para dos cafés diarios?",
+      "reply": "Podemos comparar opciones y presupuesto.",
+      "status": "open",
+      "case": "orientación",
+      "appointment": null
+    },
+    {
+      "id": "I003",
+      "customer": "Café Nube Andina",
+      "channel": "call",
+      "days_ago": 27,
+      "incoming": "El molino hace un ruido extraño.",
+      "reply": "Coordinaremos una revisión técnica.",
+      "status": "resolved",
+      "case": "mantenimiento",
+      "appointment": "confirmed"
+    },
+    {
+      "id": "I004",
+      "customer": "Mateo Cifuentes",
+      "channel": "email",
+      "days_ago": 26,
+      "incoming": "¿Cuándo llega mi pedido ficticio CC-104?",
+      "reply": "Revisamos el despacho y te informamos.",
+      "status": "resolved",
+      "case": "pedido",
+      "appointment": null
+    },
+    {
+      "id": "I005",
+      "customer": "Tostadores del Río",
+      "channel": "webchat",
+      "days_ago": 25,
+      "incoming": "Necesitamos formar a cuatro baristas.",
+      "reply": "Tenemos una sesión de capacitación disponible.",
+      "status": "open",
+      "case": "capacitación",
+      "appointment": "pending_review"
+    },
+    {
+      "id": "I006",
+      "customer": "Sara Montenegro",
+      "channel": "whatsapp",
+      "days_ago": 22,
+      "incoming": "La máquina no calienta. ¿Cómo funciona la garantía?",
+      "reply": "Tomaremos los datos del producto y revisaremos el caso.",
+      "status": "open",
+      "case": "garantía",
+      "appointment": null
+    },
+    {
+      "id": "I007",
+      "customer": "Café La Estación Azul",
+      "channel": "call",
+      "days_ago": 21,
+      "incoming": "Buscamos diseñar un local pequeño.",
+      "reply": "Podemos programar una visita de diagnóstico.",
+      "status": "resolved",
+      "case": "diseño",
+      "appointment": "cancelled"
+    },
+    {
+      "id": "I008",
+      "customer": "Daniel Ariza",
+      "channel": "email",
+      "days_ago": 20,
+      "incoming": "Quiero devolver el molino sin usar.",
+      "reply": "Revisaremos las condiciones de devolución.",
+      "status": "open",
+      "case": "devolución",
+      "appointment": null
+    },
+    {
+      "id": "I009",
+      "customer": "Pan y Grano Ficticio",
+      "channel": "whatsapp",
+      "days_ago": 14,
+      "incoming": "¿Manejan suministro mensual de café?",
+      "reply": "Sí; cuéntanos el consumo estimado.",
+      "status": "open",
+      "case": "suministro",
+      "appointment": null
+    },
+    {
+      "id": "I010",
+      "customer": "Elena Beltrán",
+      "channel": "facebook",
+      "days_ago": 12,
+      "incoming": "¿En qué se diferencian estos molinos?",
+      "reply": "Uno está pensado para espresso y otro para filtro.",
+      "status": "resolved",
+      "case": "orientación",
+      "appointment": null
+    },
+    {
+      "id": "I011",
+      "customer": "Café Horizonte Claro",
+      "channel": "call",
+      "days_ago": 7,
+      "incoming": "El equipo llegó; necesitamos instalación.",
+      "reply": "Coordinemos una visita técnica.",
+      "status": "resolved",
+      "case": "instalación",
+      "appointment": "confirmed"
+    },
+    {
+      "id": "I012",
+      "customer": "Julián Salcedo",
+      "channel": "webchat",
+      "days_ago": 1,
+      "incoming": "¿Pueden llamarme mañana para asesorarme?",
+      "reply": "Recibimos tu solicitud y la revisaremos en horario de atención.",
+      "status": "open",
+      "case": "seguimiento",
+      "appointment": null
+    },
+    {
+      "id": "I013",
+      "customer": "Café Bruma",
+      "channel": "email",
+      "days_ago": 18,
+      "incoming": "Gracias por la asesoría. ¿Podemos revisar la propuesta de equipos?",
+      "reply": "Claro, la propuesta quedó pendiente de revisión comercial.",
+      "status": "open",
+      "case": "cotización",
+      "appointment": null
+    },
+    {
+      "id": "I014",
+      "customer": "Lucía Pineda",
+      "channel": "whatsapp",
+      "days_ago": 11,
+      "incoming": "Quisiera comparar la máquina que me recomendaron con otra opción.",
+      "reply": "Te compartimos las diferencias para uso doméstico.",
+      "status": "resolved",
+      "case": "seguimiento",
+      "appointment": null
+    },
+    {
+      "id": "I015",
+      "customer": "Sara Montenegro",
+      "channel": "email",
+      "days_ago": 9,
+      "incoming": "Adjunté los datos solicitados para revisar la garantía.",
+      "reply": "Los recibimos; el equipo de posventa revisará el caso.",
+      "status": "open",
+      "case": "garantía",
+      "appointment": null
+    },
+    {
+      "id": "I016",
+      "customer": "Café Nube Andina",
+      "channel": "call",
+      "days_ago": 6,
+      "incoming": "El molino funciona bien después de la revisión.",
+      "reply": "Gracias por confirmarlo; cerramos el seguimiento.",
+      "status": "resolved",
+      "case": "seguimiento",
+      "appointment": null
+    },
+    {
+      "id": "I017",
+      "customer": "Pan y Grano Ficticio",
+      "channel": "whatsapp",
+      "days_ago": 4,
+      "incoming": "Calculamos un consumo de veinte kilos mensuales.",
+      "reply": "Un asesor comercial revisará una propuesta de suministro.",
+      "status": "open",
+      "case": "suministro",
+      "appointment": null
+    },
+    {
+      "id": "I018",
+      "customer": "Café La Estación Azul",
+      "channel": "call",
+      "days_ago": 2,
+      "incoming": "Cancelamos la visita anterior. ¿Podemos reprogramarla?",
+      "reply": "Sí, dejamos registrada una nueva solicitud de diseño.",
+      "status": "open",
+      "case": "diseño",
+      "appointment": "pending_review"
+    }
+  ]
+}

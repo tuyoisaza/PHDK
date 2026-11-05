@@ -1,3 +1,9 @@
+## v2.77.0 — 2026-11-05
+
+### Company Co synthetic service scenarios
+- Add a fictional, structured customer-service scenario catalog and a readable companion covering conversations, calls and appointment outcomes. The catalog describes examples, not production activity or acceptance evidence.
+- Include both assets in the vendoring manifest and link them from the Company Co reference. No provider connection, customer communication or deployed fixture is implied.
+
 ## v2.76.0 — 2026-11-04
 
 ### Explicit browser-assisted external service configuration, without UAT
