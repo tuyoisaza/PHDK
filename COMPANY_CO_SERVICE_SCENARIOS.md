@@ -1,5 +1,7 @@
 # Company Co — escenario sintético de atención
 
+Para las oportunidades, campañas, conocimiento, agente y consumo de este escenario, consulta [el escenario comercial](COMPANY_CO_COMMERCIAL_SCENARIOS.md) y [su catálogo estructurado](COMPANY_CO_COMMERCIAL_SCENARIOS.json).
+
 Estado: borrador para integración. Todos los nombres, empresas, conversaciones y hechos de este archivo son ficticios. No son registros de personas ni autorizan comunicaciones reales. Base: `USE_COMPANY_CO_INFO_FOR_DEMOS.md`, Company Co S.A.S., Bogotá, cafeterías, COP y zona America/Bogota. El escenario es una muestra operativa, no los totales comerciales anuales de Company Co.
 
 ## Catálogo de clientes

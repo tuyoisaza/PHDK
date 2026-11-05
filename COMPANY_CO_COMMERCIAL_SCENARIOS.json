@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "classification": "fictional_synthetic",
+  "company": "Company Co S.A.S.",
+  "currency": "COP",
+  "opportunities": [
+    {
+      "customer": "Café Bruma",
+      "title": "Equipamiento para apertura",
+      "state": "proposal",
+      "estimated_amount_cop": "68000000",
+      "next_action": "Revisar propuesta de equipos"
+    },
+    {
+      "customer": "Café Nube Andina",
+      "title": "Mantenimiento de molino",
+      "state": "won",
+      "estimated_amount_cop": "1800000",
+      "next_action": "Hacer seguimiento al servicio"
+    },
+    {
+      "customer": "Pan y Grano Ficticio",
+      "title": "Suministro mensual de café",
+      "state": "qualified",
+      "estimated_amount_cop": "7200000",
+      "next_action": "Preparar propuesta de suministro"
+    },
+    {
+      "customer": "Café La Estación Azul",
+      "title": "Diseño del nuevo local",
+      "state": "contacted",
+      "estimated_amount_cop": "24000000",
+      "next_action": "Coordinar diagnóstico"
+    },
+    {
+      "customer": "Lucía Pineda",
+      "title": "Máquina de espresso doméstica",
+      "state": "new",
+      "estimated_amount_cop": "4500000",
+      "next_action": "Comparar opciones"
+    },
+    {
+      "customer": "Café Horizonte Claro",
+      "title": "Instalación de equipo",
+      "state": "won",
+      "estimated_amount_cop": "3200000",
+      "next_action": "Confirmar seguimiento"
+    }
+  ],
+  "knowledge": [
+    {
+      "title": "Servicios para abrir una cafetería",
+      "content": "Company Co acompaña la apertura de cafeterías con consultoría, diseño del espacio, selección de equipos, instalación y capacitación. Cada proyecto requiere diagnóstico y una propuesta individual."
+    },
+    {
+      "title": "Mantenimiento y garantía",
+      "content": "El equipo de posventa recibe solicitudes de mantenimiento y garantía. Primero identifica el equipo, el problema y la información del cliente; después coordina una revisión. No promete una cobertura antes del diagnóstico."
+    },
+    {
+      "title": "Catálogo y asesoría de productos",
+      "content": "Company Co ofrece máquinas de espresso, molinos, mobiliario, refrigeración, café y consumibles. La recomendación depende del uso, el presupuesto y las necesidades del cliente."
+    }
+  ],
+  "agent": {
+    "name": "Asistente Company Co",
+    "reception_name": "Sofía",
+    "tone": "warm",
+    "state": "draft"
+  },
+  "campaign": {
+    "name": "Seguimiento de asesorías de apertura",
+    "channel": "email",
+    "state": "draft",
+    "recipient_scenarios": [
+      "I004",
+      "I008"
+    ],
+    "external_dispatch": false
+  },
+  "usage": {
+    "cycle_days": 30,
+    "counts": {
+      "message.incoming": 230,
+      "ai.reply": 78,
+      "calendar.write": 12
+    },
+    "currency": "COP",
+    "billing_enabled": false
+  }
+}

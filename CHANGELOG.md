@@ -1,3 +1,9 @@
+## v2.79.0 — 2026-11-05
+
+### Company Co commercial scenarios
+- Add a fictional, structured commercial scenario with opportunities, draft campaigns, knowledge, agent configuration and example usage, linked to the existing Company Co service cases.
+- Include the readable and JSON catalogs in the manifest. No external dispatch, actual billing, production seed or UAT is implied.
+
 ## v2.78.0 — 2026-11-05
 
 ### Auto learning closeout and risk-based critical-change assurance
