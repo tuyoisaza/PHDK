@@ -16,6 +16,12 @@ When the active product goal has multi-tenancy, load `PHDK_TENANT_RISK_STANDARD.
 
 # PHDK Auto
 
+## Risk-based assurance and learning closeout (v2.78.0)
+
+During Plan and material replanning, apply [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) when integrity, value, permissions, irreversible effects or operational continuity are materially at risk; otherwise record a brief justified NOT_APPLICABLE. Keep invariants, material decisions, verification permissions and recovery in the existing indexed plan and pass the contract to Integration/Check/delivery. Distinguish TECHNICALLY_DELIVERED, ACCEPTED, CUTOVER_AUTHORIZED and actual cutover execution without replacing existing completion-gate fields. A source merge/autodeploy must not trigger an unauthorized critical migration or operational replacement. This is conditional assurance, not a legacy-only mode, new infrastructure, local-test permission or automatic UAT.
+
+Every Auto/Force run also follows [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): collect only material observations, prepare the indexed `docs/decisions/phdk-process-review.vN.md` with the final authorized change, and after the actual publication attempt report the delivery facts followed by lessons and generalizable PHDK proposals. Zero findings is valid. On a real terminal blocker, use a partial review; respect owner stops. This mandatory learning activity adds no approval/implementation gate, recurring agent, automatic canonical issue/PR, cross-repository write or report-only release loop. Apply existing progressive context and continuity rather than adding a second tracker.
+
 ## Continuous documentation governance (v2.73.0)
 
 Follow [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). At entry, read `TASK.md` and the active `docs/INDEX.md` if present; compare indexed intent/brief/decision/plan versions with actual current owner requirements and source. A missing index in a legacy-only project is not a ceremony blocker. During Capture/Plan/Design and whenever a material milestone changes assumptions or implementation scope, create only the necessary versioned documents and refresh the generated index in the **same authorized change**. Before each completed value milestone is published, use the read-only `scripts/phdk_docs_audit.py --root . --check` (vendored from `phdk-standards/scripts/` in downstream projects), identify changed document paths with `--changed`, and use `--sync-index` only when the current task authorizes writes. Resolve divergent legacy/current copies, missing cross-links and stale active baselines in scope; report untouched legacy debt proportionately. Never mistake document compliance for working code, deployment, owner design approval or UAT; never stop complete implementation for unnecessary folder creation.
@@ -388,6 +394,8 @@ This chained entry preserves all Auto Force boundaries: no UAT without explicit 
 
 The final report must close the lifecycle explicitly. Include a compact final board showing the terminal status of every applicable stage, links/paths to principal canonical artifacts, and the historical run folder. Verify the run-level historical `LIFECYCLE.md` is complete before claiming lifecycle completion.
 
+After reporting the actual publication/verification result, include the learning closeout from `PHDK_RETROSPECTIVE_STANDARD.md`: retrospective path/status, a concise evidence-based summary of what PHDK should improve, and which findings remain local or already supported. Separate proposed canonical changes from implemented changes; no automatic submission or framework modification follows. Include applicable critical-change acceptance/cutover dispositions independently of development completion. A missing retrospective artifact is reported truthfully, not used to revoke completed source delivery.
+
 Example:
 
 ```text
@@ -449,7 +457,8 @@ while authorized goal not complete:
     else:
         advance immediately to the next eligible stage in this same invocation
 verify all commitments + in-scope PRs + final delivery gates
-only then report COMPLETED
+report actual delivery, then bounded retrospective findings/status
+only then report COMPLETED when the delivery gates actually passed
 ```
 No generic response-length, task-count, stage-count, or conversational milestone limit authorizes stopping at a successful stage. Respect real host/tool execution limits: when work cannot continue in this invocation, checkpoint accurately and say `INTERRUPTED — NOT COMPLETE`, without pretending to schedule a background continuation.
 
