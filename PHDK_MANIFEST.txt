@@ -10,6 +10,9 @@ PHDK_EVOLUTION_STANDARD.md | PHDK_EVOLUTION_STANDARD.md
 PHDK_DOCUMENTATION_STANDARD.md | PHDK_DOCUMENTATION_STANDARD.md
 scripts/phdk_docs_audit.py | scripts/phdk_docs_audit.py
 PHDK_INTELLIGENT_EXECUTION.md | PHDK_INTELLIGENT_EXECUTION.md
+PHDK_RETROSPECTIVE_STANDARD.md | PHDK_RETROSPECTIVE_STANDARD.md
+PHDK_CRITICAL_CHANGE_STANDARD.md | PHDK_CRITICAL_CHANGE_STANDARD.md
+scripts/phdk_learning_risk_check.py | scripts/phdk_learning_risk_check.py
 CHANGE_MANAGEMENT.md | CHANGE_MANAGEMENT.md
 PHDK_UPGRADE.md | PHDK_UPGRADE.md
 PHDK_REPOSITORY_STATUS.md | PHDK_REPOSITORY_STATUS.md
@@ -94,10 +97,12 @@ scripts/phdk_update.py | scripts/phdk_update.py
 scripts/phdk_upgrade_remote_gate.py | scripts/phdk_upgrade_remote_gate.py
 
 # Linked release history and evidence (not active instructions)
+CHANGELOG-through-v2.77.0.md | CHANGELOG-through-v2.77.0.md
 CHANGELOG-through-v2.59.0.md | CHANGELOG-through-v2.59.0.md
 CHANGELOG-through-v2.51.0.md | CHANGELOG-through-v2.51.0.md
 ORIGINALS/CHANGELOG-through-v2.31.0.md | ORIGINALS/CHANGELOG-through-v2.31.0.md
 docs/verification/v2.60.0-design.md | docs/verification/v2.60.0-design.md
+docs/verification/v2.78.0-learning-risk.md | docs/verification/v2.78.0-learning-risk.md
 
 PHDK_PRODUCTION_VERIFICATION.md | PHDK_PRODUCTION_VERIFICATION.md
 PHDK_DEPLOYMENT_VERSION_STANDARD.md | PHDK_DEPLOYMENT_VERSION_STANDARD.md

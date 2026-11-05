@@ -10,7 +10,9 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.77.0**
+**Version v2.78.0**
+
+**Learning closeout and risk-based assurance (v2.78.0):** Every Auto/Force run closes with a bounded, evidence-based retrospective under [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): what shipped, what was learned, generalizable PHDK proposals and project-local actions. Prepare it with the final authorized change; report actual publication evidence afterward. Zero findings is valid; recommendations add no approval gate, automatic canonical edits, extra agents or report-only release loop. [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) adds conditional domain invariants, characterization/equivalence plans, material-decision provenance and operational recovery for changes risking integrity, value, access or continuity, not just legacy migrations. Technical delivery, acceptance, cutover authorization and executed cutover remain distinct. Local behavioral testing and automatic UAT remain prohibited; downstream adoption is separate. Source-only guards: [scripts/phdk_learning_risk_check.py](scripts/phdk_learning_risk_check.py).
 
 **Browser-assisted provider configuration (v2.76.0):** [PHDK_BROWSER_CONFIGURATION_STANDARD.md](PHDK_BROWSER_CONFIGURATION_STANDARD.md) introduces `PHDK browser on` (alias `PHDK browser allow`) and `PHDK browser off` for task/conversation-scoped external account, OAuth, domain and service-console setup. An explicit owner request to configure necessary project accounts/integrations also enables scoped browser assistance for that task without a redundant command. This does **not** authorize opening the running product to test its UI, journeys or behavior (still explicit `PHDK uat`), unauthorized settings/security/billing changes, secret handling or unattended browsing. Actual browser access and third-party authority must be verified separately; provider saved-state readback is configuration evidence, not product acceptance.
 
@@ -33,7 +35,7 @@
 
 PHDK is an operating system for AI-assisted software delivery. It turns a repository, an idea or an unfinished product into a structured process where AI can understand intent, define a visible design, coordinate work, implement, validate, repair and deliver without losing human control.
 
-**New pre-implementation Design:** [`PHDK_DESIGN.md`](PHDK_DESIGN.md) introduces `PHDK design` and applicable lifecycle stage **25-design**, after technical/content Plan and before affected UI implementation. **Auto asks one visual question at a time and waits for your selection; Auto Force chooses, records its rationale and continues.** References, visual alternatives, representative previews and the selected style guide are retained in the repository. Agent selection is never reported as owner approval.
+**New pre-implementation Design:** [`PHDK_DESIGN.md`](PHDK_DESIGN.md) introduces `PHDK design` and applicable lifecycle stage **25-design**, after technical/content Plan and before affected UI implementation. **Auto asks one visual question at a time and waits for your selection; Auto Force chooses, records its rationale and continues.** References, alternatives, representative previews and the selected style guide are retained in the repository. Agent selection is never reported as owner approval.
 
 **Cheap deployed-version verification (v2.72.0):** [PHDK_DEPLOYMENT_VERSION_STANDARD.md](PHDK_DEPLOYMENT_VERSION_STANDARD.md) requires a public, no-store JSON `GET /health/version` on HTTP apps with an existing production URL. It reports the product version, vendored PHDK version, exact deployed Git SHA and build time. After authorized GitHub→Railway autodeploy, one bounded `curl` verifies the serving revision without opening Railway or the site; no UAT, browser journey, polling, provider write or new infrastructure is implied. Source `main`, app health and deployed revision are separate evidence.
 
@@ -428,6 +430,8 @@ Intent before implementation; visible design before dependent UI coding; require
 | Need | Read |
 |---|---|
 | Maintainer sessions/evolution | [PHDK_EVOLUTION_STANDARD.md](PHDK_EVOLUTION_STANDARD.md) |
+| Auto learning and canonical improvement proposals | [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md) |
+| Critical-change invariants, equivalence and cutover | [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) |
 | Product document naming, history, index and audit | [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), [scripts/phdk_docs_audit.py](scripts/phdk_docs_audit.py) |
 | Execution boundaries | [EXECUTION_SCOPE.md](EXECUTION_SCOPE.md) |
 | Production-first verification | [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md) |

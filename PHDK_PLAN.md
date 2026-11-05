@@ -13,6 +13,12 @@ Record the adopted PHDK version/ref, canonical version/ref actually verified, ch
 
 Derive briefs and tasks from that baseline and the actual current owner request. Use the [restriction record](TASK_TRACKING_STANDARD.md#restriction-record) for every operative delivery limit, including its provenance, phase scope and closure condition. A planning choice or worker-only draft-PR limit introduced by the assistant is not an owner prohibition on integrating the whole goal. Link restrictions by ID instead of copying unexplained bans into later phases. Before construction moves to publication, apply [phase-transition reconciliation](MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation); completing Plan or a milestone does not itself authorize an expanded scope, UAT or spending.
 
+## Risk-based critical-change contract (v2.78.0)
+
+Apply [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) when the authorized change materially affects integrity, value, permissions/tenant isolation, irreversible effects or operational continuity, regardless of greenfield/brownfield or business sector. Otherwise record a brief justified NOT_APPLICABLE. Keep the contract in the existing indexed plan: source/target baseline, characterization and domain invariants, decision authority/tolerances, permitted verification and evidence, and transition/recovery prerequisites where relevant. Map it to milestones and pass it to Integration/Check/delivery; do not create a parallel task or approval ledger.
+
+Distinguish TECHNICALLY_DELIVERED, ACCEPTED, CUTOVER_AUTHORIZED and CUTOVER_EXECUTED without changing existing machine-gate fields. Material business semantics are not routine Auto Force defaults. Preserve explicit owner exclusions and revalidate affected assumptions when standards/candidate inputs change; this is not version pinning or permission to skip security Preflight. Authoring synthetic characterization cases does not authorize executing local behavioral tests, provisioning an environment, initiating UAT or touching real data. Inspect autodeploy/startup migration effects so source delivery cannot silently trigger an unauthorized operational transition.
+
 ## Default Node.js runtime selection
 For Node.js stacks, follow the runtime selection profile and [Stack Security Review](PHDK_SECURE.md#stack-security-review). Prefer the newest compatible patched Active LTS for new projects, or supported Maintenance LTS when no Active LTS exists or is compatible; record the fallback and support deadline. For existing supported majors, recommend their security patches first; EOL or major migrations require compatibility work. Record declared, resolved, build and observed deployed versions separately. Review the complete actual stack at initial architecture selection and refresh affected evidence on material changes, including frameworks, native dependencies, images and data engines. Reuse current evidence instead of repeating a full audit at every stage; missing provider access or exact runtime evidence remains UNVERIFIED.
 
@@ -349,6 +355,7 @@ Do not introduce infrastructure/services merely because they are common architec
 Before Plan is complete:
 
 - the adopted PHDK baseline and any upstream-verification limits are recorded;
+- critical-change applicability and the required risk contract or justified NOT_APPLICABLE are recorded under `PHDK_CRITICAL_CHANGE_STANDARD.md`;
 - operative restrictions have classified provenance, scope and, for phase limits, a closure condition in the linked task record;
 - every P0 requirement maps to a target architecture capability;
 - all major components have clear responsibilities;
@@ -392,6 +399,7 @@ When Plan completes or is reused inside a lifecycle run:
 - snapshot the material Plan outputs, including `SOLUTION_ARCHITECTURE.md`, `REPOSITORY_ARCHITECTURE.md`, `UX_ARCHITECTURE.md`, draft design artifacts, `MILESTONE_PLAN.md`, `IMPLEMENTATION_PLAN.md`, relevant architecture decisions, and TASK integration;
 - record the architecture quality/exit gate;
 - link the adopted PHDK baseline, current restriction IDs and any reconciled phase-transition record; preserve earlier snapshots as history;
+- link the applicable critical-change contract and its material unresolved decisions, verification permissions and recovery prerequisites;
 - declare what Design must verify before visual selection, or why Design is NOT APPLICABLE for this scope;
 - retain the architecture/dependency inputs that PMO will consume after the Design gate.
 
