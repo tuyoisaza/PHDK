@@ -2,37 +2,49 @@
 repository: tuyoisaza/InmotionTitan
 repository_url: https://github.com/tuyoisaza/InmotionTitan
 default_branch: main
-observed_repository_sha: 325a92d38c8ce2bda47b767f9c57729d763a1616
-observed_at_utc: 2026-11-05T20:07:09.528924+00:00
-phdk_version: 2.78.0
+observed_repository_sha: 2eac3fbacd9d05b499cfd13c0920f4d4ba2cbb8b
+observed_at_utc: 2026-11-05T23:48:14.068602+00:00
+phdk_version: 2.79.0
 phdk_canonical_version: 2.79.0
-phdk_status: BEHIND
+phdk_status: CURRENT
 tech_stack:
   runtimes:
-    - name: php
-      declared: "8.0.30 (SQL export metadata only)"
-      resolved: UNVERIFIED
-      deployed: UNVERIFIED
     - name: node
-      declared: NOT_IMPLEMENTED
-      resolved: UNVERIFIED
+      declared: ">=24.22.1 <27"
+      resolved: "26.13.0 (local build runtime)"
       deployed: UNVERIFIED
-  frameworks: []
-  package_managers: []
+  frameworks:
+    - name: next
+      declared: "16.4.5"
+      resolved: "16.4.5"
+      deployed: UNVERIFIED
+    - name: react
+      declared: "19.3.1"
+      resolved: "19.3.1"
+      deployed: UNVERIFIED
+    - name: nestjs
+      declared: "12.3.3"
+      resolved: "12.3.3"
+      deployed: UNVERIFIED
+    - name: fastify
+      declared: "5.12.8"
+      resolved: "5.12.8"
+      deployed: UNVERIFIED
+  package_managers:
+    - name: pnpm
+      declared: "11.25.0"
+      resolved: "11.25.0"
+      deployed: UNVERIFIED
   data_engines:
-    - name: mariadb
-      declared: "10.4.32 (SQL export metadata only)"
-      resolved: UNVERIFIED
-      deployed: UNVERIFIED
     - name: postgresql
-      declared: "OWNER_APPROVED_TARGET; not provisioned"
+      declared: "Owner-approved target; repository migrations prepared, not executed"
       resolved: UNVERIFIED
       deployed: UNVERIFIED
   images: []
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-11-05T20:07:09.528924+00:00
-  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/325a92d38c8ce2bda47b767f9c57729d763a1616/docs/evidence/stack-security-review.v0.md"
+  reviewed_at_utc: 2026-11-05T23:48:14.068602+00:00
+  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/2eac3fbacd9d05b499cfd13c0920f4d4ba2cbb8b/docs/evidence/migration2-progress.md"
   findings:
     critical: 0
     high: 6
@@ -41,8 +53,8 @@ stack_review:
 central_status_source: PHDK
 ---
 
-Foreground Auto Force adoption of2.78.0 is published in downstream PR4. Static source review found gaps; immutable legacy has not been patched or executed. New application, runtime deployment, provider configuration and acceptance remain unverified/not run. Planned package versions are not installed evidence.
+M4 source delivered in PR7/main2eac3fb, application0.2.0; PHDK2.79.0 adoption is published. Clean API/web build and static packaging passed; fresh pnpm audit reported zero known dependency advisories. Official Node/Next security notices reviewed. This does not establish complete runtime, OS, provider or database security coverage.
 
-Canonical2.79.0 was observed during this snapshot. Its changelog adds fictional Company Co commercial scenarios; no relevant active migration-policy change was identified in that release note. Current run baseline remains verified2.78.0 until applicable synchronization/preflight; no pinning/updater disablement/UAT activation is introduced.
+Finding counts retain the earlier immutable legacy source review (six high, two medium, one low); they are not findings newly attributed to the modern application. Legacy was neither modified nor executed. Source findings and runtime assurance remain separate. Modern permission/history/data boundaries are reviewed in m4-read-coverage.md.
 
-Reporting only: no methodology release/version change, downstream implementation, provider action or background telemetry.
+One bounded deployed-version GET returned403; deployment remains UNVERIFIED. UAT NOT RUN, no real-data import, SQL execution or cutover. M5-M7 are ongoing in the current foreground migration goal. No provider changes, scheduler, telemetry or methodology release is part of this status refresh.
