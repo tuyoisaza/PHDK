@@ -59,6 +59,18 @@
     {
       "title": "Catálogo y asesoría de productos",
       "content": "Company Co ofrece máquinas de espresso, molinos, mobiliario, refrigeración, café y consumibles. La recomendación depende del uso, el presupuesto y las necesidades del cliente."
+    },
+    {
+      "title": "Guía de atención para nuevas cafeterías",
+      "content": "OBJETIVO\nAyudar a una persona o empresa que planea abrir una cafetería a identificar sus necesidades y acordar un siguiente paso.\n\nDIAGNÓSTICO\nPreguntar por la ciudad, el tipo de negocio, el espacio disponible, la fecha estimada de apertura, el volumen esperado y el presupuesto aproximado. No solicitar datos personales innecesarios.\n\nSERVICIOS\nCompany Co puede acompañar el estudio de viabilidad, el diseño del espacio, la selección y compra de equipos, el montaje y la capacitación de baristas. La oferta se adapta a cada proyecto.\n\nSIGUIENTE PASO\nRegistrar la necesidad, confirmar el canal preferido de contacto y proponer una asesoría. La fecha solo se considera confirmada cuando la agenda la registre como tal. No prometer precios ni plazos sin una propuesta revisada."
+    },
+    {
+      "title": "Procedimiento de soporte y posventa",
+      "content": "RECEPCIÓN\nEscuchar el problema y registrar el tipo de equipo, los síntomas y el contexto de uso. Si hay riesgo eléctrico, indicar que deje de utilizar el equipo y derivar al equipo técnico.\n\nDIAGNÓSTICO\nSolicitar solo la información necesaria para identificar el producto y comprobar la compra. Coordinar una revisión cuando corresponda; no afirmar que una garantía aplica antes de que posventa la evalúe.\n\nSEGUIMIENTO\nInformar al cliente quién revisa el caso, registrar los acuerdos y actualizar el estado cuando exista evidencia. Si el cliente no responde, dejar un pendiente para seguimiento; no cerrar el caso como resuelto sin confirmación."
+    },
+    {
+      "title": "Preguntas frecuentes de productos y capacitación",
+      "content": "¿QUÉ EQUIPOS OFRECE COMPANY CO?\nMáquinas de espresso, molinos, mobiliario, refrigeración y otros elementos para cafeterías, además de café y consumibles. La disponibilidad se confirma antes de cotizar.\n\n¿CÓMO ELEGIR UN MOLINO?\nConsultar si se usará para espresso o filtro, el volumen diario, el espacio y el presupuesto. Un asesor compara opciones; no inventar especificaciones.\n\n¿OFRECEN CAPACITACIÓN?\nSí. El equipo puede orientar a baristas y negocios sobre capacitación. Se debe confirmar alcance, participantes, ciudad y fecha antes de preparar una propuesta.\n\n¿PUEDO AGENDAR UNA ASESORÍA?\nSe puede registrar una solicitud y coordinarla con el equipo. Una solicitud pendiente todavía no es una cita confirmada."
     }
   ],
   "agent": {

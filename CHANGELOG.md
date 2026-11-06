@@ -1,3 +1,9 @@
+## v2.81.0 — 2026-11-06
+
+### Company Co knowledge examples
+- Expand the fictional Company Co catalog to six knowledge documents, including detailed reception, after-sales and FAQ examples. Keep them as drafts for review; no provider calls or publication are implied.
+- Include the readable knowledge collection in the vendoring manifest and retain the structured catalog.
+
 ## v2.80.0 — 2026-11-06
 
 ### Company Co campaign examples
