@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.80.0**
+**Version v2.81.0**
 
 **Learning closeout and risk-based assurance (v2.78.0):** Every Auto/Force run closes with a bounded, evidence-based retrospective under [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): what shipped, what was learned, generalizable PHDK proposals and project-local actions. Prepare it with the final authorized change; report actual publication evidence afterward. Zero findings is valid; recommendations add no approval gate, automatic canonical edits, extra agents or report-only release loop. [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) adds conditional domain invariants, characterization/equivalence plans, material-decision provenance and operational recovery for changes risking integrity, value, access or continuity, not just legacy migrations. Technical delivery, acceptance, cutover authorization and executed cutover remain distinct. Local behavioral testing and automatic UAT remain prohibited; downstream adoption is separate. Source-only guards: [scripts/phdk_learning_risk_check.py](scripts/phdk_learning_risk_check.py).
 
