@@ -2,15 +2,15 @@
 repository: tuyoisaza/InmotionTitan
 repository_url: https://github.com/tuyoisaza/InmotionTitan
 default_branch: main
-observed_repository_sha: 2eac3fbacd9d05b499cfd13c0920f4d4ba2cbb8b
-observed_at_utc: 2026-11-05T23:48:14.068602+00:00
-phdk_version: 2.79.0
-phdk_canonical_version: 2.79.0
+observed_repository_sha: ae147adf8a9ef718b7ccf3da5ed84dc6acc6cca4
+observed_at_utc: 2026-11-06T22:48:26.380887+00:00
+phdk_version: 2.81.0
+phdk_canonical_version: 2.81.0
 phdk_status: CURRENT
 tech_stack:
   runtimes:
     - name: node
-      declared: ">=24.22.1 <27"
+      declared: ">=24.22.2 <25 || >=26.13.0 <27"
       resolved: "26.13.0 (local build runtime)"
       deployed: UNVERIFIED
   frameworks:
@@ -43,8 +43,8 @@ tech_stack:
   images: []
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-11-05T23:48:14.068602+00:00
-  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/2eac3fbacd9d05b499cfd13c0920f4d4ba2cbb8b/docs/evidence/migration2-progress.md"
+  reviewed_at_utc: 2026-11-06T22:48:26.380887+00:00
+  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/ae147adf8a9ef718b7ccf3da5ed84dc6acc6cca4/docs/evidence/m5-integration-delivery.md"
   findings:
     critical: 0
     high: 6
@@ -53,8 +53,12 @@ stack_review:
 central_status_source: PHDK
 ---
 
-M4 source delivered in PR7/main2eac3fb, application0.2.0; PHDK2.79.0 adoption is published. Clean API/web build and static packaging passed; fresh pnpm audit reported zero known dependency advisories. Official Node/Next security notices reviewed. This does not establish complete runtime, OS, provider or database security coverage.
+M5 development delivered: application0.9.0, PR14/main ae147adf8a9ef718b7ccf3da5ed84dc6acc6cca4; prior complete submilestones M5-B0.6.0/PR11, M5-C0.7.0/PR12 and M5-D0.8.0/PR13. Remote completion gate PASS.333 source identities,15 outside-controller groups and9PDFs reconciled;8 PDF implementations, invoice and remaining finance/report/maintenance reserved M6. M6 handoff prepared, M6 NOT STARTED; M7 data reconciliation remains pending.
 
-Finding counts retain the earlier immutable legacy source review (six high, two medium, one low); they are not findings newly attributed to the modern application. Legacy was neither modified nor executed. Source findings and runtime assurance remain separate. Modern permission/history/data boundaries are reviewed in m4-read-coverage.md.
+Types root/UI/web, clean API release compile, ordinary Next compile/generate-env and filesystem artifact audits PASS on80a33fd92d4e33252e43419a8f40c7bed033a495; later commit evidence only. API14428files/443links/4internal packages; web2595files/19links. Web production release configuration remains UNVERIFIED: real API_INTERNAL_ORIGIN absent, guard retained. Node compiler26.13.0; Railway source pin24.22.2, actual runtimeUNVERIFIED. pnpm copying used bundled24.22.1 with engine warning and scripts ignored; no product runtime executed.
 
-One bounded deployed-version GET returned403; deployment remains UNVERIFIED. UAT NOT RUN, no real-data import, SQL execution or cutover. M5-M7 are ongoing in the current foreground migration goal. No provider changes, scheduler, telemetry or methodology release is part of this status refresh.
+PHDK2.81.0 adopted and published; canonical2.81.0 observed atf6baf815d91cf3082d7472902babdcc90d4fee76. Stack review M5-B checked official advisories and production dependency audit (267dependencies, zero known advisories); no dependency changes in C/D/integration. Source authorization/CSRF/tenant/immutable history/grants reviewed. PARTIAL coverage reflects unknown provider/OS/runtime/database security, not an invented full clearance.
+
+Finding counts retain the immutable legacy review (six high, two medium, one low), not newly attributed modern-application findings. Legacy tree24e0bfdbb9a9fbab460ec8e0628c7c2ce07bb28b unchanged and inert. No source PHP/SQL, real records or secrets executed/exposed.
+
+Migrations through0072 and grantsv49 PREPARED/NOT RUN. Railway/private storage/deployment UNVERIFIED. UAT NOT RUN; cutover not authorized/executed. No provisioning, spend, telemetry, scheduler or methodology release. This foreground update changes only this downstream status record under PHDK_REPOSITORY_STATUS.md.
