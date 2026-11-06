@@ -1,3 +1,8 @@
+## v2.80.0 — 2026-11-06
+
+### Company Co campaign examples
+- Expand the synthetic commercial catalog with three draft email campaigns, including message content and references to example conversations. Preserve the original campaign entry for compatibility. No sending or provider authorization is implied.
+
 ## v2.79.0 — 2026-11-05
 
 ### Company Co commercial scenarios
