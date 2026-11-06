@@ -86,5 +86,46 @@
     },
     "currency": "COP",
     "billing_enabled": false
-  }
+  },
+  "campaigns": [
+    {
+      "id": "extended:campaign",
+      "name": "Seguimiento de asesorías de apertura",
+      "channel": "email",
+      "state": "draft",
+      "subject": "Tu proyecto de cafetería",
+      "body": "Hola, queremos ayudarte a avanzar con tu proyecto de cafetería. Cuéntanos qué necesitas.",
+      "recipient_scenarios": [
+        "I004",
+        "I008"
+      ],
+      "external_dispatch": false
+    },
+    {
+      "id": "extended:campaign:maintenance",
+      "name": "Cuidado de equipos de café",
+      "channel": "email",
+      "state": "draft",
+      "subject": "Consejos para tu equipo",
+      "body": "Conoce recomendaciones para cuidar tu equipo de café y mantenerlo en buen estado.",
+      "recipient_scenarios": [
+        "I004",
+        "I008"
+      ],
+      "external_dispatch": false
+    },
+    {
+      "id": "extended:campaign:training",
+      "name": "Capacitación para baristas",
+      "channel": "email",
+      "state": "draft",
+      "subject": "Aprende con Company Co",
+      "body": "Conoce nuestras opciones de capacitación para preparar mejores bebidas de café.",
+      "recipient_scenarios": [
+        "I004",
+        "I008"
+      ],
+      "external_dispatch": false
+    }
+  ]
 }
