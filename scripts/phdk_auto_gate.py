@@ -217,16 +217,17 @@ def evaluate(state, mode, now=None):
             if isinstance(item, dict) and item.get("status") != "done"
         ]
         remaining = state.get("unresolved_commitments", []) if isinstance(state, dict) else []
-        if unfinished or remaining:
+        invalid = validate(state, mode)
+        if unfinished or remaining or invalid:
             return result(
                 "REPAIR_STATE",
-                ["Reconcile the premature COMPLETE with actual repository facts and the live mandate; resume only if current authorization remains active."],
+                ["Reconcile the premature or unverified COMPLETE with actual repository facts and the live mandate; resume only if current authorization remains active."],
                 premature_completion=True, unfinished_step_ids=unfinished,
-                unresolved_commitments=remaining,
+                unresolved_commitments=remaining, state_errors=invalid,
             )
         return result(
             "STOPPED", ["The recorded goal ended; do not reactivate it from a file."],
-            status=status, state_errors=validate(state, mode),
+            status=status, state_errors=[],
         )
     if choice(status, {"paused", "revoked"}):
         return result(

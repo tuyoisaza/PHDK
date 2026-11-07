@@ -103,10 +103,16 @@ def inspect_payload(path, changes, windows=None):
             report["windows_long_paths"] += 1
         if report["inspected_entries"] > MAX_WALK_ENTRIES:
             report["inspection_errors"].append("payload exceeds bounded inspection")
-        if item.is_symlink() or sensitive(str(item.relative_to(path))):
+        if (item.is_symlink() or (hasattr(item, "is_junction") and item.is_junction())
+                or sensitive(str(item.relative_to(path)))):
             report["unsafe_content"] = True
     try:
-        for folder, dirs, files in os.walk(path, followlinks=False):
+        for folder, dirs, files in os.walk(
+            path, followlinks=False,
+            onerror=lambda error: report["inspection_errors"].append(
+                f"filesystem traversal failed: {type(error).__name__}"
+            ),
+        ):
             here = Path(folder)
             check(here)
             for name in dirs + files:
@@ -225,6 +231,14 @@ def reconcile_force_owned_main(main_path, remote_ref):
                        "sha256": hashlib.sha256(data).hexdigest()})
     (folder / "changes.diff").write_text(
         git("diff", "--binary", "HEAD", "--", *paths, cwd=main_path).stdout,
+        encoding="utf-8",
+    )
+    (folder / "staged.diff").write_text(
+        git("diff", "--cached", "--binary", "--", *paths, cwd=main_path).stdout,
+        encoding="utf-8",
+    )
+    (folder / "working.diff").write_text(
+        git("diff", "--binary", "--", *paths, cwd=main_path).stdout,
         encoding="utf-8",
     )
     (folder / "manifest.json").write_text(
@@ -388,18 +402,26 @@ def closeout(args):
             return result
         removal = git("worktree", "remove", str(owner_path),
                       cwd=root, required=False)
-        registered = any(
-            Path(w["path"]).resolve() == owner_path for w in worktrees(root)
-        )
+        registry_error = None
+        try:
+            registered = any(
+                Path(w["path"]).resolve() == owner_path for w in worktrees(root)
+            )
+        except (RuntimeError, OSError) as exc:
+            registered, registry_error = None, str(exc)
         exists = os.path.lexists(owner_path)
+        residual = inspect_payload(owner_path, []) if exists else None
         result["worktree_postcondition"] = {
             "registered": registered, "directory_exists": exists,
+            "residual_inventory": residual,
+            "registration_error": registry_error,
             "branch_sha": sha(branch_ref, root) or None,
         }
-        if removal.returncode or registered or exists:
+        if removal.returncode or registered is not False or exists:
             result["branch_cleanup"] = (
-                "PARTIAL_CLOSEOUT" if (not registered and exists) or
-                (registered and not exists) else "RETAINED_WORKTREE_REMOVE_REJECTED"
+                "PARTIAL_CLOSEOUT" if (registered is False and exists) or
+                (registered is True and not exists) else
+                "RETAINED_WORKTREE_REMOVE_REJECTED"
             )
             result["reason"] = (removal.stderr or removal.stdout).strip()[-1200:]
             return result

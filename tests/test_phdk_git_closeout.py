@@ -10,6 +10,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "phdk_git_closeout.py"
 spec = importlib.util.spec_from_file_location("phdk_git_closeout", SCRIPT)
@@ -176,12 +177,14 @@ class GitWorkspaceCloseoutTests(unittest.TestCase):
 
     def test_windows_long_path_preflight_is_non_destructive(self):
         base = Path(self.tmp.name) / "long-test"
-        longdir = base / ("nested-" + "a" * 90) / ("nested-" + "b" * 90)
-        longdir.mkdir(parents=True)
-        (longdir / ("text-" + "c" * 45)).write_text("retained")
-        payload = module.inspect_payload(base, [], windows=True)
+        base.mkdir()
+        # Simulate a long descendant without creating an unremovable Windows path.
+        with mock.patch.object(module.os, "walk", return_value=[
+            (str(base), ["nested-" + "x" * 240], [])
+        ]):
+            payload = module.inspect_payload(base, [], windows=True)
         self.assertGreater(payload["windows_long_paths"], 0)
-        self.assertTrue(longdir.exists())
+        self.assertTrue(base.exists())
 
     def test_partial_git_worktree_removal_keeps_branch_and_reports_residue(self):
         _, merged = self.merged_feature()
