@@ -68,7 +68,7 @@ After each published milestone, Auto/Force must apply PHDK_GIT_WORKSPACE_CLOSEOU
 
 ## Historical and remote branch continuity
 
-Within a current expressly initiated Auto/Force run, apply the bounded historical Git inventory once after adoption from a local workspace, then retain unresolved cases in `.git/phdk/git-hygiene-state.json` without new milestones, jobs or repeated permission. After each verified PR merge, apply the local closeout followed by remote feature-head retirement only with current PR/head SHA evidence and no open PR. A real deletion refusal or changed head is a retained branch, not a reason to overwrite history. With GitHub-only tools and no local checkout, report local NOT_APPLICABLE_REMOTE_ONLY and remote RETAINED_TOOL_UNAVAILABLE when applicable; do not claim to have cleaned the owner's PC.
+Within a currently initiated Auto/Force run, perform the bounded historical **local-only** Git inventory once after adoption and retain unresolved local candidates in `.git/phdk/git-hygiene-state.json`. After every verified PR merge, synchronize local main and retire only independently proven integrated, clean **local** branches/worktrees. GitHub remote branches are read-only evidence and intentionally retained (`REMOTE_BRANCH=RETAINED_BY_POLICY`) even if merged. Retention never blocks continuation or completion. GitHub-only agents mark local cleanup NOT_APPLICABLE_REMOTE_ONLY; they must not claim to clean the user's PC or delete remote refs.
 
 ## Design choices and mode continuity
 
