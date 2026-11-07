@@ -1,3 +1,11 @@
+## v2.84.0 — 2026-11-07
+
+### Reproducible UAT identities and admin-led persona switching
+
+- Introduce a vendored synthetic identity standard, linked Company Co café and single-organization rosters, and an offline planner for stable per-run addresses, relationships and expected access decisions.
+- Require project-native idempotent provisioning, identity and membership readback, tenant-by-role coverage and verified cleanup. Use the product's audited Test as flow for business journeys after one legitimate elevated sign-in. Prove login-specific cases separately.
+- Preserve the explicit Prep/UAT boundary, existing provider controls and the workflow UX verdict. Credentials stay private and unique to each account.
+
 ## v2.83.0 — 2026-11-06
 
 ### Auto session handoff

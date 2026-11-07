@@ -46,9 +46,9 @@ On multi-tenant apps a `super_admin` may enter an explicit, limited **Ver como /
 - The effective session **reduces** privilege to the selected role; it is never a client-only role flag, forged JWT claim, direct tenant-ID selector or permission bypass. Sensitive writes and side effects must be explicitly blocked or isolated to demo fixtures. Do not impersonate a real user without consent/authorization.
 - Switching must not reveal secrets or disable MFA. Explicitly test server/API denies while switched, tenant boundaries, stale memberships, expiry and return flow. Any change made as a test user remains attributable to the originating administrator.
 
-Follow `UAT_JOURNEY_STANDARD.md` and the optional Company Co fixture for safe test personas.
+Follow `UAT_JOURNEY_STANDARD.md` and the [synthetic identity standard](UAT_SYNTHETIC_IDENTITY_STANDARD.md) for selecting and provisioning test personas.
 
-For UAT, `JWT_STANDARD.md` defines how the synthetic elevated actor and per-role sessions **first authenticate** through the existing provider or a safely isolated test adapter. This bootstrapping is not the product-facing **Ver como** feature and is never enabled in production. Verify both actual sign-in/identity and subsequent scoped impersonation; role labels or unsigned client JWT edits prove neither.
+For UAT, authenticate the synthetic elevated actor through the existing trusted provider or first-party session under `JWT_STANDARD.md`. The normal path for each role journey then uses **Ver como** and verifies its effective subject and reduced server permissions. Verify independent sign-in only for a case that requires it or a documented fallback when switching is unavailable. Preserve a separate failure for any required switch that is missing or broken.
 
 ## 4. Isolation, access policy and data lifecycle
 
