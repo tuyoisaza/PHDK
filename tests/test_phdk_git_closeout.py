@@ -117,6 +117,63 @@ class GitWorkspaceCloseoutTests(unittest.TestCase):
                                      "--pr-head-sha", "0" * 40)
         self.assertEqual(code, 3)
         self.assertEqual(report["branch_cleanup"], "BLOCKED_PR_HEAD_SHA_MISMATCH")
+    def test_reconcile_manifest_owned_main_edits_and_save_recovery_copy(self):
+        standards = self.repo / "phdk-standards"
+        standards.mkdir()
+        (standards / "PHDK_MANIFEST.txt").write_text(
+            "VERSION | VERSION\nPHDK_MANIFEST.txt | PHDK_MANIFEST.txt\n")
+        (standards / "VERSION").write_text("1.0.0\n")
+        git(self.repo, "add", "phdk-standards")
+        git(self.repo, "commit", "-m", "install managed standards")
+        git(self.repo, "push", "origin", "main")
+        head = git(self.repo, "rev-parse", "HEAD")
+        (standards / "VERSION").write_text("locally edited\n")
+        code, report = self.run_tool("--apply", "--merged-sha", head,
+                                     "--reconcile-force-owned")
+        self.assertEqual(code, 0, report)
+        backup = Path(report["managed_reconciliation"]["backup_path"])
+        self.assertEqual((backup / "000.backup").read_text(), "locally edited\n")
+        self.assertEqual((standards / "VERSION").read_text(), "1.0.0\n")
+
+    def test_reconcile_preserves_native_owner_text_outside_markers(self):
+        standards = self.repo / "phdk-standards"
+        standards.mkdir()
+        (standards / "PHDK_MANIFEST.txt").write_text(
+            "VERSION | VERSION\nPHDK_MANIFEST.txt | PHDK_MANIFEST.txt\n")
+        (self.repo / "AGENTS.md").write_text(
+            "Owner text\n<!-- PHDK-MANAGED:START -->\nold\n<!-- PHDK-MANAGED:END -->\n")
+        git(self.repo, "add", ".")
+        git(self.repo, "commit", "-m", "native baseline")
+        git(self.repo, "push", "origin", "main")
+        head = git(self.repo, "rev-parse", "HEAD")
+        native = self.repo / "AGENTS.md"
+        native.write_text(native.read_text().replace("old", "local"))
+        code, report = self.run_tool("--apply", "--merged-sha", head,
+                                     "--reconcile-force-owned")
+        self.assertEqual(code, 0, report)
+        self.assertIn("Owner text\n", native.read_text())
+        self.assertIn("\nold\n", native.read_text())
+        self.assertTrue(Path(report["managed_reconciliation"]["backup_path"]).is_dir())
+
+    def test_reconcile_refuses_any_owner_modification_without_touching_it(self):
+        standards = self.repo / "phdk-standards"
+        standards.mkdir()
+        (standards / "PHDK_MANIFEST.txt").write_text(
+            "VERSION | VERSION\nPHDK_MANIFEST.txt | PHDK_MANIFEST.txt\n")
+        (self.repo / "AGENTS.md").write_text(
+            "Owner text\n<!-- PHDK-MANAGED:START -->\nold\n<!-- PHDK-MANAGED:END -->\n")
+        git(self.repo, "add", ".")
+        git(self.repo, "commit", "-m", "native baseline")
+        git(self.repo, "push", "origin", "main")
+        head = git(self.repo, "rev-parse", "HEAD")
+        native = self.repo / "AGENTS.md"
+        native.write_text(native.read_text().replace("Owner text", "Owner changed"))
+        code, report = self.run_tool("--apply", "--merged-sha", head,
+                                     "--reconcile-force-owned")
+        self.assertEqual(code, 2)
+        self.assertEqual(report["local_main"], "BLOCKED_MANAGED_RECONCILIATION")
+        self.assertIn("Owner changed", native.read_text())
+
     def test_windows_long_path_preflight_is_non_destructive(self):
         base = Path(self.tmp.name) / "long-test"
         longdir = base / ("nested-" + "a" * 90) / ("nested-" + "b" * 90)

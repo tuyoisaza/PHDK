@@ -6,11 +6,14 @@ The caller independently verifies the PR merge and supplies its merge SHA.
 For squash/rebase retirement the verified PR head SHA is also required.
 """
 import argparse
+import hashlib
 import json
 import os
 import re
 import subprocess
 import sys
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 SHA = re.compile(r"^[0-9a-fA-F]{40}$")
@@ -115,6 +118,139 @@ def inspect_payload(path, changes, windows=None):
     return report
 
 
+def managed_manifest_destinations(path, remote_ref):
+    allowed = set()
+    for ref in ("HEAD", remote_ref):
+        content = git("show", f"{ref}:phdk-standards/PHDK_MANIFEST.txt",
+                      cwd=path, required=False)
+        if content.returncode:
+            return None
+        for line in content.stdout.splitlines():
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            fields = line.split("|")
+            if len(fields) != 2:
+                return None
+            relative = fields[1].strip()
+            checked = PurePosixPath(relative)
+            if (not relative or "\\" in relative or checked.is_absolute() or
+                    checked.as_posix() != relative or ".." in checked.parts):
+                return None
+            allowed.add(f"phdk-standards/{relative}")
+    return allowed
+
+
+def managed_segments(contents):
+    start, end = b"<!-- PHDK-MANAGED:START -->", b"<!-- PHDK-MANAGED:END -->"
+    if contents.count(start) != 1 or contents.count(end) != 1:
+        raise ValueError("missing or duplicate native managed block")
+    prefix, _, remainder = contents.partition(start)
+    managed, _, suffix = remainder.partition(end)
+    return prefix, managed, suffix
+
+
+def normalized_eol(data):
+    return data.replace(b"\r\n", b"\n")
+
+
+def restore_native_managed_only(local_path, baseline):
+    original = local_path.read_bytes()
+    local_before, _, local_after = managed_segments(original)
+    _, baseline_managed, _ = managed_segments(baseline)
+    # Keep all project-owned bytes, including their exact checkout line endings.
+    existing_crlf = original.count(b"\r\n") > original.count(b"\n") // 2
+    if existing_crlf:
+        baseline_managed = baseline_managed.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+    replacement = (local_before + b"<!-- PHDK-MANAGED:START -->" +
+                   baseline_managed + b"<!-- PHDK-MANAGED:END -->" + local_after)
+    local_path.write_bytes(replacement)
+
+
+def reconcile_force_owned_main(main_path, remote_ref):
+    """Only with the explicit upgrade-force flag: scoped, backed-up reconciliation."""
+    if not is_ancestor(sha("HEAD", main_path), remote_ref, main_path):
+        return False, {"reason": "local main is not a fast-forward ancestor"}
+    if git("rev-parse", "-q", "--verify", "MERGE_HEAD",
+           cwd=main_path, required=False).returncode == 0:
+        return False, {"reason": "main has a merge already in progress"}
+    changed = local_changes(main_path)
+    if not changed:
+        return True, {"result": "NO_DIRTY_MANAGED_PATHS"}
+    manifest_owned = managed_manifest_destinations(main_path, remote_ref)
+    if manifest_owned is None:
+        return False, {"reason": "cannot validate both old and new manifest ownership"}
+    native = {"AGENTS.md", "CLAUDE.md", ".windsurfrules", ".cursor/rules/phdk.mdc"}
+    paths, baselines = [], {}
+    for entry in changed:
+        if len(entry) < 4 or entry[:2] in ("??", "!!") or " -> " in entry:
+            return False, {"reason": "unknown, renamed or untracked main content"}
+        relative = entry[3:]
+        file = main_path / relative
+        if (relative not in manifest_owned | native or not file.is_file() or
+                file.is_symlink() or not file.resolve().is_relative_to(main_path.resolve())):
+            return False, {"reason": f"non-managed or unsafe dirty path: {relative}"}
+        baseline = git("show", f"HEAD:{relative}", cwd=main_path, required=False)
+        index = git("show", f":{relative}", cwd=main_path, required=False)
+        if baseline.returncode or index.returncode:
+            return False, {"reason": f"untracked, missing or newly staged: {relative}"}
+        if relative in native:
+            try:
+                original_before, _, original_after = managed_segments(file.read_bytes())
+                head_before, _, head_after = managed_segments(baseline.stdout.encode("utf-8"))
+                index_before, _, index_after = managed_segments(index.stdout.encode("utf-8"))
+            except ValueError:
+                return False, {"reason": f"native markers ambiguous: {relative}"}
+            if ((normalized_eol(original_before), normalized_eol(original_after)) !=
+                (normalized_eol(head_before), normalized_eol(head_after)) or
+                (normalized_eol(index_before), normalized_eol(index_after)) !=
+                (normalized_eol(head_before), normalized_eol(head_after))):
+                return False, {"reason": f"owner text outside managed block changed: {relative}"}
+        paths.append(relative)
+        baselines[relative] = baseline.stdout.encode("utf-8")
+
+    common = Path(git("rev-parse", "--git-common-dir", cwd=main_path).stdout.strip())
+    if not common.is_absolute():
+        common = (main_path / common).resolve()
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:10]
+    folder = common / "phdk" / "closeout-recovery" / stamp
+    folder.mkdir(mode=0o700, parents=True, exist_ok=False)
+    record = []
+    for number, relative in enumerate(paths):
+        data = (main_path / relative).read_bytes()
+        name = f"{number:03d}.backup"
+        saved = folder / name
+        saved.write_bytes(data)
+        saved.chmod(0o600)
+        record.append({"path": relative, "backup": name,
+                       "sha256": hashlib.sha256(data).hexdigest()})
+    (folder / "changes.diff").write_text(
+        git("diff", "--binary", "HEAD", "--", *paths, cwd=main_path).stdout,
+        encoding="utf-8",
+    )
+    (folder / "manifest.json").write_text(
+        json.dumps({"local_main_sha": sha("HEAD", main_path),
+                    "remote_main_sha": sha(remote_ref, main_path),
+                    "files": record}, indent=2),
+        encoding="utf-8",
+    )
+    evidence = {"result": "RECONCILED_MANAGED_ONLY", "paths": paths,
+                "backup_path": str(folder)}
+    try:
+        for relative in paths:
+            if relative in native:
+                # Clear the staged managed edit; replace only the working block.
+                git("restore", "--source=HEAD", "--staged", "--", relative, cwd=main_path)
+                restore_native_managed_only(main_path / relative, baselines[relative])
+            else:
+                git("restore", "--source=HEAD", "--staged", "--worktree",
+                    "--", relative, cwd=main_path)
+    except (OSError, RuntimeError, ValueError) as exc:
+        return False, {**evidence, "reason": f"managed restore failed: {exc}"}
+    if local_changes(main_path):
+        return False, {**evidence, "reason": "main still dirty after managed restoration"}
+    return True, evidence
+
+
 def closeout(args):
     root = Path(git("rev-parse", "--show-toplevel").stdout.strip()).resolve()
     target, remote = args.target, args.remote
@@ -189,8 +325,15 @@ def closeout(args):
 
     main_path = Path(main_tree["path"])
     if local_changes(main_path):
-        result["local_main"] = "BLOCKED_DIRTY_MAIN_WORKTREE"
-        return result
+        if args.reconcile_force_owned:
+            safe, evidence = reconcile_force_owned_main(main_path, remote_ref)
+            result["managed_reconciliation"] = evidence
+            if not safe:
+                result["local_main"] = "BLOCKED_MANAGED_RECONCILIATION"
+                return result
+        else:
+            result["local_main"] = "BLOCKED_DIRTY_MAIN_WORKTREE"
+            return result
     ff = git("merge", "--ff-only", remote_ref, cwd=main_path, required=False)
     if ff.returncode:
         result["local_main"] = "BLOCKED_NON_FAST_FORWARD_OR_CONFLICT"
@@ -285,7 +428,9 @@ def main():
     parser.add_argument("--branch", help="only this milestone-owned local branch")
     parser.add_argument("--pr-head-sha", help="40-character verified PR head SHA")
     parser.add_argument("--allow-generated-ignored", action="store_true",
-                        help="permit only known disposable ignored build/dependency files")
+                        help="permit only inspected generated ignored build/dependency files")
+    parser.add_argument("--reconcile-force-owned", action="store_true",
+                        help="upgrade force only: back up and replace tracked PHDK-owned main edits")
     args = parser.parse_args()
     try:
         report = closeout(args)
