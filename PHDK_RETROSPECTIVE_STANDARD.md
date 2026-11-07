@@ -1,8 +1,12 @@
 # PHDK Auto Retrospective and Improvement Proposals
 
+## Lightweight reuse signals and final acceptance (v2.91.0)
+
+Auto/Force retains only meaningful implementation/extension signals with milestone/revision and known verification limits in the **existing** retrospective. Zero candidates is valid; no per-milestone inventory or new tracker. A later explicit `PHDK uat` can use these observations under `PHDK_POST_UAT_EXPORT_STANDARD.md` only after actual acceptance on the final verified deployed revision. Without accepted UAT they remain suggestions, never grounds for a private library receipt or public PR.
+
 ## Reusable implementation findings (v2.89.0)
 
-A completed donor milestone can note candidates for `PHDK export modules` in its existing local retrospective when evidence suggests generalizable capability. This is a **suggestion**, not permission to run the inventory, publish private implementation, create a canonical issue/PR, or delay delivery. Only an explicit later owner-invoked Export Modules workflow can inventory that current authorized donor and request selected upstream contributions under `PHDK_EXPORT_MODULES.md` and `PHDK_REUSE_CATALOG_STANDARD.md`. Avoid duplicate telemetry, extra agents and recurring scans.
+A completed donor milestone can note candidates for `PHDK export modules` in its existing local retrospective when evidence suggests generalizable capability. This is a **suggestion**, not permission to run the inventory, publish private implementation, create a canonical issue/PR, or delay delivery. A separate explicit owner-invoked `PHDK export modules` can inventory the current donor. An explicitly initiated UAT that actually reaches acceptance can independently run **one read-only post-UAT** inventory under `PHDK_POST_UAT_EXPORT_STANDARD.md`; neither route authorizes code transfer. Only a named current owner selection permits a later contribution under `PHDK_EXPORT_MODULES.md` and `PHDK_REUSE_CATALOG_STANDARD.md`. Avoid duplicate telemetry, extra agents and recurring scans.
 
 ## Purpose and authority
 

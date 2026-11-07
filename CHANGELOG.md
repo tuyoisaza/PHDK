@@ -1,3 +1,12 @@
+## v2.91.0 — 2026-11-07
+
+### Evidence-gated post-UAT Export Modules assessment
+
+- Auto/Force retains lightweight reuse signals in its existing retrospective, without scanning modules per milestone or initiating UAT. Upon later explicit owner-authorized UAT, one read-only post-acceptance inventory runs at stage 50 or verified stage 60 UAT Fix closeout for the exact accepted deployed revision.
+- Defer inventory for UAT NOT RUN, NOT ACCEPTED, ACCEPTANCE INCOMPLETE, unresolved required defects, incomplete fixes, missing or stale revision evidence. Present one deduplicated candidate batch at acceptance closeout without adding an approval gate to UAT.
+- Add vendored `PHDK_POST_UAT_EXPORT_STANDARD.md` and offline `scripts/phdk_post_uat_export.py`; 23 synthetic tests verify gating, evidence limits, read-only inventory and no publication. Preserve private-library ownership, named owner selection and catalog two-consumer acceptance gates.
+- Reconcile Auto, continuity, UAT/Fix, lifecycle, reuse/export, agent/skill/native instructions, manifest and release markers; no actual UAT, donor export, private repo write, consumer upgrade, scheduler or provider action is initiated.
+
 ## v2.90.0 — 2026-11-07
 
 ### PHDK Modules: private library architecture and incremental receiving contract

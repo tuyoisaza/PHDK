@@ -1,5 +1,9 @@
 # Auto continuity and Auto Force
 
+## Post-UAT Export Modules continuity (v2.91.0)
+
+Keep only material reusable observations in Auto's existing retrospective and preserve source revision in the normal delivery handoff. Do not scan modules or launch UAT on a session boundary. When the owner later explicitly starts UAT, its accepted revision controls a separate read-only post-UAT review under `PHDK_POST_UAT_EXPORT_STANDARD.md`; the stable review key prevents duplicate proposals. A historical state file never authorizes UAT, code publication, or resuming an export task.
+
 **Document context at resume (v2.73.0):** When reloading `AUTO_STATE.json`, resolve active versioned intent, brief, ADR and plan artifacts through `docs/INDEX.md` under [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). Store links/IDs and the observed revision in the existing state/handoff rather than copying entire documents or launching a new task. A stale/missing legacy index is a recoverable documentation gap, not a new permission or a reason to restart Capture.
 
 

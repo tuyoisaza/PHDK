@@ -204,6 +204,10 @@ At the end of UAT, create `docs/phdk/lifecycle/<run-id>/50-uat/HANDOFF.md` and p
 
 If the conclusion is ACCEPTED and no UAT remediation is required, record UAT Fix as NOT APPLICABLE for this run before Check starts.
 
+## Post-UAT Export Modules assessment at final acceptance (v2.91.0)
+
+After this *explicitly initiated* UAT has a genuinely verified `ACCEPTED` outcome on the exact currently deployed tested revision, with no unresolved required cases or defects, run the single **read-only** `PHDK_POST_UAT_EXPORT_STANDARD.md` assessment before closing stage 50 when Fix is NOT APPLICABLE. If product repair is required, defer until the owner-authorized stage 60 Fix and required deployed retests establish `ACCEPTED`. Failed, incomplete, revision-unverified or stale UAT means **no inventory**. Record the gate, `review_key`, evidence, and a single candidate batch or `NO_CANDIDATES` in the current UAT report/handoff; if inventory tooling is unavailable mark `POST_UAT_EXPORT_REVIEW: NOT_RUN` without changing proven UAT acceptance. Any actual export requires owner selection and verified separate rights.
+
 ## Repair command — PHDK uat fix
 
 `PHDK uat fix` takes the current `UAT_REPORT.md` and `UAT_CASES.md` as its repair backlog.

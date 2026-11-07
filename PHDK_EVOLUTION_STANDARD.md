@@ -1,3 +1,7 @@
+## v2.91.0 — Evidence-gated post-UAT reverse reuse
+
+Auto/Force retains lightweight reuse observations only in the existing retrospective; it never initiates UAT or scans modules per milestone. A later explicit UAT run that actually reaches final `ACCEPTED` on the deployed tested revision performs one read-only Export Modules assessment under `PHDK_POST_UAT_EXPORT_STANDARD.md` after the necessary authorized Fix/retest. Absent, stale, failed, incomplete or unverified UAT leaves review deferred. Its single batched proposal adds no stage, completion gate, package publication or cross-repo permission. Reconcile Auto, UAT/Fix, lifecycle, reuse/private library, agent routes, manifest, tests and release markers.
+
 ## v2.90.0 — Private modules library and immutable incremental receiving
 
 `PHDK_MODULE_LIBRARY_STANDARD.md` separates the public PHDK methodology and sanitized reuse catalog from an optional owner-authorized **private** modules library. Approved, rights-reviewed contributions are received into immutable categorized module-version snapshots and checked with an independent private registry. No copied source, private registry or receiver is vendored into public PHDK. Delivery of this standard does not assert that a private provider repository exists. Reconcile Export Modules, Reuse Catalog, Plan, README, agent/skill/native routing, manifest and checks; no automatic source publication, UAT or consumer updates.

@@ -1,3 +1,7 @@
+## Post-UAT Export Modules closeout (v2.91.0)
+
+Auto/Force logs only material reusable implementation observations into its existing retrospective. Never initiate UAT or run module inventory per milestone. For a *later explicitly invoked UAT* actually `ACCEPTED` on the final deployed revision (after authorized verified Fix/retest if needed), load `PHDK_POST_UAT_EXPORT_STANDARD.md` and run bounded local read-only `scripts/phdk_post_uat_export.py` once. Reconcile the real UAT report, defect register, retest and tested/current SHA before making claims. Missing acceptance or stale SHA means no scan. Present one candidate batch; exporting any module requires subsequent named owner selection, rights and target review. It adds no new development gate or automatic UAT authority.
+
 ## PHDK private module library and receipt (v2.90.0)
 
 Load [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md) when an owner approves a named Export Modules contribution or requests private library reception. PHDK is public methodology/catalog only; the separate PHDK-Modules library stores actual generic implementation **privately**, with stable category/slug IDs, independent SemVer, immutable snapshots, integrity and rights/security evidence. Confirm private repo visibility and access before any source transfer. The public PHDK release does NOT create a private repository; use only a real authorized target and scoped PR for approved source. No automatic receipt upon discovery, public private-metadata leakage, cross-repo scan, UAT or consumer upgrades.

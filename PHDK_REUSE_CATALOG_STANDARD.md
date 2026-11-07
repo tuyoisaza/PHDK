@@ -1,5 +1,9 @@
 # PHDK Reusable Capability Catalog Standard
 
+## Post-UAT candidate evidence is not catalog acceptance (v2.91.0)
+
+An explicitly accepted UAT may lead to one read-only `PHDK_POST_UAT_EXPORT_STANDARD.md` review. Product acceptance supports donor-level evidence only; it does not establish independent second-consumer portability, package release quality, redistribution rights or `ACCEPTED_VERSIONED`. The existing catalog states and evidence requirements remain binding. No donor source/private coordinates are automatically published to this public catalog.
+
 ## Separation from private implementation library (v2.90.0)
 
 [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md) specifies a separate private `MODULES_CATALOG.json` as a storage/version-history index for approved generic implementations. This public PHDK reuse catalog is **not** the private catalog, package store or private repo directory. A private receipt is neither publication to PHDK nor independent portability evidence; accepted/downloadable status continues to require this standard's existing version-specific tests, verified rights and two real consumers. Public entries must not disclose private repository coordinates, source or unapproved package references.
