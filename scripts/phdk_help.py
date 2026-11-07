@@ -62,9 +62,16 @@ def project_goal(root: Path) -> tuple[str, str, bool]:
                 "PHDK_EVOLUTION_STANDARD.md", True)
     candidates = [root / "PROJECT_INTENT.md"]
     index = safe_read(root / "docs" / "INDEX.md")
-    for match in re.finditer(r"docs/intents/[A-Za-z0-9_./-]+\.md", index):
-        rel = Path(match.group(0))
-        candidate = root / rel
+    # Generated docs/INDEX.md: Category | Document ID | Active baseline | Working draft.
+    # Never infer the product objective from an archived version or unapproved draft.
+    for line in index.splitlines():
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 3 or cells[0] != "intents":
+            continue
+        active_link = re.search(r"\]\((intents/[A-Za-z0-9_./-]+\.md)\)", cells[2])
+        if not active_link:
+            continue
+        candidate = root / "docs" / active_link.group(1)
         try:
             if candidate.resolve().is_relative_to(root.resolve()) and candidate not in candidates:
                 candidates.append(candidate)
@@ -90,7 +97,11 @@ def suggested_action(root: Path, installed: bool, has_goal: bool) -> tuple[str, 
         plans = root / "docs" / "plans"
         if plans.is_dir() and not plans.is_symlink():
             try:
-                plan_exists = any(p.is_file() and p.suffix == ".md" for p in plans.iterdir())
+                plan_exists = any(
+                    p.is_file() and p.suffix == ".md" and
+                    ("milestone-plan" in p.name or "implementation-plan" in p.name)
+                    for p in plans.iterdir()
+                )
             except OSError:
                 pass
     if not plan_exists:
@@ -142,16 +153,17 @@ def format_report(report: dict, *, all_details: bool = False) -> str:
             lines.append("Alias: " + ", ".join(selected["aliases"]))
     else:
         lines.extend(["", "Comandos disponibles (lista completa):"])
-        last_group = None
+        grouped = {}
         for entry in report["commands"]:
-            if entry["group"] != last_group:
-                last_group = entry["group"]
-                lines.append(f"  {last_group}:")
-            lines.append(f"    {entry['command']} — {entry['summary']}")
-            if all_details:
-                lines.append(f"      Cuándo: {entry['when']} | Estándar: {entry['standard']}")
-                if entry["aliases"]:
-                    lines.append("      Alias: " + ", ".join(entry["aliases"]))
+            grouped.setdefault(entry["group"], []).append(entry)
+        for group, entries in grouped.items():
+            lines.append(f"  {group}:")
+            for entry in entries:
+                lines.append(f"    {entry['command']} — {entry['summary']}")
+                if all_details:
+                    lines.append(f"      Cuándo: {entry['when']} | Estándar: {entry['standard']}")
+                    if entry["aliases"]:
+                        lines.append("      Alias: " + ", ".join(entry["aliases"]))
     lines.extend(["", f"Recomendación: {report['recommendation']} — {report['recommendation_reason']}.",
                   "Solo orientación: no ejecuté comandos adicionales ni modifiqué archivos."])
     return "\n".join(lines)
