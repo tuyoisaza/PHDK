@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Audited historical and per-milestone Git branch cleanup.
+"""Audited historical and per-milestone LOCAL Git branch/worktree cleanup.
 
-Requires recent, independently obtained GitHub PR evidence for every deletion.
-Default inventory never writes. Apply never discards unknown local content.
+Requires fresh merged-PR evidence to retire local work. Remote refs are read-only:
+inventory and apply never push to or delete GitHub branches.
 """
 import argparse
 import datetime as dt
@@ -93,7 +93,7 @@ def inventory(repo, remote, target):
             "local_branches": names, "worktree_lines": worktrees,
             "remote_branch_heads": remote_branches,
             "remote_branch_count": len(remote_refs), "remote_snapshot": "LIVE_LS_REMOTE",
-            "next_step": "Fetch recent merged/open PR metadata for exact candidates; no deletions by ancestry alone"}
+            "next_step": "Verify fresh merged/open PR metadata for local candidates; retain all remote branches"}
 
 def validate_proof(repo, remote, target, entry, reported_repo, now, historical):
     branch = entry.get("branch")
@@ -165,7 +165,7 @@ def apply(repo, remote, target, evidence, max_candidates, allow_generated_ignore
     report = {"mode": "APPLY", "scope": scope, "repository": identity,
               "target": target, "observed_main_sha": main_sha,
               "processed_at_utc": now.isoformat(), "results": [],
-              "local_main": "UNVERIFIED"}
+              "local_main": "UNVERIFIED", "remote_policy": "PRESERVE_REMOTE_BRANCHES"}
     seen = set()
     closeout = Path(__file__).with_name("phdk_git_closeout.py")
     if not closeout.is_file():
@@ -187,9 +187,10 @@ def apply(repo, remote, target, evidence, max_candidates, allow_generated_ignore
         head_sha = entry["head_sha"].lower()
         live_remote_sha = remote_head(repo, remote, branch)
         local_sha = rev(repo, "refs/heads/" + branch)
+        # Remote head state is diagnostic only. Never remove remote refs.
+        record["remote"] = "RETAINED_BY_POLICY" if live_remote_sha else "ALREADY_ABSENT"
         if live_remote_sha and live_remote_sha.lower() != head_sha:
-            record["reason"] = "REMOTE_SHA_CHANGED_SINCE_PR"
-            continue
+            record["remote_head_changed_since_merge"] = True
         if local_sha and local_sha.lower() != head_sha:
             record["reason"] = "LOCAL_SHA_DIFFERS_FROM_MERGED_PR"
             continue
@@ -213,25 +214,9 @@ def apply(repo, remote, target, evidence, max_candidates, allow_generated_ignore
             record["reason"] = "LOCAL_CLOSEOUT_RETAINED"
             continue
         report["local_main"] = "SYNCED"
-        if not live_remote_sha:
-            record["remote"] = "ALREADY_ABSENT"
-            continue
-        # Deletion-only compare-and-swap lease: no force update or history rewrite.
-        ref = "refs/heads/" + branch
-        deletion = subprocess.run(
-            ["git", "-C", str(repo), "push",
-             "--force-with-lease=" + ref + ":" + head_sha, remote, "--delete", ref],
-            capture_output=True, text=True, timeout=45)
-        if deletion.returncode:
-            record["remote"] = "RETAINED_PUSH_REJECTED"
-            record["reason"] = (deletion.stderr or deletion.stdout).strip()[-600:]
-        elif remote_head(repo, remote, branch) is None:
-            record["remote"] = "DELETED_VERIFIED"
-        else:
-            record["remote"] = "RETAINED_REMOTE_STILL_EXISTS"
-    report["pending"] = sum(1 for x in report["results"] if x["remote"] not in
-                            ("DELETED_VERIFIED", "ALREADY_ABSENT") or
-                            x["local"] not in ("REMOVED_VERIFIED_BRANCH", "ALREADY_ABSENT", "NOT_REQUESTED"))
+        # Remote branch retention is intentional, never an incomplete-cleanup blocker.
+    report["pending"] = sum(1 for x in report["results"] if x["local"] not in
+                            ("REMOVED_VERIFIED_BRANCH", "ALREADY_ABSENT", "NOT_REQUESTED"))
     report["history_batch_complete"] = scope == "historical" and report["pending"] == 0
     report["history_complete"] = bool(scope == "historical" and
                                       evidence.get("inventory_exhaustive") is True and
