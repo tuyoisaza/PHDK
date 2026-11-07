@@ -26,6 +26,26 @@ class UpdateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "--force-owned requires"):
                 updater.sync(Path(tmp), force_owned=True)
 
+    def test_invalid_upstream_pin_rejected_before_any_clone(self):
+        with self.assertRaisesRegex(ValueError, "invalid --upstream-sha"):
+            updater.select_upstream(Path("/nonexistent"), "not-a-SHA")
+
+    def test_unpinned_upstream_selection_uses_actual_head(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            subprocess.run(["git", "init", "--initial-branch=main", str(root)],
+                           check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.run(["git", "-C", str(root), "config", "user.email", "test@example.invalid"], check=True)
+            subprocess.run(["git", "-C", str(root), "config", "user.name", "PHDK Test"], check=True)
+            (root / "one.txt").write_text("fixture")
+            subprocess.run(["git", "-C", str(root), "add", "one.txt"], check=True)
+            subprocess.run(["git", "-C", str(root), "commit", "-m", "fixture"],
+                           check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            head = updater.run("git", "rev-parse", "HEAD", cwd=root)
+            self.assertEqual(updater.select_upstream(root), head)
+            self.assertEqual(updater.select_upstream(root, head), head)
+
     def test_force_copier_never_claims_remote_main_published(self):
         report = updater.sync_result(
             "UPDATED", trigger="upgrade", installed="2.70.0",

@@ -91,7 +91,7 @@ git clone --depth 1 https://github.com/tuyoisaza/PHDK.git <temporary-directory>
 
 If the fetch fails, make no project changes and report it. Do not register a retry job, scheduled sync, session-start hook, or background updater. Do not force-reset a dirty installed skill clone.
 
-For a forced upgrade, use the **freshly fetched canonical updater** (`scripts/phdk_update.py --trigger upgrade --force-owned <project>`) or a reviewed equivalent manifest copier, not a stale already-vendored updater that lacks force support. Verify the fetched upstream identity/SHA and the PHDK-owned paths first. This helper does not publish, replace native managed blocks, run the Stack Security Review, or retire obsolete files; complete those separately under the explicit force procedure. Never install a new updater merely by silently overwriting unrelated project files.
+For a forced upgrade, use the **freshly fetched canonical updater** (`scripts/phdk_update.py --trigger upgrade --force-owned --upstream-sha <PINNED_FULL_SHA> <project>`) or a reviewed equivalent manifest copier, not a stale already-vendored updater that lacks force support. Verify the fetched upstream identity/SHA and the PHDK-owned paths first. This helper does not publish, replace native managed blocks, run the Stack Security Review, or retire obsolete files; complete those separately under the explicit force procedure. Never install a new updater merely by silently overwriting unrelated project files.
 
 ### 4. Compare versions and choose the working branch
 
