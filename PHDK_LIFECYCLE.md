@@ -14,7 +14,7 @@ For an explicitly initiated UAT run, `UAT_JOURNEY_STANDARD.md` is mandatory. Sta
 
 ## Design before UI implementation
 
-For applicable UI scope, `PHDK_DESIGN.md` adds **25-design** after technical/content Plan and before dependent UI implementation. The Auto sequence is Capture → Plan → Design → PMO/implementation → Integration → applicable SEO/AEO → Check → Delivery. UAT Prep → UAT/Fix is a separate, explicitly invoked acceptance sequence. **Auto asks one unresolved visual question at a time and waits for the owner; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK visual-approval pause.** Actual owner restrictions remain binding. Reuse current owner-approved baselines; no forced redesign for non-visual changes or immutable historical runs.
+For applicable UI scope, `PHDK_DESIGN.md` adds **25-design** after technical/content Plan and before dependent UI implementation. The Auto sequence is Capture → Plan → Design → PMO/implementation → Integration → applicable SEO/AEO → Check → Delivery. UAT Prep → UAT/Fix is a separate, explicitly invoked acceptance sequence. **Auto presents one consolidated coded visual/motion choice map, recommended combination and integrated preview for an owner approve-all/selective-override answer; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK visual-approval pause.** Actual owner restrictions remain binding. Reuse current owner-approved baselines; no forced redesign for non-visual changes or immutable historical runs.
 
 ## Tenant-risk handoff
 
@@ -419,7 +419,7 @@ Establish a visible, durable visual style guide and selected interface baseline 
 
 - refined `UI_DESIGN_SYSTEM.md` and `UX_UI_DECISIONS.md`, not duplicate design truth documents;
 - actual permitted references, concepts and representative previews/editable sources under `docs/design/`;
-- mode-correct design gate record with baseline/revision, alternatives, chosen direction, decision provenance, asset paths and visual limitations;
+- mode-correct design gate record with baseline/revision, **complete coded decision map**, recommended/selected bundle, separately attributable motion choices, owner overrides, real decision provenance, assets and visual limitations;
 - affected `IMPLEMENTATION_PLAN.md` / `MILESTONE_PLAN.md` and traceability updates.
 
 ### Historical outputs
@@ -428,8 +428,8 @@ Establish a visible, durable visual style guide and selected interface baseline 
 
 ### Exit gate
 
-- identity, composition, graphic system and in-context experience have relevant recorded decisions;
-- representative screens/critical flow, responsive composition and key states are covered proportionately;
+- identity, composition, graphic system, in-context experience **and independently applicable motion choices** have relevant recorded decisions;
+- representative screens/critical flow, responsive composition, key states **and relevant transition storyboard** are covered proportionately;
 - Auto/standalone Design has actual owner approval or a disclosed owner-accepted specification-only decision;
 - Auto Force has `AGENT_SELECTED_AUTO_FORCE` and rationale, with no PHDK owner-approval wait;
 - reused authority and exact baseline are current and traceable;
@@ -439,7 +439,7 @@ Establish a visible, durable visual style guide and selected interface baseline 
 
 ### Next stage must verify
 
-PMO/implementation checks the selected baseline, mode-correct decision, applicable assets/components/tokens and linked tasks before affected UI coding. In normal Auto, `DESIGN_AWAITING_OWNER` holds only dependent work; FORCE resolves that PHDK-only wait by choosing and recording. Backend/non-visual work may continue only when genuinely independent and already authorized. Missing visual tooling follows PHDK_DESIGN.md's disclosed specification-only policy, never a fabricated screenshot or approval.
+PMO/implementation checks the selected combined visual/motion baseline, mode-correct one-board owner decision, transition-state specification, assets/components/tokens and linked tasks before affected UI coding. In normal Auto, `DESIGN_AWAITING_OWNER` holds only dependent work; FORCE resolves that PHDK-only wait by choosing and recording. Backend/non-visual work may continue only when genuinely independent and already authorized. Missing visual tooling follows PHDK_DESIGN.md's disclosed specification-only policy, never a fabricated screenshot or approval.
 
 ---
 
