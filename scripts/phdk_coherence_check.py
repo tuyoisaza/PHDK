@@ -583,6 +583,33 @@ for filename, markers in required_design_markers.items():
     for marker in markers:
         if marker not in body:
             errors.append(f"{filename} missing Design marker {marker}")
+# Source-only review: combined design decision board and independent motion contract.
+for entrypoint in [
+    "PHDK_DESIGN.md", "PHDK_DESIGN_SYSTEM.md", "PHDK_UX_UI.md",
+    "PHDK_AUTO.md", "PHDK_AUTO_CONTINUITY.md", "PHDK_PLAN.md",
+    "PHDK_LIFECYCLE.md", "PHDK_CHECK.md", "UAT_STANDARD.md",
+    "SKILL.md", "AGENTS.md", "PHDK_NATIVE_RULES.md",
+]:
+    document = policy_path(entrypoint)
+    if not document.is_file():
+        errors.append(f"missing bundled Design entrypoint {entrypoint}")
+        continue
+    if "one unresolved visual question at a time" in document.read_text(encoding="utf-8"):
+        errors.append(f"{entrypoint} retains serial Design interview")
+for filename, fragments in {
+    "PHDK_DESIGN.md": ["coded", "recommended", "approve all", "decision map:", "motion choice:", "composite preview:"],
+    "PHDK_DESIGN_SYSTEM.md": ["motion interaction contract", "menu-switch", "expand-collapse", "prefers-reduced-motion", "AnimatePresence"],
+    "PHDK_CHECK.md": ["motion interaction contract", "reduced-motion"],
+    "UAT_STANDARD.md": ["motion interaction contract", "reduced-motion"],
+}.items():
+    doc = policy_path(filename)
+    if not doc.is_file():
+        errors.append(f"missing design/motion contract {filename}")
+        continue
+    content = doc.read_text(encoding="utf-8").lower()
+    for fragment in fragments:
+        if fragment.lower() not in content:
+            errors.append(f"{filename} missing bundled Design/motion marker {fragment}")
 ux_file = policy_path("PHDK_UX_UI.md")
 if ux_file.is_file() and "No new independent stage is required" in ux_file.read_text(
     encoding="utf-8"

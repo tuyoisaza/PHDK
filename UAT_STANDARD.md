@@ -29,7 +29,7 @@ Under the [tabular data exchange standard](TABULAR_DATA_EXCHANGE_STANDARD.md), e
 
 ## Mandatory UX/UI acceptance
 
-On UI-applicable projects, follow `PHDK_UX_UI.md` and deliver `UX_UI_AUDIT_REPORT.md` in the UAT handoff. Exercise critical user journeys and relevant state, responsive, keyboard/focus, contrast and interaction checks in the authorized UAT browser scope when available; classify untested browser evidence BLOCKED/MANUAL. P0/P1 confirmed usability/accessibility failures prevent ACCEPTED. Document in-scope repairs in `UX_UI_REMEDIATION_REPORT.md` and retest affected flows. Brownfield redesigns compare baseline vs target and verify preserved behavior. No browser actions outside permitted UAT/UAT Fix environments.
+On UI-applicable projects, follow `PHDK_UX_UI.md` and deliver `UX_UI_AUDIT_REPORT.md` in the UAT handoff. Exercise critical user journeys and relevant state, responsive, keyboard/focus, contrast and interaction checks in the authorized UAT browser scope when available; use the `PHDK_DESIGN_SYSTEM.md` motion interaction contract to observe relevant enter/exit, expand/collapse, menu/tab/route switching, modal focus/ARIA, repeated/reversed input and reduced-motion behavior with **before/action/after evidence**. A still screenshot cannot prove transition timing; classify untested required browser evidence BLOCKED/MANUAL. P0/P1 confirmed usability/accessibility failures prevent ACCEPTED. Document in-scope repairs in `UX_UI_REMEDIATION_REPORT.md` and retest affected flows. Brownfield redesigns compare baseline vs target and verify preserved behavior. No browser actions outside permitted UAT/UAT Fix environments.
 
 ### Workflow acceptance decision
 

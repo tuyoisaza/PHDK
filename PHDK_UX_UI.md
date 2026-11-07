@@ -6,7 +6,7 @@ Mandatory for projects with a user-facing interface, whether greenfield or brown
 Apply `UAT_STANDARD.md` for explicit-only acceptance. Auto/Force, Design, Designer, Integration and Check do not initiate UAT Prep/UAT/Fix or browser journeys. Runtime acceptance begins only after explicit `PHDK uat`, with Fix separately authorized under that contract. Auto/Force report development delivery independently from `UAT NOT RUN` / `DEFERRED — OWNER OPT-IN`; preserve real owner/host controls and current in-scope defects without treating missing optional acceptance as a delivery blocker.
 
 ## Pre-implementation Design stage
-Apply `PHDK_DESIGN.md` after technical/content Plan and before affected UI implementation. Stage `25-design` turns Plan's draft design-system constraints into visual alternatives, representative previews, a selected style guide and a durable implementation baseline. **Auto asks and waits for the owner's visual decisions, one question at a time; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK design-approval pause.** Preserve actual owner restrictions. Reuse valid owner-approved choices; do not repeat the interview or fabricate approval. Designer Mode remains the separate interface-improvement execution mode.
+Apply `PHDK_DESIGN.md` after technical/content Plan and before affected UI implementation. Stage `25-design` turns Plan's draft design-system constraints into visual alternatives, representative previews, a selected style guide and a durable implementation baseline. **Auto presents all coded visual/motion decisions together with recommended bundle and integrated preview for one approve-all/selected-override owner answer; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK design-approval pause.** Preserve actual owner restrictions. Reuse valid owner-approved choices; do not repeat the interview or fabricate approval. Designer Mode remains the separate interface-improvement execution mode.
 
 ## Theme editing and governance
 UI design specifications must include the single-source light/dark/corporate semantic color contract, authorized platform administrator's template editor, toggle and documented propagation cases defined in PHDK_THEME_STANDARD.md. Source review covers all three themes where selectable. During explicitly initiated UAT, test corporate editability for the authorized administrator even when hidden from ordinary users, as well as fallback behavior. Report implementation and static review evidence separately from runtime persistence, access and contrast evidence; nominal palette names never establish functional acceptance.
@@ -29,8 +29,8 @@ During Plan, alongside UX_ARCHITECTURE.md:
 - UX_UI_DECISIONS.md — known owner choices, preserved behavior, open visual choices, prioritized incremental tasks and traceability to Capture requirements.
 
 During Design, refine those same files rather than duplicating them:
-- UI_DESIGN_SYSTEM.md — selected visual style guide: tokens, typography, color/contrast, spacing, breakpoints, layout, icons, component variants, focus/hover/disabled/errors, motion and responsive rules, mapped to the actual or explicitly planned shared component/token source.
-- UX_UI_DECISIONS.md — references/anti-references, alternatives, tradeoffs, actual owner approval or agent selection, baseline revision, existing preview asset paths and design-to-task mapping under PHDK_DESIGN.md.
+- UI_DESIGN_SYSTEM.md — selected visual style guide, tokens, typography, color/contrast, spacing, layout/icons, components/states, **motion transition-state contracts**, responsive rules and shared component/token mappings.
+- UX_UI_DECISIONS.md — consolidated coded choices/recommendations, separately recorded visual/motion selections, overrides, actual owner/Force provenance, alternatives/tradeoffs, composite preview/storyboard revision and design-to-task mapping under PHDK_DESIGN.md.
 - docs/design/ — retained permitted references, concepts, representative selected previews and editable sources when available. Disclose unavailable visual tooling; specification-only decisions never become visual verification.
 
 During explicitly initiated UAT only:
@@ -52,7 +52,7 @@ Assess the following 12 dimensions with finding IDs and evidence. During source/
 9. Forms and microcopy: understandable labels, defaults, concise errors and clear next step.
 10. Empty/error/loading/auth states: no dead ends or misleading promises.
 11. Trust and user control: transparent permissions, predictable behaviors, no dark patterns.
-12. Perceived craft: distinctive, cohesive, appropriately restrained aesthetic and useful microinteractions.
+12. Perceived craft: distinctive, cohesive, appropriately restrained aesthetic and useful microinteractions, including chosen menu/tab/view changes, expand/collapse and reduced-motion behavior.
 
 Severity: P0 = critical blocked primary workflow/security/access; P1 = major usability/accessibility failure; P2 = moderate friction/inconsistency; P3 = minor polish. P0/P1 verified failures block UX acceptance; P2/P3 become prioritized tracked debt unless explicit product acceptance requires them. No subjective numeric score is an automatic pass.
 
