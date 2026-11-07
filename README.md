@@ -1,3 +1,5 @@
+**Remote Git branch preservation (v3.0.1):** PHDK's Git hygiene is local-only: safe local main fast-forward and retirement of verified clean merged local branches/worktrees. `scripts/phdk_git_history_cleanup.py` reads remote PR/ref evidence but never pushes or deletes GitHub branches; `RETAINED_BY_POLICY` is a successful outcome, not an incomplete-cleanup gate. Remote deletion requires a separate explicit owner request naming its target. [Closeout standard](PHDK_GIT_WORKSPACE_CLOSEOUT.md).
+
 **Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.
 
 # PHDK
@@ -10,7 +12,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v3.0.0**
+**Version v3.0.1**
 
 **v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 
@@ -29,7 +31,7 @@
 **Project documentation governance (v2.73.0):** [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) standardizes `docs/intents/`, `docs/briefs/`, `docs/decisions/`, `docs/plans/`, `docs/images/` and `docs/evidence/`. New durable records have per-document `kebab-case.vN.md` versions, status/provenance metadata and a generated `docs/INDEX.md`; images use topic/`vN/` baselines, while root `TASK.md` remains the live execution record. Capture, Plan, Design, PMO, Auto and Check keep these coherent without bulk-migrating existing projects. The [vendored static auditor](scripts/phdk_docs_audit.py) is read-only by default; only an authorized write task may refresh the index.
 
 
-**Historical + continuous Git cleanup (v2.71.0):** A first explicitly initiated Auto/Force run after adoption inventories old branches/worktrees, checks recent GitHub PR evidence, and retires only safely verified merged refs; each subsequent published milestone also closes its unchanged remote feature branch by exact SHA-guarded deletion. No GitHub/Railway settings change, broad pruning, second main push or forced worktree deletion. The [cleanup policy](PHDK_GIT_WORKSPACE_CLOSEOUT.md) and [history helper](scripts/phdk_git_history_cleanup.py) preserve unmerged or unknown content and report local/remote results separately.
+**Historical and continuous LOCAL Git cleanup (v3.0.1):** On the first explicitly initiated local Auto/Force run after adoption, inventory historical local branches/worktrees, check fresh GitHub PR evidence and retire only safely verified merged **local** refs. Every subsequent verified milestone also closes its clean local branch/worktree. **PHDK preserves remote GitHub branches**, even when already merged: remote reads are diagnostic only, and a named owner-authorized deletion is a separate task. No remote ref deletion, provider-setting changes, broad pruning, redundant main push or forced worktree deletion. See [cleanup policy](PHDK_GIT_WORKSPACE_CLOSEOUT.md) and [history helper](scripts/phdk_git_history_cleanup.py).
 
 **Git workspace closeout (v2.70.0):** After each verified merged milestone, [PHDK_GIT_WORKSPACE_CLOSEOUT.md](PHDK_GIT_WORKSPACE_CLOSEOUT.md) requires local main fast-forward synchronization and safe retirement of only proven-integrated milestone branches/worktrees. GitHub PR merge already updates remote main; no second push is needed. Local-only blockers and remote-only access are reported separately; never discard unmerged changes or unknown ignored data. The vendored [closeout helper](scripts/phdk_git_closeout.py) verifies target SHA equality and refuses unsafe cleanup.
 

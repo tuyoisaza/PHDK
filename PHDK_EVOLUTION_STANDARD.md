@@ -1,3 +1,7 @@
+## v3.0.1 — Preserve GitHub branches during automatic cleanup
+
+Historical and per-milestone Git hygiene is **local-only**. The vendored `phdk_git_history_cleanup.py` may read remote refs and merged PR metadata but must never push a GitHub remote branch deletion, and retained remote refs are not incomplete cleanup. Auto/Force/Upgrade/PMO/Check and verified PR merges do not authorize remote branch deletion. A current explicit owner instruction naming the remote branch is a separate reviewed operation. Reconcile closeout, scripts, tests, README, agent/skill/native routing, versioning, manifest and release metadata.
+
 ## v3.0.0 — Self-hosted coherence is a release prerequisite
 
 PHDK must obey the **same 600-line Python ceiling it distributes**: validate each manifest-owned Python script and canonical PHDK `tests/*.py` source before publishing. Installed-layout verification checks manifest destinations, not downstream product code. `scripts/phdk_coherence_check.py` now imports `scripts/phdk_coherence_routing.py` and `scripts/phdk_coherence_quality.py`; vendor all three together in one pinned snapshot. This is a MAJOR distribution contract migration. Do not work around a PHDK defect by exempting it from a downstream hook; split the code and preserve coverage. Missing modules, runtime or tests are NOT RUN/FAILED, never assumed PASS.
@@ -119,9 +123,9 @@ For each new or changed standard, complete all relevant checks:
 
 After each authorized merged milestone, follow [PHDK_GIT_WORKSPACE_CLOSEOUT.md](PHDK_GIT_WORKSPACE_CLOSEOUT.md) from a usable local Git checkout: fetch and fast-forward the appropriate main worktree, prove local/main equals fresh origin/main and safely retire the verified integrated branch/worktree. Preserve any unmerged/dirty/locked/unknown-ignored work. GitHub PR merge does not synchronize a developer's local main and requires no second main push. With connector-only GitHub access, report NOT_APPLICABLE_REMOTE_ONLY for local cleanup; keep remote branch and deployed-state facts independent. This closeout belongs to the already-authorized delivery scope, not a new background mandate.
 
-## Historical Git hygiene and remote merged branch disposal
+## Historical local Git hygiene and remote branch preservation
 
-Every new published PHDK release that materially changes Git hygiene must reconcile `PHDK_GIT_WORKSPACE_CLOSEOUT.md`, `scripts/phdk_git_closeout.py`, `scripts/phdk_git_history_cleanup.py`, the Auto/Preflight/PMO/Check entrypoints, vendoring manifest, and source tests. The historical pass is an interactive, bounded first Auto/Force adoption operation within the current repository, not a passive standards-upgrade side effect. Remote deletion is evidence-backed for the **exact merged head** with expected-SHA protection, not a force push, global pruning or provider configuration change. Record historical retained branches rather than claiming they were all removed. The updated repo does not retroactively affect other local clones.
+Every published PHDK release materially changing Git hygiene must reconcile `PHDK_GIT_WORKSPACE_CLOSEOUT.md`, `scripts/phdk_git_closeout.py`, `scripts/phdk_git_history_cleanup.py`, Auto/Preflight/PMO/Check entrypoints, manifest and source tests. The bounded first Auto/Force inventory is **local-only** and never a bare Upgrade side effect. **No PHDK automatic flow may delete GitHub remote branches**, whether historical, merged, unchanged or just published; `REMOTE_BRANCH=RETAINED_BY_POLICY` is expected and not a blocker. Remote deletion requires a separate explicit current owner instruction naming its target and normal provider controls. Older installed copies do not change until upgraded.
 
 ## Compact session brief for a PHDK maintainer group
 
