@@ -1,3 +1,12 @@
+## v2.90.0 — 2026-11-07
+
+### PHDK Modules: private library architecture and incremental receiving contract
+
+- Define a private, separately governed implementation library, distinct from public PHDK methodology and the sanitized reuse catalog; modules have stable categorized identities, independently versioned immutable releases and digest-checked history.
+- Route owner-selected Export Modules candidates into an authorized private receiving workflow with provenance, rights, security, concurrency and compatibility gates. Public catalog promotion and downstream adoption remain distinct, explicitly approved activities.
+- Deliver a complete local private-library starter with offline propose/receive/verify/list CLI, schemas and 20 synthetic regression tests; the private GitHub repository itself remains NOT CREATED until a provider creation capability is available and its visibility is verified.
+- Reconcile export/reuse/plan, entrypoints, manifest, standards and static source tests without adding private donor code, GitHub Actions, cross-repository crawler, background execution or implicit upgrades.
+
 ## v2.89.0 — 2026-11-07
 
 ### PHDK Export Modules: scoped reverse reuse discovery and contribution

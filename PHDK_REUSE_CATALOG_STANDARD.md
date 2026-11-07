@@ -1,5 +1,11 @@
 # PHDK Reusable Capability Catalog Standard
 
+## Separation from private implementation library (v2.90.0)
+
+[PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md) specifies a separate private `MODULES_CATALOG.json` as a storage/version-history index for approved generic implementations. This public PHDK reuse catalog is **not** the private catalog, package store or private repo directory. A private receipt is neither publication to PHDK nor independent portability evidence; accepted/downloadable status continues to require this standard's existing version-specific tests, verified rights and two real consumers. Public entries must not disclose private repository coordinates, source or unapproved package references.
+
+
+
 ## Reverse discovery through PHDK Export Modules (v2.89.0)
 
 `PHDK_EXPORT_MODULES.md` and its vendored read-only helper provide an optional owner-invoked route from a proven downstream implementation **back** to this catalog. Discovery produces local proposals only; an owner-approved extraction and evidence-reviewed PHDK PR remain separate operations. `NEW_CANDIDATE` and `POTENTIAL_EXTENSION` are inventory labels, not catalog acceptance states. Maintain the existing `SPECIFICATION_ONLY`/`CANDIDATE`/`REVIEWED`/`ACCEPTED_VERSIONED` gates, independent package versioning, two-consumer portability, public/private restrictions, and no automatic downstream upgrades.

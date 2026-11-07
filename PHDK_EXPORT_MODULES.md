@@ -46,6 +46,10 @@ Inventory scores reflect only packaging, documentation, tests present and declar
 
 For each candidate, the agent must inspect relevant actual implementation and baseline (when permitted), interfaces, dependencies, tests, versioning, security/tenant isolation, license and redistribution rights, portability, maintenance ownership, installation/removal, regressions, and donor coupling. Summarize what is observably different, which parts are improvements **supported by evidence**, trade-offs and unresolved facts. Never infer `PASS` merely from test-file presence. Keep restrictions on local runtime tests, UAT, secrets and external services intact. Existing PHDK catalog status gates remain unchanged.
 
+## Optional private PHDK Modules receiving library (v2.90.0)
+
+After the owner selects a named candidate, a verified private implementation library may hold independently versioned, immutable snapshots under `modules/<category>/<slug>/versions/<SemVer>`, governed by [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md). That separate **private** `MODULES_CATALOG.json` tracks module identity, versions and integrity; PHDK's public `PHDK_REUSE_CATALOG.json` remains sanitized and never contains private source or coordinates. `PHDK export modules` by itself **does not perform private receipt, create a repository or publish a package**. If the private repository is not accessible/provisioned, report the blocker and preserve the proposal.
+
 ## Decision and contribution workflow
 
 1. **Discover** from the current authorized donor only; locate relevant retrospective findings (`docs/decisions/phdk-process-review.vN.md`) and any `REUSE_ASSESSMENT.md`. Neither opens a canonical task or publishes anything by itself.

@@ -17,6 +17,10 @@ description: >-
 
 # PHDK
 
+## Private reusable-module library
+
+When a named module is explicitly approved for private receipt, load `PHDK_MODULE_LIBRARY_STANDARD.md` and the existing Export Modules/reuse policies. Confirm actual private repository, target access and redistribution rights before copying. Use its private, local `propose/receive/verify` helper only within the authorized library; release history is append-only and modules have independent SemVer. A public PHDK standard never provisions the private repository or authorizes source publication automatically.
+
 ## Reverse reusable-module contributions
 
 For explicit `PHDK export modules`, load `PHDK_EXPORT_MODULES.md` plus the reuse catalog standard. In the current authorized donor only, run the vendored read-only inventory script and present evidence-backed, batched candidate decisions. Owner-approved contribution requires rights/security and target-repo verification; canonical PHDK accepts generic standards/catalog contracts, while implementation belongs in separately versioned packages. A scan, retrospective or code change never authorizes publishing source or touching unrelated repositories.

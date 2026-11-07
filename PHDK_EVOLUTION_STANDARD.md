@@ -1,3 +1,7 @@
+## v2.90.0 — Private modules library and immutable incremental receiving
+
+`PHDK_MODULE_LIBRARY_STANDARD.md` separates the public PHDK methodology and sanitized reuse catalog from an optional owner-authorized **private** modules library. Approved, rights-reviewed contributions are received into immutable categorized module-version snapshots and checked with an independent private registry. No copied source, private registry or receiver is vendored into public PHDK. Delivery of this standard does not assert that a private provider repository exists. Reconcile Export Modules, Reuse Catalog, Plan, README, agent/skill/native routing, manifest and checks; no automatic source publication, UAT or consumer updates.
+
 ## v2.89.0 — Scoped reverse reuse via Export Modules
 
 `PHDK_EXPORT_MODULES.md` defines the explicit owner-invoked `PHDK export modules` command on one authorized donor repository. The vendored offline inventory proposes candidates and optional local Git-ancestry comparisons; it never copies code, opens PRs, upgrades consumers or publishes private source. The existing catalog acceptance/evidence rules and generic PHDK-versus-versioned-package boundary remain authoritative. Reconcile README, skill/agent/native entrypoints, retrospective, reuse, manifest and tests for this new compatible MINOR capability.
