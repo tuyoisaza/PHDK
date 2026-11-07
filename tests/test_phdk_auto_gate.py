@@ -50,6 +50,28 @@ def external_details():
 
 class AutoContinuityTests(unittest.TestCase):
 
+    def test_premature_completed_with_pending_delivery_is_not_stopped(self):
+        data = state()
+        data["authorization"]["status"] = "completed"
+        outcome = GATE.evaluate(data, "auto_force")
+        self.assertEqual(outcome["disposition"], "REPAIR_STATE")
+        self.assertTrue(outcome["premature_completion"])
+        self.assertEqual(outcome["unfinished_step_ids"], ["deliver"])
+
+    def test_completed_state_with_no_commitments_stays_stopped(self):
+        data = state()
+        data["steps"][0].update(status="done", evidence="actual merge and SHA")
+        data["authorization"]["status"] = "completed"
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "STOPPED")
+
+    def test_all_steps_done_but_security_commitment_open_cannot_close(self):
+        data = state()
+        data["steps"][0].update(status="done", evidence="published")
+        data["unresolved_commitments"] = ["Complete the authorized static security check"]
+        outcome = GATE.evaluate(data, "auto_force")
+        self.assertEqual(outcome["disposition"], "REPAIR_STATE")
+        self.assertIn("security", outcome["unresolved_commitments"][0])
+
     def test_time_budget_in_both_modes(self):
         for mode in ("auto", "auto_force"):
             data = state()

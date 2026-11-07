@@ -65,6 +65,8 @@ def validate(state, mode):
             errors.append(f"missing {key}")
     if not string_list(state.get("completion_criteria"), required=True):
         errors.append("completion_criteria must be a nonempty string list")
+    if "unresolved_commitments" in state and not string_list(state["unresolved_commitments"]):
+        errors.append("unresolved_commitments must be a string list")
     grant = state.get("authorization")
     if not isinstance(grant, dict):
         errors.append("authorization must record the actual user mandate")
@@ -206,12 +208,31 @@ def evaluate(state, mode, now=None):
     # A documented stop remains visible even while unrelated state needs repair.
     grant = state.get("authorization") if isinstance(state, dict) else None
     status = grant.get("status") if isinstance(grant, dict) else None
-    if choice(status, {"paused", "revoked", "completed"}):
-        action = "Honor the recorded user stop while reconciling it with the live instruction; repair bookkeeping only."
-        if status == "completed":
-            action = "The recorded goal ended; do not reactivate it from a file."
+    if status == "completed":
+        # A stale assistant-written COMPLETE is not evidence that outstanding
+        # authorized work, checks or publication obligations disappeared.
+        steps = state.get("steps") if isinstance(state, dict) else None
+        unfinished = [
+            item.get("id", "UNKNOWN") for item in steps or []
+            if isinstance(item, dict) and item.get("status") != "done"
+        ]
+        remaining = state.get("unresolved_commitments", []) if isinstance(state, dict) else []
+        if unfinished or remaining:
+            return result(
+                "REPAIR_STATE",
+                ["Reconcile the premature COMPLETE with actual repository facts and the live mandate; resume only if current authorization remains active."],
+                premature_completion=True, unfinished_step_ids=unfinished,
+                unresolved_commitments=remaining,
+            )
         return result(
-            "STOPPED", [action], status=status, state_errors=validate(state, mode)
+            "STOPPED", ["The recorded goal ended; do not reactivate it from a file."],
+            status=status, state_errors=validate(state, mode),
+        )
+    if choice(status, {"paused", "revoked"}):
+        return result(
+            "STOPPED",
+            ["Honor the recorded user stop while reconciling with the live instruction."],
+            status=status, state_errors=validate(state, mode),
         )
     errors = validate(state, mode)
     if errors:
@@ -242,6 +263,14 @@ def evaluate(state, mode, now=None):
         "review_disposition": "NON_BLOCKING_BY_MODE" if ignored else "NONE",
     }
     if not pending:
+        remaining = state.get("unresolved_commitments", [])
+        if remaining:
+            return result(
+                "REPAIR_STATE",
+                ["Reconcile the unfinished in-scope commitments into executable steps; do not close the goal from a partial delivery."],
+                unresolved_commitments=remaining,
+                **notes,
+            )
         return result(
             "VERIFY_DELIVERY",
             [
