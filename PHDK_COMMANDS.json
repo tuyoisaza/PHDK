@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "language": "es",
+  "purpose": "PHDK convierte intención de producto en software de valor verificable, trazable y entregado con control humano.",
+  "notes": [
+    "Preflight, Integración y AEO/GEO son etapas aplicables, no comandos de invocación independientes en este catálogo.",
+    "PHDK help es ayuda de solo lectura; ninguna sugerencia inicia otro comando."
+  ],
+  "commands": [
+    {
+      "group": "Introducción",
+      "command": "PHDK help",
+      "aliases": [],
+      "summary": "Muestra todos los comandos, explica PHDK, el objetivo documentado del proyecto y el siguiente paso sugerido.",
+      "when": "Justo después de instalar PHDK o cuando no sabes qué hacer.",
+      "effect": "READ_ONLY",
+      "standard": "PHDK_HELP.md"
+    },
+    {
+      "group": "Descubrimiento",
+      "command": "PHDK capture",
+      "aliases": [],
+      "summary": "Investiga el repositorio y documenta intención, requisitos, usuarios y decisiones.",
+      "when": "Tienes una idea nueva o un proyecto existente sin intención consolidada.",
+      "effect": "DOCUMENTS",
+      "standard": "PHDK_CAPTURE.md"
+    },
+    {
+      "group": "Descubrimiento",
+      "command": "PHDK plan",
+      "aliases": [],
+      "summary": "Define arquitectura, dependencias, hitos de valor y plan ejecutable.",
+      "when": "La intención está clara y necesitas decidir cómo implementarla.",
+      "effect": "DOCUMENTS",
+      "standard": "PHDK_PLAN.md"
+    },
+    {
+      "group": "Diseño",
+      "command": "PHDK design",
+      "aliases": [],
+      "summary": "Presenta en conjunto las decisiones visuales y de movimiento, recomendaciones y vista integrada.",
+      "when": "El alcance tiene una interfaz que debe definirse antes de programar.",
+      "effect": "DESIGN",
+      "standard": "PHDK_DESIGN.md"
+    },
+    {
+      "group": "Ejecución",
+      "command": "PHDK PMO",
+      "aliases": [],
+      "summary": "Coordina frentes, dependencias, responsables e integración de hitos.",
+      "when": "Hay múltiples frentes reales que necesitan coordinación.",
+      "effect": "WORKSTREAMS",
+      "standard": "PHDK_PMO.md"
+    },
+    {
+      "group": "Ejecución",
+      "command": "PHDK auto",
+      "aliases": [],
+      "summary": "Desarrolla la meta autorizada de extremo a extremo con decisiones de diseño guiadas.",
+      "when": "Quieres ejecutar un objetivo completo y participar en decisiones de diseño.",
+      "effect": "IMPLEMENTATION",
+      "standard": "PHDK_AUTO.md"
+    },
+    {
+      "group": "Ejecución",
+      "command": "PHDK auto force",
+      "aliases": [],
+      "summary": "Ejecuta la meta autorizada sin esperas de aprobación impuestas solo por PHDK; respeta controles reales.",
+      "when": "La meta es clara y delegas decisiones rutinarias de diseño y revisión.",
+      "effect": "IMPLEMENTATION",
+      "standard": "PHDK_AUTO.md"
+    },
+    {
+      "group": "Ejecución",
+      "command": "PHDK salir de auto",
+      "aliases": [],
+      "summary": "Detiene el modo Auto activo dentro de esta conversación.",
+      "when": "Quieres parar la ejecución Auto actual.",
+      "effect": "MODE_EXIT",
+      "standard": "PHDK_AUTO.md"
+    },
+    {
+      "group": "Diseño",
+      "command": "PHDK designer mode",
+      "aliases": [
+        "PHDK modo designer"
+      ],
+      "summary": "Revisa e implementa mejoras en la interfaz existente, incluida su composición interna.",
+      "when": "Ya hay pantallas y quieres rediseñarlas o mejorar su calidad.",
+      "effect": "IMPLEMENTATION",
+      "standard": "PHDK_DESIGNER_MODE.md"
+    },
+    {
+      "group": "Diseño",
+      "command": "PHDK salir de designer mode",
+      "aliases": [],
+      "summary": "Desactiva el modo Designer vigente.",
+      "when": "Quieres terminar el trabajo en Designer Mode.",
+      "effect": "MODE_EXIT",
+      "standard": "PHDK_DESIGNER_MODE.md"
+    },
+    {
+      "group": "Calidad",
+      "command": "PHDK secure",
+      "aliases": [],
+      "summary": "Revisa y remedia la seguridad del código bajo el alcance autorizado y los controles vigentes.",
+      "when": "Necesitas un diagnóstico de seguridad o el gate de seguridad preentrega.",
+      "effect": "SOURCE_REVIEW",
+      "standard": "PHDK_SECURE.md"
+    },
+    {
+      "group": "Calidad",
+      "command": "PHDK check",
+      "aliases": [],
+      "summary": "Audita la conformidad con estándares aplicables y enumera brechas sin repararlas automáticamente.",
+      "when": "Sospechas desviaciones, trabajo incompleto o falta de evidencia.",
+      "effect": "READ_ONLY_REPORT",
+      "standard": "PHDK_CHECK.md"
+    },
+    {
+      "group": "Calidad",
+      "command": "PHDK check --fix",
+      "aliases": [],
+      "summary": "Audita y corrige los incumplimientos reparables dentro del alcance autorizado.",
+      "when": "Quieres corregir de inmediato las brechas que puedan repararse de forma segura.",
+      "effect": "REMEDIATION",
+      "standard": "PHDK_CHECK.md"
+    },
+    {
+      "group": "Aceptación",
+      "command": "PHDK uat prep",
+      "aliases": [],
+      "summary": "Prepara identidades y datos sintéticos seguros; no ejecuta la aceptación.",
+      "when": "Necesitas dejar listo un candidato autenticado para pruebas.",
+      "effect": "PREPARATION",
+      "standard": "PHDK_UAT_PREP.md"
+    },
+    {
+      "group": "Aceptación",
+      "command": "PHDK uat",
+      "aliases": [],
+      "summary": "Prueba explícitamente la versión desplegada mediante recorridos de usuarios y evidencia.",
+      "when": "El desarrollo está entregado y autorizas pruebas de aceptación.",
+      "effect": "DEPLOYED_UAT",
+      "standard": "UAT_STANDARD.md"
+    },
+    {
+      "group": "Aceptación",
+      "command": "PHDK uat fix",
+      "aliases": [],
+      "summary": "Repara defectos hallados en UAT y vuelve a comprobarlos cuando está autorizado.",
+      "when": "Hay defectos documentados de una UAT iniciada explícitamente.",
+      "effect": "UAT_REMEDIATION",
+      "standard": "UAT_DEFECT_WORKFLOW.md"
+    },
+    {
+      "group": "Descubribilidad",
+      "command": "PHDK seo",
+      "aliases": [],
+      "summary": "Revisa y mejora la capacidad de indexación y descubrimiento de páginas públicas.",
+      "when": "Tu producto tiene contenido público que quieres hacer encontrable.",
+      "effect": "SOURCE_CHANGE",
+      "standard": "PHDK_SEO.md"
+    },
+    {
+      "group": "Reutilización",
+      "command": "PHDK export modules",
+      "aliases": [],
+      "summary": "Detecta módulos potencialmente reutilizables y propone su exportación sin publicar código.",
+      "when": "Quieres revisar qué mejoras de este repo podrían servir a otros proyectos.",
+      "effect": "READ_ONLY_REPORT",
+      "standard": "PHDK_EXPORT_MODULES.md"
+    },
+    {
+      "group": "Configuración",
+      "command": "PHDK browser on",
+      "aliases": [
+        "PHDK browser allow"
+      ],
+      "summary": "Habilita asistencia de navegador solo para configuración externa autorizada en la tarea actual.",
+      "when": "Debes configurar OAuth, dominios, cuentas o integraciones externas.",
+      "effect": "SCOPED_TRANSPORT",
+      "standard": "PHDK_BROWSER_CONFIGURATION_STANDARD.md"
+    },
+    {
+      "group": "Configuración",
+      "command": "PHDK browser off",
+      "aliases": [],
+      "summary": "Cierra la excepción de navegador para configuración externa.",
+      "when": "Terminaste la configuración o quieres revocar ese canal.",
+      "effect": "MODE_EXIT",
+      "standard": "PHDK_BROWSER_CONFIGURATION_STANDARD.md"
+    },
+    {
+      "group": "Mantenimiento",
+      "command": "PHDK upgrade",
+      "aliases": [],
+      "summary": "Sincroniza conservadoramente estándares y revisa el stack sin iniciar desarrollo.",
+      "when": "Quieres adoptar reglas actualizadas preservando cambios locales.",
+      "effect": "STANDARD_SYNC",
+      "standard": "PHDK_UPGRADE.md"
+    },
+    {
+      "group": "Mantenimiento",
+      "command": "PHDK upgrade force",
+      "aliases": [],
+      "summary": "Reemplaza solo el ámbito PHDK administrado, publica la actualización y continúa en Auto Force.",
+      "when": "Aceptas sustituir cambios locales administrados por PHDK y ejecutar el mantenimiento autorizado.",
+      "effect": "FORCED_SYNC_AND_AUTO",
+      "standard": "PHDK_UPGRADE.md"
+    },
+    {
+      "group": "Mantenimiento",
+      "command": "PHDK unlock",
+      "aliases": [],
+      "summary": "Diagnostica bloqueos documentales y ajusta excepciones permitidas sin saltar protecciones reales.",
+      "when": "Un agente queda detenido por reglas contradictorias u obsoletas.",
+      "effect": "SCOPED_REPAIR",
+      "standard": "PHDK_UNLOCK.md"
+    },
+    {
+      "group": "Ejecución",
+      "command": "PHDK Developer Mode",
+      "aliases": [
+        "PHDK modo developer"
+      ],
+      "summary": "Activa temporalmente una vía directa a main para cambios pequeños y de bajo riesgo, sujetos a controles.",
+      "when": "Necesitas editar y entregar tareas pequeñas permitidas en esta conversación.",
+      "effect": "MODE",
+      "standard": "PHDK_DEVELOPER_MODE.md"
+    },
+    {
+      "group": "Ejecución",
+      "command": "PHDK salir de developer mode",
+      "aliases": [],
+      "summary": "Desactiva el modo Developer vigente.",
+      "when": "Quieres cerrar la excepción temporal de Developer Mode.",
+      "effect": "MODE_EXIT",
+      "standard": "PHDK_DEVELOPER_MODE.md"
+    }
+  ]
+}

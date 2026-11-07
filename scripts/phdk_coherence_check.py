@@ -2,6 +2,7 @@
 """Static consistency checks; no claim of runtime or semantic correctness."""
 
 from pathlib import Path
+import json
 import re
 import sys
 
@@ -73,6 +74,9 @@ for mandatory in [
     "CHANGELOG.md",
     "AGENTS.md",
     "PHDK_PREFLIGHT.md",
+    "PHDK_HELP.md",
+    "PHDK_COMMANDS.json",
+    "scripts/phdk_help.py",
     "PHDK_COHERENCE_STANDARD.md",
     "PHDK_EVOLUTION_STANDARD.md",
     "CHANGE_MANAGEMENT.md",
@@ -130,6 +134,46 @@ for entrypoint in [
         encoding="utf-8"
     ):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
+
+# Help/catalog routing is source-only evidence, not proof of assistant behavior.
+try:
+    catalog = json.loads(policy_path("PHDK_COMMANDS.json").read_text(encoding="utf-8"))
+    if catalog.get("schema_version") != 1 or not isinstance(catalog.get("commands"), list):
+        errors.append("help catalog: unsupported format")
+    else:
+        names = set()
+        for item in catalog["commands"]:
+            canonical = item["command"]
+            if not canonical.casefold().startswith("phdk "):
+                errors.append(f"help catalog: invalid command {canonical}")
+            for name in [canonical, *item.get("aliases", [])]:
+                normalized = " ".join(name.casefold().split())
+                if normalized in names:
+                    errors.append(f"help catalog: duplicated alias/command {name}")
+                names.add(normalized)
+            reference = item["standard"]
+            if (
+                Path(reference).is_absolute()
+                or ".." in Path(reference).parts
+                or not policy_path(reference).is_file()
+            ):
+                errors.append(f"help catalog: invalid standard {reference}")
+        for required in (
+            "phdk help", "phdk capture", "phdk plan", "phdk design", "phdk auto",
+            "phdk auto force", "phdk check", "phdk uat", "phdk upgrade",
+            "phdk upgrade force", "phdk export modules",
+        ):
+            if required not in names:
+                errors.append(f"help catalog: missing {required}")
+except (OSError, ValueError, KeyError, TypeError) as exc:
+    errors.append(f"help catalog: invalid/unreadable ({exc})")
+for source in (
+    "README.md", "AGENTS.md", "SKILL.md", "PHDK_NATIVE_RULES.md",
+    "PHDK_PREFLIGHT.md", "ONBOARDING_AI_DEVELOPER.md", "INANUTSHELL.md",
+):
+    file = policy_path(source)
+    if not file.is_file() or "PHDK help" not in file.read_text(encoding="utf-8"):
+        errors.append(f"help routing: no PHDK help entry in {source}")
 
 # Verify the published session policy and compact routing on either manifest layout.
 for source, markers in {

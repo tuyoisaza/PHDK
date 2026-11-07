@@ -1,3 +1,12 @@
+## v2.92.0 — 2026-11-07
+
+### Read-only PHDK help and context-aware first-run onboarding
+
+- Add `PHDK help`, `PHDK help <command>` and `PHDK help --all` for conversational, non-mutating orientation using a complete 25-command canonical inventory and aliases.
+- Show installed version, PHDK's operating purpose, sourced project goal or explicit uncertainty, each command's function and one context-based suggested next step without executing it.
+- Add vendored `PHDK_HELP.md`, `PHDK_COMMANDS.json` and optional offline `scripts/phdk_help.py`; route through README, onboarding, agent/skill/native rules, a read-only Help Preflight profile and coherence checks.
+- Add synthetic catalog/CLI/no-write regression scenarios. No updater, Stack Security Review, product changes, UAT, provider actions, new permission, scheduler or automatic execution follows from Help.
+
 ## v2.91.0 — 2026-11-07
 
 ### Evidence-gated post-UAT Export Modules assessment

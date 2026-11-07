@@ -6,6 +6,9 @@ VERSION | VERSION
 README.md | README.md
 CHANGELOG.md | CHANGELOG.md
 PHDK_MANIFEST.txt | PHDK_MANIFEST.txt
+PHDK_HELP.md | PHDK_HELP.md
+PHDK_COMMANDS.json | PHDK_COMMANDS.json
+scripts/phdk_help.py | scripts/phdk_help.py
 PHDK_EVOLUTION_STANDARD.md | PHDK_EVOLUTION_STANDARD.md
 PHDK_DOCUMENTATION_STANDARD.md | PHDK_DOCUMENTATION_STANDARD.md
 scripts/phdk_docs_audit.py | scripts/phdk_docs_audit.py
