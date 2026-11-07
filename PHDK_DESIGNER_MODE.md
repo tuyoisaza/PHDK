@@ -65,7 +65,7 @@ Produce `DESIGNER_BASELINE.md`: preserve valid workflows and explicit owner cons
 
 ### 2. Choose a coherent product-specific direction
 
-Produce `DESIGNER_DIRECTION.md`. Consider at least two alternatives where meaningful, choose with rationale, and preserve legitimate branding. Define composition, type hierarchy, color, spacing, iconography, interaction states, and purposeful motion. Do not force a fashionable template onto every product.
+Produce `DESIGNER_DIRECTION.md`. Consider at least two alternatives where meaningful, choose with rationale, and preserve legitimate branding. Define composition, type hierarchy, color, spacing, iconography, interaction states and purposeful enter/exit, expand/collapse and reduced-motion behaviors under `PHDK_DESIGN_SYSTEM.md`. Do not force a fashionable template onto every product.
 
 Define concrete acceptance criteria for the inventoried units before changing them. Keep content usefulness and task completion alongside visual craft.
 

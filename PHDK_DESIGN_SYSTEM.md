@@ -39,8 +39,54 @@ The detailed, vendor-shipped contract in PHDK_THEME_STANDARD.md is normative: on
 - Icon wrappers enforce consistent size, stroke, semantic intent and aria-label/title behavior. Icons must not obscure important meaning.
 - Component variants originate in the shared package, not individual pages. New patterns first extend the catalog, then pages consume them. Do not duplicate CSS reset, Tailwind setup, theme provider or component style definition across routes.
 
-## Motion contract
-Centralize presets `enter`, `exit`, `hover`, `press`, `spring`, `layout`; define duration and easing tokens. Use e.g. ease-out for entrances, ease-in for exits, ease-in-out for state transitions; spring only where meaningful. Coordinate Radix `data-state` with Motion presence carefully; ensure focus and dismissal remain correct. Respect `prefers-reduced-motion`, SSR/hydration, animations in virtualized tables and performance under lower-powered devices. Never animate everything or use motion to disguise slow behavior.
+## Motion interaction contract — purposeful transitions
+
+Motion is the **second independently traceable Design choice**, included in the same coded board/composite preview/owner approval of `PHDK_DESIGN.md`, not a separate gate or imperative to animate all UI. Default to **discreet functional transitions** for state continuity and feedback.
+
+### State-transition specification
+
+For critical flows record in current `UI_DESIGN_SYSTEM.md` and `UX_UI_DECISIONS.md` (or active versioned equivalents) a compact contract: transition ID, component/route/role, actual click/keyboard/navigation trigger, **before/pending/after** states, exit/enter choreography (simultaneous, sequential, shared or expansion/collapse), timing preset, rapid reversal/interruption, focus/ARIA and keyboard semantics, reduced-motion/unsupported-browser fallback and source/UAT traceability. Show 2–4 annotated storyboard frames (before, trigger, after, reduced-motion alternative) on the selected 16:9 board. A storyboard is **not executed visual evidence**.
+
+### Recommended tokenized presets
+
+These are PHDK starting ranges, not fixed accessibility or library limits. Store chosen durations/easing in the shared motion token/preset source, e.g. `packages/design-tokens/src/motion.css` / `packages/ui/src/motion/presets.ts` or equivalent, not page-specific magic numbers.
+
+| Preset | Behavior | Suggested duration |
+|---|---|---|
+| `press-feedback` | Immediate button response, truthful pending/success/error | 100–150 ms |
+| `menu-switch` | Old menu panel exits, next enters; reversible without abrupt jump | 150–250 ms |
+| `expand-collapse` | Accordion expansion and collapse move dependent content smoothly | 180–260 ms |
+| `tab-switch` | Active indicator moves and content switches while preserving focus | 180–250 ms |
+| `overlay-enter-exit` | Coordinate backdrop/dialog entry/exit without delaying focus | 200–280 ms |
+| `route-switch` | Keep application shell, transition changed view contextually | 220–320 ms |
+| `status-feedback` | State follows actual action, never artificial success/timer | Immediate/short |
+
+Ease-out for entrance, ease-in for exit, ease-in-out for reversible state transitions; spring only where meaningfully helpful. Choose simultaneous crossfade for independent content, sequential exit→enter when overlap causes confusion, shared-element/layout when an element maintains identity. Do not block data/network response behind decorative animation or animate every row of a large virtualized table.
+
+### Library and implementation selection
+
+1. **CSS transitions** first for simple hover/focus/color/opacity and indicators; prefer opacity/transform over heavy layout effects.
+2. **Existing Radix UI/shadcn-compatible primitives** govern accessible accordion/menu/tab/dialog state, `data-state`, keyboard and focus. Use Radix accordion height variables where appropriate; do not hand-roll state semantics.
+3. **Installed/verified Motion for React (`motion/react`)** for justified enter/exit with `AnimatePresence`, `layout`/`layoutId` and interruptible sequencing. `mode="wait"` supports one child at a time only; keep presence mounted until exit. Coordinate Radix portal/dismissal, SSR/hydration and real dependency versions.
+4. **Native View Transition API** only as progressive enhancement for appropriate navigation when router/browser support exists; provide immediate fallback, avoid double-animating with Motion.
+5. **GSAP/AutoAnimate or another engine** is not mandatory. A second library needs a specific justified use, compatibility/license/security review and architecture decision. Preserve equivalent functional brownfield implementation.
+
+### Accessibility, interaction safety and verification
+
+- Respect `prefers-reduced-motion: reduce` for CSS and Motion's user setting (e.g. `MotionConfig reducedMotion="user"`). Remove or substantially reduce spatial travel; preserve instant/minimal-opacity state feedback and full function.
+- Maintain `aria-expanded`, `aria-selected`, semantic announcements and actual focus placement/restoration **during** open/close and route change. Never trap keyboard users or delay access to the result until an animation finishes.
+- Handle rapid repeated clicks, open→close→open, errors/retries, loading, back/forward/deep links and interruption. Prevent ghost/invisible clickable elements, stale focus, scroll jumps and false business-success signals.
+- Avoid perpetual movement, parallax, flashing and heavy effects on low-powered devices. Preserve responsive/keyboard/touch accessibility and factual state/permission/data semantics.
+- **Integration/Check** inspect selected motion codes, reusable presets, source-level fallback/focus handling and traceability; source evidence is not behavioral PASS. Only **explicit `PHDK uat` / authorized UAT Fix** on the permitted deployed product may verify real motion, reduced motion, responsive and keyboard behavior with before/action/after observations. No browser testing outside scoped UAT, local runtime/server/Docker/staging, new paid services or background activity is authorized.
+
+Official technical sources:
+- https://motion.dev/docs/react
+- https://motion.dev/docs/react-animate-presence
+- https://motion.dev/docs/react-layout-animations
+- https://motion.dev/docs/react-motion-config
+- https://www.radix-ui.com/primitives/docs/components/accordion
+- https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+- https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
 
 ## Designer Mode readiness — mandatory BEFORE design recommendations
 Upon explicit `PHDK designer mode` invocation, complete normal PHDK preflight, then **Design System Readiness**:

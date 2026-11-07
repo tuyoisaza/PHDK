@@ -33,6 +33,12 @@ Run universal Preflight ONCE at each PHDK command entry. For stages inside Auto/
 
 Apply [Stack Security Review](PHDK_SECURE.md#stack-security-review) on explicit Upgrade/Force, including a no-op, and when foreground Preflight actually adopts a new standards version. Reuse unchanged evidence within the active command; refreshing a capability or re-entering a stage alone does not repeat the full stack review. Report standards synchronization, review coverage and security findings independently.
 
+## One Design evolution with two independent choices (v2.88.0)
+
+Verify the **consolidated coded Design decision board** with all material choices, per-item recommendations, one coherent recommended combination, integrated visual/transition preview and one owner approve-all or selected-override response. Treat visual identity and interaction motion as independently traceable decisions within the **same** 25-design stage and one owner acceptance, not separate stages or extra approval gates. Force selects both without a PHDK-imposed wait or fabricated owner sign-off.
+
+The existing `PHDK_DESIGN_SYSTEM.md` remains the **single canonical motion interaction contract**. Check that Plan, Design, Auto/continuity, lifecycle, UX, Designer, Check, explicit-only UAT and installed agent/skill/native entrypoints agree on state transitions, shared tokens, keyboard/focus/ARIA, reduced-motion fallbacks and evidence boundaries. Source guards do not prove a rendered preview, running animation, accessibility or downstream adoption. Preserve the no-local-runtime, no-extra-spend, explicit-UAT and current owner restriction boundaries.
+
 ## Release gates
 - VERSION, README and newest CHANGELOG release must match and all three files must be included in the vendoring manifest so downstream coherence checks receive the same release inputs.
 - Every vendoring manifest source must exist, with unique safe source/destination paths.

@@ -1,3 +1,11 @@
+## v2.88.0 — 2026-11-07
+
+### Bundled design selection and interaction motion — one evolution, two independent decisions
+
+- Replace the sequential one-question-per-visual-choice interview with a scope-derived coded decision board: all applicable options, recommendation per decision, one coherent default combination and combined preview. The owner accepts all or overrides selected codes; material changes refresh the preview for one final acceptance. Existing approved visual and motion choices remain independently traceable. Auto Force chooses and continues without a PHDK approval wait.
+- Extend the canonical `PHDK_DESIGN_SYSTEM.md` motion interaction contract with shared token timing/presets, CSS/Radix/Motion selection, optional native View Transitions and purposeful button, menu, tab, accordion, modal and route transitions. Specify trigger/state/order/reversibility, focus/ARIA, reduced-motion and fallback behavior.
+- Reconcile Plan, Design, Auto/continuity, lifecycle, UX/Designer, Check, explicit-only UAT, agent/skill/native instructions and static coherence guards. No additional animation package, background job, runtime test, new environment, automatic UAT, provider write or downstream project adoption is implied.
+
 ## v2.87.0 — 2026-11-07
 
 ### Tabular CRUD and self-supplied UAT import files
