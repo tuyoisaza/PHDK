@@ -83,6 +83,8 @@ for mandatory in [
     "SKILL.md",
     "PHDK_NATIVE_RULES.md",
     "UAT_STANDARD.md",
+    "UAT_JOURNEY_STANDARD.md",
+    "PHDK_UX_UI.md",
     "PHDK_UAT_PREP.md",
     "EXECUTION_SCOPE.md",
     "MAIN_DELIVERY_STANDARD.md",
@@ -288,13 +290,13 @@ if skill_file.is_file() and not skill_file.read_text(encoding="utf-8").startswit
 ):
     errors.append("SKILL.md metadata must remain the first front-matter block")
 
-# Restriction and transition guards check the active contract sections, not
+# Section guards check the active contract sections, not
 # historical mentions elsewhere. Presence does not establish owner authority,
 # resolve an executor denial, or prove that a phase transition actually ran.
 transition_reference = "MAIN_DELIVERY_STANDARD.md#phase-transition-reconciliation"
-required_transition_sections = {
+required_policy_sections = {
     "EXECUTION_SCOPE.md": (
-        "Restriction provenance and lifetime",
+        "## Restriction provenance and lifetime",
         [
             "PERMANENT_POLICY",
             "PHASE_LIMIT",
@@ -302,7 +304,7 @@ required_transition_sections = {
         ],
     ),
     "MAIN_DELIVERY_STANDARD.md": (
-        "Phase-transition reconciliation",
+        "## Phase-transition reconciliation",
         [
             "OWNER_AUTHORIZATION",
             "TECHNICAL_PERMISSION",
@@ -312,7 +314,7 @@ required_transition_sections = {
         ],
     ),
     "TASK_TRACKING_STANDARD.md": (
-        "Restriction record",
+        "## Restriction record",
         [
             "PERMANENT_POLICY",
             "PHASE_LIMIT",
@@ -329,21 +331,31 @@ required_transition_sections = {
         ],
     ),
     "PHDK_PLAN.md": (
-        "Current PHDK baseline and scope",
+        "## Current PHDK baseline and scope",
         [
             "PHDK_PREFLIGHT.md",
             "VERSION",
             "TASK_TRACKING_STANDARD.md#restriction-record",
         ],
     ),
+    "UAT_STANDARD.md": (
+        "### Workflow acceptance decision",
+        ["Functional result", "Workflow UX result", "FAIL", "ACCEPTANCE INCOMPLETE", "NOT APPLICABLE"],
+    ),
+    "PHDK_UX_UI.md": (
+        "### Rendered workflow walkthrough",
+        ["UAT_JOURNEY_MAP.md", "CRUD_MATRIX.md", "redacted evidence reference",
+         "UAT_STANDARD.md#workflow-acceptance-decision"],
+    ),
 }
-for filename, (heading, markers) in required_transition_sections.items():
+for filename, (heading, markers) in required_policy_sections.items():
     file = policy_path(filename)
     if not file.is_file():
-        errors.append(f"missing phase-transition contract file {filename}")
+        errors.append(f"missing policy contract file {filename}")
         continue
+    level = heading.index(" ")
     section = re.search(
-        r"^## " + re.escape(heading) + r"\s*\n(.*?)(?=^#{1,2}\s|\Z)",
+        rf"^{re.escape(heading)}[ \t]*\n(.*?)(?=^#{{1,{level}}}\s|\Z)",
         file.read_text(encoding="utf-8"),
         re.M | re.S,
     )
@@ -614,6 +626,7 @@ required_uat_markers = {
         "UAT_PREP_REPORT.md",
         "PHDK_PRODUCTION_VERIFICATION.md",
     ],
+    "UAT_JOURNEY_STANDARD.md": ["PHDK_UX_UI.md#rendered-workflow-walkthrough"],
     "PHDK_AUTO.md": ["DEFERRED — OWNER OPT-IN", "UAT NOT RUN"],
     "PHDK_LIFECYCLE.md": [
         "45-uat-prep/",

@@ -1,3 +1,9 @@
+## v2.82.0 — 2026-11-06
+
+### Workflow and visual acceptance in UAT
+- Explicit UAT follows the role from its normal entry point to a recognizable outcome. Reviewers inspect rendered frames before critical decisions for required information, reading order, competing controls and next-step cues. Ordered procedures and role-appropriate CRUD have concrete walkthrough criteria.
+- Each case records functional and workflow UX results with evidence. A required UX failure can reject a functionally successful journey. Missing required visual evidence leaves acceptance incomplete in the absence of a confirmed failure. The existing case catalog, journey map and UX audit carry the evidence through remediation and retest.
+
 ## v2.81.0 — 2026-11-06
 
 ### Company Co knowledge examples

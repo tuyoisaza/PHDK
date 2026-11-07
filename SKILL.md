@@ -149,7 +149,7 @@ For explicit `PHDK uat fix`, read current `UAT_REPORT.md` and `UAT_CASES.md`. Co
 
 ## PHDK uat
 
-For explicit `PHDK uat`, follow `UAT_STANDARD.md` and run necessary Prep under the same scoped authorization. Identify current intent, derive intent-aligned user stories and traceable cases for the deployed candidate, create/update `UAT_CASES.md`, execute permitted evidence autonomously, and create/update `UAT_REPORT.md`. Include selected Design baseline fidelity for applicable UI scope. Do not ask for approval between cases. Never pass an unexecuted behavioral case by inspection or from an approved/generated mockup; use BLOCKED or MANUAL when required evidence is unavailable or excluded.
+For explicit `PHDK uat`, follow `UAT_STANDARD.md` and run necessary Prep under the same scoped authorization. Identify current intent, derive intent-aligned user stories and traceable cases for the deployed candidate, create/update `UAT_CASES.md`, execute permitted evidence autonomously, and create/update `UAT_REPORT.md`. For applicable UI scope, assess selected Design baseline fidelity and record separate functional and workflow UX results under the [workflow acceptance decision](UAT_STANDARD.md#workflow-acceptance-decision). Do not ask for approval between cases. Never pass an unexecuted behavioral case by inspection or from an approved/generated mockup; use BLOCKED or MANUAL when required evidence is unavailable or excluded.
 
 UAT validates and reports the candidate after necessary Prep. Product-code repair requires explicit `PHDK uat fix` or authorization within the active explicitly initiated UAT. Auto/Force do not reopen prior acceptance failures; report UAT NOT RUN separately from the development result.
 

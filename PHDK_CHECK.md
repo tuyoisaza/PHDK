@@ -49,7 +49,7 @@ For **every** project, apply `PHDK_AUTOMATION_HYGIENE.md` before marking Check a
 
 ## Mandatory UX/UI audit checks
 
-For a UI-applicable project, apply `PHDK_UX_UI.md`: verify Plan design artifacts and historical snapshots, trace critical user journeys to requirements/tasks/UAT, inspect source fidelity and any current `UX_UI_AUDIT_REPORT.md`/`UX_UI_REMEDIATION_REPORT.md` evidence from explicitly authorized acceptance. Repair current in-scope source-backed P0/P1 defects under the active remediation authorization; missing or historical UAT evidence does not start acceptance or reopen completed development. In Auto, report runtime usability/fidelity as deferred. Do not assume an attractive screenshot proves usability. Audit phase remains read-only except permitted report artifact.
+For a UI-applicable project, apply `PHDK_UX_UI.md`: verify Plan design artifacts and historical snapshots, trace critical user journeys to requirements/tasks/UAT, inspect source fidelity and any current `UX_UI_AUDIT_REPORT.md`/`UX_UI_REMEDIATION_REPORT.md` evidence from explicitly authorized acceptance. For a current UAT report, verify its case verdicts against the [workflow acceptance decision](UAT_STANDARD.md#workflow-acceptance-decision) using the retained evidence. Repair current in-scope source-backed P0/P1 defects under the active remediation authorization; missing or historical UAT evidence does not start acceptance or reopen completed development. In Auto, report runtime usability/fidelity as deferred. Do not assume an attractive screenshot proves usability. Audit phase remains read-only except permitted report artifact.
 
 
 ## Mandatory three-theme governance audit
