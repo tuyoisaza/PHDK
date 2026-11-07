@@ -1,3 +1,9 @@
+## v3.0.0 — Self-hosted coherence is a release prerequisite
+
+PHDK must obey the **same 600-line Python ceiling it distributes**: validate each manifest-owned Python script and canonical PHDK `tests/*.py` source before publishing. Installed-layout verification checks manifest destinations, not downstream product code. `scripts/phdk_coherence_check.py` now imports `scripts/phdk_coherence_routing.py` and `scripts/phdk_coherence_quality.py`; vendor all three together in one pinned snapshot. This is a MAJOR distribution contract migration. Do not work around a PHDK defect by exempting it from a downstream hook; split the code and preserve coverage. Missing modules, runtime or tests are NOT RUN/FAILED, never assumed PASS.
+
+The public PHDK methodology and private PHDK-Modules library retain separate authority, licensing, package versioning and publication. A provisioned but empty module library is not reusable implementation or measured speedup.
+
 ## v2.92.1 — Reliable Upgrade Force and evidence-bounded completion
 
 One Upgrade Force invocation pins one upstream SHA and publishes/verifies its Git-clean blobs, not checkout-specific CRLF bytes. It preserves unrecognized files and native owner text; only explicit forced managed main edits may be backed up and resolved. Worktree cleanup inspects ignored data and long paths and reports partial failure postconditions. Auto carries unfinished security/Check/delivery commitments across the upgrade-to-Auto transition and rejects an assistant-written premature COMPLETE. Tool discovery and OSV fallback stay read-only and coverage-bounded. Newer upstream discovered later is reported, not republished in a loop. UAT and downstream upgrades remain separately authorized.

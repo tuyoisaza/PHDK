@@ -1,3 +1,9 @@
+## PHDK 3.0 self-hosting and Python source budget
+
+A canonical release must reject PHDK-owned manifest-vendored Python files longer than **600 physical source lines** (Python `splitlines()`). Canonical `tests/*.py` must satisfy the same limit. An installed `phdk-standards/` checkout checks vendored destinations, not unrelated downstream product code. A violation is a PHDK release defect, never a justification for excluding PHDK from consumers' existing 600-line hook.
+
+The coherent checker is a **three-file** standard-library tool: `scripts/phdk_coherence_check.py`, `scripts/phdk_coherence_routing.py` and `scripts/phdk_coherence_quality.py`. All three must be in the manifest exactly once, copied with the same pinned source SHA and validated in canonical and installed layouts. The entrypoint must stay callable as before. Run `tests/test_phdk_coherence_checker.py` when permitted and demonstrate rejection of an injected oversized vendored file. A source-only PASS never proves semantic quality, UAT, deployment or a private module contribution.
+
 ## Help/catalog consistency (v2.92.0)
 
 Each documented conversational command and alias must appear without collision in vendored `PHDK_COMMANDS.json`, with an existing standard reference. `PHDK_HELP.md` governs read-only output, sourced goal and one safe next-action recommendation. Reconcile manifest, README, onboarding, AGENTS/SKILL/native routing and Help-only read-only Preflight. `scripts/phdk_help.py` must remain offline/network-free/read-only. Run synthetic `tests/test_phdk_help.py` and the static coherence checker where execution is permitted; otherwise report NOT RUN. No static source test proves downstream agent compliance or adoption.

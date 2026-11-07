@@ -4,6 +4,10 @@
 
 `PHDK_POST_UAT_EXPORT_STANDARD.md` may present read-only candidate recommendations after explicit accepted UAT, but **never invokes** private `propose/receive/verify`, updates `MODULES_CATALOG.json`, opens a private PR, or authorizes code distribution. Receipt still requires named owner selection, rights/license/security/target access and an independent versioned private contribution. Existing consumers never auto-upgrade.
 
+## PHDK 3.0 — private library readiness and measurable reuse
+
+A verified PRIVATE PHDK-Modules repository with an empty `MODULES_CATALOG.json` is a correctly provisioned **library**, not proof of an installable module, a successful package release or saved development time. Plan's REUSE/ADAPT/BUILD assessment should compare realistic adaptation effort, dependency compatibility, rights review, maintenance cost and expected second-consumer value; record benefits as UNKNOWN until measured. A reusable candidate may stay project-local when generalization costs exceed credible reuse. No receipt, public catalog promotion or consumer upgrade is authorized by an empty registry or retrospective. Private source, approvals, catalog and receiver are never vendored into public PHDK.
+
 ## Scope and boundary
 
 `PHDK-Modules` is the **logical name** of a separate, private implementation library. Canonical PHDK stays the public methodology, standards and disclosure-safe reuse catalog. The owner-approved private library receives reusable product code, independently versioned by module. This standard **does not assert that any provider repository is provisioned**. A downloadable template or a PR in public PHDK is not a private repository, installed package or consumer deployment.

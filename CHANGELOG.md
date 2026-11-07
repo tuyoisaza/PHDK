@@ -1,3 +1,16 @@
+## v3.0.0 — 2026-11-07
+
+### MAJOR — PHDK complies with its own coherence rules
+
+- Break the legacy 947-line monolithic Python coherence checker into a 209-line CLI entrypoint plus 342-line routing and 439-line quality helpers. Continue the same user-facing command with **all three files** vendored atomically.
+- Enforce 600 source lines for every manifest-vendored PHDK Python script and canonical PHDK Python test, including the checker itself, in canonical and installed layouts. Treat missing dependencies and oversize scripts as release defects rather than weakening downstream owner hooks.
+- Add source-only canonical/installed fixtures and a 601-line negative regression. Repair an obsolete test that pinned the current release to v2.90.0.
+- Correct the official Anthropic Security Guidance source and require review of selected skill provenance, host compatibility, permissions, hooks and cost before adoption rather than eagerly checking/installing every reference.
+- Verify the independent private PHDK-Modules architecture, scope and **empty** catalog; no real module, private source transfer, downstream adoption or observed time saving is implied.
+- Publish the [v3 audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The audit distinguishes static source checks, GitHub metadata and unexecuted Python/runtime/UAT evidence.
+
+**Migration:** vendor `scripts/phdk_coherence_check.py`, `scripts/phdk_coherence_routing.py` and `scripts/phdk_coherence_quality.py` together. A single-file old checker is not a supported PHDK 3 installation. No new UAT, owner-scope override or product runtime authorization.
+
 ## v2.92.1 — 2026-11-07
 
 ### Upgrade Force reliability: Git objects, Windows closeout and continuity
