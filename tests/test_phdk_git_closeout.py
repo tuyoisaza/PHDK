@@ -4,6 +4,7 @@ Source only in Auto: PHDK production-first rules prohibit local runtime tests.
 """
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -116,12 +117,52 @@ class GitWorkspaceCloseoutTests(unittest.TestCase):
                                      "--pr-head-sha", "0" * 40)
         self.assertEqual(code, 3)
         self.assertEqual(report["branch_cleanup"], "BLOCKED_PR_HEAD_SHA_MISMATCH")
+    def test_windows_long_path_preflight_is_non_destructive(self):
+        base = Path(self.tmp.name) / "long-test"
+        longdir = base / ("nested-" + "a" * 90) / ("nested-" + "b" * 90)
+        longdir.mkdir(parents=True)
+        (longdir / ("text-" + "c" * 45)).write_text("retained")
+        payload = module.inspect_payload(base, [], windows=True)
+        self.assertGreater(payload["windows_long_paths"], 0)
+        self.assertTrue(longdir.exists())
+
+    def test_partial_git_worktree_removal_keeps_branch_and_reports_residue(self):
+        _, merged = self.merged_feature()
+        linked = Path(self.tmp.name) / "linked-feature"
+        git(self.repo, "worktree", "add", str(linked), "feature/milestone")
+        original = module.git
+        def interrupted(*args, **kwargs):
+            if args[:2] == ("worktree", "remove"):
+                original("worktree", "remove", str(linked), cwd=self.repo)
+                linked.mkdir(exist_ok=True)
+                (linked / "residual.txt").write_text("preserve")
+                return subprocess.CompletedProcess(args, 1, "", "Filename too long")
+            return original(*args, **kwargs)
+        module.git = interrupted
+        old_cwd = Path.cwd()
+        try:
+            os.chdir(self.repo)
+            args = type("Args", (), dict(target="main", remote="origin",
+                branch="feature/milestone", merged_sha=merged,
+                pr_head_sha=None, apply=True, allow_generated_ignored=False))()
+            report = module.closeout(args)
+            self.assertEqual(report["branch_cleanup"], "PARTIAL_CLOSEOUT")
+            self.assertEqual(report["worktree_postcondition"]["registered"], False)
+            self.assertEqual(report["worktree_postcondition"]["directory_exists"], True)
+            self.assertTrue((linked / "residual.txt").exists())
+            self.assertTrue(git(self.repo, "rev-parse", "feature/milestone"))
+        finally:
+            os.chdir(old_cwd)
+            module.git = original
+
     def test_ignore_classification_never_discards_secrets(self):
         self.assertTrue(module.safe_generated_ignored(
             ["!! node_modules/package/index.js", "!! dist/bundle.js"]))
         self.assertFalse(module.safe_generated_ignored(
             ["!! node_modules/package/index.js", "!! .env"]))
         self.assertFalse(module.safe_generated_ignored(["?? notes.txt"]))
+        self.assertFalse(module.safe_generated_ignored(["!! node_modules/.env.local"]))
+        self.assertFalse(module.safe_generated_ignored(["!! dist/secrets/token.key"]))
 
 if __name__ == "__main__":
     unittest.main()

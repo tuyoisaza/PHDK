@@ -7,12 +7,18 @@ For squash/rebase retirement the verified PR head SHA is also required.
 """
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 SHA = re.compile(r"^[0-9a-fA-F]{40}$")
+SENSITIVE = {".env", ".ssh", ".aws", ".azure", ".kube", "secrets", "credentials",
+             "uploads", "customer-data", "private", "id_rsa", "id_ed25519"}
+WINDOWS_SAFE_PATH_LENGTH = 240
+MAX_WALK_ENTRIES = 10000
+
 GENERATED = {
     "node_modules", ".next", ".nuxt", "dist", "build", "coverage",
     ".cache", ".turbo", ".vite", "__pycache__", ".pytest_cache",
@@ -57,15 +63,57 @@ def local_changes(path, ignored=False):
         args.append("--ignored")
     return git(*args, cwd=path).stdout.splitlines()
 
+def sensitive(relative):
+    parts = PurePosixPath(relative.replace("\\", "/")).parts
+    return any(
+        part.lower() in SENSITIVE or part.lower().startswith(".env.") or
+        part.lower().endswith((".pem", ".key", ".p12", ".pfx", ".sqlite", ".sqlite3"))
+        for part in parts
+    )
+
+
 def safe_generated_ignored(changes):
-    """Only known disposable ignored paths, never .env or unknown user data."""
+    """Conservative path-level screening; a full walk is required before deletion."""
     for line in changes:
         if not line.startswith("!! "):
             return False
         relative = line[3:].strip().strip('"').replace("\\", "/")
-        if not any(part in GENERATED for part in relative.split("/")):
+        parts = PurePosixPath(relative).parts
+        if (not parts or not any(part in GENERATED for part in parts) or
+                sensitive(relative) or ".." in parts):
             return False
     return True
+
+
+def inspect_payload(path, changes, windows=None):
+    """Bounded non-mutating preflight of ignored content, links and long paths."""
+    windows = (os.name == "nt") if windows is None else windows
+    report = {
+        "ignored_entries": sum(x.startswith("!! ") for x in changes),
+        "inspected_entries": 0, "windows_long_paths": 0,
+        "unsafe_content": bool(changes and not safe_generated_ignored(changes)),
+        "inspection_errors": [],
+    }
+    def check(item):
+        report["inspected_entries"] += 1
+        if windows and len(str(item)) >= WINDOWS_SAFE_PATH_LENGTH:
+            report["windows_long_paths"] += 1
+        if report["inspected_entries"] > MAX_WALK_ENTRIES:
+            report["inspection_errors"].append("payload exceeds bounded inspection")
+        if item.is_symlink() or sensitive(str(item.relative_to(path))):
+            report["unsafe_content"] = True
+    try:
+        for folder, dirs, files in os.walk(path, followlinks=False):
+            here = Path(folder)
+            check(here)
+            for name in dirs + files:
+                check(here / name)
+            if report["inspection_errors"]:
+                break
+    except (OSError, ValueError) as exc:
+        report["inspection_errors"].append(f"inspection failed: {type(exc).__name__}")
+    return report
+
 
 def closeout(args):
     root = Path(git("rev-parse", "--show-toplevel").stdout.strip()).resolve()
@@ -181,22 +229,48 @@ def closeout(args):
             result["branch_cleanup"] = "RETAINED_LOCKED_OR_ACTIVE_WORKTREE"
             return result
         changes = local_changes(owner_path, ignored=True)
-        if changes and not (args.allow_generated_ignored and safe_generated_ignored(changes)):
+        payload = inspect_payload(owner_path, changes)
+        result["worktree_payload"] = payload
+        if payload["inspection_errors"] or payload["windows_long_paths"]:
+            result["branch_cleanup"] = (
+                "RETAINED_WINDOWS_LONG_PATH_RISK" if payload["windows_long_paths"]
+                else "RETAINED_INSPECTION_UNVERIFIED"
+            )
+            return result
+        if changes and not (args.allow_generated_ignored and
+                            safe_generated_ignored(changes) and
+                            not payload["unsafe_content"]):
             result["branch_cleanup"] = "RETAINED_UNTRACKED_OR_IGNORED_CONTENT"
             result["retained_entries"] = len(changes)
             return result
         removal = git("worktree", "remove", str(owner_path),
                       cwd=root, required=False)
-        if removal.returncode:
-            result["branch_cleanup"] = "RETAINED_WORKTREE_REMOVE_REJECTED"
+        registered = any(
+            Path(w["path"]).resolve() == owner_path for w in worktrees(root)
+        )
+        exists = os.path.lexists(owner_path)
+        result["worktree_postcondition"] = {
+            "registered": registered, "directory_exists": exists,
+            "branch_sha": sha(branch_ref, root) or None,
+        }
+        if removal.returncode or registered or exists:
+            result["branch_cleanup"] = (
+                "PARTIAL_CLOSEOUT" if (not registered and exists) or
+                (registered and not exists) else "RETAINED_WORKTREE_REMOVE_REJECTED"
+            )
             result["reason"] = (removal.stderr or removal.stdout).strip()[-1200:]
             return result
         result["actions"].append("remove_verified_worktree")
-    deletion = git("branch", "-d" if ancestor else "-D",
-                   args.branch, cwd=root, required=False)
+    if ancestor:
+        deletion = git("branch", "-d", args.branch, cwd=root, required=False)
+    else:
+        # Verified squash/rebase only: atomic SHA-guarded deletion, not a forced delete.
+        deletion = git("update-ref", "-d", branch_ref, head, cwd=root, required=False)
     if deletion.returncode:
         result["branch_cleanup"] = "RETAINED_BRANCH_DELETE_REJECTED"
         result["reason"] = (deletion.stderr or deletion.stdout).strip()[-1200:]
+    elif sha(branch_ref, root):
+        result["branch_cleanup"] = "PARTIAL_BRANCH_CLOSEOUT"
     else:
         result["branch_cleanup"] = "REMOVED_VERIFIED_BRANCH"
         result["actions"].append("delete_verified_local_branch")
