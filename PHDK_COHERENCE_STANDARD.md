@@ -21,6 +21,10 @@ Before publishing changes to [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION
 
 When revising [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md), check the standard and `scripts/phdk_effort_status.py` are each vendored once, that Plan/PMO baselines precede implementation and Auto/Force/continuity/communications/AGENTS/SKILL/native rules show a nonblocking human-workday progress report. Work must be earned by verifiable output, not elapsed time, and downstream adoption remains independently unverified. Existing UAT, git delivery and environment restrictions remain unchanged.
 
+## Auto session continuity
+
+Verify that Auto, Force, lifecycle, communication and the managed entrypoints give the same answer when the session budget expires with eligible work remaining. The goal stays unfinished, the current session stops with repository links and an accessible status image, and a new conversation reconciles live state before acting. Check the vendored advisor and renderer in both layouts.
+
 ## Mandatory canonical release review
 Before publishing PHDK, inventory applicable standards, manifest files, scripts, agent entrypoints and changed dependencies. Review contradictory requirements involving Preflight, AUTO/PMO, delegation, UAT/browser permissions, security scope, delivery, and completion evidence. Record exact conflicting files and smallest fixes. Documentation never substitutes for implementation and executed test evidence.
 

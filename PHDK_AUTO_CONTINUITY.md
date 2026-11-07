@@ -3,8 +3,39 @@
 **Document context at resume (v2.73.0):** When reloading `AUTO_STATE.json`, resolve active versioned intent, brief, ADR and plan artifacts through `docs/INDEX.md` under [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md). Store links/IDs and the observed revision in the existing state/handoff rather than copying entire documents or launching a new task. A stale/missing legacy index is a recoverable documentation gap, not a new permission or a reason to restart Capture.
 
 
+## Bounded work sessions
+
+One authorized goal may need several foreground conversations. At entry record a stable session identifier and start time in the existing run state. Preserve both through messages, compaction, worktree/worker changes and mode switches. Before dispatching or beginning any new slice, after a milestone or tool wait, and after a context warning, compare the trustworthy clock, remaining work and expected closeout cost. Use four hours per session as the default ceiling. Honor a shorter owner/host limit. Start closing at the last safe checkpoint if the next slice plus publication, readback and handoff would not fit. Close early for material context pressure, repeated reconstruction, or unreliable session history. Unknown timing is a reason for an early safe handoff. The elapsed session clock is independent of PMO human-workday estimates.
+
+When the boundary is due, end assignment of new work in both modes. Collect and stop owned workers safely, preserve in-flight operations and record unfinished details. Finish an already authorized coherent milestone through its normal PR, remote main readback and bounded production readback under `PHDK_DEPLOYMENT_VERSION_STANDARD.md` for an applicable service if feasible within the boundary. A partial milestone stays on the owned branch or draft PR. Never force a release to satisfy the timer or leave a worker running. If remote writes are unavailable, provide a portable scoped handoff/patch when authorized, explain what is local-only and leave merge/deployment unverified. Respect an explicit stop immediately. Honor any ban on further writes and present only permitted existing evidence. A handoff keeps the outstanding goal open and doesn't grant fresh conversation authority.
+
+The existing advisor reads the additive `session` object in schema v1. Use the same `id` and timezone-qualified ISO `started_at` throughout this conversation. Optional `budget_minutes` is 1–240 (default 240), `next_slice_minutes` is the current work estimate, and `closeout_minutes` reserves time for delivery and handoff (default 15). Set `close_early` for context pressure or unknown timing and `closed` at handoff. The advisor returns `SESSION_HANDOFF` before dispatch when due. On a legacy record, reconstruct the original start from observed history, or set `close_early` and close immediately. Only an actual new owner-invoked conversation enters another session under this run. Do not reset the clock to repair an old record.
+
+### Session close package
+
+Use `docs/phdk/lifecycle/<run-id>/sessions/<NN>/HANDOFF.md` for each closure, with `status.json` and `board/status-01.svg` in that same numbered folder. From the active TASK, plan, milestone ledger, current AUTO_STATE and observed delivery evidence, produce a short HANDOFF.md, a derived status snapshot and the standard status image. Stage these artifacts in the current authorized change or checkpoint them on the owned working branch. Include the handoff prompt text in HANDOFF.md and in the final reply. Add the verified URLs in the reply once the branch or merge SHA is known. For facts observed after merge, supply real links in the response with optional existing evidence records; do not cause another release just to record its own SHA. Link these artifacts in the current run record. Retain prior session folders when advancing to the next session. Redact credentials, provider secrets, tenant data and private URLs beyond the project's permitted audience.
+
+For the image, use the vendored `scripts/phdk_session_status.py SNAPSHOT.json OUTPUT_DIR` with a new/empty output directory. Use the [sample JSON](examples/session-status.example.json) and [design](docs/images/session-status/v1/session-status.example.svg). The output is one or more accessible 1920×1080 SVGs. Show page one inline and provide all pages. If the host needs bitmap images, convert with an available offline renderer. With image or write tools unavailable, deliver the full textual equivalent plus the portable source when available and state which output could not be rendered/saved. Map each actual roadmap milestone to DONE (green), IN_PROGRESS (yellow), PENDING (red) or BLOCKED (red labeled), in plan order. Tie the active-work panel to its milestone IDs. The image shows the session, goal, current work, confirmed configuration names/status, next steps and separate publication, deployment and acceptance evidence. Missing proof stays unverified. Deferred UAT is not a failed milestone. Do not silently discard overflow. The same board also closes completed, blocked or stopped sessions where permitted.
+
+When work remains on rollover, deliver one directly copyable text block in the owner's language. Place the original unquoted mode on its own first line. Treat the rest of that owner-sent message as the scoped brief. Fill every applicable slot with actual observed values and absolute repository URLs, including inside the block; name unavailable artifacts. Local paths alone do not suffice in a different workspace.
+
+```text
+PHDK auto
+Resume [goal] in [repository URL]. Use run [run ID]. Preserve [scope, target and exclusions].
+Start from [handoff URL at actual branch or immutable ref]. Read [TASK URL], [active intent/index and plan URLs],
+[milestone ledger URL] and [AUTO_STATE URL]. Board: [status image URLs].
+At close: [completed milestone + PR/main SHA/link]; [current milestone, partial branch/PR and revision];
+[deployment proof or exact reason unverified]; [acceptance status]. [Configuration established and limits].
+Remaining: [milestone IDs]. The first next action is [concrete task]. [Blockers and applicable constraints].
+Recheck current main, candidate branch and PR before writing. Reuse verified work, reconcile changes
+since the checkpoint and honor the active session handoff standard.
+```
+
+Use `PHDK auto force` on line one only if that mode applies. At rollover explicitly say that execution in this conversation has stopped. Ordinary replies, compaction, and a newly spawned worker do not start another session. In a fresh conversation the owner's pasted instruction activates the indicated scope. Verify current remote state, reconcile drift and actual authority, retain the run and start a new session clock. A historical file or copied quotation alone never triggers work. When the goal is complete, present its final board and real delivery evidence with no fabricated next task.
+
 ## Contents
 
+- [Bounded work sessions](#bounded-work-sessions)
 - Command and review policy
 - Design choices and mode continuity
 - Persistent mandate and current authority
@@ -67,7 +98,7 @@ AUTO FORCE carries its operating instructions into the active context through th
 
 At entry/recovery and before treating a gap as a reason to ask or stop, reread the current Auto Force/communication contract and relevant domain rule, reconcile with the latest user instruction, and discard obsolete interpretations or restrictions invented by the agent. This short refresh does not rerun the full preflight or rescan every standard at each message. In progress updates keep the operative reminder visible; use newly relevant source when needed. A rule refresh preserves actual user restrictions and host controls. PHDK-only human reviews remain nonblocking immediately, without investigating their approval history or protections. For Design, use the current mode's decision policy rather than a stale assistant-created owner wait.
 
-Before a proposed interruption ask internally: **Does this impediment affect the entire goal or only particular operations? What can I implement, repair, define or prepare now within the current mandate?** Execute an eligible action when one exists. A partial delivery updates progress and is followed by the next in-scope task; writing its report does not close the goal. Ordinary Auto's actual unanswered Design input blocks only dependent UI work.
+Before a proposed interruption ask internally: **Does this impediment affect the entire goal or only particular operations? What can I implement, repair, define or prepare now within the current mandate?** Execute an eligible action when one exists. Within an open session, a partial delivery updates progress and is followed by the next in-scope task; writing its report does not close the goal. Ordinary Auto's actual unanswered Design input blocks only dependent UI work.
 
 ## Propose missing definitions and solutions
 
@@ -82,7 +113,7 @@ For an environment problem, propose and execute an already permitted repair or i
 ## Continue, repair and retry
 
 1. Select the next dependency-ready step inside the authorized goal. Treat PHDK-only human reviews as nonblocking in FORCE immediately; do not research or reconstruct their approval history. Resolve design choices according to the current mode before dependent UI work.
-2. Perform technical review, required permitted checks and necessary delivery operation. Continue from each satisfied stage into the next eligible action in the same active invocation.
+2. Perform technical review, required permitted checks and necessary delivery operation. Before the next eligible action, check the bounded session. Continue only while it remains open.
 3. **If the operation actually fails or is rejected: report the observed failure briefly, investigate its cause, repair it, revalidate affected permitted checks, and retry push/PR/merge.** Keep the mandate active throughout. A rejected write is not a revoked grant.
 4. Repair bounded hook/toolchain errors, test-source failures caused by the change, formatting, ordinary integration conflicts, stale head/version metadata and clearly fixable source defects. Refresh the target and intended diff before retrying a stale write; preserve other contributors' work and evidence already valid for unchanged content.
 5. Repeat while there is a new correction or useful diagnostic step. Do not blindly resend an unchanged failing command, poll indefinitely, skip a hook, remove meaningful checks, forge approval, force-push or change credentials/protections just to defeat enforcement.
@@ -106,6 +137,7 @@ Use one factual JSON record, not multiple competing authorization ledgers. Keep 
 ```json
 {
   "schema_version": 1,
+  "session": {"id": "01", "started_at": "2026-10-17T09:00:00Z"},
   "run_id": "2026-10-17-current-goal",
   "mode": "auto_force",
   "repository": "owner/project",
@@ -163,7 +195,7 @@ When permitted and useful, the static-state advisor can inspect the factual reco
 python phdk-standards/scripts/phdk_auto_gate.py --state docs/phdk/lifecycle/<run-id>/AUTO_STATE.json --mode auto_force
 ```
 
-Use `scripts/phdk_auto_gate.py` directly in the PHDK source repository. Supply mode from the current active instruction, never infer authority from a saved mode. The advisor makes no network calls, queries no reviews/protections, runs no external commands and changes no state. Its dispositions remain `CONTINUE`, `REPAIR_AND_RETRY`, `REPAIR_STATE`, `WAITING_EXTERNAL`, `VERIFY_DELIVERY` and `STOPPED`. For ordinary Auto's Design input, `WAITING_EXTERNAL` carries reason `DESIGN_AWAITING_OWNER`; this means a user answer, not a technical failure. Independent work is returned as executable while the choice remains waiting. FORCE returns the selection action, never a skip-design instruction. Multiple otherwise ready Design choices are presented one at a time.
+Use `scripts/phdk_auto_gate.py` directly in the PHDK source repository. Supply mode from the current active instruction, never infer authority from a saved mode. The advisor makes no network calls, queries no reviews/protections, runs no external commands and changes no state. Its dispositions include `SESSION_HANDOFF`, `CONTINUE`, `REPAIR_AND_RETRY`, `REPAIR_STATE`, `WAITING_EXTERNAL`, `VERIFY_DELIVERY` and `STOPPED`. For ordinary Auto's Design input, `WAITING_EXTERNAL` carries reason `DESIGN_AWAITING_OWNER`; this means a user answer, not a technical failure. Independent work is returned as executable while the choice remains waiting. FORCE returns the selection action, never a skip-design instruction. Multiple otherwise ready Design choices are presented one at a time.
 
 `REPAIR_STATE` means fix bookkeeping internally and continue, not wait for approval. This helper is not a hook, publication prerequisite, permission grant, product runtime test or proof of owner approval. If unavailable or execution is excluded by current controls, apply this contract directly. Do not run behavioral/unit tests of the helper locally contrary to `PHDK_PRODUCTION_VERIFICATION.md`.
 
@@ -183,6 +215,6 @@ RECORDATORIO: recargar las reglas vigentes, reconciliar bloqueos heredados, busc
 SIGUIENTE PASO: [acción concreta]. Continúo con el trabajo autorizado.
 ```
 
-The reminder is an instruction to apply, not a claim that a reread, repair or proposal already happened. Report completed actions only with actual evidence. Normal Auto retains its mandate/next-action cue. Execute the stated eligible action in the same invocation; do not end the turn with a promise to continue while permitted work is ready. On a rejection the next action is diagnosis/repair/retry. When a definition is missing, propose and resolve what can be decided inside the current mandate before asking about a remaining indispensable decision. For normal Auto awaiting Design input, state the actual question and waiting condition, not a claim that dependent coding continues.
+The reminder is an instruction to apply, not a claim that a reread, repair or proposal already happened. Report completed actions only with actual evidence. Normal Auto retains its mandate/next-action cue. While the current session remains open, execute the stated eligible action in the same invocation; do not end the turn with a promise to continue while permitted work is ready. On a rejection the next action is diagnosis/repair/retry. When a definition is missing, propose and resolve what can be decided inside the current mandate before asking about a remaining indispensable decision. For normal Auto awaiting Design input, state the actual question and waiting condition, not a claim that dependent coding continues.
 
 At actual development completion report the verified result and target link, the actual `DEVELOPMENT COMPLETE` / `PARTIALLY DELIVERED` / `BLOCKED` outcome, and `UAT NOT RUN` separately. Offer optional future `PHDK uat` without waiting for an answer as a delivery gate. Mark the development goal complete only from its required evidence; do not claim an active mandate to start unrelated work. On a genuine user stop, exhausted external dependency or required normal Auto Design input, report the factual limitation and one precise resume action/question. Preserve the existing PHDK version, lifecycle and final-link contract without repeating long permission prose.

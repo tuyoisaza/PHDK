@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" xml:lang="es" role="img" aria-labelledby="title desc" font-family="DejaVu Sans, sans-serif">
+<title id="title">Portal de solicitudes · CIERRE DE SESIÓN · PÁG. 01 / 01</title>
+<desc id="desc">Que cada solicitud tenga un responsable y pueda seguirse hasta el cierre.. EJEMPLO FICTICIO   /   SESIÓN 02   /   3 H 35 MIN. 2 / 5 completados. M01 Acceso por equipo (HECHO). M02 Registro de solicitudes (HECHO). M03 Asignación de responsables (EN CURSO). M04 Seguimiento y alertas (PENDIENTE). M05 Cierre y reporte (PENDIENTE). TRABAJO EN EL HITO. M03 · Guardar el responsable de cada solicitud.. Falta enlazar la asignación con la bandeja.. CONFIGURACIÓN. Roles de agente y supervisor definidos.. Despliegue desde main habilitado en Railway.. PRÓXIMOS PASOS. Conectar el selector con la bandeja de entrada.. Publicar M03 y comprobar la revisión desplegada.. PUBLICACIÓN. M02 en main · 9ab31cd (simulado). DESPLIEGUE. Railway · 9ab31cd (simulado). ACEPTACIÓN. UAT sin ejecutar</desc>
+<rect x="0" y="0" width="1920" height="1080" rx="0" fill="#17191a" stroke="none"/>
+<rect x="58" y="36" width="8" height="32" rx="2" fill="#ff974d" stroke="none"/>
+<text x="83" y="62" text-anchor="start" font-size="28.00" font-weight="700" fill="#fff9ed">PHDK</text>
+<path d="M181 40 L181 66" stroke="#404442" stroke-width="1"/>
+<text x="204" y="60" text-anchor="start" font-size="20.00" font-weight="700" fill="#babcb4">AUTO  /  CIERRE DE SESIÓN</text>
+<text x="1861" y="60" text-anchor="end" font-size="22.00" font-weight="700" fill="#ff974d">EJEMPLO FICTICIO   /   SESIÓN 02   /   3 H 35 MIN</text>
+<path d="M58 91 L1862 91" stroke="#404442" stroke-width="1"/>
+<text x="55" y="172" text-anchor="start" font-size="69.00" font-weight="700" fill="#fff9ed">Portal de solicitudes</text>
+<text x="60" y="220" text-anchor="start" font-size="30.00" font-weight="400" fill="#babcb4">Que cada solicitud tenga un responsable y pueda seguirse hasta el cierre.</text>
+<rect x="58" y="258" width="876" height="629" rx="18" fill="#212425" stroke="none"/>
+<text x="91" y="312" text-anchor="start" font-size="23.00" font-weight="700" fill="#fff9ed">RUTA DE HITOS</text>
+<text x="901" y="312" text-anchor="end" font-size="21.00" font-weight="400" fill="#babcb4">2 / 5 completados</text>
+<path d="M91 339 L901 339" stroke="#404442" stroke-width="1"/>
+<text x="92" y="375" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">M01</text>
+<text x="90" y="414" text-anchor="start" font-size="29.00" font-weight="700" fill="#fff9ed">Acceso por equipo</text>
+<rect x="729" y="378" width="173" height="40" rx="20" fill="#273c30" stroke="none"/>
+<g transform="translate(751 398)" color="#7bd6a4" stroke="#7bd6a4" stroke-width="2.5" stroke-linecap="round" fill="none"><path d="m-8 0 5 5 10-11"/></g>
+<text x="772" y="404" text-anchor="start" font-size="17.00" font-weight="700" fill="#7bd6a4">HECHO</text>
+<path d="M91 449 L901 449" stroke="#404442" stroke-width="1"/>
+<text x="92" y="481" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">M02</text>
+<text x="90" y="520" text-anchor="start" font-size="29.00" font-weight="700" fill="#fff9ed">Registro de solicitudes</text>
+<rect x="729" y="484" width="173" height="40" rx="20" fill="#273c30" stroke="none"/>
+<g transform="translate(751 504)" color="#7bd6a4" stroke="#7bd6a4" stroke-width="2.5" stroke-linecap="round" fill="none"><path d="m-8 0 5 5 10-11"/></g>
+<text x="772" y="510" text-anchor="start" font-size="17.00" font-weight="700" fill="#7bd6a4">HECHO</text>
+<path d="M91 555 L901 555" stroke="#404442" stroke-width="1"/>
+<rect x="69" y="578" width="4" height="54" rx="2" fill="#f6cf72" stroke="none"/>
+<text x="92" y="587" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">M03</text>
+<text x="90" y="626" text-anchor="start" font-size="29.00" font-weight="700" fill="#fff9ed">Asignación de responsables</text>
+<rect x="729" y="590" width="173" height="40" rx="20" fill="#423921" stroke="none"/>
+<g transform="translate(751 610)" color="#f6cf72" stroke="#f6cf72" stroke-width="2.5" stroke-linecap="round" fill="none"><circle r="7"/><circle r="2" fill="currentColor"/></g>
+<text x="772" y="616" text-anchor="start" font-size="17.00" font-weight="700" fill="#f6cf72">EN CURSO</text>
+<path d="M91 661 L901 661" stroke="#404442" stroke-width="1"/>
+<text x="92" y="693" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">M04</text>
+<text x="90" y="732" text-anchor="start" font-size="29.00" font-weight="700" fill="#fff9ed">Seguimiento y alertas</text>
+<rect x="729" y="696" width="173" height="40" rx="20" fill="#402c2a" stroke="none"/>
+<g transform="translate(751 716)" color="#ff9a90" stroke="#ff9a90" stroke-width="2.5" stroke-linecap="round" fill="none"><circle r="7"/></g>
+<text x="772" y="722" text-anchor="start" font-size="16.94" font-weight="700" fill="#ff9a90">PENDIENTE</text>
+<path d="M91 767 L901 767" stroke="#404442" stroke-width="1"/>
+<text x="92" y="799" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">M05</text>
+<text x="90" y="838" text-anchor="start" font-size="29.00" font-weight="700" fill="#fff9ed">Cierre y reporte</text>
+<rect x="729" y="802" width="173" height="40" rx="20" fill="#402c2a" stroke="none"/>
+<g transform="translate(751 822)" color="#ff9a90" stroke="#ff9a90" stroke-width="2.5" stroke-linecap="round" fill="none"><circle r="7"/></g>
+<text x="772" y="828" text-anchor="start" font-size="16.94" font-weight="700" fill="#ff9a90">PENDIENTE</text>
+<rect x="960" y="258" width="902" height="195" rx="18" fill="#2d2925" stroke="none"/>
+<rect x="992" y="290" width="38" height="3" rx="0" fill="#ff974d" stroke="none"/>
+<text x="1043" y="298" text-anchor="start" font-size="21.00" font-weight="700" fill="#ff974d">TRABAJO EN EL HITO</text>
+<text x="994" y="356" text-anchor="start" font-size="18.00" font-weight="700" fill="#ff974d">01</text>
+<text x="1045" y="356" text-anchor="start" font-size="23.59" font-weight="400" fill="#fff9ed">M03 · Guardar el responsable de cada solicitud.</text>
+<text x="994" y="407" text-anchor="start" font-size="18.00" font-weight="700" fill="#ff974d">02</text>
+<text x="1045" y="407" text-anchor="start" font-size="26.02" font-weight="400" fill="#fff9ed">Falta enlazar la asignación con la bandeja.</text>
+<rect x="960" y="475" width="902" height="195" rx="18" fill="#212425" stroke="none"/>
+<rect x="992" y="507" width="38" height="3" rx="0" fill="#babcb4" stroke="none"/>
+<text x="1043" y="515" text-anchor="start" font-size="21.00" font-weight="700" fill="#babcb4">CONFIGURACIÓN</text>
+<text x="994" y="573" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">01</text>
+<text x="1045" y="573" text-anchor="start" font-size="28.00" font-weight="400" fill="#fff9ed">Roles de agente y supervisor definidos.</text>
+<text x="994" y="624" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">02</text>
+<text x="1045" y="624" text-anchor="start" font-size="25.34" font-weight="400" fill="#fff9ed">Despliegue desde main habilitado en Railway.</text>
+<rect x="960" y="692" width="902" height="195" rx="18" fill="#212425" stroke="none"/>
+<rect x="992" y="724" width="38" height="3" rx="0" fill="#babcb4" stroke="none"/>
+<text x="1043" y="732" text-anchor="start" font-size="21.00" font-weight="700" fill="#babcb4">PRÓXIMOS PASOS</text>
+<text x="994" y="790" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">01</text>
+<text x="1045" y="790" text-anchor="start" font-size="23.82" font-weight="400" fill="#fff9ed">Conectar el selector con la bandeja de entrada.</text>
+<text x="994" y="841" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">02</text>
+<text x="1045" y="841" text-anchor="start" font-size="23.11" font-weight="400" fill="#fff9ed">Publicar M03 y comprobar la revisión desplegada.</text>
+<path d="M58 923 L1862 923" stroke="#404442" stroke-width="1"/>
+<text x="60" y="965" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">PUBLICACIÓN</text>
+<text x="60" y="1003" text-anchor="start" font-size="24.52" font-weight="400" fill="#fff9ed">M02 en main · 9ab31cd (simulado)</text>
+<path d="M636 952 L636 1013" stroke="#404442" stroke-width="1"/>
+<text x="665" y="965" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">DESPLIEGUE</text>
+<text x="665" y="1003" text-anchor="start" font-size="25.00" font-weight="400" fill="#fff9ed">Railway · 9ab31cd (simulado)</text>
+<path d="M1241 952 L1241 1013" stroke="#404442" stroke-width="1"/>
+<text x="1270" y="965" text-anchor="start" font-size="18.00" font-weight="700" fill="#babcb4">ACEPTACIÓN</text>
+<text x="1270" y="1003" text-anchor="start" font-size="25.00" font-weight="400" fill="#fff9ed">UAT sin ejecutar</text>
+<text x="1861" y="1052" text-anchor="end" font-size="16.00" font-weight="700" fill="#babcb4">PÁG. 01 / 01</text>
+</svg>

@@ -2,6 +2,7 @@
 import copy
 import importlib.util
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "phdk_auto_gate.py"
@@ -12,6 +13,7 @@ SPEC.loader.exec_module(GATE)
 
 def design_state(mode="auto"):
     return {
+        "session": {"id": "session-01", "started_at": datetime.now(timezone.utc).isoformat()},
         "schema_version": 1, "run_id": "design-regression", "mode": mode,
         "repository": "example/product", "goal": "Implement the requested interface",
         "target_branch": "main", "candidate_ref": "a" * 40,

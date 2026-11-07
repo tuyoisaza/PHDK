@@ -79,6 +79,9 @@ for mandatory in [
     "scripts/phdk_coherence_check.py",
     "PHDK_AUTO_CONTINUITY.md",
     "scripts/phdk_auto_gate.py",
+    "scripts/phdk_session_status.py",
+    "examples/session-status.example.json",
+    "docs/images/session-status/v1/session-status.example.svg",
     "PHDK_DESIGN.md",
     "SKILL.md",
     "PHDK_NATIVE_RULES.md",
@@ -114,6 +117,20 @@ for entrypoint in [
         encoding="utf-8"
     ):
         errors.append(f"{entrypoint} missing PHDK evolution standard reference")
+
+# Verify the published session policy and compact routing on either manifest layout.
+for source, markers in {
+    "PHDK_AUTO_CONTINUITY.md": ["SESSION_HANDOFF", "bounded work session", "status", "fresh conversation"],
+    "PHDK_AUTO.md": ["bounded work session", "SESSION_HANDOFF"],
+    "PHDK_NATIVE_RULES.md": ["session boundary", "fresh"],
+    "PHDK_COMMUNICATION_STANDARD.md": ["session handoff", "copyable prompt"],
+    "scripts/phdk_auto_gate.py": ["SESSION_HANDOFF", "session_boundary"],
+}.items():
+    document = policy_path(source)
+    body = document.read_text(encoding="utf-8").lower() if document.is_file() else ""
+    for marker in markers:
+        if marker.lower() not in body:
+            errors.append(f"session handoff: {source} lacks {marker}")
 
 # Browser transport is not application acceptance: verify both independent paths.
 # This is a source-only regression guard, not proof of connected tools or live writes.

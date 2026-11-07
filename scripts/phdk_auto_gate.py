@@ -8,6 +8,7 @@ Missing bookkeeping calls for internal repair, not a new owner approval.
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -171,7 +172,37 @@ def validate(state, mode):
     return errors
 
 
-def evaluate(state, mode):
+def session_boundary(state, now=None):
+    """Evaluate the session budget before selecting further work."""
+    session = state.get("session")
+    if not isinstance(session, dict) or not nonempty(session.get("id")):
+        return result("REPAIR_STATE", [
+            "Recover the session and its original start. If elapsed time is unknown, hand off now."
+        ])
+    handoff = "Stop selecting work. Present the checkpoint, status image and fresh-session prompt."
+    if session.get("closed") is True:
+        return result("SESSION_HANDOFF", ["This session ended. Use its handoff in a fresh conversation."])
+    if session.get("close_early") is True:
+        return result("SESSION_HANDOFF", [handoff], reason="EARLY_HANDOFF")
+    current = now if now is not None else datetime.now(timezone.utc)
+    budget = session.get("budget_minutes", 240)
+    next_slice = session.get("next_slice_minutes", 0)
+    reserve = session.get("closeout_minutes", 15)
+    try:
+        started = datetime.fromisoformat(session["started_at"].replace("Z", "+00:00"))
+        elapsed = (current - started).total_seconds() / 60
+    except (KeyError, ValueError, TypeError, AttributeError, OverflowError):
+        return result("SESSION_HANDOFF", [handoff], reason="UNKNOWN_START")
+    valid_minutes = all(type(value) is int for value in (budget, next_slice, reserve))
+    valid_flags = all(type(session.get(key, False)) is bool for key in ("closed", "close_early"))
+    if not valid_flags or not valid_minutes or not (1 <= budget <= 240 and reserve > 0 and next_slice >= 0 and elapsed >= 0):
+        return result("SESSION_HANDOFF", [handoff], reason="UNRELIABLE_SESSION_BUDGET")
+    if elapsed + next_slice + reserve >= budget:
+        return result("SESSION_HANDOFF", [handoff], reason="SESSION_BUDGET")
+    return None
+
+
+def evaluate(state, mode, now=None):
     # A documented stop remains visible even while unrelated state needs repair.
     grant = state.get("authorization") if isinstance(state, dict) else None
     status = grant.get("status") if isinstance(grant, dict) else None
@@ -191,6 +222,9 @@ def evaluate(state, mode):
             ],
             errors=errors,
         )
+    boundary = session_boundary(state, now)
+    if boundary is not None:
+        return boundary
     steps = state["steps"]
     by_id = {item["id"]: item for item in state["blockers"]}
     done = {item["id"] for item in steps if item["status"] == "done"}

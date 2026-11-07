@@ -55,7 +55,7 @@ A later authorized stage may reuse prior work only after verifying its required 
 
 ## Auto continuity and human-gate policy
 
-Both `PHDK auto` and `PHDK auto force` use `PHDK_AUTO_CONTINUITY.md`. Transitions among their authorized development stages are execution handoffs inside the same goal; they do not activate optional acceptance. Reload the user mandate and next executable action after context compaction and before a terminal response; missing/malformed state is reconstructed internally, never a new approval gate.
+Both `PHDK auto` and `PHDK auto force` use `PHDK_AUTO_CONTINUITY.md`. At the session boundary, close the foreground conversation with the linked handoff, status image and next-session prompt. Keep the same run ID and continue from verified evidence after the owner invokes Auto in a fresh conversation. Transitions among their authorized development stages are execution handoffs inside the same goal; they do not activate optional acceptance. Reload the user mandate and next executable action after context compaction and before a terminal response; missing/malformed state is reconstructed internally, never a new approval gate.
 
 Normal Auto's Design selection/preview approval is the specific product-input exception in `PHDK_DESIGN.md`, not a ceremonial delivery review. While waiting, record stage 25 as BLOCKED with reason `DESIGN_AWAITING_OWNER`, retain the exact unanswered question and existing mandate, and continue genuinely independent authorized work. Resume from the answer without repeating already resolved choices or asking for another development command.
 
@@ -243,7 +243,7 @@ Design verifies the technical/content baseline and prepares the selected visual 
 Auto asks for the unresolved visual choice; Auto Force selects and continues.
 ```
 
-The transition declaration itself is informational, not an approval gate. The actual ordinary Auto Design choice is governed separately by `PHDK_DESIGN.md`. During Auto/AUTO FORCE, append the truthful active-mandate/next-action capsule from `PHDK_COMMUNICATION_STANDARD.md` and execute the next eligible action in the same turn. Do not issue a terminal response merely because a stage/handoff completed; when a genuine ordinary Auto design answer is needed and independent work is exhausted, ask that one question and preserve the mandate.
+The transition declaration itself is informational, not an approval gate. The actual ordinary Auto Design choice is governed separately by `PHDK_DESIGN.md`. During Auto/AUTO FORCE, append the truthful active-mandate/next-action capsule from `PHDK_COMMUNICATION_STANDARD.md` and execute the next eligible action in the same turn while the session remains open. Do not issue a terminal response merely because a stage/handoff completed; when a genuine ordinary Auto design answer is needed and independent work is exhausted, ask that one question and preserve the mandate.
 
 ## Versioned-document handoff resolution (v2.73.0)
 
@@ -866,7 +866,7 @@ The run-level `LIFECYCLE.md` must then be finalized.
 - resulting version/revision verified;
 - lifecycle artifact index complete;
 - no stage falsely marked completed;
-- for Auto/AUTO FORCE, no remaining executable in-scope action is hidden behind a terminal response; finalize actual completed/stopped/blocked state in `AUTO_STATE.json` under the continuity contract.
+- for Auto/AUTO FORCE, no remaining executable in-scope action is hidden behind a terminal response; record the actual session handoff or completed/stopped/blocked state in `AUTO_STATE.json` under the continuity contract.
 
 # Reuse of existing stage artifacts
 
