@@ -16,6 +16,8 @@ When the active product goal has multi-tenancy, load `PHDK_TENANT_RISK_STANDARD.
 
 # PHDK Auto
 
+The [bounded work session contract](PHDK_AUTO_CONTINUITY.md#bounded-work-sessions) governs both Auto variants, including a chained Auto Force invocation. Set the session start and inspect remaining time and context before dispatch, after each milestone and after compaction. Close within four hours, earlier if the next slice and handoff cannot fit. Show the 16:9 status image, give the owner a repository-linked copyable prompt for unfinished work, then end the session. A fresh conversation resumes the same goal.
+
 ## Risk-based assurance and learning closeout (v2.78.0)
 
 During Plan and material replanning, apply [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) when integrity, value, permissions, irreversible effects or operational continuity are materially at risk; otherwise record a brief justified NOT_APPLICABLE. Keep invariants, material decisions, verification permissions and recovery in the existing indexed plan and pass the contract to Integration/Check/delivery. Distinguish TECHNICALLY_DELIVERED, ACCEPTED, CUTOVER_AUTHORIZED and actual cutover execution without replacing existing completion-gate fields. A source merge/autodeploy must not trigger an unauthorized critical migration or operational replacement. This is conditional assurance, not a legacy-only mode, new infrastructure, local-test permission or automatic UAT.
@@ -423,7 +425,7 @@ Report `DEVELOPMENT COMPLETE`, `PARTIALLY DELIVERED` or `BLOCKED` from actual de
 
 ## Mandatory forward progress, resumability, and truthful closing
 
-**A lifecycle stage is a checkpoint, not an execution endpoint.** In a single active invocation, after every successfully closed stage, validate its exit handoff, persist status, and immediately begin the next eligible stage. Do not return a terminal assistant answer merely because Preflight, Capture, Plan, Design, PMO, Integration, SEO, AEO/GEO, or Check produced its deliverables. Progress messages must be nonterminal. A required question is a stop only when the answer changes an actual material decision and there is no independent in-scope work left to execute. Normal Auto's unresolved Design choice is such required product input; FORCE makes that choice and continues unless an actual owner restriction prevents it.
+**A lifecycle stage is a checkpoint, not an execution endpoint.** In a single active invocation, after every successfully closed stage, validate its exit handoff, persist status, check the bounded session and start the next eligible stage only while it remains open. Do not return a terminal assistant answer merely because Preflight, Capture, Plan, Design, PMO, Integration, SEO, AEO/GEO, or Check produced its deliverables. Progress messages must be nonterminal. A required question is a stop only when the answer changes an actual material decision and there is no independent in-scope work left to execute. Normal Auto's unresolved Design choice is such required product input; FORCE makes that choice and continues unless an actual owner restriction prevents it.
 
 **Deterministic restart from repository evidence.** On each new explicit `PHDK auto` or `PHDK auto force` invocation:
 1. Reread the complete current intent/requirements baseline and actual source under the mandatory intent-to-implementation reconciliation above, then read the current owner goal, `PHDK_LIFECYCLE_STATUS.md`, run-level historical `LIFECYCLE.md`, `PHDK_COMMITMENTS.md`, `PHDK_COMMITMENT_COVERAGE.md`, `IMPLEMENTATION_PLAN.md`, relevant selected Design decision/asset pointers, handoffs, and current git/PR facts.
@@ -435,6 +437,7 @@ Report `DEVELOPMENT COMPLETE`, `PARTIALLY DELIVERED` or `BLOCKED` from actual de
 **Mandatory progress loop (conceptual, not an unattended scheduler):**
 ```text
 while authorized goal not complete:
+    if the session boundary is due: prepare the handoff, present board and resume prompt, and end this invocation
     keep UAT Prep/UAT/UAT Fix DEFERRED — OWNER OPT-IN; do not enqueue them
     validate current authorized development stage prerequisites
     if applicable Design choice is unresolved:
@@ -455,22 +458,22 @@ while authorized goal not complete:
         execute independent authorized work
         if no permitted progress remains: report precise BLOCKED evidence and resumption action
     else:
-        advance immediately to the next eligible stage in this same invocation
+        recheck the session boundary before advancing to the next eligible stage
 verify all commitments + in-scope PRs + final delivery gates
 report actual delivery, then bounded retrospective findings/status
 only then report COMPLETED when the delivery gates actually passed
 ```
-No generic response-length, task-count, stage-count, or conversational milestone limit authorizes stopping at a successful stage. Respect real host/tool execution limits: when work cannot continue in this invocation, checkpoint accurately and say `INTERRUPTED — NOT COMPLETE`, without pretending to schedule a background continuation.
+Except for the documented session boundary, no generic response-length, task-count, stage-count, or conversational milestone limit authorizes stopping at a successful stage. Respect real host/tool execution limits: when work cannot continue in this invocation, checkpoint accurately and say `INTERRUPTED — NOT COMPLETE`, without pretending to schedule a background continuation.
 
 **Every exit response must include actionable next-step guidance**, even when the task is interrupted:
 ```text
-PHDK Auto — <COMPLETED | BLOCKED | INTERRUPTED — NOT COMPLETE>
+PHDK Auto — <COMPLETED | BLOCKED | SESSION_HANDOFF | INTERRUPTED — NOT COMPLETE>
 Goal: <goal>
 Last verified stage: <stage>
 Next pending stage: <stage / NONE>
 Unfinished commitments: <IDs or NONE>
 In-scope open PRs: <numbers or NONE>
-Why execution stopped: <completed delivery / exact blocker / DESIGN_AWAITING_OWNER / host execution boundary>
+Why execution stopped: <completed delivery / exact blocker / DESIGN_AWAITING_OWNER / session budget or context boundary / host execution boundary>
 Next action: <automatic continuation in this invocation, exact owner answer/action,
 or "Run PHDK auto again to resume from <stage>" only when a new invocation is required>
 Checkpoint: PHDK_LIFECYCLE_STATUS.md

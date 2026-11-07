@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.82.0**
+**Version v2.83.0**
 
 **Learning closeout and risk-based assurance (v2.78.0):** Every Auto/Force run closes with a bounded, evidence-based retrospective under [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): what shipped, what was learned, generalizable PHDK proposals and project-local actions. Prepare it with the final authorized change; report actual publication evidence afterward. Zero findings is valid; recommendations add no approval gate, automatic canonical edits, extra agents or report-only release loop. [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) adds conditional domain invariants, characterization/equivalence plans, material-decision provenance and operational recovery for changes risking integrity, value, access or continuity, not just legacy migrations. Technical delivery, acceptance, cutover authorization and executed cutover remain distinct. Local behavioral testing and automatic UAT remain prohibited; downstream adoption is separate. Source-only guards: [scripts/phdk_learning_risk_check.py](scripts/phdk_learning_risk_check.py).
 
@@ -50,6 +50,8 @@ PHDK is an operating system for AI-assisted software delivery. It turns a reposi
 **Optional reusable-capability planning:** [PHDK_REUSE_CATALOG_STANDARD.md](PHDK_REUSE_CATALOG_STANDARD.md) makes Plan compare **REUSE / ADAPT / BUILD** for common capabilities without forcing reuse. The public [catalog](PHDK_REUSE_CATALOG.json) starts with specification-only synthetic starter targets; `SPECIFICATION_ONLY` always has `implementation: null`. Reusable implementations stay in separate versioned packages and require current evidence, license/security review and portability in a second consumer before `ACCEPTED_VERSIONED`.
 
 **Maintaining PHDK itself:** [PHDK_EVOLUTION_STANDARD.md](PHDK_EVOLUTION_STANDARD.md) governs fresh repository context, naming, workspace ownership, SemVer, release coherence and verified publication. Reading this guide does not activate Auto or authorize unattended changes.
+
+**Auto session handoff.** A long goal can span several conversations. Auto and Auto Force close the current session within a four-hour work budget, earlier if context is at risk or the next slice will not fit. Each close shows a 16:9 milestone board, what reached `main`, the deployed revision when verifiable, and the next action. If work remains, paste the supplied prompt into a fresh conversation to resume from the linked repository records. [Session handoff](PHDK_AUTO_CONTINUITY.md) · [Example board](docs/images/session-status/v1/session-status.example.svg) · [Example snapshot](examples/session-status.example.json).
 
 **Continuity and communication:** [PHDK_AUTO_CONTINUITY.md](PHDK_AUTO_CONTINUITY.md) preserves the scoped mandate through compaction and actual delivery repair/retry. [PHDK_COMMUNICATION_STANDARD.md](PHDK_COMMUNICATION_STANDARD.md) requires concise evidence-based mode/version/progress/git/next-action reporting and avoids repetitive optional promotions. Neither creates background execution.
 

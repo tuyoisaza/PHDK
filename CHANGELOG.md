@@ -1,3 +1,11 @@
+## v2.83.0 — 2026-11-06
+
+### Auto session handoff
+
+- Bound Auto and Auto Force work on a goal to foreground sessions of up to four hours, with earlier handoff when context is at risk or the next slice will not fit. The current session ends after checkpointing. The owner can open a fresh conversation with the supplied resume prompt.
+- At session close, present a standard 1920×1080 milestone board with current work, configuration, next steps and independent Git, deployment and acceptance evidence. Record the actual delivery point, including branch-only work and unverified deployment.
+- Route the existing Auto advisor and agent instructions through the same boundary. Continue the same goal and run after checking current repository evidence.
+
 ## v2.82.0 — 2026-11-06
 
 ### Workflow and visual acceptance in UAT

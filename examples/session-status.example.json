@@ -1,0 +1,19 @@
+{
+  "language": "es",
+  "project": "Portal de solicitudes",
+  "session": "EJEMPLO FICTICIO   /   SESIÓN 02   /   3 H 35 MIN",
+  "goal": "Que cada solicitud tenga un responsable y pueda seguirse hasta el cierre.",
+  "milestones": [
+    {"id": "M01", "title": "Acceso por equipo", "status": "DONE"},
+    {"id": "M02", "title": "Registro de solicitudes", "status": "DONE"},
+    {"id": "M03", "title": "Asignación de responsables", "status": "IN_PROGRESS"},
+    {"id": "M04", "title": "Seguimiento y alertas", "status": "PENDING"},
+    {"id": "M05", "title": "Cierre y reporte", "status": "PENDING"}
+  ],
+  "current": ["M03 · Guardar el responsable de cada solicitud.", "Falta enlazar la asignación con la bandeja."],
+  "configuration": ["Roles de agente y supervisor definidos.", "Despliegue desde main habilitado en Railway."],
+  "next_steps": ["Conectar el selector con la bandeja de entrada.", "Publicar M03 y comprobar la revisión desplegada."],
+  "publication": "M02 en main · 9ab31cd (simulado)",
+  "deployment": "Railway · 9ab31cd (simulado)",
+  "acceptance": "UAT sin ejecutar"
+}

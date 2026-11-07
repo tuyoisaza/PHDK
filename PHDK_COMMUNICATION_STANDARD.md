@@ -25,9 +25,13 @@ At the start of a lifecycle or meaningful mode transition announce the current m
 
 Use [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md) after milestone/PMO scope is concrete. Show an initial focused-human-workday estimate, a small progress bar and the remaining days **before implementation**; update when evidence-backed completed scope or material re-estimation actually changes the figure. Preserve original forecast and confidence; remaining effort may rise. Never count elapsed time or opened PRs as earned effort, invent percentages, present the number as AI runtime/calendar ETA, or request ceremonial approval. Continue the existing `SIGUIENTE PASO` and git/publication status contract.
 
+## Auto session handoff
+
+At each Auto or Force session close, present the milestone board required by `PHDK_AUTO_CONTINUITY.md`. Show the actual publication and deployment evidence, current milestone, confirmed configuration and ordered next steps. On rollover give the owner one copyable prompt with the real goal, mode, run and repository links. State that the current session has ended. The normal active-mode footer and same-turn continuation apply only while the session is open.
+
 ## Auto mandate and action capsule
 
-Apply `PHDK_AUTO_CONTINUITY.md` to both Auto variants. Every Auto-facing response ends its status text with the actual mandate and next-action capsule, before the final evidence link when applicable. AUTO FORCE makes its operating reminder visible at start/resume, in every substantive progress update, after a partial delivery and before a proposed question/blocker. While an authorized action is executable, use the real scope:
+Apply `PHDK_AUTO_CONTINUITY.md` to both Auto variants. Every Auto-facing response ends its status text with the actual mandate and next-action capsule, before the final evidence link when applicable. AUTO FORCE makes its operating reminder visible at start/resume, in every substantive progress update, after a partial delivery and before a proposed question/blocker. While the session is open and an authorized action is executable, use the real scope:
 
 ```text
 AUTO FORCE activo · autorización vigente para [objetivo/alcance].
@@ -44,7 +48,7 @@ On a real rejection, report the failed operation and evidence, then state the im
 - Never ask for redundant approval that current instructions already provide, including mandatory local checks/tests/hooks within the scoped implementation mandate. In Developer Mode, eligible bounded direct-main delivery may proceed without repeat approval; normal mode follows branch/PR delivery and actual risk/review gates. Do not treat a test, review or inaccessible service as approved or passed merely to maintain momentum.
 - A PHDK-only human signoff is non-blocking in AUTO FORCE without preventive review/protection investigation. A real current-owner/host restriction remains effective; report actual rejected actions, diagnose and repair within scope, revalidate and retry before declaring a remaining blocker. Complete independent permitted actions, then report BLOCKED/PARTIALLY DELIVERED only if no executable work remains. Do not impersonate a reviewer, forge consent, bypass branch protection, skip required tests, or override higher-priority instructions.
 - PMO worker messages are input to the PMO integrator. Integrator owns the final state, dependency/commitment ledger, PR reconciliation and closure.
-- Don't start unrelated tasks or background work. End after the current authorized outcome is delivered or a genuine blocker remains.
+- Don't start unrelated tasks or background work. End at the required session handoff, after the current authorized outcome is delivered, or when a genuine blocker remains.
 
 ## Mandatory final evidence link
 Every terminal PHDK response ends with a verified, actionable link to the current result: merged main file/commit, PR, preview/application URL, delivery report or concrete evidence artifact. Say what the owner can inspect there and whether it is published, still on a branch, or awaiting deploy. Prioritize the product URL when actually verified; otherwise link to the canonical GitHub change/evidence. Do not fabricate URL, claim the deployment is live from a Git push, or turn an inaccessible path into a clickable link. If no valid link is available, say **Enlace: no disponible/verificado** and identify the specific location needed. Place this as the final line, after SIGUIENTE PASO.
@@ -77,4 +81,4 @@ Ver aquí: [verified clickable URL] — [what to inspect and publication state].
 11. AUTO FORCE is active across updates: each substantive progress update includes the rule-refresh/solution/proposal reminder and executes the stated next action; no additional user cue is needed.
 12. Check lists missing behavior for already-authorized admin/CRUD/role/locale/audit/AI capabilities: propose a coherent default and relevant configuration per gap, identify assumptions and implement ordinary in-scope choices; do not recommend leaving the gaps out or return a blank specification question.
 13. An authorized UAT tab has a recoverable environment problem: attempt a supported harmless refresh/fresh tab/isolated context, protect shared session state and continue independent work when that particular test remains unavailable.
-14. A partial delivery succeeds while in-scope work remains: update progress, include the operative reminder and execute the next eligible task instead of closing the goal.
+14. A partial delivery succeeds while the session budget permits another slice: update progress, include the operative reminder and execute the next eligible task instead of closing the goal.

@@ -1,3 +1,18 @@
+# PHDK coherence report — v2.83.0
+
+Reviewed 2026-11-06 against canonical main `e39315f9f4260f9d189a8445cc9fa50efae28218` (v2.82.0). Scope covers bounded Auto sessions, cross-conversation handoff, status rendering and downstream distribution.
+
+| Finding | Evidence |
+|---|---|
+| CONFLICT resolved | Auto previously advanced immediately after every checkpoint. The session boundary now takes priority over selecting the next eligible slice in either mode. An unfinished goal survives the handoff. |
+| VERIFIED | Canonical and installed-layout coherence checks passed. All 107 manifest mappings were byte-compared. Changed Python compiled, and the illustrative board rendered as an accessible HD SVG and a 1920×1080 PNG. |
+| RISK | The advisor reads foreground observations. The host and executing agent must honor the result at actual work boundaries. A timer, automatic chat creation and cross-chat authorization are outside this contract. |
+| UNVERIFIED | Agent behavior over a live four-hour run, a fresh downstream session, product acceptance and downstream adoption. No project deployment was needed for this standards change. |
+
+The PR and fresh remote readback establish publication after this report.
+
+---
+
 # PHDK coherence report - v2.82.0
 
 Reviewed 2026-11-06 against canonical main `71ac4678b474eaeaa1fbb96ac3a16c422bd31525` (v2.81.0). Scope covers the UAT verdict, rendered walkthrough, command routing and vendored rules.

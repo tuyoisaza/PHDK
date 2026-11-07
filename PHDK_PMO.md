@@ -114,7 +114,7 @@ If no credible fronts are detected, ask which fronts the owner wants to advance 
 
 Do not activate proposed fronts without owner confirmation.
 
-Decomposing an already-authorized product goal into implementation workstreams requires no repeat approval. Complete missing code for its confirmed requirements in the same invocation, using sequential implementation when parallel workers are unnecessary or unavailable. Reserve confirmation for genuine new scope or a materially ambiguous portfolio.
+Decomposing an already-authorized product goal into implementation workstreams requires no repeat approval. Within the parent Auto session budget in `PHDK_AUTO_CONTINUITY.md`, complete missing code for its confirmed requirements, using sequential implementation when parallel workers are unnecessary or unavailable. Reserve confirmation for genuine new scope or a materially ambiguous portfolio.
 
 The confirmation establishes the PMO portfolio for this active conversation. When PMO is running as the discovery stage of a generic `PHDK auto` invocation, that confirmed portfolio becomes Auto's identified goal for the remainder of the lifecycle. It does not authorize unrelated future fronts.
 
@@ -406,4 +406,4 @@ PMO completes when:
 - residual blockers/decisions are explicit;
 - no worker remains active.
 
-For standalone PMO, exit and stop after the requested portfolio outcome, reporting any unfinished work accurately. Inside Auto, return the integrated candidate and immediately continue applicable SEO/AEO, non-UAT Check/remediation and delivery; leave stages 45/50/60 `DEFERRED — OWNER OPT-IN`. A broad PMO goal does not replace explicit UAT authorization. Do not treat PMO coordination or Plan completion as completed product development, and do not invent a new portfolio.
+For standalone PMO, exit and stop after the requested portfolio outcome, reporting any unfinished work accurately. Inside Auto, return the integrated candidate, check the session boundary, then continue within the open session through applicable SEO/AEO, non-UAT Check/remediation and delivery; leave stages 45/50/60 `DEFERRED — OWNER OPT-IN`. A broad PMO goal does not replace explicit UAT authorization. Do not treat PMO coordination or Plan completion as completed product development, and do not invent a new portfolio.

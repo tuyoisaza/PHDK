@@ -42,7 +42,7 @@ The current user's request and actual host/repository controls govern actions. W
 - Spell documented commands as `PHDK capture`, `PHDK plan`, `PHDK PMO`, `PHDK auto`, `PHDK auto force`, `PHDK browser on`, `PHDK browser allow`, `PHDK browser off`, `PHDK uat prep`, `PHDK uat`, `PHDK uat fix`, `PHDK check`, `PHDK check --fix`, `PHDK upgrade`, and `PHDK upgrade force`. Do not claim a quoted command activates its mode.
 - Use descriptive uppercase Markdown filenames for canonical standards, such as `PHDK_EVOLUTION_STANDARD.md`. Keep canonical standards, changelogs, PR descriptions and commit messages in English unless the current owner asks otherwise.
 - The lifecycle is intent-aware Capture → Plan → optional PMO → **real implementation and integration** → conditional SEO and AEO/GEO → Check / remediation → verified Git delivery; optional UAT Prep → UAT / Fix only after explicit `PHDK uat`. A planned or scaffolded product is not a delivered product. Apply conditional standards only when supported by the product's intent.
-- `PHDK auto` executes the entire authorized goal; `PHDK auto force` waives PHDK-imposed human gates, **not** actual security controls, hooks, access restrictions, or owner exclusions. Neither is activated by working on PHDK standards.
+- `PHDK auto` executes the entire authorized goal across the bounded foreground sessions defined in `PHDK_AUTO_CONTINUITY.md`; `PHDK auto force` waives PHDK-imposed human gates, **not** actual security controls, hooks, access restrictions, or owner exclusions. Neither is activated by working on PHDK standards.
 
 ## Required start of every canonical-PHDK maintenance session
 

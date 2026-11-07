@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -22,6 +23,7 @@ def step(sid="deliver", kind="delivery", **updates):
 
 def state():
     return {
+        "session": {"id": "session-01", "started_at": datetime.now(timezone.utc).isoformat()},
         "schema_version": 1, "run_id": "current-user-goal", "mode": "auto_force",
         "repository": "example/project", "target_branch": "main", "goal": "Complete the scoped change",
         "candidate_ref": "a" * 40,
@@ -47,6 +49,38 @@ def external_details():
 
 
 class AutoContinuityTests(unittest.TestCase):
+
+    def test_time_budget_in_both_modes(self):
+        for mode in ("auto", "auto_force"):
+            data = state()
+            data["mode"] = mode
+            data["session"]["started_at"] = "2026-01-01T00:00:00Z"
+            now = datetime(2026, 1, 1, 4, tzinfo=timezone.utc)
+            self.assertEqual(GATE.evaluate(data, mode, now)["disposition"], "SESSION_HANDOFF")
+
+    def test_next_slice_will_not_fit(self):
+        data = state()
+        data["session"].update(started_at="2026-01-01T00:00:00Z", next_slice_minutes=30)
+        now = datetime(2026, 1, 1, 3, 20, tzinfo=timezone.utc)
+        self.assertEqual(GATE.evaluate(data, "auto_force", now)["disposition"], "SESSION_HANDOFF")
+
+    def test_closed_or_at_risk_never_dispatches_work(self):
+        for field in ("closed", "close_early"):
+            data = state()
+            data["session"][field] = True
+            self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "SESSION_HANDOFF")
+
+    def test_legacy_record_requires_reconstruction(self):
+        data = state()
+        del data["session"]
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "REPAIR_STATE")
+
+    def test_owner_stop_takes_precedence(self):
+        data = state()
+        data["authorization"]["status"] = "revoked"
+        data["session"]["close_early"] = True
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "STOPPED")
+
     def test_force_skips_phdk_review_without_approval_or_source_research(self):
         data = state()
         block(data, "phdk_human_review")

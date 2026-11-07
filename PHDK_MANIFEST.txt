@@ -49,6 +49,9 @@ scripts/phdk_completion_gate.py | scripts/phdk_completion_gate.py
 PHDK_AUTO.md | PHDK_AUTO.md
 PHDK_AUTO_CONTINUITY.md | PHDK_AUTO_CONTINUITY.md
 scripts/phdk_auto_gate.py | scripts/phdk_auto_gate.py
+scripts/phdk_session_status.py | scripts/phdk_session_status.py
+examples/session-status.example.json | examples/session-status.example.json
+docs/images/session-status/v1/session-status.example.svg | docs/images/session-status/v1/session-status.example.svg
 PHDK_CHECK.md | PHDK_CHECK.md
 PHDK_CAPTURE.md | PHDK_CAPTURE.md
 PHDK_PLAN.md | PHDK_PLAN.md
