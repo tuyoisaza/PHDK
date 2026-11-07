@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.89.0**
+**Version v2.90.0**
 
 **Learning closeout and risk-based assurance (v2.78.0):** Every Auto/Force run closes with a bounded, evidence-based retrospective under [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): what shipped, what was learned, generalizable PHDK proposals and project-local actions. Prepare it with the final authorized change; report actual publication evidence afterward. Zero findings is valid; recommendations add no approval gate, automatic canonical edits, extra agents or report-only release loop. [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) adds conditional domain invariants, characterization/equivalence plans, material-decision provenance and operational recovery for changes risking integrity, value, access or continuity, not just legacy migrations. Technical delivery, acceptance, cutover authorization and executed cutover remain distinct. Local behavioral testing and automatic UAT remain prohibited; downstream adoption is separate. Source-only guards: [scripts/phdk_learning_risk_check.py](scripts/phdk_learning_risk_check.py).
 
@@ -159,6 +159,10 @@ Each executed/reused stage has `HANDOFF.md` and material snapshots. Later stages
 | Delivery | `DELIVERY_REPORT.md` and completion/remote-target evidence |
 
 # Core commands
+
+## Private PHDK Modules library
+
+PHDK keeps public standards and a sanitized reuse catalog; the separate **private PHDK-Modules library** holds approved generic code. Modules have stable categorized IDs and independently versioned, immutable release snapshots with SHA-256 history and no silent overwrite. The receiving command is **private-local** (`propose` → explicit selection/rights/security gate → `receive` → `verify` → scoped private PR), not an automatic transfer triggered by `PHDK export modules`. No private source, coordinates, customer data or pending library inventory goes into public PHDK; no project auto-upgrade. **Remote availability must be verified; preparing a starter does not create a private GitHub repository.** See [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md).
 
 ## `PHDK export modules`
 

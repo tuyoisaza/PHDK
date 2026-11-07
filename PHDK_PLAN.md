@@ -1,5 +1,11 @@
 # PHDK Plan Standard
 
+## Optional private modules library (v2.90.0)
+
+During reuse assessment, consult the sanitized public `PHDK_REUSE_CATALOG.json` as before. If a private module could fit and the current task has real scoped access, consult [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md) and its private catalog as **separate** evidence. A private snapshot is not automatically accepted or installable; choose REUSE only for an accepted, compatible, actually accessible version. No private repo access, code copying, remote creation or project upgrade follows from Plan alone.
+
+
+
 ## Canonical Plan artifact location (v2.73.0)
 
 Read [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and `docs/INDEX.md` where present. The uppercase names under **Canonical Plan artifacts** are logical contracts, not a requirement to create root-level duplicates. New and materially revised Plan artifacts live under `docs/plans/<kebab-name>.vN.md` (solution/repository/UX architecture, requirements traceability, milestone and implementation plans); individual ADRs and the decision ledger live in `docs/decisions/` with stable IDs. Record draft versus active revisions and source/decision links, refresh `docs/INDEX.md`, and update root `TASK.md` for current execution. Reuse coherent legacy root paths until a safe, scoped migration; do not rewrite all plans merely to change filenames. Plan and Auto's intent-to-implementation reconciliation still use complete, current content.
