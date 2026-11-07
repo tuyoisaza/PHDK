@@ -52,7 +52,7 @@ Record, where exposed by the runtime, the decision strategy, workers truly launc
 
 ## Mandatory decision tests
 
-- Non-PMO Auto, Plan, Check and UAT may use a bounded in-session worker if useful and host-supported, subject to mode-specific access restrictions.
+- Non-PMO Auto, Plan, Check and UAT may use a bounded in-session worker if useful and host-supported, subject to mode-specific access restrictions. During UAT, use [UAT_DEFECT_WORKFLOW.md](UAT_DEFECT_WORKFLOW.md) for the browser evaluator, optional triage or authorized repair worker, and coordinator-owned report and release. Keep one observed deployment per pass.
 - Small or tightly coupled tasks stay direct; dependencies or overlapping writes stay sequential.
 - PMO ownership, milestone delivery, UAT permissions, and security checks remain unchanged.
 - Unsupported workers fall back sequentially, never fabricated.
