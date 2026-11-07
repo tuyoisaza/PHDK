@@ -82,6 +82,37 @@ class PHDKHelpTest(unittest.TestCase):
         self.assertEqual(rc, 0, err)
         self.assertEqual(json.loads(out)["recommendation"], "PHDK plan")
 
+    def test_active_versioned_project_goal_wins_over_legacy_and_draft(self):
+        (self.root / "PROJECT_INTENT.md").write_text(
+            "## Objetivo\\nObjetivo obsoleto que debemos ignorar en favor del activo.\\n",
+            encoding="utf-8",
+        )
+        docs = self.root / "docs"
+        (docs / "intents").mkdir(parents=True)
+        (docs / "INDEX.md").write_text(
+            "| Category | Document ID | Active baseline | Working draft | All versions |\\n"
+            "|---|---|---|---|---|\\n"
+            "| intents | \\u0060PROJECT-INTENT\\u0060 | [v0](intents/project-intent.v0.md) | [v1](intents/project-intent.v1.md) | v0, v1 |\\n",
+            encoding="utf-8",
+        )
+        (docs / "intents" / "project-intent.v0.md").write_text(
+            "## Objetivo\\nCrear un portal activo y verificable para clientes.\\n", encoding="utf-8"
+        )
+        (docs / "intents" / "project-intent.v1.md").write_text(
+            "## Objetivo\\nCrear algo distinto todavía sin aprobar por el propietario.\\n", encoding="utf-8"
+        )
+        rc, out, err = self.invoke("--json")
+        self.assertEqual(rc, 0, err)
+        data = json.loads(out)
+        self.assertIn("portal activo", data["project_goal"])
+        self.assertEqual(data["project_goal_source"], "docs/intents/project-intent.v0.md")
+
+    def test_all_explains_aliases_without_writes(self):
+        rc, out, err = self.invoke("--all")
+        self.assertEqual(rc, 0, err)
+        self.assertIn("PHDK browser allow", out)
+        self.assertIn("Cuándo:", out)
+
     def test_alias_and_command_detail_do_not_activate_mode(self):
         rc, out, err = self.invoke("--command", "browser allow", "--json")
         self.assertEqual(rc, 0, err)
