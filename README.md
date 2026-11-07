@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.88.0**
+**Version v2.89.0**
 
 **Learning closeout and risk-based assurance (v2.78.0):** Every Auto/Force run closes with a bounded, evidence-based retrospective under [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): what shipped, what was learned, generalizable PHDK proposals and project-local actions. Prepare it with the final authorized change; report actual publication evidence afterward. Zero findings is valid; recommendations add no approval gate, automatic canonical edits, extra agents or report-only release loop. [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) adds conditional domain invariants, characterization/equivalence plans, material-decision provenance and operational recovery for changes risking integrity, value, access or continuity, not just legacy migrations. Technical delivery, acceptance, cutover authorization and executed cutover remain distinct. Local behavioral testing and automatic UAT remain prohibited; downstream adoption is separate. Source-only guards: [scripts/phdk_learning_risk_check.py](scripts/phdk_learning_risk_check.py).
 
@@ -159,6 +159,11 @@ Each executed/reused stage has `HANDOFF.md` and material snapshots. Later stages
 | Delivery | `DELIVERY_REPORT.md` and completion/remote-target evidence |
 
 # Core commands
+
+## `PHDK export modules`
+
+From an already authorized donor project, inspect local source-folder metadata and the installed reuse catalog with `python3 phdk-standards/scripts/phdk_export_modules.py --root .` (add `--json` for a structured private report). Present a batched NEW/EXTEND/STANDARD/LOCAL_ONLY recommendation with actual evidence, rights/security/portability gaps and owner choice. **Scanning never copies code or publishes to PHDK.** After specifically authorized extraction, publish generic contracts/catalog data to PHDK by PR and reusable implementation to separately versioned package repositories, not the PHDK standards repo. No automatic UAT, cross-repository access, consumer upgrades or background jobs. See [PHDK_EXPORT_MODULES.md](PHDK_EXPORT_MODULES.md).
+
 
 ## `PHDK capture`
 

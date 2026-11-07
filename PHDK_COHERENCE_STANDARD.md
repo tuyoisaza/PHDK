@@ -1,5 +1,9 @@
 # PHDK Coherence Standard
 
+## Export Modules release routing (v2.89.0)
+
+Keep `PHDK_EXPORT_MODULES.md`, `scripts/phdk_export_modules.py` and their vendoring manifest entries aligned with the reuse catalog, retrospective, README, current native/agent/skill routing and Evolution/Scope security boundaries. Run `tests/test_phdk_export_modules.py` and the source coherence/catalog checks when execution is available. Source-only inventory proves no runtime quality, license rights, cross-repo portability or approval. Never reclassify an unverified new candidate as `ACCEPTED_VERSIONED`, run automatic UAT or expand scanning beyond the explicitly authorized donor. With only remote connector access, report unavailable canonical repo-wide checks as NOT RUN.
+
 ## Learning and critical-change release routing (v2.78.0)
 
 Keep [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md) and [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) aligned with Auto, Plan, completion reporting and the README. Vendor both standards and `scripts/phdk_learning_risk_check.py` exactly once. Run that read-only source checker alongside the existing coherence checker on canonical and installed layouts when those complete source trees are available. `--contracts-only` checks only the two new texts and must not be reported as a full routing/manifest/release PASS.

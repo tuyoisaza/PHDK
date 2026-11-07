@@ -64,6 +64,8 @@ PHDK_PROJECT_MANAGEMENT_STANDARD.md | PHDK_PROJECT_MANAGEMENT_STANDARD.md
 PHDK_EFFORT_ESTIMATION_STANDARD.md | PHDK_EFFORT_ESTIMATION_STANDARD.md
 scripts/phdk_effort_status.py | scripts/phdk_effort_status.py
 PHDK_REUSE_CATALOG_STANDARD.md | PHDK_REUSE_CATALOG_STANDARD.md
+PHDK_EXPORT_MODULES.md | PHDK_EXPORT_MODULES.md
+scripts/phdk_export_modules.py | scripts/phdk_export_modules.py
 PHDK_STARTER_PROFILE.md | PHDK_STARTER_PROFILE.md
 PHDK_REUSE_CATALOG.json | PHDK_REUSE_CATALOG.json
 schemas/phdk-reuse-catalog.schema.json | schemas/phdk-reuse-catalog.schema.json
