@@ -1,3 +1,11 @@
+## v2.87.0 — 2026-11-07
+
+### Tabular CRUD and self-supplied UAT import files
+
+- Require a useful empty import template, supported file imports and a populated XLSX export for eligible tabular CRUD resources. Declare permissions, per-format schemas, duplicate handling, batch approval, scoped exceptions and cleanup.
+- UAT downloads the template, fills a copy with synthetic records and creates independent invalid variants. When a template is missing, record its defect and exercise the importer separately using a known schema. Reopen the actual export and compare records and fields with persisted, authorized values.
+- Distribute a local fixture builder and a worked Company Co recipe. Generated inputs do not constitute product acceptance.
+
 ## v2.86.0 — 2026-11-07
 
 ### A live defect register and bounded UAT repair cycles

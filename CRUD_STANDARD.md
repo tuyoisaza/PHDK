@@ -7,13 +7,15 @@ Every application with persisted, manageable business entities MUST inventory it
 Inspect database models, APIs, routes, menus, tables, public catalogs, dashboards, admin and superadmin screens, integrations and existing access policy. Include entities already listed without detail navigation, entities manageable only by API, and public listings that imply a legitimate user workflow. Do not invent CRUD for computed dashboards, audit logs, third-party read-only mirrors, immutable financial/legal events, append-only records, security-sensitive resources or content explicitly not owned by the application. Document read-only/append-only/soft-delete alternatives, rationale and authority.
 
 ## Mandatory capability matrix
-Maintain `CRUD_MATRIX.md` for applicable projects, with one row PER resource × role × surface and columns: resource, owner/source, route/list entry, C, R-list, R-detail, U, D, authorized vs forbidden, field/record scope, API/backend enforcement, UI affordance, deletion policy, evidence, exception rationale and status. Status: PASS, GAP, BLOCKED, NOT APPLICABLE, DECISION NEEDED. Identify bulk actions and export separately if relevant; never silently conflate list with detail or archive with hard delete.
+Maintain `CRUD_MATRIX.md` for applicable projects, with one row PER resource × role × surface and columns: resource, owner/source, route/list entry, C, R-list, R-detail, U, D, authorized vs forbidden, field/record scope, API/backend enforcement, UI affordance, deletion policy, evidence, exception rationale and status. Status: PASS, GAP, BLOCKED, NOT APPLICABLE, DECISION NEEDED. Classify each resource for the [tabular data exchange standard](TABULAR_DATA_EXCHANGE_STANDARD.md). For each matrix row record import, import-template download and populated export separately, including applicable formats, server-enforced role/tenant scope, evidence and any exception. Authorize bulk reads and writes independently of access to an individual record.
 Default recommendations:
 - Superadmin: full authorized C/R/U/D for first-party mutable resources, including a functional record-detail view; record restrictions for secrets, audit integrity, legal retention, irreversible transactions and tenant isolation.
 - Admin/operator: only actions within explicit domain responsibility, tenant and record ownership; deny by default elsewhere.
 - Authenticated end user: own/authorized records and product-specific workflows only.
 - Anonymous/public: usually read-only public fields; suggest create/update/delete only when an explicit public workflow (submission, self-service, community content) is justified, with abuse protection and moderation.
 Do not expose secret credentials, protected personal information or system internals merely because a role can list an entity.
+
+Singleton settings, secrets and non-tabular controls can justify NOT APPLICABLE. A settings page containing an editable table of business records still needs its own classification. Assess read-only exports independently of import rights.
 
 ## Configuración coverage
 
@@ -39,6 +41,7 @@ Snapshot `CRUD_MATRIX.md` with Plan and UAT/Check handoffs when applicable.
 5. Public anonymous user sees only approved fields and cannot mutate via direct API.
 6. Read-only or immutable resource has documented exception and server-side denial; not an invented delete button.
 7. UI lists and API operations return appropriate loading, empty, invalid, conflict and permission-denied states.
+8. For an eligible table, a permitted user downloads the import template, imports run-owned rows, verifies the resulting state and downloads the populated native XLSX export. A denied user cannot retrieve another tenant's records or write into its scope through the UI or API.
 
 ## Exit criteria
 PASS requires coverage for every applicable resource-role-surface combination, functional Read-detail wherever relevant, backend authorization tests and explicit justified exceptions. Missing evidence is BLOCKED, not assumed complete. Avoid universal hard-delete mandates and avoid generating permissions solely from UI appearance.

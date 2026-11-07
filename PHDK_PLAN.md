@@ -66,6 +66,8 @@ Apply `ADMIN_CONSOLE_STANDARD.md` to every applicable portal. Define `ADMIN_ARCH
 
 ## Mandatory resource CRUD architecture
 
+Include template download, populated native XLSX export and each applicable import format in the existing resource × role × surface matrix under the [tabular data exchange standard](TABULAR_DATA_EXCHANGE_STANDARD.md). Record authorized fields, import/approval permissions, tenant boundaries and justified exceptions.
+
 For applicable apps, apply `CRUD_STANDARD.md`: inventory managed entities, role and public exposure, document `CRUD_MATRIX.md` per resource × role × surface, resolve admin detail access and appropriate C/R/U/D policies with backend authorization, and plan exceptions and test coverage. Include the matrix in Plan handoffs. Do not assume all roles get full CRUD.
 
 ## Mandatory full-inventory Plan coverage

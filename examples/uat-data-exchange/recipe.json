@@ -1,0 +1,55 @@
+{
+  "run": "r7k2",
+  "header_row": 1,
+  "start_row": 2,
+  "text": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "rows": [
+    {
+      "external_key": "r7k2-req01",
+      "tenant_key": "bruma",
+      "assignee_ref": "bruma.member.01",
+      "title": "Café Bruma, filtro \"A\"",
+      "units": 2
+    },
+    {
+      "external_key": "r7k2-req02",
+      "tenant_key": "bruma",
+      "assignee_ref": "bruma.member.01",
+      "title": "Revisión de válvula",
+      "units": 3
+    }
+  ],
+  "negatives": [
+    {
+      "id": "missing-title",
+      "row": 1,
+      "column": "title",
+      "value": null,
+      "expected": "Flag the required title in the first data row. No record with a missing title may be committed."
+    },
+    {
+      "id": "duplicate-key",
+      "row": 2,
+      "column": "external_key",
+      "value": "r7k2-req01",
+      "expected": "Apply the product’s declared duplicate-key policy and reconcile exactly one record per business key."
+    },
+    {
+      "id": "foreign-assignee",
+      "row": 2,
+      "column": "assignee_ref",
+      "value": "nube.member.01",
+      "expected": "Deny the foreign assignment without exposing the Nube user or changing any Nube records."
+    },
+    {
+      "id": "wrong-type",
+      "row": 1,
+      "column": "units",
+      "value": "two",
+      "expected": "Report the invalid quantity with its row and column. No record may contain the invalid value."
+    }
+  ]
+}
