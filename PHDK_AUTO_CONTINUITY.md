@@ -209,6 +209,12 @@ Use `scripts/phdk_auto_gate.py` directly in the PHDK source repository. Supply m
 
 At the post-PMO pre-implementation point and material evidence-backed milestones, apply [PHDK_EFFORT_ESTIMATION_STANDARD.md](PHDK_EFFORT_ESTIMATION_STANDARD.md). The original and remaining human-equivalent days and progress bar are **reporting projections**, not a wait condition, new `AUTO_STATE.json` step kind, authorization token or AI ETA. Link the factual current-run `EFFORT_STATE.json` without duplicating mandates; do not create `owner_decision` solely to display effort. Both Auto and Force continue the next authorized action. Preserve real owner/Design/security/external blockers and explicit-only UAT.
 
+## Composite Upgrade Force completeness (v2.92.1)
+
+After an exact Upgrade Force publishes the pinned standards milestone, carry the *original current mandate* into AUTO FORCE. Record remaining security/lock remediation, Check, delivery, deployed-revision checks and local closeout as runnable steps in the existing AUTO_STATE.json; keep any other verified unresolved scope commitments in the optional unresolved_commitments string list. The original upgrade PR is only one completed milestone, not a full-run completion signal. Report any later canonical upstream SHA as new-version information, not permission to create a second forced upgrade loop in the same invocation.
+
+The read-only phdk_auto_gate.py advisor treats a stale assistant-written authorization.status=completed with outstanding steps or commitments as REPAIR_STATE rather than STOPPED, and likewise refuses VERIFY_DELIVERY when unresolved_commitments remain. Reconstruct the real scope from the current instruction and GitHub evidence; continue eligible work while the session remains open. Do not override a real owner stop or assert that a state file itself supplies authorization. A genuine session boundary triggers an honest handoff and prompt, never background work. UAT remains separately opt-in, and no PHDK-only reviewer wait blocks AUTO FORCE.
+
 ## Progress and closure
 
 In every substantive AUTO FORCE progress update include the operative continuation cue from `PHDK_COMMUNICATION_STANDARD.md`:

@@ -64,6 +64,14 @@ Record review date, repository SHA, relevant input hashes, service/environment, 
 
 A range, floating major tag, `@types/node`, build log or successful deployment is not proof of the running Node patch. A package-manager audit with no findings does not cover Node itself, OS images or data engines. Source/main and deployed commits may differ; assess them separately and identify unreviewed deployed dependencies instead of presenting a source lockfile as live evidence.
 
+### Bounded installed-tool discovery and advisory fallback (v2.92.1)
+
+Before declaring uv, pip-audit or osv-scanner absent, check PATH and existing bounded user installation locations. On Windows that includes the profile's .local/bin, Cargo/Scoop shims, WinGet Links and known Python Scripts directories. The vendored read-only scripts/phdk_security_tool_discovery.py --project <project> --tool uv enumerates candidates without executing any software or changing PATH. FOUND_PATH does not establish usability; NOT_LOCATED_IN_BOUNDED_SEARCH never establishes that the tool is truly absent. A read-only review must not install tools, download interpreters, bootstrap a runtime, modify package locks or run an application.
+
+When an audit binary is unavailable, parse the existing resolved lockfiles and make a bounded advisory-only query to the official OSV querybatch API if current scope/network permits; send only ecosystem/name/version tuples, never credentials, private source code or tenant data. Record retrieval time, identifiers, resolved-version coverage and failures; do not label a scan of 59 Python packages as comprehensive application security. Keep direct/transitive declared constraints, resolved locks, development-only dependencies, builder/OS images, native runtimes and actually deployed versions separate. A version may be affected without proven exploitability; an OSV no-findings result is not proof of safety.
+
+Auto Force may apply compatible security fixes within its existing permitted repository workflow and then recheck static evidence. A bare Upgrade security review is read-only and never authorizes dependency installations, product changes, infrastructure, deployment, UAT or major migrations.
+
 ### Current security and compatibility baseline
 
 Use primary vendor security/release notices, official support/EOL schedules and applicable package advisories. Record advisory IDs, affected ranges, fixed versions **per supported major**, publication/retrieval dates, exploit prerequisites and compatibility requirements. Evaluate each actual major against its own dated floor; a numerically higher EOL major is not a substitute. Verify official current sources at review time rather than relying on the previous report or model memory.

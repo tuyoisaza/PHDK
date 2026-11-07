@@ -66,5 +66,9 @@ During an authorized local Auto/Force run after adoption, independently record t
 ## Recovery policy
 A recoverable tool failure triggers report → investigate the observed cause → repair → revalidate → retry push/PR/merge → verify `main`, under `PHDK_AUTO_CONTINUITY.md` for Auto/Force. A first rejection never revokes the goal's authorization. In particular pnpm non-TTY workspace reconciliation is a packaging/tool invocation problem to diagnose, not automatically a terminal git blocker. Check lockfile/tool versions, repo-local bin and hooks, repair compatible in-scope invocation and retry. Preserve unrelated work and hooks. Do not force-push, use --no-verify, weaken actual enforcement, or endlessly repeat the same failed command. Isolate a genuinely unresolved operation only after permitted repairs and independent work are exhausted. PHDK-only human reviews never justify BLOCKED in FORCE.
 
+## Composite upgrade goal before final close (v2.92.1)
+
+A verified PHDK standards PR is a milestone, not automatic completion of the compound Upgrade Force goal. Before reporting complete, reconcile the actual source, security, Check, deployment and cleanup obligations against executable AUTO_STATE steps and unresolved_commitments; the read-only Auto advisor rejects a stale completed flag when pending steps remain. Preserve PARTIALLY DELIVERED or the honest session handoff status when necessary. An upstream version observed after the pinned release is informational only for a fresh invocation. No automatic UAT, new provider write or review waiver is implied.
+
 ## Final state
 Always report: COMPLETE, PARTIALLY DELIVERED or BLOCKED; scope commitments; applicable check results; remote target SHA/version; PR URL and merge status; unresolved blockers. Never write COMPLETE when the mechanical gate fails or any required scope item remains unmerged.
