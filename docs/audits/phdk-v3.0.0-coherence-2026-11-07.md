@@ -2,7 +2,7 @@
 
 - Date: 2026-11-07
 - Source version: PHDK v2.92.1 at canonical GitHub `main` SHA `dc4c5d290ad4df8961488f06cd68e7947aad25f6`.
-- Scope: public PHDK standards and GitHub metadata/source of PRIVATE `tuyoisaza/PHDK-Modules`; does not modify donors or consumers.
+- Scope: public PHDK standards and GitHub metadata/source of PRIVATE the independently verified **private PHDK-Modules repository**; does not modify donors or consumers.
 - Evidence type: source inspection and verified provider metadata. Tests must be reported as NOT RUN unless actually executed.
 
 ## Verified findings and changes
@@ -11,7 +11,7 @@
 2. **P1 — stale SemVer test:** `tests/test_phdk_module_library_policy.py` asserted the current version was exactly 2.90.0, false for current 2.92.1 and every later release. Changed to current VERSION/README/CHANGELOG alignment rather than a historical constant.
 3. **P1 — external skill path drift:** `SKILLS_REGISTRY.md` pointed Anthropic Security Guidance at a missing old Claude Code path. The official available source is `anthropics/claude-plugins-official/plugins/security-guidance`. This is a plugin reference, not evidence of installation or authorized hooks. Other selected external sources (Anthropic frontend-design, skill-creator; Addy Osmani; Superpowers; Context7; MCP) resolved at audit time, but existence alone does not prove compatibility.
 4. **P1 — distribution closure:** the three Python checker files must be mapped in the manifest, installed atomically and checked in the installed destination layout. An old single-file install cannot reliably run the modular checker.
-5. **P1 — private modules readiness:** the separate `tuyoisaza/PHDK-Modules` provider repo is independently confirmed PRIVATE. Its catalog is `{"schema_version":1,"entries":[]}`, and its offline `propose/receive/verify/list` script and synthetic tests exist. There is no accepted module, independently verified two-consumer implementation, measured time saving, published package or authority to copy a donor.
+5. **P1 — private modules readiness:** the separate the independently verified **private PHDK-Modules repository** provider repo is independently confirmed PRIVATE. Its catalog is `{"schema_version":1,"entries":[]}`, and its offline `propose/receive/verify/list` script and synthetic tests exist. There is no accepted module, independently verified two-consumer implementation, measured time saving, published package or authority to copy a donor.
 6. **P2 — process overhead:** discover/install only selected skills when relevant; lack of third-party skills should not block default PHDK work. Distinguish applicable reusable capability from generalized abstraction that adds maintenance cost.
 
 ## Technical evidence and limits
