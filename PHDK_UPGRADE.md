@@ -1,3 +1,7 @@
+## PHDK 3.0 — atomic coherence-checker vendoring
+
+A v3 standards snapshot must install the three-file PHDK coherence checker together: `scripts/phdk_coherence_check.py`, `scripts/phdk_coherence_routing.py` and `scripts/phdk_coherence_quality.py`. A single-file copy is an incomplete installation and fails closed. Verify the installed-layout manifest and the 600-line Python source limit; never suppress the downstream project's independent hook to hide an upstream PHDK violation. Preserve owner text, independent security controls and all existing permissions. This static check grants no runtime/UAT or new provider authority.
+
 # PHDK_UPGRADE.md
 
 ## Preserve downstream documentation on adoption (v2.73.0)

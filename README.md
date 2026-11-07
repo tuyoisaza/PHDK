@@ -10,7 +10,9 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.92.1**
+**Version v3.0.0**
+
+**v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 
 **Upgrade Force reliability (v2.92.1):** [Upgrade](PHDK_UPGRADE.md) now pins one upstream SHA and verifies published Git blobs through safe attribute-aware clean conversion, instead of comparing Windows CRLF checkout bytes with LF blobs. [Closeout](PHDK_GIT_WORKSPACE_CLOSEOUT.md) preflights ignored data and long paths, detects partial removals and optionally backs up only verified managed main edits. Auto refuses premature completion with pending obligations; the [installed tool locator](scripts/phdk_security_tool_discovery.py) searches existing paths without executing or installing tools. UAT remains opt-in.
 

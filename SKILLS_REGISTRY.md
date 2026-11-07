@@ -37,7 +37,7 @@ For user-facing React/Next.js projects, `PHDK_DESIGN_SYSTEM.md` defines the appr
 | Nielsen Norman Group Heuristics | https://www.nngroup.com/articles/ten-usability-heuristics/ | UX usability-review rubric |
 | W3C WCAG 2.2 | https://www.w3.org/TR/WCAG22/ | Accessibility acceptance standards |
 | Anthropic Frontend Design | https://github.com/anthropics/skills/tree/main/skills/frontend-design | UI hierarchy/layout guidance; no browser requirement |
-| Anthropic Security Guidance | https://github.com/anthropics/claude-code/tree/main/plugins/security-guidance | Security review patterns; plugin hooks do not override PHDK |
+| Anthropic Security Guidance | https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance | Security review patterns; plugin hooks do not override PHDK |
 | Skill Creator | https://github.com/anthropics/skills/tree/main/skills/skill-creator | Explicit skill-documentation work |
 | Superpowers | https://github.com/obra/superpowers | Code/debugging guidance; no broad orchestration authority |
 | Context7 | https://github.com/upstash/context7 | Current technical documentation through an already permitted reader |
@@ -53,6 +53,12 @@ For user-facing React/Next.js projects, `PHDK_DESIGN_SYSTEM.md` defines the appr
 | Karpathy-style CLAUDE.md | https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md | Simplicity/scope-control guidance |
 
 Design references may also include Vercel web-design-guidelines, AccessLint guidance, Bencium design guidance, and ui-ux-pro-max when actually available to the active tool.
+
+## Selected external skills — PHDK 3.0 verification
+
+The references above are not an installation or quality guarantee. Before adopting a **selected** third-party skill, verify current upstream source and author, actual entrypoint, maintained revision/license, active host/runtime compatibility, hooks and execution effects, security permissions, cost and conflict with `EXECUTION_SCOPE.md`. Prefer a reviewed pinned revision where installability applies. Record `VERIFIED_FOR_TASK`, `REFERENCE_ONLY`, `UNAVAILABLE` or `UNVERIFIED` and continue using PHDK/built-in capabilities when optional third-party evidence is insufficient. No eager sweep of every reference in each Preflight, unrequested skill install, background checker or blanket authority expansion.
+
+Anthropic Security Guidance is an external **Claude Code plugin**, not a universally installed skill. Its hooks and model-assisted reviews can have execution/cost implications; the GitHub location is `REFERENCE_ONLY` unless explicitly selected and host-authorized. Source existence alone does not establish product safety.
 
 ## Stage mapping
 

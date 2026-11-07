@@ -1,3 +1,7 @@
+## PHDK 3.0 canonical self-hosted coherence
+
+Before public release, verify the **600-line** limit for PHDK's own vendored Python scripts and canonical tests; invoke `scripts/phdk_coherence_check.py` with its vendored `phdk_coherence_routing.py` and `phdk_coherence_quality.py` siblings. Verify the installed-layout manifest where executable, and never bypass owner hooks to conceal a PHDK-owned over-limit file. Missing runtime means NOT RUN. Assess only selected external skills against `SKILLS_REGISTRY.md` and keep private PHDK-Modules receipt separately owner-authorized.
+
 ## Upgrade Force verification and continuation (v2.92.1)
 
 For exact PHDK upgrade force: pin one upstream canonical SHA per invocation, verify published manifest Git blobs using safe attribute-aware clean conversion (not naive LF-vs-CRLF checkout byte equality), and keep native managed-block, PR, product version and deployed revision evidence independent. When authorized and proven safe, back up and reconcile only verified tracked PHDK-owned local-main edits. Classify ignored data and Windows long paths before worktree removal and recheck actual postconditions after any error. Use bounded non-executing installed-tool discovery before saying uv/auditors are missing. Continue remaining AUTO FORCE security, Check and delivery obligations; stale COMPLETE with unfinished commitments is invalid. A newly published upstream version is reported, not republished repeatedly in the same run. No force cleanup, unexpected installs, background work or automatic UAT.

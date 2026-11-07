@@ -15,6 +15,10 @@ description: >-
   local runtime tests, Docker, new environments or external infrastructure administration.
 ---
 
+## PHDK 3.0 self-hosted distribution
+
+Before releasing PHDK, enforce `PHDK_COHERENCE_STANDARD.md`: canonical and vendored Python sources must stay within 600 lines, including `scripts/phdk_coherence_check.py` and its manifest-vendored sibling modules `phdk_coherence_routing.py` and `phdk_coherence_quality.py`. Never bypass a downstream owner hook to accommodate PHDK violations. Verify selected external skills using `SKILLS_REGISTRY.md`; do not assume that private PHDK-Modules contains usable modules or automatically copy donor source.
+
 ## Upgrade Force hardening (v2.92.1)
 
 Exact PHDK upgrade force pins one canonical upstream SHA, publishes/verifies its Git-clean blobs using the read-only remote gate (with CRLF, binary and custom-filter safeguards), backs up only authorized managed local main changes, and checks Windows worktree deletion postconditions. Load PHDK_UPGRADE.md, PHDK_GIT_WORKSPACE_CLOSEOUT.md, PHDK_SECURE.md and PHDK_AUTO_CONTINUITY.md; propagate pending security/Check/delivery steps into the chained AUTO FORCE run rather than ending after the first PR. Before saying uv or another auditor is unavailable, use the bounded non-executing security tool locator. No repeated upgrade loop after an upstream move, forced cleanup, dependency installation, background execution or UAT without explicit authority.
