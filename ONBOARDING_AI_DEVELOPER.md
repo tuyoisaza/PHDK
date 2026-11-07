@@ -4,6 +4,10 @@
 
 Orient the assistant for a human-initiated PHDK task. This file is reference material, not a session-start job or permission to resume stored work.
 
+## First action after installation: PHDK help
+
+Recommend that the owner **type `PHDK help` in their coding-agent conversation** after PHDK is installed in a repository. It loads `PHDK_HELP.md` / `PHDK_COMMANDS.json`, explains PHDK, grounds the product objective or explicitly marks it unknown, lists every supported command and suggests one next action without running it. Optional offline renderer: `python3 phdk-standards/scripts/phdk_help.py --root .`. Installation does not auto-trigger Help, Auto, UAT, standards sync or a stack review.
+
 ## Operating model
 
 PHDK is interactive-only. Normally one assistant completes the current explicit request. Continuous development during Auto is allowed under `PHDK_AUTO.md`. Bounded in-session workers are available in any mode under `PHDK_INTELLIGENT_EXECUTION.md` when host-supported and useful; PMO coordinates confirmed portfolio workstreams under `PHDK_PMO.md`; workers cannot delegate. Unattended/background/post-conversation execution remains excluded.

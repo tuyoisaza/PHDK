@@ -4,6 +4,10 @@
 
 A condensed reminder of PHDK's rules. Read the referenced standards for details. `EXECUTION_SCOPE.md` controls execution; `MAIN_DELIVERY_STANDARD.md` defines normal delivery completion. Current owner instructions and actual controls remain effective; the owner can explicitly replace documentary local exceptions.
 
+## First command after installation
+
+Recommend `PHDK help`. Only on explicit invocation, read `PHDK_HELP.md` and `PHDK_COMMANDS.json` to explain all commands, actual project intent or uncertainty, and one **unexecuted** next step. Help is read-only (no updater, Stack Security Review, project changes or UAT), unlike substantive-command Preflight.
+
 ## Portfolio-first policy (v2.74.0)
 
 PHDK is the owner's standardized engineering system for a related project portfolio. Use the evolvable `TECHNICAL_STACK.md` and compare REUSE/ADAPT/BUILD for common capabilities under `PHDK_REUSE_CATALOG_STANDARD.md` before duplicating work. `SPECIFICATION_ONLY` entries cannot be installed, and shared-code extraction needs separate authorization. Local source review, lint/typechecking and safe builds are allowed; no Docker, running local services/databases or local behavioral testing. Existing GitHub-connected production (Railway where configured) and explicit deployed `PHDK uat` remain the validation route. Load only relevant context.

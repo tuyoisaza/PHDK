@@ -1,3 +1,7 @@
+## Help-only read-only Preflight (v2.92.0)
+
+**Exception for explicit `PHDK help`, `PHDK help <command>` and `PHDK help --all`:** perform only the non-mutating installation/version/manifest/native-entrypoint diagnosis needed for `PHDK_HELP.md`. Do **not** run `scripts/phdk_update.py --trigger preflight`, auto-sync, execute the adoption Stack Security Review, start a lifecycle stage or write files. Show upstream version as unverified unless actually observed; suggest separate owner-invoked `PHDK upgrade` if needed. All substantive commands retain universal Preflight. Help does not create a first-run job.
+
 # PHDK Preflight Standard
 
 **Document inventory at entry (v2.73.0):** When the current authorized work involves product intent, plans, design, decisions or compliance, inspect `docs/INDEX.md` where present under [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md), then resolve the relevant active versions before reusing upstream handoffs. Do not require an index in untouched legacy projects, rename owner files, regenerate every document, invoke UAT or repeat universal Preflight solely for documentation naming.
@@ -37,6 +41,8 @@ Preflight is not a separate user command requirement. It is an automatic first s
 `PHDK designer mode` must also run the detailed compatibility/readiness gate in `PHDK_DESIGN_SYSTEM.md` and produce `DESIGN_SYSTEM_READINESS.md` before recommendations or visual modifications. Universal preflight is not a substitute for checking the actual UI implementation.
 
 ## Commands covered
+
+`PHDK help` uses only the read-only Help profile above; the following substantive commands use universal Preflight.
 
 Run Preflight before:
 
