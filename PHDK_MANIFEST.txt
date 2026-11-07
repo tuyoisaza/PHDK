@@ -21,6 +21,11 @@ PHDK_LIFECYCLE.md | PHDK_LIFECYCLE.md
 PHDK_DESIGN.md | PHDK_DESIGN.md
 PHDK_UX_UI.md | PHDK_UX_UI.md
 CRUD_STANDARD.md | CRUD_STANDARD.md
+TABULAR_DATA_EXCHANGE_STANDARD.md | TABULAR_DATA_EXCHANGE_STANDARD.md
+scripts/phdk_uat_import_fixture.py | scripts/phdk_uat_import_fixture.py
+examples/uat-data-exchange/README.md | examples/uat-data-exchange/README.md
+examples/uat-data-exchange/template.csv | examples/uat-data-exchange/template.csv
+examples/uat-data-exchange/recipe.json | examples/uat-data-exchange/recipe.json
 ADMIN_CONSOLE_STANDARD.md | ADMIN_CONSOLE_STANDARD.md
 PHDK_TENANT_RISK_STANDARD.md | PHDK_TENANT_RISK_STANDARD.md
 PHDK_DESIGNER_MODE.md | PHDK_DESIGNER_MODE.md

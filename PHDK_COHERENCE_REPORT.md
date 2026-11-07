@@ -1,3 +1,11 @@
+# PHDK coherence report — v2.87.0
+
+Reviewed 2026-11-07 against v2.86.0 at `a0decc4260f3d02e8a72d2d7aca68b6abd2ae6b8`. The matrix now evaluates template download, format-specific import and populated export separately for each applicable resource, role and surface. UAT supplies its own files and keeps a template defect open while independently testing the importer.
+
+All 36 UAT policy and offline tests passed. Canonical and installed-layout coherence passed with 120 byte-identical mappings. The installed fixture helper generated five files per format for XLSX, CSV and delimited TXT. Independent readback verified the 15 file hashes, unchanged source templates and positive records. The tests checked formula preservation, native types, isolation/error samples and rejection of unsupported workbook structures. These checks cover file creation and the standard. Downstream persistence and export permissions require an explicitly executed UAT.
+
+---
+
 # PHDK coherence report — v2.86.0
 
 Reviewed on 2026-11-07 against v2.85.0 at `8befa9db48ce316798b4df2e9afe5ea7e3a6d157`. The UAT register is written on discovery. Repair and retest retain the original finding and distinguish the tested deployment from the source commit. One coordinator owns the report and release when triage runs in parallel.

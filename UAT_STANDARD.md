@@ -23,6 +23,8 @@ Before executing explicitly authorized UAT, obey `UAT_JOURNEY_STANDARD.md` fully
 
 For applicable projects, use `CRUD_STANDARD.md` and `CRUD_MATRIX.md` to exercise permitted Create, Read-list/detail, Update, and Delete/archive in real flows and negative tests for forbidden actions, direct API access, cross-tenant IDs, validation, failure states and persistence. A listed admin record without a working appropriate detail view is FAIL. Record evidence or BLOCKED/MANUAL; never infer PASS from buttons alone.
 
+Under the [tabular data exchange standard](TABULAR_DATA_EXCHANGE_STANDARD.md), exercise template download, each supported import and populated native XLSX export as distinct capabilities. The runner downloads and fills the template with synthetic data, or generates a schema-valid run-owned file for the applicable format. Test native XLSX and CSV by default, plus any declared TXT layout. Record an approved format exception or a separate gap for a missing required format. A missing required template gets its own defect ID and does not block independently testable imports. For each format verify actual rows or errors, persistence after the required approval, tenant scope and cleanup. If no safe schema or permitted harness exists, record the specific evidence gap.
+
 # PHDK UAT Standard
 
 ## Mandatory UX/UI acceptance

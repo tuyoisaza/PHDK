@@ -57,6 +57,8 @@ For UI-applicable projects, inspect PHDK_THEME_STANDARD.md and run the vendored 
 
 ## Mandatory CRUD completeness audit
 
+For eligible tables apply the [tabular data exchange standard](TABULAR_DATA_EXCHANGE_STANDARD.md). Compare matrix entries against the actual download generators, parser, UI and server authorization, and review any retained UAT files and row-level proof. Mark a missing required template, populated export or supported importer individually. Bare Check uses existing evidence and does not initiate uploads or UAT.
+
 For applications with managed records, apply `CRUD_STANDARD.md`. Verify every listed administration record has an appropriate detail path; audit Create/Read-list/Read-detail/Update/Delete capabilities against the authorized per-role and public matrix, API enforcement, tenancy and UAT tests. Missing operations are GAP unless a documented legitimate exception applies. Missing development evidence is UNVERIFIED; acceptance not explicitly initiated remains deferred in Auto and is not a delivery blocker. Do not demand unsafe public mutations or deletion of immutable records.
 
 ## Mandatory administration-console contract
