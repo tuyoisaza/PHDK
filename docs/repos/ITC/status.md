@@ -2,10 +2,10 @@
 repository: tuyoisaza/ITC
 repository_url: https://github.com/tuyoisaza/ITC
 default_branch: main
-observed_repository_sha: dd01c4631c86c78c5dcb0fe93f857d3a935bd21d
-observed_at_utc: 2026-11-07T11:56:01Z
-phdk_version: 2.87.0
-phdk_canonical_version: 2.87.0
+observed_repository_sha: a72840f11edcb939d4c5d38d85e9aeb896c8fcd0
+observed_at_utc: 2026-11-07T12:17:05Z
+phdk_version: 2.88.0
+phdk_canonical_version: 2.88.0
 phdk_status: CURRENT
 tech_stack:
   runtimes:
@@ -15,7 +15,7 @@ tech_stack:
       deployed: UNVERIFIED
   frameworks:
     - name: next
-      resolved: 15.5.28
+      resolved: 15.5.29
     - name: fastify
       resolved: 5.12.8
   package_managers:
@@ -29,14 +29,14 @@ tech_stack:
   images: []
 stack_review:
   status: FINDINGS
-  reviewed_at_utc: 2026-11-07T11:56:01Z
-  evidence: https://github.com/tuyoisaza/ITC/blob/dd01c4631c86c78c5dcb0fe93f857d3a935bd21d/docs/phdk/lifecycle/20261107-upgrade-force/00-preflight/STACK_SECURITY_REVIEW.md
+  reviewed_at_utc: 2026-11-07T12:17:05Z
+  evidence: https://github.com/tuyoisaza/ITC/blob/a72840f11edcb939d4c5d38d85e9aeb896c8fcd0/docs/phdk/lifecycle/20261107-upgrade-force/90-delivery/HANDOFF.md
   findings:
     critical: 0
     high: 0
-    medium: 5
+    medium: 2
     low: 0
 central_status_source: PHDK
 ---
 
-Source-only review: two npm advisory families yield ten root/web dependency-chain entries; three primary Next advisories additionally apply. API/worker npm audits have no reported findings. Counts describe reviewed source, not deployed security. Compatible Next 15.5.29 maintenance is pending; deployed runtimes, images and engine patches remain unverified. Standards delivered via ITC PR 22 with 120 remote manifest entries verified. UAT NOT RUN.
+Source-only review: two npm tooling advisory families yield ten root/web dependency-chain entries. Three Next advisories were patched at15.5.29; compatible Sentry/TypeScript-ESLint parents still depend on affected glob/minimatch majors. API/worker initial audits have no reported findings. No high/critical in scoped audit; this is not deployed-stack clearance. Standards and patch delivered via ITC PR23/main0.28.434. Static lint/types/service closures, docs and canonical remote content checks passed. Deployed runtime, OS images and data-engine patches remain unverified. UAT NOT RUN.
