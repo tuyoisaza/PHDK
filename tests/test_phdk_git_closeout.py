@@ -4,11 +4,13 @@ Source only in Auto: PHDK production-first rules prohibit local runtime tests.
 """
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "phdk_git_closeout.py"
 spec = importlib.util.spec_from_file_location("phdk_git_closeout", SCRIPT)
@@ -116,12 +118,111 @@ class GitWorkspaceCloseoutTests(unittest.TestCase):
                                      "--pr-head-sha", "0" * 40)
         self.assertEqual(code, 3)
         self.assertEqual(report["branch_cleanup"], "BLOCKED_PR_HEAD_SHA_MISMATCH")
+    def test_reconcile_manifest_owned_main_edits_and_save_recovery_copy(self):
+        standards = self.repo / "phdk-standards"
+        standards.mkdir()
+        (standards / "PHDK_MANIFEST.txt").write_text(
+            "VERSION | VERSION\nPHDK_MANIFEST.txt | PHDK_MANIFEST.txt\n")
+        (standards / "VERSION").write_text("1.0.0\n")
+        git(self.repo, "add", "phdk-standards")
+        git(self.repo, "commit", "-m", "install managed standards")
+        git(self.repo, "push", "origin", "main")
+        head = git(self.repo, "rev-parse", "HEAD")
+        (standards / "VERSION").write_text("locally edited\n")
+        code, report = self.run_tool("--apply", "--merged-sha", head,
+                                     "--reconcile-force-owned")
+        self.assertEqual(code, 0, report)
+        backup = Path(report["managed_reconciliation"]["backup_path"])
+        self.assertEqual((backup / "000.backup").read_text(), "locally edited\n")
+        self.assertEqual((standards / "VERSION").read_text(), "1.0.0\n")
+
+    def test_reconcile_preserves_native_owner_text_outside_markers(self):
+        standards = self.repo / "phdk-standards"
+        standards.mkdir()
+        (standards / "PHDK_MANIFEST.txt").write_text(
+            "VERSION | VERSION\nPHDK_MANIFEST.txt | PHDK_MANIFEST.txt\n")
+        (self.repo / "AGENTS.md").write_text(
+            "Owner text\n<!-- PHDK-MANAGED:START -->\nold\n<!-- PHDK-MANAGED:END -->\n")
+        git(self.repo, "add", ".")
+        git(self.repo, "commit", "-m", "native baseline")
+        git(self.repo, "push", "origin", "main")
+        head = git(self.repo, "rev-parse", "HEAD")
+        native = self.repo / "AGENTS.md"
+        native.write_text(native.read_text().replace("old", "local"))
+        code, report = self.run_tool("--apply", "--merged-sha", head,
+                                     "--reconcile-force-owned")
+        self.assertEqual(code, 0, report)
+        self.assertIn("Owner text\n", native.read_text())
+        self.assertIn("\nold\n", native.read_text())
+        self.assertTrue(Path(report["managed_reconciliation"]["backup_path"]).is_dir())
+
+    def test_reconcile_refuses_any_owner_modification_without_touching_it(self):
+        standards = self.repo / "phdk-standards"
+        standards.mkdir()
+        (standards / "PHDK_MANIFEST.txt").write_text(
+            "VERSION | VERSION\nPHDK_MANIFEST.txt | PHDK_MANIFEST.txt\n")
+        (self.repo / "AGENTS.md").write_text(
+            "Owner text\n<!-- PHDK-MANAGED:START -->\nold\n<!-- PHDK-MANAGED:END -->\n")
+        git(self.repo, "add", ".")
+        git(self.repo, "commit", "-m", "native baseline")
+        git(self.repo, "push", "origin", "main")
+        head = git(self.repo, "rev-parse", "HEAD")
+        native = self.repo / "AGENTS.md"
+        native.write_text(native.read_text().replace("Owner text", "Owner changed"))
+        code, report = self.run_tool("--apply", "--merged-sha", head,
+                                     "--reconcile-force-owned")
+        self.assertEqual(code, 2)
+        self.assertEqual(report["local_main"], "BLOCKED_MANAGED_RECONCILIATION")
+        self.assertIn("Owner changed", native.read_text())
+
+    def test_windows_long_path_preflight_is_non_destructive(self):
+        base = Path(self.tmp.name) / "long-test"
+        base.mkdir()
+        # Simulate a long descendant without creating an unremovable Windows path.
+        with mock.patch.object(module.os, "walk", return_value=[
+            (str(base), ["nested-" + "x" * 240], [])
+        ]):
+            payload = module.inspect_payload(base, [], windows=True)
+        self.assertGreater(payload["windows_long_paths"], 0)
+        self.assertTrue(base.exists())
+
+    def test_partial_git_worktree_removal_keeps_branch_and_reports_residue(self):
+        _, merged = self.merged_feature()
+        linked = Path(self.tmp.name) / "linked-feature"
+        git(self.repo, "worktree", "add", str(linked), "feature/milestone")
+        original = module.git
+        def interrupted(*args, **kwargs):
+            if args[:2] == ("worktree", "remove"):
+                original("worktree", "remove", str(linked), cwd=self.repo)
+                linked.mkdir(exist_ok=True)
+                (linked / "residual.txt").write_text("preserve")
+                return subprocess.CompletedProcess(args, 1, "", "Filename too long")
+            return original(*args, **kwargs)
+        module.git = interrupted
+        old_cwd = Path.cwd()
+        try:
+            os.chdir(self.repo)
+            args = type("Args", (), dict(target="main", remote="origin",
+                branch="feature/milestone", merged_sha=merged,
+                pr_head_sha=None, apply=True, allow_generated_ignored=False))()
+            report = module.closeout(args)
+            self.assertEqual(report["branch_cleanup"], "PARTIAL_CLOSEOUT")
+            self.assertEqual(report["worktree_postcondition"]["registered"], False)
+            self.assertEqual(report["worktree_postcondition"]["directory_exists"], True)
+            self.assertTrue((linked / "residual.txt").exists())
+            self.assertTrue(git(self.repo, "rev-parse", "feature/milestone"))
+        finally:
+            os.chdir(old_cwd)
+            module.git = original
+
     def test_ignore_classification_never_discards_secrets(self):
         self.assertTrue(module.safe_generated_ignored(
             ["!! node_modules/package/index.js", "!! dist/bundle.js"]))
         self.assertFalse(module.safe_generated_ignored(
             ["!! node_modules/package/index.js", "!! .env"]))
         self.assertFalse(module.safe_generated_ignored(["?? notes.txt"]))
+        self.assertFalse(module.safe_generated_ignored(["!! node_modules/.env.local"]))
+        self.assertFalse(module.safe_generated_ignored(["!! dist/secrets/token.key"]))
 
 if __name__ == "__main__":
     unittest.main()

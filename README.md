@@ -10,7 +10,11 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.92.0**
+**Version v2.92.1**
+
+**Upgrade Force reliability (v2.92.1):** [Upgrade](PHDK_UPGRADE.md) now pins one upstream SHA and verifies published Git blobs through safe attribute-aware clean conversion, instead of comparing Windows CRLF checkout bytes with LF blobs. [Closeout](PHDK_GIT_WORKSPACE_CLOSEOUT.md) preflights ignored data and long paths, detects partial removals and optionally backs up only verified managed main edits. Auto refuses premature completion with pending obligations; the [installed tool locator](scripts/phdk_security_tool_discovery.py) searches existing paths without executing or installing tools. UAT remains opt-in.
+
+
 
 **Post-UAT Export Modules (v2.91.0):** Auto/Force collects reuse observations in its existing retrospective without scanning each milestone or initiating UAT. After a *separate explicit* `PHDK uat` reaches `ACCEPTED` on the final deployed revision (following authorized verified `PHDK uat fix` if needed), UAT closeout runs one **read-only** local [Export Modules review](PHDK_POST_UAT_EXPORT_STANDARD.md) and shows a batch of candidates. Absent, failed, incomplete or stale UAT defers discovery. No code moves to private PHDK-Modules or public PHDK without named owner selection, verified rights and separate authorized contribution. The review is not a product-delivery/UAT completion gate.
 

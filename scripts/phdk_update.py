@@ -3,6 +3,7 @@
 
 import argparse
 import pathlib
+import re
 import subprocess
 import tempfile
 import shutil
@@ -43,7 +44,27 @@ def sync_result(status, *, trigger, installed, latest, upstream_sha, files=0, fo
     }
 
 
-def sync(project, trigger="preflight", force_owned=False):
+def select_upstream(upstream, pinned_sha=None):
+    """Use a fixed canonical Git commit; fail closed if it cannot be fetched."""
+    if pinned_sha is not None and not re.fullmatch(r"[0-9a-fA-F]{40}", pinned_sha):
+        raise ValueError("invalid --upstream-sha: expected full 40-character Git SHA")
+    observed = run("git", "rev-parse", "HEAD", cwd=upstream)
+    if not pinned_sha:
+        return observed
+    pinned_sha = pinned_sha.lower()
+    if observed != pinned_sha:
+        # The already-fetched main may have advanced. Fetch ONLY the authorized
+        # pinned commit into the temporary clone; do not silently adopt new main.
+        run("git", "fetch", "--no-tags", "--depth", "1", "origin", pinned_sha, cwd=upstream)
+        if run("git", "rev-parse", "FETCH_HEAD", cwd=upstream) != pinned_sha:
+            raise RuntimeError("pinned canonical commit was not fetched")
+        run("git", "checkout", "--detach", pinned_sha, cwd=upstream)
+    if run("git", "rev-parse", "HEAD", cwd=upstream) != pinned_sha:
+        raise RuntimeError("pinned canonical commit identity changed")
+    return pinned_sha
+
+
+def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
     if trigger not in {"preflight", "upgrade"}:
         raise ValueError("Invalid trigger")
     if force_owned and trigger != "upgrade":
@@ -64,9 +85,9 @@ def sync(project, trigger="preflight", force_owned=False):
             temp,
         )
         upstream = pathlib.Path(temp)
+        upstream_sha = select_upstream(upstream, upstream_sha)
         latest = (upstream / "VERSION").read_text().strip()
         installed = (target / "VERSION").read_text().strip()
-        upstream_sha = run("git", "rev-parse", "HEAD", cwd=upstream)
 
         def semver(v):
             parts = v.split(".")
@@ -162,10 +183,14 @@ if __name__ == "__main__":
         "--force-owned", action="store_true",
         help="Only for exact owner-invoked PHDK upgrade force; replace dirty manifest-owned files.",
     )
+    parser.add_argument(
+        "--upstream-sha", help="optional full canonical commit SHA pinned for this invocation",
+    )
     args = parser.parse_args()
     try:
         print(
-            json.dumps(sync(pathlib.Path(args.project).resolve(), trigger=args.trigger, force_owned=args.force_owned))
+            json.dumps(sync(pathlib.Path(args.project).resolve(), trigger=args.trigger,
+                            force_owned=args.force_owned, upstream_sha=args.upstream_sha))
         )
     except Exception as e:
         print(
