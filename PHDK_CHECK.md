@@ -24,7 +24,7 @@ For PHDK-managed HTTP applications or APIs with an existing reachable production
 
 ## Historical and remote Git cleanup evidence check (read-only)
 
-Inspect one-time historical inventory, local .git/phdk/git-hygiene-state.json state where accessible, actual merged-PR/head SHA proofs, preserved blocked worktrees, and observed remote branch disappearance after each milestone. A skipped remote deletion or unverified local checkout is reported separately; an open PR or dirty branch never becomes an auto-cleanable source. Bare PHDK check does not run --apply, delete remote refs, change provider settings or start historical cleanup. Apply current repository controls and keep UAT deferred.
+Inspect the one-time **local-only** historical inventory, `.git/phdk/git-hygiene-state.json` where accessible, verified merged PR/head SHA facts, retained blocked worktrees and local closeout evidence per milestone. GitHub remote branches are **preserved by policy**; presence of merged branches never fails Check and remote deletion is no gate. Bare `PHDK check` runs no `--apply`, deletes no local or remote refs, changes no provider settings and does not start historical cleanup. Keep UAT deferred.
 
 ## Local Git closeout evidence check (read-only)
 

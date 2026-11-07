@@ -20,7 +20,7 @@ Inside Auto/Auto Force, after all workstreams included in one milestone meet the
 
 ## Post-integration Git hygiene (coordinator-owned)
 
-After each verified merged milestone the PMO coordinator—not each worker independently—finishes `PHDK_GIT_WORKSPACE_CLOSEOUT.md`: safe fast-forward of local main, verified retirement of only completed task-owned local branches/worktrees, and deletion-only SHA-guarded removal of the exact unchanged merged remote head where credentials and controls permit. The first eligible local Auto/Force entry after adoption also performs one bounded historical audit; preserve open PRs, active worker branches and unknown local data. Report local/remote cleanup separately, then continue the next milestone from synchronized main. Never create another workstream merely for this hygiene.
+After each verified merged milestone the PMO coordinator—not individual workers—finishes `PHDK_GIT_WORKSPACE_CLOSEOUT.md`: safe local main fast-forward and retirement of only proven-integrated clean **local** branches/worktrees. GitHub remote branches remain untouched even when merged; record `REMOTE_BRANCH=RETAINED_BY_POLICY` / `ALREADY_ABSENT`. The first eligible local Auto/Force after adoption also performs a bounded historical **local** audit. Preserve open PRs, active branches and unknown data. Do not create extra workstreams or ask to delete remote branches as routine hygiene.
 
 ## Mandatory PMO control center and portfolio expansion
 

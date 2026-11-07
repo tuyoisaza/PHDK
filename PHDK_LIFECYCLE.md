@@ -822,7 +822,7 @@ Delivery verifies the latest Check/remediation result and identifies any accepte
 
 ## 90 — Delivery
 
-Delivery handoffs record any one-time historical inventory performed after local Auto/Force adoption and the continuous remote feature-head cleanup following each published milestone, separately from source publication and local main/worktree closeout. Include precise merged PR/head/merge SHA evidence and retained branch reasons. No historical cleanup runs in bare Upgrade/Check, and no remote-only agent may claim local disk reclamation.
+Delivery handoffs record any one-time **local** historical inventory after Auto/Force adoption and continued local workspace closeout after each published milestone, independently from source publication. Report GitHub branch state as `RETAINED_BY_POLICY` (or `ALREADY_ABSENT`), **never delete remote branches in automatic cleanup**, and never count their retention as a delivery blocker. Retain merged PR/head/merge SHA evidence and reasons for retained local work; bare Upgrade/Check do not run historical cleanup, and remote-only agents cannot claim local disk reclamation.
 
 After verifying remote main, close the local milestone workspace under `PHDK_GIT_WORKSPACE_CLOSEOUT.md`: safe main fast-forward, SHA equality and scoped clean worktree/branch retirement, or explicit BLOCKED / NOT_APPLICABLE_REMOTE_ONLY evidence. Record LOCAL_MAIN/LOCAL_CLEANUP independently of PUBLISHED/DEPLOYED/ACCEPTED; no redundant push to main or deletion of unrelated work.
 

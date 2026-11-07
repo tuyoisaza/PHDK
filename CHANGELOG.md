@@ -1,3 +1,12 @@
+## v3.0.1 — 2026-11-07
+
+### PATCH — Local-only Git hygiene, with permanent remote-branch retention
+
+- Remove automatic GitHub remote-branch deletion from historical and milestone cleanup in `scripts/phdk_git_history_cleanup.py`. Report read-only remote state as `RETAINED_BY_POLICY` / `ALREADY_ABSENT` and never count retained GitHub branches as incomplete local cleanup.
+- Preserve safe local main fast-forward and proven-merged local branch/worktree retirement, including when a remote feature branch advances after merge. A named owner instruction is necessary for any separate remote deletion operation.
+- Reconcile Git closeout, delivery, Auto/Force, PMO, Upgrade, Preflight, Check, lifecycle, versioning and agent/skill/native entrypoints; extend mock regression coverage for zero remote-push behavior.
+- No GitHub settings changes, automatic downstream upgrade, product UAT or actual local cleanup is implied by this release.
+
 ## v3.0.0 — 2026-11-07
 
 ### MAJOR — PHDK complies with its own coherence rules

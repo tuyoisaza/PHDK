@@ -9,7 +9,7 @@
 
 ## One-time historical Git cleanup trigger (Auto/Force only)
 
-When an explicit `PHDK auto` or `PHDK auto force` begins after adoption of the current PHDK release, check for a local historical Git-hygiene marker and route a **bounded first-run inventory** to `PHDK_GIT_WORKSPACE_CLOSEOUT.md` / `scripts/phdk_git_history_cleanup.py`. This occurs **after** installation/version verification and before opening another local development branch. A bare `PHDK upgrade`, a read-only Check, or a copied manifest never executes destructive branch cleanup. Use one foreground inventory per local workspace/release, then retry only unresolved candidates with fresh GitHub PR facts rather than rescanning at every lifecycle stage. Without local Git access, state NOT_APPLICABLE_REMOTE_ONLY; do not claim that the owner's disk was cleaned.
+When an explicit `PHDK auto` or `PHDK auto force` begins after adoption, check the local historical Git-hygiene marker and perform the bounded **local-only** inventory in `PHDK_GIT_WORKSPACE_CLOSEOUT.md` / `scripts/phdk_git_history_cleanup.py` after installation/version verification and before opening another local branch. Bare Upgrade, read-only Check and manifest copying never run destructive cleanup. No PHDK flow deletes remote GitHub branches; they are read-only evidence retained by policy. Retry only unresolved local candidates. Without local Git access, report NOT_APPLICABLE_REMOTE_ONLY.
 
 
 ## Centralized updater
