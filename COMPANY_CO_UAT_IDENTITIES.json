@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "classification": "fictional_synthetic",
+  "external_dispatch": false,
+  "company": "Company Co S.A.S.",
+  "usage": "Reference topology for an authorized UAT run. Map each roster to the actual application's roles and memberships. Expand it for every supported role in each in-scope tenant and area. Only instantiate roles, relationships and journeys that the product supports.",
+  "ownership": "All scope, account and record keys below are local to one project and run. Resolve them through the run-owned fixture manifest to actual provider subject, application user, membership and record IDs before use.",
+  "email_template": "uat-{project}-{run}-{scope}-{role}-{slot}@companyco.example.test",
+  "email_example": "uat-pos-r7k2-bruma-member-01@companyco.example.test",
+  "rosters": {
+    "platform": [
+      {"role": "owner", "slot": "01", "persona_ref": "EMP-001", "represents": "Company Co platform super admin"}
+    ],
+    "operations": [
+      {"role": "admin", "slot": "01", "represents": "Administrator of this scope"},
+      {"role": "lead", "slot": "01", "area": "Servicio al cliente", "represents": "Area leader"},
+      {"role": "member", "slot": "01", "area": "Servicio al cliente", "reports_to": "lead.01", "represents": "Team member who can receive assigned work"}
+    ]
+  },
+  "multi_tenant": {
+    "entry_actor": "platform.owner.01",
+    "mapping": "Company Co operates the platform. The two fictional B2B customers from COMPANY_CO_SERVICE_SCENARIOS.md are independent café tenants for this example only. Departments are areas inside a tenant. Each operations roster expands to distinct native subjects and memberships.",
+    "scopes": [
+      {"key": "platform", "kind": "platform", "name": "Company Co S.A.S.", "roster": "platform"},
+      {"key": "bruma", "kind": "tenant", "name": "Café Bruma", "source_customer": "C001", "roster": "operations"},
+      {"key": "nube", "kind": "tenant", "name": "Café Nube Andina", "source_customer": "C003", "roster": "operations"}
+    ],
+    "records": [
+      {"key": "bruma-repair", "scope": "bruma", "label": "Repair request for Café Bruma"}
+    ],
+    "journeys": [
+      {"subject": "bruma.lead.01", "action": "assign", "record": "bruma-repair", "assignee": "bruma.member.01", "expect": "ALLOW"},
+      {"subject": "bruma.member.01", "action": "read_assigned", "record": "bruma-repair", "expect": "ALLOW"},
+      {"subject": "nube.admin.01", "action": "read_by_id", "record": "bruma-repair", "expect": "DENY"},
+      {"subject": "bruma.lead.01", "action": "assign", "record": "bruma-repair", "assignee": "nube.member.01", "expect": "DENY"}
+    ]
+  },
+  "single_tenant": {
+    "entry_actor": "companyco.admin.01",
+    "mapping": "Company Co is one organization. Its actual application admin is the elevated actor. Put areas and reporting relationships inside that organization and apply its normal role limits.",
+    "scopes": [
+      {"key": "companyco", "kind": "organization", "name": "Company Co S.A.S.", "roster": "operations"}
+    ],
+    "records": [
+      {"key": "companyco-repair", "scope": "companyco", "label": "Company Co service request"}
+    ],
+    "journeys": [
+      {"subject": "companyco.lead.01", "action": "assign", "record": "companyco-repair", "assignee": "companyco.member.01", "expect": "ALLOW"},
+      {"subject": "companyco.member.01", "action": "read_assigned", "record": "companyco-repair", "expect": "ALLOW"},
+      {"subject": "companyco.member.01", "action": "change_role", "target": "companyco.lead.01", "expect": "DENY"}
+    ]
+  }
+}

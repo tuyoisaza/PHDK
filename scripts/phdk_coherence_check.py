@@ -85,6 +85,9 @@ for mandatory in [
     "PHDK_DESIGN.md",
     "SKILL.md",
     "PHDK_NATIVE_RULES.md",
+    "UAT_SYNTHETIC_IDENTITY_STANDARD.md",
+    "COMPANY_CO_UAT_IDENTITIES.json",
+    "scripts/phdk_uat_identity_plan.py",
     "UAT_STANDARD.md",
     "UAT_JOURNEY_STANDARD.md",
     "PHDK_UX_UI.md",
@@ -629,7 +632,14 @@ for filename, markers in required_reuse_markers.items():
 # managed block. A precedence header never suppresses a conflicting directive.
 # These are source-level regression signals, not proof of authorization or UAT.
 required_uat_markers = {
+    "UAT_SYNTHETIC_IDENTITY_STANDARD.md": [
+        "COMPANY_CO_UAT_IDENTITIES.json", "phdk_uat_identity_plan.py",
+        "tenant × role", "companyco.example.test", "SWITCHED", "DIRECT",
+    ],
+    "JWT_STANDARD.md": ["UAT_SYNTHETIC_IDENTITY_STANDARD.md"],
+    "ADMIN_CONSOLE_STANDARD.md": ["UAT_SYNTHETIC_IDENTITY_STANDARD.md"],
     "UAT_STANDARD.md": [
+        "UAT_SYNTHETIC_IDENTITY_STANDARD.md",
         "PHDK uat",
         "PHDK uat prep",
         "PHDK uat fix",
@@ -638,12 +648,13 @@ required_uat_markers = {
         "PHDK_PRODUCTION_VERIFICATION.md",
     ],
     "PHDK_UAT_PREP.md": [
+        "UAT_SYNTHETIC_IDENTITY_STANDARD.md",
         "PHDK uat prep",
         "PHDK uat",
         "UAT_PREP_REPORT.md",
         "PHDK_PRODUCTION_VERIFICATION.md",
     ],
-    "UAT_JOURNEY_STANDARD.md": ["PHDK_UX_UI.md#rendered-workflow-walkthrough"],
+    "UAT_JOURNEY_STANDARD.md": ["PHDK_UX_UI.md#rendered-workflow-walkthrough", "UAT_SYNTHETIC_IDENTITY_STANDARD.md"],
     "PHDK_AUTO.md": ["DEFERRED — OWNER OPT-IN", "UAT NOT RUN"],
     "PHDK_LIFECYCLE.md": [
         "45-uat-prep/",
@@ -678,6 +689,7 @@ if native_file.is_file():
             "PHDK auto",
             "PHDK auto force",
             "PHDK uat",
+            "phdk-standards/UAT_SYNTHETIC_IDENTITY_STANDARD.md",
             "PHDK uat prep",
             "PHDK uat fix",
             "DEFERRED — OWNER OPT-IN",

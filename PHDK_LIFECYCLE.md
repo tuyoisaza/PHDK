@@ -558,7 +558,7 @@ In Auto/Auto Force, the next applicable SEO/AEO/Check stage verifies `INTEGRATIO
 
 ### Purpose
 
-Build and verify synthetic test identities, secure role sessions and fixture readiness **before** browser UAT. Follow `PHDK_UAT_PREP.md` and the governing `PHDK_PRODUCTION_VERIFICATION.md`.
+Build and verify each required tenant-by-role subject, its grants and the supported elevated bootstrap **before** browser UAT. Record browser-only sign-in evidence as pending until stage 50. Follow `PHDK_UAT_PREP.md`, the [synthetic identity standard](UAT_SYNTHETIC_IDENTITY_STANDARD.md) and the governing `PHDK_PRODUCTION_VERIFICATION.md`.
 
 ### Inputs
 

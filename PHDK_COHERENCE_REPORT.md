@@ -1,3 +1,15 @@
+# PHDK coherence report — v2.84.0
+
+Reviewed 2026-11-07 against canonical main `7bd4dc7e354b2f29102b53cddd1c5a5a18ec5410` (v2.83.0). Scope covers authenticated UAT Prep, business journeys, their fixture catalog and distribution.
+
+| Finding | Evidence |
+|---|---|
+| GAP resolved | Earlier Prep instructions requested independent sessions for each synthetic user. The standards now distinguish creating real subjects and grants, authenticating the elevated actor, switching persona and testing a subject's own login. |
+| VERIFIED | Nineteen UAT policy and offline data tests passed. Canonical and installed-layout coherence passed with 110 byte-identical manifest entries. The installed planner produced seven multi-tenant and three single-tenant subjects, preserving the entry actors, assignment and access-test references. |
+| Scope | The release supplies the fixture contract and offline plan. The project-specific provisioner and its deployed readbacks establish account creation, effective permissions and cleanup during separately authorized Prep/UAT. |
+
+---
+
 # PHDK coherence report — v2.83.0
 
 Reviewed 2026-11-06 against canonical main `e39315f9f4260f9d189a8445cc9fa50efae28218` (v2.82.0). Scope covers bounded Auto sessions, cross-conversation handoff, status rendering and downstream distribution.
