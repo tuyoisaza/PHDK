@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.91.0**
+**Version v2.92.0**
 
 **Post-UAT Export Modules (v2.91.0):** Auto/Force collects reuse observations in its existing retrospective without scanning each milestone or initiating UAT. After a *separate explicit* `PHDK uat` reaches `ACCEPTED` on the final deployed revision (following authorized verified `PHDK uat fix` if needed), UAT closeout runs one **read-only** local [Export Modules review](PHDK_POST_UAT_EXPORT_STANDARD.md) and shows a batch of candidates. Absent, failed, incomplete or stale UAT defers discovery. No code moves to private PHDK-Modules or public PHDK without named owner selection, verified rights and separate authorized contribution. The review is not a product-delivery/UAT completion gate.
 
@@ -59,7 +59,11 @@ PHDK is an operating system for AI-assisted software delivery. It turns a reposi
 
 ---
 
-## The problem PHDK solves
+### Start here — `PHDK help`
+
+**Recommended first action after installing PHDK in any repository:** type **`PHDK help`** in the coding-agent conversation. It explains PHDK's purpose, the documented product objective or unknown, **all current commands** and a context-specific next step. It is read-only: it does **not** run Auto, UAT, upgrades or change files. Try `PHDK help auto force` or `PHDK help uat` for detail. See [PHDK_HELP.md](PHDK_HELP.md) and the [canonical command catalog](PHDK_COMMANDS.json). Optional offline printout: `python3 phdk-standards/scripts/phdk_help.py --root .` (canonical checkout: `python3 scripts/phdk_help.py --root .`). `PHDK help` is conversational, not an installed `phdk` shell binary.
+
+# The problem PHDK solves
 
 Software delivery breaks down when requirements live only in chat, agents stop at plans/scaffolds, interfaces are designed only after implementation, parallel work lacks ownership, tests miss product intent, or nobody can show what shipped and what remains blocked.
 
@@ -161,6 +165,8 @@ Each executed/reused stage has `HANDOFF.md` and material snapshots. Later stages
 | Delivery | `DELIVERY_REPORT.md` and completion/remote-target evidence |
 
 # Core commands
+
+Start with **`PHDK help`** for the complete current command list and an evidenced project-specific recommendation. The sections below detail major workflows; [the catalog](PHDK_COMMANDS.json) covers all documented commands and aliases.
 
 ## Private PHDK Modules library
 
@@ -405,6 +411,8 @@ Performs the forced standards synchronization and Stack Security Review, then **
 `PHDK unlock` reconciles documentary blockers while preserving actual protections, access, security and controls. `PHDK Developer Mode` is a separate explicitly activated, temporary direct-main exception for eligible small low-risk tasks. Neither silently starts another mission.
 
 # How to start
+
+**Right after installing or upgrading PHDK, run `PHDK help` in the agent conversation.** Its recommendation is informational and never executes itself.
 
 For explicit stages on a UI project:
 

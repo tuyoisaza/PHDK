@@ -7,7 +7,7 @@ description: >-
   with PHDK plan, run hybrid security assurance with PHDK secure, establish a visual style guide and previews with PHDK design,
   coordinate multi-workstream delivery with PHDK PMO, prepare authenticated synthetic users
   with PHDK uat prep, run acceptance validation with PHDK uat, audit and close standards gaps
-  with PHDK check, capture requirements with PHDK capture, repair PHDK blockers with PHDK unlock,
+  with PHDK check, orient a newly installed repository with read-only PHDK help, capture requirements with PHDK capture, repair PHDK blockers with PHDK unlock,
   discover and propose reusable modules with PHDK export modules,
   retrieve bounded read-only provider metadata/logs, or activate/exit PHDK Developer Mode.
   Interactive-only; bounded in-session delegation follows PHDK_INTELLIGENT_EXECUTION.md.
@@ -16,6 +16,11 @@ description: >-
 ---
 
 # PHDK
+
+## PHDK help — recommended first action after installation (v2.92.0)
+
+For explicit `PHDK help`, `PHDK help <command>` or `PHDK help --all`, read `PHDK_HELP.md` and vendored `PHDK_COMMANDS.json` as the authoritative complete inventory. Show version, grounded local project objective or uncertainty, all commands/uses and one nonexecuted next-step recommendation. Apply only the read-only Help Preflight profile in `PHDK_PREFLIGHT.md`: **never** call the updater, stack review, UAT, Auto or any other command as a side effect; never write to project/providers. `scripts/phdk_help.py` is an optional local-only renderer, not a `phdk` shell binary. Recommend the owner type `PHDK help` after a successful install; do not silently invoke it during installation.
+
 
 ## Post-UAT reusable-module review
 
@@ -240,8 +245,9 @@ Do not register auto-update hooks, scheduled refreshes, background pulls, or ses
 1. If the current request is for a new project and purpose is unclear, use `SPEC_INTERVIEW_PROMPT.md` to clarify the necessary decision.
 2. Generate the requested kit through `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md`, without bots, schedules, backup jobs, CI, or external provisioning. Bounded in-session delegation can be used in any mode under `PHDK_INTELLIGENT_EXECUTION.md`.
 3. When the request includes PHDK installation, read `PHDK_MANIFEST.txt` and vendor exactly its mappings under `phdk-standards/`.
-4. Include the exact `PHDK_NATIVE_RULES.md` managed block in the current tool's instruction file per `ENFORCEMENT.md`. Preserve owner instructions and managed markers; do not generate files for unused tools.
-5. Build product code only when the current request includes it. Use `BUILD_APP_FOUNDATION_PROMPT.md` for that scope, after applicable Plan/Design. In Auto, a foundation is one part of the whole goal; continue remaining agreed development and final verification/delivery under `PHDK_AUTO.md` rather than stopping at the scaffold.
+4. Recommend the owner run `PHDK help` in the agent conversation after installation; the suggestion does not execute Help or another stage.
+5. Include the exact `PHDK_NATIVE_RULES.md` managed block in the current tool's instruction file per `ENFORCEMENT.md`. Preserve owner instructions and managed markers; do not generate files for unused tools.
+6. Build product code only when the current request includes it. Use `BUILD_APP_FOUNDATION_PROMPT.md` for that scope, after applicable Plan/Design. In Auto, a foundation is one part of the whole goal; continue remaining agreed development and final verification/delivery under `PHDK_AUTO.md` rather than stopping at the scaffold.
 
 A request for a kit, standalone design package or standards update is not permission to start full product implementation.
 

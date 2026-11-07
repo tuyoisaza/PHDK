@@ -1,3 +1,7 @@
+## Help/catalog consistency (v2.92.0)
+
+Each documented conversational command and alias must appear without collision in vendored `PHDK_COMMANDS.json`, with an existing standard reference. `PHDK_HELP.md` governs read-only output, sourced goal and one safe next-action recommendation. Reconcile manifest, README, onboarding, AGENTS/SKILL/native routing and Help-only read-only Preflight. `scripts/phdk_help.py` must remain offline/network-free/read-only. Run synthetic `tests/test_phdk_help.py` and the static coherence checker where execution is permitted; otherwise report NOT RUN. No static source test proves downstream agent compliance or adoption.
+
 # PHDK Coherence Standard
 
 ## Post-UAT Export Modules release routing (v2.91.0)
