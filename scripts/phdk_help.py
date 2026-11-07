@@ -60,7 +60,7 @@ def project_goal(root: Path) -> tuple[str, str, bool]:
     if (root / "PHDK_EVOLUTION_STANDARD.md").is_file() and (root / "PHDK_COMMANDS.json").is_file():
         return ("Mantener el sistema de estándares y comandos PHDK para entrega de software asistida por IA.",
                 "PHDK_EVOLUTION_STANDARD.md", True)
-    candidates = [root / "PROJECT_INTENT.md"]
+    candidates = []
     index = safe_read(root / "docs" / "INDEX.md")
     # Generated docs/INDEX.md: Category | Document ID | Active baseline | Working draft.
     # Never infer the product objective from an archived version or unapproved draft.
@@ -71,12 +71,17 @@ def project_goal(root: Path) -> tuple[str, str, bool]:
         active_link = re.search(r"\]\((intents/[A-Za-z0-9_./-]+\.md)\)", cells[2])
         if not active_link:
             continue
+        # The project-intent baseline takes priority over feature-intent documents.
+        if not ("project-intent" in active_link.group(1).lower() or "project_intent" in cells[1].lower()):
+            continue
         candidate = root / "docs" / active_link.group(1)
         try:
             if candidate.resolve().is_relative_to(root.resolve()) and candidate not in candidates:
                 candidates.append(candidate)
         except (OSError, RuntimeError, ValueError):
             continue
+    # Legacy root intent is a fallback when no active versioned baseline has a goal.
+    candidates.append(root / "PROJECT_INTENT.md")
     # Only explicit purpose sections are evidence. README title/branding is not a project goal.
     candidates.append(root / "README.md")
     for path in candidates:
@@ -140,7 +145,9 @@ def build_report(root: Path, catalog_dir: Path, catalog: dict, *, detail: str = 
 
 
 def format_report(report: dict, *, all_details: bool = False) -> str:
-    lines = [f"PHDK help · v{report['phdk_version_installed']}",
+    version = report["phdk_version_installed"]
+    version_label = f"v{version}" if version != "sin verificar" else "sin verificar"
+    lines = [f"PHDK help · {version_label}",
              f"PHDK: {report['purpose']}",
              f"Proyecto: {report['project_goal']} ({report['project_goal_source']})",
              f"Upstream: {report['upstream_version']}"]
