@@ -1,3 +1,11 @@
+## v2.89.0 — 2026-11-07
+
+### PHDK Export Modules: scoped reverse reuse discovery and contribution
+
+- Add explicit `PHDK export modules` to inventory candidate modules in the current project, rank packaging/test-documentation signals, compare optional pinned local Git ancestry and show a bounded read-only Markdown/JSON report.
+- Connect qualified candidates to the existing reuse catalog, specifications and Auto retrospective; require named owner selection, rights/security review, evidence and a separate versioned implementation package before an authorized canonical PR. No automatic private-code publication or consumer upgrades.
+- Vendor the new policy and read-only Python helper; add 11 synthetic CLI/baseline/symlink/provenance tests and reconcile managed agent/skill/native rules and the manifest.
+
 ## v2.88.0 — 2026-11-07
 
 ### Bundled design selection and interaction motion — one evolution, two independent decisions

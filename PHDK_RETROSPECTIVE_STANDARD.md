@@ -1,5 +1,9 @@
 # PHDK Auto Retrospective and Improvement Proposals
 
+## Reusable implementation findings (v2.89.0)
+
+A completed donor milestone can note candidates for `PHDK export modules` in its existing local retrospective when evidence suggests generalizable capability. This is a **suggestion**, not permission to run the inventory, publish private implementation, create a canonical issue/PR, or delay delivery. Only an explicit later owner-invoked Export Modules workflow can inventory that current authorized donor and request selected upstream contributions under `PHDK_EXPORT_MODULES.md` and `PHDK_REUSE_CATALOG_STANDARD.md`. Avoid duplicate telemetry, extra agents and recurring scans.
+
 ## Purpose and authority
 
 Every Auto/Auto Force run performs one bounded learning closeout under the current project mandate. Learn from observed delivery, not from speculative dissatisfaction with safeguards. This standard creates proposals, not permission to change PHDK, another repository, a provider, spending, UAT scope or host controls. `EXECUTION_SCOPE.md`, `PHDK_AUTO.md`, `PHDK_AUTO_CONTINUITY.md` and the actual current owner request remain authoritative.

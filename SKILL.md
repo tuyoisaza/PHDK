@@ -8,6 +8,7 @@ description: >-
   coordinate multi-workstream delivery with PHDK PMO, prepare authenticated synthetic users
   with PHDK uat prep, run acceptance validation with PHDK uat, audit and close standards gaps
   with PHDK check, capture requirements with PHDK capture, repair PHDK blockers with PHDK unlock,
+  discover and propose reusable modules with PHDK export modules,
   retrieve bounded read-only provider metadata/logs, or activate/exit PHDK Developer Mode.
   Interactive-only; bounded in-session delegation follows PHDK_INTELLIGENT_EXECUTION.md.
   No unattended/background/scheduled work, GitHub Actions, unrestricted browser operation,
@@ -15,6 +16,10 @@ description: >-
 ---
 
 # PHDK
+
+## Reverse reusable-module contributions
+
+For explicit `PHDK export modules`, load `PHDK_EXPORT_MODULES.md` plus the reuse catalog standard. In the current authorized donor only, run the vendored read-only inventory script and present evidence-backed, batched candidate decisions. Owner-approved contribution requires rights/security and target-repo verification; canonical PHDK accepts generic standards/catalog contracts, while implementation belongs in separately versioned packages. A scan, retrospective or code change never authorizes publishing source or touching unrelated repositories.
 
 ## Browser-assisted external configuration (v2.76.0)
 

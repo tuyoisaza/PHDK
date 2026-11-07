@@ -1,5 +1,9 @@
 # PHDK Reusable Capability Catalog Standard
 
+## Reverse discovery through PHDK Export Modules (v2.89.0)
+
+`PHDK_EXPORT_MODULES.md` and its vendored read-only helper provide an optional owner-invoked route from a proven downstream implementation **back** to this catalog. Discovery produces local proposals only; an owner-approved extraction and evidence-reviewed PHDK PR remain separate operations. `NEW_CANDIDATE` and `POTENTIAL_EXTENSION` are inventory labels, not catalog acceptance states. Maintain the existing `SPECIFICATION_ONLY`/`CANDIDATE`/`REVIEWED`/`ACCEPTED_VERSIONED` gates, independent package versioning, two-consumer portability, public/private restrictions, and no automatic downstream upgrades.
+
 ## Purpose and authority
 
 This standard defines how PHDK evaluates reusable capabilities during Plan, records catalog maturity, accepts contributions, and separates reusable implementation packages from the PHDK methodology repository.
