@@ -611,7 +611,7 @@ Snapshot all applicable outputs plus `HANDOFF.md`.
 
 One of:
 
-- ACCEPTED;
+- ACCEPTED with passing evidence for each applicable functional and workflow UX result under the [workflow acceptance decision](UAT_STANDARD.md#workflow-acceptance-decision);
 - NOT ACCEPTED with actionable FAILs;
 - ACCEPTANCE INCOMPLETE with actionable BLOCKED/MANUAL plan.
 

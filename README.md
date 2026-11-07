@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.81.0**
+**Version v2.82.0**
 
 **Learning closeout and risk-based assurance (v2.78.0):** Every Auto/Force run closes with a bounded, evidence-based retrospective under [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): what shipped, what was learned, generalizable PHDK proposals and project-local actions. Prepare it with the final authorized change; report actual publication evidence afterward. Zero findings is valid; recommendations add no approval gate, automatic canonical edits, extra agents or report-only release loop. [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) adds conditional domain invariants, characterization/equivalence plans, material-decision provenance and operational recovery for changes risking integrity, value, access or continuity, not just legacy migrations. Technical delivery, acceptance, cutover authorization and executed cutover remain distinct. Local behavioral testing and automatic UAT remain prohibited; downstream adoption is separate. Source-only guards: [scripts/phdk_learning_risk_check.py](scripts/phdk_learning_risk_check.py).
 
@@ -295,7 +295,7 @@ Only a fresh explicit owner invocation starts acceptance and its necessary Prep.
 Project intent → user story → requirement/acceptance criterion → UAT case → evidence
 ```
 
-Create `UAT_CASES.md` and `UAT_REPORT.md`. Results are PASS, FAIL, BLOCKED, MANUAL or NOT APPLICABLE; final conclusion is ACCEPTED, NOT ACCEPTED or ACCEPTANCE INCOMPLETE. Applicable UI cases compare actual rendered behavior with the selected Design baseline. Neither code inspection, owner visual approval nor generated mockups become behavioral PASS.
+Create `UAT_CASES.md` and `UAT_REPORT.md`. For each UI journey, verify what the role can understand before acting, how it finds the next step, and how it recognizes completion. Compare the rendered candidate with the selected Design baseline. Record the functional and workflow UX results with evidence. Apply the [workflow acceptance decision](UAT_STANDARD.md#workflow-acceptance-decision) to conclude ACCEPTED, NOT ACCEPTED or ACCEPTANCE INCOMPLETE.
 
 Read [JWT_STANDARD.md](JWT_STANDARD.md), [UAT_JOURNEY_STANDARD.md](UAT_JOURNEY_STANDARD.md) and [USE_COMPANY_CO_INFO_FOR_DEMOS.md](USE_COMPANY_CO_INFO_FOR_DEMOS.md) when authenticated journeys/fixtures apply. Use legitimate role-specific sessions, safe synthetic records, negative tenant/role boundaries and auditable elevated switching. JWT is conditional on actual application authentication, not mandatory for OAuth/cookie apps. Never request secrets in chat or fabricate privileged access. No automatic bulk email to `@tujuisasa.com`.
 

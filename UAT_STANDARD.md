@@ -29,6 +29,12 @@ For applicable projects, use `CRUD_STANDARD.md` and `CRUD_MATRIX.md` to exercise
 
 On UI-applicable projects, follow `PHDK_UX_UI.md` and deliver `UX_UI_AUDIT_REPORT.md` in the UAT handoff. Exercise critical user journeys and relevant state, responsive, keyboard/focus, contrast and interaction checks in the authorized UAT browser scope when available; classify untested browser evidence BLOCKED/MANUAL. P0/P1 confirmed usability/accessibility failures prevent ACCEPTED. Document in-scope repairs in `UX_UI_REMEDIATION_REPORT.md` and retest affected flows. Brownfield redesigns compare baseline vs target and verify preserved behavior. No browser actions outside permitted UAT/UAT Fix environments.
 
+### Workflow acceptance decision
+
+For each case in `UAT_REPORT.md`, record **Functional result** (did the action produce the expected business outcome?) and **Workflow UX result** (could this role identify the needed information, choose the next action and recognize completion from the interface?). Link each result to its evidence. Apply the [rendered workflow walkthrough](PHDK_UX_UI.md#rendered-workflow-walkthrough) to UI journeys, including public and read-only flows. For a genuinely non-visual case, mark only the workflow UX result NOT APPLICABLE and state why. The functional result still requires evidence. A successful API call cannot exempt a linked UI journey.
+
+Count the case once. An observed failure of a required functional or UX criterion, including a confirmed P0/P1 usability defect, makes the case FAIL and the run NOT ACCEPTED. Track P2/P3 friction without failing an otherwise passing case unless it breaches a stated acceptance criterion. If a case has no confirmed failure but lacks required evidence, mark it BLOCKED or MANUAL. Such a gap makes the run ACCEPTANCE INCOMPLETE when no other case fails. A case can PASS only when all applicable results pass with evidence. Retest the affected journey on the repaired candidate, including both the visible decision and its functional outcome.
+
 ## Scoped browser exception for UAT and UAT Fix
 ### Mandatory browser entry and no-new-spend gate
 
@@ -83,7 +89,7 @@ Every case must contain:
 3. Intent source and requirement/acceptance-criterion traceability.
 4. Preconditions and test data/fixtures.
 5. User/business actions.
-6. Expected observable outcome.
+6. Expected observable outcome and, for a UI journey, the decision the role must be able to make from the screen.
 7. Permitted validation channel.
 8. Result: NOT RUN, PASS, FAIL, BLOCKED, MANUAL, or NOT APPLICABLE.
 9. Evidence reference.
@@ -147,7 +153,7 @@ A defect requiring a new material product decision, unavailable access, undisclo
 - UAT scope and source requirements;
 - exact deployed production environment/revision and permitted harness, distinguishing static source evidence from executed acceptance;
 - summary counts by PASS/FAIL/BLOCKED/MANUAL/NOT APPLICABLE;
-- every case ID, result, and evidence;
+- every case ID, functional and workflow UX results, evidence for each, and the single case result under the workflow acceptance decision;
 - commands/tests/harnesses actually executed;
 - defects and retest status;
 - for every FAIL: observed failure, expected behavior, probable root cause, affected requirement/story/case, affected component/files when identifiable, proposed repair, repair risk/scope, and exact retest needed;

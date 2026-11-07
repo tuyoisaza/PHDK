@@ -56,6 +56,20 @@ Assess the following 12 dimensions with finding IDs and evidence. During source/
 
 Severity: P0 = critical blocked primary workflow/security/access; P1 = major usability/accessibility failure; P2 = moderate friction/inconsistency; P3 = minor polish. P0/P1 verified failures block UX acceptance; P2/P3 become prioritized tracked debt unless explicit product acceptance requires them. No subjective numeric score is an automatic pass.
 
+### Rendered workflow walkthrough
+
+During explicit UAT, start each in-scope UI journey at the persona's normal entry point with a task, the information that person would realistically have, and an observable finish condition. Walk through to the saved result, confirmation or handoff. An evaluator acting as a persona records an expert observation. Attribute a finding to a real user only if that user actually participated.
+
+| When | What the reviewer must observe on the rendered candidate |
+|---|---|
+| Before acting | Identify the current task or step, the information needed now, and the visible cue that tells this role what to do next. Read the screen before using a scripted selector, direct URL or prior knowledge of the implementation. |
+| At a decision | Check reading order, grouping, labels and legibility at the relevant viewport. Name any secondary content or competing actions that obscure the primary action. For an ordered procedure, verify that prerequisites, step order, current position and next step are visible. Use numbered steps where the sequence matters. Independent actions need no invented sequence. |
+| After acting | Verify what changed, whether the user can tell it succeeded, how to correct or recover from applicable errors, and where to go next. For managed records, follow the role's permitted create, list/detail, edit and delete/archive paths from the project's `CRUD_MATRIX.md` under the [CRUD standard](CRUD_STANDARD.md). Reopen the synthetic record to check persisted changes or the appropriate removal state. |
+
+In `UAT_JOURNEY_MAP.md`, record one row per critical decision or materially different screen state. Include case/step, role and viewport, required information, the visible cue or its absence, observed action/result, and a redacted evidence reference. Inspect a screenshot or replayable rendered frame **before** the critical action and capture the resulting state when it establishes the outcome. Reuse frame references across the map and `UX_UI_AUDIT_REPORT.md`. A click log, DOM snapshot or API response alone cannot establish visual hierarchy. If the needed frame cannot be inspected or safely retained as evidence, record the gap under the [workflow acceptance decision](UAT_STANDARD.md#workflow-acceptance-decision).
+
+For each finding, state what the person sees, which decision or outcome it affects, severity, the smallest proposed correction and the exact retest. For example, if fourteen equally prominent cards precede a submission and the tester must first choose an account under Settings, capture the view and check for a visible cue to that prerequisite. If only the script reveals it, submission can succeed while the workflow UX result is FAIL. Propose showing the required account beside Submit, then retest from the normal entry point. A dense page with well-grouped information and a clear action can pass.
+
 ## Execution and boundaries
 - Preflight checks installed UX/frontend design, accessibility and UX review capabilities; source links alone are not installed tools. Use core rubric regardless of optional skill availability.
 - Capture asks for essential user context only if missing after repository discovery; label assumptions.

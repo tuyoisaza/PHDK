@@ -1,3 +1,15 @@
+# PHDK coherence report - v2.82.0
+
+Reviewed 2026-11-06 against canonical main `71ac4678b474eaeaa1fbb96ac3a16c422bd31525` (v2.81.0). Scope covers the UAT verdict, rendered walkthrough, command routing and vendored rules.
+
+| Finding | Evidence |
+|---|---|
+| GAP resolved | A single case result could conceal an unusable journey. The explicit UAT case now requires functional and workflow UX results. A reviewer inspects what was visible before a critical decision and links the frame to that case and step. |
+| VERIFIED | The canonical and installed-layout coherence checks passed. All 104 installed mappings were compared with their source bytes. Ten UAT policy tests passed, including mutations removing the UX verdict and the journey link. |
+| Scope | These checks evaluate the standards and their distribution. Product acceptance evidence comes from an explicitly initiated UAT on a deployed candidate. |
+
+---
+
 # PHDK coherence report — v2.65.3
 
 Baseline: `67a5ccfcfb3a34dce10eae1790d28e9adefa45b7` / v2.65.2. Review date: 2026-10-23. Scope: publication of the owner-requested Company Co document corpus, its discovery links and release metadata; no policy or runtime implementation change.
