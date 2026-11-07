@@ -44,7 +44,7 @@ On multi-tenant apps a `super_admin` may enter an explicit, limited **Ver como /
 
 - Authenticated elevated actor, step-up MFA for sensitive cases when applicable; server-created short-lived scoped session; actor, target, tenant, reason, start/end/expiry audit, unmistakable banner and **Return to admin** control.
 - The effective session **reduces** privilege to the selected role; it is never a client-only role flag, forged JWT claim, direct tenant-ID selector or permission bypass. Sensitive writes and side effects must be explicitly blocked or isolated to demo fixtures. Do not impersonate a real user without consent/authorization.
-- Switching must not reveal secrets or disable MFA. Explicitly test server/API denies while switched, tenant boundaries, stale memberships, expiry and return flow. Any change made as a test user remains attributable to the originating administrator.
+- Switching cannot change MFA policy. If the originating synthetic actor entered under the bounded pre-live exception in [pre-live synthetic MFA and JWT testing](JWT_STANDARD.md#pre-live-synthetic-mfa-and-jwt-testing), keep its synthetic-test warning visible alongside the effective role while switched and after return to admin until that session ends. Preserve the primary session’s actual assurance level and all server-side step-up requirements. Explicitly test server/API denies while switched, tenant boundaries, stale memberships, expiry and return flow. Any change made as a test user remains attributable to the originating administrator.
 
 Follow `UAT_JOURNEY_STANDARD.md` and the [synthetic identity standard](UAT_SYNTHETIC_IDENTITY_STANDARD.md) for selecting and provisioning test personas.
 

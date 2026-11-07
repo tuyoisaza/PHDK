@@ -10,7 +10,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v2.84.0**
+**Version v2.85.0**
 
 **Learning closeout and risk-based assurance (v2.78.0):** Every Auto/Force run closes with a bounded, evidence-based retrospective under [PHDK_RETROSPECTIVE_STANDARD.md](PHDK_RETROSPECTIVE_STANDARD.md): what shipped, what was learned, generalizable PHDK proposals and project-local actions. Prepare it with the final authorized change; report actual publication evidence afterward. Zero findings is valid; recommendations add no approval gate, automatic canonical edits, extra agents or report-only release loop. [PHDK_CRITICAL_CHANGE_STANDARD.md](PHDK_CRITICAL_CHANGE_STANDARD.md) adds conditional domain invariants, characterization/equivalence plans, material-decision provenance and operational recovery for changes risking integrity, value, access or continuity, not just legacy migrations. Technical delivery, acceptance, cutover authorization and executed cutover remain distinct. Local behavioral testing and automatic UAT remain prohibited; downstream adoption is separate. Source-only guards: [scripts/phdk_learning_risk_check.py](scripts/phdk_learning_risk_check.py).
 
@@ -285,7 +285,7 @@ Updating, installing or discussing PHDK never activates Auto. Neither mode execu
 
 ## `PHDK uat prep`
 
-Explicit `PHDK uat prep`, or necessary Prep within an explicitly initiated `PHDK uat`, follows [PHDK_UAT_PREP.md](PHDK_UAT_PREP.md) to implement missing safe Company Co synthetic identities, repeatable seeders, legitimate role sessions, authorized Test as, fixture ownership and cleanup. Apply the [synthetic identity standard](UAT_SYNTHETIC_IDENTITY_STANDARD.md) and its [Company Co roster](COMPANY_CO_UAT_IDENTITIES.json). Prep provisions one identity for each applicable role in each tested tenant, with memberships and assignable records. During UAT, authenticate the elevated actor once and use audited Test as for business journeys. Single-tenant apps use their own admin. Direct-login cases have distinct evidence.
+Explicit `PHDK uat prep`, or necessary Prep within an explicitly initiated `PHDK uat`, follows [PHDK_UAT_PREP.md](PHDK_UAT_PREP.md) to implement missing safe Company Co synthetic identities, repeatable seeders, legitimate role sessions, authorized Test as, fixture ownership and cleanup. Apply the [synthetic identity standard](UAT_SYNTHETIC_IDENTITY_STANDARD.md) and its [Company Co roster](COMPANY_CO_UAT_IDENTITIES.json). Prep provisions one identity for each applicable role in each tested tenant, with memberships and assignable records. During UAT, authenticate the elevated actor once and use audited Test as for business journeys. Single-tenant apps use their own admin. Direct-login cases have distinct evidence. For a verified synthetic deployment before launch, [pre-live JWT testing](JWT_STANDARD.md#pre-live-synthetic-mfa-and-jwt-testing) allows a provider-native test factor or an expiring exception limited to named fixtures. The report states whether a second factor was exercised.
 
 The production-first verification policy governs actual runtime checks. Prep does not grant browser access, authentication bypasses, human password/bearer collection, provider writes, local tests or new environments. If it changes code, reconcile/deliver the new candidate before acceptance. Stage 50 separately verifies browser availability.
 

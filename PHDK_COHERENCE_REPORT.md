@@ -1,3 +1,15 @@
+# PHDK coherence report — v2.85.0
+
+Reviewed 2026-11-07 against canonical main `7eee170519a1b6607756fe583b810f09267225fe` (v2.84.0). Scope covers the existing hosted release candidate before first real business use.
+
+| Finding | Evidence |
+|---|---|
+| GAP resolved | A human second factor could previously block token and persona journeys even in a wholly synthetic candidate. The authority, browser readiness and JWT standards now classify the target, announce the method and expiry, and preserve separate token and factor evidence. |
+| VERIFIED | All 25 offline UAT policy and data tests passed. Canonical and installed-layout checks passed with 111 byte-identical mappings. The installed advisor produced the expected routes for a synthetic JWT exemption, required MFA without a factor, a permitted synthetic test factor, and live and mixed targets. |
+| Scope | These are static policy and offline decisions. Actual provider issuance, authorization, restoration and go-live clearance require project evidence. |
+
+---
+
 # PHDK coherence report — v2.84.0
 
 Reviewed 2026-11-07 against canonical main `7bd4dc7e354b2f29102b53cddd1c5a5a18ec5410` (v2.83.0). Scope covers authenticated UAT Prep, business journeys, their fixture catalog and distribution.

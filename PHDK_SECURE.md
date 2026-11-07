@@ -26,6 +26,10 @@ For an existing supported major, use its current compatible security-patched rel
 
 All Node.js projects, including existing products, apply the Stack Security Review below during relevant milestones and the consolidated gate. Inspect reproducible install configuration such as `npm ci` or the lockfile-equivalent without executing installs as part of the review. Evaluate publisher MFA and provenance/trusted publishing where applicable without requesting account secrets. Prefer an evidence-backed dependency cooldown with documented exceptions for urgent security fixes. Do not blanket-disable legitimate native install scripts; review necessary script permissions and isolation. A compromised package or exposed credential requires incident classification and containment/rotation through separately authorized channels, never unapproved provider changes.
 
+## Promotion after a synthetic pre-live run
+
+Before opening a site to real accounts, data or external business traffic, apply the [JWT promotion checks](JWT_STANDARD.md#pre-live-synthetic-mfa-and-jwt-testing) if an MFA exception was used. A source delivery can finish while launch remains blocked by an active exception, surviving tokens or missing proof of the restored login policy. Secure reviews retained evidence within its current scope. It never starts UAT or edits the provider by itself.
+
 ## Stack Security Review
 
 This is the shared, bounded review contract for the actual project stack, including non-Node components. It reuses Secure and Check findings; it does not create another lifecycle mode or a background scanner.

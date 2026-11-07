@@ -88,6 +88,7 @@ for mandatory in [
     "UAT_SYNTHETIC_IDENTITY_STANDARD.md",
     "COMPANY_CO_UAT_IDENTITIES.json",
     "scripts/phdk_uat_identity_plan.py",
+    "scripts/phdk_uat_mfa_decision.py",
     "UAT_STANDARD.md",
     "UAT_JOURNEY_STANDARD.md",
     "PHDK_UX_UI.md",
@@ -636,7 +637,10 @@ required_uat_markers = {
         "COMPANY_CO_UAT_IDENTITIES.json", "phdk_uat_identity_plan.py",
         "tenant × role", "companyco.example.test", "SWITCHED", "DIRECT",
     ],
-    "JWT_STANDARD.md": ["UAT_SYNTHETIC_IDENTITY_STANDARD.md"],
+    "JWT_STANDARD.md": [
+        "UAT_SYNTHETIC_IDENTITY_STANDARD.md", "PRELIVE_SYNTHETIC", "LIVE_OR_MIXED",
+        "MFA EXEMPT — NOT EXERCISED", "phdk_uat_mfa_decision.py",
+    ],
     "ADMIN_CONSOLE_STANDARD.md": ["UAT_SYNTHETIC_IDENTITY_STANDARD.md"],
     "UAT_STANDARD.md": [
         "UAT_SYNTHETIC_IDENTITY_STANDARD.md",
