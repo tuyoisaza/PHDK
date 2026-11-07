@@ -28,9 +28,9 @@ class PrivateLibraryContract(unittest.TestCase):
 
     def test_new_release_markers_aligned(self):
         version = source("VERSION").strip()
-        self.assertEqual(version, "2.90.0")
-        self.assertIn("**Version v2.90.0**", source("README.md"))
-        self.assertTrue(source("CHANGELOG.md").startswith("## v2.90.0"))
+        self.assertRegex(version, r"^\d+\.\d+\.\d+$")
+        self.assertIn(f"**Version v{version}**", source("README.md"))
+        self.assertTrue(source("CHANGELOG.md").startswith(f"## v{version}"))
 
     def test_not_an_automatic_public_module_publisher(self):
         policy = source("PHDK_MODULE_LIBRARY_STANDARD.md")

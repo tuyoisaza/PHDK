@@ -118,6 +118,8 @@ COMPANY_CO_COMMERCIAL_SCENARIOS.json | COMPANY_CO_COMMERCIAL_SCENARIOS.json
 COMPANY_CO_KNOWLEDGE_SCENARIOS.md | COMPANY_CO_KNOWLEDGE_SCENARIOS.md
 PHDK_COMMUNICATION_STANDARD.md | PHDK_COMMUNICATION_STANDARD.md
 PHDK_COHERENCE_STANDARD.md | PHDK_COHERENCE_STANDARD.md
+scripts/phdk_coherence_routing.py | scripts/phdk_coherence_routing.py
+scripts/phdk_coherence_quality.py | scripts/phdk_coherence_quality.py
 scripts/phdk_coherence_check.py | scripts/phdk_coherence_check.py
 PHDK_CENTRAL_UPDATE.md | PHDK_CENTRAL_UPDATE.md
 scripts/phdk_update.py | scripts/phdk_update.py
