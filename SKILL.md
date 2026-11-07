@@ -145,7 +145,7 @@ For explicit `PHDK uat prep` (case-insensitive), or necessary Prep within an exp
 
 ## PHDK uat fix
 
-For explicit `PHDK uat fix`, read current `UAT_REPORT.md` and `UAT_CASES.md`. Convert every FAIL into an actionable defect and every unresolved BLOCKED/MANUAL case into an explicit unblock/manual action plan. Repair clearly in-scope fixable failures autonomously, rerun affected permitted deployed UAT/regression checks, and update repair/retest evidence. When nothing is auto-fixable, guide the owner through remaining prerequisites/manual validations and state exactly what to rerun afterward. Material visual direction changes reopen only affected Design decisions under the current mode; routine fidelity repairs do not trigger a fresh style interview.
+For explicit `PHDK uat fix`, read current `UAT_REPORT.md` and `UAT_CASES.md`. Follow `UAT_DEFECT_WORKFLOW.md` to carry the original defects into repair and verify each disposition on the selected deployed build. Convert every FAIL into an actionable defect and every unresolved BLOCKED/MANUAL case into an explicit unblock/manual action plan. Repair clearly in-scope fixable failures autonomously, rerun affected permitted deployed UAT/regression checks, and update repair/retest evidence. When nothing is auto-fixable, guide the owner through remaining prerequisites/manual validations and state exactly what to rerun afterward. Material visual direction changes reopen only affected Design decisions under the current mode; routine fidelity repairs do not trigger a fresh style interview.
 
 ## PHDK uat
 

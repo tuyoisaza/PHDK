@@ -89,6 +89,10 @@ for mandatory in [
     "COMPANY_CO_UAT_IDENTITIES.json",
     "scripts/phdk_uat_identity_plan.py",
     "scripts/phdk_uat_mfa_decision.py",
+    "UAT_DEFECT_WORKFLOW.md",
+    "scripts/phdk_uat_defect_register.py",
+    "examples/uat-defect-workflow/initial.md",
+    "examples/uat-defect-workflow/retest.md",
     "UAT_STANDARD.md",
     "UAT_JOURNEY_STANDARD.md",
     "PHDK_UX_UI.md",
@@ -633,6 +637,10 @@ for filename, markers in required_reuse_markers.items():
 # managed block. A precedence header never suppresses a conflicting directive.
 # These are source-level regression signals, not proof of authorization or UAT.
 required_uat_markers = {
+    "UAT_DEFECT_WORKFLOW.md": [
+        "UAT_REPORT.md", "VERIFIED_RESOLVED", "phdk_uat_defect_register.py",
+        "UAT_RETEST_REPORT.md", "PHDK_INTELLIGENT_EXECUTION.md",
+    ],
     "UAT_SYNTHETIC_IDENTITY_STANDARD.md": [
         "COMPANY_CO_UAT_IDENTITIES.json", "phdk_uat_identity_plan.py",
         "tenant × role", "companyco.example.test", "SWITCHED", "DIRECT",
@@ -643,6 +651,7 @@ required_uat_markers = {
     ],
     "ADMIN_CONSOLE_STANDARD.md": ["UAT_SYNTHETIC_IDENTITY_STANDARD.md"],
     "UAT_STANDARD.md": [
+        "UAT_DEFECT_WORKFLOW.md",
         "UAT_SYNTHETIC_IDENTITY_STANDARD.md",
         "PHDK uat",
         "PHDK uat prep",
@@ -694,6 +703,7 @@ if native_file.is_file():
             "PHDK auto force",
             "PHDK uat",
             "phdk-standards/UAT_SYNTHETIC_IDENTITY_STANDARD.md",
+            "phdk-standards/UAT_DEFECT_WORKFLOW.md",
             "PHDK uat prep",
             "PHDK uat fix",
             "DEFERRED — OWNER OPT-IN",

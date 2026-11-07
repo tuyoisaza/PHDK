@@ -1,3 +1,11 @@
+## v2.86.0 — 2026-11-07
+
+### A live defect register and bounded UAT repair cycles
+
+- Record defects on discovery in the existing UAT report, preserve original evidence and continue independent cases on the pinned build. Report case coverage separately from actionable defect counts.
+- Support a bounded triage worker or an explicitly authorized source repair worker. Keep deployment and retest in a coordinated pass and invalidate in-flight observations if the target changes.
+- Add a read-only report checker and linked initial/retest examples. Verified closure requires executed evidence for the affected cases on the selected repaired build. Preserve unresolved issues across handoffs.
+
 ## v2.85.0 — 2026-11-07
 
 ### Real JWT verification on pre-live synthetic deployments

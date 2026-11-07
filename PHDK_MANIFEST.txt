@@ -65,6 +65,10 @@ schemas/phdk-reuse-catalog.schema.json | schemas/phdk-reuse-catalog.schema.json
 scripts/phdk_reuse_catalog_check.py | scripts/phdk_reuse_catalog_check.py
 PHDK_PMO.md | PHDK_PMO.md
 UAT_STANDARD.md | UAT_STANDARD.md
+UAT_DEFECT_WORKFLOW.md | UAT_DEFECT_WORKFLOW.md
+scripts/phdk_uat_defect_register.py | scripts/phdk_uat_defect_register.py
+examples/uat-defect-workflow/initial.md | examples/uat-defect-workflow/initial.md
+examples/uat-defect-workflow/retest.md | examples/uat-defect-workflow/retest.md
 AI_ADMIN_STANDARD.md | AI_ADMIN_STANDARD.md
 PHDK_UNLOCK.md | PHDK_UNLOCK.md
 PHDK_DEVELOPER_MODE.md | PHDK_DEVELOPER_MODE.md

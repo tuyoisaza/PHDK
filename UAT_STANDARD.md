@@ -61,7 +61,7 @@ Use explicit existing equivalents when the repository already defines them. Othe
 
 - `UAT_MILESTONE_MATRIX.md` — milestone → user story → requirement/criterion → UAT case → evidence traceability for projects with a milestone plan.
 - `UAT_CASES.md` — durable catalog of acceptance/use cases.
-- `UAT_REPORT.md` — evidence and conclusion for the current candidate/run.
+- `UAT_REPORT.md` — current run's evidence, live defect register and acceptance conclusion.
 
 ## Intent-first user stories and case catalog
 
@@ -136,11 +136,13 @@ Never convert BLOCKED or MANUAL to PASS by inference.
 
 ## Defects and autonomous repair
 
+Follow the [UAT defect workflow](UAT_DEFECT_WORKFLOW.md) during execution. On discovery, record the observed defect in the live defect register in `UAT_REPORT.md` before moving on to the next case. Keep one stable defect ID across affected cases, the original evidence, any authorized repair and the deployed retest. Continue independent cases. Record an unavailable prerequisite against its blocked case and link a defect only when there is evidence of one.
+
 Explicit `PHDK uat` prepares the necessary safe readiness, validates and reports the current candidate. It may repair UAT artifacts or in-scope preparation needed to obtain truthful evidence, but it does not silently change unrelated product behavior or authorize product defect remediation.
 
 After explicit `PHDK uat fix` or repair authorization within the active explicitly initiated UAT run, diagnose in-scope failures, make bounded repairs, deliver the changed candidate, rerun affected permitted cases and update the evidence without per-defect approval. Auto and Auto Force do not enter UAT Fix, rerun acceptance or reopen completed development because an earlier UAT report contains FAIL cases.
 
-A defect requiring a new material product decision, unavailable access, undisclosed sensitive behavior, or out-of-scope work remains FAIL/BLOCKED with a concrete explanation.
+When a material product decision, unavailable access or scope limit prevents repair or retest, retain the observed FAIL, the unresolved defect and the reason. Record dependent unexercised cases as BLOCKED or MANUAL as applicable.
 
 ## UAT report
 
@@ -156,7 +158,7 @@ A defect requiring a new material product decision, unavailable access, undisclo
 - every case ID, functional and workflow UX results, evidence for each, and the single case result under the workflow acceptance decision;
 - commands/tests/harnesses actually executed;
 - defects and retest status;
-- for every FAIL: observed failure, expected behavior, probable root cause, affected requirement/story/case, affected component/files when identifiable, proposed repair, repair risk/scope, and exact retest needed;
+- for every FAIL: observed failure, expected behavior, root cause with supporting evidence or UNKNOWN pending diagnosis, affected requirement/story/case, affected component/files when identifiable, proposed repair, repair risk/scope, and exact retest needed;
 - coverage gaps and excluded channels;
 - an **Action Plan** for every FAIL, BLOCKED, and MANUAL case that prevents ACCEPTED status;
 - final conclusion: ACCEPTED, NOT ACCEPTED, or ACCEPTANCE INCOMPLETE.
@@ -188,7 +190,7 @@ Examples:
 - If a case is BLOCKED because a safe browser environment or manual flow is unavailable, say exactly which flow a human must exercise, what result to record, and what command/report to rerun afterward.
 - If a case is BLOCKED because an external secret/access/provider setting is missing, identify the missing prerequisite without exposing secrets, identify where it must be configured, and state what evidence should be supplied back.
 - If a case is MANUAL because visual/UX acceptance is required, provide a human review checklist and expected acceptance evidence.
-- If no FAIL exists but BLOCKED/MANUAL cases remain, explicitly say: **"No hay defectos de código reparables automáticamente; la aceptación está incompleta por estos prerequisitos/validaciones pendientes."**
+- If only BLOCKED/MANUAL cases remain, report the missing evidence and identify any blocker that Prep or authorized Fix can remove. Name the next owner or external action only when one is actually required.
 
 Never answer only "no hay FAIL" when acceptance is incomplete. Use **NOT ACCEPTED** when any applicable case FAILs. Use **ACCEPTANCE INCOMPLETE** when there are no FAIL cases but required cases remain BLOCKED or MANUAL.
 
@@ -196,7 +198,7 @@ Never claim production, browser, or human acceptance evidence that did not occur
 
 ## UAT lifecycle handoff
 
-At the end of UAT, create `docs/phdk/lifecycle/<run-id>/50-uat/HANDOFF.md` and snapshot `UAT_CASES.md` + `UAT_REPORT.md`. Record the acceptance conclusion and the exact inputs required by UAT Fix or Check.
+At the end of UAT, create `docs/phdk/lifecycle/<run-id>/50-uat/HANDOFF.md` and preserve the initial report, including its register, with the case catalog, journey map and other applicable stage-50 outputs under `PHDK_LIFECYCLE.md`. Record the acceptance conclusion and the exact inputs required by UAT Fix or Check.
 
 If the conclusion is ACCEPTED and no UAT remediation is required, record UAT Fix as NOT APPLICABLE for this run before Check starts.
 
@@ -204,13 +206,13 @@ If the conclusion is ACCEPTED and no UAT remediation is required, record UAT Fix
 
 `PHDK uat fix` takes the current `UAT_REPORT.md` and `UAT_CASES.md` as its repair backlog.
 
-For every FAIL, first normalize it into an actionable defect with:
+For every FAIL, verify or complete the existing defect record before repair. Reuse its stable ID and include:
 
 - defect ID;
 - UAT case/story/requirement links;
 - observed vs expected behavior;
 - evidence;
-- likely root cause and confidence;
+- supported diagnosis and confidence, or UNKNOWN with the next diagnostic step;
 - affected source/component;
 - proposed repair;
 - scope/risk classification;
@@ -226,17 +228,9 @@ If a FAIL requires a new material product decision, unavailable access, external
 
 `PHDK uat` authorizes acceptance and necessary Prep; product-code repairs from its failure backlog require explicit `PHDK uat fix` or specific repair authorization within that active explicitly initiated UAT run. Auto and Auto Force provide neither UAT execution nor UAT Fix authority. A prior failure report is evidence for a later authorized repair, not a command to resume one.
 
-Create/update `UAT_REMEDIATION.md` during UAT Fix. It must list each defect/blocker, root cause, repair/action, affected components, retest evidence, resolution state, and remaining manual/external action.
+During authorized UAT Fix, record the repair action and changed revision under the same ID in `UAT_REMEDIATION.md`. Deliver the candidate under `MAIN_DELIVERY_STANDARD.md` and verify the deployed revision. Rerun the affected cases and required regressions, then record the revision, results and redacted evidence in `UAT_RETEST_REPORT.md`. Update the current register and overall conclusion while retaining the original failed observation. A merged patch or a blocked retest leaves the defect open.
 
-After repair, rerun affected UAT cases and necessary regression checks, then regenerate `UAT_REPORT.md` with:
-- RESOLVED / STILL FAILING / BLOCKED status per defect;
-- repair commit/revision when available;
-- retest evidence;
-- updated final acceptance conclusion.
-
-Inside a lifecycle run, create `docs/phdk/lifecycle/<run-id>/60-uat-fix/HANDOFF.md` and snapshot `UAT_REMEDIATION.md`, `UAT_REPORT.md`, and `UAT_CASES.md`. Check must verify this latest handoff/status rather than assuming acceptance from an older report.
-
-If the user also requested normal repository delivery, follow `MAIN_DELIVERY_STANDARD.md`.
+Inside a lifecycle run, create `docs/phdk/lifecycle/<run-id>/60-uat-fix/HANDOFF.md` and snapshot `UAT_REMEDIATION.md`, `UAT_RETEST_REPORT.md`, the updated report, cases and journey map, plus applicable UX/UI remediation. Check verifies that handoff and its evidence.
 
 ## Relationship to Auto and delivery
 
@@ -246,7 +240,7 @@ When the owner later explicitly invokes `PHDK uat`, use the final integrated and
 
 ## Completion report
 
-Do not stop after generating cases. Execute every feasible case and produce the report in the same request. Report the conclusion, totals, candidate revision/version, artifact paths, failures/blocked/manual gaps, strongest evidence used, and a prioritized next-action plan whenever the conclusion is not ACCEPTED. When FAILs exist, include the recommended next command `PHDK uat fix`. When only BLOCKED/MANUAL items remain, explain exactly how to unblock/perform them and what to rerun afterward.
+Do not stop after generating cases. Execute every feasible case and produce the report in the same request. Report the conclusion, totals, candidate revision/version, artifact paths, failures/blocked/manual gaps, strongest evidence used, and a prioritized next-action plan whenever the conclusion is not ACCEPTED. Link the register and identify pending defects, repairs awaiting retest and outcomes verified on the deployed revision. Include the next action. If repair is needed and has not been authorized, recommend `PHDK uat fix`. If already authorized, continue eligible work. For remaining BLOCKED/MANUAL items, give the specific unblock or review step and retest.
 
 
 ## Production-first verification override (v2.58.0)

@@ -599,7 +599,8 @@ Validate intent-aligned user acceptance and applicable selected-design fidelity 
 
 ```text
 UAT_CASES.md
-UAT_REPORT.md
+UAT_REPORT.md         # live defect register updated on discovery
+UAT_JOURNEY_MAP.md
 UX_UI_AUDIT_REPORT.md  # when UI applies
 ```
 
@@ -615,7 +616,7 @@ One of:
 - NOT ACCEPTED with actionable FAILs;
 - ACCEPTANCE INCOMPLETE with actionable BLOCKED/MANUAL plan.
 
-No unresolved NOT RUN final cases. A generated concept, owner design approval or agent selection is not evidence of actual rendered behavior, accessibility or successful production cleanup.
+Reconcile case results against the register under the [UAT defect workflow](UAT_DEFECT_WORKFLOW.md) and snapshot the original observations. No unresolved NOT RUN final cases. A generated concept, owner design approval or agent selection is not evidence of actual rendered behavior, accessibility or successful production cleanup.
 
 ### Next stage must verify
 
@@ -644,19 +645,21 @@ Create/update:
 
 ```text
 UAT_REMEDIATION.md
+UAT_RETEST_REPORT.md
 UX_UI_REMEDIATION_REPORT.md  # when UX/UI defects exist
 UAT_REPORT.md
 UAT_CASES.md
+UAT_JOURNEY_MAP.md
 ```
 
 `UAT_REMEDIATION.md` records:
 
-- defect/blocker IDs;
-- root cause;
+- existing defect IDs and linked blocked cases;
+- evidence-backed root cause, or UNKNOWN pending diagnosis;
 - repair/action;
 - changed components;
 - retest;
-- RESOLVED / STILL FAILING / BLOCKED / MANUAL;
+- current disposition linked to the live register and the corresponding retest evidence;
 - remaining owner/external actions.
 
 ### Historical outputs
@@ -665,9 +668,9 @@ Snapshot all remediation outputs plus `HANDOFF.md`.
 
 ### Exit gate
 
-- every fixable in-scope FAIL/removable blocker was attempted;
-- permitted deployed retests executed;
-- remaining blockers/manual actions are explicit;
+- each repairable in-scope defect or blocker is resolved by a permitted deployed retest, or remains explicitly open with the actual reason further authorized work cannot proceed;
+- retest evidence identifies the verified deployed revision, original cases and affected regressions;
+- each remaining blocker/manual action has an owner, next step and closure evidence required;
 - current UAT conclusion is known.
 
 ### Next stage must verify

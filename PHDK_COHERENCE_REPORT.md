@@ -1,3 +1,11 @@
+# PHDK coherence report — v2.86.0
+
+Reviewed on 2026-11-07 against v2.85.0 at `8befa9db48ce316798b4df2e9afe5ea7e3a6d157`. The UAT register is written on discovery. Repair and retest retain the original finding and distinguish the tested deployment from the source commit. One coordinator owns the report and release when triage runs in parallel.
+
+All 31 UAT policy and offline data checks passed. Source and installed-layout coherence passed with 115 byte-identical mappings. In the distributed example, two open defects become one verified resolution and one blocked retest. These are fictional examples and checks on report structure. No downstream application was exercised.
+
+---
+
 # PHDK coherence report — v2.85.0
 
 Reviewed 2026-11-07 against canonical main `7eee170519a1b6607756fe583b810f09267225fe` (v2.84.0). Scope covers the existing hosted release candidate before first real business use.
