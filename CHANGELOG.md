@@ -1,3 +1,14 @@
+## v2.92.1 — 2026-11-07
+
+### Upgrade Force reliability: Git objects, Windows closeout and continuity
+
+- Compare manifest content against published Git blobs using Git-clean semantics and verified attributes; report CRLF-only representation separately, reject actual drift, unsafe paths, altered manifests and custom filters not safe to evaluate. PR/native/product/deployment proofs stay independent.
+- Inspect ignored worktree data and Windows long-path risk before cleanup; recheck worktree registration, directory presence and branch SHA after every removal attempt, including failures, and report partial closeout without deleting leftovers.
+- Explicit force-only main synchronization preserves recoverable Git-private backups of managed tracked edits, refuses outside owner text, unknown files and divergent history.
+- Reject stale Auto COMPLETE with unfinished steps or commitments; one invocation pins one canonical upstream SHA and reports later upstream movement rather than creating an endless upgrade cycle.
+- Add non-executing discovery of user-installed Windows uv/audit tools and guidance for bounded lockfile/OSV advisory queries with honest runtime/production coverage limits.
+- Add synthetic regression test sources and reconcile Upgrade, Auto, Closeout, Secure, README, evolution, manifest, skill and native instructions. No downstream adoption, UAT, unexpected install or background task.
+
 ## v2.92.0 — 2026-11-07
 
 ### Read-only PHDK help and context-aware first-run onboarding

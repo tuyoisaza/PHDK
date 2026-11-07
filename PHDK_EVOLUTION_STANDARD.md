@@ -1,3 +1,7 @@
+## v2.92.1 — Reliable Upgrade Force and evidence-bounded completion
+
+One Upgrade Force invocation pins one upstream SHA and publishes/verifies its Git-clean blobs, not checkout-specific CRLF bytes. It preserves unrecognized files and native owner text; only explicit forced managed main edits may be backed up and resolved. Worktree cleanup inspects ignored data and long paths and reports partial failure postconditions. Auto carries unfinished security/Check/delivery commitments across the upgrade-to-Auto transition and rejects an assistant-written premature COMPLETE. Tool discovery and OSV fallback stay read-only and coverage-bounded. Newer upstream discovered later is reported, not republished in a loop. UAT and downstream upgrades remain separately authorized.
+
 ## v2.92.0 — Read-only contextual `PHDK help` and post-install onboarding
 
 `PHDK help` is a non-mutating conversational orientation command with an authoritative 25-command JSON inventory, all available commands, evidenced local project objective or explicit uncertainty, and one safe suggested next command. `PHDK help <command>` adds detail without execution. Recommend Help after vendoring; Help's Preflight is read-only and never invokes the auto-updater/stack review. Vendor the contract, catalog and optional offline renderer, with agent/skill/native/onboarding/manifest/coherence routing. No automatic command activation, background work, UAT, extra privileges or provider writes.

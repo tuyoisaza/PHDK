@@ -45,6 +45,10 @@ Force mode must not overwrite:
 
 A filename, directory name, example, or PHDK-related prose does not establish PHDK ownership by itself.
 
+## Canonical upstream SHA pin (v2.92.1)
+
+At entry, fetch canonical main once and record the full SHA, VERSION, observation date and URL in the current run state. Use that *immutable commit* for every manifest, managed rule and copied file in this invocation. Do not mix a newer upstream main file with an older pinned version. A bounded final upstream read may find a newer SHA/version: report NEWER_UPSTREAM_AVAILABLE, but do not repeat the upgrade/PR loop in this run. A later fresh invocation can adopt that update. Do not claim a pinned SHA is still globally latest, and do not downgrade newer installed standards.
+
 ## Canonical upstream
 
 ```txt
@@ -132,9 +136,9 @@ Do not store or restore Developer Mode activation in the continuity record. Hist
 
 When `PHDK upgrade force` was used, additionally verify:
 
-- every canonical manifest destination matches upstream byte-for-byte;
+- every canonical manifest destination matches the pinned upstream Git-clean blob identity; checkout-specific CRLF is not a real divergence, and binary files are never blindly normalized;
 - every obsolete previously manifest-owned vendored file omitted by the new manifest is gone;
-- every current native PHDK managed block matches upstream exactly;
+- every native managed block matches its canonical content after applicable safe Git checkout conversion, while owner text outside the markers retains its exact bytes;
 - no file outside the PHDK-owned surface changed as part of the force replacement;
 - every unrelated dirty file remains dirty with identical content;
 - owner/native text outside managed markers remains byte-for-byte unchanged;
@@ -145,7 +149,7 @@ If any non-PHDK file changed, restore it before reporting success.
 ### 9. Verify using repository evidence
 
 - Vendored `VERSION` matches the chosen upstream version.
-- Every manifest destination exists and matches its mapped source byte-for-byte.
+- Every manifest destination matches the pinned source Git object after applicable verified Git-clean conversions. Do not compare LF blobs naively against Windows CRLF working files; reject untrusted custom filters, mismatched local/published attributes, real content drift and manifest drift.
 - The current native managed block matches the source block.
 - Interactive-only rules are present; delegation is bounded to supported in-session workers under `PHDK_INTELLIGENT_EXECUTION.md`; PMO portfolio coordination remains separate; no-Actions, no-scheduling, and owner-control rules remain present.
 - Developer Mode's explicit activation/exit, temporary lifetime, risk limits, and no-bypass rules match upstream; the upgrade itself did not activate it.
@@ -183,7 +187,7 @@ An exact PHDK upgrade force command authorizes **delivery of its changed standar
 1. **Recover instead of multiplying workspaces.** Inspect current branch, worktrees, uncommitted edits, existing upgrade PRs and remote main. Reuse an in-scope unfinished branch/PR rather than opening another. An already-published no-op means the expected canonical manifest files **and** applicable native managed block are verified on fresh remote main; in that case do not create a dummy commit, branch or PR.
 2. **Publish the actual change.** If main differs, stage only the synced PHDK-owned surface, required project version/changelog and authorized continuity evidence. Preserve other work. Apply permitted static/source checks and reviews, version-prefixed commit, push to **the feature branch**, create/update the PR targeting main, reconcile fresh target changes and merge using the permitted GitHub method. Never push feature:main directly or bypass GitHub rules. A PR merge itself updates remote main; do not add a redundant main-to-main push. Railway autodeploy is independent and may follow the existing main connection.
 3. **Read back remote main.** Independently verify the merged PR result/SHA, expected project version, all synced manifest files and the applicable native managed block on remote main. With local Git, use `python phdk-standards/scripts/phdk_upgrade_remote_gate.py --expected-version <UPSTREAM_VERSION>` for the read-only **vendored-content** comparison; PR merge, native block, application and deployment still need separate evidence. With connector-only access use equivalent source comparisons. A missing or failed readback means UPGRADE_REMOTE_MAIN=BLOCKED/UNVERIFIED, never PUBLISHED. Apply the normal PHDK completion gate for versioned deliveries; a proven already-published no-op does not require a fictitious PR.
-4. **Close the local workspace before the next one.** After verified merge, fetch and fast-forward clean local main to the newly observed origin/main, checking both SHA and ahead/behind=0. Run PHDK_GIT_WORKSPACE_CLOSEOUT.md using the verified merge SHA and owned branch. If the completed branch is checked out in the current linked worktree, move the coordinator into an existing safe main worktree first; do not delete its own running worktree. Retire only clean, unlocked, independently integrated owned branches/worktrees; use v2.71.0 evidence-backed remote branch cleanup where available. Never discard dirty, active, divergent, unknown or unrelated work.
+4. **Close the local workspace before the next one.** After verified merge, fetch and fast-forward clean local main to the newly observed origin/main, checking both SHA and ahead/behind=0. Run PHDK_GIT_WORKSPACE_CLOSEOUT.md using the verified merge SHA and owned branch. For *explicit Upgrade Force only*, when the sole local-main dirt consists of validated tracked PHDK-manifest files or isolated native managed blocks, invoke the closeout helper with --reconcile-force-owned. It checks both manifests and staged/working owner text, saves original bytes and a diff under the Git common directory at phdk/closeout-recovery, and restores only managed edits before safe fast-forward. Unknown, staged-new or owner-edited files remain blocked and preserved. If the completed branch is checked out in the current linked worktree, move the coordinator into an existing safe main worktree first; do not delete its own running worktree. Retire only clean, unlocked, independently integrated owned branches/worktrees; use v2.71.0 evidence-backed remote branch cleanup where available. Never discard dirty, active, divergent, unknown or unrelated work.
 
 Record UPGRADE_REMOTE_MAIN=PUBLISHED | ALREADY_PUBLISHED | BLOCKED | UNVERIFIED, final remote SHA, version, PR/merge (or verified no-op), LOCAL_MAIN, LOCAL_CLEANUP and retained worktree reasons. If an actual hook, access or server control prevents publication, preserve the unfinished branch and report the precise blocker. Continue genuinely independent authorized work where safe, but do not call the upgrade delivered or open another worktree for the same unfinished delivery.
 
@@ -197,7 +201,7 @@ Determine the Auto Force goal in this order:
 2. Otherwise use the bounded maintenance goal: **reconcile this repository with current PHDK and current recorded product intent; remediate compatible in-repository security/standards gaps; complete applicable Check/remediation and normal delivery; do not invent new product features or broaden scope.**
 3. If multiple active fronts are already evidenced, let Auto Force use its PMO/portfolio rules rather than selecting an unrelated feature.
 
-The handoff reuses the just-completed upgrade review as the Auto run's fresh Preflight Stack Security Review when evidence/input hashes and advisory freshness are unchanged; do not immediately repeat identical work. Initialize/recover Auto state and lifecycle under `PHDK_AUTO.md` / `PHDK_AUTO_CONTINUITY.md`, then continue through the eligible lifecycle.
+The handoff reuses the just-completed upgrade review as the Auto run's fresh Preflight Stack Security Review when evidence/input hashes and advisory freshness are unchanged; do not immediately repeat identical work. Initialize/recover Auto state and lifecycle under PHDK_AUTO.md / PHDK_AUTO_CONTINUITY.md. Explicitly queue outstanding compatible security fixes, Check, remediation, source and deployment verification in the existing Auto steps and unresolved_commitments. Upgrade standards publication is only the first milestone; consult the read-only Auto advisor before a terminal response. A stale completed flag with unfinished work triggers state repair, not termination. Continue independent safe tasks during an operation-specific blocker and hand off honestly at the foreground session limit.
 
 A real blocker in the upgrade phase may prevent the transition only when Auto Force cannot safely proceed around it. Finish independent permitted work and report the exact boundary. Missing optional tooling, PHDK-only review waits, or the mere absence of a pre-existing product task are not reasons to ask for another command.
 
