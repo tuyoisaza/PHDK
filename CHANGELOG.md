@@ -1,3 +1,11 @@
+## v2.85.0 — 2026-11-07
+
+### Real JWT verification on pre-live synthetic deployments
+
+- Classify the existing release candidate before a pre-live JWT campaign. Alert the operator with the actual target, method, scoped identities and expiry. Keep normal MFA on live, mixed and unknown targets.
+- Prefer a supported test factor. Permit an audited, temporary provider-supported MFA exception for exact synthetic accounts and the isolated client when the goal is token or business-flow acceptance. The offline decision helper evaluates supplied evidence and performs no provider writes.
+- Require a real provider-issued token, positive and negative verifier/authorization evidence, and separate reporting of JWT, MFA and business outcomes. Verify removal of the exception, restoration of the ordinary policy and invalidation of prior tokens before go-live.
+
 ## v2.84.0 — 2026-11-07
 
 ### Reproducible UAT identities and admin-led persona switching
