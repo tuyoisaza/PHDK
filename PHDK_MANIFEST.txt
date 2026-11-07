@@ -65,6 +65,8 @@ PHDK_EFFORT_ESTIMATION_STANDARD.md | PHDK_EFFORT_ESTIMATION_STANDARD.md
 scripts/phdk_effort_status.py | scripts/phdk_effort_status.py
 PHDK_REUSE_CATALOG_STANDARD.md | PHDK_REUSE_CATALOG_STANDARD.md
 PHDK_EXPORT_MODULES.md | PHDK_EXPORT_MODULES.md
+PHDK_POST_UAT_EXPORT_STANDARD.md | PHDK_POST_UAT_EXPORT_STANDARD.md
+scripts/phdk_post_uat_export.py | scripts/phdk_post_uat_export.py
 PHDK_MODULE_LIBRARY_STANDARD.md | PHDK_MODULE_LIBRARY_STANDARD.md
 scripts/phdk_export_modules.py | scripts/phdk_export_modules.py
 PHDK_STARTER_PROFILE.md | PHDK_STARTER_PROFILE.md

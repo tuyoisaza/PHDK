@@ -16,6 +16,11 @@ When the active product goal has multi-tenancy, load `PHDK_TENANT_RISK_STANDARD.
 
 # PHDK Auto
 
+## v2.91.0 — Collect during Auto; evaluate only after explicit accepted UAT
+
+Auto/Force records only material reusable-code observations in the existing `PHDK_RETROSPECTIVE_STANDARD.md` artifact. It MUST NOT scan modules each milestone, conduct a full export discovery in Auto, or enter UAT Prep/UAT/UAT Fix. After ordinary verified delivery, offer explicit `PHDK uat` and leave `POST_UAT_EXPORT_REVIEW: DEFERRED_UAT_NOT_RUN` if reported. In the later owner-authorized UAT session, `PHDK_POST_UAT_EXPORT_STANDARD.md` performs one read-only inventory only on an actually accepted final deployed revision after verified UAT Fix if necessary. The result is one batched recommendation, not module publication, a new milestone, extra UAT permission, or an Auto completion prerequisite.
+
+
 The [bounded work session contract](PHDK_AUTO_CONTINUITY.md#bounded-work-sessions) governs both Auto variants, including a chained Auto Force invocation. Set the session start and inspect remaining time and context before dispatch, after each milestone and after compaction. Close within four hours, earlier if the next slice and handoff cannot fit. Show the 16:9 status image, give the owner a repository-linked copyable prompt for unfinished work, then end the session. A fresh conversation resumes the same goal.
 
 ## Risk-based assurance and learning closeout (v2.78.0)

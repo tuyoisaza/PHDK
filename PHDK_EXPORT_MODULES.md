@@ -50,6 +50,10 @@ For each candidate, the agent must inspect relevant actual implementation and ba
 
 After the owner selects a named candidate, a verified private implementation library may hold independently versioned, immutable snapshots under `modules/<category>/<slug>/versions/<SemVer>`, governed by [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md). That separate **private** `MODULES_CATALOG.json` tracks module identity, versions and integrity; PHDK's public `PHDK_REUSE_CATALOG.json` remains sanitized and never contains private source or coordinates. `PHDK export modules` by itself **does not perform private receipt, create a repository or publish a package**. If the private repository is not accessible/provisioned, report the blocker and preserve the proposal.
 
+## One authorized read-only post-UAT evaluation (v2.91.0)
+
+Alongside the owner-invoked `PHDK export modules` command, `PHDK_POST_UAT_EXPORT_STANDARD.md` permits one **read-only local discovery** within the closeout of a *separate explicit and actually accepted* UAT run on the final deployed tested revision (after authorized UAT Fix/retest when needed). This is an analysis exception, not authority to copy donor code, receive modules in private PHDK-Modules, change a public catalog, open a cross-repo PR, or silently adopt a module. Auto/Force never initiates UAT or scans each milestone; failure, missing evidence or version drift defers this review.
+
 ## Decision and contribution workflow
 
 1. **Discover** from the current authorized donor only; locate relevant retrospective findings (`docs/decisions/phdk-process-review.vN.md`) and any `REUSE_ASSESSMENT.md`. Neither opens a canonical task or publishes anything by itself.

@@ -17,6 +17,10 @@ description: >-
 
 # PHDK
 
+## Post-UAT reusable-module review
+
+Auto/Force only collects substantive reuse observations in `PHDK_RETROSPECTIVE_STANDARD.md`; do not initiate UAT or scan on milestones. At the close of a separately **explicitly invoked, actually accepted** `PHDK uat` (or authorized Fix/retest on the final deployed SHA), load `PHDK_POST_UAT_EXPORT_STANDARD.md` and run the vendored read-only `scripts/phdk_post_uat_export.py` once. Without acceptance/revision proof defer. Present batched candidate decisions; publication/receipt remains a separately owner-selected rights-checked task. The review is not an UAT-completion gate.
+
 ## Private reusable-module library
 
 When a named module is explicitly approved for private receipt, load `PHDK_MODULE_LIBRARY_STANDARD.md` and the existing Export Modules/reuse policies. Confirm actual private repository, target access and redistribution rights before copying. Use its private, local `propose/receive/verify` helper only within the authorized library; release history is append-only and modules have independent SemVer. A public PHDK standard never provisions the private repository or authorizes source publication automatically.

@@ -1,5 +1,9 @@
 # PHDK Private Modules Library Standard
 
+## Post-UAT proposal is not private receipt (v2.91.0)
+
+`PHDK_POST_UAT_EXPORT_STANDARD.md` may present read-only candidate recommendations after explicit accepted UAT, but **never invokes** private `propose/receive/verify`, updates `MODULES_CATALOG.json`, opens a private PR, or authorizes code distribution. Receipt still requires named owner selection, rights/license/security/target access and an independent versioned private contribution. Existing consumers never auto-upgrade.
+
 ## Scope and boundary
 
 `PHDK-Modules` is the **logical name** of a separate, private implementation library. Canonical PHDK stays the public methodology, standards and disclosure-safe reuse catalog. The owner-approved private library receives reusable product code, independently versioned by module. This standard **does not assert that any provider repository is provisioned**. A downloadable template or a PR in public PHDK is not a private repository, installed package or consumer deployment.

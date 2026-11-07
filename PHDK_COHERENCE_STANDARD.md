@@ -1,5 +1,9 @@
 # PHDK Coherence Standard
 
+## Post-UAT Export Modules release routing (v2.91.0)
+
+Vendor `PHDK_POST_UAT_EXPORT_STANDARD.md` and `scripts/phdk_post_uat_export.py` exactly once. Reconcile the explicit-only UAT boundary in Auto with stage-50 UAT and stage-60 Fix closeout, lifecycle, continuity, retrospective, Export Modules, private library, public reuse catalog, README and agent/skill/native entrypoints. Execute `tests/test_phdk_post_uat_export.py` and source coherence checks when permitted. The state JSON is a declaration, not independently proven UAT; candidate inventory never grants export authority, new UAT, cross-repository writes, customer-data disclosure, consumer upgrades, background processes or spending.
+
 ## Private module library routing (v2.90.0)
 
 Maintain [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md) in the vendored manifest exactly once, with README, Export Modules, Reuse Catalog, Plan and managed agent/skill/native entrypoints aligned. The private library is a separate scoped target, not a public catalog folder. Run `tests/test_phdk_module_library_policy.py` when static source execution is available and report real private-provider creation, rights and release evidence separately. Do not claim a local starter, source-only checker or a public PR proves a private repository exists, a real module has shipped or a consumer has installed it.

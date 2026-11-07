@@ -12,6 +12,11 @@ For an explicitly initiated UAT run, `UAT_JOURNEY_STANDARD.md` is mandatory. Sta
 
 # PHDK Lifecycle Handoff Standard
 
+## Post-UAT Export Modules assessment (v2.91.0)
+
+UAT Prep/UAT/UAT Fix remain opt-in outside Auto. When a separate explicit UAT achieves actual `ACCEPTED` on the final deployed tested SHA, run one read-only local assessment under `PHDK_POST_UAT_EXPORT_STANDARD.md` at stage 50 closeout when Fix is not applicable, or at stage 60 closeout after separately authorized repair and deployed retest. Record the result and review key in the existing UAT report and stage handoff. A failed/incomplete/stale/not-run UAT never triggers inventory. This is not a new lifecycle stage, product-delivery blocker, UAT authorization, or cross-repo publication.
+
+
 ## Design before UI implementation
 
 For applicable UI scope, `PHDK_DESIGN.md` adds **25-design** after technical/content Plan and before dependent UI implementation. The Auto sequence is Capture → Plan → Design → PMO/implementation → Integration → applicable SEO/AEO → Check → Delivery. UAT Prep → UAT/Fix is a separate, explicitly invoked acceptance sequence. **Auto presents one consolidated coded visual/motion choice map, recommended combination and integrated preview for an owner approve-all/selective-override answer; Auto Force selects, records AGENT_SELECTED_AUTO_FORCE and continues without a PHDK visual-approval pause.** Actual owner restrictions remain binding. Reuse current owner-approved baselines; no forced redesign for non-visual changes or immutable historical runs.

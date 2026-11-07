@@ -48,6 +48,12 @@ Omit `--previous` on the first pass. On the first run after upgrading, import un
 
 ## Close the repair and retest cycle
 
+### One post-fix Export Modules review (v2.91.0)
+
+Only after an authorized Fix and actual deployed retests bring the final UAT conclusion to `ACCEPTED` may `PHDK_POST_UAT_EXPORT_STANDARD.md` run one local read-only candidate inventory. Verify all required case/defect closures and exact tested-vs-current deployed SHA. A merged source patch is not passing UAT. Record gate, `review_key` and the batch or `NO_CANDIDATES` in the updated UAT report and stage-60 handoff; otherwise defer. Do not initiate another UAT run or copy/publish code by this review.
+
+### Repair/retest closeout
+
 Batch related fixes by impact and dependency. Start with blockers that unlock the most journeys and security or integrity defects. Verify the revised candidate is deployed before using the browser. On B, replay the original failing step through its observable outcome, including functional and UX criteria. Execute formerly blocked steps and risk-based regression around shared components, affected roles, tenant boundaries and related workflows. If impact cannot be bounded, a shared access/data/navigation change affects many flows, or prior evidence cannot be attributed reliably, rerun the full affected suite. Preserve A's results as historical; identify coverage actually executed on B. If current evidence is insufficient for required acceptance, keep acceptance incomplete.
 
 Close only after confirmation. If the same failure persists, reopen it with the new evidence. Try another repair only with a materially different diagnosis or change. Once available evidence reveals no safe new action, stop that loop with the defect open, attempts and a specific next decision or unblock step. Finish independent work first. An approved scope exception or deferred cosmetic item remains visible. An unresolved required failure, a missing proof or a worker's progress update cannot become acceptance by being moved to a later list.
