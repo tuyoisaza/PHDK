@@ -1,3 +1,7 @@
+## v3.0.2 — Canonical Force, conservative Upgrade, truthful coherence
+
+Plain `PHDK upgrade` must prove a destination matches a historically published PHDK source blob before replacement; unproven committed/uncommitted customizations are preserved and conflict paths reported before any write. `PHDK upgrade force` replaces every current manifest-owned PHDK destination (including historical handoff and interview prompts) from one pinned SHA, and may remove obsolete prior-manifest files or unmanifested active PHDK remnants proved to be unchanged historical canonical Git blobs. Preserve unknown extras and project owner text outside native managed blocks; do not claim full vendor integrity while active extras remain unresolved. A correct VERSION is not enough if an old PHDK instruction still applies. Owner no-subagent rules always prevail.
+
 ## v3.0.1 — Preserve GitHub branches during automatic cleanup
 
 Historical and per-milestone Git hygiene is **local-only**. The vendored `phdk_git_history_cleanup.py` may read remote refs and merged PR metadata but must never push a GitHub remote branch deletion, and retained remote refs are not incomplete cleanup. Auto/Force/Upgrade/PMO/Check and verified PR merges do not authorize remote branch deletion. A current explicit owner instruction naming the remote branch is a separate reviewed operation. Reconcile closeout, scripts, tests, README, agent/skill/native routing, versioning, manifest and release metadata.

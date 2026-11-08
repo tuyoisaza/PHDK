@@ -18,6 +18,8 @@ For every substantive scoped task, choose the simplest effective strategy:
 
 The primary assistant makes the choice without requiring the owner to explicitly request subagents. Do not spawn workers merely because the capability exists. Do not claim a worker was used unless actually launched. If absent, proceed directly/sequentially without blocking.
 
+**An explicit current owner ban on subagents prevails in every PHDK mode, including PMO and Auto Force.** It is not a PHDK defect, and no alternate tool/skill/worker may bypass the ban. Continue directly or sequentially and report that no worker was launched.
+
 **Subagent delegation is a general in-session PHDK execution capability, not PMO-exclusive.** Delegation inherits the primary task's scope and prohibitions; it cannot expand authority. No recursive delegation, unattended or post-conversation agents, recurring queues, schedules, or external paid services without separate authorization. Do not use delegation to evade tool, browser/UAT-phase, GitHub, provider, security, or owner restrictions. A worker may not publish, merge, deploy, alter shared versions, or finalize integrated delivery unless the current user scope and primary integration contract specifically authorize that action; default all such actions to the primary agent.
 
 ## Worker contract and integration

@@ -4,6 +4,12 @@ A canonical release must reject PHDK-owned manifest-vendored Python files longer
 
 The coherent checker is a **three-file** standard-library tool: `scripts/phdk_coherence_check.py`, `scripts/phdk_coherence_routing.py` and `scripts/phdk_coherence_quality.py`. All three must be in the manifest exactly once, copied with the same pinned source SHA and validated in canonical and installed layouts. The entrypoint must stay callable as before. Run `tests/test_phdk_coherence_checker.py` when permitted and demonstrate rejection of an injected oversized vendored file. A source-only PASS never proves semantic quality, UAT, deployment or a private module contribution.
 
+## Vendor provenance and delegation consistency (v3.0.2)
+
+The active `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` and `SPEC_INTERVIEW_PROMPT.md` are now manifest-owned. Earlier installed PHDK versions could have an outdated canonical handoff outside their manifests, so matching VERSION and managed-file hashes cannot alone prove active policy coherence. Read-only Check inventories active supplemental vendor instructions, marks historical verified old PHDK copies as LEGACY_VENDOR_COPY, and distinguishes unproven CUSTOMIZED_UNKNOWN from current owner instructions.
+
+Conservative Upgrade preserves unproven customizations; Force restores all current manifest-owned files and may retire previously manifest-owned obsolete paths or active orphan PHDK copies matching exact historical canonical Git blobs, without destroying unknown extras. Deprecated PMO-exclusive delegation wording is a standards defect. An explicit current owner prohibition on subagents is valid and takes precedence; never disable independent hooks or remove owner restrictions to make a static checker pass.
+
 ## Help/catalog consistency (v2.92.0)
 
 Each documented conversational command and alias must appear without collision in vendored `PHDK_COMMANDS.json`, with an existing standard reference. `PHDK_HELP.md` governs read-only output, sourced goal and one safe next-action recommendation. Reconcile manifest, README, onboarding, AGENTS/SKILL/native routing and Help-only read-only Preflight. `scripts/phdk_help.py` must remain offline/network-free/read-only. Run synthetic `tests/test_phdk_help.py` and the static coherence checker where execution is permitted; otherwise report NOT RUN. No static source test proves downstream agent compliance or adoption.
@@ -53,7 +59,7 @@ Verify that Auto, Force, lifecycle, communication and the managed entrypoints gi
 Before publishing PHDK, inventory applicable standards, manifest files, scripts, agent entrypoints and changed dependencies. Review contradictory requirements involving Preflight, AUTO/PMO, delegation, UAT/browser permissions, security scope, delivery, and completion evidence. Record exact conflicting files and smallest fixes. Documentation never substitutes for implementation and executed test evidence.
 
 ## Preflight policy
-Run universal Preflight ONCE at each PHDK command entry. For stages inside Auto/PMO, validate upstream handoffs and check newly relevant capabilities without repeating full Preflight. Repeat the universal audit only if installation, VERSION, manifest, or managed instructions have changed or failed integrity checks.
+Run universal Preflight ONCE at each substantive PHDK command entry; bare `PHDK check` uses a strictly read-only installation/manifest diagnostic (like Help's separate read-only profile) and may not invoke the synchronization helper, since updating first would conceal the inconsistency being audited. For stages inside Auto/PMO, validate upstream handoffs and check newly relevant capabilities without repeating full Preflight. Repeat the universal audit only if installation, VERSION, manifest, or managed instructions have changed or failed integrity checks.
 
 Apply [Stack Security Review](PHDK_SECURE.md#stack-security-review) on explicit Upgrade/Force, including a no-op, and when foreground Preflight actually adopts a new standards version. Reuse unchanged evidence within the active command; refreshing a capability or re-entering a stage alone does not repeat the full stack review. Report standards synchronization, review coverage and security findings independently.
 

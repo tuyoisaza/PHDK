@@ -4,6 +4,9 @@
 
 # PHDK
 
+**Vendor integrity (v3.0.2):** Plain `PHDK upgrade` preserves customized PHDK copies (including committed changes) and updates only proven historical canonical blobs. `PHDK upgrade force` restores every manifest-owned PHDK file from one pinned commit, including the handoff and interview prompts. Unknown extras and owner rules outside managed blocks are protected. [Upgrade](PHDK_UPGRADE.md) and [Coherence](PHDK_COHERENCE_STANDARD.md).
+
+
 **Node.js default:** New Node.js projects target the newest compatible security-patched Active LTS, with a supported Maintenance LTS fallback when no Active LTS exists or is compatible. Plan verifies and pins the runtime; Secure enforces npm supply-chain controls and deployment evidence. See [PHDK_SECURE.md](PHDK_SECURE.md).
 
 **UAT is explicit-only (v2.62.0):** `PHDK auto` and `PHDK auto force` finish development, milestone releases, applicable non-UAT Check and delivery without running UAT Prep/UAT/Fix. They retain acceptance stories and offer `PHDK uat` only after delivery; only a fresh explicit `PHDK uat` invocation may begin acceptance and required preparation. `PHDK uat prep` alone does not initiate acceptance. The development lifecycle and optional acceptance path are shown separately below.
@@ -12,7 +15,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v3.0.1**
+**Version v3.0.2**
 
 **v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 

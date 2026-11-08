@@ -1,6 +1,8 @@
 """Regression checks for the PHDK conservative updater."""
 import importlib.util
 import tempfile
+import shutil
+from unittest.mock import patch
 import unittest
 from pathlib import Path
 
@@ -64,6 +66,112 @@ class UpdateTests(unittest.TestCase):
         )
         self.assertEqual(report["forced_upgrade_publication"], "NOT_AUTHORIZED_BY_COPIER")
         self.assertEqual(report["remote_main_verification"], "UNVERIFIED")
+
+
+    def test_historical_canonical_copy_is_not_owner_customization(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            subprocess.run(["git", "-C", str(root), "config", "user.email",
+                            "test@example.invalid"], check=True)
+            subprocess.run(["git", "-C", str(root), "config", "user.name",
+                            "PHDK Fixture"], check=True)
+            name = "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"
+            original = b"delegation outside explicit PMO\n"
+            (root / name).write_bytes(original)
+            subprocess.run(["git", "-C", str(root), "add", name], check=True)
+            subprocess.run(["git", "-C", str(root), "commit", "-qm", "old source"], check=True)
+            (root / name).write_bytes(b"bounded intelligent delegation\n")
+            subprocess.run(["git", "-C", str(root), "commit", "-qam",
+                            "corrected canonical source"], check=True)
+            history = {}
+            self.assertTrue(updater.is_published_copy(
+                original, root, name, history))
+            self.assertTrue(updater.is_published_copy(
+                b"delegation outside explicit PMO\r\n", root, name, history))
+            self.assertFalse(updater.is_published_copy(
+                b"current owner prohibits all subagents\n", root, name, history))
+
+    def test_unmanaged_active_extras_are_reported_not_erased(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "phdk-standards"
+            (root / "scripts").mkdir(parents=True)
+            (root / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md").write_text(
+                "owner-specific notes", encoding="utf-8")
+            self.assertEqual(
+                updater._unmanaged_active(root, set()),
+                ["PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"])
+            self.assertEqual(updater._unmanaged_active(
+                root, {"PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"}), [])
+            result = updater.sync_result(
+                "UPDATED", trigger="upgrade", installed="3.0.1", latest="3.0.2",
+                upstream_sha="a" * 40, force_owned=True, unmanaged=["other.md"])
+            self.assertEqual(result["vendor_integrity"], "PARTIAL_UNMANAGED_ACTIVE")
+            self.assertEqual(result["forced_upgrade_publication"],
+                             "PENDING_REMOTE_MAIN_CHECKPOINT")
+
+
+    def test_conservative_sync_preserves_committed_customization_force_restores(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            canonical, project = base / "canonical", base / "consumer"
+            canonical.mkdir()
+            project.mkdir()
+            def git(root, *args):
+                return subprocess.run(["git", "-C", str(root), *args], check=True,
+                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            def init(root):
+                git(root, "init", "-q")
+                git(root, "config", "user.email", "test@example.invalid")
+                git(root, "config", "user.name", "PHDK Fixture")
+            manifest = ("VERSION | VERSION\n"
+                        "PHDK_MANIFEST.txt | PHDK_MANIFEST.txt\n"
+                        "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md | "
+                        "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md\n")
+            old, current = "delegation outside explicit PMO\n", "bounded workers\n"
+            init(canonical)
+            (canonical / "VERSION").write_text("3.0.1\n")
+            (canonical / "PHDK_MANIFEST.txt").write_text(manifest)
+            (canonical / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md").write_text(old)
+            (canonical / "legacy.md").write_text("historic PHDK copy\n")
+            git(canonical, "add", ".")
+            git(canonical, "commit", "-qm", "v3.0.1 old")
+            (canonical / "VERSION").write_text("3.0.2\n")
+            (canonical / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md").write_text(current)
+            (canonical / "legacy.md").unlink()
+            git(canonical, "add", ".")
+            git(canonical, "commit", "-qm", "v3.0.2 new")
+            target = project / "phdk-standards"
+            target.mkdir()
+            (target / "VERSION").write_text("3.0.1\n")
+            (target / "PHDK_MANIFEST.txt").write_text(manifest)
+            handoff = target / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"
+            handoff.write_text("owner customization\n")
+            (target / "extra.md").write_text("owner notes\n")
+            (target / "legacy.md").write_text("historic PHDK copy\n")
+            init(project)
+            git(project, "add", ".")
+            git(project, "commit", "-qm", "consumer customized")
+            original_run = updater.run
+            def local_source(*args, cwd=None):
+                if args[:2] == ("git", "clone"):
+                    shutil.copytree(canonical, args[-1], dirs_exist_ok=True)
+                    return ""
+                return original_run(*args, cwd=cwd)
+            with patch.object(updater, "run", side_effect=local_source):
+                with self.assertRaisesRegex(ValueError, "customized or unverified origin"):
+                    updater.sync(project, trigger="upgrade")
+                self.assertEqual((target / "VERSION").read_text(), "3.0.1\n")
+                self.assertEqual(handoff.read_text(), "owner customization\n")
+                result = updater.sync(project, trigger="upgrade", force_owned=True)
+                self.assertEqual(result["version"], "3.0.2")
+                self.assertEqual(handoff.read_text(), current)
+                self.assertEqual((target / "extra.md").read_text(), "owner notes\n")
+                self.assertFalse((target / "legacy.md").exists())
+                self.assertIn("extra.md", result["unmanaged_active_vendor_paths"])
+                self.assertIn("phdk-standards/legacy.md", result["removed_obsolete_owned_paths"])
 
 if __name__ == "__main__":
     unittest.main()

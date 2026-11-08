@@ -69,7 +69,7 @@ For every applicable stateful/administered portal, apply `ADMIN_CONSOLE_STANDARD
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest authorized Integration/SEO/AEO-GEO handoffs (or justified N/A records); inspect UAT/UAT Fix handoffs only when explicitly authorized and actually executed, otherwise record acceptance as deferred under `PHDK_LIFECYCLE.md`. Audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the read-only Check profile of Preflight in `PHDK_PREFLIGHT.md`. Unlike mutating Preflight for an authorized development task, bare Check must not invoke `phdk_update.py` or adopt standards before diagnosing installed discrepancies. Inside a lifecycle run, verify the latest authorized Integration/SEO/AEO-GEO handoffs (or justified N/A records); inspect UAT/UAT Fix handoffs only when explicitly authorized and actually executed, otherwise record acceptance as deferred under `PHDK_LIFECYCLE.md`. Audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK check` audits the current repository against the active PHDK standards and produces a concrete remediation backlog. The bare command is intentionally two-phase (unless explicitly invoked as one-command `PHDK check --fix`):
 
@@ -91,7 +91,7 @@ Read the repository's active PHDK installation completely enough to evaluate com
 
 Do not treat `ORIGINALS/`, archived changelogs, completed-task archives, examples, or historical superseded instructions as current standards.
 
-If canonical upstream PHDK is reachable, compare the installed version/manifest to canonical `main`. Version drift is itself a gap. Do not silently upgrade during the audit. If remediation is later approved and the installed standards are stale, synchronize PHDK first, then rerun the audit before applying product changes because the compliance target may have changed.
+If canonical upstream PHDK is reachable, compare installed VERSION, managed-file provenance and all active supplemental vendor instruction copies to canonical `main`. Version drift is a gap; a matching VERSION does not make an obsolete unmanifested handoff safe. Classify a verifiable historical canonical remnant as LEGACY_VENDOR_COPY, an unproven edited copy as CUSTOMIZED_UNKNOWN and obsolete PMO-only delegation as a PHDK standards conflict. Current owner no-subagent restrictions remain valid. Bare Check is read-only and never silently upgrades; subsequent authorized `PHDK upgrade` preserves customizations, while `PHDK upgrade force` replaces only manifest-owned/proven PHDK content. Rerun Check after authorized sync before judging remaining product gaps.
 
 ## Applicability before compliance
 
