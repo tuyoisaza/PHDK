@@ -69,7 +69,7 @@ For every applicable stateful/administered portal, apply `ADMIN_CONSOLE_STANDARD
 
 ## Command and purpose
 
-Before substantive execution, run the universal preflight in `PHDK_PREFLIGHT.md`. Inside a lifecycle run, verify the latest authorized Integration/SEO/AEO-GEO handoffs (or justified N/A records); inspect UAT/UAT Fix handoffs only when explicitly authorized and actually executed, otherwise record acceptance as deferred under `PHDK_LIFECYCLE.md`. Audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
+Before substantive execution, run the read-only Check profile of Preflight in `PHDK_PREFLIGHT.md`. Unlike mutating Preflight for an authorized development task, bare Check must not invoke `phdk_update.py` or adopt standards before diagnosing installed discrepancies. Inside a lifecycle run, verify the latest authorized Integration/SEO/AEO-GEO handoffs (or justified N/A records); inspect UAT/UAT Fix handoffs only when explicitly authorized and actually executed, otherwise record acceptance as deferred under `PHDK_LIFECYCLE.md`. Audit the exact current candidate rather than an older revision. Verify the active PHDK installation/version and inspect/use stage-relevant available skills from `SKILLS_REGISTRY.md`, unless the user explicitly disabled them.
 
 `PHDK check` audits the current repository against the active PHDK standards and produces a concrete remediation backlog. The bare command is intentionally two-phase (unless explicitly invoked as one-command `PHDK check --fix`):
 
