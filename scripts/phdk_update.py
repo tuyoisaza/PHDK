@@ -201,12 +201,16 @@ def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
         # A locally edited manifest cannot prove that extras are PHDK-owned.
         old_manifest_trusted = False
         if previous_manifest.is_file():
-            try:
-                old_manifest_trusted = is_published_copy(
-                    previous_manifest.read_bytes(), upstream,
-                    "PHDK_MANIFEST.txt", history_cache)
-            except subprocess.CalledProcessError:
-                old_manifest_trusted = False
+            old_bytes = previous_manifest.read_bytes()
+            old_manifest_trusted = (
+                old_bytes == (upstream / "PHDK_MANIFEST.txt").read_bytes()
+            )
+            if not old_manifest_trusted:
+                try:
+                    old_manifest_trusted = is_published_copy(
+                        old_bytes, upstream, "PHDK_MANIFEST.txt", history_cache)
+                except subprocess.CalledProcessError:
+                    old_manifest_trusted = False
         old_mappings = (_manifest_pairs(previous_manifest)
                         if old_manifest_trusted else [])
         for src, dst in new_mappings:
@@ -221,10 +225,10 @@ def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
                 continue
             status = run("git", "status", "--porcelain", "--",
                          str(dest.relative_to(project)), cwd=project)
+            if status and not force_owned:
+                conflicts.append(dst + " (uncommitted edit/deletion)")
+                continue
             if dest.is_file() and not force_owned:
-                if status:
-                    conflicts.append(dst + " (uncommitted customization)")
-                    continue
                 try:
                     canonical = is_published_copy(
                         dest.read_bytes(), upstream, src, history_cache)
