@@ -171,7 +171,7 @@ class UpdateTests(unittest.TestCase):
                 self.assertEqual((target / "extra.md").read_text(), "owner notes\n")
                 self.assertFalse((target / "legacy.md").exists())
                 self.assertIn("extra.md", result["unmanaged_active_vendor_paths"])
-                self.assertIn(str(target / "legacy.md"), result["removed_obsolete_owned_paths"])
+                self.assertIn("phdk-standards/legacy.md", result["removed_obsolete_owned_paths"])
 
 if __name__ == "__main__":
     unittest.main()
