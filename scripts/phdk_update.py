@@ -196,8 +196,19 @@ def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
             )
         changes, overwritten, conflicts, removals = [], [], [], []
         seen, history_cache = set(), {}
-        old_mappings = _manifest_pairs(target / "PHDK_MANIFEST.txt")
+        previous_manifest = target / "PHDK_MANIFEST.txt"
         new_mappings = _manifest_pairs(upstream / "PHDK_MANIFEST.txt")
+        # A locally edited manifest cannot prove that extras are PHDK-owned.
+        old_manifest_trusted = False
+        if previous_manifest.is_file():
+            try:
+                old_manifest_trusted = is_published_copy(
+                    previous_manifest.read_bytes(), upstream,
+                    "PHDK_MANIFEST.txt", history_cache)
+            except subprocess.CalledProcessError:
+                old_manifest_trusted = False
+        old_mappings = (_manifest_pairs(previous_manifest)
+                        if old_manifest_trusted else [])
         for src, dst in new_mappings:
             source = _vendor_path(upstream, src)
             dest = _vendor_path(target, dst)
@@ -222,7 +233,7 @@ def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
                 if not canonical:
                     conflicts.append(dst + " (customized or unverified origin)")
                     continue
-            if status:
+            if dest.is_file() and (status or force_owned):
                 overwritten.append(str(dest.relative_to(project)))
             changes.append((source, dest))
 
@@ -277,6 +288,8 @@ def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
                     dest.write_bytes(old)
             raise
         unmanaged = _unmanaged_active(target, seen)
+        if not old_manifest_trusted:
+            unmanaged.append("PHDK_MANIFEST.txt:PREVIOUS_ORIGIN_UNVERIFIED")
         return sync_result(
             "UPDATED" if changes or removals else "CURRENT",
             trigger=trigger,
