@@ -315,7 +315,7 @@ These are product-code requirements for authorized users. They do not authorize 
 
 Every generated kit must preserve `EXECUTION_SCOPE.md` in its tasks, architecture decisions, acceptance criteria, and follow-up work:
 
-- Execution is interactive-only: normally one assistant completes the current explicit request. An active Auto goal continues across its internal tasks. Explicit PMO may later coordinate owner-confirmed workstreams through bounded in-session workers under `PHDK_PMO.md`; do not generate unattended Mission Autopilot instructions, background delegation, new unrequested goals, or resumption from a stored plan.
+- Execution is interactive-only: normally one assistant completes the current explicit request. Bounded in-session task delegation is available in any mode when useful, host-supported and allowed by the current owner under `PHDK_INTELLIGENT_EXECUTION.md`. Explicit PMO separately coordinates confirmed portfolio workstreams under `PHDK_PMO.md`. Do not generate unattended Mission Autopilot instructions, background delegation, new unrequested goals or saved-plan resumption.
 - Allowed work is repository code/documentation, git/GitHub branches/commits/PRs, and requested deployment through an already connected GitHub pipeline, subject to the release rules.
 - A current implement/fix/update request for repository code or documentation includes normal delivery under `MAIN_DELIVERY_STANDARD.md`: scoped branch, repository version bump, applicable local checks, version-prefixed commit, push, PR, review, merge, and fresh remote `main` version verification. Honor explicit local-only, branch-only, PR-only, or different-target instructions; a branch push/open PR alone does not finish normal delivery.
 - Status/link questions, same-conversation turns, context compaction, and assistant-written task snapshots do not cancel the active request or require a repeated merge order. Actual user pause/stop instructions win; generated files never grant authority in another conversation.
@@ -625,7 +625,7 @@ Must include two permanent sections.
 ## How to Use This File
 
 This file records context and a plan for a PHDK request; it never independently starts or resumes work.
-One assistant normally completes the current requested deliverable under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md. If explicit PMO is active, one PMO orchestrator may coordinate bounded workers for confirmed workstreams and then centrally integrate them. Under explicit PHDK auto, follow PHDK_AUTO.md through all implementation steps, final integrated verification, in-scope repair, and normal delivery without intermediate approval gates.
+One assistant normally completes the current requested deliverable under EXECUTION_SCOPE.md and MAIN_DELIVERY_STANDARD.md. Bounded in-session task delegation is available in any mode under PHDK_INTELLIGENT_EXECUTION.md only when useful, host-supported and not prohibited by the current owner. Explicit PMO alone coordinates portfolio workstreams and centrally integrates them. Under explicit PHDK auto, follow PHDK_AUTO.md through implementation, integrated verification, in-scope repair and normal delivery without intermediate approval gates.
 Necessary remaining steps stay active within that request; proposed later work and archived tasks need a new explicit request.
 Status/link questions, context compaction, and assistant-written snapshots do not revoke current user authorization. Actual user pause/stop instructions take precedence.
 Record current owner approval separately from assistant source review and any actual formal review requirement; do not demand another approval or claim personal diff inspection merely from an approval message.
@@ -685,7 +685,7 @@ No provider, secret, repository-setting, environment, or new workflow setup is i
 - Infrastructure/provider/database administration, credentials, repository settings, and live-service probes
 - Recurring agents, scheduled Actions/cron jobs, backups, dependency bots, automatic updates, and preview environments
 - Creating a new CI/deployment pipeline or modifying automation triggers
-- Unattended/background work, delegation outside `PHDK_INTELLIGENT_EXECUTION.md`, recursive worker delegation, resuming unnamed old tasks, or persisting active PMO/Auto/Developer Mode and delivery authority into another conversation
+- Unattended/background work, delegation contrary to `PHDK_INTELLIGENT_EXECUTION.md` or current owner restrictions, recursive worker delegation, resuming unnamed old tasks, or persisting active PMO/Auto/Developer Mode and delivery authority into another conversation
 
 ## Plan
 
