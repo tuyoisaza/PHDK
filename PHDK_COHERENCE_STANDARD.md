@@ -4,6 +4,12 @@ A canonical release must reject PHDK-owned manifest-vendored Python files longer
 
 The coherent checker is a **three-file** standard-library tool: `scripts/phdk_coherence_check.py`, `scripts/phdk_coherence_routing.py` and `scripts/phdk_coherence_quality.py`. All three must be in the manifest exactly once, copied with the same pinned source SHA and validated in canonical and installed layouts. The entrypoint must stay callable as before. Run `tests/test_phdk_coherence_checker.py` when permitted and demonstrate rejection of an injected oversized vendored file. A source-only PASS never proves semantic quality, UAT, deployment or a private module contribution.
 
+## Vendor provenance and delegation consistency (v3.0.2)
+
+The active `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` and `SPEC_INTERVIEW_PROMPT.md` are now manifest-owned. Earlier installed PHDK versions could have an outdated canonical handoff outside their manifests, so matching VERSION and managed-file hashes cannot alone prove active policy coherence. Read-only Check inventories active supplemental vendor instructions, marks historical verified old PHDK copies as LEGACY_VENDOR_COPY, and distinguishes unproven CUSTOMIZED_UNKNOWN from current owner instructions.
+
+Conservative Upgrade preserves unproven customizations; Force restores all current manifest-owned files and only previously manifest-owned obsolete paths, without destroying unknown extras. Deprecated PMO-exclusive delegation wording is a standards defect. An explicit current owner prohibition on subagents is valid and takes precedence; never disable independent hooks or remove owner restrictions to make a static checker pass.
+
 ## Help/catalog consistency (v2.92.0)
 
 Each documented conversational command and alias must appear without collision in vendored `PHDK_COMMANDS.json`, with an existing standard reference. `PHDK_HELP.md` governs read-only output, sourced goal and one safe next-action recommendation. Reconcile manifest, README, onboarding, AGENTS/SKILL/native routing and Help-only read-only Preflight. `scripts/phdk_help.py` must remain offline/network-free/read-only. Run synthetic `tests/test_phdk_help.py` and the static coherence checker where execution is permitted; otherwise report NOT RUN. No static source test proves downstream agent compliance or adoption.
