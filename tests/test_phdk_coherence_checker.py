@@ -55,5 +55,21 @@ class SelfCoherenceTest(unittest.TestCase):
             self.assertIn("vendored Python exceeds 600 lines", proc.stderr)
 
 
+
+    def test_obsolete_pmo_only_handoff_is_rejected(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp) / "phdk-standards"
+            root.mkdir()
+            for source, destination in mappings():
+                target = root / destination
+                target.parent.mkdir(parents=True, exist_ok=True)
+                copyfile(ROOT / source, target)
+            handoff = root / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"
+            with handoff.open("a", encoding="utf-8") as output:
+                output.write("\n- Delegation outside explicit PMO is forbidden.\n")
+            proc = run_checker(root)
+            self.assertNotEqual(proc.returncode, 0)
+            self.assertIn("deprecated PMO-only delegation rule", proc.stderr)
+
 if __name__ == "__main__":
     unittest.main()
