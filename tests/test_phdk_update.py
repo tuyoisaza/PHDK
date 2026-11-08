@@ -135,10 +135,12 @@ class UpdateTests(unittest.TestCase):
             (canonical / "VERSION").write_text("3.0.1\n")
             (canonical / "PHDK_MANIFEST.txt").write_text(manifest)
             (canonical / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md").write_text(old)
+            (canonical / "legacy.md").write_text("historic PHDK copy\n")
             git(canonical, "add", ".")
             git(canonical, "commit", "-qm", "v3.0.1 old")
             (canonical / "VERSION").write_text("3.0.2\n")
             (canonical / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md").write_text(current)
+            (canonical / "legacy.md").unlink()
             git(canonical, "add", ".")
             git(canonical, "commit", "-qm", "v3.0.2 new")
             target = project / "phdk-standards"
@@ -148,6 +150,7 @@ class UpdateTests(unittest.TestCase):
             handoff = target / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"
             handoff.write_text("owner customization\n")
             (target / "extra.md").write_text("owner notes\n")
+            (target / "legacy.md").write_text("historic PHDK copy\n")
             init(project)
             git(project, "add", ".")
             git(project, "commit", "-qm", "consumer customized")
@@ -166,7 +169,9 @@ class UpdateTests(unittest.TestCase):
                 self.assertEqual(result["version"], "3.0.2")
                 self.assertEqual(handoff.read_text(), current)
                 self.assertEqual((target / "extra.md").read_text(), "owner notes\n")
+                self.assertFalse((target / "legacy.md").exists())
                 self.assertIn("extra.md", result["unmanaged_active_vendor_paths"])
+                self.assertIn(str(target / "legacy.md"), result["removed_obsolete_owned_paths"])
 
 if __name__ == "__main__":
     unittest.main()
