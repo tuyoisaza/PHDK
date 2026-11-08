@@ -91,7 +91,7 @@ Read the repository's active PHDK installation completely enough to evaluate com
 
 Do not treat `ORIGINALS/`, archived changelogs, completed-task archives, examples, or historical superseded instructions as current standards.
 
-If canonical upstream PHDK is reachable, compare the installed version/manifest to canonical `main`. Version drift is itself a gap. Do not silently upgrade during the audit. If remediation is later approved and the installed standards are stale, synchronize PHDK first, then rerun the audit before applying product changes because the compliance target may have changed.
+If canonical upstream PHDK is reachable, compare installed VERSION, managed-file provenance and all active supplemental vendor instruction copies to canonical `main`. Version drift is a gap; a matching VERSION does not make an obsolete unmanifested handoff safe. Classify a verifiable historical canonical remnant as LEGACY_VENDOR_COPY, an unproven edited copy as CUSTOMIZED_UNKNOWN and obsolete PMO-only delegation as a PHDK standards conflict. Current owner no-subagent restrictions remain valid. Bare Check is read-only and never silently upgrades; subsequent authorized `PHDK upgrade` preserves customizations, while `PHDK upgrade force` replaces only manifest-owned/proven PHDK content. Rerun Check after authorized sync before judging remaining product gaps.
 
 ## Applicability before compliance
 
