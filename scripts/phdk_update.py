@@ -266,6 +266,21 @@ def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
                     continue
             removals.append(dest)
 
+        if force_owned:
+            # Extra PHDK files may predate the manifest: remove only a source
+            # copied verbatim from canonical history, never an unknown add-on.
+            for relative in _unmanaged_active(target, seen):
+                dest = _vendor_path(target, relative)
+                if dest in removals:
+                    continue
+                try:
+                    canonical = is_published_copy(
+                        dest.read_bytes(), upstream, relative, history_cache)
+                except subprocess.CalledProcessError:
+                    canonical = False
+                if canonical:
+                    removals.append(dest)
+
         if conflicts:
             raise ValueError("PHDK customization preserved; no files changed: "
                              + "; ".join(conflicts))
