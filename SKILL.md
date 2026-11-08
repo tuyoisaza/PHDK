@@ -15,6 +15,10 @@ description: >-
   local runtime tests, Docker, new environments or external infrastructure administration.
 ---
 
+## Vendor integrity and owner precedence (v3.0.2)
+
+Plain Upgrade preserves customized copies (including committed edits) and replaces only proven historical PHDK blobs. Force restores every pinned manifest-owned PHDK file, including handoff/interview prompts, without rewriting unknown extras or project-owner text outside managed blocks. Check stale active supplemental instructions. Bounded task delegation is not PMO-exclusive, but current owner bans prevail in every mode.
+
 ## PHDK 3.0 self-hosted distribution
 
 Before releasing PHDK, enforce `PHDK_COHERENCE_STANDARD.md`: canonical and vendored Python sources must stay within 600 lines, including `scripts/phdk_coherence_check.py` and its manifest-vendored sibling modules `phdk_coherence_routing.py` and `phdk_coherence_quality.py`. Never bypass a downstream owner hook to accommodate PHDK violations. Verify selected external skills using `SKILLS_REGISTRY.md`; do not assume that private PHDK-Modules contains usable modules or automatically copy donor source.
