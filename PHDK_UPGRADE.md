@@ -4,6 +4,13 @@ A v3 standards snapshot must install the three-file PHDK coherence checker toget
 
 # PHDK_UPGRADE.md
 
+## Canonical ownership versus project customization (v3.0.2)
+
+- **`PHDK upgrade` is conservative.** Replace an existing destination only if its bytes match a historically published canonical Git blob for that mapped source (including older handoff copies) and it has no uncommitted edits. A committed customization is still customized. An unavailable provenance check or unknown origin is a conflict: preserve the file and do not partially update or advance VERSION. Never infer Force from Upgrade.
+- **`PHDK upgrade force` is authoritative for PHDK-owned content.** Replace every current manifest-owned destination from the pinned canonical SHA even when locally edited, including `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` and `SPEC_INTERVIEW_PROMPT.md`. Remove proven obsolete paths listed by the previous installed manifest. Protect product/owner docs, text outside marked native blocks, independent hooks/settings and unknown unmanifested extras. Report active extras rather than deleting them or asserting a perfectly standardized vendor tree.
+- Preflight and Check inspect obsolete supplemental instructions despite a matching VERSION. Bounded delegation does not require PMO, but a current owner no-subagent rule is binding in every mode; upgrade never activates subagents.
+
+
 ## Preserve downstream documentation on adoption (v2.73.0)
 
 Vendor [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and `scripts/phdk_docs_audit.py` as PHDK-owned standard/helper files only. A bare Upgrade or force sync must not move, rename, delete, version, rewrite, create an index for, or repair owner product files in `docs/`, root Capture/Plan records, `TASK.md` or `STATUS.md` as a synchronization side effect. Active authorized Auto Force later applies the standard only to its scoped project task. Treat legacy root/doc paths as compatible until an authorized material revision and safe reference migration.
@@ -111,7 +118,7 @@ Read the fetched `PHDK_MANIFEST.txt`; never use a handwritten file list or cache
 
 Validate that every source exists, destinations are unique and safe relative paths, and no path escapes the standards directory. Copy exactly those mappings, including `EXECUTION_SCOPE.md`, `PHDK_PREFLIGHT.md`, `SKILLS_REGISTRY.md`, `MAIN_DELIVERY_STANDARD.md`, `PHDK_UNLOCK.md`, `PHDK_AUTO.md`, `PHDK_PLAN.md`, `PHDK_PMO.md`, `PHDK_DEVELOPER_MODE.md`, and `PHDK_NATIVE_RULES.md`.
 
-Remove an obsolete vendored file in conservative mode only when the previous manifest lists it, the new manifest omits it, it is clean, and removal respects the current owner's scope. In force mode, if the previous installed manifest proves the obsolete path was PHDK-owned, remove it even when locally modified; never remove an unknown extra file that was not manifest-owned. For pre-manifest projects, do not delete unknown extra files. An explicitly requested complete PHDK reconciliation or unlock also inspects active supplemental copies such as in-repository `SKILL.md`, README, and handoff instructions; compare their source and customizations before replacing stale generic PHDK content. Keep required history references and unrelated project files.
+Remove an obsolete vendored file in conservative mode only when the previous manifest lists it, the new manifest omits it, its bytes match historical canonical PHDK content, it is clean, and removal respects the current owner's scope. In force mode, if the previous installed manifest proves the obsolete path was PHDK-owned, remove it even when locally modified; never remove an unknown extra file that was not manifest-owned. For pre-manifest projects, do not delete unknown extra files. An explicitly requested complete PHDK reconciliation or unlock also inspects active supplemental copies such as in-repository `SKILL.md`, README, and handoff instructions; compare their source and customizations before replacing stale generic PHDK content. Keep required history references and unrelated project files.
 
 ### 6. Refresh the current tool's managed block
 
