@@ -133,6 +133,8 @@ def _vendor_path(root, name):
     if (path.is_absolute() or not path.parts or name == "."
             or ".." in path.parts or "\\" in name or "\0" in name):
         raise ValueError("Unsafe vendored path: " + name)
+    if (root / name).is_symlink():
+        raise ValueError("Symlink not supported for vendored path: " + name)
     dest = (root / name).resolve()
     if not dest.is_relative_to(root.resolve()):
         raise ValueError("Vendored path escapes root: " + name)
@@ -152,6 +154,7 @@ def _unmanaged_active(root, destinations):
 
 
 def sync(project, trigger="preflight", force_owned=False, upstream_sha=None):
+    project = pathlib.Path(project).resolve()
     if trigger not in {"preflight", "upgrade"}:
         raise ValueError("Invalid trigger")
     if force_owned and trigger != "upgrade":
