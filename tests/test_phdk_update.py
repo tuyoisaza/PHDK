@@ -65,5 +65,49 @@ class UpdateTests(unittest.TestCase):
         self.assertEqual(report["forced_upgrade_publication"], "NOT_AUTHORIZED_BY_COPIER")
         self.assertEqual(report["remote_main_verification"], "UNVERIFIED")
 
+
+    def test_historical_canonical_copy_is_not_owner_customization(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            subprocess.run(["git", "-C", str(root), "config", "user.email",
+                            "test@example.invalid"], check=True)
+            subprocess.run(["git", "-C", str(root), "config", "user.name",
+                            "PHDK Fixture"], check=True)
+            name = "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"
+            original = b"delegation outside explicit PMO\n"
+            (root / name).write_bytes(original)
+            subprocess.run(["git", "-C", str(root), "add", name], check=True)
+            subprocess.run(["git", "-C", str(root), "commit", "-qm", "old source"], check=True)
+            (root / name).write_bytes(b"bounded intelligent delegation\n")
+            subprocess.run(["git", "-C", str(root), "commit", "-qam",
+                            "corrected canonical source"], check=True)
+            history = {}
+            self.assertTrue(updater.is_published_copy(
+                original, root, name, history))
+            self.assertTrue(updater.is_published_copy(
+                b"delegation outside explicit PMO\r\n", root, name, history))
+            self.assertFalse(updater.is_published_copy(
+                b"current owner prohibits all subagents\n", root, name, history))
+
+    def test_unmanaged_active_extras_are_reported_not_erased(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "phdk-standards"
+            (root / "scripts").mkdir(parents=True)
+            (root / "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md").write_text(
+                "owner-specific notes", encoding="utf-8")
+            self.assertEqual(
+                updater._unmanaged_active(root, set()),
+                ["PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"])
+            self.assertEqual(updater._unmanaged_active(
+                root, {"PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md"}), [])
+            result = updater.sync_result(
+                "UPDATED", trigger="upgrade", installed="3.0.1", latest="3.0.2",
+                upstream_sha="a" * 40, force_owned=True, unmanaged=["other.md"])
+            self.assertEqual(result["vendor_integrity"], "PARTIAL_UNMANAGED_ACTIVE")
+            self.assertEqual(result["forced_upgrade_publication"],
+                             "PENDING_REMOTE_MAIN_CHECKPOINT")
+
 if __name__ == "__main__":
     unittest.main()
