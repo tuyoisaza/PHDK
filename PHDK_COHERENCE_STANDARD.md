@@ -8,7 +8,7 @@ The coherent checker is a **three-file** standard-library tool: `scripts/phdk_co
 
 The active `PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md` and `SPEC_INTERVIEW_PROMPT.md` are now manifest-owned. Earlier installed PHDK versions could have an outdated canonical handoff outside their manifests, so matching VERSION and managed-file hashes cannot alone prove active policy coherence. Read-only Check inventories active supplemental vendor instructions, marks historical verified old PHDK copies as LEGACY_VENDOR_COPY, and distinguishes unproven CUSTOMIZED_UNKNOWN from current owner instructions.
 
-Conservative Upgrade preserves unproven customizations; Force restores all current manifest-owned files and only previously manifest-owned obsolete paths, without destroying unknown extras. Deprecated PMO-exclusive delegation wording is a standards defect. An explicit current owner prohibition on subagents is valid and takes precedence; never disable independent hooks or remove owner restrictions to make a static checker pass.
+Conservative Upgrade preserves unproven customizations; Force restores all current manifest-owned files and may retire previously manifest-owned obsolete paths or active orphan PHDK copies matching exact historical canonical Git blobs, without destroying unknown extras. Deprecated PMO-exclusive delegation wording is a standards defect. An explicit current owner prohibition on subagents is valid and takes precedence; never disable independent hooks or remove owner restrictions to make a static checker pass.
 
 ## Help/catalog consistency (v2.92.0)
 
