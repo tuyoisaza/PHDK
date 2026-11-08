@@ -45,6 +45,7 @@ Force mode may overwrite or remove only content whose ownership is unambiguous:
 1. **Vendored standards destinations** under `phdk-standards/` that are listed by the current or fetched canonical `PHDK_MANIFEST.txt`.
 2. **Obsolete vendored standards files** under `phdk-standards/` that were listed by the previously installed manifest but are absent from the new canonical manifest.
 3. **Marked native managed blocks** delimited by exact `PHDK-MANAGED:START` / `PHDK-MANAGED:END` markers in the current tool's native instruction file.
+4. **Verified legacy PHDK remnants** limited to active root-level Markdown or `scripts/phdk_*.py` that are absent from the current manifest **and** whose exact Git-blob content is found at the same source path in the pinned canonical Git history. Force may retire these; an unmatched path is not a proven PHDK remnant.
 
 Force mode must not overwrite:
 
@@ -52,7 +53,7 @@ Force mode must not overwrite:
 - project requirements, PRD, Capture artifacts, TASK/STATUS, intents, ADRs, changelog, README, or other project documentation merely because they mention PHDK;
 - owner instructions outside a PHDK-managed marker block;
 - hooks, workflow files, package manifests, provider settings, secrets, infrastructure, or repository settings;
-- unknown files inside `phdk-standards/` that were never listed by an installed/canonical manifest.
+- unknown files inside `phdk-standards/` with neither installed/current manifest ownership nor exact historical canonical PHDK source-blob proof.
 
 A filename, directory name, example, or PHDK-related prose does not establish PHDK ownership by itself.
 
