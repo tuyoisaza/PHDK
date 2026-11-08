@@ -91,6 +91,8 @@ for mandatory in [
     "docs/images/session-status/v1/session-status.example.svg",
     "PHDK_DESIGN.md",
     "SKILL.md",
+    "PROJECT_HANDOFF_TO_DEVELOPMENT_KIT_PROMPT.md",
+    "SPEC_INTERVIEW_PROMPT.md",
     "PHDK_NATIVE_RULES.md",
     "UAT_SYNTHETIC_IDENTITY_STANDARD.md",
     "COMPANY_CO_UAT_IDENTITIES.json",
