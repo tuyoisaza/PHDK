@@ -1,3 +1,12 @@
+## v3.0.2 — 2026-11-07
+
+### PATCH — Provenance-aware Upgrade and authoritative vendor Force
+
+- Vendor the active project handoff and interview prompts through the official manifest so stale PMO-only text cannot survive a reported current PHDK installation.
+- Clarify that bounded subagents are not PMO-exclusive, but a current owner's prohibition always wins.
+- Preserve all customized copies during ordinary Upgrade, including committed edits; only published historical PHDK blobs are replaced. Force overwrites every current manifest-owned file and handles previously manifest-owned obsolete paths, preserving owner/project files and unknown extras.
+- Diagnose unmanaged active remnants in Preflight/Check and add regression coverage; no downstream projects, UAT, background agents, GitHub remote branches or provider settings are modified.
+
 ## v3.0.1 — 2026-11-07
 
 ### PATCH — Local-only Git hygiene, with permanent remote-branch retention
