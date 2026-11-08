@@ -2,10 +2,10 @@
 repository: tuyoisaza/InmotionTitan
 repository_url: https://github.com/tuyoisaza/InmotionTitan
 default_branch: main
-observed_repository_sha: ae147adf8a9ef718b7ccf3da5ed84dc6acc6cca4
-observed_at_utc: 2026-11-06T22:48:26.380887+00:00
-phdk_version: 2.81.0
-phdk_canonical_version: 2.81.0
+observed_repository_sha: 947993b28e3e08155e982c215f5d0bd4a5e6e21f
+observed_at_utc: 2026-11-08T04:23:02Z
+phdk_version: 3.0.2
+phdk_canonical_version: 3.0.2
 phdk_status: CURRENT
 tech_stack:
   runtimes:
@@ -37,14 +37,14 @@ tech_stack:
       deployed: UNVERIFIED
   data_engines:
     - name: postgresql
-      declared: "Owner-approved target; repository migrations prepared, not executed"
+      declared: "PostgreSQL target; current engine patch unverified"
       resolved: UNVERIFIED
       deployed: UNVERIFIED
   images: []
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-11-06T22:48:26.380887+00:00
-  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/ae147adf8a9ef718b7ccf3da5ed84dc6acc6cca4/docs/evidence/m5-integration-delivery.md"
+  reviewed_at_utc: 2026-11-08T04:23:02Z
+  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/947993b28e3e08155e982c215f5d0bd4a5e6e21f/docs/phdk/lifecycle/2026-11-07-phdk-302-maintenance/HANDOFF.md"
   findings:
     critical: 0
     high: 6
@@ -53,12 +53,6 @@ stack_review:
 central_status_source: PHDK
 ---
 
-M5 development delivered: application0.9.0, PR14/main ae147adf8a9ef718b7ccf3da5ed84dc6acc6cca4; prior complete submilestones M5-B0.6.0/PR11, M5-C0.7.0/PR12 and M5-D0.8.0/PR13. Remote completion gate PASS.333 source identities,15 outside-controller groups and9PDFs reconciled;8 PDF implementations, invoice and remaining finance/report/maintenance reserved M6. M6 handoff prepared, M6 NOT STARTED; M7 data reconciliation remains pending.
+App0.38.2 / PHDK3.0.2 published in PR68; pinned standards862c7246716aabc77099ac0aa74b478545334d35, remote gate PASS133. Bounded maintenance only; M7 pause and foreign INDEX/brief preserved. Fresh pnpm audit321 dependencies, zero advisories. Node source pin24.22.2 and local26.13.0 checked against official current release/security sources. No compatible patch identified in reviewed scope.
 
-Types root/UI/web, clean API release compile, ordinary Next compile/generate-env and filesystem artifact audits PASS on80a33fd92d4e33252e43419a8f40c7bed033a495; later commit evidence only. API14428files/443links/4internal packages; web2595files/19links. Web production release configuration remains UNVERIFIED: real API_INTERNAL_ORIGIN absent, guard retained. Node compiler26.13.0; Railway source pin24.22.2, actual runtimeUNVERIFIED. pnpm copying used bundled24.22.1 with engine warning and scripts ignored; no product runtime executed.
-
-PHDK2.81.0 adopted and published; canonical2.81.0 observed atf6baf815d91cf3082d7472902babdcc90d4fee76. Stack review M5-B checked official advisories and production dependency audit (267dependencies, zero known advisories); no dependency changes in C/D/integration. Source authorization/CSRF/tenant/immutable history/grants reviewed. PARTIAL coverage reflects unknown provider/OS/runtime/database security, not an invented full clearance.
-
-Finding counts retain the immutable legacy review (six high, two medium, one low), not newly attributed modern-application findings. Legacy tree24e0bfdbb9a9fbab460ec8e0628c7c2ce07bb28b unchanged and inert. No source PHP/SQL, real records or secrets executed/exposed.
-
-Migrations through0072 and grantsv49 PREPARED/NOT RUN. Railway/private storage/deployment UNVERIFIED. UAT NOT RUN; cutover not authorized/executed. No provisioning, spend, telemetry, scheduler or methodology release. This foreground update changes only this downstream status record under PHDK_REPOSITORY_STATUS.md.
+PARTIAL: deployed runtime/OS/image digest/PostgreSQL/provenance remain UNVERIFIED. Finding counts retain historical immutable legacy findings (6 high,2 medium,1 low), not modern-package findings or newly verified exploitability. Legacy unchanged. One postmerge version GET returned app0.38.1, PHDK3.0.1, bb317026b6833ace50c6cd0873f8cb1573b78181: STALE_OR_DIFFERENT_REVISION. No polling, provider write, SQL or UAT. UAT NOT RUN.
