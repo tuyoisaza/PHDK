@@ -4,6 +4,8 @@
 
 # PHDK
 
+**Optional Data Workspace (v3.1.0):** Plan recommends (without requiring) a per-resource rich tabular grid with sortable headers, composable filters, configurable columns and saved views. Optional inline editing, recovery, import/export and permission-governed custom fields require explicit owner selection. Auto Force never silently enables it. [Standard](PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md). Catalog maturity: **SPECIFICATION_ONLY**, not downloadable code; existing CRUD and eligible import/export remain independent.
+
 **Vendor integrity (v3.0.2):** Plain `PHDK upgrade` preserves customized PHDK copies (including committed changes) and updates only proven historical canonical blobs. `PHDK upgrade force` restores every manifest-owned PHDK file from one pinned commit, including the handoff and interview prompts. Unknown extras and owner rules outside managed blocks are protected. [Upgrade](PHDK_UPGRADE.md) and [Coherence](PHDK_COHERENCE_STANDARD.md).
 
 
@@ -15,7 +17,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v3.0.2**
+**Version v3.1.0**
 
 **v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 
