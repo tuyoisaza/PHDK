@@ -15,6 +15,10 @@ description: >-
   local runtime tests, Docker, new environments or external infrastructure administration.
 ---
 
+## Optional Data Workspace route (v3.1.0)
+
+For suitable tabular UX, offer `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` as an **opt-in per-resource** capability within current Plan/Design decisions. No silent enablement by Auto Force. Permission-governed custom fields and advanced grid functions do not replace baseline CRUD, eligible imports/exports or server authorization. Catalog `SPECIFICATION_ONLY` is not an installable module, nor authorization for donor export, provider actions or UAT.
+
 ## Vendor integrity and owner precedence (v3.0.2)
 
 Plain Upgrade preserves customized copies (including committed edits) and replaces only proven historical PHDK blobs. Force restores every pinned manifest-owned PHDK file, including handoff/interview prompts, without rewriting unknown extras or project-owner text outside managed blocks. Check stale active supplemental instructions. Bounded task delegation is not PMO-exclusive, but current owner bans prevail in every mode.

@@ -1,3 +1,7 @@
+## Optional Flexible Data Workspace release coherence (v3.1.0)
+
+Ensure `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` is manifest-vendored once and referenced coherently by CRUD, Plan, Design, UX, Check, public reuse/private-module standards, README and managed agent/skill/native routing. The `starter.flexible-data-workspace` public catalog entry must remain `SPECIFICATION_ONLY` with no implementation or downloadability. Run `tests/test_phdk_optional_data_workspace.py` and existing catalog/coherence checks when permitted, or truthfully report NOT RUN. No downstream update, InmotionTitan donor transfer, automatic UAT, provider action or background worker follows from a standards release.
+
 ## PHDK 3.0 self-hosting and Python source budget
 
 A canonical release must reject PHDK-owned manifest-vendored Python files longer than **600 physical source lines** (Python `splitlines()`). Canonical `tests/*.py` must satisfy the same limit. An installed `phdk-standards/` checkout checks vendored destinations, not unrelated downstream product code. A violation is a PHDK release defect, never a justification for excluding PHDK from consumers' existing 600-line hook.
