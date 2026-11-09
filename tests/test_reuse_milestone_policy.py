@@ -158,7 +158,7 @@ class ReuseAndMilestonePolicyTests(unittest.TestCase):
     def test_canonical_catalog_is_valid_and_specification_only(self):
         catalog = canonical_catalog()
         self.assertEqual(MODULE.validate_catalog(catalog), [])
-        self.assertEqual(len(catalog["entries"]), 5)
+        self.assertEqual(len(catalog["entries"]), 6)
         for entry in catalog["entries"]:
             self.assertEqual(entry["status"], "SPECIFICATION_ONLY")
             self.assertIsNone(entry["implementation"])

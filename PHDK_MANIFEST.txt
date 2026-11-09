@@ -24,6 +24,7 @@ PHDK_LIFECYCLE.md | PHDK_LIFECYCLE.md
 PHDK_DESIGN.md | PHDK_DESIGN.md
 PHDK_UX_UI.md | PHDK_UX_UI.md
 CRUD_STANDARD.md | CRUD_STANDARD.md
+PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md | PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md
 TABULAR_DATA_EXCHANGE_STANDARD.md | TABULAR_DATA_EXCHANGE_STANDARD.md
 scripts/phdk_uat_import_fixture.py | scripts/phdk_uat_import_fixture.py
 examples/uat-data-exchange/README.md | examples/uat-data-exchange/README.md

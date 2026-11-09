@@ -1,5 +1,10 @@
 # PHDK UX/UI Product Design & Quality Standard
 
+## Rich tabular UX is opt-in (v3.1.0)
+
+`PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` offers an owner-selected, per-resource profile for sortable headers, combinable typed filters, show/hide/reorder columns, saved views, inline editing and permitted custom-field management. These are not blanket mandates for all tables. Preserve the normal CRUD and exchange standards if declined; in an enabled resource, design role-aware accessibility, keyboard interaction, error/draft recovery and field/tenant permissions. Hidden columns are presentation preferences, not authorization.
+
+
 ## Applicability and authority
 Mandatory for projects with a user-facing interface, whether greenfield or brownfield. Does not invent new features, override user decisions, bypass security, expand browser permissions, or require external paid services. Public, anonymous, login, application and admin surfaces are included wherever present. API-only projects record an evidence-based NOT APPLICABLE. `PHDK_PRODUCTION_VERIFICATION.md` governs local/static and deployed runtime verification.
 

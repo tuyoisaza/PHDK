@@ -1,5 +1,10 @@
 # PHDK CRUD and Resource Administration Standard
 
+## Optional advanced grid capabilities (v3.1.0)
+
+This CRUD standard already covers appropriate list, search, filter and pagination and authorized resource administration. It does **not** make click-to-sort, configurable column visibility/order, combinable typed filters, saved views, inline Excel-like editing or self-managed custom-field definitions universal requirements. Offer `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` where beneficial and owner-selected, record features and permissions per resource × role × surface in the existing matrix, and keep server enforcement independent of visible UI. Declining this profile is not a CRUD GAP; independently eligible import/template/export requirements continue to apply.
+
+
 ## Normative requirement
 Every application with persisted, manageable business entities MUST inventory its resources and evaluate Create, Read (list and detail), Update and Delete individually for each role and exposure surface. Administrative interfaces, especially Superadmin, default to complete authorized management capability, not read-only tables with inaccessible records. A CRUD gap must be fixed or have a documented, evidence-backed exception. CRUD is a capability audit, NOT a command to expose unsafe operations to every role.
 

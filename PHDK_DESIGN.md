@@ -1,5 +1,10 @@
 # PHDK Design — visual direction before implementation
 
+## Chosen record workspace controls (v3.1.0)
+
+If the owner enabled a named resource under `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md`, include its **selected** sortable header, combined filter, column-picker/order, view-saving, privileged custom-field manager, inline entry and recovery states in the same consolidated coded decision board and representative preview. Use existing tokens, accessibility and role-specific behavior. Do not invent a second design approval or infer optional feature authorization from an Auto Force visual selection. If declined, design ordinary CRUD without the advanced profile.
+
+
 ## Purpose, routing and authority
 
 `PHDK design` establishes a visible, durable design baseline after technical/content planning and before implementing the affected interface. It is also mandatory lifecycle stage **25-design** for UI-applicable Auto and Auto Force goals. It prevents coding an arbitrary visual style and asking the owner to redesign the finished product.

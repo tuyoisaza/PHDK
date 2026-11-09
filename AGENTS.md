@@ -1,3 +1,7 @@
+## Optional Data Workspace route (v3.1.0)
+
+For a real tabular workflow, consult `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` only when relevant and recommend its per-resource advanced-grid features within existing Plan/Design decisions. The optional profile is not a universal CRUD requirement or installable shared module. Actual owner selection scopes implementation; Auto Force cannot fabricate opt-in. Privileged custom-field metadata requires server-enforced `fields.manage`, row/tenant/field access and business validation. Preserve independent CRUD/exchange and explicit-only UAT.
+
 ## PHDK 3.0 canonical self-hosted coherence
 
 Before public release, verify the **600-line** limit for PHDK's own vendored Python scripts and canonical tests; invoke `scripts/phdk_coherence_check.py` with its vendored `phdk_coherence_routing.py` and `phdk_coherence_quality.py` siblings. Verify the installed-layout manifest where executable, and never bypass owner hooks to conceal a PHDK-owned over-limit file. Missing runtime means NOT RUN. Assess only selected external skills against `SKILLS_REGISTRY.md` and keep private PHDK-Modules receipt separately owner-authorized.

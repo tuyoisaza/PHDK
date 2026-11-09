@@ -1,3 +1,12 @@
+## v3.1.0 — 2026-11-09
+
+### MINOR — Optional Flexible Data Workspace profile
+
+- Introduce vendored `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` for evidence-based, owner-chosen, per-resource advanced tabular UX (header sorting, filters, columns, views and opt-in extensions).
+- Separate privileged `fields.manage` custom field definitions from normal record editing, preserve server-side role/tenant/field enforcement and typed financial data.
+- Link Plan, Design, UX, CRUD, Check, agents and reuse guidance; keep mandatory CRUD and eligible data-exchange contracts independent.
+- Public catalog entry remains `SPECIFICATION_ONLY`; no module installation, InmotionTitan implementation, private receipt, UAT, infrastructure or downstream upgrade is implied.
+
 ## v3.0.2 — 2026-11-07
 
 ### PATCH — Provenance-aware Upgrade and authoritative vendor Force

@@ -215,6 +215,53 @@
         "owner": "PHDK methodology",
         "policy": "Promote only through PHDK_REUSE_CATALOG_STANDARD.md contribution and portability gates."
       }
+    },
+    {
+      "id": "starter.flexible-data-workspace",
+      "title": "Optional Flexible Data Workspace",
+      "status": "SPECIFICATION_ONLY",
+      "specification": "PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md",
+      "capabilities": [
+        "Optional per-resource sortable paginated tabular workspace",
+        "Combinable typed filters, configurable columns and saved views",
+        "Separately enabled inline entry, recovery, data exchange and role-governed custom fields"
+      ],
+      "implementation": null,
+      "downloadable": false,
+      "dependencies": [],
+      "compatibility": {
+        "runtimes": [],
+        "frameworks": [],
+        "contracts": [
+          "PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md",
+          "CRUD_STANDARD.md",
+          "TABULAR_DATA_EXCHANGE_STANDARD.md",
+          "PHDK_DESIGN.md"
+        ]
+      },
+      "security": {
+        "status": "SPECIFICATION_ONLY",
+        "evidence": []
+      },
+      "license": {
+        "status": "NOT_APPLICABLE",
+        "identifier": null,
+        "evidence": [],
+        "rights": null
+      },
+      "evidence": {
+        "tests_present": false,
+        "test_status": "NOT_RUN",
+        "portability_consumers": [],
+        "notes": [
+          "A standard, not a released module. No InmotionTitan implementation, private-source receipt, two-consumer portability or observed speedup is claimed."
+        ],
+        "test_runs": []
+      },
+      "maintenance": {
+        "owner": "PHDK methodology",
+        "policy": "Keep source implementations in separately versioned packages under documented security, license, testing, and two-consumer portability gates."
+      }
     }
   ]
 }
