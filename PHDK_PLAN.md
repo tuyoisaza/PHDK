@@ -1,5 +1,10 @@
 # PHDK Plan Standard
 
+## Optional tabular workspace proposal (v3.1.0)
+
+When actual user journeys warrant richer multi-record operations, consult `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md`. Recommend the opt-in profile **per resource** in the existing consolidated setup decisions, specifying relevant capabilities, roles, cost, REUSE/ADAPT/BUILD and baseline CRUD alternative. Record the owner's accept/subset/decline choice and selected capabilities in existing UX/resource matrices. Public catalog `starter.flexible-data-workspace` is `SPECIFICATION_ONLY`, not code that can be downloaded. Without explicit owner opt-in (including Auto Force), do not add optional grid features; preserve baseline CRUD and mandatory data exchange.
+
+
 ## Optional private modules library (v2.90.0)
 
 During reuse assessment, consult the sanitized public `PHDK_REUSE_CATALOG.json` as before. If a private module could fit and the current task has real scoped access, consult [PHDK_MODULE_LIBRARY_STANDARD.md](PHDK_MODULE_LIBRARY_STANDARD.md) and its private catalog as **separate** evidence. A private snapshot is not automatically accepted or installable; choose REUSE only for an accepted, compatible, actually accessible version. No private repo access, code copying, remote creation or project upgrade follows from Plan alone.

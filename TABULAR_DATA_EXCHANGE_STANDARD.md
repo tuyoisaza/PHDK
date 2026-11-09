@@ -1,5 +1,8 @@
 # Templates, imports and exports for tabular resources
 
+**Workspace contract (v3.1.0):** `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` may implement an optional advanced table interface for applicable imports/templates/exports, but selecting or declining this UI profile never weakens this standard's independent business data-exchange requirements. Saved views and hidden grid columns never expand export permissions; document whether authorized export scope follows filters or selection.
+
+
 For each first-party managed collection of business records, evaluate **Download template**, **Import** and **Export data** alongside CRUD for every applicable role and surface in `CRUD_MATRIX.md`. Examples include inventory, contacts, orders and service requests. Record the approved formats, permissions, fields, business key, limits, duplicate policy, batch behavior and evidence for each operation. Separate exceptions apply to read-only reports, derived dashboards, singleton settings, security credentials, immutable ledgers and API-only surfaces. Record the reason for each unavailable operation. A user's ability to read a row never implicitly grants bulk export or import.
 
 ## Product behavior

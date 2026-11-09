@@ -1,5 +1,10 @@
 # PHDK Reusable Capability Catalog Standard
 
+## Data Workspace specification-only module candidate (v3.1.0)
+
+The optional owner-chosen `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` is catalogued as `starter.flexible-data-workspace` with `SPECIFICATION_ONLY` status, `implementation: null` and `downloadable: false`. An InmotionTitan implementation, if built, is a donor candidate—not accepted reusable code. Future source movement or private library receipt requires separate authorization, generalization, license/security evidence, independently versioned packaging and ultimately portability evidence in two independent consumers. Do not use a catalog suggestion as an instruction to install an unavailable module.
+
+
 ## Post-UAT candidate evidence is not catalog acceptance (v2.91.0)
 
 An explicitly accepted UAT may lead to one read-only `PHDK_POST_UAT_EXPORT_STANDARD.md` review. Product acceptance supports donor-level evidence only; it does not establish independent second-consumer portability, package release quality, redistribution rights or `ACCEPTED_VERSIONED`. The existing catalog states and evidence requirements remain binding. No donor source/private coordinates are automatically published to this public catalog.

@@ -1,5 +1,10 @@
 # PHDK Private Modules Library Standard
 
+## Data Workspace donor boundary (v3.1.0)
+
+`PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` may guide a future InmotionTitan donor module but does not authorize exporting any source, project-specific metadata or customer information. A completed implementation must still satisfy the existing private-library approval, sanitization, rights/security, versioning and provenance workflow before independent adoption. The public specification-only catalog entry does not establish a downloadable module.
+
+
 ## Post-UAT proposal is not private receipt (v2.91.0)
 
 `PHDK_POST_UAT_EXPORT_STANDARD.md` may present read-only candidate recommendations after explicit accepted UAT, but **never invokes** private `propose/receive/verify`, updates `MODULES_CATALOG.json`, opens a private PR, or authorizes code distribution. Receipt still requires named owner selection, rights/license/security/target access and an independent versioned private contribution. Existing consumers never auto-upgrade.

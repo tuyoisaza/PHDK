@@ -1,3 +1,7 @@
+## Optional Workspace scope and integrity (v3.1.0)
+
+When a resource is owner-enabled under `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md`, check the *selected* advanced grid behaviors and backend field/record/tenant/role protections, metadata lifecycle, query limits, accessibility source evidence and documented exceptions. Disabled, declined or inapplicable advanced features are NOT GAPS. Mandatory CRUD and eligible import/export checks remain independent; catalog `SPECIFICATION_ONLY` is not evidence of a released module. Only explicitly initiated UAT verifies runtime behavior.
+
 **Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.
 
 ## Tenant-risk assessment and isolation compliance gate
