@@ -10,6 +10,10 @@ Apply `PHDK_TENANT_RISK_STANDARD.md` to actual/proposed multi-tenant projects. C
 
 # PHDK Check Standard
 
+## Node.js 26 LTS policy conformity (v3.2.0)
+
+For a new Node-based product, compare actual `engines`, version files, locks, builders/images and hosted configuration with patched **Node.js 26.x Active LTS** declared in `technical_stack.md`. An older Node 24/22 new-project exception needs compatibility evidence, supported EOL and an ADR. For an existing product, inspect the Node 26 migration recommendation, impact/rollback plan and current security patch; a patched supported older major with a documented plan is not automatically a GAP. Node 20/EOL is a security finding, while unauthorised major changes are DECISION REQUIRED rather than a Check Fix. Actual deployed patch/major without observation is UNVERIFIED. Bare Check remains read-only, and only separately authorized UAT validates behavior.
+
 ## Portfolio-first consistency (v2.74.0)
 
 When relevant, inspect the project's adopted `TECHNICAL_STACK.md` baseline and ADRs, Plan's REUSE/ADAPT/BUILD reasoning, and `PHDK_REUSE_CATALOG_STANDARD.md`. Flag unjustified duplication, unsupported implementation/reuse claims, and undocumented material stack drift proportionately. Do not block delivery on a separate catalog contribution, imply that specification-only starters are usable, upgrade consumers, run local behavioral tests or administer a host. Local lint, static analysis, typechecks and safe builds remain permitted under `PHDK_PRODUCTION_VERIFICATION.md`.

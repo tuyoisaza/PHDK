@@ -1,3 +1,7 @@
+## Node.js 26 LTS policy coherence (v3.2.0)
+
+Check that `technical_stack.md` (vendored as `TECHNICAL_STACK.md`), Secure, Plan, Auto, Check, README, Evolution and AGENTS/SKILL/native managed instructions agree: patched **Node.js 26.x Active LTS** for new products; documented still-supported Node 24/22 exceptions only; Node 26 migration recommendation but no unauthorized major change for existing products. Retain same-major patch authority and prioritize EOL Node 20; do not auto-run UAT or provider operations. The source-only `tests/test_phdk_node26_policy.py` validates markers and manifest routing but cannot prove deployed/runtime compatibility or downstream adoption.
+
 ## Optional Flexible Data Workspace release coherence (v3.1.0)
 
 Ensure `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` is manifest-vendored once and referenced coherently by CRUD, Plan, Design, UX, Check, public reuse/private-module standards, README and managed agent/skill/native routing. The `starter.flexible-data-workspace` public catalog entry must remain `SPECIFICATION_ONLY` with no implementation or downloadability. Run `tests/test_phdk_optional_data_workspace.py` and existing catalog/coherence checks when permitted, or truthfully report NOT RUN. No downstream update, InmotionTitan donor transfer, automatic UAT, provider action or background worker follows from a standards release.
