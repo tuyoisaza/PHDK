@@ -1,3 +1,7 @@
+## Node.js 26 LTS policy (v3.2.0)
+
+For new Node products, use patched **Node.js 26.x Active LTS** per `technical_stack.md` and `PHDK_SECURE.md`; only a proven incompatibility permits supported Node 24/22 Maintenance LTS with ADR. For existing products, recommend a scoped Node 26 migration with dependency/native/host and rollback review; do not silently change Node major in Upgrade/Preflight/Check/Auto/Force. Maintain permitted same-major security patches and classify Node 20/EOL as prioritized migration debt. Preserve owner authority, external-provider boundaries and explicit-only UAT.
+
 ## Optional Data Workspace route (v3.1.0)
 
 For a real tabular workflow, consult `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` only when relevant and recommend its per-resource advanced-grid features within existing Plan/Design decisions. The optional profile is not a universal CRUD requirement or installable shared module. Actual owner selection scopes implementation; Auto Force cannot fabricate opt-in. Privileged custom-field metadata requires server-enforced `fields.manage`, row/tenant/field access and business validation. Preserve independent CRUD/exchange and explicit-only UAT.

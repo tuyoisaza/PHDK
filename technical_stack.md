@@ -28,11 +28,19 @@ Every agent must treat this file as the source of truth for technology choices. 
 Package manager:    pnpm
 Build system:       Turborepo
 Language:           TypeScript (strict mode)
-Node runtime:       Supported, security-patched LTS (see PHDK_SECURE.md)
+Node runtime:       Node.js 26.x Active LTS (patched; exceptions by ADR)
 Formatter:          Prettier
 ```
 
-Runtime selection and review follow [PHDK_SECURE.md](PHDK_SECURE.md#stack-security-review): prefer compatible Active LTS for new projects, with a documented supported Maintenance LTS fallback; patch an existing supported major before recommending a major migration. Reconcile runtime/package-manager declarations, lockfiles, build/image pins and observed deployment versions. A range or build log is not proof of the running patch.
+### Official Node.js 26 LTS selection and migration policy (v3.2.0)
+
+- **New Node projects:** default to the current security-patched **Node.js 26.x Active LTS (Lithium)**. Node 26 entered LTS on 2026-10-28; its scheduled EOL is 2029-04-30. Confirm the [official release schedule](https://github.com/nodejs/Release) and patched versions at selection time. Do not silently switch to another major in a future cycle without reviewing PHDK's named baseline.
+- **Exception:** if a framework, package manager, native addon, database driver, build tool or hosting platform demonstrably cannot support Node 26, use supported patched Node 24.x Maintenance LTS, or Node 22.x only while supported and compatible. Record reproducible incompatibility evidence, an architectural decision (ADR), the support deadline, risk and next Node 26 migration checkpoint; never default to Alpha, Current or EOL.
+- **Existing projects:** recommend a scoped Node 26 migration in Plan, Preflight, Upgrade's Stack Security Review and Secure, but do not modify their Node major without explicit owner authority and compatibility/rollback planning. Keep a supported older major on its latest compatible same-major security patch while the migration is planned. Node 20 and other EOL lines require prioritized migration to a supported line and explicit risk reporting.
+- **Source/build/deploy alignment:** where applicable and authorized, align root/workspace `package.json` `engines.node`, `.node-version`/`.nvmrc`/`.tool-versions`, pinned `packageManager` and lockfiles, CI/build images, Docker/base image, and existing hosting build and runtime declarations. Select the latest supported exact 26.x patch/image at review time; PHDK does not freeze an obsolete patch. Distinguish declared range, resolved packages, build runtime, deployed runtime major/patch, deployment SHA and observation time.
+- **Migration compatibility and verification:** assess ESM/CJS and removed APIs, framework/plugin engine support, native module ABI, TLS/crypto, package managers, drivers, images and Linux `libatomic` requirements of official Node 26 binaries when applicable. Run permitted source review, lint, typecheck, safe compilation and static checks; do not claim application behavior from these. Verify deployed Node and rollback evidence separately; explicit owner-invoked UAT remains required for behavioral acceptance. Do not use this baseline to provision providers, alter live infrastructure or update other repositories.
+
+[Secure and Stack Security Review](PHDK_SECURE.md#stack-security-review) governs implementation and review boundaries. A supported-LTS fallback is a documented exception, not authorization to use unsupported runtimes.
 
 Structure:
 

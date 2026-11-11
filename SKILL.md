@@ -15,6 +15,10 @@ description: >-
   local runtime tests, Docker, new environments or external infrastructure administration.
 ---
 
+## Node.js 26 LTS policy (v3.2.0)
+
+New Node products default to patched **Node.js 26.x Active LTS** (see `technical_stack.md` / `PHDK_SECURE.md`). Older supported Node 24/22 needs documented incompatibility, ADR and migration revisit date. Existing projects receive a Node 26 migration recommendation and compatibility/rollback plan without an automatic major upgrade; continue supported same-major security patches, flag Node 20/EOL, and retain scope, explicit UAT and provider authority boundaries.
+
 ## Optional Data Workspace route (v3.1.0)
 
 For suitable tabular UX, offer `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md` as an **opt-in per-resource** capability within current Plan/Design decisions. No silent enablement by Auto Force. Permission-governed custom fields and advanced grid functions do not replace baseline CRUD, eligible imports/exports or server authorization. Catalog `SPECIFICATION_ONLY` is not an installable module, nor authorization for donor export, provider actions or UAT.

@@ -1,3 +1,11 @@
+## v3.2.0 — 2026-11-10
+
+### MINOR — Node.js 26 LTS default and safe migration recommendations
+
+- Set **Node.js 26.x Active LTS (Lithium)** as the named default for new Node projects (entered LTS 2026-10-28; scheduled EOL 2029-04-30). Always select a currently security-patched 26.x release at implementation time.
+- Recommend and scope Node 26 migration for existing products without silently changing their major. Continue allowed same-major security patches; prioritize Node 20/EOL. Proven Node 26 incompatibility allows a documented supported Node 24/22 fallback with ADR, support date and revisit checkpoint.
+- Reconcile technical stack, Secure, Plan, Auto, Check, coherence, README and managed agent entrypoints; add source-only regression coverage. A PHDK standards release does not modify downstream projects, provider settings, UAT scope or background workflows.
+
 ## v3.1.0 — 2026-11-09
 
 ### MINOR — Optional Flexible Data Workspace profile
