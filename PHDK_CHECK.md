@@ -1,3 +1,7 @@
+## Delivery stop-loss audit (v3.3.0)
+
+Auto/Force must honor `PHDK_DELIVERY_STOP_LOSS_STANDARD.md`: only observed merged PR/remote target SHA/version proves a PUBLISHED milestone; changed files, documents, static PASS, branch push or open PR are not delivery. Audit active WIP, product/PHDK pending-file counts, carried delivery_watch and concrete blockers. No optional UAT or final portfolio Check as a per-milestone publication gate. At STOP_LOSS report a preserved precise blocked/partial state rather than start an audit loop; keep required safety gates.
+
 ## Optional Workspace scope and integrity (v3.1.0)
 
 When a resource is owner-enabled under `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md`, check the *selected* advanced grid behaviors and backend field/record/tenant/role protections, metadata lifecycle, query limits, accessibility source evidence and documented exceptions. Disabled, declined or inapplicable advanced features are NOT GAPS. Mandatory CRUD and eligible import/export checks remain independent; catalog `SPECIFICATION_ONLY` is not evidence of a released module. Only explicitly initiated UAT verifies runtime behavior.

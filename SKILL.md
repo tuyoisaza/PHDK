@@ -15,6 +15,10 @@ description: >-
   local runtime tests, Docker, new environments or external infrastructure administration.
 ---
 
+## Delivery stop-loss (v3.3.0)
+
+Auto/Force apply `PHDK_DELIVERY_STOP_LOSS_STANDARD.md` before new slices, after findings and at handoff. WIP one coherent value milestone; deliver safely via PR/merge and verified remote target before broadening. Persist delivery_watch across sessions and honor the advisor's FOCUS_DELIVERY, RECOVER_DELIVERY and DELIVERY_STOP_LOSS. Activity and open PRs are not delivered value; real safety, owner and UAT opt-in controls remain.
+
 ## Node.js 26 LTS policy (v3.2.0)
 
 New Node products default to patched **Node.js 26.x Active LTS** (see `technical_stack.md` / `PHDK_SECURE.md`). Older supported Node 24/22 needs documented incompatibility, ADR and migration revisit date. Existing projects receive a Node 26 migration recommendation and compatibility/rollback plan without an automatic major upgrade; continue supported same-major security patches, flag Node 20/EOL, and retain scope, explicit UAT and provider authority boundaries.
