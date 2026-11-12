@@ -2,10 +2,10 @@
 repository: tuyoisaza/ODC
 repository_url: https://github.com/tuyoisaza/ODC
 default_branch: main
-observed_repository_sha: 54bcaf55235f8eafcab8499459ae93548d748dc7
-observed_at_utc: 2026-11-12T16:29:49Z
-phdk_version: 3.2.0
-phdk_canonical_version: 3.2.0
+observed_repository_sha: 71dbe5f991916abc0de227ff57df99f8e4429da0
+observed_at_utc: 2026-11-12T23:17:53Z
+phdk_version: 3.3.0
+phdk_canonical_version: 3.3.0
 phdk_status: CURRENT
 tech_stack:
   runtimes:
@@ -17,16 +17,16 @@ tech_stack:
   package_managers:
     - name: pip requirements
       declared: "Pillow==13.0.0 (requirements.txt)"
-      resolved: UNVERIFIED
+      resolved: "NOT INSTALLED on assistant workstation; project resolution UNVERIFIED"
   data_engines: []
   images:
     - name: Pillow
       declared: 13.0.0
-      resolved: UNVERIFIED
+      resolved: "NOT INSTALLED on assistant workstation; project resolution UNVERIFIED"
 stack_review:
-  status: PARTIAL_UNVERIFIED
-  reviewed_at_utc: 2026-11-12T16:29:49Z
-  evidence: "ODC Stack Security Review, run 20261112-1018-odc-upgrade-force"
+  status: PARTIAL
+  reviewed_at_utc: 2026-11-12T23:17:53Z
+  evidence: "ODC Stack Security Review, run 20261112-1644-odc-upgrade-force-330; declared Python/Pillow and official advisories reviewed; full package scan not available"
   findings:
     critical: 0
     high: 0
@@ -37,6 +37,6 @@ central_status_source: PHDK
 
 ## Notes
 
-- ODC main at `54bcaf55235f8eafcab8499459ae93548d748dc7` declares Python 3.14.10 and Pillow 13.0.0. These source declarations do not establish installed or deployed versions.
-- The assistant workstation resolved Python 3.14.7; this is local evidence only and was not upgraded. Pillow was not installed on that host. No project generator was run.
-- Compatible security maintenance was applied based on the official Python 3.14.10 and Pillow 13.0.0 releases. Installed dependency and deployment coverage remain unverified.
+- ODC main is verified at 71dbe5f991916abc0de227ff57df99f8e4429da0, VERSION 0.1.6, PHDK 3.3.0. Canonical PHDK main was independently observed at a214ffd39c6bc6bb5695cb80df149ff49e39c11f, version 3.3.0.
+- The ODC repository is a documentation bundle with Python graphic-generation scripts. It does not declare a deployed application runtime. Assistant workstation Python 3.14.7 was observed; Pillow is not installed on that workstation. Project dependency resolution and deployment remain unverified.
+- Official Python 3.14.10 and Pillow 13.0.0 release/advisory sources were reviewed. Automated package audit tools were not available in the bounded search, so PARTIAL reflects incomplete advisory coverage; zero counts mean no findings confirmed in the scoped review, not a complete scan result.
