@@ -1,3 +1,12 @@
+## v3.3.0 — 2026-11-12
+
+### MINOR — Delivery stop-loss and WIP-one milestone integration
+
+- New manifest-owned `PHDK_DELIVERY_STOP_LOSS_STANDARD.md`: prioritize one coherent dependency-ready value milestone with verified PR/merge/remote-main evidence before opening other fronts; reconcile contradictory whole-goal versus milestone integration instructions.
+- Add additive schema-v1 `AUTO_STATE.json.delivery_watch` and read-only Auto gate dispositions FOCUS_DELIVERY (45 active minutes), RECOVER_DELIVERY (75), DELIVERY_STOP_LOSS (120), plus large-diff, active-WIP, stalled-retry and observed-allowance triggers.
+- Carry foreground execution minutes across sessions; preserve stranded product code and exact blocker/recovery action rather than endlessly running reviews. Label unavailable allowance UNKNOWN; never count changed files, open PRs or documents as delivered.
+- Add synthetic regression cases and reconcile Plan/PMO/Auto/Continuity/Lifecycle/Check/Delivery/Communication/agent and skill rules/manifest/README. Preserve actual security, owner, hooks, spending/provider boundaries and explicit-only UAT. No background or automatic downstream update.
+
 ## v3.2.0 — 2026-11-10
 
 ### MINOR — Node.js 26 LTS default and safe migration recommendations

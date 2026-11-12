@@ -31,6 +31,10 @@ def state():
                           "scope": ["Implementation and normal delivery"], "restrictions": [], "status": "active"},
         "completion_criteria": ["Requested content and version verified on remote main"],
         "steps": [step()], "blockers": [],
+        "delivery_watch": {"window_started_at": datetime.now(timezone.utc).isoformat(),
+                           "active_minutes_before_session": 0, "active_milestones": ["MS-001"],
+                           "product_files_pending": 0, "standards_files_pending": 0,
+                           "nonprogress_cycles": 0, "observed_source": "actual git/PR snapshot"},
     }
 
 
@@ -310,6 +314,53 @@ class AutoContinuityTests(unittest.TestCase):
             self.assertEqual(path.read_text(encoding="utf-8"), original)
             self.assertEqual({p.name for p in Path(temp).iterdir()}, {"AUTO_STATE.json"})
 
+
+    def test_delivery_stop_loss_time_ladder(self):
+        from datetime import timedelta
+        data = state()
+        start = datetime(2026, 11, 12, 12, tzinfo=timezone.utc)
+        data["session"]["started_at"] = start.isoformat()
+        data["delivery_watch"]["window_started_at"] = start.isoformat()
+        for mins, expected in ((10, "CONTINUE"), (46, "FOCUS_DELIVERY"),
+                               (80, "RECOVER_DELIVERY"), (121, "DELIVERY_STOP_LOSS")):
+            with self.subTest(minutes=mins):
+                self.assertEqual(GATE.evaluate(data, "auto_force",
+                                 start + timedelta(minutes=mins))["disposition"], expected)
+
+    def test_delivery_watch_wip_and_large_diff(self):
+        data = state()
+        data["delivery_watch"]["product_files_pending"] = 401
+        data["delivery_watch"]["standards_files_pending"] = 115
+        result = GATE.evaluate(data, "auto_force")
+        self.assertEqual(result["disposition"], "FOCUS_DELIVERY")
+        self.assertEqual(result["unintegrated_standards_files"], 115)
+        data["delivery_watch"]["product_files_pending"] = 0
+        data["delivery_watch"]["active_milestones"] = ["MS-001", "MS-002"]
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "FOCUS_DELIVERY")
+        data["delivery_watch"]["wip_override_ref"] = "current owner instruction"
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "CONTINUE")
+
+    def test_delivery_watch_cross_session_and_allowance(self):
+        data = state()
+        data["delivery_watch"]["active_minutes_before_session"] = 100
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "RECOVER_DELIVERY")
+        data["delivery_watch"]["active_minutes_before_session"] = 121
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "DELIVERY_STOP_LOSS")
+        data["delivery_watch"]["active_minutes_before_session"] = 0
+        data["delivery_watch"].update(allowance_pct_since_delivery=50,
+                                      allowance_source="observed host usage")
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "DELIVERY_STOP_LOSS")
+        del data["delivery_watch"]["allowance_source"]
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "REPAIR_STATE")
+
+    def test_delivery_watch_missing_and_owner_stop(self):
+        data = state()
+        del data["delivery_watch"]
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "REPAIR_STATE")
+        data = state()
+        data["delivery_watch"]["active_minutes_before_session"] = 160
+        data["authorization"]["status"] = "paused"
+        self.assertEqual(GATE.evaluate(data, "auto_force")["disposition"], "STOPPED")
 
 if __name__ == "__main__":
     unittest.main()

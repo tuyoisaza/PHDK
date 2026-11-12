@@ -1,3 +1,5 @@
+**Delivery stop-loss (v3.3.0):** Auto and Auto Force work on **one value milestone at a time**, safely integrate it via PR/merge and verify remote main before expanding. The existing read-only advisor reports **FOCUS_DELIVERY** (45 active minutes/large product diff), **RECOVER_DELIVERY** (75 minutes), **DELIVERY_STOP_LOSS** (120 minutes), or sooner from actual host allowance. Carry the delivery window across sessions; stop speculative allowance consumption without a verified merge. No unsafe forced publication, automatic UAT, background agent or downstream update. [Standard](PHDK_DELIVERY_STOP_LOSS_STANDARD.md).
+
 **Remote Git branch preservation (v3.0.1):** PHDK's Git hygiene is local-only: safe local main fast-forward and retirement of verified clean merged local branches/worktrees. `scripts/phdk_git_history_cleanup.py` reads remote PR/ref evidence but never pushes or deletes GitHub branches; `RETAINED_BY_POLICY` is a successful outcome, not an incomplete-cleanup gate. Remote deletion requires a separate explicit owner request naming its target. [Closeout standard](PHDK_GIT_WORKSPACE_CLOSEOUT.md).
 
 **Hybrid Secure (v2.63.0):** During Auto/Force, perform milestone security deltas and a consolidated `PHDK secure` gate after integration and before final Check/delivery, following [PHDK_SECURE.md](PHDK_SECURE.md). Secure is development validation only: it never initiates UAT Prep/UAT/Fix, forbidden local runtime tests, Docker, new infrastructure or paid scans. Remediate authorized vulnerabilities, preserve real security gates, record evidence and residual risk; Critical/High confirmed issues block clearance absent an explicit permitted owner risk decision.
@@ -17,7 +19,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v3.2.0**
+**Version v3.3.0**
 
 **v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 

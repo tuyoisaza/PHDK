@@ -1,3 +1,7 @@
+## Delivery stop-loss (v3.3.0)
+
+On Auto/Force entry and before new work, load `PHDK_DELIVERY_STOP_LOSS_STANDARD.md`. WIP one value milestone by default; integrate its source and permitted checks, open/merge a safe PR and verify remote target before widening. Carry delivery_watch across sessions and honor FOCUS_DELIVERY / RECOVER_DELIVERY / DELIVERY_STOP_LOSS without bypassing real scope/security/owner/hooks. Documents, changed files and open PRs are not delivered milestones. UAT is opt-in, not a source-delivery gate.
+
 ## Node.js 26 LTS policy (v3.2.0)
 
 For new Node products, use patched **Node.js 26.x Active LTS** per `technical_stack.md` and `PHDK_SECURE.md`; only a proven incompatibility permits supported Node 24/22 Maintenance LTS with ADR. For existing products, recommend a scoped Node 26 migration with dependency/native/host and rollback review; do not silently change Node major in Upgrade/Preflight/Check/Auto/Force. Maintain permitted same-major security patches and classify Node 20/EOL as prioritized migration debt. Preserve owner authority, external-provider boundaries and explicit-only UAT.

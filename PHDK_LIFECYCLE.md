@@ -1,3 +1,7 @@
+## Value milestone delivery watchdog (v3.3.0)
+
+Auto/Force/PMO use `PHDK_DELIVERY_STOP_LOSS_STANDARD.md` before each new work slice. A safely completed milestone gets its own verified remote PR/merge before unrelated development; final portfolio Integration Review/Check and optional UAT do not postpone eligible prior milestone publication. Carried delivery_watch emits FOCUS_DELIVERY, RECOVER_DELIVERY or DELIVERY_STOP_LOSS without relaxing real security, owner, hook or UAT limits.
+
 ## PHDK help is orientation, not a lifecycle stage (v2.92.0)
 
 `PHDK help` and `PHDK help <command>` only describe local installation, command catalog, documented product goal and suggested next invocation under `PHDK_HELP.md`. Help's read-only Preflight subset never creates a lifecycle run/handoff, auto-syncs, triggers UAT, implements features or changes stage. Suggestions need a separate explicit execution command.
