@@ -41,6 +41,16 @@ def string_list(value, required=False):
     )
 
 
+def aware_time(value):
+    if not nonempty(value):
+        return None
+    try:
+        stamp = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except (TypeError, ValueError, OverflowError):
+        return None
+    return stamp if stamp.tzinfo is not None else None
+
+
 def result(disposition, actions=None, **details):
     return {
         "disposition": disposition,
@@ -67,6 +77,29 @@ def validate(state, mode):
         errors.append("completion_criteria must be a nonempty string list")
     if "unresolved_commitments" in state and not string_list(state["unresolved_commitments"]):
         errors.append("unresolved_commitments must be a string list")
+    watch = state.get("delivery_watch")
+    if not isinstance(watch, dict):
+        errors.append("delivery_watch missing; reconstruct factual delivery evidence")
+    else:
+        if aware_time(watch.get("window_started_at")) is None:
+            errors.append("delivery_watch requires timezone-aware window_started_at")
+        if not string_list(watch.get("active_milestones")):
+            errors.append("delivery_watch active_milestones must be a string list")
+        for name in ("active_minutes_before_session", "product_files_pending",
+                     "standards_files_pending", "nonprogress_cycles"):
+            number = watch.get(name)
+            if type(number) is not int or number < 0:
+                errors.append(f"delivery_watch {name} must be nonnegative integer")
+        if not nonempty(watch.get("observed_source")):
+            errors.append("delivery_watch needs observed git/PR source reference")
+        if "wip_override_ref" in watch and not nonempty(watch["wip_override_ref"]):
+            errors.append("delivery_watch wip_override_ref must cite owner authorization")
+        if "allowance_pct_since_delivery" in watch:
+            pct = watch["allowance_pct_since_delivery"]
+            if type(pct) not in (int, float) or not 0 <= pct <= 100:
+                errors.append("delivery_watch allowance percentage must be 0..100")
+            if not nonempty(watch.get("allowance_source")):
+                errors.append("delivery_watch allowance source must cite host telemetry")
     grant = state.get("authorization")
     if not isinstance(grant, dict):
         errors.append("authorization must record the actual user mandate")
@@ -204,6 +237,53 @@ def session_boundary(state, now=None):
     return None
 
 
+def delivery_pressure(state, now=None):
+    """Read-only delivery stop-loss; carry foreground time across sessions."""
+    watch = state["delivery_watch"]
+    current = now if now is not None else datetime.now(timezone.utc)
+    start = max(aware_time(state["session"]["started_at"]),
+                aware_time(watch["window_started_at"]))
+    duration = (current - start).total_seconds() / 60
+    if duration < -1:
+        return result("REPAIR_STATE",
+                      ["Reconcile the inconsistent delivery and session clock evidence."])
+    minutes = watch["active_minutes_before_session"] + max(0, int(duration))
+    allowance = watch.get("allowance_pct_since_delivery")
+    wip = len(watch["active_milestones"])
+    facts = {
+        "active_minutes_without_merge": minutes,
+        "unintegrated_product_files": watch["product_files_pending"],
+        "unintegrated_standards_files": watch["standards_files_pending"],
+        "active_milestones": watch["active_milestones"],
+        "allowance_pct_since_delivery": allowance if allowance is not None else "UNKNOWN",
+        "scope_frozen": True,
+    }
+    if minutes >= 120 or watch["nonprogress_cycles"] >= 6 or (
+        allowance is not None and allowance >= 50
+    ):
+        return result("DELIVERY_STOP_LOSS", [
+            "No new features or repeat diagnostics. Publish an already safe increment if "
+            "possible; otherwise preserve branch and evidence, report exact blocker and "
+            "recovery action, then end this invocation without claiming completion."
+        ], **facts)
+    if minutes >= 75 or watch["nonprogress_cycles"] >= 4 or (
+        allowance is not None and allowance >= 35
+    ):
+        return result("RECOVER_DELIVERY", [
+            "Freeze new scope and unrelated PHDK upgrades. Safely integrate and deliver "
+            "the smallest coherent existing milestone with required checks, PR/merge and "
+            "verified target readback. Do not bypass real gates or run UAT."
+        ], **facts)
+    if minutes >= 45 or watch["product_files_pending"] >= 100 or (
+        wip > 1 and not nonempty(watch.get("wip_override_ref"))
+    ) or (allowance is not None and allowance >= 20):
+        return result("FOCUS_DELIVERY", [
+            "Stop opening fronts. Finish the active value milestone and perform its "
+            "safe required check, branch, PR and remote-target verification sequence."
+        ], **facts)
+    return None
+
+
 def evaluate(state, mode, now=None):
     # A documented stop remains visible even while unrelated state needs repair.
     grant = state.get("authorization") if isinstance(state, dict) else None
@@ -279,6 +359,9 @@ def evaluate(state, mode, now=None):
             ],
             **notes,
         )
+    pressure = delivery_pressure(state, now)
+    if pressure is not None:
+        return pressure
     waiting, ready, repairs = [], [], []
     verification = {
         item["id"]
