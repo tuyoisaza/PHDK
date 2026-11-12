@@ -1,5 +1,9 @@
 # PHDK PMO Standard
 
+## Delivery-first WIP control (v3.3.0)
+
+Apply `PHDK_DELIVERY_STOP_LOSS_STANDARD.md`: one dependency-ready value milestone active by default, with disjoint workers only inside it. Reuse current git/PR target evidence in carried delivery_watch. Publish each coherent, permitted-check-verified milestone PR/merge and read back target before opening the next. At FOCUS stop new fronts, at RECOVER integrate existing work, at STOP_LOSS publish only if safe or provide a precise preserved-state handoff. No new approval ceremony, unsafe merge or mandatory UAT.
+
 ## Versioned project documents in PMO (v2.73.0)
 
 Use [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) and the active `docs/INDEX.md` baselines (or verified legacy root files) to assign workstreams. Record the exact intent/brief/plan/ADR versions each workstream consumes. A material design, scope or architecture decision creates/updates its governed versioned document and refreshes the index within the authorized milestone, without copying PMO's live coordination files into `docs/` or spinning off approval ceremonies. Reconcile worker outputs against the active baseline at integration.

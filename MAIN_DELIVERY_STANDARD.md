@@ -1,5 +1,9 @@
 # Main Delivery Standard
 
+## Milestone delivery cadence (v3.3.0)
+
+`PHDK_DELIVERY_STOP_LOSS_STANDARD.md` requires safe PR/merge/target readback of each completed coherent value milestone before opening unrelated work. FOCUS_DELIVERY/RECOVER_DELIVERY freeze scope, not required security/hook checks. DELIVERY_STOP_LOSS ends speculative implementation: publish only an already-safe increment or hand off exact preserved branch, blocker and next recovery action. Never fake tiny milestones or count an open PR as remote integration.
+
 ## Project-document delivery consistency (v2.73.0)
 
 Before declaring an authorized value milestone delivered, apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) to any newly created/materially revised project documents: stable category/name, honest front matter, current generated `docs/INDEX.md`, root `TASK.md` references and decision/plan/evidence links. Run permitted read-only `phdk-standards/scripts/phdk_docs_audit.py --root . --check` on the candidate when available; for changed documents pass the `--changed` paths and resolve material gaps within scope before commit/PR. Do not rewrite untouched brownfield documents, create a second task tracker, claim Check alone proves code/acceptance, or use a post-merge index-only commit. Existing main/PR/deploy evidence gates remain authoritative.

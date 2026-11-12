@@ -1,5 +1,9 @@
 # PHDK Plan Standard
 
+## Deliverable-first milestones (v3.3.0)
+
+Apply `PHDK_DELIVERY_STOP_LOSS_STANDARD.md` in existing `MILESTONE_PLAN.md`: ID, concrete capability/enabling base, dependency order, included/excluded scope, critical controls, permitted technical evidence, source target, and actual PR/remote SHA closure criterion. WIP one. Avoid giant domain buckets and unsafe artificial splitting of auth/schema/migrations. The execution plan must produce incremental verifiable deliveries, not only workstream activity.
+
 ## Optional tabular workspace proposal (v3.1.0)
 
 When actual user journeys warrant richer multi-record operations, consult `PHDK_FLEXIBLE_DATA_WORKSPACE_STANDARD.md`. Recommend the opt-in profile **per resource** in the existing consolidated setup decisions, specifying relevant capabilities, roles, cost, REUSE/ADAPT/BUILD and baseline CRUD alternative. Record the owner's accept/subset/decline choice and selected capabilities in existing UX/resource matrices. Public catalog `starter.flexible-data-workspace` is `SPECIFICATION_ONLY`, not code that can be downloaded. Without explicit owner opt-in (including Auto Force), do not add optional grid features; preserve baseline CRUD and mandatory data exchange.

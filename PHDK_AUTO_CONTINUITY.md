@@ -1,5 +1,9 @@
 # Auto continuity and Auto Force
 
+## Delivery stop-loss across sessions (v3.3.0)
+
+Apply `PHDK_DELIVERY_STOP_LOSS_STANDARD.md` before new Auto/Force work and at handoff. Maintain `delivery_watch` within existing schema-v1 AUTO_STATE with real git/PR source, active milestones, product/PHDK file counts and cumulative foreground minutes without verified merge. The read-only advisor returns `FOCUS_DELIVERY`, `RECOVER_DELIVERY` or `DELIVERY_STOP_LOSS`: focus on completion, safely integrate existing code or end speculative allowance consumption with an exact preserved-code/branch/blocker handoff. New conversations, PHDK upgrades, commits and draft PRs do not reset the window. Missing fields are internal REPAIR_STATE; provider allowance is UNKNOWN unless observed.
+
 ## Post-UAT Export Modules continuity (v2.91.0)
 
 Keep only material reusable observations in Auto's existing retrospective and preserve source revision in the normal delivery handoff. Do not scan modules or launch UAT on a session boundary. When the owner later explicitly starts UAT, its accepted revision controls a separate read-only post-UAT review under `PHDK_POST_UAT_EXPORT_STANDARD.md`; the stable review key prevents duplicate proposals. A historical state file never authorizes UAT, code publication, or resuming an export task.
@@ -148,6 +152,10 @@ Use one factual JSON record, not multiple competing authorization ledgers. Keep 
   "target_branch": "main",
   "goal": "The currently requested outcome",
   "candidate_ref": "Observed branch SHA or dated working-copy checkpoint",
+  "delivery_watch": {"window_started_at": "2026-10-17T09:00:00Z",
+    "active_minutes_before_session": 0, "active_milestones": ["MS-001"],
+    "product_files_pending": 0, "standards_files_pending": 0,
+    "nonprogress_cycles": 0, "observed_source": "actual git/PR snapshot"},
   "authorization": {
     "source_ref": "Actual current user message or dated quotation reference",
     "instruction": "Actual user instruction, without secrets",
@@ -199,7 +207,7 @@ When permitted and useful, the static-state advisor can inspect the factual reco
 python phdk-standards/scripts/phdk_auto_gate.py --state docs/phdk/lifecycle/<run-id>/AUTO_STATE.json --mode auto_force
 ```
 
-Use `scripts/phdk_auto_gate.py` directly in the PHDK source repository. Supply mode from the current active instruction, never infer authority from a saved mode. The advisor makes no network calls, queries no reviews/protections, runs no external commands and changes no state. Its dispositions include `SESSION_HANDOFF`, `CONTINUE`, `REPAIR_AND_RETRY`, `REPAIR_STATE`, `WAITING_EXTERNAL`, `VERIFY_DELIVERY` and `STOPPED`. For ordinary Auto's Design input, `WAITING_EXTERNAL` carries reason `DESIGN_AWAITING_OWNER`; this means a user answer, not a technical failure. Independent work is returned as executable while the choice remains waiting. FORCE returns the selection action, never a skip-design instruction. Multiple otherwise ready Design choices are presented one at a time.
+Use `scripts/phdk_auto_gate.py` directly in the PHDK source repository. Supply mode from the current active instruction, never infer authority from a saved mode. The advisor makes no network calls, queries no reviews/protections, runs no external commands and changes no state. Its dispositions include `FOCUS_DELIVERY`, `RECOVER_DELIVERY`, `DELIVERY_STOP_LOSS`, `SESSION_HANDOFF`, `CONTINUE`, `REPAIR_AND_RETRY`, `REPAIR_STATE`, `WAITING_EXTERNAL`, `VERIFY_DELIVERY` and `STOPPED`. For ordinary Auto's Design input, `WAITING_EXTERNAL` carries reason `DESIGN_AWAITING_OWNER`; this means a user answer, not a technical failure. Independent work is returned as executable while the choice remains waiting. FORCE returns the selection action, never a skip-design instruction. Multiple otherwise ready Design choices are presented one at a time.
 
 `REPAIR_STATE` means fix bookkeeping internally and continue, not wait for approval. This helper is not a hook, publication prerequisite, permission grant, product runtime test or proof of owner approval. If unavailable or execution is excluded by current controls, apply this contract directly. Do not run behavioral/unit tests of the helper locally contrary to `PHDK_PRODUCTION_VERIFICATION.md`.
 

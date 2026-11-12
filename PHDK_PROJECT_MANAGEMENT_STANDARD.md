@@ -8,6 +8,10 @@ At the end, offer `PHDK uat` as an optional **future explicit command**, without
 
 # PHDK Project Management Standard
 
+## Delivery-window enforcement (v3.3.0)
+
+Plan/PMO/Auto follow `PHDK_DELIVERY_STOP_LOSS_STANDARD.md`: concrete milestone value, in/out scope, dependencies, target and actual permitted-check/PR/merge proof. Default WIP one; publish a safely completed value milestone before portfolio-wide final Integration Review, SEO or later work. At 75 active foreground minutes without merge, recover integration rather than increase breadth; at 120, stop speculative work with a preserved delivery/blocker handoff. All real security, owner, hook, provider and UAT opt-in boundaries remain.
+
 ## Documented milestone baselines (v2.73.0)
 
 Apply [PHDK_DOCUMENTATION_STANDARD.md](PHDK_DOCUMENTATION_STANDARD.md) to new/materially revised milestone and implementation plans. A milestone references exact document IDs/versions, associated ADRs, retained visual baseline (when applicable), root `TASK.md`, and actual source/evidence. At milestone close refresh changed durable documents and `docs/INDEX.md` *before* permitted Check/PR delivery; do not version-bump every slice or silently rewrite old baselines. The document version is not the product release SemVer, deployment revision or UAT result.
