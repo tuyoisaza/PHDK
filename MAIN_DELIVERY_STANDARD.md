@@ -1,3 +1,7 @@
+## v3.4.0 verification budget before publication
+
+When material code risk exists, use `PHDK_TEST_AUTOMATION_STANDARD.md` to run a bounded hermetic local profile instead of repeated manual chat-driven test commands. Retain actual required hooks/security controls and record the single result; neither absent/failed test evidence nor a UAT gap can be misreported PASS. No extra milestone or deferred publication solely to accumulate more test cases; production UAT remains explicit-only.
+
 # Main Delivery Standard
 
 ## Milestone delivery cadence (v3.3.0)

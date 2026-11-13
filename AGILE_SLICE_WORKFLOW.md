@@ -1,3 +1,7 @@
+## v3.4.0 — test budgets without extra slices
+
+`PHDK_TEST_AUTOMATION_STANDARD.md` consolidates existing native static/build and inspected hermetic unit/contract checks into one bounded local report per meaningful slice/milestone; do not create a separate test slice or combinatorial coverage target. Deployed UAT is separate and opt-in.
+
 # AGILE_SLICE_WORKFLOW.md
 
 ## Purpose

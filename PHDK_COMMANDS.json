@@ -110,6 +110,15 @@
     },
     {
       "group": "Calidad",
+      "command": "PHDK test",
+      "aliases": [],
+      "summary": "Ejecuta en una sola pasada pruebas locales de código declaradas y entrega un reporte compacto con logs.",
+      "when": "Necesitas validar código y build sin repetir manualmente pruebas; el UAT sigue separado.",
+      "effect": "LOCAL_VERIFICATION",
+      "standard": "PHDK_TEST_AUTOMATION_STANDARD.md"
+    },
+    {
+      "group": "Calidad",
       "command": "PHDK check",
       "aliases": [],
       "summary": "Audita la conformidad con estándares aplicables y enumera brechas sin repararlas automáticamente.",

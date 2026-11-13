@@ -1,10 +1,14 @@
+## v3.4.0 — One bounded local code-verification pass
+
+Under `PHDK_TEST_AUTOMATION_STANDARD.md`, inspected foreground offline hermetic **unit/contract/in-process tests** may run locally alongside static/build checks. They must not launch servers, real databases, networks, browsers or providers. Older blanket local-unit prohibitions below are superseded. Local code PASS is not deployed runtime or UAT PASS.
+
 # VERIFICATION_LOOP.md
 
 ## Purpose
 
 This file defines code-verification evidence within `EXECUTION_SCOPE.md`, the authoritative boundary for every PHDK agent. `MAIN_DELIVERY_STANDARD.md` defines normal development completion, including verified integration into remote `main` or the user's explicit target.
 
-Verification uses repository review, permitted static checks and safe local builds, plus review of risk-triggered test source. Local runtime tests, including unit/in-process suites with mocks, remain prohibited by `PHDK_PRODUCTION_VERIFICATION.md`; runtime verification requires its separately authorized deployed scope. Static success does not prove application behavior or deployed acceptance.
+Verification uses repository review, permitted static checks and safe local builds, plus review of risk-triggered test source. Local live-application tests remain prohibited; short offline hermetic unit/contract/in-process suites with mocks are permitted by `PHDK_PRODUCTION_VERIFICATION.md`; runtime verification requires its separately authorized deployed scope. Static success does not prove application behavior or deployed acceptance.
 
 ---
 
@@ -63,7 +67,7 @@ targeted static source/security analysis when risk requires it
 source/static review of risk-triggered test coverage
 ```
 
-Do not repeatedly run install + full build after every small edit; local behavioral test suites remain prohibited.
+Do not repeatedly run install + full build after every small edit; local live-application/external behavior tests remain prohibited; code-level hermetic suites are permitted.
 
 ### Before push/release
 
@@ -78,7 +82,7 @@ pnpm build
 <existing composition command> — only after verifying all nested effects are permitted static/build checks
 ```
 
-The command list is illustrative: inspect actual scripts and preserve every applicable mandatory gate. Under `PHDK_PRODUCTION_VERIFICATION.md`, Auto and FORCE do not authorize local runtime suites, including unit, in-process and integration suites or Vitest required by pre-push. Apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before executing an ambiguous build/packaging/hook command, declaring BLOCKED or asking the owner. Classify actual effects and provenance; repair only authorized proven PHDK-managed conflicts and preserve independent owner/external/unknown controls. Never execute prohibited tests, suppress a failed gate, bypass a hook or request a prohibited local-runtime exception. Run permitted checks with finite bounds, report unresolved mandatory gates and continue independent authorized work.
+The command list is illustrative: inspect actual scripts and preserve every applicable mandatory gate. Under `PHDK_PRODUCTION_VERIFICATION.md`, Auto and FORCE authorize short inspected hermetic code-level unit/contract/in-process checks, but never local live-product/runtime suites, including unit, in-process and integration suites or Vitest required by pre-push. Apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before executing an ambiguous build/packaging/hook command, declaring BLOCKED or asking the owner. Classify actual effects and provenance; repair only authorized proven PHDK-managed conflicts and preserve independent owner/external/unknown controls. Never execute prohibited tests, suppress a failed gate, bypass a hook or request a prohibited local-runtime exception. Run permitted checks with finite bounds, report unresolved mandatory gates and continue independent authorized work.
 
 The verification scripts must stay within `EXECUTION_SCOPE.md` and `PHDK_PRODUCTION_VERIFICATION.md`. Use an existing safe static configuration when available; offline or mocked execution does not make runtime tests static. Do not execute a local script that runs application/runtime tests, starts a browser, connects to a database or service, uses provider credentials, or deploys. Resolve an incompatible mandatory step through the hook decision procedure and report any remaining verification gap. The separate permission for bounded provider reads does not authorize network-dependent tests. Do not alter production behavior or add an in-memory production fallback merely to make a check pass.
 
@@ -235,7 +239,7 @@ In Auto, accumulate these requirements across the entire goal and verify them at
 
 - [ ] Source enforces secure auth/session configuration and redacts secrets.
 - [ ] Test sources cover unauthenticated, wrong-role, and authorized decisions when the boundary changes; execution remains within the separately authorized deployed scope.
-- [ ] Test sources identify controlled dependencies and fixtures; mocks or test doubles do not authorize local runtime execution.
+- [ ] Test sources identify controlled dependencies and fixtures; mocks/doubles may be exercised in the hermetic local profile but never against real external services.
 - [ ] Correlation IDs and safe logging paths are reviewed in code.
 
 ### Feature / UI
@@ -312,4 +316,4 @@ Known failures / gaps:
 
 ## Production-first verification override (v2.58.0)
 
-**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED.
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT remains the live acceptance boundary; v3.4.0 separately permits bounded offline hermetic local unit/contract/in-process code tests with inspected commands. Local servers, actual databases, Docker, network/provider/browser/API probes and separate staging are still prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED.

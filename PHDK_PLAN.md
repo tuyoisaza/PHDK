@@ -1,3 +1,7 @@
+## Risk-based test recipe (v3.4.0)
+
+For current and future projects, use `PHDK_TEST_AUTOMATION_STANDARD.md` to select focused tests for material changed behavior. Reuse existing project-native commands via a minimal `tests/phdk-tests.json`, only when applicable. Separate short hermetic local unit/contract/in-process coverage from real API/browser/integration acceptance, which remains explicitly opt-in UAT. No universal framework requirement, route-combination explosion, new test infrastructure or per-milestone ceremony.
+
 # PHDK Plan Standard
 
 ## Deliverable-first milestones (v3.3.0)

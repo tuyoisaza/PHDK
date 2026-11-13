@@ -1,3 +1,7 @@
+## Universal test checkpoints (v3.4.0)
+
+Milestone technical evidence may include a single bounded hermetic local runner result (`PHDK_TEST_AUTOMATION_STANDARD.md`), scoped to changed behavior and existing scripts. The report belongs to the current milestone; do not create another milestone, workstream or release for testing itself. Real API/browser/UAT is separately authorized and reported independently. Never equate source PASS with accepted user value.
+
 ## v2.62.0 — Explicit-only UAT authorization (overrides legacy automatic-stage wording)
 
 **Binding rule:** `PHDK auto` and `PHDK auto force` MUST NOT invoke, enter, provision, seed, or run UAT Prep (45), UAT (50), or UAT Fix (60), even after milestones, deployment, Check, or a failed prior UAT. Neither FORCE nor a generic full-lifecycle instruction grants UAT authorization. These stages are **DEFERRED — OWNER OPT-IN**, not BLOCKED, FAILED, or a completion prerequisite. This rule takes precedence over any older automatic UAT transitions in this file.

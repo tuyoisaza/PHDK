@@ -1,3 +1,7 @@
+## Bounded test execution (v3.4.0)
+
+Use the existing milestone's technical gate to run one bounded hermetic local test profile per `PHDK_TEST_AUTOMATION_STANDARD.md` where configured and necessary; do not add a new workstream or many review loops for automated test cases. Keep concrete failures and untested UAT risks distinct from delivery evidence. Explicit-only UAT remains independent.
+
 # PHDK PMO Standard
 
 ## Delivery-first WIP control (v3.3.0)
@@ -315,7 +319,7 @@ Integration review must:
 4. Verify cross-workstream API/schema/data/navigation contracts.
 5. Resolve ordinary integration conflicts while preserving intended outcomes.
 6. Recheck requirement traceability across the combined candidate.
-7. Run applicable integrated source/static/typecheck/safe-build gates; do not run behavioral tests or acceptance in Auto.
+7. Run applicable integrated source/static/typecheck/safe-build gates and inspected hermetic local unit/contract tests; do not run live product/browser/provider tests or acceptance in Auto.
 8. Produce one coherent integrated candidate.
 9. Finalize project version/changelog according to repository standards.
 10. Record integration evidence in `PMO_STATUS.md`.

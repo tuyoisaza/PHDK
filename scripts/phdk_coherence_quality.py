@@ -354,20 +354,12 @@ def run_quality_checks(root, errors, sources, policy_path,
         re.compile(r"\ba bare `PHDK upgrade` still authorizes only its sync\b", re.I),
         re.compile(r"including `pnpm test` when required", re.I),
     ]
-    # Match known affirmative local-test clauses, not prohibitions or scenarios.
+    # v3.4.0: local hermetic unit/contract/in-process tests are permitted.
+    # Continue to reject directives explicitly bypassing UAT for live product checks.
     legacy_local_runtime_patterns = [
-        re.compile(pattern, re.I)
-        for pattern in [
-            "Auto and FORCE already authorize synchronous isolated suites",
-            "→ local unit/in-process integration tests when risk requires them",
-            "Run risk-triggered unit or in-process integration tests with test doubles",
-            (
-                "Verification uses repository review, static checks, local builds, and "
-                "risk-triggered unit or in-process integration tests"
-            ),
-            "Run the smallest useful local tests",
-            "targeted local unit/in-process integration test when risk requires it",
-        ]
+        re.compile(r"run local browser tests outside (?:explicit )?UAT", re.I),
+        re.compile(r"run live API tests in Auto without UAT authorization", re.I),
+        re.compile(r"run database migrations locally as ordinary code tests", re.I),
     ]
     active_policy_paths = set(root.glob("*.md"))
     active_policy_paths.update(

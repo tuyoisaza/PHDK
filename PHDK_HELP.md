@@ -12,7 +12,7 @@ PHDK means **Project Handoff to Development Kit**. It is an owner-governed opera
 - **`PHDK help <command>`**: resolve a canonical command/alias in `PHDK_COMMANDS.json`, return what it does, when to use it, side-effect category, prerequisites/security boundary and the linked canonical standard. Examples: `PHDK help auto force`, `PHDK help browser on`, `PHDK help uat`. Do **not** execute the requested command.
 - **`PHDK help --all`**: show all commands plus their aliases and more detail if the owner asks; plain `PHDK help` already enumerates every command.
 - Unknown command: say `Comando no encontrado`, suggest the nearest documented name or `PHDK help`; never reinterpret an unrecognized phrase as an execution request.
-- Upper/lowercase variants of `PHDK` and command names are lookup-equivalent. Do not expand missing entries into fictional commands. New command releases update this single inventory, this contract, routing and validation together.
+- Upper/lowercase variants of `PHDK` and command names are lookup-equivalent. Do not expand missing entries into fictional commands. New command releases update this single inventory, this contract, routing and validation together. `PHDK test` loads `PHDK_TEST_AUTOMATION_STANDARD.md` to run the manifest's locally permitted hermetic checks; it never invokes UAT.
 
 For terminal/script consumers the **optional offline helper**, not an installed `phdk` binary, is `python3 phdk-standards/scripts/phdk_help.py --root .` (canonical checkout: `python3 scripts/phdk_help.py --root .`). It supports `--command "auto force"`, `--all` and `--json`; it reads only local documentation. Conversational agents may read the JSON and project artifacts directly to provide a better contextual explanation.
 

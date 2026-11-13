@@ -1,3 +1,7 @@
+## v3.4.0 — Risk-first consolidated code verification
+
+Use `PHDK_TEST_AUTOMATION_STANDARD.md` and the vendored `phdk_test_runner.py`: one inspected project-owned manifest dispatches native static/build plus bounded, offline **hermetic unit/contract/in-process tests**. This supersedes old all-local-unit bans in this document, not local server/DB/network/browser/provider restrictions. Real API/browser acceptance still needs explicit `PHDK uat`; one run gives a concise summary and failure logs, not a 585-combination test mandate.
+
 # TESTING_STANDARD.md
 
 ## Purpose
@@ -6,7 +10,7 @@ PHDK uses automated tests to control concrete regression risks. Tests are not a 
 
 Creating test sources and executing a suite are separate decisions. Existing repository or hook requirements still apply when no new-test risk trigger exists, including for documentation changes, but they never authorize a prohibited operation. Auto and FORCE authorize required permitted synchronous static checks within the current goal; see `PHDK_AUTO_CONTINUITY.md` and apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before executing an ambiguous build/packaging/hook command, declaring BLOCKED or asking the owner.
 
-`EXECUTION_SCOPE.md` and `PHDK_PRODUCTION_VERIFICATION.md` govern verification. Permitted local work consists of source/diff review, formatting, lint, static typechecking, safe builds and static security analysis. Do not run local unit, integration, in-process, browser or API tests, even with mocks; do not start servers, Docker or test databases. Runtime acceptance is confined to an explicitly authorized UAT run against the existing deployed production candidate. See `VERIFICATION_LOOP.md` for evidence and reporting requirements and `MAIN_DELIVERY_STANDARD.md` for delivery completion.
+`EXECUTION_SCOPE.md` and `PHDK_PRODUCTION_VERIFICATION.md` govern verification. Permitted local work consists of source/diff review, formatting, lint, static typechecking, safe builds and static security analysis. Locally permit only inspected hermetic unit/contract/in-process code tests with doubles, plus static/build checks; do not launch servers, Docker, databases, browsers, networked API or external integration tests. Runtime acceptance is confined to an explicitly authorized UAT run against the existing deployed production candidate. See `VERIFICATION_LOOP.md` for evidence and reporting requirements and `MAIN_DELIVERY_STANDARD.md` for delivery completion.
 
 The separate permission in `EXECUTION_SCOPE.md` — **Bounded read-only provider diagnostics** — allows requested finite reads of service/deployment status, non-secret source/branch/configuration/watch metadata, and existing logs independently of Developer Mode or unlock. Those observations are diagnostic evidence, not an executed product test.
 
@@ -114,7 +118,7 @@ Human-supplied redacted diagnostics and observations retrieved under **Bounded r
 
 ## No Speculative Test Harnesses
 
-Do not create ad hoc Python, Node, shell or other scripts just to make a checklist green. Prefer existing permitted static commands.
+Do not create ad hoc Python, Node, shell or other scripts just to make a checklist green. Use the official bounded PHDK runner for existing project-native checks; no speculative test harness is implied. Prefer existing permitted static commands.
 
 A temporary local diagnostic script is permitted only when:
 
@@ -141,7 +145,7 @@ or:
 
 ```txt
 Automated test source: required — <risk trigger and authored/existing coverage>
-Local runtime tests: NOT RUN — prohibited by production-first policy
+Hermetic local code tests: <executed profile result, or NOT_RUN/NOT_APPLICABLE>
 UAT: NOT RUN — DEFERRED — OWNER OPT-IN (unless separately explicitly invoked)
 Coverage limit: <behavior not exercised or authorized deployed evidence reference>
 ```
@@ -198,7 +202,7 @@ Only a fresh explicit `PHDK uat` invocation begins acceptance and necessary Prep
 
 ## Production-first verification override (v2.58.0)
 
-**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED.
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT remains the live acceptance boundary; v3.4.0 separately permits bounded offline hermetic local unit/contract/in-process code tests with inspected commands. Local servers, actual databases, Docker, network/provider/browser/API probes and separate staging are still prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED.
 
 
 ## Hook compatibility (v2.61.0)

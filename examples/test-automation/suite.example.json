@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "checks": [
+    {
+      "id": "lint",
+      "profile": "local",
+      "kind": "lint",
+      "argv": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "timeout_sec": 60
+    },
+    {
+      "id": "types",
+      "profile": "local",
+      "kind": "typecheck",
+      "argv": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "timeout_sec": 90
+    },
+    {
+      "id": "unit",
+      "profile": "local",
+      "kind": "unit",
+      "argv": [
+        "npm",
+        "run",
+        "test:unit",
+        "--",
+        "--runInBand"
+      ],
+      "timeout_sec": 120
+    },
+    {
+      "id": "build",
+      "profile": "local",
+      "kind": "build",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "timeout_sec": 180
+    }
+  ]
+}

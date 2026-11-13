@@ -1,3 +1,7 @@
+## v3.4.0 — universal test runner
+
+Use `PHDK_TEST_AUTOMATION_STANDARD.md` to consolidate project-owned native lint/typecheck/build and short inspected hermetic offline unit/contract/in-process tests. No live application, database, network, provider, browser or unauthorized UAT calls. One bounded status report, not repeated individual tool interactions.
+
 # AI_DEVELOPER_OPERATING_MODEL.md
 
 ## Purpose
@@ -90,7 +94,7 @@ Do not ask for duplicate approval for normal delivery or a well-defined sensitiv
 
 Follow `VERIFICATION_LOOP.md` and `TESTING_STANDARD.md` within `EXECUTION_SCOPE.md`, using the whole-candidate final boundary in `PHDK_AUTO.md` while Auto is active. Do not hand routine permitted final checks to the owner or require human testing between stages.
 
-Evidence can include source/diff review, relevant formatting/lint/typecheck/build output, and inspection of risk-triggered test source. Do not run local unit, in-process integration, API or browser tests, even with isolated dependencies, per `PHDK_PRODUCTION_VERIFICATION.md`; do not leave watchers or register future checks.
+Evidence can include source/diff review, relevant formatting/lint/typecheck/build output, and inspection of risk-triggered test source. Run only inspected hermetic local unit/contract/in-process integration tests using isolated dependencies; do not run live API/browser, app server, database or provider tests, per `PHDK_PRODUCTION_VERIFICATION.md`; do not leave watchers or register future checks.
 
 Documentation-only work requires a source/diff and reference review, not an application build. Do not invoke browser tests, screenshots, arbitrary live endpoints, databases, or paid APIs to broaden a claim. A post-delivery deployed-version check may use only the bounded `GET /health/version` in `PHDK_DEPLOYMENT_VERSION_STANDARD.md`.
 

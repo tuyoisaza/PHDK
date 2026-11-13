@@ -1,3 +1,12 @@
+## v3.4.0 — 2026-11-13
+
+### MINOR — Universal script-driven, bounded risk-based testing
+
+- Add `PHDK_TEST_AUTOMATION_STANDARD.md`, standard-library Python `scripts/phdk_test_runner.py`, generic project recipe, offline synthetic runner tests and conversational `PHDK test` command. Each repository maps existing native checks to one manifest; the runner records bounded JSON/Markdown reports and redacted logs without consuming agent attention for every case.
+- Permit synchronous, short hermetic local unit/contract/in-process integration tests alongside existing static/build checks; retain bans on local application servers, databases, Docker, live API/browser/provider probes and unapproved infrastructure.
+- Keep UAT explicitly authorized with existing deployed production, synthetic-owned fixtures, legitimate sessions, cleanup and separate acceptance evidence. No automatic UAT or added lifecycle stage; do not test every conceivable route by default.
+- Reconcile scope, production verification, tests/hooks, Plan/Auto/Check, managed native/skill/agent instructions, manifest/help and release metadata. Preserve independent owner controls, security and stop-loss; no auto-upgrade of downstream repos.
+
 ## v3.3.0 — 2026-11-12
 
 ### MINOR — Delivery stop-loss and WIP-one milestone integration

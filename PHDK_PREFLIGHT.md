@@ -1,3 +1,7 @@
+## v3.4.0 — classify approved local tests correctly
+
+At substantive command entry, `PHDK_TEST_AUTOMATION_STANDARD.md` allows inspected, bounded hermetic local unit/contract/in-process tests. A hook invoking such a test is not a conflict by itself. Inspect its command graph; any server, DB, network/browser/provider, UAT or unrelated owner-restricted action still remains prohibited or separately authorized. Help-only read-only Preflight never runs tests.
+
 ## Help-only read-only Preflight (v2.92.0)
 
 **Exception for explicit `PHDK help`, `PHDK help <command>` and `PHDK help --all`:** perform only the non-mutating installation/version/manifest/native-entrypoint diagnosis needed for `PHDK_HELP.md`. Do **not** run `scripts/phdk_update.py --trigger preflight`, auto-sync, execute the adoption Stack Security Review, start a lifecycle stage or write files. Show upstream version as unverified unless actually observed; suggest separate owner-invoked `PHDK upgrade` if needed. All substantive commands retain universal Preflight. Help does not create a first-run job.
@@ -87,7 +91,7 @@ For explicit `PHDK auto` or `PHDK auto force`, read `PHDK_AUTO_CONTINUITY.md` an
 
 AUTO FORCE sets PHDK-only human reviews/sign-offs to `NON_BLOCKING_BY_MODE` immediately. Preflight must not query reviews, reviewer availability or branch/ruleset protection configuration to discover whether those human gates block. Proceed with the assistant's diff review, applicable scoped checks and the normal authorized delivery attempt; real current owner/host restrictions still apply. Missing optional review skills are non-blocking.
 
-Mandatory hooks remain binding, but execution is limited to permitted static checks under PHDK_PRODUCTION_VERIFICATION.md. Inspect nested scripts; a hook demanding local behavioral tests is a concrete conflict to reconcile under PHDK_HOOK_COMPATIBILITY.md or report BLOCKED, never permission to execute the tests or bypass the hook. A real tool/hook/GitHub rejection is reported, diagnosed, repaired in scope, revalidated and retried under the continuity contract. Only then investigate the concrete rejected action as needed; do not stop merely because a first attempt failed. Keep independent work moving without changing controls, transports or credentials to evade rejection.
+Mandatory hooks remain binding, but execution is limited to permitted static/build and inspected hermetic local code-level tests under PHDK_PRODUCTION_VERIFICATION.md. Inspect nested scripts; a hook demanding local behavioral tests is a concrete conflict to reconcile under PHDK_HOOK_COMPATIBILITY.md or report BLOCKED, never permission to execute the tests or bypass the hook. A real tool/hook/GitHub rejection is reported, diagnosed, repaired in scope, revalidated and retried under the continuity contract. Only then investigate the concrete rejected action as needed; do not stop merely because a first attempt failed. Keep independent work moving without changing controls, transports or credentials to evade rejection.
 
 ## Step 1 — Verify PHDK installation
 

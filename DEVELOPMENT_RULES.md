@@ -1,3 +1,7 @@
+## v3.4.0 — bounded hermetic code-level tests
+
+`PHDK_TEST_AUTOMATION_STANDARD.md` permits short, inspected offline unit/contract/in-process tests with doubles alongside static/build checks, preferably through the universal Python runner. No local servers, databases, Docker, live network/API/browser or provider traffic; acceptance still requires separately explicit UAT.
+
 # DEVELOPMENT_RULES.md
 
 ## Purpose and execution boundary
@@ -163,4 +167,4 @@ The contract does not authorize scheduling imports or running them against live 
 
 ## Production-first verification override (v2.58.0)
 
-**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED.
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT remains the live acceptance boundary; the v3.4.0 hermetic local code-test exception does not authorize product/provider probes, staging-only identity, or blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT must use existing versioned production deployment and existing database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass existing security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED.

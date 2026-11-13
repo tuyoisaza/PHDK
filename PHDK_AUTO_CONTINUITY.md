@@ -1,3 +1,7 @@
+## Universal test budget and carryover (v3.4.0)
+
+Use one bounded local profile from `PHDK_TEST_AUTOMATION_STANDARD.md` to verify a milestone without spending chat allowance re-running every case. Persist only the latest relevant report path, candidate SHA, actual failures/untested risks and necessary next fix in existing Auto state. Failed checks do not reset delivery_watch or justify an indefinite repair loop. Hermetic unit/contract tests are permitted locally; live application/browser/provider/UAT remains separately explicit-only.
+
 # Auto continuity and Auto Force
 
 ## Delivery stop-loss across sessions (v3.3.0)
@@ -132,7 +136,7 @@ Do not classify a merely pending permitted mandatory check as an external blocke
 
 ## Required checks
 
-`PHDK_PRODUCTION_VERIFICATION.md` governs the current Auto/Auto Force goal: local source/static analysis, lint, typecheck, formatting and safe builds are permitted; local unit/in-process/mock/runtime tests, Docker, local application servers and new staging/databases are not. Inspect actual commands and side effects. Do not invent application commands in the standards repository or treat a command's name as proof that it is static.
+`PHDK_PRODUCTION_VERIFICATION.md` and `PHDK_TEST_AUTOMATION_STANDARD.md` govern this Auto/Force goal: local source/static analysis, lint, typecheck, formatting, safe builds and inspected bounded hermetic unit/contract/in-process tests are permitted; local app servers, databases, network/browser/provider probes and acceptance are prohibited outside separately explicit UAT.
 
 When a build, packaging check or Git hook has ambiguous effects or conflicts with local verification policy, load and apply the [decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) **before executing the command, declaring BLOCKED, or requesting user input**. Inspect the actual command chain and provenance; run permitted static steps and repair only proven PHDK-managed or legacy PHDK-generated steps within the authorized task. Preserve independent owner/external/unknown controls and prepare a concrete gate-change proposal if authorization is missing. Never request a prohibited local-runtime exception or initiate UAT to satisfy the gate.
 
