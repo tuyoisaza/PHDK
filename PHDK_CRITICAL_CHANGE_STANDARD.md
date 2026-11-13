@@ -1,3 +1,7 @@
+## v3.4.0 — proportional characterization
+
+For a material logic migration or irreversible domain risk, select the smallest useful hermetic local characterization/contract tests under `PHDK_TEST_AUTOMATION_STANDARD.md`, using controlled doubles and a finite budget. Real migration locks, database races, recovery and cutover still require the separate authorized deployed UAT environment and a concrete reason; do not expand a theoretical case matrix into an obligatory exhaustive experiment.
+
 # PHDK Risk-Based Critical-Change Assurance
 
 ## Applicability, not a legacy-only mode
@@ -25,7 +29,7 @@ Preserve and inspect the original behavior/data contract before replacing it. Co
 
 Define testable conservation, correspondence, uniqueness, ordering, authorization and historical-integrity rules as applicable. Include edge/failure/retry cases, not only a happy-path total. Define the oracle, agreed tolerances and the evidence needed for equivalence; no arbitrary monetary tolerance or invented approval. Static review, compilation, a successful import command, matching row counts or deployment metadata alone do not prove semantic equivalence.
 
-The proposed isolated characterization profile must name inputs, environment, network/data access, write boundaries, cleanup, resource limits and approval needs before any execution. **This release does not activate a local-test exception.** Author cases during development; execute only through the currently permitted, explicitly authorized verification route. Do not relabel runtime tests as static checks, create a test environment as a workaround, use real data without authority, or infer that synthetic data alone makes execution safe. Where execution is unavailable, report `NOT RUN`/`UNVERIFIED`; block the dependent acceptance/cutover claim, not unrelated authorized source development.
+The proposed isolated characterization profile must name inputs, environment, network/data access, write boundaries, cleanup, resource limits and approval needs before any execution. **As of v3.4.0 a narrow hermetic local code-test exception applies, but real databases/services and live acceptance remain prohibited outside explicit authorization.** Author cases during development; execute only through the currently permitted, explicitly authorized verification route. Do not relabel runtime tests as static checks, create a test environment as a workaround, use real data without authority, or infer that synthetic data alone makes execution safe. Where execution is unavailable, report `NOT RUN`/`UNVERIFIED`; block the dependent acceptance/cutover claim, not unrelated authorized source development.
 
 ## Material decisions are not routine defaults
 

@@ -1,3 +1,7 @@
+## v3.4.0 — inspect and preserve legitimate hermetic unit-test gates
+
+`PHDK_TEST_AUTOMATION_STANDARD.md` adds one universal bounded local runner for existing code-native checks. Hermetic offline unit/contract/in-process tests are now permitted; only nonhermetic application/server/DB/network/browser/provider tests remain prohibited locally. Never strip owner-required tests because they run Jest/Vitest/pytest; inspect command graphs and preserve independent hooks.
+
 # ENFORCEMENT.md
 
 ## Purpose
@@ -188,12 +192,12 @@ Being honest about the limits matters more here than anywhere else in PHDK, per 
 - [ ] `commit-msg` hook rejects a commit with no `vX.Y.Z` prefix
 - [ ] `pre-commit` hook rejects a staged file over 600 lines, runs `lint-staged`/Prettier against staged files, and runs a secrets scan
 - [ ] `pre-push` respects the authorized branch flow, validates outgoing commit messages, and runs applicable local code checks; documentation-only source/diff review does not override stricter existing hooks/checks
-- [ ] Changed hooks receive source/static validation within the permitted execution boundary, without executing local runtime tests or publishing a synthetic test branch
+- [ ] Changed hooks receive source/static validation within the permitted execution boundary, without executing nonhermetic local application tests or publishing a synthetic test branch
 - [ ] A failing local validation command blocks `pre-push`
 - [ ] Developer Mode has no persisted activation/authorization flag; legacy Finetuning flags are not used to permit direct delivery
 - [ ] An applicable check failure, rejected push, non-fast-forward update, or unmet control stopped the direct flow without automatic retries or bypasses
 - [ ] Auto completed the whole identified goal without stage approvals; required permitted static evidence and test-source review were collected at the final candidate, while actual mandatory controls kept their operation timing
-- [ ] Local verification stayed in source/diff review and applicable permitted static/build commands; no local runtime tests or live-service probes were used, and UAT remained separately authorized
+- [ ] Local verification stayed in source/diff review and applicable permitted static/build commands; no nonhermetic local application/runtime tests or live-service probes were used, and UAT remained separately authorized
 - [ ] Any dependency update was a scoped code task; no recurring dependency automation was added
 - [ ] The current tool's native always-loaded rule file contains the marked block from `PHDK_NATIVE_RULES.md`, including the `PHDK upgrade`, `PHDK unlock`, and `PHDK auto` commands, and the managed block matches the vendored copy
 - [ ] Requested documentary exception repairs cover existing active instruction copies without weakening hooks, checks, access rights, or server protections or storing an unlock flag

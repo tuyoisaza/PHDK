@@ -1,3 +1,7 @@
+## v3.4.0 — test runner does not weaken security
+
+The optional local test profile in `PHDK_TEST_AUTOMATION_STANDARD.md` is short, hermetic, reviewed and independent of production UAT. Existing security checks/owner hooks remain mandatory; the runner is not a sandbox or permission for live exploitation, network scans or provider settings.
+
 # PHDK Secure Standard
 
 ## Contract
