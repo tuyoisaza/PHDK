@@ -14,6 +14,9 @@ PHDK_DOCUMENTATION_STANDARD.md | PHDK_DOCUMENTATION_STANDARD.md
 scripts/phdk_docs_audit.py | scripts/phdk_docs_audit.py
 PHDK_INTELLIGENT_EXECUTION.md | PHDK_INTELLIGENT_EXECUTION.md
 PHDK_DELIVERY_STOP_LOSS_STANDARD.md | PHDK_DELIVERY_STOP_LOSS_STANDARD.md
+PHDK_TEST_AUTOMATION_STANDARD.md | PHDK_TEST_AUTOMATION_STANDARD.md
+scripts/phdk_test_runner.py | scripts/phdk_test_runner.py
+examples/test-automation/suite.example.json | examples/test-automation/suite.example.json
 PHDK_RETROSPECTIVE_STANDARD.md | PHDK_RETROSPECTIVE_STANDARD.md
 PHDK_CRITICAL_CHANGE_STANDARD.md | PHDK_CRITICAL_CHANGE_STANDARD.md
 scripts/phdk_learning_risk_check.py | scripts/phdk_learning_risk_check.py

@@ -1,10 +1,14 @@
+## v3.4.0 — One bounded local code-verification pass
+
+Under `PHDK_TEST_AUTOMATION_STANDARD.md`, inspected foreground offline hermetic **unit/contract/in-process tests** may run locally alongside static/build checks. They must not launch servers, real databases, networks, browsers or providers. Older blanket local-unit prohibitions below are superseded. Local code PASS is not deployed runtime or UAT PASS.
+
 # VERIFICATION_LOOP.md
 
 ## Purpose
 
 This file defines code-verification evidence within `EXECUTION_SCOPE.md`, the authoritative boundary for every PHDK agent. `MAIN_DELIVERY_STANDARD.md` defines normal development completion, including verified integration into remote `main` or the user's explicit target.
 
-Verification uses repository review, permitted static checks and safe local builds, plus review of risk-triggered test source. Local runtime tests, including unit/in-process suites with mocks, remain prohibited by `PHDK_PRODUCTION_VERIFICATION.md`; runtime verification requires its separately authorized deployed scope. Static success does not prove application behavior or deployed acceptance.
+Verification uses repository review, permitted static checks and safe local builds, plus review of risk-triggered test source. Local live-application tests remain prohibited; short offline hermetic unit/contract/in-process suites with mocks are permitted by `PHDK_PRODUCTION_VERIFICATION.md`; runtime verification requires its separately authorized deployed scope. Static success does not prove application behavior or deployed acceptance.
 
 ---
 
@@ -63,7 +67,7 @@ targeted static source/security analysis when risk requires it
 source/static review of risk-triggered test coverage
 ```
 
-Do not repeatedly run install + full build after every small edit; local behavioral test suites remain prohibited.
+Do not repeatedly run install + full build after every small edit; local live-application/external behavior tests remain prohibited; code-level hermetic suites are permitted.
 
 ### Before push/release
 
@@ -235,7 +239,7 @@ In Auto, accumulate these requirements across the entire goal and verify them at
 
 - [ ] Source enforces secure auth/session configuration and redacts secrets.
 - [ ] Test sources cover unauthenticated, wrong-role, and authorized decisions when the boundary changes; execution remains within the separately authorized deployed scope.
-- [ ] Test sources identify controlled dependencies and fixtures; mocks or test doubles do not authorize local runtime execution.
+- [ ] Test sources identify controlled dependencies and fixtures; mocks/doubles may be exercised in the hermetic local profile but never against real external services.
 - [ ] Correlation IDs and safe logging paths are reviewed in code.
 
 ### Feature / UI
