@@ -1,3 +1,7 @@
+## Test automation checkpoint, no additional lifecycle stage (v3.4.0)
+
+`PHDK_TEST_AUTOMATION_STANDARD.md` is an execution mechanism within existing milestone implementation/40 Integration and final Check, **not** a new bureaucratic stage. A generic vendored Python runner reads the project-owned manifest, executes bounded offline hermetic code checks and saves a single concise report. Store the exact report/revision reference in the existing handoff. Actual deployed API/browser/functional acceptance remains optional, separately explicit `PHDK uat`/UAT Fix; never infer acceptance from code tests or authorize local databases/network.
+
 ## Value milestone delivery watchdog (v3.3.0)
 
 Auto/Force/PMO use `PHDK_DELIVERY_STOP_LOSS_STANDARD.md` before each new work slice. A safely completed milestone gets its own verified remote PR/merge before unrelated development; final portfolio Integration Review/Check and optional UAT do not postpone eligible prior milestone publication. Carried delivery_watch emits FOCUS_DELIVERY, RECOVER_DELIVERY or DELIVERY_STOP_LOSS without relaxing real security, owner, hook or UAT limits.

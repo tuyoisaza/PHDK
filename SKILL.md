@@ -2,7 +2,7 @@
 name: phdk
 description: >-
   Use for a current explicit request to create or edit a PHDK project's code or
-  documentation, run permitted static checks, deliver through GitHub, synchronize standards,
+  documentation, run permitted static and hermetic code-level checks with PHDK test, deliver through GitHub, synchronize standards,
   run the full delivery lifecycle with PHDK auto or PHDK auto force, design solution architecture
   with PHDK plan, run hybrid security assurance with PHDK secure, establish a visual style guide and previews with PHDK design,
   coordinate multi-workstream delivery with PHDK PMO, prepare authenticated synthetic users
@@ -12,8 +12,12 @@ description: >-
   retrieve bounded read-only provider metadata/logs, or activate/exit PHDK Developer Mode.
   Interactive-only; bounded in-session delegation follows PHDK_INTELLIGENT_EXECUTION.md.
   No unattended/background/scheduled work, GitHub Actions, unrestricted browser operation,
-  local runtime tests, Docker, new environments or external infrastructure administration.
+  nonhermetic app/server/browser/provider tests, Docker, new environments or external infrastructure administration.
 ---
+
+## PHDK test — universal bounded verification (v3.4.0)
+
+For the current authorized goal or an explicit `PHDK test`, load `PHDK_TEST_AUTOMATION_STANDARD.md`, review project-owned scripts and execute a bounded local profile of static/build plus hermetic unit/contract/in-process tests through `scripts/phdk_test_runner.py`. No servers, Docker, live database, external network, browser or providers. Preserve owner/hooks and UAT explicit-only. Report one JSON/Markdown summary and open only relevant failed logs; do not enumerate all theoretical cases.
 
 ## Delivery stop-loss (v3.3.0)
 
@@ -297,7 +301,7 @@ A request for a kit, standalone design package or standards update is not permis
 
 ## Production-first verification override (v2.58.0)
 
-**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT supersedes earlier local unit/in-process/runtime testing, staging-only identity, and blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT uses existing versioned production deployment and database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED. Design adds no preview-server or browser-test exception.
+**Mandatory:** Apply [PHDK_PRODUCTION_VERIFICATION.md](PHDK_PRODUCTION_VERIFICATION.md). Owner-authorized production-only UAT remains the live acceptance boundary; the v3.4.0 hermetic local code-test exception does not authorize product/provider probes, staging-only identity, or blanket production-test prohibitions. Local operations are limited to static analysis, lint, typecheck and safe builds; Docker, local runtime tests and separate staging/databases are prohibited. UAT uses existing versioned production deployment and database, strictly scoped run-owned synthetic identities/records, audit, automated cleanup and verified revocation on success, failure and interruption. Never touch real data or bypass security hooks; apply the [hook decision procedure](PHDK_HOOK_COMPATIBILITY.md#decision-procedure) before reporting an unresolved verification gate BLOCKED. Design adds no preview-server or browser-test exception.
 
 
 ## Hook compatibility (v2.61.0)

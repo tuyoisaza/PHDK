@@ -1,3 +1,7 @@
+## Universal test automation evidence (v3.4.0)
+
+Audit `PHDK_TEST_AUTOMATION_STANDARD.md` only when code-level test risk is material: inspect the project's `tests/phdk-tests.json`, actual native scripts, risk coverage, last bounded `local` JSON report and exact SHA. Distinguish PASS/FAIL/BLOCKED/NOT_RUN from deployed verification and explicit UAT. A missing manifest is NOT_CONFIGURED, not an invented green test suite. Bare `PHDK check` reports only; it does not execute local test commands, create fixtures or initiate UAT.
+
 ## Delivery stop-loss audit (v3.3.0)
 
 Auto/Force must honor `PHDK_DELIVERY_STOP_LOSS_STANDARD.md`: only observed merged PR/remote target SHA/version proves a PUBLISHED milestone; changed files, documents, static PASS, branch push or open PR are not delivery. Audit active WIP, product/PHDK pending-file counts, carried delivery_watch and concrete blockers. No optional UAT or final portfolio Check as a per-milestone publication gate. At STOP_LOSS report a preserved precise blocked/partial state rather than start an audit loop; keep required safety gates.

@@ -1,3 +1,7 @@
+## Bounded script-driven test reports (v3.4.0)
+
+For `PHDK test` and relevant Auto checkpoints, report one line of profile + PASS/FAIL/BLOCKED/NOT_RUN + duration + exact report path/revision. Only diagnose and quote redacted failed checks; do not narrate every passing case. Local hermetic code tests, deployment and explicit UAT have separate verdicts. Avoid repeated speculative test loops and keep allowance consumption within delivery stop-loss.
+
 # PHDK Communication and Completion Personality Standard
 
 ## Delivery pulse (v3.3.0)
