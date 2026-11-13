@@ -41,7 +41,7 @@ class Node26PolicyTests(unittest.TestCase):
 
     def test_version_and_manifest_consistent(self):
         version = source("VERSION").strip()
-        self.assertRegex(version, r"^\\d+\\.\\d+\\.\\d+$")
+        self.assertRegex(version, r"^\d+\.\d+\.\d+$")
         self.assertIn(f"**Version v{version}**", source("README.md"))
         self.assertTrue(source("CHANGELOG.md").startswith(f"## v{version}"))
         self.assertTrue(source("PHDK_EVOLUTION_STANDARD.md").startswith(f"## v{version}"))
