@@ -2,16 +2,16 @@
 repository: tuyoisaza/InmotionTitan
 repository_url: https://github.com/tuyoisaza/InmotionTitan
 default_branch: main
-observed_repository_sha: 947993b28e3e08155e982c215f5d0bd4a5e6e21f
-observed_at_utc: 2026-11-08T04:23:02Z
-phdk_version: 3.0.2
-phdk_canonical_version: 3.0.2
+observed_repository_sha: 9e6fd06a99dbaa30638aba6bff1ced39345f16b2
+observed_at_utc: 2026-11-15T13:14:00Z
+phdk_version: 3.4.0
+phdk_canonical_version: 3.4.0
 phdk_status: CURRENT
 tech_stack:
   runtimes:
     - name: node
-      declared: ">=24.22.2 <25 || >=26.13.0 <27"
-      resolved: "26.13.0 (local build runtime)"
+      declared: ">=24.22.3 <25 || >=26.13.1 <27"
+      resolved: "host pnpm: 24.22.1; host node: 26.13.0"
       deployed: UNVERIFIED
   frameworks:
     - name: next
@@ -37,14 +37,14 @@ tech_stack:
       deployed: UNVERIFIED
   data_engines:
     - name: postgresql
-      declared: "PostgreSQL target; current engine patch unverified"
+      declared: "PostgreSQL; current server patch unverified"
       resolved: UNVERIFIED
       deployed: UNVERIFIED
   images: []
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-11-08T04:23:02Z
-  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/947993b28e3e08155e982c215f5d0bd4a5e6e21f/docs/phdk/lifecycle/2026-11-07-phdk-302-maintenance/HANDOFF.md"
+  reviewed_at_utc: 2026-11-15T13:14:00Z
+  evidence: "https://github.com/tuyoisaza/InmotionTitan/blob/9e6fd06a99dbaa30638aba6bff1ced39345f16b2/docs/phdk/lifecycle/2026-11-15-integrated-evolution/CHECK_REPORT.md"
   findings:
     critical: 0
     high: 6
@@ -53,6 +53,10 @@ stack_review:
 central_status_source: PHDK
 ---
 
-App0.38.2 / PHDK3.0.2 published in PR68; pinned standards862c7246716aabc77099ac0aa74b478545334d35, remote gate PASS133. Bounded maintenance only; M7 pause and foreign INDEX/brief preserved. Fresh pnpm audit321 dependencies, zero advisories. Node source pin24.22.2 and local26.13.0 checked against official current release/security sources. No compatible patch identified in reviewed scope.
+Application 0.53.0 merged through PR102. PHDK 3.4.0 conservatively synchronized from canonical 7324ed6a1af9e30610862a27bd7a120eb0b444d6. EV00-F1 source milestone only; EV-00 remainder and EV-01–EV-07 are unfinished.
 
-PARTIAL: deployed runtime/OS/image digest/PostgreSQL/provenance remain UNVERIFIED. Finding counts retain historical immutable legacy findings (6 high,2 medium,1 low), not modern-package findings or newly verified exploitability. Legacy unchanged. One postmerge version GET returned app0.38.1, PHDK3.0.1, bb317026b6833ace50c6cd0873f8cb1573b78181: STALE_OR_DIFFERENT_REVISION. No polling, provider write, SQL or UAT. UAT NOT RUN.
+Production dependency audit reported zero advisories. Declared Node floors already include the reviewed same-major security patches; actual host runtimes are below those floors. Deployment runtime, OS/image and PostgreSQL patches remain unverified. Severity counters retain the prior immutable-legacy inventory (6 high/2 medium/1 low), not new modern-package advisories or reverified exploitability; host drift is recorded separately without inventing a severity count.
+
+Typecheck, server/web compile, seven hermetic policy contracts, i18n, version/docs/coherence and legacy-tree checks passed. Local tests do not verify PostgreSQL, tenant behavior in deployment or acceptance. UAT NOT RUN; migration 0111 NOT RUN.
+
+One bounded GET to the established /health/version returned HTTP200/no-store, application0.52.2/PHDK3.3.0 at b97f057ccedd6f50b5e587e1b18f63c94dd44d15: STALE relative to source0.53.0. No polling, provider writes or real-data operations.
