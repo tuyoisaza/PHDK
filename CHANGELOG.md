@@ -1,3 +1,11 @@
+## v4.1.0 — 2026-11-17
+
+### MINOR — Scoped read-only live database diagnostics (no new command)
+
+- Add manifest-vendored `PHDK_DATABASE_ACCESS_STANDARD.md` for current owner-authorized development/investigation tasks genuinely needing deployed database state: discover safe target/privileges, prefer an existing private path or Railway ephemeral tunnel, apply read-only least privilege, bounded queries and verified cleanup.
+- Reconcile `EXECUTION_SCOPE.md`, PostgreSQL stack, production verification, hermetic test runner, Plan/Auto/Check/Preflight, and AGENTS/SKILL/native agent routing. Reads do **not** trigger UAT; database changes, seed/migrations, real functional tests and provider configuration still need their independent authorizations. A new TCP proxy/public exposure never follows from diagnostic consent.
+- No `PHDK db` or other command, script, new service, credentials, background work, hosted test, automatic project adoption or live connection. Include source-level regression checks and preserve unrelated owner/host controls.
+
 ## v4.0.0 — 2026-11-16
 
 ### MAJOR — Explicit owner consent before Auto Force after Upgrade Force

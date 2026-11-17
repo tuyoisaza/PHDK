@@ -1,3 +1,7 @@
+## v4.1.0 — Database diagnostic policy audit
+
+For a relevant data-backed project, audit whether source, roles and operational instructions respect [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md). **Bare Check remains read-only and non-probing**: do not establish a live DB connection simply to complete the audit. If a current, independently owner-authorized data/incident question genuinely requires a particular live fact, handle only that read via the separate scoped diagnostic exception; never use Check to run UAT or provider/database writes.
+
 ## Universal test automation evidence (v3.4.0)
 
 Audit `PHDK_TEST_AUTOMATION_STANDARD.md` only when code-level test risk is material: inspect the project's `tests/phdk-tests.json`, actual native scripts, risk coverage, last bounded `local` JSON report and exact SHA. Distinguish PASS/FAIL/BLOCKED/NOT_RUN from deployed verification and explicit UAT. A missing manifest is NOT_CONFIGURED, not an invented green test suite. Bare `PHDK check` reports only; it does not execute local test commands, create fixtures or initiate UAT.

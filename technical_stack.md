@@ -131,7 +131,7 @@ Database:           PostgreSQL — all environments
 Migration tool:     Drizzle Kit
 ```
 
-PostgreSQL is the application's supported runtime database. Runtime database infrastructure is an external prerequisite; PHDK implements its schema, migrations, queries, and configuration validation in the repository even when the runtime is not yet available. Do not provision a cloud database, start a local database/container, or replace the runtime database with SQLite. Local verification is static source, SQL, type and safe-build review under PHDK_PRODUCTION_VERIFICATION.md; do not execute test doubles, in-process adapters or database probes locally.
+PostgreSQL is the application's supported runtime database. Runtime database infrastructure is an external prerequisite; PHDK implements its schema, migrations, queries, and configuration validation in the repository even when the runtime is not yet available. Do not provision a cloud database, start a local database/container, or replace the runtime database with SQLite. Local product testing remains hermetic/static under PHDK_PRODUCTION_VERIFICATION.md and PHDK_TEST_AUTOMATION_STANDARD.md. **A current authorized task may separately perform bounded live database read-only diagnostics** under [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md); inspection is not an acceptance test, migration or permission to run a local DB service.
 
 Configuration is environment-driven:
 
@@ -142,8 +142,8 @@ DATABASE_URL="..."
 
 ### Database code and static verification
 
-- Runtime connection values belong to the existing deployment environment; PHDK documents variable names in `.env.example` without retrieving or setting real credentials
-- Never run migrations, queries, seeds, or verification probes against a real dev, staging, or production database from the PHDK agent
+- Runtime connection values belong to the existing deployment environment; document only variable names in `.env.example`. Access real connection secrets only through an already authorized, secure credential mechanism when strictly needed for a task-scoped read-only diagnostic; never print, copy to chat, commit or configure them as a workaround.
+- Never run migrations, seeds, data-changing statements or live functional/verification probes against real databases as ordinary development or Check. **Targeted read-only diagnostics** of an existing dev/staging/production DB are allowed only when an authorized current task genuinely requires data evidence and all access/SQL/privacy/cleanup controls in `PHDK_DATABASE_ACCESS_STANDARD.md` are met; a generic task does not authorize exploration.
 - Review migration SQL, queries and compatibility statically; retain necessary test source and acceptance criteria for separately authorized deployed UAT without executing local behavioral tests
 - Test doubles must never become a silent production fallback; their presence does not authorize local runtime execution
 - If runtime `DATABASE_URL` is unset or unreachable, application code must fail clearly rather than fall back to SQLite or an in-memory store — see `QA_CHECKLIST.md` Database

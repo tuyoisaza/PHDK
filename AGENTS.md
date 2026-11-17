@@ -1,3 +1,7 @@
+## Scoped read-only live DB diagnostics — no command (v4.1.0)
+
+For a **current owner-authorized task** that genuinely requires deployed data evidence, load [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md). Prefer source/schema evidence before a verified, bounded **read-only** connection to the correctly identified environment with least privilege, tenant/privacy limits, secure ephemeral transport and proven cleanup. This is a **non-UAT diagnostic**, not `PHDK db`, general Auto/Check probing, local test-runner access or a pretext for public TCP/SSH/credential work. Writes, migrations, provider settings and product acceptance require independent permissions.
+
 ## PHDK test — universal bounded verification (v3.4.0)
 
 On explicit `PHDK test`, load `PHDK_TEST_AUTOMATION_STANDARD.md`, inspect the project's existing native scripts and run the vendored Python runner with its project-owned `tests/phdk-tests.json` on the `local` profile. During implementation/Auto, reuse the same finite hermetic code-level unit/contract checks plus lint/typecheck/build at milestone integration and record one report, not many chat-driven test loops. No new infrastructure or speculative cases; live API/browser/UAT needs fresh explicit `PHDK uat`, never Auto. This supersedes older blanket local-unit bans but not owner/host/hooks, Docker, app servers, databases, network/provider limits or delivery stop-loss.

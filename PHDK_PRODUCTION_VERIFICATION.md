@@ -1,3 +1,7 @@
+## v4.1.0 — Separate non-UAT read-only database diagnostics
+
+When a current authorized development/incident task genuinely needs deployed database state, apply [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md) for **bounded read-only diagnostics**, not acceptance testing. This is a distinct narrowly scoped exception to blanket bans on local-to-live DB connections: no local DB server, test-runner network access, fixture seeding, migration, write, live endpoint probe or extra UAT permission. Production inspection requires clear target and legitimate data scope; provider/network changes remain separately authorized. `PHDK test` stays hermetic; only a fresh explicit owner `PHDK uat` permits deployed functional acceptance and test-owned synthetic writes.
+
 ## v3.4.0 — Hermetic local unit/contract-test exception
 
 `PHDK_TEST_AUTOMATION_STANDARD.md` supersedes all earlier blanket bans on short, foreground, **offline hermetic local unit/contract/in-process code tests** with controlled doubles, when the project commands are inspected. Lint/typecheck/build stay allowed. This is **not** permission to start app servers, databases, Docker, browsers, live API probes, external services, network access, migrations or paid providers. Real deployed API/browser/acceptance and cleanup remain under a separate explicit owner `PHDK uat`/UAT Fix mandate. Owner-controlled hooks and host restrictions take precedence.

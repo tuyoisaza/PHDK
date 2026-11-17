@@ -66,9 +66,13 @@ class UpgradeForceOwnerConfirmationPolicyTests(unittest.TestCase):
         self.assertIn("confirmación", command["when"])
 
     def test_release_markers_and_standalone_auto_remain_independent(self):
-        self.assertEqual(self.text("VERSION").strip(), "4.0.0")
-        self.assertIn("**Version v4.0.0**", self.text("README.md"))
-        self.assertIn("MAJOR", self.text("CHANGELOG.md").splitlines()[2])
+        version = self.text("VERSION").strip()
+        self.assertRegex(version, r"^[0-9]+[.][0-9]+[.][0-9]+$")
+        self.assertIn(f"**Version v{version}**", self.text("README.md"))
+        changelog = self.text("CHANGELOG.md")
+        self.assertTrue(changelog.startswith(f"## v{version}"))
+        self.assertIn("## v4.0.0", changelog)
+        self.assertIn("### MAJOR — Explicit owner consent", changelog)
         self.assertIn("A standalone explicit Auto invocation", self.text("PHDK_AUTO.md"))
 
 

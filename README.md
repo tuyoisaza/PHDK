@@ -1,3 +1,5 @@
+**Scoped read-only database diagnostics (v4.1.0):** During a current authorized development/investigation task that genuinely requires deployed data, use the [database-access standard](PHDK_DATABASE_ACCESS_STANDARD.md) to inspect a precisely identified environment through an existing private connection or approved ephemeral tunnel, under least-privilege read-only permissions, finite SQL limits and verified cleanup. No new PHDK command, public TCP exposure, schema/data writes or automatic UAT; live functional testing remains explicit-only. The `PHDK test` local profile remains hermetic. No new hosted infrastructure or access is created by adopting this standard.
+
 **Upgrade Force now requires Auto Force confirmation (v4.0.0):** `PHDK upgrade force` synchronizes/reviews/publishes PHDK standards, then shows the proposed goal and asks `¿Quieres ejecutar PHDK auto force ahora? (Sí/No)`. Auto Force starts only on a fresh affirmative reply. No response or "No" ends with the upgrade completed; it never starts background development. The FORCE bypass of routine reviews does not waive this command-entry gate. [Upgrade contract](PHDK_UPGRADE.md).
 
 **Universal PHDK test automation (v3.4.0):** `PHDK test` uses a vendored Python runner plus a project-owned test manifest. Native lint/typecheck/build and **hermetic local unit/contract tests** run in a finite foreground budget with one PASS/FAIL/BLOCKED/NOT_RUN report; real product API/browser/UAT remains separately explicit-only. No per-project test infrastructure or automatic hosted CI. See [test automation standard](PHDK_TEST_AUTOMATION_STANDARD.md).
@@ -23,7 +25,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v4.0.0**
+**Version v4.1.0**
 
 **v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 

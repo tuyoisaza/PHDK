@@ -1,3 +1,7 @@
+## v4.1.0 — DB inspection is not a test-runner profile
+
+[PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md) permits a **separately justified, task-scoped read-only diagnostic** of a live DB; this never becomes a `local` check, `PHDK test` manifest entry, hook or automatic connectivity probe. The `local` profile remains hermetic: **no real DB**, network, providers, servers or product tests. Functional acceptance, migration testing and synthetic data writes remain exclusive to explicitly authorized UAT; existing `uat` profile authorization is unchanged.
+
 # PHDK Universal Test Automation Standard (v3.4.0)
 
 ## Purpose
