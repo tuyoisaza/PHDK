@@ -47,6 +47,8 @@ class ScopedDatabaseAccessPolicyTests(unittest.TestCase):
             "statement_timeout", "ROLLBACK", "TLS",
             "DIAGNOSTIC_BLOCKED", "ACCESS_CLEANUP_BLOCKED",
             "separately", "explicitly", "Railway",
+            "ELEVATED_DIAGNOSTIC", "migration metadata",
+            "aggregate counts only",
         ):
             with self.subTest(required=required):
                 self.assertIn(required.lower(), policy.lower())

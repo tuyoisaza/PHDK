@@ -17,7 +17,7 @@ description: >-
 
 ## Scoped read-only live DB diagnostics — no new command (v4.1.0)
 
-If a current authorized development/incident/data question genuinely requires existing live DB evidence, load `PHDK_DATABASE_ACCESS_STANDARD.md`. Resolve verified environment, access rights, privacy/tenant scope, a least-privilege read-only role and limited safe SQL; prefer existing private/ephemeral tunnel transport and verify closeout. This permission is **not** UAT, automated Check/Preflight discovery or a `PHDK test` step. No provider/public proxy/SSH/credential changes or DB writes are implied. If access is missing, report `DIAGNOSTIC_BLOCKED`, not improvised exports.
+If a current authorized development/incident/data question genuinely requires existing live DB evidence, load `PHDK_DATABASE_ACCESS_STANDARD.md`. Resolve verified environment, access rights, privacy/tenant scope, a least-privilege read-only role (or the standard's metadata/count-only elevated fallback) and limited safe SQL; prefer existing private/ephemeral tunnel transport and verify closeout. This permission is **not** UAT, automated Check/Preflight discovery or a `PHDK test` step. No provider/public proxy/SSH/credential changes or DB writes are implied. If access is missing, report `DIAGNOSTIC_BLOCKED`, not improvised exports.
 
 ## PHDK test — universal bounded verification (v3.4.0)
 
