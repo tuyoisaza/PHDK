@@ -2,10 +2,10 @@
 repository: tuyoisaza/MEMCP
 repository_url: https://github.com/tuyoisaza/MEMCP
 default_branch: main
-observed_repository_sha: 0c9a0d01b50df22d52ddefb6f64f9dd820d2e7a1
-observed_at_utc: 2026-11-17T02:54:00Z
-phdk_version: 3.4.0
-phdk_canonical_version: 3.4.0
+observed_repository_sha: db1eee3d6e2970847e52a4b578d004cd902b1472
+observed_at_utc: 2026-11-17T06:35:00Z
+phdk_version: 4.0.0
+phdk_canonical_version: 4.0.0
 phdk_status: CURRENT
 tech_stack:
   runtimes:
@@ -30,8 +30,8 @@ tech_stack:
       digest: UNVERIFIED
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-11-17T02:54:00Z
-  evidence: https://github.com/tuyoisaza/MEMCP/pull/30
+  reviewed_at_utc: 2026-11-17T06:35:00Z
+  evidence: https://github.com/tuyoisaza/MEMCP/pull/51
   findings:
     critical: 0
     high: 0
@@ -40,4 +40,4 @@ stack_review:
 central_status_source: PHDK
 ---
 
-PHDK snapshot pinned at 9363450b1c8c49061cc5a057c9f9965ea4a7512e. Standards published in PR 29; maintenance v0.21.3 published in PRs 30/31. Node compatible security patch pinned in source; no confirmed deployed patch or complete transitive/OS advisory clearance. Counts describe confirmed findings only, not a clean security verdict. Static checks passed; UAT NOT RUN. Existing local-only decision-service candidate excluded. No provider settings or database writes.
+PHDK4.0.0 adopted from5ab95cfc346cd2d77024e3cd8adc359ca8e64ee8; current canonical VERSION rechecked. A downstream canonical-command security-routing link repair is disclosed in MEMCP's run evidence. Source v0.38.0 published through PR51; full production goal remains open. Node22.23.5-alpine pinned, supported major retained with Node26 migration proposal; deployed patch/image digest unverified. Root/web lockfile audits reported zero known advisories at06:09UTC; installed third-party versions are source/lock evidence, not OS/database clearance. PHDK coherence and bounded hermetic profile pass. Counts cover confirmed findings only; overall stack review remains PARTIAL. Pilot, PostgreSQL verification, tenant/customer activation, full recovery and payments are not operationally verified. UAT is explicitly OUT OF SCOPE. No secrets, customer records, provider settings or database writes are included in this status publication.
