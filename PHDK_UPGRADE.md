@@ -205,7 +205,7 @@ An exact PHDK upgrade force command authorizes **delivery of its changed standar
 3. **Read back remote main.** Independently verify the merged PR result/SHA, expected project version, all synced manifest files and the applicable native managed block on remote main. With local Git, use `python phdk-standards/scripts/phdk_upgrade_remote_gate.py --expected-version <UPSTREAM_VERSION>` for the read-only **vendored-content** comparison; PR merge, native block, application and deployment still need separate evidence. With connector-only access use equivalent source comparisons. A missing or failed readback means UPGRADE_REMOTE_MAIN=BLOCKED/UNVERIFIED, never PUBLISHED. Apply the normal PHDK completion gate for versioned deliveries; a proven already-published no-op does not require a fictitious PR.
 4. **Close the local workspace before the next one.** After verified merge, fetch and fast-forward clean local main to observed origin/main with matching SHA and ahead/behind=0. Execute PHDK_GIT_WORKSPACE_CLOSEOUT.md for the task's owned local branch/worktree. Exact Upgrade Force may reconcile only validated managed tracked local-main edits with private recoverable backups; unknown or owner edits remain blocked. Retire only clean, unlocked, independently integrated **local** branches/worktrees. **Never delete GitHub remote branches** or treat retention as an upgrade blocker. Do not discard dirty, active, divergent, unknown or unrelated work.
 
-Record UPGRADE_REMOTE_MAIN=PUBLISHED | ALREADY_PUBLISHED | BLOCKED | UNVERIFIED, final remote SHA, version, PR/merge (or verified no-op), LOCAL_MAIN, LOCAL_CLEANUP and retained worktree reasons. If an actual hook, access or server control prevents publication, preserve the unfinished branch and report the precise blocker. Continue genuinely independent authorized work where safe, but do not call the upgrade delivered or open another worktree for the same unfinished delivery.
+Record UPGRADE_REMOTE_MAIN=PUBLISHED | ALREADY_PUBLISHED | BLOCKED | UNVERIFIED, final remote SHA, version, PR/merge (or verified no-op), LOCAL_MAIN, LOCAL_CLEANUP and retained worktree reasons. If an actual hook, access or server control prevents publication, preserve the unfinished branch and report the precise blocker. Continue genuinely independent **separately authorized** non-Auto work where safe, but do not call the upgrade delivered, begin Auto Force without fresh consent, or open another worktree for the same unfinished delivery.
 
 ### 9d. Owner confirmation before optional `PHDK auto force`
 
@@ -221,7 +221,7 @@ Ask **one explicit question** in the current conversation, naming the repository
 
 ```text
 PHDK upgrade force finalizado: estándares [versión] [PUBLISHED/ALREADY_PUBLISHED],
-Stack Security Review [estado], remoto main [SHA o no verificado].
+Stack Security Review [estado], remoto main [SHA verificado].
 PHDK auto force está listo para ejecutar en [repositorio] el objetivo [alcance propuesto].
 ¿Quieres ejecutar PHDK auto force ahora? (Sí/No)
 ```

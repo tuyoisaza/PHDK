@@ -19,6 +19,7 @@ ROUTES = (
     "README.md",
     "PHDK_PREFLIGHT.md",
     "PHDK_COMMUNICATION_STANDARD.md",
+    "PHDK_SECURE.md",
 )
 
 
