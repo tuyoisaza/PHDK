@@ -1,3 +1,5 @@
+**Upgrade Force now requires Auto Force confirmation (v4.0.0):** `PHDK upgrade force` synchronizes/reviews/publishes PHDK standards, then shows the proposed goal and asks `¿Quieres ejecutar PHDK auto force ahora? (Sí/No)`. Auto Force starts only on a fresh affirmative reply. No response or "No" ends with the upgrade completed; it never starts background development. The FORCE bypass of routine reviews does not waive this command-entry gate. [Upgrade contract](PHDK_UPGRADE.md).
+
 **Universal PHDK test automation (v3.4.0):** `PHDK test` uses a vendored Python runner plus a project-owned test manifest. Native lint/typecheck/build and **hermetic local unit/contract tests** run in a finite foreground budget with one PASS/FAIL/BLOCKED/NOT_RUN report; real product API/browser/UAT remains separately explicit-only. No per-project test infrastructure or automatic hosted CI. See [test automation standard](PHDK_TEST_AUTOMATION_STANDARD.md).
 
 **Delivery stop-loss (v3.3.0):** Auto and Auto Force work on **one value milestone at a time**, safely integrate it via PR/merge and verify remote main before expanding. The existing read-only advisor reports **FOCUS_DELIVERY** (45 active minutes/large product diff), **RECOVER_DELIVERY** (75 minutes), **DELIVERY_STOP_LOSS** (120 minutes), or sooner from actual host allowance. Carry the delivery window across sessions; stop speculative allowance consumption without a verified merge. No unsafe forced publication, automatic UAT, background agent or downstream update. [Standard](PHDK_DELIVERY_STOP_LOSS_STANDARD.md).
@@ -21,7 +23,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v3.4.0**
+**Version v4.0.0**
 
 **v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 
@@ -421,7 +423,7 @@ Conservatively synchronizes standards, preserving dirty PHDK files and reporting
 PHDK upgrade force
 ```
 
-Performs the forced standards synchronization and Stack Security Review, then **immediately continues as `PHDK auto force` in the same session**. If there is an active authorized development goal, it continues it; otherwise it runs bounded repository maintenance: reconcile against current PHDK and recorded product intent, remediate compatible security/standards gaps, Check/remediate and deliver without inventing new features. The upgrade phase still replaces only manifest-owned `phdk-standards/` files and exact `PHDK-MANAGED` blocks. The chained Auto Force preserves all normal exclusions for UAT, major/material decisions, provider/infrastructure writes, spending, secrets and real controls.
+Performs the forced PHDK-owned standards synchronization, Stack Security Review and verified remote-main publication. **Then it stops and asks whether to launch `PHDK auto force` (Sí/No)**, showing the repository and proposed scope. An explicit "Sí" starts Auto Force in the current session, without another typed command; "No" or silence stops after the upgrade. If approved, Auto Force continues the existing authorized goal or bounded repository maintenance, with the normal UAT/provider/spending/security restrictions. The upgrade itself never runs product changes.
 
 # Other operational commands
 

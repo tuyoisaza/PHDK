@@ -55,7 +55,7 @@ When the local PHDK-owned surface intentionally needs to be replaced with canoni
 PHDK upgrade force
 ```
 
-Force applies only to PHDK-owned files/managed blocks and does not authorize product-code changes.
+Force applies only to PHDK-owned files/managed blocks and publishes that upgrade through the normal verified PR path. On successful completion it asks whether to start `PHDK auto force` (Yes/No); only a fresh affirmative answer grants the separate Auto mode. Without it, force upgrade does not authorize product-code changes.
 
 ## Migration principle
 

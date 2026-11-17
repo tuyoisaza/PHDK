@@ -1,3 +1,12 @@
+## v4.0.0 — 2026-11-16
+
+### MAJOR — Explicit owner consent before Auto Force after Upgrade Force
+
+- `PHDK upgrade force` still replaces/publishes only the PHDK-owned standards and performs its bounded stack review with independent remote-main verification. It no longer enters `PHDK auto force` automatically.
+- On verified completion, report the downstream repository, proposed current/bounded maintenance goal, version, stack-review result and publication evidence; ask `¿Quieres ejecutar PHDK auto force ahora? (Sí/No)`. Only a fresh affirmative answer in that conversation activates Auto Force. Decline, silence, ambiguity and an unverified/blocked upgrade never start product work, Auto state, local cleanup beyond upgrade closeout or deferred background execution.
+- Reconcile Upgrade/Auto/Continuity/Preflight/Communication, PHDK agent/skill/native instructions, Help command inventory, README, change-management and Evolution contract; include source-level regression guards. Standalone explicit Auto Force retains its existing behavior, and the FORCE rule waiving routine reviews cannot waive this owner command-entry gate.
+- No downstream project upgrade, UAT, provider change, GitHub Actions, new infrastructure or future task is launched by this PHDK standards release.
+
 ## v3.4.0 — 2026-11-13
 
 ### MINOR — Universal script-driven, bounded risk-based testing

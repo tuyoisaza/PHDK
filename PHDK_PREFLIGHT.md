@@ -64,7 +64,7 @@ Run Preflight before:
 - Developer Mode tasks
 - other future PHDK lifecycle commands
 
-`PHDK upgrade` and `PHDK upgrade force` run installation/version checks and the Stack Security Review under their own contract, even when the installed version is already current. Use the updater's `--trigger upgrade` flag if invoking that helper; do not run the same adoption review twice.
+`PHDK upgrade` and `PHDK upgrade force` run installation/version checks and the Stack Security Review under their own contract, even when the installed version is already current. Use the updater's `--trigger upgrade` flag if invoking that helper; do not run the same adoption review twice. The forced upgrade may publish its own PHDK standards, but **must ask the owner Yes/No before entering Auto Force** after verified completion. Never run Auto-specific Preflight, cleanup, maintenance or product work from upgrade success alone.
 
 ## User override
 

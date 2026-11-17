@@ -20,7 +20,11 @@ Before public release, verify the **600-line** limit for PHDK's own vendored Pyt
 
 ## Upgrade Force verification and continuation (v2.92.1)
 
-For exact PHDK upgrade force: pin one upstream canonical SHA per invocation, verify published manifest Git blobs using safe attribute-aware clean conversion (not naive LF-vs-CRLF checkout byte equality), and keep native managed-block, PR, product version and deployed revision evidence independent. When authorized and proven safe, back up and reconcile only verified tracked PHDK-owned local-main edits. Classify ignored data and Windows long paths before worktree removal and recheck actual postconditions after any error. Use bounded non-executing installed-tool discovery before saying uv/auditors are missing. Continue remaining AUTO FORCE security, Check and delivery obligations; stale COMPLETE with unfinished commitments is invalid. A newly published upstream version is reported, not republished repeatedly in the same run. No force cleanup, unexpected installs, background work or automatic UAT.
+For exact PHDK upgrade force: pin one upstream canonical SHA per invocation, verify published manifest Git blobs using safe attribute-aware clean conversion (not naive LF-vs-CRLF checkout byte equality), and keep native managed-block, PR, product version and deployed revision evidence independent. When authorized and proven safe, back up and reconcile only verified tracked PHDK-owned local-main edits. Classify ignored data and Windows long paths before worktree removal and recheck actual postconditions after any error. Use bounded non-executing installed-tool discovery before saying uv/auditors are missing. After affirmative post-upgrade owner confirmation, continue remaining AUTO FORCE security, Check and delivery obligations; stale COMPLETE with unfinished commitments is invalid. Before confirmation, stop at the explicit `PHDK upgrade force` Yes/No question and do not enter Auto. A newly published upstream version is reported, not republished repeatedly in the same run. No force cleanup, unexpected installs, background work or automatic UAT.
+
+## Upgrade Force post-upgrade consent (v4.0.0)
+
+`PHDK upgrade force` finishes PHDK-owned synchronization, Stack Security Review and verified publication before asking `¿Quieres ejecutar PHDK auto force ahora? (Sí/No)` with repository and proposed goal. Only an explicit affirmative answer in the current conversation enters Auto Force; decline, silence, stale Auto state and prior mandates cannot do so. This command-boundary consent is not a PHDK-only human review waived by FORCE. See `PHDK_UPGRADE.md` step 9d. Bare Upgrade and standalone explicit Auto Force retain their independent entry contracts.
 
 ## PHDK help — first-run read-only onboarding (v2.92.0)
 
@@ -62,7 +66,7 @@ For Capture/Plan/Design/PMO/Auto/Check and authorized material changes, load [PH
 
 ## Forced-upgrade publication and worktree closure
 
-Exact `PHDK upgrade force` must finish the `PHDK_UPGRADE.md` remote-main checkpoint as its first milestone before creating another worktree: reuse/finish an existing upgrade branch/PR, merge changed vendored rules via the ordinary PR route, independently read back remote main (not just the copier output), then synchronize clean local main and safely close the merged owned worktree. Do not push feature:main directly, redundantly push main after GitHub merge, or delete dirty/unverified work. Bare Upgrade/Preflight have no such delivery authority.
+Exact `PHDK upgrade force` must finish the `PHDK_UPGRADE.md` remote-main checkpoint as its first milestone before creating another worktree: reuse/finish an existing upgrade branch/PR, merge changed vendored rules via the ordinary PR route, independently read back remote main (not just the copier output), then synchronize clean local main and safely close the merged owned worktree. After verification, pause at the post-upgrade Yes/No consent boundary; do not start Auto Force from publication alone. Do not push feature:main directly, redundantly push main after GitHub merge, or delete dirty/unverified work. Bare Upgrade/Preflight have no such delivery authority.
 
 ## Canonical PHDK maintenance session gate
 

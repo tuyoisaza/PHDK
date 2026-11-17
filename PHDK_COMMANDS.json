@@ -213,9 +213,9 @@
       "group": "Mantenimiento",
       "command": "PHDK upgrade force",
       "aliases": [],
-      "summary": "Reemplaza solo el ámbito PHDK administrado, publica la actualización y continúa en Auto Force.",
-      "when": "Aceptas sustituir cambios locales administrados por PHDK y ejecutar el mantenimiento autorizado.",
-      "effect": "FORCED_SYNC_AND_AUTO",
+      "summary": "Reemplaza y publica el ámbito PHDK administrado; al terminar pregunta Sí/No antes de Auto Force.",
+      "when": "Quieres sustituir los cambios administrados de PHDK. El desarrollo posterior requiere confirmación explícita al terminar.",
+      "effect": "FORCED_SYNC_THEN_OWNER_CONFIRMATION",
       "standard": "PHDK_UPGRADE.md"
     },
     {

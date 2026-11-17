@@ -39,6 +39,8 @@ Recommendations based on observable facts, one at a time:
 | Verified outdated installed standards and safe owner intention | `PHDK upgrade` |
 | Delivered candidate requiring acceptance | Offer **explicit** `PHDK uat` as an optional next action, not an automatic gate |
 
+After verified `PHDK upgrade force`, explain that the PHDK-owned upgrade has finished and ask the separate `¿Quieres ejecutar PHDK auto force ahora? (Sí/No)` question. Only an affirmative response starts Auto Force; Help itself never executes this or any command.
+
 No unconditional `PHDK upgrade force`, `PHDK auto force`, `PHDK uat`, `PHDK browser on` or `PHDK check --fix` recommendation merely because a repo exists. Honor existing owner restrictions, provider permissions and lack of UAT consent. A suggestion remains a suggestion.
 
 ## Response shape (concise by default)
