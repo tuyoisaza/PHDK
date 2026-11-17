@@ -41,7 +41,7 @@ Before releasing PHDK, enforce `PHDK_COHERENCE_STANDARD.md`: canonical and vendo
 
 ## Upgrade Force hardening (v2.92.1)
 
-Exact PHDK upgrade force pins one canonical upstream SHA, publishes/verifies its Git-clean blobs using the read-only remote gate (with CRLF, binary and custom-filter safeguards), backs up only authorized managed local main changes, and checks Windows worktree deletion postconditions. Load PHDK_UPGRADE.md, PHDK_GIT_WORKSPACE_CLOSEOUT.md, PHDK_SECURE.md and PHDK_AUTO_CONTINUITY.md; propagate pending security/Check/delivery steps into the chained AUTO FORCE run rather than ending after the first PR. Before saying uv or another auditor is unavailable, use the bounded non-executing security tool locator. No repeated upgrade loop after an upstream move, forced cleanup, dependency installation, background execution or UAT without explicit authority.
+Exact PHDK upgrade force pins one canonical upstream SHA, publishes/verifies its Git-clean blobs using the read-only remote gate (with CRLF, binary and custom-filter safeguards), backs up only authorized managed local main changes, and checks Windows worktree deletion postconditions. Load PHDK_UPGRADE.md, PHDK_GIT_WORKSPACE_CLOSEOUT.md, PHDK_SECURE.md and PHDK_AUTO_CONTINUITY.md; after upgrade verification offer AUTO FORCE and propagate pending security/Check/delivery steps only after an explicit affirmative answer to the post-upgrade Yes/No question. Before saying uv or another auditor is unavailable, use the bounded non-executing security tool locator. No repeated upgrade loop after an upstream move, forced cleanup, dependency installation, background execution or UAT without explicit authority.
 
 # PHDK
 
@@ -245,7 +245,7 @@ Follow `EXECUTION_SCOPE.md` — `Bounded read-only provider diagnostics` for a c
 
 Exact `PHDK upgrade force` publishes changed vendored standards as its first remote-main milestone before creating fresh Auto Force worktrees. Reuse an unfinished same-goal branch/PR, verify remote manifest content with `scripts/phdk_upgrade_remote_gate.py` where local Git is available (and native rules/PR separately), then fast-forward clean local main and retire only the proven-integrated owned branch/worktree. The updater's CURRENT/UPDATED is not publication. Bare Upgrade and passive Preflight cannot publish by themselves.
 
-**Composite Force behavior:** exact `PHDK upgrade force` does not end after synchronization. After the forced upgrade, security review, eligible central-status update and verification, transition immediately into `PHDK auto force` in the same foreground session. Continue the already identified authorized goal when present; otherwise use the bounded repository-maintenance goal from `PHDK_UPGRADE.md`. Do not ask the owner to type Auto separately and do not invent new features.
+**Post-upgrade consent (v4.0.0):** exact `PHDK upgrade force` completes forced standards sync, Stack Security Review, eligible central-status and verified remote-main publication first; then reports that `PHDK auto force` is ready for the identified repository/goal and asks `¿Quieres ejecutar PHDK auto force ahora? (Sí/No)`. A clear "Sí" in the current conversation starts Auto Force without another typed command. "No", silence or an ambiguous answer must not start it or schedule later work. The Auto Force skip-human-gates rule cannot skip this separate command-entry authorization. Do not invent new features.
 
 For exact `PHDK upgrade` or `PHDK upgrade force` (case-insensitive after trimming whitespace):
 
@@ -258,9 +258,9 @@ For exact `PHDK upgrade` or `PHDK upgrade force` (case-insensitive after trimmin
 3. Synchronize manifest-controlled standards and the current tool's managed rule block.
 4. Perform the bounded read-only [Stack Security Review](PHDK_SECURE.md#stack-security-review), including no-op/newer-local cases. Actual Preflight version adoption also requires it once; reuse current evidence at unchanged stages. Report STANDARDS_SYNC, STACK_REVIEW_COVERAGE and STACK_SECURITY_STATUS separately; pending helper output is not a completed audit.
 5. For a verified `tuyoisaza/<repo>`, apply `PHDK_REPOSITORY_STATUS.md`. If this foreground session already has write access to canonical `tuyoisaza/PHDK`, refresh `docs/repos/<repo>/status.md` with evidence-backed PHDK, repository SHA, tech-stack and stack-review state. Missing access is `CENTRAL_STATUS: NOT_PUBLISHED`; never request credentials or schedule a retry.
-6. Verify source copy and review evidence, report, and stop. Do not continue into product work or schedule a later upgrade.
+6. For bare Upgrade, verify/report and stop without product work. For Upgrade Force, publish/verify the synced PHDK-owned files to remote main under step 9c, then report and ask the step 9d Yes/No Auto Force question. Never enter product work without the affirmative answer or schedule deferred execution.
 
-The exact command authorizes standards synchronization and read-only review, not a push/merge, deployment, workflow run, or external administration. A current instruction explicitly requesting git delivery supplies that additional permission.
+Bare `PHDK upgrade` authorizes standards synchronization and read-only review, not git delivery. Exact `PHDK upgrade force` also authorizes **only** scoped publication of the changed PHDK-owned standards to verified remote main, not product changes. Only post-upgrade affirmative owner consent separately enters Auto Force. Neither authorizes provider administration, hosted workflow runs or unapproved deployment.
 
 ## Skill updates
 
