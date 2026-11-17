@@ -1,3 +1,7 @@
+## v4.1.0 — Read-only database diagnostic routing (no new PHDK command)
+
+When the owner's current task specifically needs live database state, consult [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md) and its existing-connection, least-privilege, bounded-query and cleanup contract. Universal Preflight alone, Help, bare Check or adopting a new standard **never** grants automatic live SQL/probe or production inspection. This exception is independent of UAT but does not authorize local test-runner network access, migrations, writes, public TCP exposure or provider configuration.
+
 ## v3.4.0 — classify approved local tests correctly
 
 At substantive command entry, `PHDK_TEST_AUTOMATION_STANDARD.md` allows inspected, bounded hermetic local unit/contract/in-process tests. A hook invoking such a test is not a conflict by itself. Inspect its command graph; any server, DB, network/browser/provider, UAT or unrelated owner-restricted action still remains prohibited or separately authorized. Help-only read-only Preflight never runs tests.

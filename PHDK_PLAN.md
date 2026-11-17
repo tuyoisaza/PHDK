@@ -1,3 +1,7 @@
+## v4.1.0 — Plan data investigations without spawning test infrastructure
+
+For a task that actually requires persisted-state evidence to plan or repair a feature, consult [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md). Prefer source/schema/migration evidence first, then only necessary, current owner-authorized and bounded read-only live database diagnostics with target, role, privacy and cleanup constraints. Do not routinely access production merely because a database exists; no scripts/new commands/new services, speculative sampling, writes or UAT from Plan.
+
 ## Risk-based test recipe (v3.4.0)
 
 For current and future projects, use `PHDK_TEST_AUTOMATION_STANDARD.md` to select focused tests for material changed behavior. Reuse existing project-native commands via a minimal `tests/phdk-tests.json`, only when applicable. Separate short hermetic local unit/contract/in-process coverage from real API/browser/integration acceptance, which remains explicitly opt-in UAT. No universal framework requirement, route-combination explosion, new test infrastructure or per-milestone ceremony.

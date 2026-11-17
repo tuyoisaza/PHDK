@@ -9,11 +9,15 @@ description: >-
   with PHDK uat prep, run acceptance validation with PHDK uat, audit and close standards gaps
   with PHDK check, orient a newly installed repository with read-only PHDK help, capture requirements with PHDK capture, repair PHDK blockers with PHDK unlock,
   discover and propose reusable modules with PHDK export modules,
-  retrieve bounded read-only provider metadata/logs, or activate/exit PHDK Developer Mode.
+  retrieve bounded read-only provider metadata/logs, perform task-scoped live database read-only diagnostics when actually needed, or activate/exit PHDK Developer Mode.
   Interactive-only; bounded in-session delegation follows PHDK_INTELLIGENT_EXECUTION.md.
   No unattended/background/scheduled work, GitHub Actions, unrestricted browser operation,
   nonhermetic app/server/browser/provider tests, Docker, new environments or external infrastructure administration.
 ---
+
+## Scoped read-only live DB diagnostics — no new command (v4.1.0)
+
+If a current authorized development/incident/data question genuinely requires existing live DB evidence, load `PHDK_DATABASE_ACCESS_STANDARD.md`. Resolve verified environment, access rights, privacy/tenant scope, a least-privilege read-only role and limited safe SQL; prefer existing private/ephemeral tunnel transport and verify closeout. This permission is **not** UAT, automated Check/Preflight discovery or a `PHDK test` step. No provider/public proxy/SSH/credential changes or DB writes are implied. If access is missing, report `DIAGNOSTIC_BLOCKED`, not improvised exports.
 
 ## PHDK test — universal bounded verification (v3.4.0)
 
