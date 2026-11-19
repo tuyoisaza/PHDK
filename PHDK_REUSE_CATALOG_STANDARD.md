@@ -1,3 +1,7 @@
+## ULEDS module contract — specification only (v4.2.1)
+
+The public `starter.uleds-continuous-improvement` entry follows `PHDK_STARTER_PROFILE.md` and cross-references `PHDK_ULEDS_STANDARD.md`, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` and `PHDK_HEAL_STANDARD.md`. Its status is `SPECIFICATION_ONLY` / `implementation: null` / `downloadable: false`: a schema, tests and standards do not constitute a reusable support service. Potential adapters from downstream projects may be proposed after legitimate source, privacy, licensing, security and two-consumer portability review, not exported automatically from user feedback or a Heal report.
+
 # PHDK Reusable Capability Catalog Standard
 
 ## Data Workspace specification-only module candidate (v3.1.0)

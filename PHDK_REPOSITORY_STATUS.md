@@ -6,6 +6,10 @@ Provide a small, central, human-readable inventory of PHDK adoption and stack-se
 
 This standard is distributable PHDK policy. It does not grant access to any repository, create credentials, or authorize product remediation.
 
+## ULEDS adoption visibility (v4.2.1)
+
+When current authorized source evidence already exists, a repository status snapshot MAY record sanitized `PHDK_ULEDS_STANDARD.md` adoption (`NOT_APPLICABLE | NOT_ADOPTED | IMPLEMENTED_SOURCE | DEPLOYMENT_UNVERIFIED | VERIFIED`), `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` 🤖 source readiness, and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` provenance without copying ticket content or user IDs to central PHDK. `PHDK_HEAL_STANDARD.md` proposals are not actual delivered features. No new scheduled repository sweep, tenant-data transfer, provider connection or centralized telemetry platform is granted.
+
 ## Applicability
 
 A downstream repository MUST publish or refresh a central status record when all of the following are true:

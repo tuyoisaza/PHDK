@@ -14,6 +14,10 @@ Supported conversational forms:
 
 Do not misrepresent these as installed terminal binaries. `PHDK help heal` routes to this contract through `PHDK_COMMANDS.json`. Standard PHDK Preflight applies but must not trigger code maintenance beyond its own separately authorized safe existing behavior; protected scope remains read-only for `heal`/diagnose, including no auto-upgrade as a workaround to missing telemetry. A separate explicit `PHDK auto`/Auto Force after approved scope starts implementation under its own gates; no chain invocation by default.
 
+## Portfolio, source and authorization coherence (v4.2.1)
+
+Execute only inside an explicit owner/developer foreground request; support/chat users cannot invoke this command or approve their own change. Consult `PHDK_ULEDS_STANDARD.md`, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md`, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`, the current requirements/ADRs, and optional `PHDK_OBSERVABILITY_ANALYTICS.md` only when relevant. Distinguish deployed source availability from *documentation-only* promises and verify authorization for each resource separately. The report must show the four channel coverage states, observed source/version/time cutoff, linked source IDs and evidence quality; UAT or hosted acceptance is never inferred from the local fixture test. When a user request conflicts with documented RBAC, propose rejection/security review, not a permission bypass. Only a subsequent owner-authorized `PHDK auto`/PMO goal can implement a selected improvement; no automatic backlogs or scheduled Heal runs.
+
 ## Evidence gathering protocol
 
 1. Identify **one repository/product, authorization and trusted environment**, release/commit, data cutoff and relevant lookback window. Default to the last 30 days of **already retained** ULEDS records, configurable by owner. Report absence and truncation. Do not discover other projects/tenants.

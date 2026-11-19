@@ -2,6 +2,10 @@
 
 Use the existing milestone's technical gate to run one bounded hermetic local test profile per `PHDK_TEST_AUTOMATION_STANDARD.md` where configured and necessary; do not add a new workstream or many review loops for automated test cases. Keep concrete failures and untested UAT risks distinct from delivery evidence. Explicit-only UAT remains independent.
 
+## ULEDS incident-to-development governance (v4.2.1)
+
+The current owner may explicitly select a `PHDK_HEAL_STANDARD.md` proposal based on `PHDK_ULEDS_STANDARD.md` and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` evidence. Only **approved** and dependency-ready changes become PHDK milestones; `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` support messages, raw errors and unapproved proposals never grant work/merge/deployment/UAT authority. Preserve WIP-one stop-loss, active goal scope, privacy/RBAC and source-specific feasibility; no background incident-to-Auto queue or paid infrastructure.
+
 # PHDK PMO Standard
 
 ## Delivery-first WIP control (v3.3.0)

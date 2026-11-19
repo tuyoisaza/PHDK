@@ -17,6 +17,10 @@ Normative for React/Next.js user-facing PHDK apps, new interfaces and Designer M
 
 Where an administration console applies, `ADMIN_CONSOLE_STANDARD.md` requires **Configuración → Edición de templates / Visual templates** with preview, persist/rollback and selection of claro (light), oscuro (dark) and corporativo (corporate). Keep corporate visibility togglable. All shared components and screens must derive colors from the single centralized semantic token source; scan for hardcoded per-element/page hex/RGB/arbitrary color values that break switching and report/fix them in Designer readiness and `PHDK check`. A toggle that does not update actual rendered components is a GAP, not a functioning theme.
 
+## ULEDS shared component contract (v4.2.1)
+
+Use one shared version/actions UI per `DEBUG_DIAGNOSTICS_STANDARD.md` and `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`, exact order `vX.Y.Z [clipboard] [trash] [🤖]` in the top-left app branding region on public/login/app/admin and debug OFF. Preserve exceptional 12px version / 28px controls / 14px icons / 4px gap; the owner-selected literal emoji is the last control, with accessible focus and support drawer. Provide stable `data-phdk-component-id` anchors excluding sensitive fields and cross-tenant content. Use `PHDK_ULEDS_STANDARD.md` for events and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` for durable records, while `PHDK_HEAL_STANDARD.md` stays outside the user UI. Do not require a paid LLM for basic reporting.
+
 ## Single source of truth
 Recommended arrangement, adaptable to existing equivalent structures:
 ```text

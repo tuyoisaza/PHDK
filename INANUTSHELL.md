@@ -8,6 +8,10 @@ A condensed reminder of PHDK's rules. Read the referenced standards for details.
 
 Recommend `PHDK help`. Only on explicit invocation, read `PHDK_HELP.md` and `PHDK_COMMANDS.json` to explain all commands, actual project intent or uncertainty, and one **unexecuted** next step. Help is read-only (no updater, Stack Security Review, project changes or UAT), unlike substantive-command Preflight.
 
+## ULEDS and owner-invoked Heal (v4.2.1)
+
+New interactive apps implement `PHDK_ULEDS_STANDARD.md` with four logical input channels; `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` places 🤖 right of the clipboard/trash controls; `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` retains incident/request/decision history. `PHDK heal` / `PHDK_HEAL_STANDARD.md` only analyzes authorized evidence and proposes a Development Plan. No end-user feedback invokes Auto, changes roles, authorizes UAT, deploys code or starts a background agent. `PHDK_OBSERVABILITY_ANALYTICS.md` monitoring vendors remain opt-in; existing products require scoped adoption.
+
 ## Portfolio-first policy (v2.74.0)
 
 PHDK is the owner's standardized engineering system for a related project portfolio. Use the evolvable `TECHNICAL_STACK.md` and compare REUSE/ADAPT/BUILD for common capabilities under `PHDK_REUSE_CATALOG_STANDARD.md` before duplicating work. `SPECIFICATION_ONLY` entries cannot be installed, and shared-code extraction needs separate authorization. Local source review, lint/typechecking and safe builds are allowed; no Docker, running local services/databases or local behavioral testing. Existing GitHub-connected production (Railway where configured) and explicit deployed `PHDK uat` remain the validation route. Load only relevant context.

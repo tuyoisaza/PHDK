@@ -1,3 +1,7 @@
+## ULEDS issue-to-milestone approval (v4.2.1)
+
+When an owner explicitly selects a `PHDK_HEAL_STANDARD.md` proposal, tie the authorized scope to `PHDK_ULEDS_STANDARD.md` correlation/source IDs, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` request/decision state and `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` contextual component details. Plan one coherent dependency-ready value milestone with material security, RBAC/tenant, acceptance, rollback and evidence criteria; do not let a user ticket, AI recommendation, exception count or unknown provider log autonomously add WIP, rerun Auto, or open a PR. UAT remains explicitly separate.
+
 ## Universal test checkpoints (v3.4.0)
 
 Milestone technical evidence may include a single bounded hermetic local runner result (`PHDK_TEST_AUTOMATION_STANDARD.md`), scoped to changed behavior and existing scripts. The report belongs to the current milestone; do not create another milestone, workstream or release for testing itself. Real API/browser/UAT is separately authorized and reported independently. Never equate source PASS with accepted user value.

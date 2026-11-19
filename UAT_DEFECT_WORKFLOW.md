@@ -2,6 +2,10 @@
 
 The default is to finish the discovery pass on one deployed revision, keep a live defect register in `UAT_REPORT.md`, and retest an identifiable repair candidate. The evaluator records a defect before moving to the next case. In a bare `PHDK uat`, product repairs remain queued for `PHDK uat fix`. A request such as “PHDK uat: finish the pass, repair the findings and retest” authorizes both stages in that order. Honor more specific owner instructions. No prompt per defect is required once repair is authorized.
 
+## ULEDS-linked UAT evidence (v4.2.1)
+
+Within **explicitly owner-initiated UAT only**, link a defect to an existing authorized `PHDK_ULEDS_STANDARD.md` incident/event ID or `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` request when available; preserve the pinned deployed revision, role/tenant, case and original evidence independently in UAT_REPORT. `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` user support tickets are not acceptance defects without an observed/authorized test case. `PHDK_HEAL_STANDARD.md` may later propose development but cannot auto-initiate UAT Fix, change production records or approve permissions. Missing event capture must not block otherwise safe synthetic UAT cases merely to fill the logs.
+
 ## Run the discovery pass
 
 1. Pin run, deployed build, environment/configuration revision, role, case scope and synthetic fixture set. Open the report and its register before the first case. On resuming a run, reconcile existing case notes and screenshots first. Import evidenced failures and flag missing proof for recheck. Import relevant outstanding findings from the last report or stage snapshot. Preserve the initial observation and keep one writer responsible for the register.

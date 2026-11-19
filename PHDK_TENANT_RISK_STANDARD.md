@@ -2,6 +2,10 @@
 
 **Scope:** all products with existing, planned or plausible multi-tenancy; single-tenant products record NOT APPLICABLE to cross-tenant controls while retaining ordinary security/privacy duties. This standard is consulted during Capture, Plan, Auto/implementation, UAT Prep, UAT and Check. Read with `ADMIN_CONSOLE_STANDARD.md`, `DEVSECOPS.md` and `PHDK_PRODUCTION_VERIFICATION.md`.
 
+## ULEDS and tenant privacy (v4.2.1)
+
+`PHDK_ULEDS_STANDARD.md` events, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` support tickets and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` history are scoped tenant/customer data, not unrestricted developer logs. Assign project/tenant/actor identity on the trusted server; enforce read/write/row/field RBAC, pseudonymization and retention, and protect event/ticket references. `PHDK_HEAL_STANDARD.md` may access only authorized redacted evidence; cross-project comparisons require separately approved aggregate-only data. Public 🤖 intake never exposes confidential tickets, tenant routes or private error traces. Missing deployed negative access tests remain UNVERIFIED until explicit UAT.
+
 ## 1. Outcome and decision authority
 
 Protect each tenant as an independent security boundary across all data and execution paths. A request authenticated to tenant A must not read, infer, update, delete, export, restore or trigger actions against tenant B's information. Encryption does not substitute for authorization or separation; "military-grade" is not a technical assurance level or certification.

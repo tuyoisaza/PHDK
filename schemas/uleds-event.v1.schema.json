@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/tuyoisaza/PHDK/blob/main/schemas/uleds-event.v1.schema.json",
   "title": "PHDK ULEDS event v1",
-  "description": "CloudEvents 1.0 compatible, privacy-minimized canonical envelope. The trusted receiver must stamp actor, project and received_at fields.",
+  "description": "CloudEvents 1.0 compatible, privacy-minimized *persisted* event envelope. Server stamps project, actor and received_at; schema validation does not itself establish identity, consent or redaction.",
   "type": "object",
   "required": [
     "specversion",
@@ -35,7 +35,8 @@
     },
     "time": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "pattern": "Z$"
     },
     "datacontenttype": {
       "const": "application/json"
@@ -121,7 +122,8 @@
         },
         "received_at": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "pattern": "Z$"
         },
         "product_version": {
           "oneOf": [
@@ -499,5 +501,151 @@
       "additionalProperties": false
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "pattern": "^phdk\\.(client)\\."
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "properties": {
+              "channel": {
+                "const": "client"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "pattern": "^phdk\\.(backend|build|deployment|runtime|security)\\."
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "properties": {
+              "channel": {
+                "const": "backend_deployment"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "pattern": "^phdk\\.(support)\\."
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "properties": {
+              "channel": {
+                "const": "support"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "pattern": "^phdk\\.(feedback)\\."
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "properties": {
+              "channel": {
+                "const": "contextual_feedback"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "pattern": "\\.(?:error|failed|exception)$"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "required": [
+              "error"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "data": {
+            "properties": {
+              "channel": {
+                "enum": [
+                  "support",
+                  "contextual_feedback"
+                ]
+              }
+            },
+            "required": [
+              "channel"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "required": [
+              "feedback"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

@@ -1,3 +1,7 @@
+## ULEDS request authorization boundary (v4.2.1)
+
+Sources from `PHDK_ULEDS_STANDARD.md` (client/backend/deploy, support, contextual comments) and the `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` may identify *candidate* defects or improvements, but an anonymous user/support conversation cannot approve new product scope. `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` controls safe intake and `PHDK_HEAL_STANDARD.md` outputs prioritized proposals; only explicit owner confirmation places a selected item inside PHDK's active commitments and Plan/PMO/Auto. Unapproved incidents remain visible for triage, not authorized development, deployments, provider work or background processes.
+
 # PHDK Commitment Ledger and Completion Gate
 
 ## Authority and applicability

@@ -40,6 +40,7 @@ Recommendations based on observable facts, one at a time:
 | Existing visual product with missing design decisions | `PHDK design` (as appropriate) |
 | Scoped goal and ready plan; owner wants full implementation | `PHDK auto` (or `PHDK auto force` when the owner deliberately delegates routine design decisions) |
 | Existing project with suspected standard drift/unclear gaps | `PHDK check` |
+| Collected ULEDS incidents or improvement requests; owner wants a prioritized plan | `PHDK heal` (read-only evidence review; no implementation) |
 | Verified outdated installed standards and safe owner intention | `PHDK upgrade` |
 | Delivered candidate requiring acceptance | Offer **explicit** `PHDK uat` as an optional next action, not an automatic gate |
 
