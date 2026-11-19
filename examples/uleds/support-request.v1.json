@@ -1,0 +1,56 @@
+{
+  "specversion": "1.0",
+  "id": "01JCHX1ZX1EJEZ8KABPSHV0003",
+  "source": "/inmotiontitan/support",
+  "type": "phdk.support.request",
+  "time": "2026-11-18T20:13:40Z",
+  "datacontenttype": "application/json",
+  "subject": "customers.export",
+  "data": {
+    "schema_version": "1.0",
+    "project_id": "inmotiontitan",
+    "environment": "production",
+    "service": "web",
+    "channel": "support",
+    "severity": "INFO",
+    "outcome": "requested",
+    "received_at": "2026-11-18T20:13:41Z",
+    "product_version": "1.8.3",
+    "git_sha": "0123456789abcdef0123456789abcdef01234567",
+    "deployment_id": null,
+    "location": {
+      "origin": "https://example.com",
+      "route": "/clientes",
+      "screen_id": "customers.list",
+      "component_id": "customers.export.button"
+    },
+    "actor": {
+      "role": "operator",
+      "tenant_ref": "tenant-pseudo-01",
+      "actor_ref": "actor-pseudo-02"
+    },
+    "action": "support.submit",
+    "fingerprint": "support:export:request",
+    "correlation": {
+      "trace_id": "4bf92f3577b34da6a3ce929d0e0e4736",
+      "span_id": null,
+      "request_id": "req-pseudo-03",
+      "session_id": "session-pseudo-04",
+      "incident_id": null,
+      "conversation_id": "conv-005"
+    },
+    "privacy": {
+      "classification": "internal",
+      "redacted": true,
+      "consent_ref": "consent-pseudo-002"
+    },
+    "evidence_refs": [
+      "evref-004"
+    ],
+    "feedback": {
+      "kind": "bug",
+      "summary": "Export fails when filtering by customer status.",
+      "ticket_ref": "ticket-124"
+    }
+  }
+}

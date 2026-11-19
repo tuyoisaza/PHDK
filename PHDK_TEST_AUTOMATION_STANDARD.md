@@ -1,3 +1,7 @@
+## v4.2.0 — ULEDS hermetic schema and component tests
+
+`PHDK_ULEDS_STANDARD.md` provides `schemas/uleds-event.v1.schema.json`, synthetic examples and an offline `scripts/phdk_uleds_validate.py` structural/privacy gate. `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` requires tests for the top-left `vX.Y.Z [clipboard] [trash] [🤖]` widget, contextual picker, submission receipt and role/tenant/abuse controls; `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` requires transition/decision provenance tests. `PHDK_HEAL_STANDARD.md` is only a proposal command and cannot enter live product/UAT. Product adopters use existing hermetic local profile; validation of fixture JSON is not proof of deployed telemetry ingestion or UI acceptance.
+
 ## v4.1.0 — DB inspection is not a test-runner profile
 
 [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md) permits a **separately justified, task-scoped read-only diagnostic** of a live DB; this never becomes a `local` check, `PHDK test` manifest entry, hook or automatic connectivity probe. The `local` profile remains hermetic: **no real DB**, network, providers, servers or product tests. Functional acceptance, migration testing and synthetic data writes remain exclusive to explicitly authorized UAT; existing `uat` profile authorization is unchanged.

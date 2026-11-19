@@ -1,0 +1,503 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tuyoisaza/PHDK/blob/main/schemas/uleds-event.v1.schema.json",
+  "title": "PHDK ULEDS event v1",
+  "description": "CloudEvents 1.0 compatible, privacy-minimized canonical envelope. The trusted receiver must stamp actor, project and received_at fields.",
+  "type": "object",
+  "required": [
+    "specversion",
+    "id",
+    "source",
+    "type",
+    "time",
+    "datacontenttype",
+    "subject",
+    "data"
+  ],
+  "properties": {
+    "specversion": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^phdk\\.(client|backend|build|deployment|runtime|security|support|feedback)\\.[a-z][a-z0-9_.-]*$",
+      "maxLength": 128
+    },
+    "time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "datacontenttype": {
+      "const": "application/json"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "environment",
+        "service",
+        "channel",
+        "severity",
+        "outcome",
+        "received_at",
+        "product_version",
+        "git_sha",
+        "deployment_id",
+        "location",
+        "actor",
+        "action",
+        "fingerprint",
+        "correlation",
+        "privacy",
+        "evidence_refs"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "production",
+            "staging",
+            "development",
+            "test"
+          ]
+        },
+        "service": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "channel": {
+          "type": "string",
+          "enum": [
+            "client",
+            "backend_deployment",
+            "support",
+            "contextual_feedback"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "DEBUG",
+            "INFO",
+            "WARN",
+            "ERROR",
+            "CRITICAL"
+          ]
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "success",
+            "failure",
+            "degraded",
+            "requested",
+            "unknown"
+          ]
+        },
+        "received_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "product_version": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d+\\.\\d+\\.\\d+([+-][A-Za-z0-9.-]+)?$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "git_sha": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deployment_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "location": {
+          "type": "object",
+          "required": [
+            "origin",
+            "route",
+            "screen_id",
+            "component_id"
+          ],
+          "properties": {
+            "origin": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "^https://[A-Za-z0-9.-]+(:[0-9]{1,5})?$",
+                  "maxLength": 250
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "route": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "^/(?!/)[A-Za-z0-9/_{}.-]*$",
+                  "maxLength": 250
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "screen_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "component_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "actor": {
+          "type": "object",
+          "required": [
+            "role",
+            "tenant_ref",
+            "actor_ref"
+          ],
+          "properties": {
+            "role": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tenant_ref": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "actor_ref": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "fingerprint": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "correlation": {
+          "type": "object",
+          "required": [
+            "trace_id",
+            "span_id",
+            "request_id",
+            "session_id",
+            "incident_id",
+            "conversation_id"
+          ],
+          "properties": {
+            "trace_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{32}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "span_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{16}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "request_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "session_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "incident_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "conversation_id": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "privacy": {
+          "type": "object",
+          "required": [
+            "classification",
+            "redacted",
+            "consent_ref"
+          ],
+          "properties": {
+            "classification": {
+              "type": "string",
+              "enum": [
+                "public",
+                "internal",
+                "restricted"
+              ]
+            },
+            "redacted": {
+              "const": true
+            },
+            "consent_ref": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "evidence_refs": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "error": {
+          "type": "object",
+          "required": [
+            "code",
+            "safe_message",
+            "fingerprint"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "safe_message": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "fingerprint": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "safe_stack_ref": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "feedback": {
+          "type": "object",
+          "required": [
+            "kind",
+            "summary",
+            "ticket_ref"
+          ],
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "bug",
+                "improvement",
+                "question",
+                "security"
+              ]
+            },
+            "summary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            "ticket_ref": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "maxProperties": 10
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

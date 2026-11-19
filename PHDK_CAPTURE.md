@@ -1,3 +1,7 @@
+## v4.2.0 — ULEDS/feedback discovery for new interactive products
+
+Record the mandatory client, backend/build/deployment, support, and contextual selection channels under `PHDK_ULEDS_STANDARD.md` and `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`. Discover existing logging, privacy/consent, source/URL/component IDs, role/tenant policy, chat audiences, provider logging and hosting/retention constraints. `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` governs long-lived issue/decision history; `PHDK_HEAL_STANDARD.md` governs owner-invoked planning only. Existing apps may lack capabilities: record explicit scoped adoption work rather than silently creating a platform or granting a user change authority.
+
 # PHDK Capture Standard
 
 ## Canonical Capture artifact location (v2.73.0)

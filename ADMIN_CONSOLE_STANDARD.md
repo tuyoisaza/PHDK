@@ -1,3 +1,7 @@
+## v4.2.0 — ULEDS & Continuous Improvement governance
+
+Interactive administered applications configure access-controlled `PHDK_ULEDS_STANDARD.md` retention/limits/source health, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` support categories/assignment and separately opt-in AI-provider integration, plus `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` incident triage, reviews and decisions. `PHDK_HEAL_STANDARD.md` reads only authorized material, proposes changes and never grants tenant/admin privileges or implements requests. The always-visible 🤖 launcher stays available with a non-AI issue intake fallback even without a provider; do not expose raw logs, transcripts or cross-tenant tickets to public users.
+
 # PHDK Administration Console Standard
 
 **Applies to:** every stateful portal/application with authenticated administrative operations, regardless of industry (CRM, ERP, LMS, HR, operations, commerce, etc.). A genuinely static/no-backend/no-administration product may document NOT APPLICABLE with evidence; an authenticated app may not opt out merely because its vertical differs.

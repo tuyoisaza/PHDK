@@ -1,3 +1,7 @@
+## v4.2.0 — ULEDS and PHDK heal
+
+`PHDK heal` reads authorized, finite four-channel ULEDS/Development Ledger evidence to propose a prioritized Development Plan in conversation; `PHDK heal --diagnose` reports findings only, while separately requested `PHDK heal --plan` may create a sanitized plan document but never implement source or launch UAT. `PHDK help heal` explains this without running the command. The four-element app widget now shows `vX.Y.Z [clipboard] [trash] [🤖]`; the robot opens safe Continuous Improvement support/contextual feedback. Do not convert support complaints into development authorization or recommend paid integrations by default. See `PHDK_HEAL_STANDARD.md`, `PHDK_ULEDS_STANDARD.md`, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` and `DEBUG_DIAGNOSTICS_STANDARD.md`.
+
 # PHDK Help — read-only, context-aware command discovery
 
 ## Purpose
