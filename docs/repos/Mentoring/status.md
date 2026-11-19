@@ -2,10 +2,10 @@
 repository: tuyoisaza/Mentoring
 repository_url: https://github.com/tuyoisaza/Mentoring
 default_branch: main
-observed_repository_sha: e8abdb680b6299e88e1fb833a5fa2a12780279db
-observed_at_utc: 2026-11-08T04:32:08Z
-phdk_version: 3.0.2
-phdk_canonical_version: 3.0.2
+observed_repository_sha: 1686ed30f34f4b7d2c410c67784dae3c4b0369d9
+observed_at_utc: 2026-11-19T08:31:10Z
+phdk_version: 4.2.2
+phdk_canonical_version: 4.2.2
 phdk_status: CURRENT
 tech_stack:
   runtimes:
@@ -24,14 +24,14 @@ tech_stack:
   images: []
 stack_review:
   status: FINDINGS
-  reviewed_at_utc: 2026-11-08T04:32:08Z
-  evidence: https://github.com/tuyoisaza/Mentoring/pull/150
+  reviewed_at_utc: 2026-11-19T08:31:10Z
+  evidence: https://github.com/tuyoisaza/Mentoring/pull/170
   findings:
     critical: 0
     high: 0
     medium: 2
-    low: 0
+    low: 1
 central_status_source: PHDK
 ---
 
-A same-major Fastify static update removed one vulnerable glob/minimatch path. Two moderate production advisory findings remain via Google dependencies that pin gaxios 7.1.3. Deployed runtime, operating system and database coverage remain unverified. UAT was not run for this maintenance.
+The production dependency audit identified two moderate advisories (glob and minimatch) and one low advisory (fast-xml-parser). Node 24.22.3 is a newer same-major security release than the project pin. Live runtime, image and database versions remain unverified. UAT was not run.
