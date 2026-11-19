@@ -1,3 +1,7 @@
+## v4.2.0 — Continuous Improvement is an implemented product feature, not a hidden stage
+
+`PHDK_ULEDS_STANDARD.md` defines required new interactive-product input channels; `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` defines the mandatory 🤖 support/selection UI; `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` retains sanitized incident-to-delivery history; `PHDK_HEAL_STANDARD.md` adds explicit foreground planning-only analysis. None introduces unattended monitoring agents, automatic change approval, a new mandatory provider, implicit UAT, cross-repository writes or automatic Auto resumption.
+
 ## Test automation checkpoint, no additional lifecycle stage (v3.4.0)
 
 `PHDK_TEST_AUTOMATION_STANDARD.md` is an execution mechanism within existing milestone implementation/40 Integration and final Check, **not** a new bureaucratic stage. A generic vendored Python runner reads the project-owned manifest, executes bounded offline hermetic code checks and saves a single concise report. Store the exact report/revision reference in the existing handoff. Actual deployed API/browser/functional acceptance remains optional, separately explicit `PHDK uat`/UAT Fix; never infer acceptance from code tests or authorize local databases/network.

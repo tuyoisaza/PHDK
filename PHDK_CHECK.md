@@ -1,3 +1,7 @@
+## v4.2.0 — Read-only ULEDS/🤖 support quality audit
+
+For applicable interactive apps, review code and available evidence against `PHDK_ULEDS_STANDARD.md`, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` and `PHDK_HEAL_STANDARD.md`: all four logical event sources, real schema/receiver, deployment provenance, safe route/component/correlation, redaction/retention/cost, RBAC/tenant isolation, user ticket storage/clarification, contextual selection, and always-visible `vX.Y.Z [clipboard] [trash] [🤖]` UI with proper keyboard behavior. Missing sources are NOT_IMPLEMENTED/SOURCE_UNAVAILABLE, not PASS. Bare Check never invokes Heal, inspects live app/browser/DB opportunistically or configures provider infrastructure; Check Fix and Auto remain authorization-limited. A PHDK standards update does not prove production data is being collected.
+
 ## v4.1.0 — Database diagnostic policy audit
 
 For a relevant data-backed project, audit whether source, roles and operational instructions respect [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md). **Bare Check remains read-only and non-probing**: do not establish a live DB connection simply to complete the audit. If a current, independently owner-authorized data/incident question genuinely requires a particular live fact, handle only that read via the separate scoped diagnostic exception; never use Check to run UAT or provider/database writes.

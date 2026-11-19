@@ -1,3 +1,7 @@
+## v4.2.0 — ULEDS Development Ledger and written Heal plans
+
+Raw production `PHDK_ULEDS_STANDARD.md` records and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` support transcripts live only in authorized per-product storage, not GitHub commits. `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` feedback is user input, not approved requirements. A separately explicit `PHDK heal --plan` under `PHDK_HEAL_STANDARD.md` writes a sanitized versioned `docs/plans/continuous-improvement-plan.vN.md` plus index and decision/evidence links with no raw logs, usernames, tokens, tenant data or accidental automatic code execution.
+
 # PHDK Documentation, Nomenclature and Traceability Standard
 
 ## Purpose and authority

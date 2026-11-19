@@ -1,3 +1,7 @@
+## v4.2.0 — Explicit acceptance of ULEDS and support robot
+
+Only after owner-initiated `PHDK uat`, test `PHDK_ULEDS_STANDARD.md` event schema, capture/correlation/dedup, retention and role/tenant security; `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` always-visible robot 🤖 after clipboard/trash on public/login/app/admin (even debug OFF), accessible first-party support intake, guided clarification, safe contextual element picker, truthful persisted receipt and anonymous abuse controls; and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` lifecycle/decision isolation. `PHDK_HEAL_STANDARD.md` cannot authorize runtime probes/UAT itself. Retain synthetic identities, production verification limits, private data redaction, cleanup and UAT NOT RUN for untested cases.
+
 ## v3.4.0 — automated UAT remains explicitly owner-authorized
 
 A project may reuse the `PHDK_TEST_AUTOMATION_STANDARD.md` Python runner's `uat` profile *only after* fresh explicit `PHDK uat` or authorized UAT Fix, under existing production-candidate, synthetic-owned fixtures, legitimate authentication, data boundary and cleanup rules. The runner's `--uat-authorized` flag does not prove authority or provision accounts; local hermetic unit tests under the separate `local` profile are code checks, not acceptance.

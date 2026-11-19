@@ -1,3 +1,13 @@
+## v4.2.0 — 2026-11-18
+
+### MINOR — ULEDS, Development Ledger, Continuous Improvement support and PHDK heal
+
+- Add mandatory minimal four-channel `PHDK_ULEDS_STANDARD.md` for new interactive applications: browser/client, backend/build/deployment, support chat, and contextual component feedback, with a CloudEvents-compatible v1 JSON Schema, four synthetic examples and offline validator. Use version, route, component, trace, role/tenant, provenance, severity, redaction, finite retention and ingestion/cost budgets.
+- Add `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` for enduring sanitized incident, request, proposal, decision and delivery traceability; add `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` for support tickets, clarifications and contextual selection. Extend mandatory shared widget to **`vX.Y.Z [clipboard] [trash] [🤖]`** at top-left on public/login/app/admin, regardless of debug mode. The rightmost user-requested literal emoji opens the guarded Continuous Improvement support drawer.
+- Register conversational `PHDK heal` as **foreground read-only analysis + development-plan proposal**, with `--diagnose` report-only and separately requested `--plan` sanitized plan-document work. Never execute suggestions, code changes, UAT, provider/DB writes, role bypasses, background workers or automatic continuation from untrusted user support messages.
+- Reconcile README/Evolution/manifest/Help/catalog/agent/skill/native, Scope/Preflight, Capture/Plan/Auto/Check/UAT, observability, documentation, admin and diagnostics. Preserve provider/GA4/Clarity opt-in, tenant privacy, owner permission boundaries and honest SOURCE_UNAVAILABLE statuses. No consumers, live services or hosting configuration are changed by this standards release.
+- Add offline fixtures/contract tests and fix the previous version-specific DB policy test to recognize later valid releases.
+
 ## v4.1.0 — 2026-11-17
 
 ### MINOR — Scoped read-only live database diagnostics (no new command)

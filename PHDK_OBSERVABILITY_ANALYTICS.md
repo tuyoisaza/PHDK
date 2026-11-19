@@ -1,3 +1,7 @@
+## v4.2.0 — Required ULEDS core vs optional monitoring services
+
+For new interactive applications, `PHDK_ULEDS_STANDARD.md`, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` are the mandatory *minimum product-owned* event/support/feedback baseline; `PHDK_HEAL_STANDARD.md` defines foreground evidence analysis. This does not opt a product into Grafana, Clarity, GA4, hosted AI or any new infrastructure/cost. The existing optional monitoring/analytics provider choices below remain separately approved. If deployment logs have no authorized streaming integration, use bounded on-demand inspection for explicit tasks and report SOURCE_UNAVAILABLE rather than pretend continuous collection.
+
 # PHDK — Observability, Analytics & Behavioral Monitoring Standard
 
 Status: Proposed standard. Applies to greenfield and brownfield repositories. Owner decisions are explicit; no external resource is provisioned without authorization.

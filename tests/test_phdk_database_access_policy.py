@@ -82,10 +82,10 @@ class ScopedDatabaseAccessPolicyTests(unittest.TestCase):
 
     def test_release_markers(self):
         version = text("VERSION").strip()
-        self.assertEqual(version, "4.1.0")
-        self.assertIn("**Version v4.1.0**", text("README.md"))
-        self.assertTrue(text("CHANGELOG.md").startswith("## v4.1.0"))
-        self.assertTrue(text("PHDK_EVOLUTION_STANDARD.md").startswith("## v4.1.0"))
+        self.assertGreaterEqual(tuple(map(int, version.split("."))), (4, 1, 0))
+        self.assertIn(f"**Version v{version}**", text("README.md"))
+        self.assertTrue(text("CHANGELOG.md").startswith(f"## v{version}"))
+        self.assertTrue(text("PHDK_EVOLUTION_STANDARD.md").startswith(f"## v{version}"))
 
 
 if __name__ == "__main__":

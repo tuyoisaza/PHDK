@@ -1,3 +1,7 @@
+## v4.2.0 — Plan the ULEDS/🤖 continuous improvement baseline
+
+For every new interactive product, include actual, tested application work to implement `PHDK_ULEDS_STANDARD.md` (four event channels and contract), `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` (shared `vX.Y.Z [clipboard] [trash] [🤖]` widget, support chat and contextual component selection) and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` (persisted incidents/requests/decisions). Use existing approved storage, minimize payloads/cost, design RBAC/tenant/sensitive-form exclusions and retention/erasure, stable component IDs, support fallback without paid LLM, schema migration strategy and hermetic tests. `PHDK_HEAL_STANDARD.md` is an owner-invoked analysis/plan only and not a reason to provision or execute code. For brownfield projects create an owner-authorized scoped milestone; no automatic downstream updates.
+
 ## v4.1.0 — Plan data investigations without spawning test infrastructure
 
 For a task that actually requires persisted-state evidence to plan or repair a feature, consult [PHDK_DATABASE_ACCESS_STANDARD.md](PHDK_DATABASE_ACCESS_STANDARD.md). Prefer source/schema/migration evidence first, then only necessary, current owner-authorized and bounded read-only live database diagnostics with target, role, privacy and cleanup constraints. Do not routinely access production merely because a database exists; no scripts/new commands/new services, speculative sampling, writes or UAT from Plan.

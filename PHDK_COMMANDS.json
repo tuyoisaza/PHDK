@@ -4,7 +4,8 @@
   "purpose": "PHDK convierte intención de producto en software de valor verificable, trazable y entregado con control humano.",
   "notes": [
     "Preflight, Integración y AEO/GEO son etapas aplicables, no comandos de invocación independientes en este catálogo.",
-    "PHDK help es ayuda de solo lectura; ninguna sugerencia inicia otro comando."
+    "PHDK help es ayuda de solo lectura; ninguna sugerencia inicia otro comando.",
+    "PHDK heal es planificación de solo lectura; --diagnose sólo diagnostica y --plan requiere solicitud explícita para guardar un documento, nunca ejecutar código."
   ],
   "commands": [
     {
@@ -116,6 +117,15 @@
       "when": "Necesitas validar código y build sin repetir manualmente pruebas; el UAT sigue separado.",
       "effect": "LOCAL_VERIFICATION",
       "standard": "PHDK_TEST_AUTOMATION_STANDARD.md"
+    },
+    {
+      "group": "Calidad",
+      "command": "PHDK heal",
+      "aliases": [],
+      "summary": "Correlaciona eventos ULEDS, errores y solicitudes de soporte; evalúa seguridad/RBAC y propone un Development Plan priorizado, sin ejecutarlo.",
+      "when": "Revisar problemas y mejoras de uso y convertirlos en propuestas gobernadas de desarrollo.",
+      "effect": "READ_ONLY_PLAN",
+      "standard": "PHDK_HEAL_STANDARD.md"
     },
     {
       "group": "Calidad",

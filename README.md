@@ -1,3 +1,5 @@
+**ULEDS and Continuous Improvement (v4.2.0):** New interactive PHDK products must implement [ULEDS structured events](PHDK_ULEDS_STANDARD.md), the durable [Development Ledger](PHDK_DEVELOPMENT_LEDGER_STANDARD.md), and the [always-visible 🤖 support launcher](PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md) immediately right of the version / clipboard / trash actions. Four logical inputs: client failures, backend/build/deploy incidents, support conversations, contextual element feedback. The new owner-invoked `PHDK heal` only correlates authorized evidence and proposes a prioritized, RBAC-reviewed Development Plan; it **does not execute** changes. No background agent, new paid monitoring, hosting, provider operations, automatic UAT or downstream rollout occurs merely because standards are released. [Heal contract](PHDK_HEAL_STANDARD.md).
+
 **Scoped read-only database diagnostics (v4.1.0):** During a current authorized development/investigation task that genuinely requires deployed data, use the [database-access standard](PHDK_DATABASE_ACCESS_STANDARD.md) to inspect a precisely identified environment through an existing private connection or approved ephemeral tunnel, under least-privilege read-only permissions, finite SQL limits and verified cleanup. No new PHDK command, public TCP exposure, schema/data writes or automatic UAT; live functional testing remains explicit-only. The `PHDK test` local profile remains hermetic. No new hosted infrastructure or access is created by adopting this standard.
 
 **Upgrade Force now requires Auto Force confirmation (v4.0.0):** `PHDK upgrade force` synchronizes/reviews/publishes PHDK standards, then shows the proposed goal and asks `¿Quieres ejecutar PHDK auto force ahora? (Sí/No)`. Auto Force starts only on a fresh affirmative reply. No response or "No" ends with the upgrade completed; it never starts background development. The FORCE bypass of routine reviews does not waive this command-entry gate. [Upgrade contract](PHDK_UPGRADE.md).
@@ -25,7 +27,7 @@
 
 
 **Project Handoff to Development Kit**\
-**Version v4.1.0**
+**Version v4.2.0**
 
 **v3 self-hosting:** PHDK now checks its own 600-line Python limit before distribution. The static coherence checker is modular, with three manifest-vendored scripts and canonical/installed-layout regression fixtures; no downstream Git hook exemption is required. See [the release audit](docs/audits/phdk-v3.0.0-coherence-2026-11-07.md). The separate private PHDK-Modules repository currently has an **empty module catalog**, so it is not yet a source of installable, tested modules.
 

@@ -1,0 +1,57 @@
+{
+  "specversion": "1.0",
+  "id": "01JCHX1ZX1EJEZ8KABPSHV0004",
+  "source": "/inmotiontitan/railway",
+  "type": "phdk.deployment.failed",
+  "time": "2026-11-18T20:13:40Z",
+  "datacontenttype": "application/json",
+  "subject": "deployment.build",
+  "data": {
+    "schema_version": "1.0",
+    "project_id": "inmotiontitan",
+    "environment": "production",
+    "service": "api",
+    "channel": "backend_deployment",
+    "severity": "ERROR",
+    "outcome": "failure",
+    "received_at": "2026-11-18T20:13:41Z",
+    "product_version": "1.8.3",
+    "git_sha": "0123456789abcdef0123456789abcdef01234567",
+    "deployment_id": "dep-synthetic-01",
+    "location": {
+      "origin": null,
+      "route": null,
+      "screen_id": null,
+      "component_id": null
+    },
+    "actor": {
+      "role": null,
+      "tenant_ref": null,
+      "actor_ref": null
+    },
+    "action": "deploy.build",
+    "fingerprint": "deployment:typescript:ts2322",
+    "correlation": {
+      "trace_id": null,
+      "span_id": null,
+      "request_id": null,
+      "session_id": null,
+      "incident_id": null,
+      "conversation_id": null
+    },
+    "privacy": {
+      "classification": "internal",
+      "redacted": true,
+      "consent_ref": null
+    },
+    "evidence_refs": [
+      "provider-log-ref-01"
+    ],
+    "error": {
+      "code": "TS2322",
+      "safe_message": "Type mismatch in build (sanitized).",
+      "fingerprint": "build:TS2322",
+      "safe_stack_ref": null
+    }
+  }
+}
