@@ -2,8 +2,8 @@
 repository: tuyoisaza/Mentoring
 repository_url: https://github.com/tuyoisaza/Mentoring
 default_branch: main
-observed_repository_sha: d18d37620179b8a4358725612a94005933728414
-observed_at_utc: 2026-11-19T08:40:51Z
+observed_repository_sha: a6b6d590d9e75498c417030d41d8af1668d9c7c1
+observed_at_utc: 2026-11-19T09:10:23Z
 phdk_version: 4.3.0
 phdk_canonical_version: 4.3.0
 phdk_status: CURRENT
@@ -24,14 +24,15 @@ tech_stack:
   images: []
 stack_review:
   status: PARTIAL
-  reviewed_at_utc: 2026-11-19T08:40:51Z
-  evidence: https://github.com/tuyoisaza/Mentoring/pull/171
+  reviewed_at_utc: 2026-11-19T09:10:23Z
+  evidence: https://github.com/tuyoisaza/Mentoring/pull/173
   findings:
     critical: 0
     high: 0
     medium: 0
     low: 0
+uleds_status: IMPLEMENTED_SOURCE
 central_status_source: PHDK
 ---
 
-The production dependency audit reported zero known advisories. Coverage excludes the deployed runtime, OS image and database version. ULEDS source coverage is partial for client and backend, with product support and contextual feedback missing. The single version read returned application 1.44.2, PHDK 4.2.2 and no commit SHA. Deployment of 1.44.3 remains unverified. UAT was not run.
+Mentoring 1.46.0 includes tenant-scoped ULEDS intake, expiration and the support and contextual-feedback panel. Seventeen hermetic tests and four application-generated envelope validations passed. The production dependency audit returned no known advisories. Build/deployment ingestion is unconfigured. The bounded web version read returned 1.45.0 without a SHA. Version 1.46.0 deployment, live Redis durability and UAT remain unverified.
