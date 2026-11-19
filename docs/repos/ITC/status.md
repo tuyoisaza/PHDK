@@ -2,16 +2,16 @@
 repository: tuyoisaza/ITC
 repository_url: https://github.com/tuyoisaza/ITC
 default_branch: main
-observed_repository_sha: 4e036a19ff980984ae12b7877e46c4d169db27c7
-observed_at_utc: 2026-11-19T10:13:00Z
+observed_repository_sha: 1a8f39107cd6d21c3c5b6f653e44bd790b357f1e
+observed_at_utc: 2026-11-19T10:41:00Z
 phdk_version: 4.3.0
 phdk_canonical_version: 4.3.0
 phdk_status: CURRENT
 tech_stack:
   runtimes:
     - name: node
-      declared: ">=22.23.4 <23"
-      resolved: "22.23.4 (.nvmrc)"
+      declared: ">=22.23.5 <23"
+      resolved: "22.23.5 (.nvmrc)"
       deployed: UNVERIFIED
   frameworks:
     - name: next
@@ -29,14 +29,14 @@ tech_stack:
   images: []
 stack_review:
   status: FINDINGS
-  reviewed_at_utc: 2026-11-19T10:10:00Z
-  evidence: https://github.com/tuyoisaza/ITC/blob/4e036a19ff980984ae12b7877e46c4d169db27c7/docs/phdk/lifecycle/20261119-upgrade-430/STACK_SECURITY_REVIEW.md
+  reviewed_at_utc: 2026-11-19T10:36:00Z
+  evidence: https://github.com/tuyoisaza/ITC/blob/1a8f39107cd6d21c3c5b6f653e44bd790b357f1e/docs/phdk/lifecycle/20261119-uleds/SECURITY_REVIEW.md
   findings:
     critical: 0
     high: 0
-    medium: 14
+    medium: 10
     low: 0
 central_status_source: PHDK
 ---
 
-Source review PARTIAL / GAPS_FOUND. Counts are root npm affected-package entries, not independent vulnerabilities; web 12 and API/worker 4 overlap. All five lockfiles audited. Runtime/OS/image patch evidence incomplete. No product remediation or UAT claimed. PHDK standards published in ITC PR26, application metadata 0.28.446. ULEDS adoption separately requested, not yet implemented.
+Source review PARTIAL / GAPS_FOUND. Root and web each have 10 moderate npm affected-package entries (overlapping), API/worker/Railway zero; no high/critical. All five lockfiles audited. Compatible Node22/Hono/OTel source fixes applied. Runtime/OS/image patch evidence remains incomplete. ITC0.28.447/ULEDS source delivered via PR27; PHDK4.3.0 via PR26. Static profile7/7 PASS; UAT NOT RUN. Web autodeploy BUILDING at bounded observation; served version UNVERIFIED. No provider settings, DB migration or live application probes.
