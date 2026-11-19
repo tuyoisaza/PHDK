@@ -22,6 +22,8 @@ A channel is NOT_IMPLEMENTED or NOT_CONFIGURED, not PASS, if no real product ada
 
 **Operational correlation:** the existing Copy Diagnostics action uses the same bounded, sanitized client event buffer and correlation IDs (no second universal logger); Clear Cache may clear only accessible local caches and in-memory buffers but **never** delete centrally stored ULEDS events, support conversations or the Development Ledger. Backend/host build/deploy logs are persistent only after an actually authorized source adapter ingests a summarized, filtered record; otherwise mark SOURCE_UNAVAILABLE and provide bounded owner-requested inspection. No CI workflow, Railway polling worker or live probe is added implicitly.
 
+**Speech-to-text feedback ingress (v4.3.0):** The mandatory Juleth **microphone dictation** mode under `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` produces only a user-reviewed, explicitly submitted text message. The existing support and contextual-feedback channels, schema, security, consent and retention remain unchanged; raw audio, partial/interim recognition and microphone permission states are never collected as event or log payloads. Browser speech recognition may use remote processing, which must be disclosed before activation; unavailable or forbidden processing falls back to typing without failing basic support.
+
 ## Canonical event contract
 
 Use CloudEvents 1.0-compatible JSON envelopes with PHDK `data.schema_version = "1.0"`. Normative source schema: `schemas/uleds-event.v1.schema.json`. Reference examples: `examples/uleds/`. Records MUST contain:

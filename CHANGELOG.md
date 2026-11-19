@@ -1,3 +1,12 @@
+## v4.3.0 — 2026-11-19
+
+### MINOR — Mandatory optional-to-user microphone dictation in Juleth
+
+- Require in-panel microphone speech-to-text beside editable typed input for new interactive Juleth implementations and separately owner-authorized brownfield adoption, while preserving the fixed top-left `vX.Y.Z [clipboard] [trash] [🤖]` row.
+- Define explicit user gesture/permissions, supported/unsupported browser detection, observable start/stop/cancel, editable transcript and manual submission, user-language considerations, timeout/teardown and full text fallback.
+- Protect privacy: no app-side raw audio storage/upload/logging or silent recording; disclose that browser recognition may involve a remote provider and disable voice if product policy forbids it. No new paid AI/STT provider, service, job, autonomous agent or provider configuration.
+- Reconcile Continuous Improvement, ULEDS, diagnostics, Design/UX, Check, explicit-only UAT, future starter catalog/profile, README/Evolution/release markers and offline source-policy tests. No downstream rollout or runtime acceptance implied; starter remains SPECIFICATION_ONLY.
+
 ## v4.2.2 — 2026-11-19
 
 ### PATCH — Restore native Stack Security Review routing

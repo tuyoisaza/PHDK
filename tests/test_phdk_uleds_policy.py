@@ -125,6 +125,45 @@ class ULEDSContractTests(unittest.TestCase):
         self.assertIn("SOURCE_UNAVAILABLE", read("PHDK_ULEDS_STANDARD.md"))
 
 
+    def test_juleth_mandatory_microphone_dictation(self):
+        support = read("PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md")
+        required = (
+            "microphone dictation",
+            "SpeechRecognition",
+            "webkitSpeechRecognition",
+            "secure context",
+            "**explicit user gesture**",
+            "editable transcript",
+            "Never auto-submit",
+            "raw audio",
+            "unsupported browser",
+            "microphone denied",
+            "browser speech provider",
+        )
+        self.assertEqual([item for item in required if item not in support], [])
+        # Negative regression: removal of mandatory owner-gesture guard must fail.
+        damaged = support.replace("**explicit user gesture**", "", 1)
+        self.assertIn("**explicit user gesture**", [item for item in required if item not in damaged])
+        for path in (
+            "PHDK_ULEDS_STANDARD.md",
+            "PHDK_UX_UI.md",
+            "PHDK_DESIGN_SYSTEM.md",
+            "PHDK_DESIGN.md",
+            "PHDK_CHECK.md",
+            "UAT_STANDARD.md",
+            "PHDK_STARTER_PROFILE.md",
+        ):
+            with self.subTest(path=path):
+                self.assertIn("dictation", read(path).lower())
+        debug = read("DEBUG_DIAGNOSTICS_STANDARD.md")
+        self.assertIn("only inside", debug)
+        catalog = json.loads(read("PHDK_REUSE_CATALOG.json"))
+        starter = next(item for item in catalog["entries"]
+                       if item["id"] == "starter.uleds-continuous-improvement")
+        self.assertTrue(any("microphone dictation" in item.lower()
+                            for item in starter["capabilities"]))
+        self.assertEqual(starter["status"], "SPECIFICATION_ONLY")
+
     def test_schema_and_fixtures(self):
         schema = json.loads(read("schemas/uleds-event.v1.schema.json"))
         self.assertEqual(schema["properties"]["specversion"]["const"], "1.0")
