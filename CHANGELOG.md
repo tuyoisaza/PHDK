@@ -1,3 +1,11 @@
+## v4.2.2 — 2026-11-19
+
+### PATCH — Restore native Stack Security Review routing
+
+- Restore the explicit Secure section link inside the managed native block without changing post-upgrade Auto consent or execution permissions.
+- Remove trailing whitespace from the ULEDS correlation contract.
+- Verify canonical and installed manifest layouts and retain a negative regression for missing native security routing; no downstream adoption or UAT is implied by this release.
+
 ## v4.2.1 — 2026-11-18
 
 ### PATCH — Cross-lifecycle ULEDS coordination and validation hardening
