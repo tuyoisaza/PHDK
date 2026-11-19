@@ -271,6 +271,7 @@
       "capabilities": [
         "Four-channel event intake: browser, backend/build/deployment, support, contextual feedback",
         "Accessible shared vX.Y.Z clipboard trash 🤖 support launcher",
+        "In-drawer microphone dictation with editable transcript, opt-in user gesture and typed-text fallback",
         "Per-project/tenant scoped durable incident, request, decision and release ledger",
         "Owner-invoked read-only PHDK heal evidence-to-development-plan handoff"
       ],

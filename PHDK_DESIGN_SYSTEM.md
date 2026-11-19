@@ -21,6 +21,8 @@ Where an administration console applies, `ADMIN_CONSOLE_STANDARD.md` requires **
 
 Use one shared version/actions UI per `DEBUG_DIAGNOSTICS_STANDARD.md` and `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`, exact order `vX.Y.Z [clipboard] [trash] [🤖]` in the top-left app branding region on public/login/app/admin and debug OFF. Preserve exceptional 12px version / 28px controls / 14px icons / 4px gap; the owner-selected literal emoji is the last control, with accessible focus and support drawer. Provide stable `data-phdk-component-id` anchors excluding sensitive fields and cross-tenant content. Use `PHDK_ULEDS_STANDARD.md` for events and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` for durable records, while `PHDK_HEAL_STANDARD.md` stays outside the user UI. Do not require a paid LLM for basic reporting.
 
+Juleth **microphone dictation** (v4.3.0) is a required support-drawer composer subcomponent, not a change to the shared four-element launcher. Use one accessible microphone button with explicit start/stop/cancel and listening/error/permission states, an **editable transcript**, browser `SpeechRecognition` / `webkitSpeechRecognition` feature detection, and an always-functional typed-text fallback. No automatic submission or unapproved speech API charges; account for remote browser speech processing, privacy disclosure and context-sensitive restrictions under `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`. Validate interactive behavior only in explicit UAT.
+
 ## Single source of truth
 Recommended arrangement, adaptable to existing equivalent structures:
 ```text

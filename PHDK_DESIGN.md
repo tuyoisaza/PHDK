@@ -15,6 +15,10 @@ The Auto/Auto Force lifecycle is **Capture → Plan → Design (25-design) → P
 
 `PHDK designer mode` remains the separate implementation/redesign mode for existing interfaces. It consumes or refreshes the Design baseline for a material new visual direction; it is not silently activated by `PHDK design`. Standalone Design produces the design package and its authorized repository delivery, not the full application. Neither quoted commands nor saved artifacts activate any mode.
 
+## Juleth speech-to-text design (v4.3.0)
+
+For a new interactive product or an approved brownfield Juleth scope, the existing support-drawer Design baseline includes **microphone dictation** beside text entry, editable transcript/review before sending, clear start/stop/listening/denied/unsupported states and language/accessibility/privacy behavior. The four-element top-left widget remains unchanged; avoid an extra design gate or mandatory paid speech service. See `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` and verify browser behavior only in explicit UAT.
+
 ## Continuous Improvement widget in Design (v4.2.1)
 
 When designing new interactive applications, include the `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` 🤖 support launcher next to clipboard/trash, plus accessible chat, receipt states, contextual selection and required `PHDK_ULEDS_STANDARD.md` route/component anchors. Reference `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` privacy and decision traceability and `PHDK_HEAL_STANDARD.md` as planning-only developer analysis. Keep these requirements in the **existing** consolidated visual/motion design board, not a new stage or owner sign-off. The shared widget geometry and location in `DEBUG_DIAGNOSTICS_STANDARD.md` are invariant; runtime behavior needs separately authorized UAT.

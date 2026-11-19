@@ -1,3 +1,7 @@
+## v4.3.0 — Juleth support composer microphone dictation
+
+Require optional-to-user **speech-to-text microphone dictation** in the support composer's interactive Juleth implementation, in addition to editable typed input. Preserve the exact always-visible four-element launcher, avoid automatic submit/recording, require user gesture, browser/device/permission detection, visible listening controls, transcript review, privacy disclosure of possible browser-vendor remote speech processing, no app-side raw audio persistence and typed fallback. Apply to new interactive apps and specifically authorized brownfield adoption only, with explicit UAT as the sole runtime acceptance route. Keep the reusable starter SPECIFICATION_ONLY, `PHDK heal` planning-only, paid speech vendors opt-in and no new jobs/monitoring, infrastructure, product deployment or downstream migration. Sync release markers, design/UX, logging, diagnostics, Check, UAT, catalog and source-policy tests.
+
 ## v4.2.2 — Restore native security-review coherence
 
 Restore the explicit Stack Security Review anchor within the managed native block and verify canonical/installed layouts, including rejection when that route is removed. Preserve separate post-upgrade Auto consent, UAT and provider boundaries. Remove ULEDS trailing whitespace and make its visibility source test accept the existing explicit "debug mode is OFF" wording without weakening the always-visible requirement. No downstream adoption is implicit.
