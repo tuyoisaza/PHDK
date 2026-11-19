@@ -84,6 +84,10 @@ Target contracts:
 
 Internationalization adapters are stack-dependent; a reusable core must declare supported frameworks and extension points rather than pretending one adapter fits every product.
 
+## 6. ULEDS logging, feedback and Development Ledger
+
+A proposed reusable `starter.uleds-continuous-improvement` is **SPECIFICATION_ONLY**, not an installable module. Future independently versioned adapters may compose `PHDK_ULEDS_STANDARD.md` four-channel events, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` public-safe 🤖 support/contextual UI, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` persisted ticket/decision history and `PHDK_HEAL_STANDARD.md` planning-only evidence access. Reuse existing infrastructure, preserve retention/erasure and tenant RBAC, provide non-AI fallback and test in two independent products before publishing a reusable implementation. The present schema and fixtures do not constitute a working collector, hosted support bot or accepted package.
+
 ## Acceptance path for future packages
 
 1. keep the specification stable enough to evaluate;

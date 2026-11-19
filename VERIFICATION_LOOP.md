@@ -1,3 +1,7 @@
+## ULEDS verification boundaries (v4.2.1)
+
+For authorized interactive implementations verify `PHDK_ULEDS_STANDARD.md` schema and actual adapters, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` four-item `vX.Y.Z [clipboard] [trash] [🤖]` widget, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` record persistence and permission checks with permitted source/hermetic tests. `PHDK_HEAL_STANDARD.md` only proposes work from legitimate evidence. A fixture PASS cannot establish running service, provider ingestion, UAT or tenant isolation; report unknown sources and UAT NOT RUN accurately, no new background monitor or paid provider to pass a check.
+
 ## v3.4.0 — One bounded local code-verification pass
 
 Under `PHDK_TEST_AUTOMATION_STANDARD.md`, inspected foreground offline hermetic **unit/contract/in-process tests** may run locally alongside static/build checks. They must not launch servers, real databases, networks, browsers or providers. Older blanket local-unit prohibitions below are superseded. Local code PASS is not deployed runtime or UAT PASS.

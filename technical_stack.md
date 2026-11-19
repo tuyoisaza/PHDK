@@ -1,3 +1,7 @@
+## ULEDS stack contract (v4.2.1)
+
+New interactive products implement `PHDK_ULEDS_STANDARD.md` with first-party event intake, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` support/contextual 🤖 UI and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` product-owned persistence; prefer existing approved Node/DB/runtime and no new standalone monitor. `PHDK_OBSERVABILITY_ANALYTICS.md` external exporters, GA4, Clarity and paid LLM support remain owner opt-in. A deployment log stream without actual authorized integration is SOURCE_UNAVAILABLE, not permission to create a provider job. `PHDK_HEAL_STANDARD.md` is foreground developer-side analysis, never a server daemon. Vendored path is `TECHNICAL_STACK.md`, but references remain to the packaged ULEDS standards.
+
 # TECHNICAL_STACK.md
 
 ## Portfolio standardization and cloud-first rationale (v2.74.0)

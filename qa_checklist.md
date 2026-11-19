@@ -1,3 +1,7 @@
+## ULEDS Continuous Improvement checks (v4.2.1)
+
+In new interactive apps, require the four logical channels of `PHDK_ULEDS_STANDARD.md`, privacy-safe identifiers, rate/size limits, server-trusted role/tenant and correct retention. Confirm shared `vX.Y.Z [clipboard] [trash] [🤖]` controls and working accessible support/element feedback per `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`; verify that clear-cache never deletes the durable `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` and RBAC denies unsafe ticket access. `PHDK_HEAL_STANDARD.md` must never execute untrusted user requests. Missing external provider logs are SOURCE_UNAVAILABLE; source tests and UAT are separate evidence, and no live probes run without explicit owner UAT.
+
 # QA_CHECKLIST.md
 
 ## Purpose

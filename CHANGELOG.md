@@ -1,3 +1,13 @@
+## v4.2.1 — 2026-11-18
+
+### PATCH — Cross-lifecycle ULEDS coordination and validation hardening
+
+- Audit PHDK v4.2.0 source/manifest/commands and reconcile four-channel ULEDS, Development Ledger, the always-visible 🤖 support launcher and planning-only `PHDK heal` across onboarding/Help, UX/Design, stack, PMO/commitments, Auto, Secure/tenant, Check/verification, explicit-only UAT, documentation, retrospective and reusable starters.
+- Vendor `PHDK_OBSERVABILITY_ANALYTICS.md` once so installed projects can read its optional monitoring guidance; GA4, Clarity, OTLP/Grafana and paid AI remain separately approved. Add `starter.uleds-continuous-improvement` to the reusable catalog as `SPECIFICATION_ONLY`, with no claimed implementation, downloadability or tests.
+- Clarify new interactive vs API-only/static applicability, canonical server-stamped event provenance, copying bounded diagnostics without uploading customer content, clear-cache not deleting persisted records, source availability and the consent boundary between support feedback, Heal proposals and approved Auto work.
+- Harden the offline ULEDS validator against missing and unexpected fields, malformed/unhashable values, incorrect channel/type pairings, missing error payloads, invalid extensions and SemVer, and oversized events. Align JSON Schema conditions and UTC stamps.
+- Expand source-policy and negative regression tests, remove the hard-coded 4.2.0 test version, and add a release coherence audit. Preserve owner, tenant, existing hook and spending controls, WIP/stop-loss, explicit UAT, no background agents or provider settings writes. No downstream products were modified.
+
 ## v4.2.0 — 2026-11-18
 
 ### MINOR — ULEDS, Development Ledger, Continuous Improvement support and PHDK heal

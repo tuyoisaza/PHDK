@@ -1,3 +1,7 @@
+## ULEDS retrospective evidence (v4.2.1)
+
+For a current authorized milestone, the retrospective may cite **sanitized, already accessible** `PHDK_ULEDS_STANDARD.md` incident patterns and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` ticket/decision/resolution IDs to evaluate whether a change addressed its approved problem. `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` support intake is evidence, not an automatic new product goal; `PHDK_HEAL_STANDARD.md` remains an explicit owner-invoked prioritization step. Never fetch raw user data, enroll a cross-project monitor, schedule repeated Heal or auto-reopen/implement unapproved issues during a milestone retrospective.
+
 # PHDK Auto Retrospective and Improvement Proposals
 
 ## Lightweight reuse signals and final acceptance (v2.91.0)

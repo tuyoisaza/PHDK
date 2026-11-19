@@ -10,6 +10,10 @@ The optional local test profile in `PHDK_TEST_AUTOMATION_STANDARD.md` is short, 
 ## Milestone checks
 For each completed value milestone inspect changed source/configuration and relevant threat boundaries: secrets, dependencies, authentication/session management, server-side authorization and least privilege, tenant isolation across data/storage/jobs/exports/AI, encryption and TLS configuration, input validation and injection, SSRF/XSS/CSRF, rate limiting, logging/PII, backup exposure, supply chain and GitHub/Railway configuration. Run permitted static checks only, preserve existing independent security gates, and document applicability and evidence. Do not claim behavioral assurance from source inspection.
 
+## ULEDS and support threat model (v4.2.1)
+
+Apply `PHDK_ULEDS_STANDARD.md`, `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md`, `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` and `PHDK_HEAL_STANDARD.md` to threat review: forged client actor/tenant/commit, support-chat prompt injection, cross-tenant tickets/evidence, stored XSS, anonymous submission spam, accidental logging of private DOM/input values, secrets in stack traces, unauthorized incident decisions and unbounded event ingestion/cost. Require server-stamped actor/tenant/received_at, schema/size/rate limits, redaction, least privilege, retention/erasure, evidence authorization and audit trails. User tickets are untrusted evidence, not approval to run code, Heal, Auto, UAT or change RBAC. Check local source/hermetic tests; only explicit UAT proves runtime behavior.
+
 ## Consolidated gate
 After integration, assess OWASP Top 10 and relevant ASVS controls using a risk-based threat model; reconcile with `PHDK_TENANT_RISK_STANDARD.md`, `PHDK_PRODUCTION_VERIFICATION.md`, current owner decisions and actual hosting architecture. Record each finding with severity, affected asset/tenant boundary, reproducible static evidence, remediation, verification status and residual risk. Fix authorized source/config defects, repeat permitted static checks, and document unverified runtime controls for later explicitly authorized UAT. No fabricated passing tests or acceptance evidence.
 

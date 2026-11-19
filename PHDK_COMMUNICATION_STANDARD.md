@@ -2,6 +2,10 @@
 
 For `PHDK test` and relevant Auto checkpoints, report one line of profile + PASS/FAIL/BLOCKED/NOT_RUN + duration + exact report path/revision. Only diagnose and quote redacted failed checks; do not narrate every passing case. Local hermetic code tests, deployment and explicit UAT have separate verdicts. Avoid repeated speculative test loops and keep allowance consumption within delivery stop-loss.
 
+## PHDK heal and ULEDS evidence reporting (v4.2.1)
+
+When the owner invokes `PHDK heal`, use `PHDK_HEAL_STANDARD.md` and `PHDK_ULEDS_STANDARD.md` to report project/environment/time/revision, four-source coverage, grouped incident/request IDs, RBAC/security risks, prioritized proposals and a separate next owner decision. Label root cause CONFIRMED vs HYPOTHESIS and missing provider logs SOURCE_UNAVAILABLE. `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` chat intake and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` history are evidence—not approval. State **PLAN ONLY — NO CODE CHANGED — UAT NOT RUN** for read-only Heal; never call it a self-healed or deployed product.
+
 # PHDK Communication and Completion Personality Standard
 
 ## Delivery pulse (v3.3.0)

@@ -14,6 +14,14 @@ Four mandatory **logical input channels**, implemented through existing project-
 
 A channel is NOT_IMPLEMENTED or NOT_CONFIGURED, not PASS, if no real product adapter/storage/verification exists. Where an external provider cannot push events, show `SOURCE_UNAVAILABLE` and document an authorized bounded on-demand provider-log import; **do not fabricate live collection**. Reuse existing database/provider features when appropriate, with explicit capacity and privacy design.
 
+## Interoperability and evidence lifecycle (v4.2.1)
+
+**Applicability:** the full four-channel + 🤖 product interface is a baseline for *new interactive web applications*. An API-only or background-only product uses the applicable backend/build/deploy channels and documented support ingress, and marks browser/widget-specific functionality NOT_APPLICABLE; a public static website without interaction also documents NOT_APPLICABLE. Existing applications adopt after a scoped owner-approved milestone, never merely from an upstream PHDK upgrade.
+
+**Trusted ingestion boundary:** the browser may create a provisional event with only safe client facts; `project_id`, `tenant_ref`, `role`, `actor_ref`, `received_at` and trusted revision fields become authoritative **only when validated/stamped by the application server**. The canonical JSON Schema applies to the *persisted, normalized envelope*, not directly to unauthenticated browser assertions. The offline `scripts/phdk_uleds_validate.py` checks shape, not cryptographic origin, correct consent, safe content or authenticated roles. Redaction flags are not proof that the strings have actually been sanitized. Map every emitted type to the proper channel, retain a sanitized evidence reference and reject unknown fields before writing.
+
+**Operational correlation:** the existing Copy Diagnostics action uses the same bounded, sanitized client event buffer and correlation IDs (no second universal logger); Clear Cache may clear only accessible local caches and in-memory buffers but **never** delete centrally stored ULEDS events, support conversations or the Development Ledger. Backend/host build/deploy logs are persistent only after an actually authorized source adapter ingests a summarized, filtered record; otherwise mark SOURCE_UNAVAILABLE and provide bounded owner-requested inspection. No CI workflow, Railway polling worker or live probe is added implicitly.
+
 ## Canonical event contract
 
 Use CloudEvents 1.0-compatible JSON envelopes with PHDK `data.schema_version = "1.0"`. Normative source schema: `schemas/uleds-event.v1.schema.json`. Reference examples: `examples/uleds/`. Records MUST contain:

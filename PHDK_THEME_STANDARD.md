@@ -5,6 +5,10 @@ Normative for every PHDK-managed product with a user-facing interface, including
 
 Implementation, Designer, Auto/Force and Check do not initiate acceptance. Apply `PHDK_PRODUCTION_VERIFICATION.md` for permitted static work and `UAT_STANDARD.md` for explicit-only runtime acceptance. Auto/Force retain theme acceptance cases as documentation and report `UAT NOT RUN` with `DEFERRED — OWNER OPT-IN`; deferred acceptance is not a prerequisite for development delivery. Preserve actual owner/host security controls and confirmed in-scope implementation defects.
 
+## ULEDS/🤖 token and accessibility coverage (v4.2.1)
+
+The single shared `vX.Y.Z [clipboard] [trash] [🤖]` widget and `PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md` support drawer must use the same themed tokens in all active light/dark/corporate states without hiding the robot, changing control geometry or dropping keyboard focus. `PHDK_ULEDS_STANDARD.md` contextual anchors and `PHDK_DEVELOPMENT_LEDGER_STANDARD.md` tenant-safe ticket views are functional, not skin-dependent. `PHDK_HEAL_STANDARD.md` remains developer-only analysis. This clause does not turn theme review into UAT or introduce any monitoring provider.
+
 ## Invariants: one palette contract, three presets
 - A single canonical CSS token stylesheet contains the light, dark and corporate preset color values. Teams may keep layout/component CSS modular, but may not redefine brand/semantic theme palettes in route-specific styles, component files, inline styles, or independent second token sources.
 - Use semantic names at least --background, --foreground, --primary, --primary-foreground, --accent, --muted, --border, --ring and --popover, with any role/status tokens the product needs. Each preset defines the same token contract; shared components use var(...) or framework aliases that resolve to these tokens. Theme switching must not require rebuilding or hand-editing screens.

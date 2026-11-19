@@ -262,6 +262,55 @@
         "owner": "PHDK methodology",
         "policy": "Keep source implementations in separately versioned packages under documented security, license, testing, and two-consumer portability gates."
       }
+    },
+    {
+      "id": "starter.uleds-continuous-improvement",
+      "title": "ULEDS structured event capture, support feedback and Development Ledger (specification only)",
+      "status": "SPECIFICATION_ONLY",
+      "specification": "PHDK_STARTER_PROFILE.md#6-uleds-logging-feedback-and-development-ledger",
+      "capabilities": [
+        "Four-channel event intake: browser, backend/build/deployment, support, contextual feedback",
+        "Accessible shared vX.Y.Z clipboard trash 🤖 support launcher",
+        "Per-project/tenant scoped durable incident, request, decision and release ledger",
+        "Owner-invoked read-only PHDK heal evidence-to-development-plan handoff"
+      ],
+      "implementation": null,
+      "downloadable": false,
+      "dependencies": [],
+      "compatibility": {
+        "runtimes": [],
+        "frameworks": [],
+        "contracts": [
+          "PHDK_ULEDS_STANDARD.md",
+          "PHDK_CONTINUOUS_IMPROVEMENT_STANDARD.md",
+          "PHDK_DEVELOPMENT_LEDGER_STANDARD.md",
+          "PHDK_HEAL_STANDARD.md",
+          "DEBUG_DIAGNOSTICS_STANDARD.md"
+        ]
+      },
+      "security": {
+        "status": "SPECIFICATION_ONLY",
+        "evidence": []
+      },
+      "license": {
+        "status": "NOT_APPLICABLE",
+        "identifier": null,
+        "evidence": [],
+        "rights": null
+      },
+      "evidence": {
+        "tests_present": false,
+        "test_status": "NOT_RUN",
+        "portability_consumers": [],
+        "notes": [
+          "Specification and offline schema fixtures exist; no production collector, chatbot, database implementation or two-consumer portability is claimed."
+        ],
+        "test_runs": []
+      },
+      "maintenance": {
+        "owner": "PHDK methodology",
+        "policy": "Implement only in authorized consumers; extract independently versioned modules after license, security, deployment, tests and two-consumer portability evidence."
+      }
     }
   ]
 }
