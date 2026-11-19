@@ -112,7 +112,7 @@ class ULEDSContractTests(unittest.TestCase):
         self.assertIn("clipboard", debug)
         self.assertIn("trash", debug)
         self.assertIn("public", debug.lower())
-        self.assertIn("debug OFF", support)
+        self.assertRegex(support, r"debug (?:mode is )?OFF")
         self.assertIn("data-phdk-component-id", support)
         self.assertIn("RBAC", support)
         self.assertIn("no", read("PHDK_HEAL_STANDARD.md").lower())

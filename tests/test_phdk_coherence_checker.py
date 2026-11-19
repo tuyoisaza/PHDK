@@ -56,6 +56,23 @@ class SelfCoherenceTest(unittest.TestCase):
 
 
 
+    def test_missing_native_security_route_is_rejected(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp) / "phdk-standards"
+            root.mkdir()
+            for source, destination in mappings():
+                target = root / destination
+                target.parent.mkdir(parents=True, exist_ok=True)
+                copyfile(ROOT / source, target)
+            native = root / "PHDK_NATIVE_RULES.md"
+            native.write_text(native.read_text(encoding="utf-8").replace(
+                "PHDK_SECURE.md#stack-security-review", "PHDK_SECURE.md"),
+                encoding="utf-8")
+            proc = run_checker(root)
+            self.assertNotEqual(proc.returncode, 0)
+            self.assertIn("PHDK_NATIVE_RULES.md missing Stack Security Review routing", proc.stderr)
+            self.assertIn("managed block missing PHDK_SECURE.md#stack-security-review", proc.stderr)
+
     def test_obsolete_pmo_only_handoff_is_rejected(self):
         with TemporaryDirectory() as temp:
             root = Path(temp) / "phdk-standards"
